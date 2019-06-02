@@ -5,9 +5,37 @@
     <link>https://matsueushi.github.io/tags/</link>
     <description>Recent content in Tags on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>test</title>
+      <link>https://matsueushi.github.io/tags/test/</link>
+      <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Sun, 14 Oct 2018 15:51:19 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Record</title>
+      <link>https://matsueushi.github.io/tags/record/</link>
+      <pubDate>Sun, 14 Oct 2018 15:51:19 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/record/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
