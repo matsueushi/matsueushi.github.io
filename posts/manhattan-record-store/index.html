@@ -191,7 +191,7 @@ if (!doNotTrack) {
 
 
 <article lang='en' class='entry'>
-  <header class='header entry-header'>
+    <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
       <h1 class='title'>マンハッタンのレコードショップ</h1>
@@ -229,10 +229,10 @@ if (!doNotTrack) {
   </div>
 </header>
 
-  
-  
+    
+    
 
-  <div class='container entry-content'>
+    <div class='container entry-content'>
   
 
 <p>今ニューヨークで暮らしていて、交友関係が皆無に近く旅行もそれほど好きではないのでレコードショップを巡っているので、
@@ -414,7 +414,7 @@ New York, NY 10012</p>
 
 </div>
 
-  
+    
 <footer class='entry-footer'>
   <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -428,7 +428,28 @@ New York, NY 10012</p>
 </footer>
 
 
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </article>
+
 
 <nav class='entry-nav'>
   <div class='container'><div class='next-entry sep-before'>
@@ -443,7 +464,6 @@ New York, NY 10012</p>
       </a>
     </div></div>
 </nav>
-
 
 
 
@@ -493,4 +513,3 @@ New York, NY 10012</p>
 </body>
 
 </html>
-
