@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>YubiKey on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/yubikey/</link>
+    <description>Recent content in YubiKey on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 03 Jan 2019 22:47:53 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/yubikey/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Yubikey</title>
+      <link>https://matsueushi.github.io/posts/yubikey/</link>
+      <pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/yubikey/</guid>
+      <description>物理セキュリティーキーが欲しかったので買ってしまった。
+公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。
+良い点
+ 難しい設定がなく挿して押すだけで二段階認証が使える  悪い点
+ iPhoneでYubikeyを使おうとしても、LastPassのiPhoneアプリぐらいしかNFCに対応していない LastPassだとプレミアム会員($2/month)ではないとYubikeyが使えない  </description>
+    </item>
+    
+  </channel>
+</rss>

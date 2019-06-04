@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jupyter on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/jupyter/</link>
+    <description>Recent content in Jupyter on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 01 Mar 2019 22:52:53 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/jupyter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jupyter Notebookのkernelの位置を調べる</title>
+      <link>https://matsueushi.github.io/posts/jupyter_kernel_location/</link>
+      <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/jupyter_kernel_location/</guid>
+      <description>$ jupyter kernelspec list Available kernels: julia-1.1 /home/matsueushi/.local/share/jupyter/kernels/julia-1.1 python3 /home/matsueushi/.local/share/jupyter/kernels/python3  How do I add python3 kernel to jupyter (IPython) https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803
+ </description>
+    </item>
+    
+  </channel>
+</rss>
