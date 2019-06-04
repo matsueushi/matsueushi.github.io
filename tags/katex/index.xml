@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>test on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/test/</link>
-    <description>Recent content in test on matsueushi</description>
+    <title>KaTeX on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/katex/</link>
+    <description>Recent content in KaTeX on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
     
-	<atom:link href="https://matsueushi.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://matsueushi.github.io/tags/katex/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
