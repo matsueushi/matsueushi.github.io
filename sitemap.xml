@@ -36,6 +36,62 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/bayesian/</loc>
+    <lastmod>2019-03-19T23:30:41-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2019-03-19T23:30:41-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</loc>
+    <lastmod>2019-03-19T23:30:41-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/mamba/</loc>
+    <lastmod>2019-03-19T23:30:41-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</loc>
+    <lastmod>2019-03-10T23:14:30-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/julia_kubo/</loc>
+    <lastmod>2019-03-04T23:01:57-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/mcmc/</loc>
+    <lastmod>2019-03-04T23:01:57-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/lolicatonica/</loc>
+    <lastmod>2019-03-03T22:15:31-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2019-03-03T22:15:31-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/hiiragipage/</loc>
+    <lastmod>2019-03-03T22:15:31-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/jupyter/</loc>
     <lastmod>2019-03-01T22:52:53-04:00</lastmod>
     <priority>0</priority>
@@ -55,18 +111,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/yubikey/</loc>
     <lastmod>2019-01-03T22:47:53-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/lolicatonica/</loc>
-    <lastmod>2018-10-21T17:16:51-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
-    <lastmod>2018-10-21T17:16:51-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

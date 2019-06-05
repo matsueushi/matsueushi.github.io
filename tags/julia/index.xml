@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Julia on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/julia/</link>
+    <description>Recent content in Julia on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 19 Mar 2019 23:30:41 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
+      <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
+      <description>久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(GitHubリポジトリ) をJuliaとMamba.jlでモデリングしていきたいと思う。
+まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。
+元のノートブックはこれ。
+JuliaでCSVファイルをhttps上から取るには、パッケージ HTTP , CSV をインポートして
+r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXTVC&amp;#34;); count_data = CSV.read(IOBuffer(r.body), header=[&amp;#34;messages&amp;#34;]) とすれば良い。 Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を 0:N-1 にしておく。
+N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
+    </item>
+    
+    <item>
+      <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
+      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
+ 生態学のデータ解析 - 久保拓弥
+http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
+ 本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。
+実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
+Binomial分布のGLM &amp;nbsp; formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
+df.yy = df.y ./ df.N df.N = convert(Array{Float64}, df.N) result = glm(@formula(yy ~ x + f), df, Binomial(), wts = df.N) モデルのグラフ表示 Mambaのチュートリアルではモデルのグラフ表示にGraphViz.jlパッケージを使っている。
+ただGraphViz.jlはメンテナンスが止まっているようで、Julia v0.7以降では動かないようである。
+ForneyLab.jlがGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。
+Multiprocessing Mambaは addproc でプロセスを追加して、
+using Distributed addprocs(3) Mambaをインポートするときに @everywhere を付ければMambaが自動的にMCMCのチェインごとのサンプリングを並列化してくれる。(section10.ipynb参照)
+@everywhere using Mamba 11章の空間構造のある階層ベイズモデル(intrinsic Gaussian CARモデル)も実装できたらアップデートしたい。
+3/14追記: 11章の空間構造のある階層ベイズモデルも実装したのでアップデートした。これで一通り読破したことになるのかな？次は以前読もうとして諦めた「Pythonで体験するベイズ推論」をJuliaでやってみようか。</description>
+    </item>
+    
+  </channel>
+</rss>

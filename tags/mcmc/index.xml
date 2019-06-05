@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MCMC on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/mcmc/</link>
+    <description>Recent content in MCMC on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 04 Mar 2019 23:01:57 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
+      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
+ 生態学のデータ解析 - 久保拓弥
+http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
+ 本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。
+実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
+Binomial分布のGLM &amp;nbsp; formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
+df.yy = df.y ./ df.N df.N = convert(Array{Float64}, df.N) result = glm(@formula(yy ~ x + f), df, Binomial(), wts = df.N) モデルのグラフ表示 Mambaのチュートリアルではモデルのグラフ表示にGraphViz.jlパッケージを使っている。
+ただGraphViz.jlはメンテナンスが止まっているようで、Julia v0.7以降では動かないようである。
+ForneyLab.jlがGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。
+Multiprocessing Mambaは addproc でプロセスを追加して、
+using Distributed addprocs(3) Mambaをインポートするときに @everywhere を付ければMambaが自動的にMCMCのチェインごとのサンプリングを並列化してくれる。(section10.ipynb参照)
+@everywhere using Mamba 11章の空間構造のある階層ベイズモデル(intrinsic Gaussian CARモデル)も実装できたらアップデートしたい。
+3/14追記: 11章の空間構造のある階層ベイズモデルも実装したのでアップデートした。これで一通り読破したことになるのかな？次は以前読もうとして諦めた「Pythonで体験するベイズ推論」をJuliaでやってみようか。</description>
+    </item>
+    
+  </channel>
+</rss>

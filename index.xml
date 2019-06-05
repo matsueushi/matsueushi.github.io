@@ -23,6 +23,76 @@ _ではなく\_を使うと \( x_{mn} \)などの添字が出せる</description
     </item>
     
     <item>
+      <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
+      <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
+      <description>久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(GitHubリポジトリ) をJuliaとMamba.jlでモデリングしていきたいと思う。
+まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。
+元のノートブックはこれ。
+JuliaでCSVファイルをhttps上から取るには、パッケージ HTTP , CSV をインポートして
+r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXTVC&amp;#34;); count_data = CSV.read(IOBuffer(r.body), header=[&amp;#34;messages&amp;#34;]) とすれば良い。 Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を 0:N-1 にしておく。
+N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
+    </item>
+    
+    <item>
+      <title>Intrinsic Gaussian CARモデルをMambaで実装</title>
+      <link>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</link>
+      <pubDate>Sun, 10 Mar 2019 23:14:30 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</guid>
+      <description>「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3のIntrinsic Gaussian ModelのサンプルをMambaで実装した。
+https://github.com/matsueushi/lip_stick_mamba
+参考にしたMatrix Multiplicationを用いたPyMC3の実装:
+https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html#PyMC3-implementation-using-Matrix-multiplication
+PyMCのモデル
+with pm.Model() as model3: # Vague prior on intercept and effect beta = pm.Normal(&amp;#39;beta&amp;#39;, mu=0.0, tau=1.0, shape=(2, 1)) # Priors for spatial random effects tau = pm.Gamma(&amp;#39;tau&amp;#39;, alpha=2., beta=2.) alpha = pm.Uniform(&amp;#39;alpha&amp;#39;, lower=0, upper=1) phi = pm.MvNormal(&amp;#39;phi&amp;#39;, mu=0, tau=tau*(D - alpha*W), shape=(1, N)) # Mean model mu = pm.Deterministic(&amp;#39;mu&amp;#39;, tt.exp(tt.dot(X, beta) + phi.T + log_offset)) # Likelihood Yi = pm.Poisson(&amp;#39;Yi&amp;#39;, mu=mu.ravel(), observed=O) trace3 = pm.</description>
+    </item>
+    
+    <item>
+      <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
+      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
+ 生態学のデータ解析 - 久保拓弥
+http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
+ 本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。
+実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
+Binomial分布のGLM &amp;nbsp; formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
+df.yy = df.y ./ df.N df.N = convert(Array{Float64}, df.N) result = glm(@formula(yy ~ x + f), df, Binomial(), wts = df.N) モデルのグラフ表示 Mambaのチュートリアルではモデルのグラフ表示にGraphViz.jlパッケージを使っている。
+ただGraphViz.jlはメンテナンスが止まっているようで、Julia v0.7以降では動かないようである。
+ForneyLab.jlがGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。
+Multiprocessing Mambaは addproc でプロセスを追加して、
+using Distributed addprocs(3) Mambaをインポートするときに @everywhere を付ければMambaが自動的にMCMCのチェインごとのサンプリングを並列化してくれる。(section10.ipynb参照)
+@everywhere using Mamba 11章の空間構造のある階層ベイズモデル(intrinsic Gaussian CARモデル)も実装できたらアップデートしたい。
+3/14追記: 11章の空間構造のある階層ベイズモデルも実装したのでアップデートした。これで一通り読破したことになるのかな？次は以前読もうとして諦めた「Pythonで体験するベイズ推論」をJuliaでやってみようか。</description>
+    </item>
+    
+    <item>
+      <title>ヒイラギペイジ</title>
+      <link>https://matsueushi.github.io/posts/hiiragipage/</link>
+      <pubDate>Sun, 03 Mar 2019 22:15:31 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/hiiragipage/</guid>
+      <description>さて、Lolica Tonicaの記事に引き続き、メンバーの一人であるヒイラギペイジのLolica Tonica前の活動や提供曲について紹介したい。
+ヒイラギペイジの名前に至るまで、PAIGE → PAGE → TemoTemoe →ヒイラギペイジと言う変遷があったと思われる。
+ヒイラギペイジは一番最初はPAIGEと言う名義で活動しているニコラッパーでニコニコにラップ動画をアップしていたようだ（現在は削除されている）。
+ マナツニミタユメ / PAIGE
+夢が僕の夢を叶えてくれる。9月4日に日比谷で発売したデモアルバムに収録した曲です。Track.by Salty Mixed.by Jill mylist/28073427 https://www.nicovideo.jp/watch/sm15603665
+ 
+ Monochrome / PAIGE
+Monochrome Track.by Tiger　Lyric.by PAIGE(mylist/28073427) Mixed.by 黒衣えすてる(mylist/8488406)
+■孤独な自分と味気ない日々について。 ■何もかも上手くいかない鬱な気持ち。 ■感情を上手く言葉にするのが苦手です。
+□耳がキンキンするというコメントがあったので、修正版mp3を用意しました。 □a cappellaとLyricもzipに詰めときました。Remixとかもしてくれたら飛んで喜びます。宜しくお願いします。 □http://www1.axfc.net/uploader/H/so/140127.zip&amp;amp;key=monokuro
+https://www.nicovideo.jp/watch/sm15244635
+ Monochromeのリミックスはまだ残っていた。
+[ニコラップ] Monochrome(kome remix) / PAIGE [remix] そして2011年には閃光ライオットでグランプリを獲得しており、同じぐらいのタイミングで名前をPAGEに変えている。  https://ja.wikipedia.org/wiki/PAGE_%28%E3%83%A9%E3%83%83%E3%83%91%E3%83%BC%29 \  TOKYO FM「SCHOOL OF LOCK！」の呼び掛けにより集まった1万組を超える応募から、＜閃光ライオット2011＞グランプリを獲得したのは愛媛県出身の16歳ラッパーのPAIGE（ペイジ）だった。  https://www.barks.jp/news/?id=1000072980 この頃の曲はLolica Tonicaの音楽性とはかなり違う。アルバム「ノンフィクショーン・ガール」に収録されている2曲目の「あ・い・ど・る」は特にチップチューンのトラックにアイドルに恋するオタク目線の妄想的な歌詞が鏤められてかなり好きである。  --- また、ヒイラギペイジは初期はTemoTemoeという名義を使っていたようだ。  [Lolica Tonica](https://soundcloud.com/lolicatonica) is a Tokyo based duo made up of [Ky7ie](https://soundcloud.</description>
+    </item>
+    
+    <item>
       <title>Jupyter Notebookのkernelの位置を調べる</title>
       <link>https://matsueushi.github.io/posts/jupyter_kernel_location/</link>
       <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
