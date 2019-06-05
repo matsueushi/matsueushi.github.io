@@ -23,6 +23,47 @@ _ではなく\_を使うと \( x_{mn} \)などの添字が出せる</description
     </item>
     
     <item>
+      <title>JuliaでRollingWindow</title>
+      <link>https://matsueushi.github.io/posts/rollingwindow/</link>
+      <pubDate>Sun, 07 Apr 2019 00:29:01 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/rollingwindow/</guid>
+      <description>Pandasの pd.rolling のようなことをJuliaで行うためのメモ
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html
+ 複雑なことがやりたければこれを使えば良さそうだ。
+ JeffreySarnoff/RollingFunctions.jl
+https://github.com/JeffreySarnoff/RollingFunctions.jl
+ </description>
+    </item>
+    
+    <item>
+      <title>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</title>
+      <link>https://matsueushi.github.io/posts/julia_array_dim/</link>
+      <pubDate>Fri, 05 Apr 2019 00:20:33 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia_array_dim/</guid>
+      <description>やり方がよくわからなくなるので自分用メモを兼ねて。JuliaのVersion は1.1.0 (2019–01–21)。
+2次元 julia&amp;gt; x = [1 2; 3 4] 2×2 Array{Int64,2}: 1 2 3 4 縦方向に拾っていきたいときは簡単で、 vec
+julia&amp;gt; vec(x) 4-element Array{Int64,1}: 1 3 2 4 横方向に拾いたい場合は permutedims を噛ませる。
+julia&amp;gt; vec(permutedims(x)) 4-element Array{Int64,1}: 1 2 3 4 &amp;nbsp;transpose と collect を使う
+julia&amp;gt; vec(collect(transpose(x))) 4-element Array{Int64,1}: 1 2 3 4 だと場合によっては問題があり、 Transpose は LinearAlgebra の操作なので、例えば Array{Char, 2} に対しては定義されていないので実行できない。
+julia&amp;gt; [&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;] 2×2 Array{Char,2}: &amp;#39;a&amp;#39; &amp;#39;b&amp;#39; &amp;#39;c&amp;#39; &amp;#39;d&amp;#39; julia&amp;gt; transpose([&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;]) 2×2 LinearAlgebra.</description>
+    </item>
+    
+    <item>
+      <title>JuliaでArray of Arrayを1次元Vectorにする方法</title>
+      <link>https://matsueushi.github.io/posts/julia_array_of_array/</link>
+      <pubDate>Wed, 20 Mar 2019 00:33:19 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia_array_of_array/</guid>
+      <description>よく忘れるのでメモ。
+結論から言うと Base.Iterators.flatten を適用して collect すれば良い。
+julia&amp;gt; import Base.Iterators: flatten julia&amp;gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia&amp;gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):
+&amp;nbsp;vcat を使った方が簡潔だった。
+julia&amp;gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6</description>
+    </item>
+    
+    <item>
       <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
       <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
       <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>

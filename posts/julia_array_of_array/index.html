@@ -2,27 +2,27 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='物理セキュリティーキーが欲しかったので買ってしまった。
-公式サイトから購入し、バックアップ用と合わせて2つで$90&#43;Tax $7.99=$97.99だった。
-良い点
- 難しい設定がなく挿して押すだけで二段階認証が使える  悪い点
- iPhoneでYubikeyを使おうとしても、LastPassのiPhoneアプリぐらいしかNFCに対応していない LastPassだとプレミアム会員($2/month)ではないとYubikeyが使えない  '>
+<meta name='description' content='よく忘れるのでメモ。
+結論から言うと Base.Iterators.flatten を適用して collect すれば良い。
+julia&gt; import Base.Iterators: flatten julia&gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia&gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):
+&nbsp;vcat を使った方が簡潔だった。
+julia&gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6'>
 <meta name='theme-color' content='#ffcd00'>
 
-<meta property='og:title' content='Yubikey • matsueushi'>
-<meta property='og:description' content='物理セキュリティーキーが欲しかったので買ってしまった。
-公式サイトから購入し、バックアップ用と合わせて2つで$90&#43;Tax $7.99=$97.99だった。
-良い点
- 難しい設定がなく挿して押すだけで二段階認証が使える  悪い点
- iPhoneでYubikeyを使おうとしても、LastPassのiPhoneアプリぐらいしかNFCに対応していない LastPassだとプレミアム会員($2/month)ではないとYubikeyが使えない  '>
-<meta property='og:url' content='https://matsueushi.github.io/posts/yubikey/'>
+<meta property='og:title' content='JuliaでArray of Arrayを1次元Vectorにする方法 • matsueushi'>
+<meta property='og:description' content='よく忘れるのでメモ。
+結論から言うと Base.Iterators.flatten を適用して collect すれば良い。
+julia&gt; import Base.Iterators: flatten julia&gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia&gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):
+&nbsp;vcat を使った方が簡潔だった。
+julia&gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/julia_array_of_array/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='YubiKey'><meta property='article:published_time' content='2019-01-03T22:47:53-04:00'/><meta property='article:modified_time' content='2019-01-03T22:47:53-04:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:published_time' content='2019-03-20T00:33:19-04:00'/><meta property='article:modified_time' content='2019-03-20T00:33:19-04:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>Yubikey • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/yubikey/'>
+  <title>JuliaでArray of Arrayを1次元Vectorにする方法 • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/julia_array_of_array/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -177,7 +177,7 @@ if (!doNotTrack) {
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Yubikey</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>JuliaでArray of Arrayを1次元Vectorにする方法</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -196,7 +196,7 @@ if (!doNotTrack) {
     <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Yubikey</h1>
+      <h1 class='title'>JuliaでArray of Arrayを1次元Vectorにする方法</h1>
       
 
     </div>
@@ -210,7 +210,7 @@ if (!doNotTrack) {
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-01-03T22:47:53-04:00'>2019, Jan 03</time>
+  <time class='entry-date' datetime='2019-03-20T00:33:19-04:00'>2019, Mar 20</time>
 </span>
 
   
@@ -235,23 +235,33 @@ One min read
     
 
     <div class='container entry-content'>
-  <p>物理セキュリティーキーが欲しかったので買ってしまった。</p>
+  <p>よく忘れるのでメモ。</p>
 
-<p>公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。</p>
+<p>結論から言うと <code>Base.Iterators.flatten</code> を適用して <code>collect</code> すれば良い。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">import</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> flatten
+julia<span style="color:#f92672">&gt;</span> xs <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]]
+<span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+ [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]
+julia<span style="color:#f92672">&gt;</span> collect(flatten(xs))
+<span style="color:#ae81ff">6</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">1</span>
+ <span style="color:#ae81ff">2</span>
+ <span style="color:#ae81ff">3</span>
+ <span style="color:#ae81ff">4</span>
+ <span style="color:#ae81ff">5</span>
+ <span style="color:#ae81ff">6</span></code></pre></div>
+<p>追記(2019/4/7):</p>
 
-<p>良い点</p>
-
-<ul>
-<li>難しい設定がなく挿して押すだけで二段階認証が使える</li>
-</ul>
-
-<p>悪い点</p>
-
-<ul>
-<li>iPhoneでYubikeyを使おうとしても、LastPassのiPhoneアプリぐらいしかNFCに対応していない</li>
-<li>LastPassだとプレミアム会員($2/month)ではないとYubikeyが使えない</li>
-</ul>
-
+<p>&nbsp;<code>vcat</code> を使った方が簡潔だった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> vcat(xs<span style="color:#f92672">...</span>)
+<span style="color:#ae81ff">6</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">1</span>
+ <span style="color:#ae81ff">2</span>
+ <span style="color:#ae81ff">3</span>
+ <span style="color:#ae81ff">4</span>
+ <span style="color:#ae81ff">5</span>
+ <span style="color:#ae81ff">6</span></code></pre></div>
 </div>
 
     
@@ -262,7 +272,7 @@ One min read
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/yubikey/'>YubiKey</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a></div>
 
   </div>
 </footer>
@@ -292,7 +302,7 @@ One min read
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/lolica-tonica/'>
+      <a href='/posts/bayesian-methods-julia-1/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -300,10 +310,10 @@ One min read
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>忘られぬLolica Tonica</a>
+        <span class='screen-reader-text'>Previous post: </span>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</a>
     </div><div class='next-entry sep-before'>
-      <a href='/posts/jupyter_kernel_location/'>
-        <span class='screen-reader-text'>Next post: </span>Jupyter Notebookのkernelの位置を調べる<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/posts/julia_array_dim/'>
+        <span class='screen-reader-text'>Next post: </span>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>

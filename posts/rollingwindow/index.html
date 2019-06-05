@@ -2,21 +2,29 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content=''>
+<meta name='description' content='Pandasの pd.rolling のようなことをJuliaで行うためのメモ
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html
+ 複雑なことがやりたければこれを使えば良さそうだ。
+ JeffreySarnoff/RollingFunctions.jl
+https://github.com/JeffreySarnoff/RollingFunctions.jl
+ '>
 <meta name='theme-color' content='#ffcd00'>
 
-<meta property='og:title' content='Authors • matsueushi'>
-<meta property='og:description' content=''>
-<meta property='og:url' content='https://matsueushi.github.io/authors/'>
+<meta property='og:title' content='JuliaでRollingWindow • matsueushi'>
+<meta property='og:description' content='Pandasの pd.rolling のようなことをJuliaで行うためのメモ
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html
+ 複雑なことがやりたければこれを使えば良さそうだ。
+ JeffreySarnoff/RollingFunctions.jl
+https://github.com/JeffreySarnoff/RollingFunctions.jl
+ '>
+<meta property='og:url' content='https://matsueushi.github.io/posts/rollingwindow/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content='2019-06-01T21:05:25-04:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Juli'><meta property='article:published_time' content='2019-04-07T00:29:01-04:00'/><meta property='article:modified_time' content='2019-04-07T00:29:01-04:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>Authors • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/authors/'>
-  
-    <link href="https://matsueushi.github.io/authors/index.xml" rel="alternate" type="application/rss+xml" title="matsueushi" />
+  <title>JuliaでRollingWindow • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/rollingwindow/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -38,7 +46,7 @@ if (!doNotTrack) {
   
 
 </head>
-<body class='taxonomyTerm type-authors taxonomy-author has-sidebar'>
+<body class='page type-posts has-sidebar'>
 
   <div class='site'><div id='sidebar' class='sidebar'>
   <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
@@ -166,10 +174,12 @@ if (!doNotTrack) {
       </li></ul>
   </div>
 </nav><div class='header-widgets'>
-        <div class='container'><style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><span>Authors</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>JuliaでRollingWindow</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -184,23 +194,125 @@ if (!doNotTrack) {
       <main id='content'>
 
 
-<header class='header'>
+<article lang='en' class='entry'>
+    <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Authors</h1>
-
+      <h1 class='title'>JuliaでRollingWindow</h1>
       
 
     </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2019-04-07T00:29:01-04:00'>2019, Apr 07</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+One min read
+</span>
+
+
+</div>
+
+
   </div>
 </header>
 
+    
+    
 
-<div class='container list-container'>
-  <ul class='list'>
-  
-  </ul>
+    <div class='container entry-content'>
+  <p>Pandasの <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html" target="_blank"><code>pd.rolling</code></a> のようなことをJuliaで行うためのメモ</p>
+
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html" target="_blank">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html</a></p>
+
+<script src="https://gist.github.com/matsueushi/658921bbeb21c47ebb6ed028041e7e41.js"></script>
+
+<p>複雑なことがやりたければこれを使えば良さそうだ。</p>
+
+<blockquote>
+<p>JeffreySarnoff/RollingFunctions.jl<br />
+<a href="https://github.com/JeffreySarnoff/RollingFunctions.jl" target="_blank">https://github.com/JeffreySarnoff/RollingFunctions.jl</a></p>
+</blockquote>
+
 </div>
+
+    
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/juli/'>Juli</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/julia_array_dim/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/posts/katex-test/'>
+        <span class='screen-reader-text'>Next post: </span>Katex Test<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
 
       </main>
 
@@ -248,4 +360,3 @@ if (!doNotTrack) {
 </body>
 
 </html>
-

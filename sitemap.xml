@@ -36,13 +36,34 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/bayesian/</loc>
-    <lastmod>2019-03-19T23:30:41-04:00</lastmod>
+    <loc>https://matsueushi.github.io/tags/juli/</loc>
+    <lastmod>2019-04-07T00:29:01-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/posts/rollingwindow/</loc>
+    <lastmod>2019-04-07T00:29:01-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2019-04-05T00:20:33-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/julia_array_dim/</loc>
+    <lastmod>2019-04-05T00:20:33-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/julia_array_of_array/</loc>
+    <lastmod>2019-03-20T00:33:19-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/bayesian/</loc>
     <lastmod>2019-03-19T23:30:41-04:00</lastmod>
     <priority>0</priority>
   </url>
