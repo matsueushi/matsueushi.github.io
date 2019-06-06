@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='自分用メモ
+ローカルの公開鍵をGCPのインスタンスに登録
+ [秘密鍵/公開鍵]GCPにSSHで接続する方法
+https://sleepless-se.net/2018/09/15/gcp-ssh/
+ Juliaのバイナリをダウンロード
+curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz 解凍
+$ sudo mkdir /bin/julia $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia $ /bin/julia/julia-1.1.0/bin/julia _ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &#34;?&#34; for help, &#34;]?&#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='GCPでJuliaのノートブックを実行 • matsueushi'>
+<meta property='og:description' content='自分用メモ
+ローカルの公開鍵をGCPのインスタンスに登録
+ [秘密鍵/公開鍵]GCPにSSHで接続する方法
+https://sleepless-se.net/2018/09/15/gcp-ssh/
+ Juliaのバイナリをダウンロード
+curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz 解凍
+$ sudo mkdir /bin/julia $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia $ /bin/julia/julia-1.1.0/bin/julia _ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &#34;?&#34; for help, &#34;]?&#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/gcp_julia/'>
+<meta property='og:site_name' content='matsueushi'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='GCP'><meta property='article:tag' content='Jupyter'><meta property='article:published_time' content='2019-03-30T21:37:57-04:00'/><meta property='article:modified_time' content='2019-03-30T21:37:57-04:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.55.6" />
+
+  <title>GCPでJuliaのノートブックを実行 • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/gcp_julia/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.d2e31589.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-141286537-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+
+</head>
+<body class='page type-posts has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/ushi.jpg'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      matsueushi
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/posts/'>Blog</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='/tags/bayesian/' style='font-size:1.2727272727272727em'>Bayesian</a>
+      </li><li>
+        <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
+      </li><li>
+        <a href='/tags/boat/' style='font-size:1em'>BOaT</a>
+      </li><li>
+        <a href='/tags/cymbals/' style='font-size:1em'>Cymbals</a>
+      </li><li>
+        <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
+      </li><li>
+        <a href='/tags/girls/' style='font-size:1em'>Girls</a>
+      </li><li>
+        <a href='/tags/juli/' style='font-size:1em'>Juli</a>
+      </li><li>
+        <a href='/tags/julia/' style='font-size:1.9090909090909092em'>Julia</a>
+      </li><li>
+        <a href='/tags/jupyter/' style='font-size:1.0909090909090908em'>Jupyter</a>
+      </li><li>
+        <a href='/tags/katex/' style='font-size:1em'>KaTeX</a>
+      </li><li>
+        <a href='/tags/lolicatonica/' style='font-size:1.0909090909090908em'>LolicaTonica</a>
+      </li><li>
+        <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
+      </li><li>
+        <a href='/tags/mamba/' style='font-size:1.4545454545454546em'>Mamba</a>
+      </li><li>
+        <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
+      </li><li>
+        <a href='/tags/music/' style='font-size:2em'>Music</a>
+      </li><li>
+        <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
+      </li><li>
+        <a href='/tags/oval/' style='font-size:1em'>Oval</a>
+      </li><li>
+        <a href='/tags/plots/' style='font-size:1em'>Plots</a>
+      </li><li>
+        <a href='/tags/record/' style='font-size:1.0909090909090908em'>Record</a>
+      </li><li>
+        <a href='/tags/test/' style='font-size:1em'>test</a>
+      </li><li>
+        <a href='/tags/yubikey/' style='font-size:1em'>YubiKey</a>
+      </li><li>
+        <a href='/tags/zaningen/' style='font-size:1em'>Zaningen</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Blog</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>GCPでJuliaのノートブックを実行</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>matsueushi</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+    <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>GCPでJuliaのノートブックを実行</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2019-03-30T21:37:57-04:00'>2019, Mar 30</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+2 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    
+    
+
+    <div class='container entry-content'>
+  <p>自分用メモ</p>
+
+<p>ローカルの公開鍵をGCPのインスタンスに登録</p>
+
+<blockquote>
+<p>[秘密鍵/公開鍵]GCPにSSHで接続する方法<br />
+<a href="https://sleepless-se.net/2018/09/15/gcp-ssh/" target="_blank">https://sleepless-se.net/2018/09/15/gcp-ssh/</a></p>
+</blockquote>
+
+<p>Juliaのバイナリをダウンロード</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz</code></pre></div>
+<p>解凍</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo mkdir /bin/julia
+$ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia
+$ /bin/julia/julia-1.1.0/bin/julia
+               _
+   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
+  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
+   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
+  | | | | | | |/ _<span style="color:#e6db74">`</span> |  |
+  | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version <span style="color:#ae81ff">1</span>.1.0 <span style="color:#f92672">(</span><span style="color:#ae81ff">2019</span>-01-21<span style="color:#f92672">)</span>
+ _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia&gt;</code></pre></div>
+<p>シンボリックリンクを作成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo ln -s /bin/julia/julia-1.1.0/bin/julia /usr/local/bin/julia
+$ julia
+               _
+   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
+  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
+   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
+  | | | | | | |/ _<span style="color:#e6db74">`</span> |  |
+  | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version <span style="color:#ae81ff">1</span>.1.0 <span style="color:#f92672">(</span><span style="color:#ae81ff">2019</span>-01-21<span style="color:#f92672">)</span>
+ _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
+|__/                   |
+julia&gt;</code></pre></div>
+<p>IJuliaのインストール</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
+julia<span style="color:#f92672">&gt;</span> Pkg<span style="color:#f92672">.</span>add(“IJulia”)</code></pre></div>
+<p>Anacondaもインストールしておく。bzip2が入っていなかったのでインストールして、</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get update
+$ sudo apt-get install bzip2</code></pre></div>
+<p>Anacondaをインストール</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -OL https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+$ bash Anaconda3-2018.12-Linux-x86_64.sh</code></pre></div>
+<p>これを参考にしてJupyter Notebookの設定に入る</p>
+
+<blockquote>
+<p>Running Jupyter Notebook on Google Cloud Platform in 15 min<br />
+<a href="https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52" target="_blank">https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52</a></p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jupyter notebook --generate-config</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /home/matsueushi/.jupyter/jupyter_notebook_config.py</code></pre></div>
+<p>を開いて</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c <span style="color:#f92672">=</span> get_config()
+c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0.0.0.0&#39;</span>
+c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>open_browser <span style="color:#f92672">=</span> False
+c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>Port Number<span style="color:#f92672">&gt;</span></code></pre></div>
+<p>を追加する</p>
+
+<p>GCPのVMインスタンス設定画面でFirewallsの「Allow HTTPS traffic」をチェック</p>
+
+<p>「NETWORKING -&gt; VPC Network -&gt; Firewall rules -&gt; Create a firewall」で</p>
+
+<p>「Target tags」を「https-server」、</p>
+
+<p>「Source IP range」を「0.0.0.0/0」、</p>
+
+<p>「Protocols and ports」の「Specified protocols and ports-&gt;tcp」をチェックしてポート番号に</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>Port Number<span style="color:#f92672">&gt;</span></code></pre></div>
+<p>のポート番号を追加。</p>
+
+<p>http://<External IP>:8888/</p>
+
+<p>にアクセスして、</p>
+
+<p>http://(julia or 127.0.0.1):8888/?token= のあとのtokenを入れる</p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a>, <a class='tag' href='/tags/gcp/'>GCP</a>, <a class='tag' href='/tags/jupyter/'>Jupyter</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/plotly-scale/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Plots.jlでx軸、y軸のスケールを揃える</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/posts/mamba-v-0-12-0/'>
+        <span class='screen-reader-text'>Next post: </span>Mamba.jl v0.12.0のStackOverflowError:<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/matsueushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/matsue_ushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:matsueushi@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2019 matsueushi </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.34164567.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>

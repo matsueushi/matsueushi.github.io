@@ -4,12 +4,17 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2019-06-01T21:05:25-04:00</lastmod>
+    <lastmod>2019-06-05T22:19:14-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2019-06-01T21:05:25-04:00</lastmod>
+    <lastmod>2019-06-05T22:19:14-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/katex-multiline/</loc>
+    <lastmod>2019-06-05T22:19:14-04:00</lastmod>
   </url>
   
   <url>
@@ -58,6 +63,50 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/mamba/</loc>
+    <lastmod>2019-03-31T21:47:30-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/mamba-v-0-12-0/</loc>
+    <lastmod>2019-03-31T21:47:30-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/gcp/</loc>
+    <lastmod>2019-03-30T21:37:57-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/gcp_julia/</loc>
+    <lastmod>2019-03-30T21:37:57-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/jupyter/</loc>
+    <lastmod>2019-03-30T21:37:57-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/plots/</loc>
+    <lastmod>2019-03-24T21:43:34-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/plotly-scale/</loc>
+    <lastmod>2019-03-24T21:43:34-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/julia_array_matrix/</loc>
+    <lastmod>2019-03-23T21:36:07-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</loc>
     <lastmod>2019-03-22T21:22:17-04:00</lastmod>
   </url>
@@ -71,12 +120,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</loc>
     <lastmod>2019-03-21T21:05:35-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/mamba/</loc>
-    <lastmod>2019-03-21T21:05:35-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -130,12 +173,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/hiiragipage/</loc>
     <lastmod>2019-03-03T22:15:31-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/jupyter/</loc>
-    <lastmod>2019-03-01T22:52:53-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
