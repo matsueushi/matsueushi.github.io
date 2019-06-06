@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。
+例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。
+サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
+まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
+# 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
+model0 = Model( obs = Stochastic(1, (p, N) -&gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='Juliaで体験するベイズ推論(4) -ベイズ的 A/B • matsueushi'>
+<meta property='og:description' content='今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。
+例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。
+サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
+まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
+# 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
+model0 = Model( obs = Stochastic(1, (p, N) -&gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/bayesian-methods-julia-4/'>
+<meta property='og:site_name' content='matsueushi'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Bayesian'><meta property='article:tag' content='Mamba'><meta property='article:published_time' content='2019-03-21T21:05:35-04:00'/><meta property='article:modified_time' content='2019-03-21T21:05:35-04:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.55.6" />
+
+  <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/bayesian-methods-julia-4/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.d2e31589.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-141286537-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+
+</head>
+<body class='page type-posts has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/ushi.jpg'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      matsueushi
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/posts/'>Blog</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='/tags/bayesian/' style='font-size:1.2727272727272727em'>Bayesian</a>
+      </li><li>
+        <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
+      </li><li>
+        <a href='/tags/boat/' style='font-size:1em'>BOaT</a>
+      </li><li>
+        <a href='/tags/cymbals/' style='font-size:1em'>Cymbals</a>
+      </li><li>
+        <a href='/tags/girls/' style='font-size:1em'>Girls</a>
+      </li><li>
+        <a href='/tags/juli/' style='font-size:1em'>Juli</a>
+      </li><li>
+        <a href='/tags/julia/' style='font-size:1.5454545454545454em'>Julia</a>
+      </li><li>
+        <a href='/tags/jupyter/' style='font-size:1em'>Jupyter</a>
+      </li><li>
+        <a href='/tags/katex/' style='font-size:1em'>KaTeX</a>
+      </li><li>
+        <a href='/tags/lolicatonica/' style='font-size:1.0909090909090908em'>LolicaTonica</a>
+      </li><li>
+        <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
+      </li><li>
+        <a href='/tags/mamba/' style='font-size:1.3636363636363638em'>Mamba</a>
+      </li><li>
+        <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
+      </li><li>
+        <a href='/tags/music/' style='font-size:2em'>Music</a>
+      </li><li>
+        <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
+      </li><li>
+        <a href='/tags/oval/' style='font-size:1em'>Oval</a>
+      </li><li>
+        <a href='/tags/record/' style='font-size:1.0909090909090908em'>Record</a>
+      </li><li>
+        <a href='/tags/test/' style='font-size:1em'>test</a>
+      </li><li>
+        <a href='/tags/yubikey/' style='font-size:1em'>YubiKey</a>
+      </li><li>
+        <a href='/tags/zaningen/' style='font-size:1em'>Zaningen</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Blog</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>matsueushi</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+    <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2019-03-21T21:05:35-04:00'>2019, Mar 21</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+3 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    
+    
+
+    <div class='container entry-content'>
+  
+
+<p>今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。</p>
+
+<h2 id="例題-ベイズ的-a-b-テスト">例題 : ベイズ的 A/B テスト</h2>
+
+<p>A/Bテストの例題を解いてみよう。</p>
+
+<p>サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。</p>
+
+<p>まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># 定数をセット</span>
+p_true <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>
+N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
+occurrences <span style="color:#f92672">=</span> rand(Bernoulli(p_true), N)</code></pre></div>
+<p>Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model0 <span style="color:#f92672">=</span> Model(
+    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, 
+        (p, N) <span style="color:#f92672">-&gt;</span> 
+         UnivariateDistribution[Bernoulli(p) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N], <span style="color:#66d9ef">false</span>),
+    p <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
+)</code></pre></div>
+<p>モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model0 <span style="color:#f92672">=</span> Model(
+    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, p <span style="color:#f92672">-&gt;</span> Bernoulli(p), <span style="color:#66d9ef">false</span>),
+    p <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
+)</code></pre></div>
+<p>観測データと初期値を作ってサンプリングし、</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data0 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+    <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> occurrences,
+    <span style="color:#f92672">:</span>N <span style="color:#f92672">=&gt;</span> N,
+)
+inits0 <span style="color:#f92672">=</span> [
+    <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+        <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> occurrences,
+        <span style="color:#f92672">:</span>p <span style="color:#f92672">=&gt;</span> rand(Uniform()),
+    ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+]
+scheme0 <span style="color:#f92672">=</span> [NUTS(<span style="color:#f92672">:</span>p)]
+setsamplers!(model0, scheme0)
+sim0 <span style="color:#f92672">=</span> mcmc(model0, data0, inits0, <span style="color:#ae81ff">20000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)</code></pre></div>
+<p>事後分布のヒストグラムをプロットすると次のようになった。\( N \) の数が小さいのか、真の値と分布のピークは多少ずれている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">histogram(vec(sim0[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>p, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), bins <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>, normalize <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>pdf,
+        linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> L<span style="color:#e6db74">&#34;\mbox{Value of }p_A&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Density&#34;</span>)
+plot!([p_true], seriestype <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>vline, linestyle <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>dash, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+    label <span style="color:#f92672">=</span> L<span style="color:#e6db74">&#34;\mbox{true }p_A&#34;</span>, legendfontsize <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>)</code></pre></div>
+<p><img src="/images/posts/bayesian-methods-julia-4_hist_1.png" alt="ヒストグラム1" /></p>
+
+<h2 id="n-の数を増やしてみる">\( N \) の数を増やしてみる</h2>
+
+<p>観測データ数を増やして変化を確認してみよう。\( N=1500, 5000, 15000 \) の3種類を試す。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">ab_sim <span style="color:#f92672">=</span> []
+Ns <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1500</span>, <span style="color:#ae81ff">5000</span>, <span style="color:#ae81ff">15000</span>]
+<span style="color:#66d9ef">for</span> n <span style="color:#66d9ef">in</span> Ns
+    ab_occur <span style="color:#f92672">=</span> rand(Bernoulli(p_true), n)
+    ab_data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+        <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> ab_occur,
+        <span style="color:#f92672">:</span>N <span style="color:#f92672">=&gt;</span> n,
+    )
+    ab_inits <span style="color:#f92672">=</span> [
+        <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+            <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> ab_occur,
+            <span style="color:#f92672">:</span>p <span style="color:#f92672">=&gt;</span> rand(Uniform()),
+        ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+    ]
+    push!(ab_sim, mcmc(model0, ab_data, ab_inits, <span style="color:#ae81ff">20000</span>, 
+                        burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>))
+<span style="color:#66d9ef">end</span>
+Plots<span style="color:#f92672">.</span>plot()
+<span style="color:#66d9ef">for</span> (i, sim) <span style="color:#66d9ef">in</span> enumerate(ab_sim)
+    histogram!(vec(sim[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>p, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), normalize <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>pdf,
+            linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent, label <span style="color:#f92672">=</span> <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;N=</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>, Ns[i]), 
+            xlabel <span style="color:#f92672">=</span> L<span style="color:#e6db74">&#34;\mbox{Value of }p_A&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Density&#34;</span>)
+<span style="color:#66d9ef">end</span>
+Plots<span style="color:#f92672">.</span>plot!([p_true], seriestype <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>vline, 
+    linestyle <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>dash, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>red,
+    label <span style="color:#f92672">=</span> L<span style="color:#e6db74">&#34;\mbox{true }p_A&#34;</span>, legendfontsize <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>)</code></pre></div>
+<p><img src="/images/posts/bayesian-methods-julia-4_hist_2.png" alt="ヒストグラム2" /></p>
+
+<p>\( N \) を大きくすると分布の裾野が狭くなり、分布の中心が真の値 \( p_A \) に近づいている。</p>
+
+<h2 id="aとbを一緒に">AとBを一緒に</h2>
+
+<p>サイトA, Bに対し、未知数である真のコンバージョン率 <code>true_p_A</code>, <code>true_p_B</code> はそれぞれ0.05と0.04とし、観測データ数 <code>N_A</code>, <code>N_B</code> は1500, 500として観測データを作成する。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">true_p_A <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>
+true_p_B <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span>
+N_A <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
+N_B <span style="color:#f92672">=</span> <span style="color:#ae81ff">750</span>
+observation_A <span style="color:#f92672">=</span> rand(Bernoulli(true_p_A), N_A)
+observation_B <span style="color:#f92672">=</span> rand(Bernoulli(true_p_B), N_B)</code></pre></div>
+<p>同時に推論するモデルは以下のようになる。新しく \( p_A \) と \( p_B \) の差を表す <code>Logical</code> ノード <code>delta</code> が増えた以外は一つだけ推論する場合をコピーペーストして二つにしただけ。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model1 <span style="color:#f92672">=</span> Model(
+    obs_A <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, p_A <span style="color:#f92672">-&gt;</span> Bernoulli(p_A), <span style="color:#66d9ef">false</span>),
+    obs_B <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, p_B <span style="color:#f92672">-&gt;</span> Bernoulli(p_B), <span style="color:#66d9ef">false</span>),
+    
+    delta <span style="color:#f92672">=</span> Logical((p_A, p_B) <span style="color:#f92672">-&gt;</span> p_A <span style="color:#f92672">-</span> p_B),
+    
+    p_A <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
+    p_B <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
+)</code></pre></div>
+<p>与える観測データと初期値は下のようにした。\( p_A \) と \( p_B \) の初期値は \( [0,1] \) からランダムで取った。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+    <span style="color:#f92672">:</span>obs_A <span style="color:#f92672">=&gt;</span> observation_A,
+    <span style="color:#f92672">:</span>obs_B <span style="color:#f92672">=&gt;</span> observation_B,
+)
+inits1 <span style="color:#f92672">=</span> [
+    <span style="color:#66d9ef">begin</span>
+        p_A <span style="color:#f92672">=</span> rand(Uniform())
+        p_B <span style="color:#f92672">=</span> rand(Uniform())
+        <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+            <span style="color:#f92672">:</span>obs_A <span style="color:#f92672">=&gt;</span> observation_A,
+            <span style="color:#f92672">:</span>obs_B <span style="color:#f92672">=&gt;</span> observation_B,
+            <span style="color:#f92672">:</span>p_A <span style="color:#f92672">=&gt;</span> p_A,
+            <span style="color:#f92672">:</span>p_B <span style="color:#f92672">=&gt;</span> p_B,
+            <span style="color:#f92672">:</span>delta <span style="color:#f92672">=&gt;</span> p_A <span style="color:#f92672">-</span> p_B,
+        )
+    <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+]
+scheme1 <span style="color:#f92672">=</span> [NUTS([<span style="color:#f92672">:</span>p_A, <span style="color:#f92672">:</span>p_B])]
+setsamplers!(model1, scheme1)
+sim1 <span style="color:#f92672">=</span> mcmc(model1, data1, inits1, <span style="color:#ae81ff">25000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+p1 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim1[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>p_A, <span style="color:#f92672">:</span>p_B, <span style="color:#f92672">:</span>delta], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+Mamba<span style="color:#f92672">.</span>draw(p1, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)</code></pre></div>
+<p><img src="/images/posts/bayesian-methods-julia-4_posterior.png" alt="事後分布" /></p>
+
+<p>\( p_A \) と \( p_B \) の事後分布と一つの図にプロットして分布の裾の広さを比較する。Bの方がサンプル数が少ないので裾が広い。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">histogram(vec(sim1[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>p_A, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), normalize <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>pdf, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>, linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p_A&#34;</span>)
+histogram!(vec(sim1[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>p_B, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), normalize <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>pdf, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>, linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p_B&#34;</span>)</code></pre></div>
+<p><img src="/images/posts/bayesian-methods-julia-4_hist_3.png" alt="p_Aとp_Bのヒストグラム" /></p>
+
+<p>サイトA, サイトBのデータを2倍にした時の <code>delta</code> の分布の変化を見ると、このようになった。もともとの <code>delta</code> の分布が真のデルタの値から近い値を中心に当たっていたため改善されている感じがわかりづらいが、データを2倍にすると裾が狭くなっている。</p>
+
+<p>同様の改善効果があるのなら、<code>N_B</code> を増やす方が良い(<code>N_B</code> を2倍にするとデータサイズが750増加するが、<code>N_A</code> を2倍にするとデータサイズが1500増加するため)</p>
+
+<p><img src="/images/posts/bayesian-methods-julia-4_hist_4.png" alt="データを増やした場合のヒストグラム" /></p>
+
+<p>真の \(p_A, p_B \) を動かして <code>delta</code> の分布を見ると次のようになる。</p>
+
+<p><img src="/images/posts/bayesian-methods-julia-4_hist_5.png" alt="p_A, p_Bを動かした場合のヒストグラム" /></p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a>, <a class='tag' href='/tags/bayesian/'>Bayesian</a>, <a class='tag' href='/tags/mamba/'>Mamba</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/bayesian-methods-julia-3/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/posts/bayesian-methods-julia-5/'>
+        <span class='screen-reader-text'>Next post: </span>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/matsueushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/matsue_ushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:matsueushi@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2019 matsueushi </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.34164567.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
+<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js'></script>
+<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js'></script>
+
+<script type='text/javascript'>
+  renderMathInElement(document.querySelector('.entry-content'),{});
+</script>
+
+</body>
+
+</html>

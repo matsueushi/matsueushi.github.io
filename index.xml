@@ -51,6 +51,58 @@ julia&amp;gt; [&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;
     </item>
     
     <item>
+      <title>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</link>
+      <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
+      <description>「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。
+学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。
+ コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。  カンニングが全くなければ、「カンニングした」という回答がある確率は 1&amp;frasl;2 * 1&amp;frasl;2 = 1&amp;frasl;4, 全員カンニングしていれば 1&amp;frasl;2 + 1&amp;frasl;2 * 1&amp;frasl;2 = 3&amp;frasl;4 になる。  まずはライブラリをインポート。
+using Distributed addprocs(3) @everywhere using Mamba using Plots 学生の数が100人、「カンニングした」という回答が35人とする。
+N = 100 X = 35 Mambaのモデルは次のようになる。
+model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportion), false ), proportion = Logical( (true_answers, first_coin_flips, second_coin_flips) -&amp;gt; (observed = @.(first_coin_flips * true_answers + (1 - first_coin_flips) * second_coin_flips); mean(observed)), false ), true_answers = Stochastic(1, p -&amp;gt; Bernoulli(p), false), first_coin_flips = Stochastic(1, () -&amp;gt; Bernoulli(0.</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</link>
+      <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
+      <description>今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。
+例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。
+サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
+まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
+# 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
+model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</link>
+      <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
+      <description>引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。
+新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
+Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
+using Distributions using Plots データセットの作成とプロットは下のようになる。
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？ </title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</link>
+      <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
+      <description>前回に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。
+変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、
+model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution[Poisson(lambda[i]) for i in 1:N], false ), lambda = Logical(1, (lambda1, lambda2, lambda3, tau1, tau2, N) -&amp;gt; (out = fill(lambda1, N); i1 = Int64(tau1.value) + 1; # Juliaは1-indexingのため i2 = Int64(tau2.value) + 1; out[i1:end] .= lambda2; out[i2:end] .= lambda3; out), false, ), lambda1 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda2 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda3 = Stochastic(theta -&amp;gt; Exponential(theta)), tau1 = Stochastic(N -&amp;gt; DiscreteUniform(0, N-1)), tau2 = Stochastic((tau1, N) -&amp;gt; DiscreteUniform(tau1, N)), ) 初期値とサンプリングスキームを同様に与えてサンプリングすると、</description>
+    </item>
+    
+    <item>
       <title>JuliaでArray of Arrayを1次元Vectorにする方法</title>
       <link>https://matsueushi.github.io/posts/julia_array_of_array/</link>
       <pubDate>Wed, 20 Mar 2019 00:33:19 -0400</pubDate>

@@ -5,10 +5,48 @@
     <link>https://matsueushi.github.io/tags/mamba/</link>
     <description>Recent content in Mamba on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 19 Mar 2019 23:30:41 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 21 Mar 2019 21:05:35 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mamba/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</link>
+      <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
+      <description>今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。
+例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。
+サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
+まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
+# 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
+model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</link>
+      <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
+      <description>引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。
+新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
+Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
+using Distributions using Plots データセットの作成とプロットは下のようになる。
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？ </title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</link>
+      <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
+      <description>前回に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。
+変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、
+model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution[Poisson(lambda[i]) for i in 1:N], false ), lambda = Logical(1, (lambda1, lambda2, lambda3, tau1, tau2, N) -&amp;gt; (out = fill(lambda1, N); i1 = Int64(tau1.value) + 1; # Juliaは1-indexingのため i2 = Int64(tau2.value) + 1; out[i1:end] .= lambda2; out[i2:end] .= lambda3; out), false, ), lambda1 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda2 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda3 = Stochastic(theta -&amp;gt; Exponential(theta)), tau1 = Stochastic(N -&amp;gt; DiscreteUniform(0, N-1)), tau2 = Stochastic((tau1, N) -&amp;gt; DiscreteUniform(tau1, N)), ) 初期値とサンプリングスキームを同様に与えてサンプリングすると、</description>
+    </item>
     
     <item>
       <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
