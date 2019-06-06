@@ -5,7 +5,7 @@
     <link>https://matsueushi.github.io/tags/</link>
     <description>Recent content in Tags on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2019 22:19:14 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>KaTeX</title>
       <link>https://matsueushi.github.io/tags/katex/</link>
-      <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
+      <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/katex/</guid>
       <description></description>
@@ -49,9 +49,18 @@
     <item>
       <title>Mamba</title>
       <link>https://matsueushi.github.io/tags/mamba/</link>
-      <pubDate>Sun, 31 Mar 2019 21:47:30 -0400</pubDate>
+      <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/mamba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RandomWalk</title>
+      <link>https://matsueushi.github.io/tags/randomwalk/</link>
+      <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/randomwalk/</guid>
       <description></description>
     </item>
     

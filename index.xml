@@ -11,7 +11,7 @@
     
     
     <item>
-      <title>Katexで複数行の数式を入力</title>
+      <title>KaTeX複数行の数式を入力</title>
       <link>https://matsueushi.github.io/posts/katex-multiline/</link>
       <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
       
@@ -63,6 +63,19 @@ julia&amp;gt; vec(x) 4-element Array{Int64,1}: 1 3 2 4 横方向に拾いたい�
 julia&amp;gt; vec(permutedims(x)) 4-element Array{Int64,1}: 1 2 3 4 &amp;nbsp;transpose と collect を使う
 julia&amp;gt; vec(collect(transpose(x))) 4-element Array{Int64,1}: 1 2 3 4 だと場合によっては問題があり、 Transpose は LinearAlgebra の操作なので、例えば Array{Char, 2} に対しては定義されていないので実行できない。
 julia&amp;gt; [&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;] 2×2 Array{Char,2}: &amp;#39;a&amp;#39; &amp;#39;b&amp;#39; &amp;#39;c&amp;#39; &amp;#39;d&amp;#39; julia&amp;gt; transpose([&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;]) 2×2 LinearAlgebra.</description>
+    </item>
+    
+    <item>
+      <title>Mamba.jlでGaussianRandomWalkを作って使う</title>
+      <link>https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/</link>
+      <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/</guid>
+      <description>PyMC3にはTimeseriesとして GaussianRandomWalk などの時系列モデルが実装されている。
+https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk
+だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように cumsum を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。
+local_level_model = Model( obs = Stochastic(1, (N, T, sigma_I) -&amp;gt; MvNormal(T, sigma_I), false ), T = Logical(1, (T_0, disturbance) -&amp;gt; T_0 .+ vcat([0], cumsum(disturbance)), ), disturbance = Stochastic(1, (N, sigma_T) -&amp;gt; MvNormal(N - 1, sigma_T), false ), sigma_I = Stochastic(() -&amp;gt; InverseGamma()), sigma_T = Stochastic(() -&amp;gt; InverseGamma()), T_0 = Stochastic(T_init -&amp;gt; Normal(T_init, 100)), ) だからと言ってそのためにわざわざPython+PyMC3に移るのも癪だし、練習を兼ねてJulia+Mamba用の確率分布を試しに作ってみようと思ったのが今回の内容である。幸いなことに、Mamba.jlには作り方のガイドラインが書いてあるので、多変量分布用のガイドラインを参考にして作ることができた。
+今回は、GaussianRandomWalk は、初期値の分布 \( D \) とドリフト \( \mu_i \) , 分散 \( \sigma \) とした時に、</description>
     </item>
     
     <item>

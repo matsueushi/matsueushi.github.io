@@ -5,10 +5,25 @@
     <link>https://matsueushi.github.io/tags/katex/</link>
     <description>Recent content in KaTeX on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2019 22:19:14 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/katex/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>KaTeX複数行の数式を入力</title>
+      <link>https://matsueushi.github.io/posts/katex-multiline/</link>
+      <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/katex-multiline/</guid>
+      <description>結構手間取った。
+バックスラッシュを4つ重ねた後スペースを置く \\\\ と改行できる。
+\\( \begin{aligned} x &amp;amp;= 1+1 \\\\ &amp;amp;= 2 \end{aligned} \\)  結果:
+\( \begin{aligned} x &amp;amp;= 1+1 \\ &amp;amp;= 2 \end{aligned} \)
+参考 :
+&amp;gt; Cannot achieve line break in multiline equation (LaTeX/Mathjax)
+&amp;gt; https://github.com/gcushen/hugo-academic/wiki/FAQ</description>
+    </item>
     
     <item>
       <title>Katex Test</title>
