@@ -4,12 +4,17 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2019-06-05T22:19:14-04:00</lastmod>
+    <lastmod>2019-06-06T22:48:39-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2019-06-05T22:19:14-04:00</lastmod>
+    <lastmod>2019-06-06T22:48:39-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/hugo/</loc>
+    <lastmod>2019-06-06T22:48:39-04:00</lastmod>
   </url>
   
   <url>
@@ -41,6 +46,67 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
+    <lastmod>2019-05-19T22:37:52-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2019-05-19T22:37:52-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/mlp/</loc>
+    <lastmod>2019-05-19T22:37:52-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/gp-nlp-2/</loc>
+    <lastmod>2019-05-19T22:37:52-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/gp-nlp-1/</loc>
+    <lastmod>2019-05-10T22:30:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/distribution/</loc>
+    <lastmod>2019-04-30T21:58:27-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/shift-scale-distribution/</loc>
+    <lastmod>2019-04-30T21:58:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/bayesian/</loc>
+    <lastmod>2019-04-17T21:44:20-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</loc>
+    <lastmod>2019-04-17T21:44:20-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/mamba/</loc>
+    <lastmod>2019-04-17T21:44:20-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</loc>
+    <lastmod>2019-04-10T00:24:53-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/juli/</loc>
     <lastmod>2019-04-07T00:29:01-04:00</lastmod>
     <priority>0</priority>
@@ -52,20 +118,8 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2019-04-05T00:20:33-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/posts/julia_array_dim/</loc>
     <lastmod>2019-04-05T00:20:33-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/mamba/</loc>
-    <lastmod>2019-04-03T21:52:38-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -120,12 +174,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</loc>
     <lastmod>2019-03-22T21:22:17-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/bayesian/</loc>
-    <lastmod>2019-03-21T21:05:35-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

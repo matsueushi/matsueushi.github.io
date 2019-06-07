@@ -5,10 +5,35 @@
     <link>https://matsueushi.github.io/tags/bayesian/</link>
     <description>Recent content in Bayesian on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 21 Mar 2019 21:05:35 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 17 Apr 2019 21:44:20 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/bayesian/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(7) The Price Is Right</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
+      <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
+      <description>引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( pm.potential が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。
+問題を単純化すると、
+ 二つの賞品A, Bの合計価格(これを真の価格と今後呼ぶ)を予想したい 真の価格は正規分布 \( \text{Normal}(35000, 7500^2) \) に従うと仮定する 賞品A, Bの価格の事前分布はそれぞれ正規分布 \( \text{Normal}(12000, 3000^2) \) , \( \text{Normal}(3000,500^2) \) に従うと仮定する このような条件のモデリングである。  実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( using 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。
+data = Dict{Symbol, Any}( :data_mu =&amp;gt; [3e3, 12e3], :data_std =&amp;gt; [5e2, 3e3], :mu_prior =&amp;gt; 35e3, :std_prior =&amp;gt; 75e2, ) model = Model( prize = Stochastic(1, (data_mu, data_std) -&amp;gt; MvNormal(data_mu, data_std)), price_estimate = Logical(prize -&amp;gt; sum(prize)), ) モデルを下のようにしてしまうと、</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</link>
+      <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
+      <description>最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。
+今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。
+まずはライブラリのインポート
+using Distributed addprocs(3) using CSV using DataFrames using HTTP using LaTeXStrings using LinearAlgebra @everywhere using Mamba using Plots データの加工はこのような形で行った。DataFrame で Int64 にパースしたい行にMissing valueやNaNがあるとき、convertではエラーになるので、 パースできない場合は missing になる tryparse を使って、その後 nothing になる行を削除して、Union{Nothing, Int64} から Int64 にもう一度変換している。
+r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXknD&amp;#34;); challengers_data = CSV.read(IOBuffer(r.body)) names!(challengers_data, [:date, :temperature, :incident]) # incidentのパース challengers_data[:incident] = tryparse.(Int64, challengers_data[:incident]) # NaNを削除 challengers_data = challengers_data[challengers_data[:incident] .!= nothing, :] challengers_data[:incident] = convert.(Int64, challengers_data[:incident]) disallowmissing!(challengers_data) データの図示をする。weighted_color_mean を使って、マーカーの色を青から赤にグラデーションさせた。</description>
+    </item>
     
     <item>
       <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>

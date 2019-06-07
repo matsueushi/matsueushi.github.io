@@ -5,10 +5,83 @@
     <link>https://matsueushi.github.io/tags/julia/</link>
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 05 Apr 2019 00:20:33 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2019 22:37:52 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ガウス過程と機械学習: 3.5まで</title>
+      <link>https://matsueushi.github.io/posts/gp-nlp-2/</link>
+      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gp-nlp-2/</guid>
+      <description>引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。
+ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの optimize を使ってしまった)のところまで読み進めた。
+ 3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。 図3.16のガウスカーネル
+\( \begin{aligned} k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right) \end{aligned} \) のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。  \( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.01) \) とすると近い図になる(全く同じには見えない)
+ 尤度の計算が合わなかった。尤度を図示した図3.16で-5未満を切り捨てるとうまくいかなかった。20以下を切り捨てると近い図になった。  本文の局所解(ii)に該当する点の尤度は-2.0299となり本文の-1.934とは違ってしまった。
+図3.20のパラメーター推定は正しくできたが、こちらも対数尤度が違ってしまった((a):本文-1.788、実装-1.738, (b):本文-2.174, 実装-2.5029) 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。
+https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19
+https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb</description>
+    </item>
+    
+    <item>
+      <title>「ガウス過程と機械学習 」を読み始めた</title>
+      <link>https://matsueushi.github.io/posts/gp-nlp-1/</link>
+      <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gp-nlp-1/</guid>
+      <description>持橋・大羽の「ガウス過程と機会学習」を読み始めた。Juliaでコードを書きながら内容を確かめている。
+本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。
+分散共分散行列の成分を作る時に使われるカーネル \( k(x,x^\prime) \) は \( x \) と \(x^\prime \) の「近さ」を表す関数とでも考えれば良いのだろうか。
+なんでそういうことを考えるのかという気持ちの部分が丁寧に説明されているので意図がわからずに数式の中に闇雲に迷い込むことなく今の所楽しく読み進められている。
+エラッタ:
+http://chasen.org/~daiti-m/gpbook/errata.html
+https://scrapbox.io/GPandML2019/support
+3.3の「ガウス過程とカーネル」のところまで読んだ。
+自分が躓いた点
+ “3.2.4 ガウス過程からのサンプル”で図3.9のようなサンプルを実装するときは正則化項を入れないと計算がうまくいかないことがある(1.4 リッジ回帰の部分で触れられている)。著者のサンプルコードでは非常に正則化項として1e-6を導入していた。共分散行列の計算の際に対角成分に正規化項を加えればよい。 “3.3.1 ガウス過程のRBFカーネル”で、線形モデルの基底関数のグリッドを無限に細かくするとRBFカーネルになると書かれている部分は、本文中の基底関数を使うと \( H \rightarrow \infty \) とした時にカーネル関数がRBF関数に収束しない。基底関数に \( 1 / \sqrt{H} \) を掛けたものを考えればOK “3.3.2 さまざまなカーネル”で線形カーネルを実装するときに、カーネル関数は dot(x1, x2) ではなく、必ず1となる入力の最初の次元も考慮して 1 + dot(x1, x2) とする。他のカーネルの場合は x1 — x2 の計算の段階で消えるので考慮する必要はない また、Matérnカーネルを定義する際に、Juliaでは第二種のベッセル関数は SpecialFunctions の besselk を使えば良い。ベッセル関数は \( x=0 \) で特異性を持つので、カーネル関数 k(x1, x2) を定義するときは x1 = x2 の時に条件分岐で1を返すようにすればいい  カーネルとガウシアン過程を定義したjlファイル:</description>
+    </item>
+    
+    <item>
+      <title>Distribution.jlで分布をシフト・スケールさせる</title>
+      <link>https://matsueushi.github.io/posts/shift-scale-distribution/</link>
+      <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/shift-scale-distribution/</guid>
+      <description>公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。
+ Distributions.jl/src/univariate/continuous/locationscale.jl https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl
+ 例えば、PyMC3の StudentT
+pm.StudentT(&amp;#39;x&amp;#39;, nu=nu, mu=mu, lam=lam) に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの TDist のパラメトライズは nu だけで mu や lam は指定できないが、
+LocationScale(mu, lam, TDist(nu)) とすればOK。PyMCの StudentT に出ている pdf と同じグラフを書いて確認しよう。
+using Distributions using Plots using Printf # StudentT分布のシフト x = -8:0.01:8 mu = [0, 0, -2, -2] lam = [1, 1, 1, 2] nu = [1, 5, 5, 5] plt = Plots.plot() for i in 1:4 y = pdf.(LocationScale(mu[i], lam[i], TDist(nu[i])), x) Plots.</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(7) The Price Is Right</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
+      <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
+      <description>引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( pm.potential が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。
+問題を単純化すると、
+ 二つの賞品A, Bの合計価格(これを真の価格と今後呼ぶ)を予想したい 真の価格は正規分布 \( \text{Normal}(35000, 7500^2) \) に従うと仮定する 賞品A, Bの価格の事前分布はそれぞれ正規分布 \( \text{Normal}(12000, 3000^2) \) , \( \text{Normal}(3000,500^2) \) に従うと仮定する このような条件のモデリングである。  実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( using 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。
+data = Dict{Symbol, Any}( :data_mu =&amp;gt; [3e3, 12e3], :data_std =&amp;gt; [5e2, 3e3], :mu_prior =&amp;gt; 35e3, :std_prior =&amp;gt; 75e2, ) model = Model( prize = Stochastic(1, (data_mu, data_std) -&amp;gt; MvNormal(data_mu, data_std)), price_estimate = Logical(prize -&amp;gt; sum(prize)), ) モデルを下のようにしてしまうと、</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</link>
+      <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
+      <description>最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。
+今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。
+まずはライブラリのインポート
+using Distributed addprocs(3) using CSV using DataFrames using HTTP using LaTeXStrings using LinearAlgebra @everywhere using Mamba using Plots データの加工はこのような形で行った。DataFrame で Int64 にパースしたい行にMissing valueやNaNがあるとき、convertではエラーになるので、 パースできない場合は missing になる tryparse を使って、その後 nothing になる行を削除して、Union{Nothing, Int64} から Int64 にもう一度変換している。
+r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXknD&amp;#34;); challengers_data = CSV.read(IOBuffer(r.body)) names!(challengers_data, [:date, :temperature, :incident]) # incidentのパース challengers_data[:incident] = tryparse.(Int64, challengers_data[:incident]) # NaNを削除 challengers_data = challengers_data[challengers_data[:incident] .!= nothing, :] challengers_data[:incident] = convert.(Int64, challengers_data[:incident]) disallowmissing!(challengers_data) データの図示をする。weighted_color_mean を使って、マーカーの色を青から赤にグラデーションさせた。</description>
+    </item>
     
     <item>
       <title>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</title>

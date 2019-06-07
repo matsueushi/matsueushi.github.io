@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Distribution on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/distribution/</link>
+    <description>Recent content in Distribution on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Distribution.jlで分布をシフト・スケールさせる</title>
+      <link>https://matsueushi.github.io/posts/shift-scale-distribution/</link>
+      <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/shift-scale-distribution/</guid>
+      <description>公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。
+ Distributions.jl/src/univariate/continuous/locationscale.jl https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl
+ 例えば、PyMC3の StudentT
+pm.StudentT(&amp;#39;x&amp;#39;, nu=nu, mu=mu, lam=lam) に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの TDist のパラメトライズは nu だけで mu や lam は指定できないが、
+LocationScale(mu, lam, TDist(nu)) とすればOK。PyMCの StudentT に出ている pdf と同じグラフを書いて確認しよう。
+using Distributions using Plots using Printf # StudentT分布のシフト x = -8:0.01:8 mu = [0, 0, -2, -2] lam = [1, 1, 1, 2] nu = [1, 5, 5, 5] plt = Plots.plot() for i in 1:4 y = pdf.(LocationScale(mu[i], lam[i], TDist(nu[i])), x) Plots.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -11,12 +11,12 @@
     
     
     <item>
-      <title>Katex Test</title>
+      <title>KaTeX Test</title>
       <link>https://matsueushi.github.io/posts/katex-test/</link>
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/katex-test/</guid>
-      <description>Katex Test
+      <description>KaTeX Test
 \( \lim \sum \int \)
 Katexでは \( \varprojlim \) はサポートされていない
 _ではなく\_を使うと \( x_{mn} \)などの添字が出せる</description>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MLP on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/mlp/</link>
+    <description>Recent content in MLP on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 19 May 2019 22:37:52 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/mlp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ガウス過程と機械学習: 3.5まで</title>
+      <link>https://matsueushi.github.io/posts/gp-nlp-2/</link>
+      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gp-nlp-2/</guid>
+      <description>引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。
+ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの optimize を使ってしまった)のところまで読み進めた。
+ 3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。 図3.16のガウスカーネル
+\( \begin{aligned} k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right) \end{aligned} \) のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。  \( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.01) \) とすると近い図になる(全く同じには見えない)
+ 尤度の計算が合わなかった。尤度を図示した図3.16で-5未満を切り捨てるとうまくいかなかった。20以下を切り捨てると近い図になった。  本文の局所解(ii)に該当する点の尤度は-2.0299となり本文の-1.934とは違ってしまった。
+図3.20のパラメーター推定は正しくできたが、こちらも対数尤度が違ってしまった((a):本文-1.788、実装-1.738, (b):本文-2.174, 実装-2.5029) 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。
+https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19
+https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb</description>
+    </item>
+    
+    <item>
+      <title>「ガウス過程と機械学習 」を読み始めた</title>
+      <link>https://matsueushi.github.io/posts/gp-nlp-1/</link>
+      <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gp-nlp-1/</guid>
+      <description>持橋・大羽の「ガウス過程と機会学習」を読み始めた。Juliaでコードを書きながら内容を確かめている。
+本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。
+分散共分散行列の成分を作る時に使われるカーネル \( k(x,x^\prime) \) は \( x \) と \(x^\prime \) の「近さ」を表す関数とでも考えれば良いのだろうか。
+なんでそういうことを考えるのかという気持ちの部分が丁寧に説明されているので意図がわからずに数式の中に闇雲に迷い込むことなく今の所楽しく読み進められている。
+エラッタ:
+http://chasen.org/~daiti-m/gpbook/errata.html
+https://scrapbox.io/GPandML2019/support
+3.3の「ガウス過程とカーネル」のところまで読んだ。
+自分が躓いた点
+ “3.2.4 ガウス過程からのサンプル”で図3.9のようなサンプルを実装するときは正則化項を入れないと計算がうまくいかないことがある(1.4 リッジ回帰の部分で触れられている)。著者のサンプルコードでは非常に正則化項として1e-6を導入していた。共分散行列の計算の際に対角成分に正規化項を加えればよい。 “3.3.1 ガウス過程のRBFカーネル”で、線形モデルの基底関数のグリッドを無限に細かくするとRBFカーネルになると書かれている部分は、本文中の基底関数を使うと \( H \rightarrow \infty \) とした時にカーネル関数がRBF関数に収束しない。基底関数に \( 1 / \sqrt{H} \) を掛けたものを考えればOK “3.3.2 さまざまなカーネル”で線形カーネルを実装するときに、カーネル関数は dot(x1, x2) ではなく、必ず1となる入力の最初の次元も考慮して 1 + dot(x1, x2) とする。他のカーネルの場合は x1 — x2 の計算の段階で消えるので考慮する必要はない また、Matérnカーネルを定義する際に、Juliaでは第二種のベッセル関数は SpecialFunctions の besselk を使えば良い。ベッセル関数は \( x=0 \) で特異性を持つので、カーネル関数 k(x1, x2) を定義するときは x1 = x2 の時に条件分岐で1を返すようにすればいい  カーネルとガウシアン過程を定義したjlファイル:</description>
+    </item>
+    
+  </channel>
+</rss>

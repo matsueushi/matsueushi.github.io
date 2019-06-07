@@ -29,29 +29,65 @@
     </item>
     
     <item>
-      <title>Juli</title>
-      <link>https://matsueushi.github.io/tags/juli/</link>
-      <pubDate>Sun, 07 Apr 2019 00:29:01 -0400</pubDate>
+      <title>GaussianProcess</title>
+      <link>https://matsueushi.github.io/tags/gaussianprocess/</link>
+      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/tags/juli/</guid>
+      <guid>https://matsueushi.github.io/tags/gaussianprocess/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Julia</title>
       <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Fri, 05 Apr 2019 00:20:33 -0400</pubDate>
+      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>MLP</title>
+      <link>https://matsueushi.github.io/tags/mlp/</link>
+      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/mlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Distribution</title>
+      <link>https://matsueushi.github.io/tags/distribution/</link>
+      <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/distribution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bayesian</title>
+      <link>https://matsueushi.github.io/tags/bayesian/</link>
+      <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/bayesian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Mamba</title>
       <link>https://matsueushi.github.io/tags/mamba/</link>
-      <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
+      <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/mamba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Juli</title>
+      <link>https://matsueushi.github.io/tags/juli/</link>
+      <pubDate>Sun, 07 Apr 2019 00:29:01 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/juli/</guid>
       <description></description>
     </item>
     
@@ -88,15 +124,6 @@
       <pubDate>Sun, 24 Mar 2019 21:43:34 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/plots/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bayesian</title>
-      <link>https://matsueushi.github.io/tags/bayesian/</link>
-      <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/bayesian/</guid>
       <description></description>
     </item>
     
