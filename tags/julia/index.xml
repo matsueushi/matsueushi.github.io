@@ -5,10 +5,22 @@
     <link>https://matsueushi.github.io/tags/julia/</link>
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 19 May 2019 22:37:52 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 08 Jun 2019 20:08:12 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
+      <link>https://matsueushi.github.io/posts/gp_parameter_estimation/</link>
+      <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gp_parameter_estimation/</guid>
+      <description>「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。
+ガウスカーネルによる回帰: ガウスカーネル＋線形カーネルによる回帰: 任意の有限の入力 \( x_1, \ldots , x_n \) を与えたときに、出力 \( (f(x_1), \ldots , f(x_n)) \) が平均 \( (\mu(x_1), \ldots , \mu(x_n)) \) 分散 \( (k(x_n, x_{nm} )) \) のガウス分布に従う時、 \( f \) をガウス過程と呼び、 \( f \sim \text{GP} (\mu(x), k(x, x^\prime)) \) と書く。そして \( \mu \) を平均関数、 \( k \) をカーネル関数と呼んでいるのであった。
+今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。
+ガウスカーネルの定義 もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。 $$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$ 本文では $$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$ この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは \( exp \) の前に係数を付けない前者を採用する。</description>
+    </item>
     
     <item>
       <title>ガウス過程と機械学習: 3.5まで</title>

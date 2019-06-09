@@ -5,10 +5,46 @@
     <link>https://matsueushi.github.io/tags/</link>
     <description>Recent content in Tags on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 05 Jun 2019 22:19:14 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 08 Jun 2019 20:08:12 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GaussianPocess</title>
+      <link>https://matsueushi.github.io/tags/gaussianpocess/</link>
+      <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/gaussianpocess/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Julia</title>
+      <link>https://matsueushi.github.io/tags/julia/</link>
+      <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>https://matsueushi.github.io/tags/ml/</link>
+      <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Optim</title>
+      <link>https://matsueushi.github.io/tags/optim/</link>
+      <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/optim/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>KaTeX</title>
@@ -34,15 +70,6 @@
       <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/gaussianprocess/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Julia</title>
-      <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
     </item>
     
