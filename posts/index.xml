@@ -27,7 +27,7 @@
       <guid>https://matsueushi.github.io/posts/katex-multiline/</guid>
       <description>結構手間取った。
 バックスラッシュを4つ重ねた後スペースを置く \\\\ と改行できる。
-\\( \begin{aligned} x &amp;amp;= 1+1 \\\\ &amp;amp;= 2 \end{aligned} \\)  結果:
+\\( \begin{aligned} x &amp;amp;= 1+1 \\\\ &amp;amp;= 2 \end{aligned} \\) 結果:
 \( \begin{aligned} x &amp;amp;= 1+1 \\ &amp;amp;= 2 \end{aligned} \)
 参考 :
 &amp;gt; Cannot achieve line break in multiline equation (LaTeX/Mathjax)
