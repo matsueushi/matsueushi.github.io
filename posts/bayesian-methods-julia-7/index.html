@@ -8,7 +8,7 @@
 data = Dict{Symbol, Any}( :data_mu =&gt; [3e3, 12e3], :data_std =&gt; [5e2, 3e3], :mu_prior =&gt; 35e3, :std_prior =&gt; 75e2, ) model = Model( prize = Stochastic(1, (data_mu, data_std) -&gt; MvNormal(data_mu, data_std)), price_estimate = Logical(prize -&gt; sum(prize)), ) モデルを下のようにしてしまうと、'>
 <meta name='theme-color' content='#ffcd00'>
 
-<meta property='og:title' content='Juliaで体験するベイズ推論(7) The Price Is Right • matsueushi'>
+<meta property='og:title' content='Juliaで体験するベイズ推論(7) - The Price Is Right • matsueushi'>
 <meta property='og:description' content='引き続き「Pythonで体験するベイズ推論」のJulia&#43;Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( pm.potential が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。
 問題を単純化すると、
  二つの賞品A, Bの合計価格(これを真の価格と今後呼ぶ)を予想したい 真の価格は正規分布 \( \text{Normal}(35000, 7500^2) \) に従うと仮定する 賞品A, Bの価格の事前分布はそれぞれ正規分布 \( \text{Normal}(12000, 3000^2) \) , \( \text{Normal}(3000,500^2) \) に従うと仮定する このような条件のモデリングである。  実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( using 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。
@@ -19,12 +19,12 @@ data = Dict{Symbol, Any}( :data_mu =&gt; [3e3, 12e3], :data_std =&gt; [5e2, 3e3]
 
 <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>Juliaで体験するベイズ推論(7) The Price Is Right • matsueushi</title>
+  <title>Juliaで体験するベイズ推論(7) - The Price Is Right • matsueushi</title>
   <link rel='canonical' href='https://matsueushi.github.io/posts/bayesian-methods-julia-7/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.d2e31589.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
 
@@ -94,7 +94,7 @@ if (!doNotTrack) {
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/bayesian/' style='font-size:1.2941176470588236em'>Bayesian</a>
+        <a href='/tags/bayesian/' style='font-size:1.3157894736842106em'>Bayesian</a>
       </li><li>
         <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
       </li><li>
@@ -106,33 +106,31 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/gaussianpocess/' style='font-size:1em'>GaussianPocess</a>
       </li><li>
-        <a href='/tags/gaussianprocess/' style='font-size:1.0588235294117647em'>GaussianProcess</a>
+        <a href='/tags/gaussianprocess/' style='font-size:1.0526315789473684em'>GaussianProcess</a>
       </li><li>
         <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
       </li><li>
         <a href='/tags/girls/' style='font-size:1em'>Girls</a>
       </li><li>
-        <a href='/tags/juli/' style='font-size:1em'>Juli</a>
-      </li><li>
         <a href='/tags/julia/' style='font-size:2em'>Julia</a>
       </li><li>
-        <a href='/tags/jupyter/' style='font-size:1.0588235294117647em'>Jupyter</a>
+        <a href='/tags/jupyter/' style='font-size:1.0526315789473684em'>Jupyter</a>
       </li><li>
-        <a href='/tags/katex/' style='font-size:1.0588235294117647em'>KaTeX</a>
+        <a href='/tags/katex/' style='font-size:1.0526315789473684em'>KaTeX</a>
       </li><li>
-        <a href='/tags/lolicatonica/' style='font-size:1.0588235294117647em'>LolicaTonica</a>
+        <a href='/tags/lolicatonica/' style='font-size:1.0526315789473684em'>LolicaTonica</a>
       </li><li>
         <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
       </li><li>
-        <a href='/tags/mamba/' style='font-size:1.4705882352941178em'>Mamba</a>
+        <a href='/tags/mamba/' style='font-size:1.4736842105263157em'>Mamba</a>
       </li><li>
         <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
       </li><li>
         <a href='/tags/ml/' style='font-size:1em'>ML</a>
       </li><li>
-        <a href='/tags/mlp/' style='font-size:1.0588235294117647em'>MLP</a>
+        <a href='/tags/mlp/' style='font-size:1.0526315789473684em'>MLP</a>
       </li><li>
-        <a href='/tags/music/' style='font-size:1.6470588235294117em'>Music</a>
+        <a href='/tags/music/' style='font-size:1.5789473684210527em'>Music</a>
       </li><li>
         <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
       </li><li>
@@ -144,7 +142,7 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
       </li><li>
-        <a href='/tags/record/' style='font-size:1.0588235294117647em'>Record</a>
+        <a href='/tags/record/' style='font-size:1.0526315789473684em'>Record</a>
       </li><li>
         <a href='/tags/test/' style='font-size:1em'>test</a>
       </li><li>
@@ -193,7 +191,7 @@ if (!doNotTrack) {
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Juliaで体験するベイズ推論(7) The Price Is Right</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Juliaで体験するベイズ推論(7) - The Price Is Right</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -212,7 +210,7 @@ if (!doNotTrack) {
     <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Juliaで体験するベイズ推論(7) The Price Is Right</h1>
+      <h1 class='title'>Juliaで体験するベイズ推論(7) - The Price Is Right</h1>
       
 
     </div>
@@ -451,7 +449,7 @@ def error(true_price<span style="color:#f92672">=</span>true_price, price_estima
     </div>
   </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.34164567.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
 <script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js'></script>
 <script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js'></script>
 

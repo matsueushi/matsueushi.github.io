@@ -12,10 +12,10 @@
     
     <item>
       <title>GCPでJuliaのノートブックを実行</title>
-      <link>https://matsueushi.github.io/posts/gcp_julia/</link>
+      <link>https://matsueushi.github.io/posts/gcp-julia/</link>
       <pubDate>Sat, 30 Mar 2019 21:37:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gcp_julia/</guid>
+      <guid>https://matsueushi.github.io/posts/gcp-julia/</guid>
       <description>自分用メモ
 ローカルの公開鍵をGCPのインスタンスに登録
  [秘密鍵/公開鍵]GCPにSSHで接続する方法
@@ -27,10 +27,10 @@ $ sudo mkdir /bin/julia $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/
     
     <item>
       <title>Jupyter Notebookのkernelの位置を調べる</title>
-      <link>https://matsueushi.github.io/posts/jupyter_kernel_location/</link>
+      <link>https://matsueushi.github.io/posts/jupyter-kernel-location/</link>
       <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/jupyter_kernel_location/</guid>
+      <guid>https://matsueushi.github.io/posts/jupyter-kernel-location/</guid>
       <description>$ jupyter kernelspec list Available kernels: julia-1.1 /home/matsueushi/.local/share/jupyter/kernels/julia-1.1 python3 /home/matsueushi/.local/share/jupyter/kernels/python3  How do I add python3 kernel to jupyter (IPython) https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803
  </description>
     </item>

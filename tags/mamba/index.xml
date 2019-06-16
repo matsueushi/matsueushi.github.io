@@ -11,7 +11,7 @@
     
     
     <item>
-      <title>Juliaで体験するベイズ推論(7) The Price Is Right</title>
+      <title>Juliaで体験するベイズ推論(7) - The Price Is Right</title>
       <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
@@ -56,6 +56,20 @@ local_level_model = Model( obs = Stochastic(1, (N, T, sigma_I) -&amp;gt; MvNorma
       <guid>https://matsueushi.github.io/posts/mamba-v-0-12-0/</guid>
       <description>GCPに環境を作っていて気づいたのだが、Distibution.jlのv0.17.0と関数が干渉していて using Mamba すると下のようなワーニングが出て、
 WARNING: Method definition (::Type{Distributions.DiscreteNonParametric{Int64, P, Base.OneTo{Int64}, Ps} where Ps where P})(AbstractArray{T&amp;lt;:Real, 1}) where {T&amp;lt;:Real} in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/univariate/discrete/categorical.jl:40 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:7. WARNING: Method definition (::Type{Distributions.MvNormal{T, Cov, Mean} where Mean&amp;lt;:(AbstractArray{T, 1} where T) where Cov&amp;lt;:(PDMats.AbstractPDMat{T} where T&amp;lt;:Real) where T&amp;lt;:Real})(AbstractArray{T&amp;lt;:Real, 1}, Real) where {T&amp;lt;:Real} in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/multivariate/mvnormal.jl:200 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:35. WARNING: Method definition (::Type{Distributions.MvNormalCanon{T, P, V} where V&amp;lt;:(AbstractArray{T, 1} where T) where P&amp;lt;:(PDMats.</description>
+    </item>
+    
+    <item>
+      <title>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
+      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</link>
+      <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
+      <description>「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。
+学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。
+ コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。  カンニングが全くなければ、「カンニングした」という回答がある確率は 1&amp;frasl;2 * 1&amp;frasl;2 = 1&amp;frasl;4, 全員カンニングしていれば 1&amp;frasl;2 + 1&amp;frasl;2 * 1&amp;frasl;2 = 3&amp;frasl;4 になる。  まずはライブラリをインポート。
+using Distributed addprocs(3) @everywhere using Mamba using Plots 学生の数が100人、「カンニングした」という回答が35人とする。
+N = 100 X = 35 Mambaのモデルは次のようになる。
+model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportion), false ), proportion = Logical( (true_answers, first_coin_flips, second_coin_flips) -&amp;gt; (observed = @.(first_coin_flips * true_answers + (1 - first_coin_flips) * second_coin_flips); mean(observed)), false ), true_answers = Stochastic(1, p -&amp;gt; Bernoulli(p), false), first_coin_flips = Stochastic(1, () -&amp;gt; Bernoulli(0.</description>
     </item>
     
     <item>
@@ -112,10 +126,10 @@ N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
       <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
  生態学のデータ解析 - 久保拓弥
 http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html

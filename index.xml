@@ -12,10 +12,10 @@
     
     <item>
       <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
-      <link>https://matsueushi.github.io/posts/gp_parameter_estimation/</link>
+      <link>https://matsueushi.github.io/posts/gp-parameter-estimation/</link>
       <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp_parameter_estimation/</guid>
+      <guid>https://matsueushi.github.io/posts/gp-parameter-estimation/</guid>
       <description>「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。
 ガウスカーネルによる回帰: ガウスカーネル＋線形カーネルによる回帰: 任意の有限の入力 \( x_1, \ldots , x_n \) を与えたときに、出力 \( (f(x_1), \ldots , f(x_n)) \) が平均 \( (\mu(x_1), \ldots , \mu(x_n)) \) 分散 \( (k(x_n, x_{nm} )) \) のガウス分布に従う時、 \( f \) をガウス過程と呼び、 \( f \sim \text{GP} (\mu(x), k(x, x^\prime)) \) と書く。そして \( \mu \) を平均関数、 \( k \) をカーネル関数と呼んでいるのであった。
 今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。
@@ -107,7 +107,7 @@ using Distributions using Plots using Printf # StudentT分布のシフト x = -8
     </item>
     
     <item>
-      <title>Juliaで体験するベイズ推論(7) The Price Is Right</title>
+      <title>Juliaで体験するベイズ推論(7) - The Price Is Right</title>
       <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
@@ -147,10 +147,10 @@ https://github.com/JeffreySarnoff/RollingFunctions.jl
     
     <item>
       <title>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</title>
-      <link>https://matsueushi.github.io/posts/julia_array_dim/</link>
+      <link>https://matsueushi.github.io/posts/julia-array-dim/</link>
       <pubDate>Fri, 05 Apr 2019 00:20:33 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_array_dim/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-array-dim/</guid>
       <description>やり方がよくわからなくなるので自分用メモを兼ねて。JuliaのVersion は1.1.0 (2019–01–21)。
 2次元 julia&amp;gt; x = [1 2; 3 4] 2×2 Array{Int64,2}: 1 2 3 4 縦方向に拾っていきたいときは簡単で、 vec
 julia&amp;gt; vec(x) 4-element Array{Int64,1}: 1 3 2 4 横方向に拾いたい場合は permutedims を噛ませる。
@@ -184,10 +184,10 @@ WARNING: Method definition (::Type{Distributions.DiscreteNonParametric{Int64, P,
     
     <item>
       <title>GCPでJuliaのノートブックを実行</title>
-      <link>https://matsueushi.github.io/posts/gcp_julia/</link>
+      <link>https://matsueushi.github.io/posts/gcp-julia/</link>
       <pubDate>Sat, 30 Mar 2019 21:37:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gcp_julia/</guid>
+      <guid>https://matsueushi.github.io/posts/gcp-julia/</guid>
       <description>自分用メモ
 ローカルの公開鍵をGCPのインスタンスに登録
  [秘密鍵/公開鍵]GCPにSSHで接続する方法
@@ -209,10 +209,10 @@ using Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = E
     
     <item>
       <title>Arrayを横に並べてMatrixにする</title>
-      <link>https://matsueushi.github.io/posts/julia_array_matrix/</link>
+      <link>https://matsueushi.github.io/posts/julia-array-matrix/</link>
       <pubDate>Sat, 23 Mar 2019 21:36:07 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_array_matrix/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-array-matrix/</guid>
       <description>自分用メモ。Juliaで Array を横に並べて Matrix にする方法は、repeat で第1引数を1にして、第2引数を並べたい個数にすればいい。
 julia&amp;gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&amp;gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5</description>
     </item>
@@ -271,10 +271,10 @@ model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution
     
     <item>
       <title>JuliaでArray of Arrayを1次元Vectorにする方法</title>
-      <link>https://matsueushi.github.io/posts/julia_array_of_array/</link>
+      <link>https://matsueushi.github.io/posts/julia-array-of-array/</link>
       <pubDate>Wed, 20 Mar 2019 00:33:19 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_array_of_array/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-array-of-array/</guid>
       <description>よく忘れるのでメモ。
 結論から言うと Base.Iterators.flatten を適用して collect すれば良い。
 julia&amp;gt; import Base.Iterators: flatten julia&amp;gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia&amp;gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):
@@ -298,10 +298,10 @@ N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34
     
     <item>
       <title>Intrinsic Gaussian CARモデルをMambaで実装</title>
-      <link>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</link>
+      <link>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</link>
       <pubDate>Sun, 10 Mar 2019 23:14:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</guid>
+      <guid>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</guid>
       <description>「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3のIntrinsic Gaussian ModelのサンプルをMambaで実装した。
 https://github.com/matsueushi/lip_stick_mamba
 参考にしたMatrix Multiplicationを用いたPyMC3の実装:
@@ -312,10 +312,10 @@ with pm.Model() as model3: # Vague prior on intercept and effect beta = pm.Norma
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
       <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
  生態学のデータ解析 - 久保拓弥
 http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
@@ -354,10 +354,10 @@ https://www.nicovideo.jp/watch/sm15244635
     
     <item>
       <title>Jupyter Notebookのkernelの位置を調べる</title>
-      <link>https://matsueushi.github.io/posts/jupyter_kernel_location/</link>
+      <link>https://matsueushi.github.io/posts/jupyter-kernel-location/</link>
       <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/jupyter_kernel_location/</guid>
+      <guid>https://matsueushi.github.io/posts/jupyter-kernel-location/</guid>
       <description>$ jupyter kernelspec list Available kernels: julia-1.1 /home/matsueushi/.local/share/jupyter/kernels/julia-1.1 python3 /home/matsueushi/.local/share/jupyter/kernels/python3  How do I add python3 kernel to jupyter (IPython) https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803
  </description>
     </item>
@@ -466,10 +466,10 @@ New York, NY 10009</description>
     
     <item>
       <title>Black Dog Productions - Bytes (1993)</title>
-      <link>https://matsueushi.github.io/posts/bdp_bytes/</link>
+      <link>https://matsueushi.github.io/posts/bdp-bytes/</link>
       <pubDate>Wed, 19 Oct 2016 00:25:56 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bdp_bytes/</guid>
+      <guid>https://matsueushi.github.io/posts/bdp-bytes/</guid>
       <description>カッチリした硬質のビートが刻む複雑なリズム、ひんやりとしたメロディ。簡潔でミニマルだが、隙のないほどに知的なテクノだと思う。
 90年代のアナログ感満載のちょっとこもった感じの音もどこか懐かしい。
 アルバムの中でも、冒頭曲Object Orientの畳み掛けるような性急なリズム、奇妙な展開は特にお気に入りだ。
@@ -478,10 +478,10 @@ New York, NY 10009</description>
     
     <item>
       <title>BOaT - RORO (2001)</title>
-      <link>https://matsueushi.github.io/posts/boat_roro/</link>
+      <link>https://matsueushi.github.io/posts/boat-roro/</link>
       <pubDate>Wed, 10 Aug 2016 00:21:13 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/boat_roro/</guid>
+      <guid>https://matsueushi.github.io/posts/boat-roro/</guid>
       <description>最近はすっかり暑くなってきていよいよ夏本番という気がするが、この季節になるとBOaTを聴きたくなる。
 2001年に解散した後相当時間が経ってからバンドを知ったのでリアルタイムにリリースやライブを体験することはできなかったが、マイフェイバリット邦楽バンドTOP3に必ずランクインするほど好きなバンドだ。もしタイムマシンを1回だけ使うことができて好きなバンドの解散ライブを見ることができたらおそらくBOaTの解散ライブに行くだろう。 マイナーバンドなので好きなバンドを聞かれた時にBOaTの名前は基本的に出さないけども、酔っ払って気分が良くなっているときには、ふーんそうなんだ、聞いたことないけど、と言われるのを承知で喋ってしまう。
 BOaTが残した音源は少ない。オリジナルアルバム4枚(フルーツ☆リー、SOUL.THRASH.TRAIN、LISTENING SUICIDAL、RORO)とシングル数枚、コンピレーションに提供した曲ぐらいだ。どれも素晴らしいのだが、その中でもラストアルバムであるROROは一際輝く屈指の名作である。
@@ -511,10 +511,10 @@ LISTENING SUICIDALや(肝心の)ROROは、iTunesには無いので渋谷TSUTAYA�
     
     <item>
       <title>挫・人間 - テレポート・ミュージック (2015)</title>
-      <link>https://matsueushi.github.io/posts/zaningen_teleport/</link>
+      <link>https://matsueushi.github.io/posts/zaningen-teleport/</link>
       <pubDate>Sun, 31 Jul 2016 00:16:07 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/zaningen_teleport/</guid>
+      <guid>https://matsueushi.github.io/posts/zaningen-teleport/</guid>
       <description>挫・人間の2ndアルバム、テレポート・ミュージック。 僕が良くやりがちなパターンなのですが、いろいろ聴きたい音楽を調べているうちにYouTubeで「セルアウト禅問答」のPVを見てフォーリンラブ、Apple Musicで一聴してすぐCD買った。
  
 歌詞に出てくる「ナゴムの遺伝子」だとか「グミチョコ」だとか「美術館で会った人です」だとかラノベっぽいタイトルのM5「可愛い転校生に告白されて付き合おうと思ったら彼女はなんと狐娘だったので人間のぼくが幸せについて本気出して考えてみた」とかちょくちょく入れ込んでくるサブカル感、そしてアルバムに共通する自意識過剰をこじらせてしまったタイプの妄想的な世界観、引きこもりサブカルこじらせタイプ（僕）は強烈なシンパシーを感じてしまった。
@@ -529,10 +529,10 @@ LISTENING SUICIDALや(肝心の)ROROは、iTunesには無いので渋谷TSUTAYA�
     
     <item>
       <title>Girls - Album (2009)</title>
-      <link>https://matsueushi.github.io/posts/girls_album/</link>
+      <link>https://matsueushi.github.io/posts/girls-album/</link>
       <pubDate>Sun, 26 Jun 2016 00:04:20 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/girls_album/</guid>
+      <guid>https://matsueushi.github.io/posts/girls-album/</guid>
       <description>アメリカ、サンフランシスコで活動していたバンド、Girls。活動期間は2007-2012年と短く、僅か2枚のスタジオアルバムと1枚のEPを残し解散してしまった。バンド名こそガールズだが、クリストファー・オウエンスとジャック&amp;rdquo;JR&amp;rdquo;ホワイトの男性2人のバンドだ。
 Girlsが残した2枚のアルバムは大変な傑作なんだけど、今回は特に僕が愛してやまないファーストアルバム、Albumについて書きたい。
 まず内容以前にコンセプトが好きで、バンドの名前がGirlsでアルバムのタイトルがAlbumって言うのが、何でも検索しちゃう今時の風潮に対して斜に構えている感じてイカしてるし、白をベースにした限りなく簡潔なアートワークもいい。余計な情報を頭に入れるより、まずは音源を聞いてくれ、みたいなメッセージなのかもしれない。
@@ -548,10 +548,10 @@ Morning Lightは 部屋の中で大音量で流したい、退廃的な儚い夢
     
     <item>
       <title>Mac Demarco - 2 (2012)</title>
-      <link>https://matsueushi.github.io/posts/macdemarco_2/</link>
+      <link>https://matsueushi.github.io/posts/macdemarco-2/</link>
       <pubDate>Tue, 31 May 2016 23:51:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/macdemarco_2/</guid>
+      <guid>https://matsueushi.github.io/posts/macdemarco-2/</guid>
       <description>ジャケットでにこやかにチェックシャツを着てピースしているのが、カナダ出身、1990年生まれ(若い!)のシンガーソングライター、Mac Demarco。見た目で判断するのはあまり良くないとは思うけど、この愛嬌ある見た目！このちょっと子供っぽい感じ！聞く前から楽しい予感がしてくる。
  INTERVIEW:
 MAC DEMARCO: “I’VE REELED IT IN A LITTLE BIT, BUT NOT THAT MUCH”
@@ -569,10 +569,10 @@ My Kind of Womanなんて20代前半とは思えない哀愁が漂っている�
     
     <item>
       <title>Oval - 94 Diskont (1995)</title>
-      <link>https://matsueushi.github.io/posts/oval_94_diskont/</link>
+      <link>https://matsueushi.github.io/posts/oval-94-diskont/</link>
       <pubDate>Sun, 29 May 2016 23:47:05 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/oval_94_diskont/</guid>
+      <guid>https://matsueushi.github.io/posts/oval-94-diskont/</guid>
       <description>ドイツの実験電子音楽グループOvalの4thアルバム、94 Diskont。 このアルバムは何と言っても1曲目のDo Whileの存在感が際立つ。
 温かい電子音の曖昧な揺らめきの反復が生み出す、しこたま飲酒してフラフラになって眠くなっている時のように感じるような、ドラッギーな酩酊。24分間にわたって繰り返されるアンビエントノイズは、聞いているうちに夢のなかに誘い込まれそうなほど幻想的で美しい。
 他にアルバムに収録されているCommerce ServerやShop In Stoneは、単体で聞けば結構いい曲だが、曲の長さが短くDo Whileのトリップ感を味わう前に曲が終わってしまうので、前半どっぷりとDo Whileの世界観に浸かってからアルバム後半を聞いていると若干物足りなく感じてしまうこともあるかもしれない。
@@ -582,10 +582,10 @@ My Kind of Womanなんて20代前半とは思えない哀愁が漂っている�
     
     <item>
       <title>New Order@新木場STUDIO COAST, 2016/5/25(水)</title>
-      <link>https://matsueushi.github.io/posts/new_order_coast/</link>
+      <link>https://matsueushi.github.io/posts/new-order-coast/</link>
       <pubDate>Sat, 28 May 2016 23:39:58 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/new_order_coast/</guid>
+      <guid>https://matsueushi.github.io/posts/new-order-coast/</guid>
       <description>New Orderの来日公演に行ってきた。New Orderを生で見るのは初。
 New Orderに興味を持った時期はアジカンのナノムゲンコンピレーション(アッシュとかエルレガーデンとかの曲が入ってる青いジャケットのやつ)を買って、洋楽に興味を持ち始めた頃なので高校2年ぐらいだったと思う。YouTubeで色々探している間にCrystalのミュージックビデオにたどり着いた。
  
@@ -617,10 +617,10 @@ New Orderに興味を持った時期はアジカンのナノムゲンコンピ�
     
     <item>
       <title>Cymbals - That&#39;s Entertainment (2000)</title>
-      <link>https://matsueushi.github.io/posts/cymbals_entertainment/</link>
+      <link>https://matsueushi.github.io/posts/cymbals-entertainment/</link>
       <pubDate>Mon, 23 May 2016 10:39:20 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/cymbals_entertainment/</guid>
+      <guid>https://matsueushi.github.io/posts/cymbals-entertainment/</guid>
       <description>渋谷系バンドCymbalsの1stアルバム、That&amp;rsquo;s Entertainment。 Cymbalsのメンバーは土岐麻子、沖井礼二、矢野博康の三人。1997年に結成、当初のコンセプトは「かわいくっていじわるな感じのバンド。ただしパンク」。 2003年12月に解散を発表し、今はそれぞれソロで活動中、とのこと。
 POPで楽しくて爽やかで、おしゃれなギターポップ。聞いてるとなんとなく都会的な育ちの良さを感じる。 ジャケットとかのアートワークが洋楽っぽくて、歌詞は英詩の割合が多くてちょっと背伸びして「気取ってる」ところも可愛くてなんかいい。 フリッパーズ・ギターの1枚目の斜に構えた(失礼)英詩の感じとはちょっと趣が違って、素直。
  明るい日差しの中、芝生の上で寝転がりながら聞くWhat A Shiny Day！

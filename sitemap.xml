@@ -25,7 +25,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/gp_parameter_estimation/</loc>
+    <loc>https://matsueushi.github.io/posts/gp-parameter-estimation/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
   </url>
   
@@ -130,18 +130,12 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/juli/</loc>
-    <lastmod>2019-04-07T00:29:01-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/posts/rollingwindow/</loc>
     <lastmod>2019-04-07T00:29:01-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/julia_array_dim/</loc>
+    <loc>https://matsueushi.github.io/posts/julia-array-dim/</loc>
     <lastmod>2019-04-05T00:20:33-04:00</lastmod>
   </url>
   
@@ -168,7 +162,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/gcp_julia/</loc>
+    <loc>https://matsueushi.github.io/posts/gcp-julia/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
   </url>
   
@@ -190,7 +184,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/julia_array_matrix/</loc>
+    <loc>https://matsueushi.github.io/posts/julia-array-matrix/</loc>
     <lastmod>2019-03-23T21:36:07-04:00</lastmod>
   </url>
   
@@ -215,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/julia_array_of_array/</loc>
+    <loc>https://matsueushi.github.io/posts/julia-array-of-array/</loc>
     <lastmod>2019-03-20T00:33:19-04:00</lastmod>
   </url>
   
@@ -225,12 +219,12 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/intrinsic_gaussian_car/</loc>
+    <loc>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</loc>
     <lastmod>2019-03-10T23:14:30-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/julia_kubo/</loc>
+    <loc>https://matsueushi.github.io/posts/julia-kubo/</loc>
     <lastmod>2019-03-04T23:01:57-04:00</lastmod>
   </url>
   
@@ -258,7 +252,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/jupyter_kernel_location/</loc>
+    <loc>https://matsueushi.github.io/posts/jupyter-kernel-location/</loc>
     <lastmod>2019-03-01T22:52:53-04:00</lastmod>
   </url>
   
@@ -295,7 +289,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/bdp_bytes/</loc>
+    <loc>https://matsueushi.github.io/posts/bdp-bytes/</loc>
     <lastmod>2016-10-19T00:25:56-04:00</lastmod>
   </url>
   
@@ -312,7 +306,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/boat_roro/</loc>
+    <loc>https://matsueushi.github.io/posts/boat-roro/</loc>
     <lastmod>2016-08-10T00:21:13-04:00</lastmod>
   </url>
   
@@ -323,7 +317,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/zaningen_teleport/</loc>
+    <loc>https://matsueushi.github.io/posts/zaningen-teleport/</loc>
     <lastmod>2016-07-31T00:16:07-04:00</lastmod>
   </url>
   
@@ -334,12 +328,12 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/girls_album/</loc>
+    <loc>https://matsueushi.github.io/posts/girls-album/</loc>
     <lastmod>2016-06-26T00:04:20-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/macdemarco_2/</loc>
+    <loc>https://matsueushi.github.io/posts/macdemarco-2/</loc>
     <lastmod>2016-05-31T23:51:30-04:00</lastmod>
   </url>
   
@@ -356,12 +350,12 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/oval_94_diskont/</loc>
+    <loc>https://matsueushi.github.io/posts/oval-94-diskont/</loc>
     <lastmod>2016-05-29T23:47:05-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/new_order_coast/</loc>
+    <loc>https://matsueushi.github.io/posts/new-order-coast/</loc>
     <lastmod>2016-05-28T23:39:58-04:00</lastmod>
   </url>
   
@@ -378,7 +372,7 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/cymbals_entertainment/</loc>
+    <loc>https://matsueushi.github.io/posts/cymbals-entertainment/</loc>
     <lastmod>2016-05-23T10:39:20-04:00</lastmod>
   </url>
   
