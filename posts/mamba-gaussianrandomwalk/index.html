@@ -15,14 +15,14 @@ https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.times
 だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように cumsum を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。
 local_level_model = Model( obs = Stochastic(1, (N, T, sigma_I) -&gt; MvNormal(T, sigma_I), false ), T = Logical(1, (T_0, disturbance) -&gt; T_0 .&#43; vcat([0], cumsum(disturbance)), ), disturbance = Stochastic(1, (N, sigma_T) -&gt; MvNormal(N - 1, sigma_T), false ), sigma_I = Stochastic(() -&gt; InverseGamma()), sigma_T = Stochastic(() -&gt; InverseGamma()), T_0 = Stochastic(T_init -&gt; Normal(T_init, 100)), ) だからと言ってそのためにわざわざPython&#43;PyMC3に移るのも癪だし、練習を兼ねてJulia&#43;Mamba用の確率分布を試しに作ってみようと思ったのが今回の内容である。幸いなことに、Mamba.jlには作り方のガイドラインが書いてあるので、多変量分布用のガイドラインを参考にして作ることができた。
 今回は、GaussianRandomWalk は、初期値の分布 \( D \) とドリフト \( \mu_i \) , 分散 \( \sigma \) とした時に、'>
-<meta property='og:url' content='https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/'>
 <meta property='og:site_name' content='matsueushi'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Mamba'><meta property='article:tag' content='RandomWalk'><meta property='article:published_time' content='2019-04-03T21:52:38-04:00'/><meta property='article:modified_time' content='2019-04-03T21:52:38-04:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
   <title>Mamba.jlでGaussianRandomWalkを作って使う • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/'>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/'>
   
   
   <link rel='icon' href='/favicon.ico'>

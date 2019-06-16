@@ -161,10 +161,10 @@ julia&amp;gt; [&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;
     
     <item>
       <title>Mamba.jlでGaussianRandomWalkを作って使う</title>
-      <link>https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/</link>
+      <link>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</link>
       <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mamba-gaussianranwomwalk/</guid>
+      <guid>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</guid>
       <description>PyMC3にはTimeseriesとして GaussianRandomWalk などの時系列モデルが実装されている。
 https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk
 だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように cumsum を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。
