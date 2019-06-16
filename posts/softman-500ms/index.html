@@ -2,21 +2,35 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='自分用メモ。Juliaで Array を横に並べて Matrix にする方法は、repeat で第1引数を1にして、第2引数を並べたい個数にすればいい。
-julia&gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5'>
+<meta name='description' content='500ms by Softman たまたまbandcampを徘徊していたら出会ったGlitch。
+言葉で表現するのが難しいのだが、パソコンとか家電の起動音とか動作音とかの一番綺麗な部分が切り取られて、ノイズと共に閉じ込められて音楽になったような感じだろうか……
+シンガポールのアンビエントレーベルEvening Chantsというところからリリースされていて、フィジカルはカセットテープのみ。 
+レーベルは2018年の9月に立ち上がったばかりで、他のリリースも配信とカセットテープなので何かこだわりがあるのかと思ったが、 このような記事もあったので、アンビエント界隈ではカセットテープリリースというのがよくあることなのかもしれない。
+ロンドンベースのミュージシャンということ以外Softmanの素性は不明(bandcampに写真は載っている)で、 Twitterやウェブサイトでの言及もほとんど見つからず、謎が多い。
+ “The track listings avoids implying anything or to artificially making you feel something - just face value. It’s not meant to be about anything,”
+https://softman.bandcamp.com/album/500ms
+ と書かれているので、細かいことは追求せず純粋にノイズの美しい揺らめきに耳を傾けよう。
+好きな曲: 500ms_07, 500ms_12, 500ms_22'>
 <meta name='theme-color' content='#ffcd00'>
 
-<meta property='og:title' content='Arrayを横に並べてMatrixにする • matsueushi'>
-<meta property='og:description' content='自分用メモ。Juliaで Array を横に並べて Matrix にする方法は、repeat で第1引数を1にして、第2引数を並べたい個数にすればいい。
-julia&gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5'>
-<meta property='og:url' content='https://matsueushi.github.io/posts/julia-array-matrix/'>
+<meta property='og:title' content='Softman - 500ms (2018) • matsueushi'>
+<meta property='og:description' content='500ms by Softman たまたまbandcampを徘徊していたら出会ったGlitch。
+言葉で表現するのが難しいのだが、パソコンとか家電の起動音とか動作音とかの一番綺麗な部分が切り取られて、ノイズと共に閉じ込められて音楽になったような感じだろうか……
+シンガポールのアンビエントレーベルEvening Chantsというところからリリースされていて、フィジカルはカセットテープのみ。 
+レーベルは2018年の9月に立ち上がったばかりで、他のリリースも配信とカセットテープなので何かこだわりがあるのかと思ったが、 このような記事もあったので、アンビエント界隈ではカセットテープリリースというのがよくあることなのかもしれない。
+ロンドンベースのミュージシャンということ以外Softmanの素性は不明(bandcampに写真は載っている)で、 Twitterやウェブサイトでの言及もほとんど見つからず、謎が多い。
+ “The track listings avoids implying anything or to artificially making you feel something - just face value. It’s not meant to be about anything,”
+https://softman.bandcamp.com/album/500ms
+ と書かれているので、細かいことは追求せず純粋にノイズの美しい揺らめきに耳を傾けよう。
+好きな曲: 500ms_07, 500ms_12, 500ms_22'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/softman-500ms/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:published_time' content='2019-03-23T21:36:07-04:00'/><meta property='article:modified_time' content='2019-03-23T21:36:07-04:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Music'><meta property='article:tag' content='Softman'><meta property='article:published_time' content='2019-06-16T16:20:34-04:00'/><meta property='article:modified_time' content='2019-06-16T16:20:34-04:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>Arrayを横に並べてMatrixにする • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/julia-array-matrix/'>
+  <title>Softman - 500ms (2018) • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/softman-500ms/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -189,7 +203,7 @@ if (!doNotTrack) {
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Arrayを横に並べてMatrixにする</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Softman - 500ms (2018)</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -208,7 +222,7 @@ if (!doNotTrack) {
     <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Arrayを横に並べてMatrixにする</h1>
+      <h1 class='title'>Softman - 500ms (2018)</h1>
       
 
     </div>
@@ -222,7 +236,7 @@ if (!doNotTrack) {
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-03-23T21:36:07-04:00'>2019, Mar 23</time>
+  <time class='entry-date' datetime='2019-06-16T16:20:34-04:00'>2019, Jun 16</time>
 </span>
 
   
@@ -247,21 +261,30 @@ One min read
     
 
     <div class='container entry-content'>
-  <p>自分用メモ。Juliaで <code>Array</code> を横に並べて <code>Matrix</code> にする方法は、<code>repeat</code> で第1引数を1にして、第2引数を並べたい個数にすればいい。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]
-<span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">2</span>
- <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">4</span>
- <span style="color:#ae81ff">5</span>
-julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>], <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
-<span style="color:#ae81ff">5</span>×4 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>
- <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>
- <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span></code></pre></div>
+  <iframe style="border: 0; width: 350px; height: 820px;" src="https://bandcamp.com/EmbeddedPlayer/album=2191479424/size=large/bgcol=ffffff/linkcol=0687f5/package=2476498345/transparent=true/" seamless><a href="http://softman.bandcamp.com/album/500ms">500ms by Softman</a></iframe>  
+
+<p>たまたまbandcampを徘徊していたら出会ったGlitch。</p>
+
+<p>言葉で表現するのが難しいのだが、パソコンとか家電の起動音とか動作音とかの一番綺麗な部分が切り取られて、ノイズと共に閉じ込められて音楽になったような感じだろうか……</p>
+
+<p>シンガポールのアンビエントレーベルEvening Chantsというところからリリースされていて、フィジカルはカセットテープのみ。
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Feveningchants%2Fposts%2F1927477237367335&width=500" width="500" height="554" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe></p>
+
+<p>レーベルは2018年の9月に立ち上がったばかりで、他のリリースも配信とカセットテープなので何かこだわりがあるのかと思ったが、
+<a href="https://themassage.jp/dirt-on-tape-vol-05/" target="_blank">このような記事</a>もあったので、アンビエント界隈ではカセットテープリリースというのがよくあることなのかもしれない。</p>
+
+<p>ロンドンベースのミュージシャンということ以外Softmanの素性は不明(bandcampに写真は載っている)で、
+Twitterやウェブサイトでの言及もほとんど見つからず、謎が多い。</p>
+
+<blockquote>
+<p>“The track listings avoids implying anything or to artificially making you feel something - just face value. It’s not meant to be about anything,”<br />
+<a href="https://softman.bandcamp.com/album/500ms" target="_blank">https://softman.bandcamp.com/album/500ms</a></p>
+</blockquote>
+
+<p>と書かれているので、細かいことは追求せず純粋にノイズの美しい揺らめきに耳を傾けよう。</p>
+
+<p>好きな曲: 500ms_07, 500ms_12, 500ms_22</p>
+
   <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -273,7 +296,7 @@ julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff"
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/music/'>Music</a>, <a class='tag' href='/tags/softman/'>Softman</a></div>
 
   </div>
 </footer>
@@ -303,7 +326,7 @@ julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff"
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/bayesian-methods-julia-5/'>
+      <a href='/posts/gp-parameter-estimation/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -311,17 +334,7 @@ julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff"
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/plotly-scale/'>
-        <span class='screen-reader-text'>Next post: </span>Plots.jlでx軸、y軸のスケールを揃える<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>Juliaでガウス過程を実装&amp;パラメーター推定</a>
     </div></div>
 </nav>
 
