@@ -12,10 +12,10 @@
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia_kubo/</link>
+      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia_kubo/</guid>
+      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
       <description>最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。
  生態学のデータ解析 - 久保拓弥
 http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html

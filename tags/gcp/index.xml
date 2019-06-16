@@ -12,10 +12,10 @@
     
     <item>
       <title>GCPでJuliaのノートブックを実行</title>
-      <link>https://matsueushi.github.io/posts/gcp_julia/</link>
+      <link>https://matsueushi.github.io/posts/gcp-julia/</link>
       <pubDate>Sat, 30 Mar 2019 21:37:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gcp_julia/</guid>
+      <guid>https://matsueushi.github.io/posts/gcp-julia/</guid>
       <description>自分用メモ
 ローカルの公開鍵をGCPのインスタンスに登録
  [秘密鍵/公開鍵]GCPにSSHで接続する方法
