@@ -11,6 +11,18 @@
     
     
     <item>
+      <title>About</title>
+      <link>https://matsueushi.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matsueushi.github.io/about/</guid>
+      <description>GitHub: https://github.com/matsueushi
+Twitter: https://twitter.com/matsue_ushi
+Last.fm: https://www.last.fm/user/tanh
+RateYourMusic(更新してません): https://rateyourmusic.com/~matsueushi</description>
+    </item>
+    
+    <item>
       <title>Softman - 500ms (2018)</title>
       <link>https://matsueushi.github.io/posts/softman-500ms/</link>
       <pubDate>Sun, 16 Jun 2019 16:20:34 -0400</pubDate>
