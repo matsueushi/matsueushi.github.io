@@ -2,7 +2,7 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='6&frasl;27 追記: \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \)) を削除
+<meta name='description' content='6&frasl;27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
 「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
 そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&rdquo; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。
 \( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて
@@ -10,7 +10,7 @@ $$ y_n = f(\mathbf{x_n}) &#43; \epsilon_n,$$ $$\epsilon_n \sim \mathcal{N}(0, \s
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='ガウス過程の補助変数法 (Inducing variable method) を理解する • matsueushi'>
-<meta property='og:description' content='6&frasl;27 追記: \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \)) を削除
+<meta property='og:description' content='6&frasl;27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
 「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
 そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&rdquo; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。
 \( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて
@@ -269,7 +269,7 @@ if (!doNotTrack) {
     <div class='container entry-content'>
   
 
-<p><sup>6</sup>&frasl;<sub>27</sub> 追記:  \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \)) を削除</p>
+<p><sup>6</sup>&frasl;<sub>27</sub> 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)</p>
 
 <hr />
 
@@ -406,7 +406,7 @@ $$</p>
     \end{aligned}
 $$</p>
 
-<p>であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、分散共分散行列の線型性から、</p>
+<p>であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、<a href="https://en.wikipedia.org/wiki/Cross-covariance_matrix" target="_blank">相互共分散行列</a>の線型性から、</p>
 
 <p>$$
     \begin{aligned}
@@ -499,7 +499,7 @@ $$
     \begin{aligned}
         q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
         &amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *} \\
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
         &amp; = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y},
         \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
     \end{aligned}
@@ -544,7 +544,7 @@ $$</p>
     \begin{aligned}
         q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
         &amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{y},
-        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *} \\
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
         &amp; = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
         \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
     \end{aligned}

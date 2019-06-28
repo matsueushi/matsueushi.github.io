@@ -16,7 +16,7 @@
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
-      <description>6&amp;frasl;27 追記: \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \)) を削除
+      <description>6&amp;frasl;27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
 「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
 そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。
 \( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて
