@@ -456,7 +456,7 @@ $$</p>
 
 <p>を得る。分散の方の等号も、この式を使えば最終的に \( \Sigma (\mathbf{K}_{\mathbf{u}, \mathbf{u}} + \sigma^{-2}\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}}) = \mathbf{I} \) に帰着させて示すことができる。</p>
 
-<h2 id="the-deterministic-training-conditional-dtc-approximation">The Deterministic Training Conditional (DTC) Approximation</h2>
+<h3 id="the-deterministic-training-conditional-dtc-approximation">The Deterministic Training Conditional (DTC) Approximation</h3>
 
 <p>DTCはSoRと似ていて、</p>
 
@@ -507,7 +507,7 @@ $$</p>
 
 <p>となる。これはSoRの時の結果からすぐに従う。</p>
 
-<h2 id="the-fully-independent-training-conditional-fitc-approximation">The Fully Independent Training Conditional (FITC) Approximation</h2>
+<h3 id="the-fully-independent-training-conditional-fitc-approximation">The Fully Independent Training Conditional (FITC) Approximation</h3>
 
 <p>いよいよ、当初の目的だったFITCまでたどり着いた。FITCは、DTCとほぼ同じだが、
 DTCでは切り捨てていた \( q(\mathbf{f} | \mathbf{u}) \) の分散を考慮する。</p>
@@ -552,7 +552,7 @@ $$</p>
 
 <p>を得る。ここで、 \( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) である。</p>
 
-<h2 id="最後に">最後に</h2>
+<h3 id="最後に">最後に</h3>
 
 <p>統一的な枠組みで SoD, SoR, DTC, FITC と順に読んでいくことで補助変数法を一望することができて面白かった。</p>
 
