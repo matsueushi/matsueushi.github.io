@@ -324,7 +324,8 @@ $$</p>
 
 <p>$$
     \begin{aligned}
-        p(\mathbf{f}_* | \mathbf{y}) &amp;= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} = \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\
+        p(\mathbf{f}_* | \mathbf{y}) &amp;= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\
+        &amp;= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\
         &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1}\mathbf{y},
         \mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}}\widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1} \mathbf{K}_{\mathbf{f}, *}),
     \end{aligned}
@@ -335,7 +336,10 @@ $$
 <p>いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。</p>
 
 <p>$$
-p(\mathbf{f}_*, \mathbf{f}) = \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} = \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+    \begin{aligned}
+        p(\mathbf{f}_*, \mathbf{f}) &amp;= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\
+        &amp;= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+    \end{aligned}
 $$</p>
 
 <p>$$
@@ -355,7 +359,10 @@ $$</p>
 <p>補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、</p>
 
 <p>$$
-p(\mathbf{f}_*, \mathbf{f}) \simeq q(\mathbf{f}_*, \mathbf{f}) = \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+    \begin{aligned}
+        p(\mathbf{f}_*, \mathbf{f}) &amp;\simeq q(\mathbf{f}_*, \mathbf{f}) \\
+        &amp;= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+    \end{aligned}
 $$</p>
 
 <p>という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。</p>
@@ -385,13 +392,20 @@ $$</p>
 心持ちとしては、</p>
 
 <p>$$
-q_{\text{SoR}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0})
-\simeq p(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
+    \begin{aligned}
+        q_{\text{SoR}}(\mathbf{f} | \mathbf{u})
+        &amp;= \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
+        &amp;\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) \\
+        &amp;= p(\mathbf{f} | \mathbf{u}),
+    \end{aligned}
 $$</p>
 
 <p>$$
-q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0})
-\simeq p(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+    \begin{aligned}
+        q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
+        &amp;\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *}) \\
+        &amp;= p(\mathbf{f}_* | \mathbf{u})
+    \end{aligned}
 $$</p>
 
 <p>と、\( p(\mathbf{f} | \mathbf{u}), p(\mathbf{f}_* | \mathbf{u}) \) の分散を \( 0 \) と近似して、\( \mathbf{f}, \mathbf{f}_* \) と \( \mathbf{u} \) の関係がdeterministicと仮定するものである。(deterministicの場合はもはや \( \mathbf{f} | \mathbf{u}\) は正規分布ではないので、この書き方は微妙な感じかもしれないが、論文のnotationに従った)</p>
@@ -400,7 +414,8 @@ $$</p>
 
 <p>$$
     \begin{aligned}
-        \mathbf{f} = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} &amp; \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\
+        \mathbf{f} &amp;= \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\
+        &amp; \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\
         &amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}) \\
         &amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
     \end{aligned}
@@ -467,15 +482,20 @@ $$</p>
 <p>と \( \mathbf{f} \) が deterministic に \( \mathbf{u} \) によって定まると仮定する。一方、出力値の方は</p>
 
 <p>$$
-q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) = p(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+    \begin{aligned}
+        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) &amp;= p(\mathbf{f}_* | \mathbf{u}) \\
+        &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+    \end{aligned}
 $$</p>
 
 <p>と近似を行わない。</p>
 
 <p>$$
-\text{cov}(\mathbf{f}, \mathbf{f}_*)
-= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*)
-= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} = \mathbf{Q}_{\mathbf{f}, *}
+    \begin{aligned}
+        \text{cov}(\mathbf{f}, \mathbf{f}_*) &amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*) \\
+        &amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\
+        &amp;= \mathbf{Q}_{\mathbf{f}, *}
+    \end{aligned}
 $$
 などから、</p>
 
@@ -520,7 +540,10 @@ q_{\text{FITC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \
 $$</p>
 
 <p>$$
-q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) = p(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+    \begin{aligned}
+        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) &amp;= p(\mathbf{f}_* | \mathbf{u}) \\
+        &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+    \end{aligned}
 $$</p>
 
 <p>となる。今までと同じように計算して、同時分布</p>
