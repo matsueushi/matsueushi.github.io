@@ -497,16 +497,18 @@ Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#960050;backgroun
 
 <h3 id="the-fully-independent-training-conditional-fitc">The Fully Independent Training Conditional (FITC)</h3>
 
-<p>最後にFITC。
+<p>最後にFITC。</p>
+
+<p>\( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) を使って
 $$
     \begin{aligned}
         q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
         = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
-        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
     \end{aligned}
 $$</p>
 
-<p>から同様に</p>
+<p>だったから同様に</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
 Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
 Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#960050;background-color:#1e0010">&#39;</span>
