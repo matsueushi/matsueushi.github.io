@@ -5,10 +5,24 @@
     <link>https://matsueushi.github.io/tags/fitc/</link>
     <description>Recent content in FITC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 27 Jun 2019 00:55:38 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/fitc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ガウス過程の変数補助法をJuliaで実装、回帰結果を比較</title>
+      <link>https://matsueushi.github.io/posts/ivm/</link>
+      <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/ivm/</guid>
+      <description>前回書いた 「ガウス過程の補助変数法 (Inducing variable method) を理解する 」の続き。 Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。
+簡単のため、gp.jl により、
+ ガウスカーネルのクラス GaussianKernel が定義されていて、
+ カーネル k に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ ker(k, x, y) と cov(k, xs, ys) で計算できる  と仮定する。ということで、まずはライブラリの読み込み。
+using Distributions using Plots using LinearAlgebra include(&amp;#34;gp.jl&amp;#34;) データは、MLPシリーズ 「ガウス過程と機械学習」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。
+# サンプルデータの作成 xs = vcat(rand(80),rand(20) * 3 .+ 1.0) sort!(xs) fx = sin.</description>
+    </item>
     
     <item>
       <title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
