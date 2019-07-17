@@ -4,16 +4,51 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2019-07-04T10:10:28-04:00</lastmod>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2019-07-04T10:10:28-04:00</lastmod>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/glitchpop/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/shoegaze/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/sweettrip-velocity-design-comfort/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/sweettrip/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -59,12 +94,6 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/posts/ivm/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
   </url>
@@ -72,12 +101,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/sparse-approximate-gp/</loc>
     <lastmod>2019-06-27T00:55:38-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
-    <lastmod>2019-06-16T16:20:34-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
