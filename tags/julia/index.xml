@@ -5,10 +5,26 @@
     <link>https://matsueushi.github.io/tags/julia/</link>
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 08 Jun 2019 20:08:12 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jul 2019 21:22:00 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
+      <link>https://matsueushi.github.io/posts/gaussianprocess-jl/</link>
+      <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl/</guid>
+      <description>Juliaのガウス過程ライブラリ GaussianProcesses.jl を触ってみる。 チュートリアルはまだ未整備のようなので、サンプルノートブックとガウス過程と機械学習」などを参考にしながらやっていく。 Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。
+インストールはいつものように
+using Pkg Pkg.add(&amp;#34;GaussianProcesses&amp;#34;) カーネル関数 すでに多くの種類のカーネル関数が実装されており、 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。
+全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。
+ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では $$ k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) $$
+となっているが、GaussianProcesses.jlでこれに対応するのは GaussianProcesses.SEIso である。 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 SEIso(ll::T, lσ::T) は、 \(\sigma = \log (\) lσ \()\), \(l = \log (\) ll \()\) とした時に
+$$ k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right) $$
+だから、\( k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right) \) は</description>
+    </item>
     
     <item>
       <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
