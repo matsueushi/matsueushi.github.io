@@ -5,10 +5,22 @@
     <link>https://matsueushi.github.io/posts/</link>
     <description>Recent content in Blog on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 17 Jul 2019 21:22:00 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 04 Aug 2019 11:04:13 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>
+      <link>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</link>
+      <pubDate>Sun, 04 Aug 2019 11:04:13 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</guid>
+      <description>前回 の続き。GaussianProcesses.jlを使ってガウス過程回帰のハイパーパラメータ推定を行ってみる。 「ガウス過程と機械学習」の図3.20(a)を例とする。
+xxs = [-0.5, 0.5, 1, 1.4, 3] yys = [0.7, 1.8, 1.7, 2.3, 1] scatter(xxs, yys)          0  1  2  3  0.9  1.2  1.5  1.8  2.1  y1  
+平均0のガウスカーネルのガウス過程に(ノイズ項込みで)フィッティングさせるのは非常に簡単で、optimize! を呼べば良いだけ。
+gp = GP(xxs, yys, MeanZero(), SE(0.0, 0.0)) optimize!(gp) Results of Optimization Algorithm * Algorithm: L-BFGS * Starting Point: [-2.0,0.0,0.0] * Minimizer: [-1.</description>
+    </item>
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
