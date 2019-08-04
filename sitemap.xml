@@ -126,12 +126,6 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/gaussianpocess/</loc>
-    <lastmod>2019-06-08T20:08:12-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/posts/gp-parameter-estimation/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
   </url>
