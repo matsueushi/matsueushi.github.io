@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
+ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia)を実装したので記録。使っているのはいつものようにJulia。
+\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
+データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
+各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
+アルゴリズムは、目的関数
+$$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 $$'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='K-平均アルゴリズム • matsueushi'>
+<meta property='og:description' content='最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
+ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia)を実装したので記録。使っているのはいつものようにJulia。
+\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
+データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
+各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
+アルゴリズムは、目的関数
+$$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 $$'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/clustering-kmean/'>
+<meta property='og:site_name' content='matsueushi'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='KMean'><meta property='article:published_time' content='2019-08-22T00:04:58-04:00'/><meta property='article:modified_time' content='2019-08-22T00:04:58-04:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.55.6" />
+
+  <title>K-平均アルゴリズム • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/clustering-kmean/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-141286537-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+
+</head>
+<body class='page type-posts has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/ushi.jpg'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      matsueushi
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/posts/'>Blog</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='/tags/bayesian/' style='font-size:1.2857142857142856em'>Bayesian</a>
+      </li><li>
+        <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
+      </li><li>
+        <a href='/tags/boat/' style='font-size:1em'>BOaT</a>
+      </li><li>
+        <a href='/tags/cymbals/' style='font-size:1em'>Cymbals</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/dtc/' style='font-size:1.0476190476190477em'>DTC</a>
+      </li><li>
+        <a href='/tags/fitc/' style='font-size:1.0476190476190477em'>FITC</a>
+      </li><li>
+        <a href='/tags/gaussianprocess/' style='font-size:1.2380952380952381em'>GaussianProcess</a>
+      </li><li>
+        <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
+      </li><li>
+        <a href='/tags/girls/' style='font-size:1em'>Girls</a>
+      </li><li>
+        <a href='/tags/glitchpop/' style='font-size:1em'>Glitchpop</a>
+      </li><li>
+        <a href='/tags/inducingvariablemethod/' style='font-size:1.0476190476190477em'>InducingVariableMethod</a>
+      </li><li>
+        <a href='/tags/julia/' style='font-size:2em'>Julia</a>
+      </li><li>
+        <a href='/tags/jupyter/' style='font-size:1.0476190476190477em'>Jupyter</a>
+      </li><li>
+        <a href='/tags/katex/' style='font-size:1.0476190476190477em'>KaTeX</a>
+      </li><li>
+        <a href='/tags/kmean/' style='font-size:1em'>KMean</a>
+      </li><li>
+        <a href='/tags/lolicatonica/' style='font-size:1.0476190476190477em'>LolicaTonica</a>
+      </li><li>
+        <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
+      </li><li>
+        <a href='/tags/mamba/' style='font-size:1.4285714285714286em'>Mamba</a>
+      </li><li>
+        <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
+      </li><li>
+        <a href='/tags/ml/' style='font-size:1em'>ML</a>
+      </li><li>
+        <a href='/tags/mlp/' style='font-size:1.0476190476190477em'>MLP</a>
+      </li><li>
+        <a href='/tags/music/' style='font-size:1.619047619047619em'>Music</a>
+      </li><li>
+        <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
+      </li><li>
+        <a href='/tags/optim/' style='font-size:1em'>Optim</a>
+      </li><li>
+        <a href='/tags/oval/' style='font-size:1em'>Oval</a>
+      </li><li>
+        <a href='/tags/plots/' style='font-size:1em'>Plots</a>
+      </li><li>
+        <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
+      </li><li>
+        <a href='/tags/record/' style='font-size:1.0476190476190477em'>Record</a>
+      </li><li>
+        <a href='/tags/shoegaze/' style='font-size:1em'>Shoegaze</a>
+      </li><li>
+        <a href='/tags/sod/' style='font-size:1.0476190476190477em'>SoD</a>
+      </li><li>
+        <a href='/tags/softman/' style='font-size:1em'>Softman</a>
+      </li><li>
+        <a href='/tags/sor/' style='font-size:1.0476190476190477em'>SoR</a>
+      </li><li>
+        <a href='/tags/sparseapproximation/' style='font-size:1.0476190476190477em'>SparseApproximation</a>
+      </li><li>
+        <a href='/tags/sweettrip/' style='font-size:1em'>SweetTrip</a>
+      </li><li>
+        <a href='/tags/test/' style='font-size:1em'>test</a>
+      </li><li>
+        <a href='/tags/yubikey/' style='font-size:1em'>YubiKey</a>
+      </li><li>
+        <a href='/tags/zaningen/' style='font-size:1em'>Zaningen</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Blog</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li><li class='item'>
+        <a href='/memo/'>memo</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>K-平均アルゴリズム</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>matsueushi</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+    <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>K-平均アルゴリズム</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2019-08-22T00:04:58-04:00'>2019, Aug 22</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+3 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    
+    
+
+    <div class='container entry-content'>
+  <p>最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「<a href="http://bookclub.kodansha.co.jp/product?item=0000147666" target="_blank">ノンパラメトリックベイズ 点過程と統計的機械学習の数理</a>」に入門を開始した。</p>
+
+<p>ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(<a href="https://ja.wikipedia.org/wiki/K平均法" target="_blank">Wikipedia</a>)を実装したので記録。使っているのはいつものようにJulia。</p>
+
+<p>\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。</p>
+
+<hr />
+
+<p>データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、
+各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。</p>
+
+<p>各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、
+\( K \)-平均法では、
+各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、
+$$
+z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2
+$$
+となる。</p>
+
+<p>アルゴリズムは、目的関数</p>
+
+<p>$$
+f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2
+$$</p>
+
+<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。</p>
+
+<ol>
+<li>\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
+   \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する</li>
+<li>$$
+\boldsymbol{\mu}_k = \frac{1}{\sharp \{i \mid z_i = k \}} \sum_{i, z_i=k} \mathbf{x}_i
+$$
+とする。</li>
+<li>以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す。
+
+<ol>
+<li>\( z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2, i = 1, \ldots, n \) とする</li>
+<li>集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合(=分類されるクラスが減少してしまった場合)、最初に戻って \( (z_i)_{i=1}^n \) の初期化からやり直す</li>
+</ol></li>
+</ol>
+
+<p>代表点の位置によっては分類されたクラスの数が当初設定した \( K \)より小さくなってしまうことがあり、
+そのまま計算を行うと、\( \boldsymbol{\mu}_k \) のいずれかが <code>NaN</code> になって計算できないので、
+\( K \) を置き換えるか、ラベルを振り直すというのがすぐに思いつく方法だが、今回は後者の方法を採用した。</p>
+
+<hr />
+
+<p>使ったデータは<a href="https://github.com/cstjean/ScikitLearn.jl" target="_blank">ScikitLearn.jl</a>で作成。
+下の図のような三種類のパターン(<code>noisy_circles</code>, <code>noisy_moons</code>, <code>blobs</code>)を用意して、サンプル点は1500個。
+<a href="https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb" target="_blank">このページ</a>が参考になる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> ScikitLearn
+<span style="color:#66d9ef">using</span> Statistics
+<span style="color:#66d9ef">using</span> Plots
+<span style="color:#66d9ef">using</span> Printf
+<span style="color:#66d9ef">using</span> Random
+
+<span style="color:#a6e22e">@sk_import</span> datasets<span style="color:#f92672">:</span> (make_circles, make_moons, make_blobs)
+
+n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
+noisy_circles <span style="color:#f92672">=</span> make_circles(n_samples<span style="color:#f92672">=</span>n_samples, 
+                             factor<span style="color:#f92672">=.</span><span style="color:#ae81ff">5</span>, noise<span style="color:#f92672">=.</span><span style="color:#ae81ff">05</span>)
+noisy_moons <span style="color:#f92672">=</span> make_moons(n_samples<span style="color:#f92672">=</span>n_samples, noise<span style="color:#f92672">=.</span><span style="color:#ae81ff">05</span>)
+blobs <span style="color:#f92672">=</span> make_blobs(n_samples<span style="color:#f92672">=</span>n_samples, random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+
+plts <span style="color:#f92672">=</span> []
+
+<span style="color:#66d9ef">for</span> data <span style="color:#66d9ef">in</span> [noisy_circles, noisy_moons, blobs]
+    points, label <span style="color:#f92672">=</span> data
+    push!(plts, scatter(points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], 
+                        label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, mc<span style="color:#f92672">=</span>label))
+<span style="color:#66d9ef">end</span>
+
+Plots<span style="color:#f92672">.</span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">400</span>])</code></pre></div>
+<p><img src="/images/posts/clustering-kmean_dataset.png" alt="Dataset" /></p>
+
+<p>本体の実装はこんな感じで、<code>dist</code> で \( f \) の値、 <code>dist_change</code> で \( f \) の変化を保持。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">mutable</span> <span style="color:#66d9ef">struct</span> KMean
+    points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
+    K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>
+    zs<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
+    μs<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
+    dist<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
+    dist_change<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">function</span> KMean(points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}, K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>)
+    n_points <span style="color:#f92672">=</span> size(points, <span style="color:#ae81ff">1</span>)
+    init_zs <span style="color:#f92672">=</span> nothing
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span>
+        init_zs <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>K, n_points)
+        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(init_zs)) <span style="color:#f92672">==</span> K
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
+    zs <span style="color:#f92672">=</span> init_zs
+    kmean <span style="color:#f92672">=</span> KMean(points, K, zs, 
+                  zeros(<span style="color:#ae81ff">1</span>, size(points, <span style="color:#ae81ff">2</span>), K), <span style="color:#ae81ff">0</span>, typemax(<span style="color:#66d9ef">Float64</span>))
+    update_μs!(kmean)
+    kmean
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">function</span> update_μs!(km<span style="color:#f92672">::</span>KMean)
+    km<span style="color:#f92672">.</span>μs <span style="color:#f92672">=</span> cat([mean(km<span style="color:#f92672">.</span>points[km<span style="color:#f92672">.</span>zs <span style="color:#f92672">.==</span> i, <span style="color:#f92672">:</span>], dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K]<span style="color:#f92672">...</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+    new_dist <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">-</span> reshape(km<span style="color:#f92672">.</span>μs[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>, km<span style="color:#f92672">.</span>zs], <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>)<span style="color:#960050;background-color:#1e0010">&#39;</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)
+    km<span style="color:#f92672">.</span>dist_change <span style="color:#f92672">=</span> km<span style="color:#f92672">.</span>dist <span style="color:#f92672">-</span> new_dist
+    km<span style="color:#f92672">.</span>dist <span style="color:#f92672">=</span> new_dist
+    km
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">function</span> update_zs!(km<span style="color:#f92672">::</span>KMean)
+    norms <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">.-</span> km<span style="color:#f92672">.</span>μs)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+    argmin_norms <span style="color:#f92672">=</span> [x[<span style="color:#ae81ff">3</span>] <span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> argmin(norms, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)][<span style="color:#f92672">:</span>]
+    
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span>
+        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(argmin_norms)) <span style="color:#f92672">==</span> km<span style="color:#f92672">.</span>K
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">end</span>
+        argmin_norms <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K, size(km<span style="color:#f92672">.</span>points, <span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">end</span>
+    
+    km<span style="color:#f92672">.</span>zs <span style="color:#f92672">=</span> argmin_norms
+    km
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">function</span> update!(km<span style="color:#f92672">::</span>KMean)
+    update_zs!(km)
+    update_μs!(km)
+    km
+<span style="color:#66d9ef">end</span></code></pre></div>
+<p>それぞれのサンプルデータに対し、\( f \) の減少幅が0.1以下になるまでイテレーションを行う(最高100回)様子をアニメーションして、gifファイルに出力させると下のようになる。
+Juliaはgifのアニメーションを作るのも楽でいいですね。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">gifs <span style="color:#f92672">=</span> []
+
+<span style="color:#66d9ef">for</span> (i, (data, K)) <span style="color:#66d9ef">in</span> enumerate(zip([noisy_circles, noisy_moons, blobs], [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]))
+    points, label <span style="color:#f92672">=</span> data
+
+    km <span style="color:#f92672">=</span> KMean(points, K)
+
+    anim <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>
+        <span style="color:#66d9ef">if</span> abs(km<span style="color:#f92672">.</span>dist_change) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.01</span>
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">end</span>
+        scatter(km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], mc<span style="color:#f92672">=</span>km<span style="color:#f92672">.</span>zs, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+        plt <span style="color:#f92672">=</span> scatter!(km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], ms<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, mc<span style="color:#f92672">=:</span>yellow, msw<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, 
+                       title<span style="color:#f92672">=</span><span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;Iterations=</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>, n))
+        update!(km)
+        plt
+    <span style="color:#66d9ef">end</span>
+
+    push!(gifs, gif(anim, <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;clustering-kmean_</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">.gif&#34;</span>, i), fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>))
+<span style="color:#66d9ef">end</span>
+
+display<span style="color:#f92672">.</span>(gifs);</code></pre></div>
+<p>結果は下の通り。黄色の点が、\( (\boldsymbol{\mu}_k)_{k=1}^K \) に該当。</p>
+
+<p><code>noisy_circles</code> と <code>noisy_moons</code> では次のような結果で、
+代表点からの距離でクラスタリングするならばまあそうなるだろう、という結果。</p>
+
+<p><img src="/images/posts/clustering-kmean_circles.gif" alt="noisy circles" /></p>
+
+<p><img src="/images/posts/clustering-kmean_moons.gif" alt="noisy moons" /></p>
+
+<p><code>blobs</code> では一見うまくいくように見えるが、</p>
+
+<p><img src="/images/posts/clustering-kmean_blobs_1.gif" alt="blob 成功例" /></p>
+
+<p>乱数による初期化次第で、下のように期待とは違う場所に収束することも起こり得る。</p>
+
+<p><img src="/images/posts/clustering-kmean_blobs_2.gif" alt="blob 失敗例" /></p>
+
+<p>次は混合ガウスモデルのギブスサンプリングかな。</p>
+
+<p>Jupyter Notebook(アニメーションは表示されない):<br />
+<a href="https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb" target="_blank">https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb</a></p>
+
+  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+    
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a>, <a class='tag' href='/tags/kmean/'>KMean</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/gaussianprocess-jl-2/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</a>
+    </div></div>
+</nav>
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/matsueushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/matsue_ushi' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:matsueushi@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2019 matsueushi </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
+<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js'></script>
+<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js'></script>
+
+<script type='text/javascript'>
+  renderMathInElement(document.querySelector('.entry-content'),{});
+</script>
+
+</body>
+
+</html>

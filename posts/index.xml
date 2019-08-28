@@ -5,10 +5,25 @@
     <link>https://matsueushi.github.io/posts/</link>
     <description>Recent content in Blog on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 04 Aug 2019 11:04:13 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K-平均アルゴリズム</title>
+      <link>https://matsueushi.github.io/posts/clustering-kmean/</link>
+      <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/clustering-kmean/</guid>
+      <description>最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
+ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia)を実装したので記録。使っているのはいつものようにJulia。
+\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
+データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
+各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
+アルゴリズムは、目的関数
+$$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 $$</description>
+    </item>
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>

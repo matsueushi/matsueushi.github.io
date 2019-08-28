@@ -5,10 +5,28 @@
     <link>https://matsueushi.github.io/tags/</link>
     <description>Recent content in Tags on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 17 Jul 2019 21:22:00 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Julia</title>
+      <link>https://matsueushi.github.io/tags/julia/</link>
+      <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>KMean</title>
+      <link>https://matsueushi.github.io/tags/kmean/</link>
+      <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/kmean/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>GaussianProcess</title>
@@ -16,15 +34,6 @@
       <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/gaussianprocess/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Julia</title>
-      <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
     </item>
     
