@@ -3,7 +3,7 @@
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
-ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia)を実装したので記録。使っているのはいつものようにJulia。
+ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia) を実装したので記録。使っているのはいつものようにJulia。
 \(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
 データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
 各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
@@ -13,7 +13,7 @@ $$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i
 
 <meta property='og:title' content='K-平均アルゴリズム • matsueushi'>
 <meta property='og:description' content='最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
-ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia)を実装したので記録。使っているのはいつものようにJulia。
+ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia) を実装したので記録。使っているのはいつものようにJulia。
 \(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
 データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
 各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
@@ -279,9 +279,11 @@ if (!doNotTrack) {
     
 
     <div class='container entry-content'>
-  <p>最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「<a href="http://bookclub.kodansha.co.jp/product?item=0000147666" target="_blank">ノンパラメトリックベイズ 点過程と統計的機械学習の数理</a>」に入門を開始した。</p>
+  
 
-<p>ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(<a href="https://ja.wikipedia.org/wiki/K平均法" target="_blank">Wikipedia</a>)を実装したので記録。使っているのはいつものようにJulia。</p>
+<p>最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「<a href="http://bookclub.kodansha.co.jp/product?item=0000147666" target="_blank">ノンパラメトリックベイズ 点過程と統計的機械学習の数理</a>」に入門を開始した。</p>
+
+<p>ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(<a href="https://ja.wikipedia.org/wiki/K平均法" target="_blank">Wikipedia</a>) を実装したので記録。使っているのはいつものようにJulia。</p>
 
 <p>\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。</p>
 
@@ -306,17 +308,19 @@ $$</p>
 
 <p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。</p>
 
+<h3 id="アルゴリズム">アルゴリズム</h3>
+
 <ol>
 <li>\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
    \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する</li>
 <li>$$
 \boldsymbol{\mu}_k = \frac{1}{\sharp \{i \mid z_i = k \}} \sum_{i, z_i=k} \mathbf{x}_i
 $$
-とする。</li>
-<li>以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す。
+と代表点の更新を行う</li>
+<li>以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す
 
 <ol>
-<li>\( z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2, i = 1, \ldots, n \) とする</li>
+<li>\( z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2, i = 1, \ldots, n \) とラベリングの更新を行う</li>
 <li>集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合(=分類されるクラスが減少してしまった場合)、最初に戻って \( (z_i)_{i=1}^n \) の初期化からやり直す</li>
 </ol></li>
 </ol>
@@ -327,9 +331,9 @@ $$
 
 <hr />
 
-<p>使ったデータは<a href="https://github.com/cstjean/ScikitLearn.jl" target="_blank">ScikitLearn.jl</a>で作成。
-下の図のような三種類のパターン(<code>noisy_circles</code>, <code>noisy_moons</code>, <code>blobs</code>)を用意して、サンプル点は1500個。
-<a href="https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb" target="_blank">このページ</a>が参考になる。</p>
+<p>使ったデータは <a href="https://github.com/cstjean/ScikitLearn.jl" target="_blank">ScikitLearn.jl</a> で作成。
+下の図のような三種類のパターン (<code>noisy_circles</code>, <code>noisy_moons</code>, <code>blobs</code>) を用意して、サンプル点は1500個。
+<a href="https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb" target="_blank">このページ</a> が参考になる。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> ScikitLearn
 <span style="color:#66d9ef">using</span> Statistics
 <span style="color:#66d9ef">using</span> Plots
@@ -450,9 +454,9 @@ display<span style="color:#f92672">.</span>(gifs);</code></pre></div>
 
 <p><img src="/images/posts/clustering-kmean_blobs_2.gif" alt="blob 失敗例" /></p>
 
-<p>次は混合ガウスモデルのギブスサンプリングかな。</p>
+<p>次は混合ガウスモデルのギブスサンプリングかな。無限次元への扉は遠い&hellip;</p>
 
-<p>Jupyter Notebook(アニメーションは表示されない):<br />
+<p>Jupyter Notebook (アニメーションは表示されない):<br />
 <a href="https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb" target="_blank">https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb</a></p>
 
   <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
