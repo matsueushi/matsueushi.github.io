@@ -5,7 +5,7 @@
     <link>https://matsueushi.github.io/</link>
     <description>Recent content in Home on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 01:26:23 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -20,6 +20,19 @@
 Twitter: https://twitter.com/matsue_ushi
 Last.fm: https://www.last.fm/user/tanh
 RateYourMusic(更新してません): https://rateyourmusic.com/~matsueushi</description>
+    </item>
+    
+    <item>
+      <title>Juliaの単位行列</title>
+      <link>https://matsueushi.github.io/posts/julia-identity/</link>
+      <pubDate>Mon, 02 Sep 2019 01:26:23 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia-identity/</guid>
+      <description>何かと必要になる単位行列だが、Julia v1.0以降だと LinearAlgebra をインポートして Matrix と I の組み合わせで作成するのが楽なようだ。
+using LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true  Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1  Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0  MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。
+MvNormal([3, 4], I) IsoNormal( dim: 2 μ: [3.0, 4.0] Σ: [1.0 0.0; 0.0 1.0] )  参考
+https://stackoverflow.com/questions/57270276/identity-matrix-in-julia
+https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/</description>
     </item>
     
     <item>

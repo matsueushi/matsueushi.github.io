@@ -2,33 +2,27 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Velocity:Design:Comfort. by Sweet Trip RateYourMusic を巡回していたら2003年の年間ランキング4位に挙げられていたこのアルバム。近未来感のある色とりどりのジャケットとvelocity:design:comfort.という抽象的なタイトルに妙に心惹かれたので聞いてみたところかなりハマってしまい、いつの間にかBandcampの購入ボタンをクリックしていた。 日本語で調べてもあまりこのアルバムについて書かれた情報は見つからなかったのが残念。
-サンフランシスコのSweet Tripと言うバンドの2枚目で、2009年の3rd以降新作は出ていないようである。 2013年にはSoundcloudに曲がアップロードされていて、Probably not the last Sweet Trip song ever. とあるので解散はしていないみたいだ。
-シューゲイザーとIDM、グリッチが美しく溶け合ったようなサウンドは、他に似たような曲を聞いたことがないからなのか、 それともジャケットを見た先入観なのか、15年以上前のアルバムなのになぜか未来を感じずにいられない。
-1曲目のTekkaだけはやや2曲目以降とは趣が異なる曲で、どこかAuthchreを連想するような攻撃的なドリルンベース。聞いているうちに現実の世界から離脱し、アルバムのジャケットの中の世界にどんどん没入していくような意図があったのだろうか？
-普通のシューゲイザーだと聞いている間にうたた寝から夢の世界に入り込んでしまうような気分にしばしば陥るが、このアルバムだと徐々に夢の世界といっても電脳空間、仮想空間に誘われていくような気がする。
-CDとダウンロードのみのリリースのようだが、レコードでリイシューされてほしい。
-リーダーのRoberto BurgosのSoundCrowd: https://soundcloud.com/wotf
-好きな曲: Dsco, International, Dedicated, To All The Dancers Of The World'>
+<meta name='description' content='何かと必要になる単位行列だが、Julia v1.0以降だと LinearAlgebra をインポートして Matrix と I の組み合わせで作成するのが楽なようだ。
+using LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true  Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1  Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0  MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。
+MvNormal([3, 4], I) IsoNormal( dim: 2 μ: [3.0, 4.0] Σ: [1.0 0.0; 0.0 1.0] )  参考
+https://stackoverflow.com/questions/57270276/identity-matrix-in-julia
+https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/'>
 <meta name='theme-color' content='#ffcd00'>
 
-<meta property='og:title' content='Sweet Trip - velocity:design:comfort. (2003) • matsueushi'>
-<meta property='og:description' content='Velocity:Design:Comfort. by Sweet Trip RateYourMusic を巡回していたら2003年の年間ランキング4位に挙げられていたこのアルバム。近未来感のある色とりどりのジャケットとvelocity:design:comfort.という抽象的なタイトルに妙に心惹かれたので聞いてみたところかなりハマってしまい、いつの間にかBandcampの購入ボタンをクリックしていた。 日本語で調べてもあまりこのアルバムについて書かれた情報は見つからなかったのが残念。
-サンフランシスコのSweet Tripと言うバンドの2枚目で、2009年の3rd以降新作は出ていないようである。 2013年にはSoundcloudに曲がアップロードされていて、Probably not the last Sweet Trip song ever. とあるので解散はしていないみたいだ。
-シューゲイザーとIDM、グリッチが美しく溶け合ったようなサウンドは、他に似たような曲を聞いたことがないからなのか、 それともジャケットを見た先入観なのか、15年以上前のアルバムなのになぜか未来を感じずにいられない。
-1曲目のTekkaだけはやや2曲目以降とは趣が異なる曲で、どこかAuthchreを連想するような攻撃的なドリルンベース。聞いているうちに現実の世界から離脱し、アルバムのジャケットの中の世界にどんどん没入していくような意図があったのだろうか？
-普通のシューゲイザーだと聞いている間にうたた寝から夢の世界に入り込んでしまうような気分にしばしば陥るが、このアルバムだと徐々に夢の世界といっても電脳空間、仮想空間に誘われていくような気がする。
-CDとダウンロードのみのリリースのようだが、レコードでリイシューされてほしい。
-リーダーのRoberto BurgosのSoundCrowd: https://soundcloud.com/wotf
-好きな曲: Dsco, International, Dedicated, To All The Dancers Of The World'>
-<meta property='og:url' content='https://matsueushi.github.io/posts/sweettrip-velocity-design-comfort/'>
+<meta property='og:title' content='Juliaの単位行列 • matsueushi'>
+<meta property='og:description' content='何かと必要になる単位行列だが、Julia v1.0以降だと LinearAlgebra をインポートして Matrix と I の組み合わせで作成するのが楽なようだ。
+using LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true  Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1  Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0  MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。
+MvNormal([3, 4], I) IsoNormal( dim: 2 μ: [3.0, 4.0] Σ: [1.0 0.0; 0.0 1.0] )  参考
+https://stackoverflow.com/questions/57270276/identity-matrix-in-julia
+https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/'>
+<meta property='og:url' content='https://matsueushi.github.io/posts/julia-identity/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Music'><meta property='article:tag' content='SweetTrip'><meta property='article:tag' content='Shoegaze'><meta property='article:tag' content='Glitchpop'><meta property='article:published_time' content='2019-07-16T21:00:12-04:00'/><meta property='article:modified_time' content='2019-07-16T21:00:12-04:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:published_time' content='2019-09-02T01:26:23-04:00'/><meta property='article:modified_time' content='2019-09-02T01:26:23-04:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>Sweet Trip - velocity:design:comfort. (2003) • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/sweettrip-velocity-design-comfort/'>
+  <title>Juliaの単位行列 • matsueushi</title>
+  <link rel='canonical' href='https://matsueushi.github.io/posts/julia-identity/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -223,7 +217,7 @@ if (!doNotTrack) {
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Sweet Trip - velocity:design:comfort. (2003)</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Juliaの単位行列</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -242,7 +236,7 @@ if (!doNotTrack) {
     <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Sweet Trip - velocity:design:comfort. (2003)</h1>
+      <h1 class='title'>Juliaの単位行列</h1>
       
 
     </div>
@@ -256,7 +250,7 @@ if (!doNotTrack) {
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-07-16T21:00:12-04:00'>2019, Jul 16</time>
+  <time class='entry-date' datetime='2019-09-02T01:26:23-04:00'>2019, Sep 02</time>
 </span>
 
   
@@ -281,27 +275,40 @@ One min read
     
 
     <div class='container entry-content'>
-  <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=3134024535/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://sweettrip.bandcamp.com/album/velocity-design-comfort">Velocity:Design:Comfort. by Sweet Trip</a></iframe>
+  <p>何かと必要になる単位行列だが、Julia v1.0以降だと <code>LinearAlgebra</code> をインポートして <code>Matrix</code> と <code>I</code> の組み合わせで作成するのが楽なようだ。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> LinearAlgebra
+<span style="color:#66d9ef">using</span> Distributions
+<span style="color:#66d9ef">Matrix</span>(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)</code></pre></div>
+<pre><code>2×2 Array{Bool,2}:
+  true  false
+ false   true
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)</code></pre></div>
+<pre><code>2×2 Array{Int64,2}:
+ 1  0
+ 0  1
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)</code></pre></div>
+<pre><code>2×2 Array{Float64,2}:
+ 1.0  0.0
+ 0.0  1.0
+</code></pre>
 
-<p><a href="https://rateyourmusic.com" target="_blank">RateYourMusic</a> を巡回していたら<a href="https://rateyourmusic.com/charts/top/album/2003" target="_blank">2003年の年間ランキング4位</a>に挙げられていたこのアルバム。近未来感のある色とりどりのジャケットとvelocity:design:comfort.という抽象的なタイトルに妙に心惹かれたので聞いてみたところかなりハマってしまい、いつの間にかBandcampの購入ボタンをクリックしていた。
-日本語で調べてもあまりこのアルバムについて書かれた情報は見つからなかったのが残念。</p>
+<p><code>MvNormal</code> の分散を単位行列にしたいときは、 <code>I</code> だけで大丈夫。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal([<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], I)</code></pre></div>
+<pre><code>IsoNormal(
+dim: 2
+μ: [3.0, 4.0]
+Σ: [1.0 0.0; 0.0 1.0]
+)
+</code></pre>
 
-<p>サンフランシスコのSweet Tripと言うバンドの2枚目で、2009年の3rd以降新作は出ていないようである。
-2013年にはSoundcloudに曲が<a href="https://soundcloud.com/wotf/things-to-ponder-while-falling" target="_blank">アップロード</a>されていて、Probably <em>not</em> the last Sweet Trip song ever. とあるので解散はしていないみたいだ。</p>
+<hr />
 
-<p>シューゲイザーとIDM、グリッチが美しく溶け合ったようなサウンドは、他に似たような曲を聞いたことがないからなのか、
-それともジャケットを見た先入観なのか、15年以上前のアルバムなのになぜか未来を感じずにいられない。</p>
+<p>参考</p>
 
-<p>1曲目のTekkaだけはやや2曲目以降とは趣が異なる曲で、どこかAuthchreを連想するような攻撃的なドリルンベース。聞いているうちに現実の世界から離脱し、アルバムのジャケットの中の世界にどんどん没入していくような意図があったのだろうか？</p>
-
-<p>普通のシューゲイザーだと聞いている間にうたた寝から夢の世界に入り込んでしまうような気分にしばしば陥るが、このアルバムだと徐々に夢の世界といっても電脳空間、仮想空間に誘われていくような気がする。</p>
-
-<p>CDとダウンロードのみのリリースのようだが、レコードでリイシューされてほしい。</p>
-
-<p>リーダーのRoberto BurgosのSoundCrowd:
-<a href="https://soundcloud.com/wotf" target="_blank">https://soundcloud.com/wotf</a></p>
-
-<p>好きな曲: Dsco, International, Dedicated, To All The Dancers Of The World</p>
+<p><a href="https://stackoverflow.com/questions/57270276/identity-matrix-in-julia" target="_blank">https://stackoverflow.com/questions/57270276/identity-matrix-in-julia</a><br />
+<a href="https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/" target="_blank">https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/</a></p>
 
   <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -314,7 +321,7 @@ One min read
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/music/'>Music</a>, <a class='tag' href='/tags/sweettrip/'>SweetTrip</a>, <a class='tag' href='/tags/shoegaze/'>Shoegaze</a>, <a class='tag' href='/tags/glitchpop/'>Glitchpop</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a></div>
 
   </div>
 </footer>
@@ -344,7 +351,7 @@ One min read
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/ivm/'>
+      <a href='/posts/clustering-kmean/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -352,17 +359,7 @@ One min read
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/gaussianprocess-jl/'>
-        <span class='screen-reader-text'>Next post: </span>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>K-平均アルゴリズム</a>
     </div></div>
 </nav>
 
