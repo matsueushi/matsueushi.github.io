@@ -5,10 +5,24 @@
     <link>https://matsueushi.github.io/posts/</link>
     <description>Recent content in Blog on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 02 Sep 2019 01:26:23 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 27 Nov 2019 18:07:13 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
+      <link>https://matsueushi.github.io/posts/fluxjl-dcgan/</link>
+      <pubDate>Wed, 27 Nov 2019 18:07:13 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/fluxjl-dcgan/</guid>
+      <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
+実装はGitHubのリポジトリ matsueushi/fluxjl-dcgan を見てほしい。
+環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
+JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
+# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
+    </item>
     
     <item>
       <title>Juliaの単位行列</title>
