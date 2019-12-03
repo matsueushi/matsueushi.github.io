@@ -3,23 +3,29 @@
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
-実装はGitHubのリポジトリ matsueushi/fluxjl-dcgan を見てほしい。
+実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 &#43; 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
-Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
+(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
+&mdash; やまさき (@yama_k_1101) December 2, 2019 
+このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
 JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
 # Dockerfile Julia 1.3.0 &#43; CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&#34;$(echo &#34;$JULIA_VERSION&#34; | cut -d.'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Flux.jl v0.10.0でDCGANを動かす(CUDA環境) • matsueushi'>
 <meta property='og:description' content='2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
-実装はGitHubのリポジトリ matsueushi/fluxjl-dcgan を見てほしい。
+実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 &#43; 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
-Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
+(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
+&mdash; やまさき (@yama_k_1101) December 2, 2019 
+このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
 JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
 # Dockerfile Julia 1.3.0 &#43; CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&#34;$(echo &#34;$JULIA_VERSION&#34; | cut -d.'>
 <meta property='og:url' content='https://matsueushi.github.io/posts/fluxjl-dcgan/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Flux'><meta property='article:tag' content='DCGAN'><meta property='article:tag' content='MNIST'><meta property='article:tag' content='MLP'><meta property='article:published_time' content='2019-11-27T18:07:13-05:00'/><meta property='article:modified_time' content='2019-11-27T18:07:13-05:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Flux'><meta property='article:tag' content='DCGAN'><meta property='article:tag' content='MNIST'><meta property='article:tag' content='MLP'><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
@@ -258,7 +264,7 @@ if (!doNotTrack) {
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-11-27T18:07:13-05:00'>2019, Nov 27</time>
+  <time class='entry-date' datetime='0001-01-01T00:00:00Z'>0001, Jan 01</time>
 </span>
 
   
@@ -289,13 +295,18 @@ if (!doNotTrack) {
 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、
 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。</p>
 
-<p>実装はGitHubのリポジトリ <a href="https://github.com/matsueushi/fluxjl-dcgan" target="_blank">matsueushi/fluxjl-dcgan</a> を見てほしい。</p>
+<p>実装はGitHubのリポジトリ <a href="https://github.com/matsueushi/fluxjl-gan" target="_blank">matsueushi/fluxjl-gan</a> を見てほしい。</p>
 
 <p>環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。</p>
 
 <h2 id="dockerで環境構築-gpu">Dockerで環境構築(GPU)</h2>
 
-<p>GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。このあたり、<a href="https://www.tensorflow.org/install/docker" target="_blank">GPUのDockerイメージ</a> が利用できるTensorflowが羨ましく感じられる部分ではある。</p>
+<p>GPUが使えるJuliaのオフィシャルなDocker imageは<del>現在(2019/12/1)存在しないと思われる。</del>配布されているようです</p>
+
+<p><blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… <a href="https://t.co/LE1ducHlWE">https://t.co/LE1ducHlWE</a> )(姑息な宣伝) <a href="https://t.co/VbS7xcYTTV">https://t.co/VbS7xcYTTV</a></p>&mdash; やまさき (@yama_k_1101) <a href="https://twitter.com/yama_k_1101/status/1201376391779893249?ref_src=twsrc%5Etfw">December 2, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p><del>このあたり、<a href="https://www.tensorflow.org/install/docker" target="_blank">GPUのDockerイメージ</a> が利用できるTensorflowが羨ましく感じられる部分ではある。</del></p>
 
 <p>JuliaGPUのDockerイメージ <a href="https://github.com/JuliaGPU/docker" target="_blank">JuliaGPU/docker</a> はメンテナンスされていないので、<a href="https://hub.docker.com/r/nvidia/cuda/" target="_blank">nvidia/cuda</a> のイメージをベースに、Juliaのインストール部分は <a href="https://github.com/docker-library/julia" target="_blank">docker-library/julia</a> を参考にDockerfileを作成。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#75715e"># Dockerfile Julia 1.3.0 + CUDA for Flux.jl</span><span style="color:#960050;background-color:#1e0010">
@@ -770,16 +781,16 @@ julia&gt; Float32<span style="color:#f92672">[</span><span style="color:#ae81ff"
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/julia-identity/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container'><div class='next-entry sep-before'>
+      <a href='/posts/cymbals-entertainment/'>
+        <span class='screen-reader-text'>Next post: </span>Cymbals - That&#39;s Entertainment (2000)<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
   
 </svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Juliaの単位行列</a>
+</span>
+      </a>
     </div></div>
 </nav>
 
