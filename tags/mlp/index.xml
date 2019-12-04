@@ -5,10 +5,27 @@
     <link>https://matsueushi.github.io/tags/mlp/</link>
     <description>Recent content in MLP on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 19 May 2019 22:37:52 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mlp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
+      <link>https://matsueushi.github.io/posts/fluxjl-dcgan/</link>
+      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/fluxjl-dcgan/</guid>
+      <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
+実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
+環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
+(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
+&amp;mdash; やまさき (@yama_k_1101) December 2, 2019 
+このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
+JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
+# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
+    </item>
     
     <item>
       <title>ガウス過程と機械学習: 3.5まで</title>
@@ -42,23 +59,6 @@ https://scrapbox.io/GPandML2019/support
 3.3の「ガウス過程とカーネル」のところまで読んだ。
 自分が躓いた点
  “3.2.4 ガウス過程からのサンプル”で図3.9のようなサンプルを実装するときは正則化項を入れないと計算がうまくいかないことがある(1.4 リッジ回帰の部分で触れられている)。著者のサンプルコードでは非常に正則化項として1e-6を導入していた。共分散行列の計算の際に対角成分に正規化項を加えればよい。 “3.3.1 ガウス過程のRBFカーネル”で、線形モデルの基底関数のグリッドを無限に細かくするとRBFカーネルになると書かれている部分は、本文中の基底関数を使うと \( H \rightarrow \infty \) とした時にカーネル関数がRBF関数に収束しない。基底関数に \( 1 / \sqrt{H} \) を掛けたものを考えればOK “3.3.2 さまざまなカーネル”で線形カーネルを実装するときに、カーネル関数は dot(x1, x2) ではなく、必ず1となる入力の最初の次元も考慮して 1 + dot(x1, x2) とする。他のカーネルの場合は x1 — x2 の計算の段階で消えるので考慮する必要はない また、Matérnカーネルを定義する際に、Juliaでは第二種のベッセル関数は SpecialFunctions の besselk を使えば良い。ベッセル関数は \( x=0 \) で特異性を持つので、カーネル関数 k(x1, x2) を定義するときは x1 = x2 の時に条件分岐で1を返すようにすればいい  カーネルとガウシアン過程を定義したjlファイル:</description>
-    </item>
-    
-    <item>
-      <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
-      <link>https://matsueushi.github.io/posts/fluxjl-dcgan/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://matsueushi.github.io/posts/fluxjl-dcgan/</guid>
-      <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
-実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
-環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
-Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
-(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
-&amp;mdash; やまさき (@yama_k_1101) December 2, 2019 
-このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
-JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
-# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
     </item>
     
   </channel>

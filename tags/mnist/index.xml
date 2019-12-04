@@ -5,6 +5,7 @@
     <link>https://matsueushi.github.io/tags/mnist/</link>
     <description>Recent content in MNIST on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mnist/index.xml" rel="self" type="application/rss+xml" />
     
@@ -12,7 +13,7 @@
     <item>
       <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
       <link>https://matsueushi.github.io/posts/fluxjl-dcgan/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
       
       <guid>https://matsueushi.github.io/posts/fluxjl-dcgan/</guid>
       <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。

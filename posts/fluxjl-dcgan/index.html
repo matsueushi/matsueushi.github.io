@@ -25,7 +25,7 @@ JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされてい�
 # Dockerfile Julia 1.3.0 &#43; CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&#34;$(echo &#34;$JULIA_VERSION&#34; | cut -d.'>
 <meta property='og:url' content='https://matsueushi.github.io/posts/fluxjl-dcgan/'>
 <meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Flux'><meta property='article:tag' content='DCGAN'><meta property='article:tag' content='MNIST'><meta property='article:tag' content='MLP'><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Flux'><meta property='article:tag' content='DCGAN'><meta property='article:tag' content='MNIST'><meta property='article:tag' content='MLP'><meta property='article:published_time' content='2019-12-01T18:07:13-05:00'/><meta property='article:modified_time' content='2019-12-01T18:07:13-05:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
@@ -264,7 +264,7 @@ if (!doNotTrack) {
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='0001-01-01T00:00:00Z'>0001, Jan 01</time>
+  <time class='entry-date' datetime='2019-12-01T18:07:13-05:00'>2019, Dec 01</time>
 </span>
 
   
@@ -781,16 +781,16 @@ julia&gt; Float32<span style="color:#f92672">[</span><span style="color:#ae81ff"
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <nav class='entry-nav'>
-  <div class='container'><div class='next-entry sep-before'>
-      <a href='/posts/cymbals-entertainment/'>
-        <span class='screen-reader-text'>Next post: </span>Cymbals - That&#39;s Entertainment (2000)<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/julia-identity/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
   
 </svg>
-</span>
-      </a>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Juliaの単位行列</a>
     </div></div>
 </nav>
 
