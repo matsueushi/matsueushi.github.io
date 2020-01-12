@@ -5,10 +5,55 @@
     <link>https://matsueushi.github.io/tags/</link>
     <description>Recent content in Tags on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DeepLearning</title>
+      <link>https://matsueushi.github.io/tags/deeplearning/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/deeplearning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flux</title>
+      <link>https://matsueushi.github.io/tags/flux/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/flux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GAN</title>
+      <link>https://matsueushi.github.io/tags/gan/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/gan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Julia</title>
+      <link>https://matsueushi.github.io/tags/julia/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SinGAN</title>
+      <link>https://matsueushi.github.io/tags/singan/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/singan/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>DCGAN</title>
@@ -16,24 +61,6 @@
       <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
       
       <guid>https://matsueushi.github.io/tags/dcgan/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Flux</title>
-      <link>https://matsueushi.github.io/tags/flux/</link>
-      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/flux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Julia</title>
-      <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
     </item>
     

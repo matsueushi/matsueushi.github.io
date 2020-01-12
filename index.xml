@@ -5,7 +5,7 @@
     <link>https://matsueushi.github.io/</link>
     <description>Recent content in Home on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -20,6 +20,30 @@
 Twitter: https://twitter.com/matsue_ushi
 Last.fm: https://www.last.fm/user/tanh
 RateYourMusic(更新してません): https://rateyourmusic.com/~matsueushi</description>
+    </item>
+    
+    <item>
+      <title>Flux.jlでSinGANを実装する</title>
+      <link>https://matsueushi.github.io/posts/fluxjl-singan/</link>
+      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
+      <description>今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。
+きっかけは、この紹介記事です。
+【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に
+実はDCGANをFlux.jlで実装したあと、MNISTの画像では味気ないので自分でデータセットを作成して画像の自動生成を試みていましたが、 ダブりなく大量の画像を収集してデータセットを整備するのは骨が折れ、今一つの結果しか出なかったのでお蔵入りにしていました。
+しかしながら、SinGAN記事に関する読んでみると驚いたことにSinGANではたった1枚の画像から超解像化やアニメーション生成が行え、 ハイスペックのGPUを回さなくても結果が得られるということで実装に挑戦したくなりました。
+一部実装を簡略化したので、論文の著者による実装を完全に再現できたわけではないのでご了承ください。 間違っている点・改善すべき点はご指摘頂けると幸いです。
+環境 実行環境はJulia v1.3.0 + Flux.jl v0.10.0 で、GCPのGPU環境(K80)です。
+前回と同様、Dockerによる環境構築ですが、JuliaのパッケージもDockerfileに含めてしまっていた前回と違い、 今回はDockerファイルはcudaのベースイメージ+Juliaのシンプルな構成として、Juliaのパッケージ管理はJuliaのプロジェクト機能を用いました。
+参考にしたのは主に下記のページです。
+Julia でのパッケージの作り方
+Julia v1.0 でユニットテスト
+SinGANのモデルの概略 理論的な部分の詳細は、論文 SinGAN: Learning a Generative Model from a Single Natural Image や 解説記事 に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。
+論文とは別に公開されている Supplementary Material はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。
+  SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image
+  SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。 最初は、小さい画像サイズで全体の構造を学習し、ステージを上がっていくごとに画像サイズを拡大していき、微細な構造を学習します。 各ステージでは通常のGANのようにGeneratorとDiscriminatorを並行して学習させていきます。
+GeneratorやDiscriminatorのネットワークは、特段難しい構成をしているわけではなく、 Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら tanh, Discriminator だったら identity に変えたConvolutional netがベースとなります。 Discriminator はこれで完成で、Generator はもう一手間必要です。</description>
     </item>
     
     <item>
