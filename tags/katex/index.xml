@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>KaTeX on matsueushi</title>
@@ -21,8 +21,9 @@
 \\( \begin{aligned} x &amp;amp;= 1+1 \\\\ &amp;amp;= 2 \end{aligned} \\) 結果:
 \( \begin{aligned} x &amp;amp;= 1+1 \\ &amp;amp;= 2 \end{aligned} \)
 参考 :
-&amp;gt; Cannot achieve line break in multiline equation (LaTeX/Mathjax)
-&amp;gt; https://github.com/gcushen/hugo-academic/wiki/FAQ</description>
+ Cannot achieve line break in multiline equation (LaTeX/Mathjax)
+https://github.com/gcushen/hugo-academic/wiki/FAQ
+ </description>
     </item>
     
     <item>

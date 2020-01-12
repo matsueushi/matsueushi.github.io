@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GaussianProcess on matsueushi</title>
@@ -21,7 +21,7 @@
 using Pkg Pkg.add(&amp;#34;GaussianProcesses&amp;#34;) カーネル関数 すでに多くの種類のカーネル関数が実装されており、 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。
 全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。
 ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では $$ k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) $$
-となっているが、GaussianProcesses.jlでこれに対応するのは GaussianProcesses.SEIso である。 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 SEIso(ll::T, lσ::T) は、 \(\sigma = \log (\) lσ \()\), \(l = \log (\) ll \()\) とした時に
+となっているが、GaussianProcesses.jlでこれに対応するのは [GaussianProcesses.SEIso] (http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso) である。 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 SEIso(ll::T, lσ::T) は、 \(\sigma = \log (\) lσ \()\), \(l = \log (\) ll \()\) とした時に
 $$ k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right) $$
 だから、\( k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right) \) は</description>
     </item>
@@ -32,13 +32,12 @@ $$ k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} -
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/ivm/</guid>
-      <description>7&amp;frasl;5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正
-前回書いた 「ガウス過程の補助変数法 (Inducing variable method) を理解する 」の続き。 Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。
+      <description>7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正
+ 前回書いた 「ガウス過程の補助変数法 (Inducing variable method) を理解する 」の続き。 Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。
 簡単のため、gp.jl により、
- ガウスカーネルのクラス GaussianKernel が定義されていて、
- カーネル k に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ ker(k, x, y) と cov(k, xs, ys) で計算できる  と仮定する。ということで、まずはライブラリの読み込み。
+ ガウスカーネルのクラス GaussianKernel が定義されていて、 カーネル k に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ ker(k, x, y) と cov(k, xs, ys) で計算できる  と仮定する。ということで、まずはライブラリの読み込み。
 using Distributions using Plots using LinearAlgebra include(&amp;#34;gp.jl&amp;#34;) データは、MLPシリーズ 「ガウス過程と機械学習」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。
-# サンプルデータの作成 xs = vcat(rand(80),rand(20) * 3 .+ 1.</description>
+# サンプルデータの作成 xs = vcat(rand(80),rand(20) * 3 .+ 1.0) sort!</description>
     </item>
     
     <item>
@@ -47,8 +46,8 @@ using Distributions using Plots using LinearAlgebra include(&amp;#34;gp.jl&amp;#
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
-      <description>6&amp;frasl;27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
-「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
+      <description>6/27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
+ 「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
 そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。
 \( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて
 $$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$ $$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$</description>

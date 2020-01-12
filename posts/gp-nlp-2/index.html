@@ -25,7 +25,7 @@ https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/g
 <meta property='og:site_name' content='matsueushi'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='GaussianProcess'><meta property='article:tag' content='MLP'><meta property='article:published_time' content='2019-05-19T22:37:52-04:00'/><meta property='article:modified_time' content='2019-05-19T22:37:52-04:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.60.1" />
 
   <title>ガウス過程と機械学習: 3.5まで • matsueushi</title>
   <link rel='canonical' href='https://matsueushi.github.io/posts/gp-nlp-2/'>
@@ -102,7 +102,7 @@ if (!doNotTrack) {
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/bayesian/' style='font-size:1.2608695652173914em'>Bayesian</a>
+        <a href='/tags/bayesian/' style='font-size:1.25em'>Bayesian</a>
       </li><li>
         <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
       </li><li>
@@ -112,15 +112,19 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/dcgan/' style='font-size:1em'>DCGAN</a>
       </li><li>
+        <a href='/tags/deeplearning/' style='font-size:1em'>DeepLearning</a>
+      </li><li>
         <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
       </li><li>
-        <a href='/tags/dtc/' style='font-size:1.0434782608695652em'>DTC</a>
+        <a href='/tags/dtc/' style='font-size:1.0416666666666667em'>DTC</a>
       </li><li>
-        <a href='/tags/fitc/' style='font-size:1.0434782608695652em'>FITC</a>
+        <a href='/tags/fitc/' style='font-size:1.0416666666666667em'>FITC</a>
       </li><li>
-        <a href='/tags/flux/' style='font-size:1em'>Flux</a>
+        <a href='/tags/flux/' style='font-size:1.0416666666666667em'>Flux</a>
       </li><li>
-        <a href='/tags/gaussianprocess/' style='font-size:1.2173913043478262em'>GaussianProcess</a>
+        <a href='/tags/gan/' style='font-size:1em'>GAN</a>
+      </li><li>
+        <a href='/tags/gaussianprocess/' style='font-size:1.2083333333333333em'>GaussianProcess</a>
       </li><li>
         <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
       </li><li>
@@ -128,31 +132,31 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/glitchpop/' style='font-size:1em'>Glitchpop</a>
       </li><li>
-        <a href='/tags/inducingvariablemethod/' style='font-size:1.0434782608695652em'>InducingVariableMethod</a>
+        <a href='/tags/inducingvariablemethod/' style='font-size:1.0416666666666667em'>InducingVariableMethod</a>
       </li><li>
         <a href='/tags/julia/' style='font-size:2em'>Julia</a>
       </li><li>
-        <a href='/tags/jupyter/' style='font-size:1.0434782608695652em'>Jupyter</a>
+        <a href='/tags/jupyter/' style='font-size:1.0416666666666667em'>Jupyter</a>
       </li><li>
-        <a href='/tags/katex/' style='font-size:1.0434782608695652em'>KaTeX</a>
+        <a href='/tags/katex/' style='font-size:1.0416666666666667em'>KaTeX</a>
       </li><li>
         <a href='/tags/kmean/' style='font-size:1em'>KMean</a>
       </li><li>
-        <a href='/tags/lolicatonica/' style='font-size:1.0434782608695652em'>LolicaTonica</a>
+        <a href='/tags/lolicatonica/' style='font-size:1.0416666666666667em'>LolicaTonica</a>
       </li><li>
         <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
       </li><li>
-        <a href='/tags/mamba/' style='font-size:1.391304347826087em'>Mamba</a>
+        <a href='/tags/mamba/' style='font-size:1.375em'>Mamba</a>
       </li><li>
         <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
       </li><li>
         <a href='/tags/ml/' style='font-size:1em'>ML</a>
       </li><li>
-        <a href='/tags/mlp/' style='font-size:1.0869565217391304em'>MLP</a>
+        <a href='/tags/mlp/' style='font-size:1.0833333333333333em'>MLP</a>
       </li><li>
         <a href='/tags/mnist/' style='font-size:1em'>MNIST</a>
       </li><li>
-        <a href='/tags/music/' style='font-size:1.5652173913043477em'>Music</a>
+        <a href='/tags/music/' style='font-size:1.5416666666666665em'>Music</a>
       </li><li>
         <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
       </li><li>
@@ -164,17 +168,19 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
       </li><li>
-        <a href='/tags/record/' style='font-size:1.0434782608695652em'>Record</a>
+        <a href='/tags/record/' style='font-size:1.0416666666666667em'>Record</a>
       </li><li>
         <a href='/tags/shoegaze/' style='font-size:1em'>Shoegaze</a>
       </li><li>
-        <a href='/tags/sod/' style='font-size:1.0434782608695652em'>SoD</a>
+        <a href='/tags/singan/' style='font-size:1em'>SinGAN</a>
+      </li><li>
+        <a href='/tags/sod/' style='font-size:1.0416666666666667em'>SoD</a>
       </li><li>
         <a href='/tags/softman/' style='font-size:1em'>Softman</a>
       </li><li>
-        <a href='/tags/sor/' style='font-size:1.0434782608695652em'>SoR</a>
+        <a href='/tags/sor/' style='font-size:1.0416666666666667em'>SoR</a>
       </li><li>
-        <a href='/tags/sparseapproximation/' style='font-size:1.0434782608695652em'>SparseApproximation</a>
+        <a href='/tags/sparseapproximation/' style='font-size:1.0416666666666667em'>SparseApproximation</a>
       </li><li>
         <a href='/tags/sweettrip/' style='font-size:1em'>SweetTrip</a>
       </li><li>
@@ -288,12 +294,10 @@ One min read
 
     <div class='container entry-content'>
   <p>引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。</p>
-
 <p>ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの <code>optimize</code> を使ってしまった)のところまで読み進めた。</p>
-
 <ul>
 <li>3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。</li>
-<li>図3.16のガウスカーネル<br />
+<li>図3.16のガウスカーネル<br>
 \(
 \begin{aligned}
 k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
@@ -301,29 +305,19 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
 \)
 のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。</li>
 </ul>
-
-<p><img src="/images/posts/gp-nlp-2_posterior_1.png" alt="(1, 0.4, 0.1) の事後分布" /></p>
-
+<p><img src="/images/posts/gp-nlp-2_posterior_1.png" alt="(1, 0.4, 0.1) の事後分布"></p>
 <p>\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.01) \) とすると近い図になる(全く同じには見えない)</p>
-
-<p><img src="/images/posts/gp-nlp-2_posterior_2.png" alt="(1, 0.4, 0.01) の事後分布" /></p>
-
+<p><img src="/images/posts/gp-nlp-2_posterior_2.png" alt="(1, 0.4, 0.01) の事後分布"></p>
 <ul>
 <li>尤度の計算が合わなかった。尤度を図示した図3.16で-5未満を切り捨てるとうまくいかなかった。20以下を切り捨てると近い図になった。</li>
 </ul>
-
-<p><img src="/images/posts/gp-nlp-2_logp.png" alt="尤度(2次元)" /></p>
-
-<p><img src="/images/posts/gp-nlp-2_logp_3d.png" alt="尤度(3次元)" /></p>
-
+<p><img src="/images/posts/gp-nlp-2_logp.png" alt="尤度(2次元)"></p>
+<p><img src="/images/posts/gp-nlp-2_logp_3d.png" alt="尤度(3次元)"></p>
 <p>本文の局所解(ii)に該当する点の尤度は-2.0299となり本文の-1.934とは違ってしまった。</p>
-
 <p>図3.20のパラメーター推定は正しくできたが、こちらも対数尤度が違ってしまった((a):本文-1.788、実装-1.738, (b):本文-2.174, 実装-2.5029)
 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。</p>
-
-<p><a href="https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19" target="_blank">https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19</a></p>
-
-<p><a href="https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb" target="_blank">https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb</a></p>
+<p><a href="https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19">https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19</a></p>
+<p><a href="https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb">https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb</a></p>
 
   <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -422,7 +416,7 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2019 matsueushi </p>
+  <p> &copy; 2019-2020 matsueushi </p>
 </div>
 
         </div>

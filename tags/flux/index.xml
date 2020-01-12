@@ -1,14 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Flux on matsueushi</title>
     <link>https://matsueushi.github.io/tags/flux/</link>
     <description>Recent content in Flux on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jan 2020 18:10:23 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/flux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flux.jlでSinGANを実装する</title>
+      <link>https://matsueushi.github.io/posts/fluxjl-singan/</link>
+      <pubDate>Sat, 04 Jan 2020 18:10:23 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
+      <description>今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。
+きっかけは、この紹介記事です。
+【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に
+実はDCGANをFlux.jlで実装したあと、MNISTの画像では味気ないので自分でデータセットを作成して画像の自動生成を試みていましたが、 ダブりなく大量の画像を収集してデータセットを整備するのは骨が折れ、今一つの結果しか出なかったのでお蔵入りにしていました。
+しかしながら、SinGAN記事に関する読んでみると驚いたことにSinGANではたった1枚の画像から超解像化やアニメーション生成が行え、 ハイスペックのGPUを回さなくても結果が得られるということで実装に挑戦したくなりました。
+一部実装を簡略化したので、論文の著者による実装を完全に再現できたわけではないのでご了承ください。 間違っている点・改善すべき点はご指摘頂けると幸いです。
+環境 実行環境はJulia v1.3.0 + Flux.jl v0.10.0 で、GCPのGPU環境(K80)です。
+前回と同様、Dockerによる環境構築ですが、JuliaのパッケージもDockerfileに含めてしまっていた前回と違い、 今回はDockerファイルはcudaのベースイメージ+Juliaのシンプルな構成として、Juliaのパッケージ管理はJuliaのプロジェクト機能を用いました。
+参考にしたのは主に下記のページです。
+Julia でのパッケージの作り方
+Julia v1.0 でユニットテスト
+SinGANのモデルの概略 理論的な部分の詳細は、論文 SinGAN: Learning a Generative Model from a Single Natural Image や 解説記事 に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。
+論文とは別に公開されている Supplementary Material はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。
+  SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image
+  SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。 最初は、小さい画像サイズで全体の構造を学習し、ステージを上がっていくごとに画像サイズを拡大していき、微細な構造を学習します。 各ステージでは通常のGANのようにGeneratorとDiscriminatorを並行して学習させていきます。
+GeneratorやDiscriminatorのネットワークは、特段難しい構成をしているわけではなく、 Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら tanh, Discriminator だったら identity に変えたConvolutional netがベースとなります。 Discriminator はこれで完成で、Generator はもう一手間必要です。</description>
+    </item>
     
     <item>
       <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
@@ -19,12 +43,10 @@
       <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
 実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
-Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
-(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
-&amp;mdash; やまさき (@yama_k_1101) December 2, 2019 
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは 現在(2019/12/1)存在しないと思われる。 配布されているようです
 このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
 JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
-# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
+# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENV JULIA_PATH=/usr/local/juliaENV PATH=$JULIA_PATH/bin:$PATHENV JULIA_TAR_ARCH=x86_64 ENV JULIA_DIR_ARCH=x64 ENV JULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495 ENV JULIA_VERSION=1.3.0ENV JULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8 # Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
     </item>
     
   </channel>

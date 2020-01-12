@@ -1,14 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Julia on matsueushi</title>
     <link>https://matsueushi.github.io/tags/julia/</link>
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jan 2020 18:10:23 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flux.jlでSinGANを実装する</title>
+      <link>https://matsueushi.github.io/posts/fluxjl-singan/</link>
+      <pubDate>Sat, 04 Jan 2020 18:10:23 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
+      <description>今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。
+きっかけは、この紹介記事です。
+【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に
+実はDCGANをFlux.jlで実装したあと、MNISTの画像では味気ないので自分でデータセットを作成して画像の自動生成を試みていましたが、 ダブりなく大量の画像を収集してデータセットを整備するのは骨が折れ、今一つの結果しか出なかったのでお蔵入りにしていました。
+しかしながら、SinGAN記事に関する読んでみると驚いたことにSinGANではたった1枚の画像から超解像化やアニメーション生成が行え、 ハイスペックのGPUを回さなくても結果が得られるということで実装に挑戦したくなりました。
+一部実装を簡略化したので、論文の著者による実装を完全に再現できたわけではないのでご了承ください。 間違っている点・改善すべき点はご指摘頂けると幸いです。
+環境 実行環境はJulia v1.3.0 + Flux.jl v0.10.0 で、GCPのGPU環境(K80)です。
+前回と同様、Dockerによる環境構築ですが、JuliaのパッケージもDockerfileに含めてしまっていた前回と違い、 今回はDockerファイルはcudaのベースイメージ+Juliaのシンプルな構成として、Juliaのパッケージ管理はJuliaのプロジェクト機能を用いました。
+参考にしたのは主に下記のページです。
+Julia でのパッケージの作り方
+Julia v1.0 でユニットテスト
+SinGANのモデルの概略 理論的な部分の詳細は、論文 SinGAN: Learning a Generative Model from a Single Natural Image や 解説記事 に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。
+論文とは別に公開されている Supplementary Material はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。
+  SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image
+  SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。 最初は、小さい画像サイズで全体の構造を学習し、ステージを上がっていくごとに画像サイズを拡大していき、微細な構造を学習します。 各ステージでは通常のGANのようにGeneratorとDiscriminatorを並行して学習させていきます。
+GeneratorやDiscriminatorのネットワークは、特段難しい構成をしているわけではなく、 Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら tanh, Discriminator だったら identity に変えたConvolutional netがベースとなります。 Discriminator はこれで完成で、Generator はもう一手間必要です。</description>
+    </item>
     
     <item>
       <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
@@ -19,12 +43,10 @@
       <description>2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
 実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 + 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
-Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは現在(2019/12/1)存在しないと思われる。配布されているようです
-(ひっそり CUDA と Julia が同梱されたコンテナイメージも配布されていたりします…… https://t.co/LE1ducHlWE )(姑息な宣伝) https://t.co/VbS7xcYTTV
-&amp;mdash; やまさき (@yama_k_1101) December 2, 2019 
+Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは 現在(2019/12/1)存在しないと思われる。 配布されているようです
 このあたり、GPUのDockerイメージ が利用できるTensorflowが羨ましく感じられる部分ではある。
 JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされていないので、nvidia/cuda のイメージをベースに、Juliaのインストール部分は docker-library/julia を参考にDockerfileを作成。
-# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENVJULIA_PATH=/usr/local/juliaENVPATH=$JULIA_PATH/bin:$PATHENVJULIA_TAR_ARCH=x86_64ENVJULIA_DIR_ARCH=x64ENVJULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495ENVJULIA_VERSION=1.3.0ENVJULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8# Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
+# Dockerfile Julia 1.3.0 + CUDA for Flux.jlARG CUDA=10.0ARG UBUNTU_VERSION=18.04FROMnvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}ENV JULIA_PATH=/usr/local/juliaENV PATH=$JULIA_PATH/bin:$PATHENV JULIA_TAR_ARCH=x86_64 ENV JULIA_DIR_ARCH=x64 ENV JULIA_GPG=3673DF529D9049477F76B37566E3C7DC03D6E495 ENV JULIA_VERSION=1.3.0ENV JULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8 # Based on https://github.com/docker-library/julia# Copyright (c) 2014 Docker, Inc.# Released under the MIT license# https://opensource.org/licenses/mit-license.phpRUN set -eux; \  apt-get update; \  apt-get install -y --no-install-recommends curl gnupg dirmngr; \  rm -rf /var/lib/apt/lists/*; \  \  folder=&amp;#34;$(echo &amp;#34;$JULIA_VERSION&amp;#34; | cut -d.</description>
     </item>
     
     <item>
@@ -34,7 +56,7 @@ JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされてい�
       
       <guid>https://matsueushi.github.io/posts/julia-identity/</guid>
       <description>何かと必要になる単位行列だが、Julia v1.0以降だと LinearAlgebra をインポートして Matrix と I の組み合わせで作成するのが楽なようだ。
-using LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true  Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1  Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0  MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。
+using LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1 Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0 MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。
 MvNormal([3, 4], I) IsoNormal( dim: 2 μ: [3.0, 4.0] Σ: [1.0 0.0; 0.0 1.0] )  参考
 https://stackoverflow.com/questions/57270276/identity-matrix-in-julia
 https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/</description>
@@ -49,7 +71,7 @@ https://www.reddit.com/r/Julia/comments/9cfosj/identity_matrix_in_julia_v10/</de
       <description>最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。
 ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(Wikipedia) を実装したので記録。使っているのはいつものようにJulia。
 \(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。
-データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
+ データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。
 各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、 \( K \)-平均法では、 各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、 $$ z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2 $$ となる。
 アルゴリズムは、目的関数
 $$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 $$</description>
@@ -66,7 +88,7 @@ $$ f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i
 using Pkg Pkg.add(&amp;#34;GaussianProcesses&amp;#34;) カーネル関数 すでに多くの種類のカーネル関数が実装されており、 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。
 全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。
 ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では $$ k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) $$
-となっているが、GaussianProcesses.jlでこれに対応するのは GaussianProcesses.SEIso である。 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 SEIso(ll::T, lσ::T) は、 \(\sigma = \log (\) lσ \()\), \(l = \log (\) ll \()\) とした時に
+となっているが、GaussianProcesses.jlでこれに対応するのは [GaussianProcesses.SEIso] (http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso) である。 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 SEIso(ll::T, lσ::T) は、 \(\sigma = \log (\) lσ \()\), \(l = \log (\) ll \()\) とした時に
 $$ k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right) $$
 だから、\( k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right) \) は</description>
     </item>
@@ -162,9 +184,9 @@ r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXknD&amp;#34;);
       <pubDate>Sun, 07 Apr 2019 00:29:01 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/rollingwindow/</guid>
-      <description>Pandasの pd.rolling のようなことをJuliaで行うためのメモ
+      <description>Pandasの pd.rolling  のようなことをJuliaで行うためのメモ
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html
- 複雑なことがやりたければこれを使えば良さそうだ。
+複雑なことがやりたければこれを使えば良さそうだ。
  JeffreySarnoff/RollingFunctions.jl
 https://github.com/JeffreySarnoff/RollingFunctions.jl
  </description>
@@ -179,7 +201,7 @@ https://github.com/JeffreySarnoff/RollingFunctions.jl
       <description>やり方がよくわからなくなるので自分用メモを兼ねて。JuliaのVersion は1.1.0 (2019–01–21)。
 2次元 julia&amp;gt; x = [1 2; 3 4] 2×2 Array{Int64,2}: 1 2 3 4 縦方向に拾っていきたいときは簡単で、 vec
 julia&amp;gt; vec(x) 4-element Array{Int64,1}: 1 3 2 4 横方向に拾いたい場合は permutedims を噛ませる。
-julia&amp;gt; vec(permutedims(x)) 4-element Array{Int64,1}: 1 2 3 4 &amp;nbsp;transpose と collect を使う
+julia&amp;gt; vec(permutedims(x)) 4-element Array{Int64,1}: 1 2 3 4  transpose と collect を使う
 julia&amp;gt; vec(collect(transpose(x))) 4-element Array{Int64,1}: 1 2 3 4 だと場合によっては問題があり、 Transpose は LinearAlgebra の操作なので、例えば Array{Char, 2} に対しては定義されていないので実行できない。
 julia&amp;gt; [&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;] 2×2 Array{Char,2}: &amp;#39;a&amp;#39; &amp;#39;b&amp;#39; &amp;#39;c&amp;#39; &amp;#39;d&amp;#39; julia&amp;gt; transpose([&amp;#39;a&amp;#39; &amp;#39;b&amp;#39;;&amp;#39;c&amp;#39; &amp;#39;d&amp;#39;]) 2×2 LinearAlgebra.</description>
     </item>
@@ -228,7 +250,7 @@ $ sudo mkdir /bin/julia $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/
       <pubDate>Sun, 24 Mar 2019 21:43:34 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/plotly-scale/</guid>
-      <description>&amp;nbsp;aspece_ratio=1 とすれば良いだけだった。簡単だった。
+      <description> aspece_ratio=1 とすれば良いだけだった。簡単だった。
 using Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = Exponential(10) z = Surface((s, t) -&amp;gt; pdf(exp_x, s) * pdf(exp_y, t), x, y) heatmap(x, y, z) heatmap(x, y, z, aspect_ratio = 1) </description>
     </item>
     
@@ -239,7 +261,7 @@ using Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = E
       
       <guid>https://matsueushi.github.io/posts/julia-array-matrix/</guid>
       <description>自分用メモ。Juliaで Array を横に並べて Matrix にする方法は、repeat で第1引数を1にして、第2引数を並べたい個数にすればいい。
-julia&amp;gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&amp;gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5</description>
+julia&amp;gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&amp;gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 </description>
     </item>
     
     <item>
@@ -250,7 +272,8 @@ julia&amp;gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia&amp
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
       <description>「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。
 学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。
- コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。  カンニングが全くなければ、「カンニングした」という回答がある確率は 1&amp;frasl;2 * 1&amp;frasl;2 = 1&amp;frasl;4, 全員カンニングしていれば 1&amp;frasl;2 + 1&amp;frasl;2 * 1&amp;frasl;2 = 3&amp;frasl;4 になる。  まずはライブラリをインポート。
+ コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。   カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。
+まずはライブラリをインポート。
 using Distributed addprocs(3) @everywhere using Mamba using Plots 学生の数が100人、「カンニングした」という回答が35人とする。
 N = 100 X = 35 Mambaのモデルは次のようになる。
 model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportion), false ), proportion = Logical( (true_answers, first_coin_flips, second_coin_flips) -&amp;gt; (observed = @.(first_coin_flips * true_answers + (1 - first_coin_flips) * second_coin_flips); mean(observed)), false ), true_answers = Stochastic(1, p -&amp;gt; Bernoulli(p), false), first_coin_flips = Stochastic(1, () -&amp;gt; Bernoulli(0.</description>
@@ -267,7 +290,8 @@ model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportio
 サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
 まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
 # 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
-model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。</description>
+model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。
+model0 = Model( obs = Stochastic(1, p -&amp;gt; Bernoulli(p), false), p = Stochastic(() -&amp;gt; Uniform()), ) 観測データと初期値を作ってサンプリングし、</description>
     </item>
     
     <item>
@@ -280,7 +304,7 @@ model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bern
 新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
 Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
 using Distributions using Plots データセットの作成とプロットは下のようになる。
-function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
     </item>
     
     <item>
@@ -303,8 +327,8 @@ model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution
       <description>よく忘れるのでメモ。
 結論から言うと Base.Iterators.flatten を適用して collect すれば良い。
 julia&amp;gt; import Base.Iterators: flatten julia&amp;gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia&amp;gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):
-&amp;nbsp;vcat を使った方が簡潔だった。
-julia&amp;gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6</description>
+ vcat を使った方が簡潔だった。
+julia&amp;gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6 </description>
     </item>
     
     <item>
@@ -318,7 +342,7 @@ julia&amp;gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6</description>
 元のノートブックはこれ。
 JuliaでCSVファイルをhttps上から取るには、パッケージ HTTP , CSV をインポートして
 r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXTVC&amp;#34;); count_data = CSV.read(IOBuffer(r.body), header=[&amp;#34;messages&amp;#34;]) とすれば良い。 Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を 0:N-1 にしておく。
-N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
+N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
     </item>
     
     <item>
@@ -331,8 +355,8 @@ N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34
  生態学のデータ解析 - 久保拓弥
 http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
  本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。
-実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
-Binomial分布のGLM &amp;nbsp; formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
+ 実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
+Binomial分布のGLM  formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
 df.yy = df.y ./ df.N df.N = convert(Array{Float64}, df.N) result = glm(@formula(yy ~ x + f), df, Binomial(), wts = df.N) モデルのグラフ表示 Mambaのチュートリアルではモデルのグラフ表示にGraphViz.jlパッケージを使っている。
 ただGraphViz.jlはメンテナンスが止まっているようで、Julia v0.7以降では動かないようである。
 ForneyLab.jlがGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。

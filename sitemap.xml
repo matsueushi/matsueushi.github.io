@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2019-12-01T18:07:13-05:00</lastmod>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2019-12-01T18:07:13-05:00</lastmod>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
   </url>
   
   <url>
@@ -17,15 +17,43 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/dcgan/</loc>
-    <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
+    <loc>https://matsueushi.github.io/tags/deeplearning/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/flux/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/fluxjl-singan/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/gan/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/singan/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2020-01-04T18:10:23-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/dcgan/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -34,27 +62,13 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/tags/mlp/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/mnist/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2019-12-01T18:07:13-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -70,7 +84,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/kmean/</loc>
     <lastmod>2019-08-22T00:04:58-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -81,7 +94,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
     <lastmod>2019-07-17T21:22:00-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -92,19 +104,16 @@
   <url>
     <loc>https://matsueushi.github.io/tags/glitchpop/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/music/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/shoegaze/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -115,43 +124,36 @@
   <url>
     <loc>https://matsueushi.github.io/tags/sweettrip/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/dtc/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/fitc/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/inducingvariablemethod/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/sod/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/sor/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/sparseapproximation/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -167,7 +169,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/softman/</loc>
     <lastmod>2019-06-16T16:20:34-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -183,13 +184,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/ml/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/optim/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -200,7 +199,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/katex/</loc>
     <lastmod>2019-06-05T22:19:14-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -216,7 +214,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/test/</loc>
     <lastmod>2019-06-01T21:05:25-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -232,7 +229,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/distribution/</loc>
     <lastmod>2019-04-30T21:58:27-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -243,7 +239,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/bayesian/</loc>
     <lastmod>2019-04-17T21:44:20-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -254,7 +249,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/mamba/</loc>
     <lastmod>2019-04-17T21:44:20-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -280,7 +274,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/randomwalk/</loc>
     <lastmod>2019-04-03T21:52:38-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -291,7 +284,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/gcp/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -302,13 +294,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/jupyter/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/plots/</loc>
     <lastmod>2019-03-24T21:43:34-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -364,13 +354,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/mcmc/</loc>
     <lastmod>2019-03-04T23:01:57-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/lolicatonica/</loc>
     <lastmod>2019-03-03T22:15:31-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -386,7 +374,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/yubikey/</loc>
     <lastmod>2019-01-03T22:47:53-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -402,7 +389,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/record/</loc>
     <lastmod>2018-10-14T16:47:50-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -423,13 +409,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/blackdogproductions/</loc>
     <lastmod>2016-10-19T00:25:56-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/boat/</loc>
     <lastmod>2016-08-10T00:21:13-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -440,7 +424,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/zaningen/</loc>
     <lastmod>2016-07-31T00:16:07-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -451,7 +434,6 @@
   <url>
     <loc>https://matsueushi.github.io/tags/girls/</loc>
     <lastmod>2016-06-26T00:04:20-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -467,13 +449,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/macdemarco/</loc>
     <lastmod>2016-05-31T23:51:30-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/oval/</loc>
     <lastmod>2016-05-29T23:47:05-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -489,13 +469,11 @@
   <url>
     <loc>https://matsueushi.github.io/tags/neworder/</loc>
     <lastmod>2016-05-28T23:39:58-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/cymbals/</loc>
     <lastmod>2016-05-23T10:39:20-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -505,26 +483,22 @@
   
   <url>
     <loc>https://matsueushi.github.io/authors/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/page/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/series/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/memo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/page/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/series/</loc>
   </url>
   
 </urlset>

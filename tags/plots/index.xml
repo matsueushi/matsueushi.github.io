@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Plots on matsueushi</title>
@@ -16,7 +16,7 @@
       <pubDate>Sun, 24 Mar 2019 21:43:34 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/plotly-scale/</guid>
-      <description>&amp;nbsp;aspece_ratio=1 とすれば良いだけだった。簡単だった。
+      <description> aspece_ratio=1 とすれば良いだけだった。簡単だった。
 using Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = Exponential(10) z = Surface((s, t) -&amp;gt; pdf(exp_x, s) * pdf(exp_y, t), x, y) heatmap(x, y, z) heatmap(x, y, z, aspect_ratio = 1) </description>
     </item>
     

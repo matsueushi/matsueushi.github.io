@@ -6,7 +6,7 @@
 新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
 Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
 using Distributions using Plots データセットの作成とプロットは下のようになる。
-function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &#34;Time (days)&#34;, ylabel = &#34;Count of messages&#34;, label = &#34;&#34;) end plts = [] for i in 1:4 push!'>
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &#34;Time(days)&#34;, ylabel = &#34;Countofmessages&#34;, label = &#34;&#34;) end plts = [] for i in 1:4 push!'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Juliaで体験するベイズ推論(3) -新しいデータセットの生成 • matsueushi'>
@@ -14,12 +14,12 @@ function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta 
 新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
 Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
 using Distributions using Plots データセットの作成とプロットは下のようになる。
-function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &#34;Time (days)&#34;, ylabel = &#34;Count of messages&#34;, label = &#34;&#34;) end plts = [] for i in 1:4 push!'>
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &#34;Time(days)&#34;, ylabel = &#34;Countofmessages&#34;, label = &#34;&#34;) end plts = [] for i in 1:4 push!'>
 <meta property='og:url' content='https://matsueushi.github.io/posts/bayesian-methods-julia-3/'>
 <meta property='og:site_name' content='matsueushi'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Bayesian'><meta property='article:tag' content='Mamba'><meta property='article:published_time' content='2019-03-20T20:58:08-04:00'/><meta property='article:modified_time' content='2019-03-20T20:58:08-04:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.60.1" />
 
   <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成 • matsueushi</title>
   <link rel='canonical' href='https://matsueushi.github.io/posts/bayesian-methods-julia-3/'>
@@ -96,7 +96,7 @@ if (!doNotTrack) {
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/bayesian/' style='font-size:1.2608695652173914em'>Bayesian</a>
+        <a href='/tags/bayesian/' style='font-size:1.25em'>Bayesian</a>
       </li><li>
         <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
       </li><li>
@@ -106,15 +106,19 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/dcgan/' style='font-size:1em'>DCGAN</a>
       </li><li>
+        <a href='/tags/deeplearning/' style='font-size:1em'>DeepLearning</a>
+      </li><li>
         <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
       </li><li>
-        <a href='/tags/dtc/' style='font-size:1.0434782608695652em'>DTC</a>
+        <a href='/tags/dtc/' style='font-size:1.0416666666666667em'>DTC</a>
       </li><li>
-        <a href='/tags/fitc/' style='font-size:1.0434782608695652em'>FITC</a>
+        <a href='/tags/fitc/' style='font-size:1.0416666666666667em'>FITC</a>
       </li><li>
-        <a href='/tags/flux/' style='font-size:1em'>Flux</a>
+        <a href='/tags/flux/' style='font-size:1.0416666666666667em'>Flux</a>
       </li><li>
-        <a href='/tags/gaussianprocess/' style='font-size:1.2173913043478262em'>GaussianProcess</a>
+        <a href='/tags/gan/' style='font-size:1em'>GAN</a>
+      </li><li>
+        <a href='/tags/gaussianprocess/' style='font-size:1.2083333333333333em'>GaussianProcess</a>
       </li><li>
         <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
       </li><li>
@@ -122,31 +126,31 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/glitchpop/' style='font-size:1em'>Glitchpop</a>
       </li><li>
-        <a href='/tags/inducingvariablemethod/' style='font-size:1.0434782608695652em'>InducingVariableMethod</a>
+        <a href='/tags/inducingvariablemethod/' style='font-size:1.0416666666666667em'>InducingVariableMethod</a>
       </li><li>
         <a href='/tags/julia/' style='font-size:2em'>Julia</a>
       </li><li>
-        <a href='/tags/jupyter/' style='font-size:1.0434782608695652em'>Jupyter</a>
+        <a href='/tags/jupyter/' style='font-size:1.0416666666666667em'>Jupyter</a>
       </li><li>
-        <a href='/tags/katex/' style='font-size:1.0434782608695652em'>KaTeX</a>
+        <a href='/tags/katex/' style='font-size:1.0416666666666667em'>KaTeX</a>
       </li><li>
         <a href='/tags/kmean/' style='font-size:1em'>KMean</a>
       </li><li>
-        <a href='/tags/lolicatonica/' style='font-size:1.0434782608695652em'>LolicaTonica</a>
+        <a href='/tags/lolicatonica/' style='font-size:1.0416666666666667em'>LolicaTonica</a>
       </li><li>
         <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
       </li><li>
-        <a href='/tags/mamba/' style='font-size:1.391304347826087em'>Mamba</a>
+        <a href='/tags/mamba/' style='font-size:1.375em'>Mamba</a>
       </li><li>
         <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
       </li><li>
         <a href='/tags/ml/' style='font-size:1em'>ML</a>
       </li><li>
-        <a href='/tags/mlp/' style='font-size:1.0869565217391304em'>MLP</a>
+        <a href='/tags/mlp/' style='font-size:1.0833333333333333em'>MLP</a>
       </li><li>
         <a href='/tags/mnist/' style='font-size:1em'>MNIST</a>
       </li><li>
-        <a href='/tags/music/' style='font-size:1.5652173913043477em'>Music</a>
+        <a href='/tags/music/' style='font-size:1.5416666666666665em'>Music</a>
       </li><li>
         <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
       </li><li>
@@ -158,17 +162,19 @@ if (!doNotTrack) {
       </li><li>
         <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
       </li><li>
-        <a href='/tags/record/' style='font-size:1.0434782608695652em'>Record</a>
+        <a href='/tags/record/' style='font-size:1.0416666666666667em'>Record</a>
       </li><li>
         <a href='/tags/shoegaze/' style='font-size:1em'>Shoegaze</a>
       </li><li>
-        <a href='/tags/sod/' style='font-size:1.0434782608695652em'>SoD</a>
+        <a href='/tags/singan/' style='font-size:1em'>SinGAN</a>
+      </li><li>
+        <a href='/tags/sod/' style='font-size:1.0416666666666667em'>SoD</a>
       </li><li>
         <a href='/tags/softman/' style='font-size:1em'>Softman</a>
       </li><li>
-        <a href='/tags/sor/' style='font-size:1.0434782608695652em'>SoR</a>
+        <a href='/tags/sor/' style='font-size:1.0416666666666667em'>SoR</a>
       </li><li>
-        <a href='/tags/sparseapproximation/' style='font-size:1.0434782608695652em'>SparseApproximation</a>
+        <a href='/tags/sparseapproximation/' style='font-size:1.0416666666666667em'>SparseApproximation</a>
       </li><li>
         <a href='/tags/sweettrip/' style='font-size:1em'>SweetTrip</a>
       </li><li>
@@ -281,44 +287,37 @@ One min read
     
 
     <div class='container entry-content'>
-  
-
-<p>引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。</p>
-
-<h2 id="新しいデータセットの生成">新しいデータセットの生成</h2>
-
+  <p>引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。</p>
+<h2 id="heading">新しいデータセットの生成</h2>
 <p>PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。</p>
-
-<p><a href="https://github.com/brian-j-smith/Mamba.jl" target="_blank">Mamba.jl</a>は分布の作成に<a href="https://github.com/JuliaStats/Distributions.jl" target="_blank">Distributions.jl</a>を使っているので、シミュレーションだけ行いたかったらDistributionsを <code>using</code> すれば十分。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions
-<span style="color:#66d9ef">using</span> Plots</code></pre></div>
-<p>データセットの作成とプロットは下のようになる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> plot_artificial_sms_dataset()
-    tau <span style="color:#f92672">=</span> rand(DiscreteUniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">80</span>))
-    theta <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
-    lambda_1, lambda_2 <span style="color:#f92672">=</span> rand(Exponential(theta), <span style="color:#ae81ff">2</span>)
-    lambda_ <span style="color:#f92672">=</span> cat(fill(lambda_1, tau), fill(lambda_2, <span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> tau), dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-    data <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span>rand(Poisson(lambda_))
-    barc <span style="color:#f92672">=</span> fill(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">80</span>)
-    barc[tau] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
-    bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, data, linecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent, fillcolor <span style="color:#f92672">=</span> barc,
-        xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+<p><a href="https://github.com/brian-j-smith/Mamba.jl">Mamba.jl</a>は分布の作成に<a href="https://github.com/JuliaStats/Distributions.jl">Distributions.jl</a>を使っているので、シミュレーションだけ行いたかったらDistributionsを <code>using</code> すれば十分。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions<span style="color:#f92672"></span>
+<span style="color:#66d9ef">using</span> Plots<span style="color:#f92672"></span>
+</code></pre></div><p>データセットの作成とプロットは下のようになる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> plot_artificial_sms_dataset<span style="color:#f92672"></span>()
+    tau<span style="color:#f92672"></span> <span style="color:#f92672">=</span> rand<span style="color:#f92672"></span>(DiscreteUniform<span style="color:#f92672"></span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">80</span>))
+    theta<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+    lambda_1<span style="color:#f92672"></span>, lambda_2<span style="color:#f92672"></span> <span style="color:#f92672">=</span> rand<span style="color:#f92672"></span>(Exponential<span style="color:#f92672"></span>(theta<span style="color:#f92672"></span>), <span style="color:#ae81ff">2</span>)
+    lambda_<span style="color:#f92672"></span> <span style="color:#f92672">=</span> cat<span style="color:#f92672"></span>(fill<span style="color:#f92672"></span>(lambda_1<span style="color:#f92672"></span>, tau<span style="color:#f92672"></span>), fill<span style="color:#f92672"></span>(lambda_2<span style="color:#f92672"></span>, <span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> tau<span style="color:#f92672"></span>), dims<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+    data<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span>rand<span style="color:#f92672"></span>(Poisson<span style="color:#f92672"></span>(lambda_<span style="color:#f92672"></span>))
+    barc<span style="color:#f92672"></span> <span style="color:#f92672">=</span> fill<span style="color:#f92672"></span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">80</span>)
+    barc<span style="color:#f92672"></span>[tau<span style="color:#f92672"></span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    bar<span style="color:#f92672"></span>(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, data<span style="color:#f92672"></span>, linecolor<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>transparent<span style="color:#f92672"></span>, fillcolor<span style="color:#f92672"></span> <span style="color:#f92672">=</span> barc<span style="color:#f92672"></span>,
+        xlabel<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">T</span><span style="color:#e6db74">i</span><span style="color:#e6db74">m</span><span style="color:#e6db74">e</span><span style="color:#e6db74"> </span><span style="color:#e6db74">(</span><span style="color:#e6db74">d</span><span style="color:#e6db74">a</span><span style="color:#e6db74">y</span><span style="color:#e6db74">s</span><span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>, ylabel<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">o</span><span style="color:#e6db74">u</span><span style="color:#e6db74">n</span><span style="color:#e6db74">t</span><span style="color:#e6db74"> </span><span style="color:#e6db74">o</span><span style="color:#e6db74">f</span><span style="color:#e6db74"> </span><span style="color:#e6db74">m</span><span style="color:#e6db74">e</span><span style="color:#e6db74">s</span><span style="color:#e6db74">s</span><span style="color:#e6db74">a</span><span style="color:#e6db74">g</span><span style="color:#e6db74">e</span><span style="color:#e6db74">s</span><span style="color:#e6db74">&#34;</span>, label<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>)
 <span style="color:#66d9ef">end</span>
-plts <span style="color:#f92672">=</span> []
-<span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
-    push!(plts, plot_artificial_sms_dataset())
+plts<span style="color:#f92672"></span> <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> i<span style="color:#f92672"></span> <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
+    push!<span style="color:#f92672"></span>(plts<span style="color:#f92672"></span>, plot_artificial_sms_dataset<span style="color:#f92672"></span>())
 <span style="color:#66d9ef">end</span>
-plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])</code></pre></div>
-<p><img src="/images/posts/bayesian-methods-julia-3_messages.png" alt="メッセージ数" /></p>
-
+plot<span style="color:#f92672"></span>(plts<span style="color:#f92672"></span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>, layout<span style="color:#f92672"></span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size<span style="color:#f92672"></span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-3_messages.png" alt="メッセージ数"></p>
 <p>Plots.jlでPythonのMatplotlibと同様に複数のSubplotsを表示するには、一旦list (e.g. <code>plt</code> )にプロット結果を受けておいて、最後に一気に</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot(plts…, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])</code></pre></div>
-<p>として表示すればできる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot(plts, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])</code></pre></div>
-<p>だと <code>MethodError: no method matching MethodError(::String)</code> が出てダメだった。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot<span style="color:#f92672"></span>(plts…<span style="color:#f92672"></span>, layout<span style="color:#f92672"></span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size<span style="color:#f92672"></span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</code></pre></div><p>として表示すればできる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot<span style="color:#f92672"></span>(plts<span style="color:#f92672"></span>, layout<span style="color:#f92672"></span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size<span style="color:#f92672"></span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</code></pre></div><p>だと <code>MethodError: no method matching MethodError(::String)</code> が出てダメだった。</p>
 <p>モデルシミュレーションのコード -&gt;
-<a href="https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb" target="_blank">https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb</a></p>
+<a href="https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb">https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb</a></p>
 
   <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -417,7 +416,7 @@ plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f926
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2019 matsueushi </p>
+  <p> &copy; 2019-2020 matsueushi </p>
 </div>
 
         </div>

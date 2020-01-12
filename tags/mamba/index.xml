@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mamba on matsueushi</title>
@@ -66,7 +66,8 @@ WARNING: Method definition (::Type{Distributions.DiscreteNonParametric{Int64, P,
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
       <description>「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。
 学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。
- コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。  カンニングが全くなければ、「カンニングした」という回答がある確率は 1&amp;frasl;2 * 1&amp;frasl;2 = 1&amp;frasl;4, 全員カンニングしていれば 1&amp;frasl;2 + 1&amp;frasl;2 * 1&amp;frasl;2 = 3&amp;frasl;4 になる。  まずはライブラリをインポート。
+ コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。   カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。
+まずはライブラリをインポート。
 using Distributed addprocs(3) @everywhere using Mamba using Plots 学生の数が100人、「カンニングした」という回答が35人とする。
 N = 100 X = 35 Mambaのモデルは次のようになる。
 model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportion), false ), proportion = Logical( (true_answers, first_coin_flips, second_coin_flips) -&amp;gt; (observed = @.(first_coin_flips * true_answers + (1 - first_coin_flips) * second_coin_flips); mean(observed)), false ), true_answers = Stochastic(1, p -&amp;gt; Bernoulli(p), false), first_coin_flips = Stochastic(1, () -&amp;gt; Bernoulli(0.</description>
@@ -83,7 +84,8 @@ model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportio
 サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
 まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
 # 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
-model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。</description>
+model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。
+model0 = Model( obs = Stochastic(1, p -&amp;gt; Bernoulli(p), false), p = Stochastic(() -&amp;gt; Uniform()), ) 観測データと初期値を作ってサンプリングし、</description>
     </item>
     
     <item>
@@ -96,7 +98,7 @@ model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bern
 新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
 Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
 using Distributions using Plots データセットの作成とプロットは下のようになる。
-function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
+function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
     </item>
     
     <item>
@@ -121,7 +123,7 @@ model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution
 元のノートブックはこれ。
 JuliaでCSVファイルをhttps上から取るには、パッケージ HTTP , CSV をインポートして
 r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXTVC&amp;#34;); count_data = CSV.read(IOBuffer(r.body), header=[&amp;#34;messages&amp;#34;]) とすれば良い。 Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を 0:N-1 にしておく。
-N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time (days)&amp;#34;, ylabel = &amp;#34;Count of messages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
+N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
     </item>
     
     <item>
@@ -134,8 +136,8 @@ N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34
  生態学のデータ解析 - 久保拓弥
 http://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html
  本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。
-実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
-Binomial分布のGLM &amp;nbsp; formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
+ 実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。
+Binomial分布のGLM  formula で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。
 df.yy = df.y ./ df.N df.N = convert(Array{Float64}, df.N) result = glm(@formula(yy ~ x + f), df, Binomial(), wts = df.N) モデルのグラフ表示 Mambaのチュートリアルではモデルのグラフ表示にGraphViz.jlパッケージを使っている。
 ただGraphViz.jlはメンテナンスが止まっているようで、Julia v0.7以降では動かないようである。
 ForneyLab.jlがGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。
