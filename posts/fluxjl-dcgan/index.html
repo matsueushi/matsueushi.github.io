@@ -2,7 +2,8 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
+<meta name='description' content='2020/3/8 追記: model-zoo(https://github.com/FluxML/model-zoo) にDCGANのモデルが入りました。
+ 2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
 実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 &#43; 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
 Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは 現在(2019/12/1)存在しないと思われる。 配布されているようです
@@ -12,7 +13,8 @@ JuliaGPUのDockerイメージ JuliaGPU/docker はメンテナンスされてい�
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Flux.jl v0.10.0でDCGANを動かす(CUDA環境) • matsueushi'>
-<meta property='og:description' content='2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
+<meta property='og:description' content='2020/3/8 追記: model-zoo(https://github.com/FluxML/model-zoo) にDCGANのモデルが入りました。
+ 2019/11/29にJuliaの機械学習ライブラリFlux.jlのv0.10.0がリリースされた。 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。
 実装はGitHubのリポジトリ matsueushi/fluxjl-gan を見てほしい。
 環境はGCPのn1-standard-8 &#43; 1 x NVIDIA Tesla K80で、Ubuntu 18.04, Juliaのバージョンは1.3.0を利用。
 Dockerで環境構築(GPU) GPUが使えるJuliaのオフィシャルなDocker imageは 現在(2019/12/1)存在しないと思われる。 配布されているようです
@@ -295,7 +297,9 @@ if (!doNotTrack) {
     
 
     <div class='container entry-content'>
-  <p>2019/11/29にJuliaの機械学習ライブラリ<a href="https://fluxml.ai/Flux.jl/stable/">Flux.jl</a>の<a href="https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0">v0.10.0</a>がリリースされた。
+  <p>2020/3/8 追記: model-zoo(<a href="https://github.com/FluxML/model-zoo">https://github.com/FluxML/model-zoo</a>) にDCGANのモデルが入りました。</p>
+<hr>
+<p>2019/11/29にJuliaの機械学習ライブラリ<a href="https://fluxml.ai/Flux.jl/stable/">Flux.jl</a>の<a href="https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0">v0.10.0</a>がリリースされた。
 もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、
 ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。</p>
 <p>実装はGitHubのリポジトリ <a href="https://github.com/matsueushi/fluxjl-gan">matsueushi/fluxjl-gan</a> を見てほしい。</p>
