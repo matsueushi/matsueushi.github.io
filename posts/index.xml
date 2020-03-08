@@ -5,10 +5,23 @@
     <link>https://matsueushi.github.io/posts/</link>
     <description>Recent content in Blog on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
+      <link>https://matsueushi.github.io/posts/julia-rounding/</link>
+      <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia-rounding/</guid>
+      <description>最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
+浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
+今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
+使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
+_ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &amp;#34;?&amp;#34; for help, &amp;#34;]?&amp;#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.</description>
+    </item>
     
     <item>
       <title>Flux.jlでSinGANを実装する</title>
