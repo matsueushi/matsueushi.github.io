@@ -406,7 +406,7 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
 julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x<span style="color:#f92672"></span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> x<span style="color:#f92672"></span>
 <span style="color:#66d9ef">true</span>
 </code></pre></div><p>となって元々の値と同じになっています。</p>
-<p>つまりは計算した結果も丸められているわけですが、 ここで丸める前と丸めた後の関係が気になります。
+<p>つまりは計算した結果も丸められているわけですが、ここで丸める前と丸めた後の関係が気になります。
 Juliaの <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1">Rounding modes</a> を見ると丸めモードは
 <a href="https://ieeexplore.ieee.org/document/8766229">IEEE754 standard</a> に従っていると言うことなので、
 規格を本来は参照すべきだと思いますが、ノンメンバーだとPDFを購入するのに$100かかるようなので、断念しました。</p>
@@ -432,7 +432,8 @@ $$</p>
 <h3 id="heading2">区間演算</h3>
 <p>次に、同様の計算を区間計算で (正確な定義はスキップして) 行ってみます。
 まず、\( 0.1 \) を含む、端点が共に \( \mathbb{F} \) の元で幅がなるべく小さい区間を探します。</p>
-<p><code>0.1</code> と書いた時点で浮動小数点数に変換されてしまうので、入力を文字列 <code>&quot;0.1&quot;</code> にしてパースする方法もありますが、
+<p><code>0.1</code> と書いた時点で浮動小数点数に変換されてしまうので、別の方法で \( 0.1 \) を表現する必要があります。
+入力を文字列 <code>&quot;0.1&quot;</code> にしてパースする方法もありますが、
 幸いなことに<a href="https://docs.julialang.org/en/v1/manual/complex-and-rational-numbers/#Rational-Numbers-1">有理数型</a>と<a href="https://docs.julialang.org/en/v1/base/numbers/#Core.Float64-Tuple%7BAny%7D">丸め方向つきの浮動小数点数コンストラクタ</a>が利用できます。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x_down<span style="color:#f92672"></span>, x_up<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, RoundDown), <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, RoundUp);
 
