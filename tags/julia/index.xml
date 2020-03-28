@@ -5,10 +5,26 @@
     <link>https://matsueushi.github.io/tags/julia/</link>
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 18:00:00 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/julia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
+      <link>https://matsueushi.github.io/posts/rounding-emulator/</link>
+      <pubDate>Sat, 28 Mar 2020 18:00:00 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/rounding-emulator/</guid>
+      <description>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい) で色々とJuliaの丸めモードについて調べていましたが、今回はその続きです。
+やはりどうしてもJuliaの Float32 や Float64 に対して上付き丸め、下付き丸めを可能な限り正確に安定して行いたくなったので、 「最近点丸めによる方向付き丸めのエミュレート」を参考に、デフォルトの丸めモードのみを使って上付き丸め、下付き丸めをエミュレートするJuliaのパッケージを作成しました。
+RoundingEmulator.jl https://github.com/matsueushi/RoundingEmulator.jl
+Registratorにも登録したので、
+] add RoundingEmulator でインストールして使えます。
+定義されているのは add, sub, mul, div, sqrt に対して上付き丸め _up と下付き丸め _down と2つと非常なシンプルなものです。
+julia&amp;gt; using RoundingEmulator julia&amp;gt; add_up(0.1, 0.2) 0.30000000000000004 julia&amp;gt; add_down(0.1, 0.2) 0.3 julia&amp;gt; sub_up(-0.1, 0.2) -0.3 julia&amp;gt; sub_down(-0.1, 0.2) -0.30000000000000004 julia&amp;gt; mul_up(0.1, 0.2) 0.020000000000000004 julia&amp;gt; mul_down(0.1, 0.2) 0.02 julia&amp;gt; div_up(1.0, 3.0) 0.33333333333333337 julia&amp;gt; div_up(1.0, 3.0) 0.33333333333333337 julia&amp;gt; sqrt_up(2.0) 1.4142135623730951 julia&amp;gt; sqrt_down(2.0) 1.414213562373095 https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L187-L194 の例も正しく計算できていました。
+julia&amp;gt; sqrt_up(3.</description>
+    </item>
     
     <item>
       <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
