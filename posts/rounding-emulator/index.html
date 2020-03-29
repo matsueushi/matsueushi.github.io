@@ -407,7 +407,6 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
 <p>確実に正しいことがわかっている入力と出力のペアからテストを作成するのが一番良いと思うのですが、今回はそこまでやっていません。</p>
 <h2 id="signed-zero">Signed zero</h2>
 <p>符号付きゼロもの符号も含めて正確に再現する場合、下付き丸めによる加算の定義で注意する必要があります。
-これは
 上付き丸めによる加算は</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_up<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
     x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> add12<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
@@ -418,8 +417,9 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>と定義できますが、下付きの丸めに関しては、0どうしの計算を行った際に符号を変える必要があります。
+これは和の合計が0になる計算 (exact zero sum) の挙動が下付き丸めとそれ以外で異なるためです。
 IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zero sumは-0になると書いてあります。
-ただ、\(x + x\) の符号は \(x\) の符号と同じになるので、表にすると、</p>
+ただ、\(x + x\) の符号は \(x\) の符号と同じになると定められているので、表にすると、</p>
 <table>
 <thead>
 <tr>
@@ -454,7 +454,7 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
 </tr>
 </tbody>
 </table>
-<p>このようになります。よって、下のように修正します。</p>
+<p>このようになります。よって、下のように修正することでゼロの符号を調整しています。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_down<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
     x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> add12<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
     <span style="color:#66d9ef">if</span> isinf<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>)
@@ -465,7 +465,7 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
         ifelse<span style="color:#f92672"></span>(iszero<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>) <span style="color:#f92672">&amp;&amp;</span> (signbit<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>) <span style="color:#f92672">||</span> signbit<span style="color:#f92672"></span>(b<span style="color:#f92672"></span>)), <span style="color:#f92672">-</span>zero<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>), x<span style="color:#f92672"></span>)
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
-</code></pre></div><p>こうすることで、正しく計算できています。</p>
+</code></pre></div><p>計算結果:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_up<span style="color:#f92672"></span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>)
 <span style="color:#ae81ff">0.0</span>
 
