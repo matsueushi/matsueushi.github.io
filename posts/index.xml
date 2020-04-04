@@ -5,10 +5,20 @@
     <link>https://matsueushi.github.io/posts/</link>
     <description>Recent content in Blog on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 28 Mar 2020 18:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2020 10:00:29 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>再生数1000以下の隠れた名曲を探す</title>
+      <link>https://matsueushi.github.io/posts/playlist/</link>
+      <pubDate>Sat, 04 Apr 2020 10:00:29 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/playlist/</guid>
+      <description>メモ用です。
+Toytown - Not My Chuckadoo   mimippiii - 地雷ちゃん   Conditioning Drive - ///　Ｒｅｂｏｏｔ (WINDOWSWAVE)   ㄩㄥㄒ尺卂 山卂ᐯ乇 - ｄ　ａ　ｔ　ｉ　ｎ　ｇ　ｇ　ｏ   Dynamic Frequency - Daydream (波のスタイルwavestyle96 Remix)</description>
+    </item>
     
     <item>
       <title>デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
