@@ -2,7 +2,8 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
+<meta name='description' content='2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmeitc.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。
+ 最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
 浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
 今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
 使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
@@ -10,7 +11,8 @@ _ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Juliaで丸めモードを指定して浮動小数点数の計算をする(したい) • matsueushi'>
-<meta property='og:description' content='最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
+<meta property='og:description' content='2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmeitc.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。
+ 最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
 浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
 今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
 使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
@@ -291,7 +293,12 @@ if (!doNotTrack) {
     
 
     <div class='container entry-content'>
-  <p>最近、 数値計算を
+  <p>2020/4/14追記 丸めモードについては、<a href="../rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a> も参照してください。
+IntervalArithmeitc.jl のデフォルト丸めモードは、<a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370">#370</a> で
+FastRounding.jl を利用しなくなった (v0.17.0以降) ので、
+IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。</p>
+<hr>
+<p>最近、 数値計算を
 <a href="https://ja.wikipedia.org/wiki/%E5%8C%BA%E9%96%93%E6%BC%94%E7%AE%97">区間演算</a> を使って誤差の評価を伴って実施する
 <a href="https://ja.wikipedia.org/wiki/%E7%B2%BE%E5%BA%A6%E4%BF%9D%E8%A8%BC%E4%BB%98%E3%81%8D%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97">精度保証付き数値計算</a> に興味が出てきて、
 <a href="https://press.princeton.edu/books/hardcover/9780691147819/validated-numerics">Warwich Tucker の Validated Numeric</a> という本を購入し、少しつづ読んでいます。</p>
