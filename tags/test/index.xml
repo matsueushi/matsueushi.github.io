@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/test/</link>
     <description>Recent content in test on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
@@ -16,10 +18,11 @@
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/katex-test/</guid>
-      <description>KaTeX Test
-\( \lim \sum \int \)
-Katexでは \( \varprojlim \) はサポートされていない
-_ではなく\_を使うと \( x_{mn} \)などの添字が出せる</description>
+      <description>&lt;p&gt;KaTeX Test&lt;/p&gt;
+&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;
+&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;
+&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;
+</description>
     </item>
     
   </channel>

@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/distribution/</link>
     <description>Recent content in Distribution on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
@@ -16,12 +18,37 @@
       <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/shift-scale-distribution/</guid>
-      <description>公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。
- Distributions.jl/src/univariate/continuous/locationscale.jl https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl
- 例えば、PyMC3の StudentT
-pm.StudentT(&amp;#39;x&amp;#39;, nu=nu, mu=mu, lam=lam) に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの TDist のパラメトライズは nu だけで mu や lam は指定できないが、
-LocationScale(mu, lam, TDist(nu)) とすればOK。PyMCの StudentT に出ている pdf と同じグラフを書いて確認しよう。
-using Distributions using Plots using Printf # StudentT分布のシフト x = -8:0.01:8 mu = [0, 0, -2, -2] lam = [1, 1, 1, 2] nu = [1, 5, 5, 5] plt = Plots.plot() for i in 1:4 y = pdf.(LocationScale(mu[i], lam[i], TDist(nu[i])), x) Plots.</description>
+      <description>&lt;p&gt;公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Distributions.jl/src/univariate/continuous/locationscale.jl
+&lt;a href=&#34;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&#34;&gt;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例えば、PyMC3の &lt;code&gt;StudentT&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;pm&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;StudentT(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, nu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;nu, mu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mu, lam&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;lam)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの &lt;code&gt;TDist&lt;/code&gt; のパラメトライズは &lt;code&gt;nu&lt;/code&gt; だけで &lt;code&gt;mu&lt;/code&gt; や &lt;code&gt;lam&lt;/code&gt; は指定できないが、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;LocationScale(mu, lam, TDist(nu))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とすればOK。PyMCの &lt;code&gt;StudentT&lt;/code&gt; に出ている &lt;code&gt;pdf&lt;/code&gt; と同じグラフを書いて確認しよう。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# StudentT分布のシフト&lt;/span&gt;
+x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;
+mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+lam &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+nu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]
+plt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot()
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pdf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(LocationScale(mu[i], lam[i], TDist(nu[i])), x)
+    Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!(x, y, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+        label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@sprintf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mu = &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%.1f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, lam = &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%.1f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, nu = &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%.1f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, 
+            mu[i], lam[i], nu[i]))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+plt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/shift-scale-distribution.png&#34; alt=&#34;シフトした分布&#34;&gt;&lt;/p&gt;
+&lt;p&gt;良さそうだ。&lt;/p&gt;
+</description>
     </item>
     
   </channel>

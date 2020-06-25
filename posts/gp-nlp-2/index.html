@@ -1,41 +1,34 @@
 <!DOCTYPE html>
-<html lang='en'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。
-ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの optimize を使ってしまった)のところまで読み進めた。
- 3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。 図3.16のガウスカーネル
-\( \begin{aligned} k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right) \end{aligned} \) のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。  \( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.01) \) とすると近い図になる(全く同じには見えない)
- 尤度の計算が合わなかった。尤度を図示した図3.16で-5未満を切り捨てるとうまくいかなかった。20以下を切り捨てると近い図になった。  本文の局所解(ii)に該当する点の尤度は-2.0299となり本文の-1.934とは違ってしまった。
-図3.20のパラメーター推定は正しくできたが、こちらも対数尤度が違ってしまった((a):本文-1.788、実装-1.738, (b):本文-2.174, 実装-2.5029) 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。
-https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19
-https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb'>
-<meta name='theme-color' content='#ffcd00'>
+<html lang="en">
 
-<meta property='og:title' content='ガウス過程と機械学習: 3.5まで • matsueushi'>
-<meta property='og:description' content='引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。
-ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの optimize を使ってしまった)のところまで読み進めた。
- 3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。 図3.16のガウスカーネル
-\( \begin{aligned} k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right) \end{aligned} \) のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。  \( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.01) \) とすると近い図になる(全く同じには見えない)
- 尤度の計算が合わなかった。尤度を図示した図3.16で-5未満を切り捨てるとうまくいかなかった。20以下を切り捨てると近い図になった。  本文の局所解(ii)に該当する点の尤度は-2.0299となり本文の-1.934とは違ってしまった。
-図3.20のパラメーター推定は正しくできたが、こちらも対数尤度が違ってしまった((a):本文-1.788、実装-1.738, (b):本文-2.174, 実装-2.5029) 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。
-https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19
-https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb'>
-<meta property='og:url' content='https://matsueushi.github.io/posts/gp-nlp-2/'>
-<meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='GaussianProcess'><meta property='article:tag' content='MLP'><meta property='article:published_time' content='2019-05-19T22:37:52-04:00'/><meta property='article:modified_time' content='2019-05-19T22:37:52-04:00'/><meta name='twitter:card' content='summary'>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>matsueushi  | ガウス過程と機械学習: 3.5まで</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.73.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-<meta name="generator" content="Hugo 0.60.1" />
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <title>ガウス過程と機械学習: 3.5まで • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/gp-nlp-2/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#ffcd00;}
-</style>
+	
 
+	
+	
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+	
+
+	
+	
+	
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -47,257 +40,85 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
-  
+	
+	
+	
 
+
+
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
 </head>
-<body class='page type-posts has-sidebar'>
 
-  <div class='site'><div id='sidebar' class='sidebar'>
-  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">ガウス過程と機械学習: 3.5まで</h1>
 
-  <div class='container'><section class='widget widget-about sep-after'>
-  <header>
-    
-    <div class='logo'>
-      <a href='/'>
-        <img src='/images/ushi.jpg'>
-      </a>
-    </div>
-    
-    <h2 class='title site-title '>
-      <a href='/'>
-      matsueushi
-      </a>
-    </h2>
-    <div class='desc'>
-    
-    </div>
-  </header>
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
 
-</section>
-<section class='widget widget-search sep-after'>
-  <header>
-    <h4 class='title widget-title'>Search</h4>
-  </header>
+	
 
-  <form action='/search' id='search-form' class='search-form'>
-    <label>
-      <span class='screen-reader-text'>Search</span>
-      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
-    </label></form>
-
-</section>
-<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
-    <div class='container'>
-      <ul><li class='item'>
-  <a href='/'>Home</a></li><li class='item'>
-  <a href='/posts/'>Blog</a></li></ul>
-    </div>
-  </nav>
-
-</section><section class='widget widget-taxonomy_cloud sep-after'>
-  <header>
-    <h4 class='title widget-title'>Tags</h4>
-  </header>
-
-  <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/bayesian/' style='font-size:1.2307692307692308em'>Bayesian</a>
-      </li><li>
-        <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
-      </li><li>
-        <a href='/tags/boat/' style='font-size:1em'>BOaT</a>
-      </li><li>
-        <a href='/tags/cymbals/' style='font-size:1em'>Cymbals</a>
-      </li><li>
-        <a href='/tags/dcgan/' style='font-size:1em'>DCGAN</a>
-      </li><li>
-        <a href='/tags/deeplearning/' style='font-size:1em'>DeepLearning</a>
-      </li><li>
-        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
-      </li><li>
-        <a href='/tags/dtc/' style='font-size:1.0384615384615385em'>DTC</a>
-      </li><li>
-        <a href='/tags/fitc/' style='font-size:1.0384615384615385em'>FITC</a>
-      </li><li>
-        <a href='/tags/float/' style='font-size:1em'>Float</a>
-      </li><li>
-        <a href='/tags/flux/' style='font-size:1.0384615384615385em'>Flux</a>
-      </li><li>
-        <a href='/tags/gan/' style='font-size:1em'>GAN</a>
-      </li><li>
-        <a href='/tags/gaussianprocess/' style='font-size:1.1923076923076923em'>GaussianProcess</a>
-      </li><li>
-        <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
-      </li><li>
-        <a href='/tags/girls/' style='font-size:1em'>Girls</a>
-      </li><li>
-        <a href='/tags/glitchpop/' style='font-size:1em'>Glitchpop</a>
-      </li><li>
-        <a href='/tags/inducingvariablemethod/' style='font-size:1.0384615384615385em'>InducingVariableMethod</a>
-      </li><li>
-        <a href='/tags/julia/' style='font-size:2em'>Julia</a>
-      </li><li>
-        <a href='/tags/jupyter/' style='font-size:1.0384615384615385em'>Jupyter</a>
-      </li><li>
-        <a href='/tags/katex/' style='font-size:1.0384615384615385em'>KaTeX</a>
-      </li><li>
-        <a href='/tags/kmean/' style='font-size:1em'>KMean</a>
-      </li><li>
-        <a href='/tags/lolicatonica/' style='font-size:1.0384615384615385em'>LolicaTonica</a>
-      </li><li>
-        <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
-      </li><li>
-        <a href='/tags/mamba/' style='font-size:1.3461538461538463em'>Mamba</a>
-      </li><li>
-        <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
-      </li><li>
-        <a href='/tags/ml/' style='font-size:1em'>ML</a>
-      </li><li>
-        <a href='/tags/mlp/' style='font-size:1.0769230769230769em'>MLP</a>
-      </li><li>
-        <a href='/tags/mnist/' style='font-size:1em'>MNIST</a>
-      </li><li>
-        <a href='/tags/music/' style='font-size:1.5em'>Music</a>
-      </li><li>
-        <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
-      </li><li>
-        <a href='/tags/optim/' style='font-size:1em'>Optim</a>
-      </li><li>
-        <a href='/tags/oval/' style='font-size:1em'>Oval</a>
-      </li><li>
-        <a href='/tags/plots/' style='font-size:1em'>Plots</a>
-      </li><li>
-        <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
-      </li><li>
-        <a href='/tags/record/' style='font-size:1.0384615384615385em'>Record</a>
-      </li><li>
-        <a href='/tags/rounding/' style='font-size:1.0384615384615385em'>Rounding</a>
-      </li><li>
-        <a href='/tags/shoegaze/' style='font-size:1em'>Shoegaze</a>
-      </li><li>
-        <a href='/tags/singan/' style='font-size:1em'>SinGAN</a>
-      </li><li>
-        <a href='/tags/sod/' style='font-size:1.0384615384615385em'>SoD</a>
-      </li><li>
-        <a href='/tags/softman/' style='font-size:1em'>Softman</a>
-      </li><li>
-        <a href='/tags/sor/' style='font-size:1.0384615384615385em'>SoR</a>
-      </li><li>
-        <a href='/tags/sparseapproximation/' style='font-size:1.0384615384615385em'>SparseApproximation</a>
-      </li><li>
-        <a href='/tags/sweettrip/' style='font-size:1em'>SweetTrip</a>
-      </li><li>
-        <a href='/tags/test/' style='font-size:1em'>test</a>
-      </li><li>
-        <a href='/tags/yubikey/' style='font-size:1em'>YubiKey</a>
-      </li><li>
-        <a href='/tags/zaningen/' style='font-size:1em'>Zaningen</a>
-      </li></ul>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/julia'>Julia</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/gaussianprocess'>GaussianProcess</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/mlp'>MLP</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2019-05-19T22:37:52-04:00">2019-5-19 22:37</time>
 </div>
 
+<hr />
 
-</section>
-</div>
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
-  <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
-  <span class='screen-reader-text'>Toggle Sidebar</span>
-  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="3" y1="12" x2="21" y2="12" />
-  <line x1="3" y1="6" x2="21" y2="6" />
-  <line x1="3" y1="18" x2="21" y2="18" />
-  
-</svg>
-</span>
-  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-  
-</svg>
-</span>
-</button>
-    <ul><li class='item'>
-        <a href='/'>Home</a>
-      </li><li class='item'>
-        <a href='/posts/'>Blog</a>
-      </li><li class='item'>
-        <a href='/about/'>About</a>
-      </li><li class='item'>
-        <a href='/memo/'>memo</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'>
-    
-    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
-  <section class='widget widget-breadcrumbs sep-after'>
-    <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>ガウス過程と機械学習: 3.5まで</span></li></ol>
-    </nav>
-  </section></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>matsueushi</p><p class='desc site-desc'></p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='en' class='entry'>
-    <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>ガウス過程と機械学習: 3.5まで</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-05-19T22:37:52-04:00'>2019, May 19</time>
-</span>
-
-  
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-One min read
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-    
-    
-
-    <div class='container entry-content'>
-  <p>引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。</p>
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p>引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。</p>
 <p>ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの <code>optimize</code> を使ってしまった)のところまで読み進めた。</p>
 <ul>
 <li>3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。</li>
@@ -322,26 +143,165 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
 詳細は下のレポジトリ、ノートブックを見て下さい。更新は下のMedium用のブランチではなく、masterの方に行う予定です。</p>
 <p><a href="https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19">https://github.com/matsueushi/gp_and_mlp/tree/blog-2019-05-19</a></p>
 <p><a href="https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb">https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/blog-2019-05-19/gp.ipynb</a></p>
-
-  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-    
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a>, <a class='tag' href='/tags/gaussianprocess/'>GaussianProcess</a>, <a class='tag' href='/tags/mlp/'>MLP</a></div>
-
-  </div>
-</footer>
+	</section>
 
 
 </article>
-<div id="disqus_thread"></div>
+
+		</main>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/" title="Home page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Home
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="Blog page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/memo/" title="memo page" >
+			memo
+		</a>
+	</li>
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start  pb-2 max-h-16">
+	
+	<a href='http://github.com/matsueushi' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/matsue_ushi' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2019–2020
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 532 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/posts/gp-nlp-1/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        「ガウス過程と機械学習 」を読み始めた
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/posts/katex-test/">
+        KaTeX Test
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習 」を読み始めた</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/shift-scale-distribution/">Distribution.jlで分布をシフト・スケールさせる</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-7/">Juliaで体験するベイズ推論(7) - The Price Is Right</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-6/">Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/rollingwindow/">JuliaでRollingWindow</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-array-dim/">Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mamba-gaussianrandomwalk/">Mamba.jlでGaussianRandomWalkを作って使う</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mamba-v-0-12-0/">Mamba.jl v0.12.0のStackOverflowError:</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gcp-julia/">GCPでJuliaのノートブックを実行</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/plotly-scale/">Plots.jlでx軸、y軸のスケールを揃える</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-array-matrix/">Arrayを横に並べてMatrixにする</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-5/">Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-4/">Juliaで体験するベイズ推論(4) -ベイズ的 A/B</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-3/">Juliaで体験するベイズ推論(3) -新しいデータセットの生成</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-2/">Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？ </a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -361,82 +321,15 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/gp-nlp-1/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>「ガウス過程と機械学習 」を読み始めた</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/katex-test/'>
-        <span class='screen-reader-text'>Next post: </span>KaTeX Test<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
-    </div></div>
-</nav>
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/matsueushi' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/matsue_ushi' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='mailto:matsueushi@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2019-2020 matsueushi </p>
 </div>
+<hr />
 
-        </div>
-      </footer>
+		</footer>
+		
 
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
+<script src="/dist/app.js"></script>
 
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
-<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js'></script>
-<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js'></script>
-
-<script type='text/javascript'>
-  renderMathInElement(document.querySelector('.entry-content'),{});
-</script>
-
+	</div>
 </body>
 
 </html>

@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/fitc/</link>
     <description>Recent content in FITC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/fitc/index.xml" rel="self" type="application/rss+xml" />
@@ -16,12 +18,254 @@
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/ivm/</guid>
-      <description>7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正
- 前回書いた 「ガウス過程の補助変数法 (Inducing variable method) を理解する 」の続き。 Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。
-簡単のため、gp.jl により、
- ガウスカーネルのクラス GaussianKernel が定義されていて、 カーネル k に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ ker(k, x, y) と cov(k, xs, ys) で計算できる  と仮定する。ということで、まずはライブラリの読み込み。
-using Distributions using Plots using LinearAlgebra include(&amp;#34;gp.jl&amp;#34;) データは、MLPシリーズ 「ガウス過程と機械学習」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。
-# サンプルデータの作成 xs = vcat(rand(80),rand(20) * 3 .+ 1.0) sort!</description>
+      <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。
+Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。&lt;/p&gt;
+&lt;p&gt;簡単のため、&lt;code&gt;gp.jl&lt;/code&gt; により、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ガウスカーネルのクラス &lt;code&gt;GaussianKernel&lt;/code&gt; が定義されていて、&lt;/li&gt;
+&lt;li&gt;カーネル &lt;code&gt;k&lt;/code&gt; に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ &lt;code&gt;ker(k, x, y)&lt;/code&gt; と &lt;code&gt;cov(k, xs, ys)&lt;/code&gt; で計算できる&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;と仮定する。ということで、まずはライブラリの読み込み。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LinearAlgebra
+
+include(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.jl&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;データは、MLPシリーズ 「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# サンプルデータの作成&lt;/span&gt;
+
+xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vcat(rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;),rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+sort!(xs)
+fx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(xs&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+ys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fx &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; rand(Normal(), Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(fx)) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;
+
+ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+plot(ts, sin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(ts&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), lw &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+
+scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sample-data.png&#34; alt=&#34;サンプルデータ&#34;&gt;&lt;/p&gt;
+&lt;p&gt;\( y = \sin (2x) \) にノイズを加えたもので、\( [0,1] \) の間はデータの密度が高くなっている。&lt;code&gt;ts&lt;/code&gt; は、あとで使う分布を予測したい点である。&lt;/p&gt;
+&lt;p&gt;今回予測するのは、観測値 \( y \) ではなく、出力値 \( f \)とする。
+(最初にやっていた時は観測値を予測していて、本の図と同じにならなくて混乱していた)&lt;/p&gt;
+&lt;p&gt;考えるカーネルは、ガウスカーネル \( k(x, x^\prime) = \exp(-|x- x^\prime|^2) \) である。
+観測誤差は \( \sigma^2 = 1.0 \) としておく。コードの中ではこれを &lt;code&gt;eta&lt;/code&gt; で表す。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianKernel()
+eta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gp&#34;&gt;GP&lt;/h3&gt;
+&lt;p&gt;まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、&lt;/p&gt;
+&lt;p&gt;$$
+p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}_{\mathbf{f}, *})
+$$&lt;/p&gt;
+&lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
+&lt;p&gt;1点の予測分布を計算する関数を実装しよう。自分の実装では、&lt;code&gt;cov&lt;/code&gt; は行列を返すため、1x1の行列を &lt;code&gt;first&lt;/code&gt; を使ってスカラーにしている。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
+n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(xs)
+Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}(I, n, n))
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1点の予測分布&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; gp(t)
+    Kft &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, [t])
+    Ktf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kft&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+    Ktt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [ker(gk, t, t)]
+
+    gp_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys
+    gp_cov &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktt &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Ktf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kft
+    Normal(first(gp_mu), sqrt(first(gp_cov)))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下のコードで表示すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gp_dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [gp(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts]
+gp_mean &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(gp_dists)
+gp_qt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hcat([quantile&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(s, [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; gp_dists]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; gp_plot()
+    plot(ts, gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], 
+        fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+
+    plot!(ts, sin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(ts&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), lw &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;y=sin(2x)&amp;#34;&lt;/span&gt;)
+    plot!(ts, gp_mean, lw &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GP&amp;#34;&lt;/span&gt;)
+    scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+gp_plot()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-gp.png&#34; alt=&#34;GP&#34;&gt;&lt;/p&gt;
+&lt;p&gt;(なぜか &lt;code&gt;savefig&lt;/code&gt; でpng形式で保存すると &lt;code&gt;fillrange&lt;/code&gt; した最小値の部分に線が出てしまった。)&lt;/p&gt;
+&lt;p&gt;早速それぞれの補助変数法でどれくらい近似できているかを見ていこう。補助入力点が、2点、5点、10点ある場合を考え、点は等間隔に配置されているとする。(SoD を除く)&lt;/p&gt;
+&lt;p&gt;本質的な部分とは関係ないが、先にプロット用の関数を定義しておく。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; plot_result(gp_mean, gp_qt, mn, qt, ind_xs, label)
+    plot(ts, gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], 
+        fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GP&amp;#34;&lt;/span&gt;, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    plot!(ts, qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;,
+               label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; label, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+
+    plot!(ts, gp_mean, lw &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+    
+    plot!(ts, mn, lw &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+
+    scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+    scatter!(ind_xs, fill(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(ind_xs)), 
+    markershape &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;x, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;the-subset-of-data-sod&#34;&gt;The Subset of Data (SoD)&lt;/h2&gt;
+&lt;p&gt;SoD は他の SoR, DTC, FITC とは違い、任意に補助入力点を選べる訳ではなく元の入力点の部分集合として選ばなくてはいけない。
+ここでは、サンプルの左からの順番が等間隔になるように選んだ。(例えば5点選ぶ場合、左から1, 21, 41, 61, 81番目)。&lt;/p&gt;
+&lt;p&gt;ランダムに選択したり、なるべく等間隔になるように選んだりすればもっとデータがよく代表されるようになり精度が向上するかもしれない。
+実装に関しては、GPの入力点を減らしただけである。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sod_plot(sod_xs, sod_ys)
+    Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, sod_xs, sod_xs)
+    n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(sod_xs)
+    Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}(I, n, n))
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# 各点の分布を計算して信用区間を計算する&lt;/span&gt;
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sod(t)
+        Kft &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, sod_xs, [t])
+        Ktf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kft&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+        Ktt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [ker(gk, t, t)]
+
+        gp_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; sod_ys
+        gp_cov &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktt &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Ktf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kft
+        Normal(first(gp_mu), sqrt(first(gp_cov)))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    sod_dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [sod(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts]
+    sod_mean &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(sod_dists)
+    sod_qt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hcat(
+        [quantile&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(s, [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; sod_dists]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+
+    plot_result(gp_mean, gp_qt, sod_mean, sod_qt, sod_xs, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SoD&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+plts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [gp_plot()]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; where_xs &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;]
+    sod_xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xs[where_xs]
+    sod_ys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ys[where_xs]
+
+    push!(plts, sod_plot(sod_xs, sod_ys))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+plot(plts&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sod.png&#34; alt=&#34;SoD&#34;&gt;&lt;/p&gt;
+&lt;p&gt;左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。&lt;/p&gt;
+&lt;h3 id=&#34;the-subset-of-regressors-sor&#34;&gt;The Subset of Regressors (SoR)&lt;/h3&gt;
+&lt;p&gt;前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が
+\( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ) \) と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
+    Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
+    Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
+    Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+    Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kfu &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Kuu)
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor(t)
+        Kut &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, [t])
+        Ktu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kut&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+
+        sor_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys
+        sor_cov &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kut
+        Normal(first(sor_mu), sqrt(first(sor_cov)))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    sor_dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [sor(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts]
+    sor_mean &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(sor_dists)
+    sor_qt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hcat(
+        [quantile&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(s, [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; sor_dists]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+
+    plot_result(gp_mean, gp_qt, sor_mean, sor_qt, us, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SoR&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+plts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [gp_plot()]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; du &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;2.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;]
+    us &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect(range(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, stop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; du, step &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; du))
+
+    push!(plts, sor_plot(us))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+plot(plts&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sor.png&#34; alt=&#34;SoR&#34;&gt;&lt;/p&gt;
+&lt;p&gt;式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。&lt;/p&gt;
+&lt;h3 id=&#34;the-deterministic-training-conditional-dtc&#34;&gt;The Deterministic Training Conditional (DTC)&lt;/h3&gt;
+&lt;p&gt;DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。
+$$
+\begin{aligned}
+q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
+= \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
+Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
+Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kfu &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Kuu)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; dtc(t)
+    Kut &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, [t])
+    Ktu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kut&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+
+    Qtt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Kuu) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kut
+    Ktt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [ker(gk, t, t)]
+
+    sor_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys
+    sor_cov &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktt &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Qtt &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kut
+
+    Normal(first(sor_mu), sqrt(first(sor_cov)))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;に変えるだけでいい。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-dtc.png&#34; alt=&#34;DTC&#34;&gt;&lt;/p&gt;
+&lt;p&gt;5点の場合のデータがない部分の分散の情報がかなり改善されているし、10点ではほとんど平均、分散共にぴったり近似できている。
+そうなるとFITCを使うまでもないということにもなりかねないが……&lt;/p&gt;
+&lt;h3 id=&#34;the-fully-independent-training-conditional-fitc&#34;&gt;The Fully Independent Training Conditional (FITC)&lt;/h3&gt;
+&lt;p&gt;最後にFITC。&lt;/p&gt;
+&lt;p&gt;\( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) を使って
+$$
+\begin{aligned}
+q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
+= \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;だったから同様に&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
+Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
+Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+
+Λ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Diagonal&lt;/span&gt;([ker(gk, xs[i], xs[i]) 
+        &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Kfu[i, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Kuu) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta 
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(xs)])
+Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Λ) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kfu &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Kuu)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; fitc(t)
+    Kut &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, [t])
+    Ktu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kut&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
+
+    Qtt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Kuu) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kut
+    Ktt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [ker(gk, t, t)]
+
+    sor_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Λ) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys
+    sor_cov &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Ktt &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Qtt &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Ktu &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Σ &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kut
+
+    Normal(first(sor_mu), sqrt(first(sor_cov)))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-fitc.png&#34; alt=&#34;FITC&#34;&gt;&lt;/p&gt;
+&lt;p&gt;あまりDTCと変わらない感じになってしまった。この場合だと追加で計算した分散の対角線部分があまり効いてこなかったのだろう。&lt;/p&gt;
+&lt;h3 id=&#34;手法の比較&#34;&gt;手法の比較&lt;/h3&gt;
+&lt;p&gt;最後に、点の数を揃えて比較してみる。図示方法を変えるだけなので、コードは省略。&lt;/p&gt;
+&lt;h4 id=&#34;2点&#34;&gt;2点&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-2pts.png&#34; alt=&#34;2点&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;5点&#34;&gt;5点&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-5pts.png&#34; alt=&#34;5点&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;10点&#34;&gt;10点&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-10pts.png&#34; alt=&#34;10点&#34;&gt;&lt;/p&gt;
+&lt;p&gt;DTCの段階で十分良く近似できていて、\( \mathbf{f} | \mathbf{u} \) の分散の対角部分を考えるメリットがあまり感じられないような結果となってしまった。
+どのような場合にFITCの近似ががDTCの場合より劇的に向上するのか考えてみたい。&lt;/p&gt;
+&lt;p&gt;Jupyter Notebook: &lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/master/ivm.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/gp_and_mlp/blob/master/ivm.ipynb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;レポジトリ: &lt;a href=&#34;https://github.com/matsueushi/gp_and_mlp&#34;&gt;https://github.com/matsueushi/gp_and_mlp&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -30,11 +274,251 @@ using Distributions using Plots using LinearAlgebra include(&amp;#34;gp.jl&amp;#
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
-      <description>6/27 追記: typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)
- 「ガウス過程と機械学習」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。
-そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。
-\( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて
-$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$ $$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$</description>
+      <description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;
+&lt;p&gt;そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &lt;a href=&#34;http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf&#34;&gt;&amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo;&lt;/a&gt; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。&lt;/p&gt;
+&lt;p&gt;\( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、
+\( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて&lt;/p&gt;
+&lt;p&gt;$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$
+$$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$&lt;/p&gt;
+&lt;p&gt;と結びつく観測モデルを考える。\( \mathbf{f}=(f_1, \ldots, f_N)^\top, f_n=f(\mathbf{x}_n) \) は学習データの出力値である。
+上の観測モデルは、
+$$
+p(\mathbf{y} | \mathbf{f}) = \mathcal{N}(\mathbf{f}, \sigma^2\mathbf{I})
+$$
+と書き直せる。&lt;/p&gt;
+&lt;p&gt;取り組みたい問題は、ガウス過程回帰に基づいた回帰モデル。&lt;/p&gt;
+&lt;p&gt;予測したい点を \( \mathbf{X}_*=(\mathbf{x}_{*1}, \ldots, \mathbf{x}_{*M} ) \) ,
+出力値を \( \mathbf{f}_* \) , 観測値を \( \mathbf{y}_* \) とする。&lt;/p&gt;
+&lt;p&gt;\( \mathbf{f}, \mathbf{f}_* \) の条件付き同時確率分布はベイズルールから&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(\mathbf{f}, \mathbf{f}_* | \mathbf{y}) = \frac{p(\mathbf{f}, \mathbf{f}_*)p(\mathbf{f} | \mathbf{y})}{p(\mathbf{y})},
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;同時事前確率は、ガウス過程の定義より、カーネル関数が定める共分散行列 \( \mathbf{K}=(k(\mathbf{x}_i, \mathbf{x}_j))_{i, j} \) を用いて&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+\left(
+\begin{matrix}
+\mathbf{K}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{K}_{*, \mathbf{f}} \\
+\mathbf{K}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
+\end{matrix}
+\right)
+\right),
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;となる。学習データ \( \mathbf{X} \) が大きくなると \( \mathbf{K}_{\mathbf{f}, \mathbf{f}} \) の計算量が大きくなるので、この部分の計算量を減らすような近似を行いたいわけである。&lt;/p&gt;
+&lt;p&gt;ガウス過程の予測分布 \( p(\mathbf{f}_* | \mathbf{y} ) \) は、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(\mathbf{f}_* | \mathbf{y}) &amp;amp;= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\
+&amp;amp;= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\
+&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1}\mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}}\widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1} \mathbf{K}_{\mathbf{f}, *}),
+\end{aligned}
+$$
+ここで \( \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}} = \mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I} \) である。
+この式は「ガウス過程と機械学習」の公式3.8に対応し、こちらではノイズ項目 \( \sigma^2 \mathbf{I} \) もカーネルに含めているので、notationが少し違っている。&lt;/p&gt;
+&lt;p&gt;いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(\mathbf{f}_*, \mathbf{f}) &amp;amp;= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\
+&amp;amp;= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+p(\mathbf{u}) = \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{u}, \mathbf{u}}),
+$$&lt;/p&gt;
+&lt;p&gt;$$
+p(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
+$$&lt;/p&gt;
+&lt;p&gt;$$
+p(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+$$&lt;/p&gt;
+&lt;p&gt;と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}} := \mathbf{K}_{\mathbf{a}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{b}} \) である。&lt;/p&gt;
+&lt;p&gt;補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(\mathbf{f}_*, \mathbf{f}) &amp;amp;\simeq q(\mathbf{f}_*, \mathbf{f}) \\
+&amp;amp;= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。&lt;/p&gt;
+&lt;h3 id=&#34;the-subset-of-data-sod-approximation&#34;&gt;The Subset of Data (SoD) Approximation&lt;/h3&gt;
+&lt;p&gt;部分データ法は元々の入力点の中から代表となる点を抜き出し、抜き出した点を新たな入力点としてガウス回帰を行うやり方。細かい説明は省略。&lt;/p&gt;
+&lt;h3 id=&#34;the-subset-of-regressors-sor-approximation&#34;&gt;The Subset of Regressors (SoR) Approximation&lt;/h3&gt;
+&lt;p&gt;The Subset of Regressors Approximation (部分回帰法?, 以下SoR) は \( \mathbf{f}, \mathbf{f}_* \)の同時分布を&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+\left(
+\begin{matrix}
+\mathbf{Q}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
+\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{Q}_{*, *}
+\end{matrix}
+\right)
+\right)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と近似するもので、後に出てくるDTC, FITCの基礎となる考え方である。
+心持ちとしては、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{SoR}}(\mathbf{f} | \mathbf{u})
+&amp;amp;= \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
+&amp;amp;\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) \\
+&amp;amp;= p(\mathbf{f} | \mathbf{u}),
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
+&amp;amp;\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *}) \\
+&amp;amp;= p(\mathbf{f}_* | \mathbf{u})
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と、\( p(\mathbf{f} | \mathbf{u}), p(\mathbf{f}_* | \mathbf{u}) \) の分散を \( 0 \) と近似して、\( \mathbf{f}, \mathbf{f}_* \) と \( \mathbf{u} \) の関係がdeterministicと仮定するものである。(deterministicの場合はもはや \( \mathbf{f} | \mathbf{u}\) は正規分布ではないので、この書き方は微妙な感じかもしれないが、論文のnotationに従った)&lt;/p&gt;
+&lt;p&gt;仮定から \( q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_* ) \) の導出は、 同時分布が正規分布になることと、多変数正規分布の線形変換の性質から、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\mathbf{f} &amp;amp;= \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\
+&amp;amp; \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\
+&amp;amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}) \\
+&amp;amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-covariance_matrix&#34;&gt;相互共分散行列&lt;/a&gt;の線型性から、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\text{cov}(\mathbf{f}, \mathbf{f}_*) &amp;amp;= \text{cov}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} ) \\
+&amp;amp; = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{u}) (\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top \\
+&amp;amp; = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\
+&amp;amp; = \mathbf{Q}_{\mathbf{f}, *},
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;\( \text{cov}(\mathbf{f}_*, \mathbf{f}) = \mathbf{Q}_{*, \mathbf{f}} \) であることから従う。&lt;/p&gt;
+&lt;p&gt;予測分布は、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y})
+&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+\mathbf{Q}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *})
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;で与えられる。これが \( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ) \) と等しくなることを示そう。 初見でなぜこうなるか不明だった……&lt;/p&gt;
+&lt;p&gt;まず、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}
+&amp;amp; = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \sigma^2 \mathbf{K}_{\mathbf{u}, \mathbf{u}}) \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \\
+&amp;amp; = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} + \sigma^2 \mathbf{I}) \\
+&amp;amp; = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;であるから、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1}
+&amp;amp; = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma
+(\sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}})
+(\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \\
+&amp;amp; = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}}
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;を得る。分散の方の等号も、この式を使えば最終的に \( \Sigma (\mathbf{K}_{\mathbf{u}, \mathbf{u}} + \sigma^{-2}\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}}) = \mathbf{I} \) に帰着させて示すことができる。&lt;/p&gt;
+&lt;h3 id=&#34;the-deterministic-training-conditional-dtc-approximation&#34;&gt;The Deterministic Training Conditional (DTC) Approximation&lt;/h3&gt;
+&lt;p&gt;DTCはSoRと似ていて、&lt;/p&gt;
+&lt;p&gt;$$
+q_{\text{DTC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0})
+$$&lt;/p&gt;
+&lt;p&gt;と \( \mathbf{f} \) が deterministic に \( \mathbf{u} \) によって定まると仮定する。一方、出力値の方は&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= p(\mathbf{f}_* | \mathbf{u}) \\
+&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と近似を行わない。&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\text{cov}(\mathbf{f}, \mathbf{f}_*) &amp;amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*) \\
+&amp;amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\
+&amp;amp;= \mathbf{Q}_{\mathbf{f}, *}
+\end{aligned}
+$$
+などから、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{DTC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+\left(
+\begin{matrix}
+\mathbf{Q}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
+\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
+\end{matrix}
+\right)
+\right)
+\end{aligned}
+$$
+となる。SoRの時とほとんど同じ。入力値の近似で計算量が十分削減できる場合は、出力値のカーネルの部分で正確な値を使いたいということだろう。&lt;/p&gt;
+&lt;p&gt;予測分布は、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
+&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
+&amp;amp; = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;となる。これはSoRの時の結果からすぐに従う。&lt;/p&gt;
+&lt;h3 id=&#34;the-fully-independent-training-conditional-fitc-approximation&#34;&gt;The Fully Independent Training Conditional (FITC) Approximation&lt;/h3&gt;
+&lt;p&gt;いよいよ、当初の目的だったFITCまでたどり着いた。FITCは、DTCとほぼ同じだが、
+DTCでは切り捨てていた \( q(\mathbf{f} | \mathbf{u}) \) の分散を考慮する。&lt;/p&gt;
+&lt;p&gt;ただ、分散共分散行列をフルで計算したくない (フルで計算すると近似を行わない通常のガウス回帰である) ので、
+出力値の間の相関を無視して、対角線の部分だけを計算する。つまり、&lt;/p&gt;
+&lt;p&gt;$$
+q_{\text{FITC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}))
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= p(\mathbf{f}_* | \mathbf{u}) \\
+&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;となる。今までと同じように計算して、同時分布&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{FITC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+\left(
+\begin{matrix}
+\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
+\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
+\end{matrix}
+\right)
+\right)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と予測分布&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
+&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
+&amp;amp; = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
+\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;を得る。ここで、 \( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) である。&lt;/p&gt;
+&lt;h3 id=&#34;最後に&#34;&gt;最後に&lt;/h3&gt;
+&lt;p&gt;統一的な枠組みで SoD, SoR, DTC, FITC と順に読んでいくことで補助変数法を一望することができて面白かった。&lt;/p&gt;
+&lt;p&gt;本文では、一部の相関を無視しないで考える The Partially Independent Training Conditional (PITC) や Inducing Variables の選び方についても触れられているようだ。&lt;/p&gt;
+&lt;p&gt;時間があれば、各補助変数法を実際に実装してみて、回帰結果がどの程度変わるのか確認してみたい。&lt;/p&gt;
+&lt;p&gt;-&amp;gt; やりました&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;../ivm/&#34;&gt;ガウス過程の補助変数法をJuliaで実装、回帰結果を比較&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

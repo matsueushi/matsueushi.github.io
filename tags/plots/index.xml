@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/plots/</link>
     <description>Recent content in Plots on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sun, 24 Mar 2019 21:43:34 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/plots/index.xml" rel="self" type="application/rss+xml" />
@@ -16,8 +18,18 @@
       <pubDate>Sun, 24 Mar 2019 21:43:34 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/plotly-scale/</guid>
-      <description> aspece_ratio=1 とすれば良いだけだった。簡単だった。
-using Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = Exponential(10) z = Surface((s, t) -&amp;gt; pdf(exp_x, s) * pdf(exp_y, t), x, y) heatmap(x, y, z) heatmap(x, y, z, aspect_ratio = 1) </description>
+      <description>&lt;p&gt; &lt;code&gt;aspece_ratio=1&lt;/code&gt; とすれば良いだけだった。簡単だった。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+exp_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Exponential(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+exp_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Exponential(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Surface((s, t) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; pdf(exp_x, s) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; pdf(exp_y, t), x, y)
+heatmap(x, y, z)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/plotly-scale_default.png&#34; alt=&#34;デフォルト&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;heatmap(x, y, z, aspect_ratio &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/plotly-scale_aspect.png&#34; alt=&#34;変更後&#34;&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

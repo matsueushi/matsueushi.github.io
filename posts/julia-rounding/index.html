@@ -1,37 +1,34 @@
 <!DOCTYPE html>
-<html lang='en'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmeitc.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。
- 最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
-浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
-今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
-使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
-_ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &#34;?&#34; for help, &#34;]?&#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.'>
-<meta name='theme-color' content='#ffcd00'>
+<html lang="en">
 
-<meta property='og:title' content='Juliaで丸めモードを指定して浮動小数点数の計算をする(したい) • matsueushi'>
-<meta property='og:description' content='2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmeitc.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。
- 最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
-浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
-今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
-使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
-_ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &#34;?&#34; for help, &#34;]?&#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.'>
-<meta property='og:url' content='https://matsueushi.github.io/posts/julia-rounding/'>
-<meta property='og:site_name' content='matsueushi'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Julia'><meta property='article:tag' content='Rounding'><meta property='article:tag' content='Float'><meta property='article:published_time' content='2020-03-07T20:17:26-05:00'/><meta property='article:modified_time' content='2020-03-07T20:17:26-05:00'/><meta name='twitter:card' content='summary'>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>matsueushi  | Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.73.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-<meta name="generator" content="Hugo 0.60.1" />
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい) • matsueushi</title>
-  <link rel='canonical' href='https://matsueushi.github.io/posts/julia-rounding/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#ffcd00;}
-</style>
+	
 
+	
+	
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+	
+
+	
+	
+	
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -43,257 +40,85 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
-  
+	
+	
+	
 
+
+
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
 </head>
-<body class='page type-posts has-sidebar'>
 
-  <div class='site'><div id='sidebar' class='sidebar'>
-  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</h1>
 
-  <div class='container'><section class='widget widget-about sep-after'>
-  <header>
-    
-    <div class='logo'>
-      <a href='/'>
-        <img src='/images/ushi.jpg'>
-      </a>
-    </div>
-    
-    <h2 class='title site-title '>
-      <a href='/'>
-      matsueushi
-      </a>
-    </h2>
-    <div class='desc'>
-    
-    </div>
-  </header>
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
 
-</section>
-<section class='widget widget-search sep-after'>
-  <header>
-    <h4 class='title widget-title'>Search</h4>
-  </header>
+	
 
-  <form action='/search' id='search-form' class='search-form'>
-    <label>
-      <span class='screen-reader-text'>Search</span>
-      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
-    </label></form>
-
-</section>
-<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
-    <div class='container'>
-      <ul><li class='item'>
-  <a href='/'>Home</a></li><li class='item'>
-  <a href='/posts/'>Blog</a></li></ul>
-    </div>
-  </nav>
-
-</section><section class='widget widget-taxonomy_cloud sep-after'>
-  <header>
-    <h4 class='title widget-title'>Tags</h4>
-  </header>
-
-  <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/bayesian/' style='font-size:1.2307692307692308em'>Bayesian</a>
-      </li><li>
-        <a href='/tags/blackdogproductions/' style='font-size:1em'>BlackDogProductions</a>
-      </li><li>
-        <a href='/tags/boat/' style='font-size:1em'>BOaT</a>
-      </li><li>
-        <a href='/tags/cymbals/' style='font-size:1em'>Cymbals</a>
-      </li><li>
-        <a href='/tags/dcgan/' style='font-size:1em'>DCGAN</a>
-      </li><li>
-        <a href='/tags/deeplearning/' style='font-size:1em'>DeepLearning</a>
-      </li><li>
-        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
-      </li><li>
-        <a href='/tags/dtc/' style='font-size:1.0384615384615385em'>DTC</a>
-      </li><li>
-        <a href='/tags/fitc/' style='font-size:1.0384615384615385em'>FITC</a>
-      </li><li>
-        <a href='/tags/float/' style='font-size:1em'>Float</a>
-      </li><li>
-        <a href='/tags/flux/' style='font-size:1.0384615384615385em'>Flux</a>
-      </li><li>
-        <a href='/tags/gan/' style='font-size:1em'>GAN</a>
-      </li><li>
-        <a href='/tags/gaussianprocess/' style='font-size:1.1923076923076923em'>GaussianProcess</a>
-      </li><li>
-        <a href='/tags/gcp/' style='font-size:1em'>GCP</a>
-      </li><li>
-        <a href='/tags/girls/' style='font-size:1em'>Girls</a>
-      </li><li>
-        <a href='/tags/glitchpop/' style='font-size:1em'>Glitchpop</a>
-      </li><li>
-        <a href='/tags/inducingvariablemethod/' style='font-size:1.0384615384615385em'>InducingVariableMethod</a>
-      </li><li>
-        <a href='/tags/julia/' style='font-size:2em'>Julia</a>
-      </li><li>
-        <a href='/tags/jupyter/' style='font-size:1.0384615384615385em'>Jupyter</a>
-      </li><li>
-        <a href='/tags/katex/' style='font-size:1.0384615384615385em'>KaTeX</a>
-      </li><li>
-        <a href='/tags/kmean/' style='font-size:1em'>KMean</a>
-      </li><li>
-        <a href='/tags/lolicatonica/' style='font-size:1.0384615384615385em'>LolicaTonica</a>
-      </li><li>
-        <a href='/tags/macdemarco/' style='font-size:1em'>MacDemarco</a>
-      </li><li>
-        <a href='/tags/mamba/' style='font-size:1.3461538461538463em'>Mamba</a>
-      </li><li>
-        <a href='/tags/mcmc/' style='font-size:1em'>MCMC</a>
-      </li><li>
-        <a href='/tags/ml/' style='font-size:1em'>ML</a>
-      </li><li>
-        <a href='/tags/mlp/' style='font-size:1.0769230769230769em'>MLP</a>
-      </li><li>
-        <a href='/tags/mnist/' style='font-size:1em'>MNIST</a>
-      </li><li>
-        <a href='/tags/music/' style='font-size:1.5em'>Music</a>
-      </li><li>
-        <a href='/tags/neworder/' style='font-size:1em'>NewOrder</a>
-      </li><li>
-        <a href='/tags/optim/' style='font-size:1em'>Optim</a>
-      </li><li>
-        <a href='/tags/oval/' style='font-size:1em'>Oval</a>
-      </li><li>
-        <a href='/tags/plots/' style='font-size:1em'>Plots</a>
-      </li><li>
-        <a href='/tags/randomwalk/' style='font-size:1em'>RandomWalk</a>
-      </li><li>
-        <a href='/tags/record/' style='font-size:1.0384615384615385em'>Record</a>
-      </li><li>
-        <a href='/tags/rounding/' style='font-size:1.0384615384615385em'>Rounding</a>
-      </li><li>
-        <a href='/tags/shoegaze/' style='font-size:1em'>Shoegaze</a>
-      </li><li>
-        <a href='/tags/singan/' style='font-size:1em'>SinGAN</a>
-      </li><li>
-        <a href='/tags/sod/' style='font-size:1.0384615384615385em'>SoD</a>
-      </li><li>
-        <a href='/tags/softman/' style='font-size:1em'>Softman</a>
-      </li><li>
-        <a href='/tags/sor/' style='font-size:1.0384615384615385em'>SoR</a>
-      </li><li>
-        <a href='/tags/sparseapproximation/' style='font-size:1.0384615384615385em'>SparseApproximation</a>
-      </li><li>
-        <a href='/tags/sweettrip/' style='font-size:1em'>SweetTrip</a>
-      </li><li>
-        <a href='/tags/test/' style='font-size:1em'>test</a>
-      </li><li>
-        <a href='/tags/yubikey/' style='font-size:1em'>YubiKey</a>
-      </li><li>
-        <a href='/tags/zaningen/' style='font-size:1em'>Zaningen</a>
-      </li></ul>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/julia'>Julia</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/rounding'>Rounding</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/float'>Float</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2020-03-07T20:17:26-05:00">2020-3-7 20:17</time>
 </div>
 
+<hr />
 
-</section>
-</div>
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
-  <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
-  <span class='screen-reader-text'>Toggle Sidebar</span>
-  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="3" y1="12" x2="21" y2="12" />
-  <line x1="3" y1="6" x2="21" y2="6" />
-  <line x1="3" y1="18" x2="21" y2="18" />
-  
-</svg>
-</span>
-  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-  
-</svg>
-</span>
-</button>
-    <ul><li class='item'>
-        <a href='/'>Home</a>
-      </li><li class='item'>
-        <a href='/posts/'>Blog</a>
-      </li><li class='item'>
-        <a href='/about/'>About</a>
-      </li><li class='item'>
-        <a href='/memo/'>memo</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'>
-    
-    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
-  <section class='widget widget-breadcrumbs sep-after'>
-    <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/posts/'>Blog</a></li><li><span>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</span></li></ol>
-    </nav>
-  </section></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>matsueushi</p><p class='desc site-desc'></p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='en' class='entry'>
-    <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-03-07T20:17:26-05:00'>2020, Mar 07</time>
-</span>
-
-  
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-7 mins read
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-    
-    
-
-    <div class='container entry-content'>
-  <p>2020/4/14追記 丸めモードについては、<a href="../rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a> も参照してください。
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p>2020/4/14追記 丸めモードについては、<a href="../rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a> も参照してください。
 IntervalArithmeitc.jl のデフォルト丸めモードは、<a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370">#370</a> で
 FastRounding.jl を利用しなくなった (v0.17.0以降) ので、
 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。</p>
@@ -317,7 +142,7 @@ Julia における丸めの制御について調べた内容を書いておき�
   | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version 1.3.0 <span style="color:#f92672">(</span>2019-11-26<span style="color:#f92672">)</span>
  _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
 |__/                   |
-</code></pre></div><h3 id="01--30-">0.1 * 3.0 を計算してみる</h3>
+</code></pre></div><h3 id="01--30-を計算してみる">0.1 * 3.0 を計算してみる</h3>
 <p>\( \mathbb{F}^* \) を浮動小数点全体の集合 (今回は<code>Float64</code> としておきます)、
 \( \mathbb{F} \) を\( \mathbb{F}^* \)から <code>-Inf</code>, <code>+Inf</code> を除いた有限な浮動小数点全体の集合、
 \( \mathbb{R} \) を実数全体の集合、\( \mathbb{R}^* \) を \( \mathbb{R} \) に正と負の無限大を付け加えた集合とします
@@ -327,23 +152,23 @@ Julia における丸めの制御について調べた内容を書いておき�
 <p>例として、 \(0.1 \in \mathbb{R} \) と \(3.0 \in \mathbb{R}\)  の積を (浮動小数点上で) 評価したいとします。
 言うまでもなく真の値は \( 0.3 \in \mathbb{R} \) です。
 一方、REPL 上で <code>0.1 * 3.0</code> と <code>0.3</code> を比較すると、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0.3</span>
 <span style="color:#66d9ef">false</span>
 </code></pre></div><p>となりイコールにはなりません。<code>@printf</code> マクロを使って小数点以下17桁まで表示すると、確かに違います。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Printf<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Printf
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
 <span style="color:#ae81ff">0.30000000000000004</span>
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">0.3</span>)
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">0.3</span>)
 <span style="color:#ae81ff">0.29999999999999999</span>
 </code></pre></div><p><a href="https://docs.julialang.org/en/v1/base/numbers/#Base.bitstring">Base.bitstring</a> を使ってビット表現を確かめても、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> bitstring<span style="color:#f92672"></span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
-<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> bitstring(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
+<span style="color:#e6db74">&#34;0011111111010011001100110011001100110011001100110011001100110100&#34;</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> bitstring<span style="color:#f92672"></span>(<span style="color:#ae81ff">0.3</span>)
-<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">0</span><span style="color:#e6db74">0</span><span style="color:#e6db74">1</span><span style="color:#e6db74">1</span><span style="color:#e6db74">&#34;</span>
+julia<span style="color:#f92672">&gt;</span> bitstring(<span style="color:#ae81ff">0.3</span>)
+<span style="color:#e6db74">&#34;0011111111010011001100110011001100110011001100110011001100110011&#34;</span>
 </code></pre></div><p>最後の3桁が違いますね。なぜこのようなことが起こるのでしょうか？</p>
-<h3 id="heading">丸め</h3>
+<h3 id="丸め">丸め</h3>
 <p>証明は省略しますが、\( 1/3 \) が有限桁の10進数小数で表現できないのと同様、
 \( 0.1 \) は有限桁の(2進)浮動小数点数では表せません。\( 0.3 \) も同様です。</p>
 <p>そのため、\( 0.1 \in \mathbb{R} \) はコンピューターで扱うために \( \mathbb{F} \) の元で近似されることになります。
@@ -391,7 +216,7 @@ $$</p>
 なぜ偶数に丸めるかについての説明は省略しますが本には載っているので気になる方は参照してください。</p>
 <p>今後、このデフォルトの丸めを \( \square \) で表すことにします。<code>0.1</code>, <code>3.0</code>, <code>0.3</code> は、
 実態はそれぞれ \( \square(0.1), \square(3.0) = 3.0, \square(0.3) \in \mathbb{F}^* \) だったということになります。</p>
-<h3 id="heading1">浮動小数点数同士の演算</h3>
+<h3 id="浮動小数点数同士の演算">浮動小数点数同士の演算</h3>
 <p>次に \( \mathbb{R}^* \) 上の二項演算 \( +, -, \times, /, \sqrt{} \) とそれに対応する
 \( \mathbb{F}^* \) 上の二項演算 \( \oplus, \ominus, \otimes, \oslash, \odot \) の違いを考えます。
 本当は四角の囲み文字を使いたかったのですが、ご勘弁ください。ルートの丸文字も出せませんでした。</p>
@@ -399,18 +224,18 @@ $$</p>
 例えば、\( 2^{100}, 1 \in \mathbb{F}^* \) ですが、\( 2^{100} + 1 \notin \mathbb{F}^* \) です。
 Julia には直前、直後の浮動小数点数を計算する関数 <code>prevfloat</code>, <code>nextfloat</code> が存在しますので
 \( 2^{100} \)の次の数を計算してみましょう。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, x<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, x)
 <span style="color:#ae81ff">1267650600228229401496703205376.00000000000000000</span>
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, nextfloat<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>))
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, nextfloat(x))
 <span style="color:#ae81ff">1267650600228229682971679916032.00000000000000000</span>
 </code></pre></div><p>なので、\( 2^{100} + 1 \) は確かにこの二つの隙間に落ちてしまっているので表現不能です。計算すると、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x<span style="color:#f92672"></span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span>
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x<span style="color:#f92672"></span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> x<span style="color:#f92672"></span>
+julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">==</span> x
 <span style="color:#66d9ef">true</span>
 </code></pre></div><p>となって元々の値と同じになっています。</p>
 <p>つまりは計算した結果も丸められているわけですが、ここで丸める前と丸めた後の関係が気になります。
@@ -436,30 +261,30 @@ $$</p>
 <p>長々と書いてしまいましたが、<code>0.1 * 3.0</code>
 \( = \square(\square(0.1) \times \square(3.0)) \),
 <code>0.3</code> \( = \square(0.3) \) なので、<code>0.1 * 3.0</code> と <code>0.3</code> は近い値にはなるものの、\(\square(0.1) \times \square(3.0) \neq 0.3\) でそれぞれ別の数に丸められてしまうということでした。</p>
-<h3 id="heading2">区間演算</h3>
+<h3 id="区間演算">区間演算</h3>
 <p>次に、同様の計算を区間計算で (正確な定義はスキップして) 行ってみます。
 まず、\( 0.1 \) を含む、端点が共に \( \mathbb{F} \) の元で幅がなるべく小さい区間を探します。</p>
 <p><code>0.1</code> と書いた時点で浮動小数点数に変換されてしまうので、別の方法で \( 0.1 \) を表現する必要があります。
 入力を文字列 <code>&quot;0.1&quot;</code> にしてパースする方法もありますが、
 幸いなことに<a href="https://docs.julialang.org/en/v1/manual/complex-and-rational-numbers/#Rational-Numbers-1">有理数型</a>と<a href="https://docs.julialang.org/en/v1/base/numbers/#Core.Float64-Tuple%7BAny%7D">丸め方向つきの浮動小数点数コンストラクタ</a>が利用できます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> x_down<span style="color:#f92672"></span>, x_up<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, RoundDown), <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, RoundUp);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x_down, x_up <span style="color:#f92672">=</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">//</span><span style="color:#ae81ff">10</span>, RoundDown), <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">//</span><span style="color:#ae81ff">10</span>, RoundUp);
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">,</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">]</span><span style="color:#e6db74">&#34;</span>, x_down<span style="color:#f92672"></span>, x_up<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">]&#34;</span>, x_down, x_up)
 [<span style="color:#ae81ff">0.09999999999999999</span>, <span style="color:#ae81ff">0.10000000000000001</span>]
 </code></pre></div><p>\( 3.0 \) は浮動小数点数として誤差なく表現できるので、幅0 (thin) の区間として表わせます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1</span>, RoundDown) <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1</span>, RoundUp)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">//</span><span style="color:#ae81ff">1</span>, RoundDown) <span style="color:#f92672">==</span> <span style="color:#66d9ef">Float64</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">//</span><span style="color:#ae81ff">1</span>, RoundUp)
 <span style="color:#66d9ef">true</span>
 </code></pre></div><p>こうして \( 0.1 \) と \(3.0\) がそれぞれ含まれる区間 <code>[x_down, x_up]</code>, <code>[3.0, 3.0]</code>
 が得られたので答えが取り得る範囲を考えて、真の数が含まれる区間の計算結果を <code>[x_down * 3.0, x_up * 3.0]</code> ……とやると(一般的には)まずいです。</p>
 <p>今回はたまたま</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">,</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">]</span><span style="color:#e6db74">&#34;</span>, x_down<span style="color:#f92672"></span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>, x_up<span style="color:#f92672"></span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">]&#34;</span>, x_down <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>, x_up <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span>)
 [<span style="color:#ae81ff">0.29999999999999999</span>, <span style="color:#ae81ff">0.30000000000000004</span>]
 </code></pre></div><p>となってうまくいきましたが、例えば、 \( 1.0 \in \mathbb{F}, 2^{-54} \in \mathbb{F} \) に対し、
 \( 1.0 + 2^{-54} \) を意図して同様の区間演算
 <code>[1.0, 1.0]</code> + <code>[2^-54, 2^-54]</code> を先ほどと同様に単純に行うと、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span><span style="color:#f92672"></span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%17.17f</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 <span style="color:#ae81ff">1.00000000000000000</span>
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1.0</span>
 <span style="color:#66d9ef">true</span>
 </code></pre></div><p>と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
 得られる区間は <code>[1.0, 1.0]</code> となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。</p>
@@ -477,7 +302,7 @@ $$</p>
 $$</p>
 <p>と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。</p>
 <p>非常に長くなってしまいましたが、この計算をやりたいがために丸めモードを変えたいわけです。</p>
-<h3 id="julia-">Julia における方向丸め付き演算のサポート</h3>
+<h3 id="julia-における方向丸め付き演算のサポート">Julia における方向丸め付き演算のサポート</h3>
 <p>「さあ、いよいよ Julia で方向丸め付き演算をやっていくか、C++だと<a href="http://verifiedby.me/kv/rounding/index.html">丸めモードの変更は面倒な感じがする</a> が、
 Julia には <a href="https://docs.julialang.org/en/v1/base/numbers/#Base.Rounding.setrounding-Tuple%7BType,Any%7D">Base.Rounding.setrounding</a>
 という関数が用意されていて楽すぎる。Julia最強！」</p>
@@ -489,12 +314,12 @@ Julia には <a href="https://docs.julialang.org/en/v1/base/numbers/#Base.Roundi
 <p>そのためブログの記事や Twitter の投稿で「Juliaでは浮動小数点の方向丸め付き演算がサポートされている」と書かれているものは、おそらく、
 <code>Float32</code>, <code>Float64</code> に対する <code>setrounding</code> が使えるようになっていた時のものでしょう。</p>
 <p>サポートされていない理由については、どうもLLVMで浮動小数点の丸めの制御ができないため、と言うことらしいです(未確認)。</p>
-<h3 id="julia-1">Julia で利用できるパッケージ</h3>
+<h3 id="julia-で利用できるパッケージ">Julia で利用できるパッケージ</h3>
 <p>一方、Juliaには区間演算のライブラリ <a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl">IntervalArithmetic.jl</a> があり、頻繁にアップデートされています。
 丸めは <a href="https://github.com/JeffreySarnoff/FastRounding.jl">FastRounding.jl</a> の機能を使っているようでした。</p>
 <p>他にも <a href="https://github.com/JeffreySarnoff/DirectedRoundings.jl">DirectedRoundings.jl</a> や
 <a href="https://github.com/JuliaIntervals/SetRounding.jl">SetRounding.jl</a> を発見しましたが、あまりメンテされていないようでした。</p>
-<h3 id="heading3">最近点丸めによる方向付き丸め演算のエミュレート</h3>
+<h3 id="最近点丸めによる方向付き丸め演算のエミュレート">最近点丸めによる方向付き丸め演算のエミュレート</h3>
 <p>言語でサポートされていない方向付き丸めがパッケージを使えばできるということで意味がわからなくなってしまったのですが、
 FastRounding.jl は、<a href="https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl">ErrorfreeArithmetic.jl</a> で実装されているエラーフリー変換と言うものを用いて、
 デフォルトの丸めモードの演算のみを利用して方向付き丸めをエミュレートしているようです。</p>
@@ -510,157 +335,157 @@ a + b &amp;= x + y
 $$
 が厳密に成立するとされるものです。</p>
 <p>Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span> <span style="color:#f92672">=</span> a<span style="color:#f92672"></span> <span style="color:#f92672">+</span> b<span style="color:#f92672"></span>
-    tmp<span style="color:#f92672"></span> <span style="color:#f92672">=</span> x<span style="color:#f92672"></span> <span style="color:#f92672">-</span> a<span style="color:#f92672"></span>
-    y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> (a<span style="color:#f92672"></span> <span style="color:#f92672">-</span> (x<span style="color:#f92672"></span> <span style="color:#f92672">-</span> tmp<span style="color:#f92672"></span>)) <span style="color:#f92672">+</span> (b<span style="color:#f92672"></span> <span style="color:#f92672">-</span> tmp<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> twosum(a, b)
+    x <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b
+    tmp <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> a
+    y <span style="color:#f92672">=</span> (a <span style="color:#f92672">-</span> (x <span style="color:#f92672">-</span> tmp)) <span style="color:#f92672">+</span> (b <span style="color:#f92672">-</span> tmp)
+    x, y
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>となります。
 私が確認したタイミングでは、ErrorfreeArithmetic.jl の <a href="https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl/blob/2494c705caef77340fba596544fac8dae9ec2951/src/errorfree.jl#L1-L11"><code>two_sum</code> の定義</a>も同様になっていました。</p>
 <p>今まで出てきた例の場合も含めて何通りか例を計算してみると</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> twosum(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>)
 (<span style="color:#ae81ff">0.30000000000000004</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.7755575615628914e-17</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+julia<span style="color:#f92672">&gt;</span> twosum(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 (<span style="color:#ae81ff">1.2676506002282294e30</span>, <span style="color:#ae81ff">1.0</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>
 <span style="color:#ae81ff">5.551115123125783e-17</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> twosum(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 (<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">5.551115123125783e-17</span>)
 </code></pre></div><p>となって正しく分解されています。</p>
 <p>\(a, b \) の絶対値について条件を課したアルゴリズム <code>fasttwosum</code> について、
 オーバーフローが発生しない場合に等式が成立することが「精度保証付き数値計算の基礎」に定理2.5として証明されていました。</p>
 <p><code>twosum</code> を用いた方向付き丸め演算のエミューレートは、上付き丸めと下付き丸めを</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_up<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    ifelse<span style="color:#f92672"></span>(y<span style="color:#f92672"></span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, nextfloat<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>), x<span style="color:#f92672"></span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_up(a, b)
+    x, y <span style="color:#f92672">=</span> twosum(a, b)
+    ifelse(y <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, nextfloat(x), x)
 <span style="color:#66d9ef">end</span>
 
-<span style="color:#66d9ef">function</span> add_down<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    ifelse<span style="color:#f92672"></span>(y<span style="color:#f92672"></span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>, prevfloat<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>), x<span style="color:#f92672"></span>)
+<span style="color:#66d9ef">function</span> add_down(a, b)
+    x, y <span style="color:#f92672">=</span> twosum(a, b)
+    ifelse(y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>, prevfloat(x), x)
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>と定義するもので、FastRounding.jlの対応箇所は<a href="https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L248-L271">ここ</a>です。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_up<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 <span style="color:#ae81ff">1.2676506002282297e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_down<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_up<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 <span style="color:#ae81ff">1.0000000000000002</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_down<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 <span style="color:#ae81ff">1.0</span>
 </code></pre></div><p>見た感じ、良さそうです。FastRounding.jl の関数も呼び出してみます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> FastRounding<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> FastRounding
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>, RoundUp)
+julia<span style="color:#f92672">&gt;</span> add_round(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>, RoundUp)
 <span style="color:#ae81ff">1.2676506002282297e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>, RoundDown)
+julia<span style="color:#f92672">&gt;</span> add_round(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>, RoundDown)
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>, RoundUp)
+julia<span style="color:#f92672">&gt;</span> add_round(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>, RoundUp)
 <span style="color:#ae81ff">1.0000000000000002</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>, RoundDown)
+julia<span style="color:#f92672">&gt;</span> add_round(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>, RoundDown)
 <span style="color:#ae81ff">1.0</span>
 </code></pre></div><p>しかし、これで全て安心とはならず、救われない命があるようなのです……</p>
-<h3 id="heading4">エミュレーションにおける問題</h3>
+<h3 id="エミュレーションにおける問題">エミュレーションにおける問題</h3>
 <p><a href="http://verifiedby.me/adiary/09">Error Free Transformation (EFT) is NOT error-free</a> という記事に、
 エラーフリー変換においてオーバーフローやアンダーフローが発生する例や、<code>twosum</code> の乗算バージョンの <code>twoproduct</code> に関して誤差が生じる例が書かれていました。</p>
 <p>気になったので、先ほどの <code>twosum</code> に対して記事に書かれている例を試してみると</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> a<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.5630624444874539e+307</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.5630624444874539e+307</span>
 <span style="color:#ae81ff">3.563062444487454e307</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> b<span style="color:#f92672"></span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7976931348623157e+308</span>
+julia<span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7976931348623157e+308</span>
 <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7976931348623157e308</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> twosum(a, b)
 (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>, NaN)
 </code></pre></div><p>となってやはり正しく計算されませんでした。</p>
 <p>「最近点丸めによる方向付き丸めのエミュレート」にはこれを回避する方法が書いてあったので、実装してみます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> new_twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span> <span style="color:#f92672">=</span> a<span style="color:#f92672"></span> <span style="color:#f92672">+</span> b<span style="color:#f92672"></span>
-    <span style="color:#66d9ef">if</span> abs<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>) <span style="color:#f92672">&gt;</span> abs<span style="color:#f92672"></span>(b<span style="color:#f92672"></span>)
-        tmp<span style="color:#f92672"></span> <span style="color:#f92672">=</span> x<span style="color:#f92672"></span> <span style="color:#f92672">-</span> a<span style="color:#f92672"></span>
-        <span style="color:#66d9ef">return</span> x<span style="color:#f92672"></span>, b<span style="color:#f92672"></span> <span style="color:#f92672">-</span> tmp<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> new_twosum(a, b)
+    x <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b
+    <span style="color:#66d9ef">if</span> abs(a) <span style="color:#f92672">&gt;</span> abs(b)
+        tmp <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> a
+        <span style="color:#66d9ef">return</span> x, b <span style="color:#f92672">-</span> tmp
     <span style="color:#66d9ef">else</span>
-        tmp<span style="color:#f92672"></span> <span style="color:#f92672">=</span> x<span style="color:#f92672"></span> <span style="color:#f92672">-</span> b<span style="color:#f92672"></span>
-        <span style="color:#66d9ef">return</span> x<span style="color:#f92672"></span>, a<span style="color:#f92672"></span> <span style="color:#f92672">-</span> tmp<span style="color:#f92672"></span>
+        tmp <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> b
+        <span style="color:#66d9ef">return</span> x, a <span style="color:#f92672">-</span> tmp
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
 
-<span style="color:#66d9ef">function</span> new_add_up<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> new_twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    ifelse<span style="color:#f92672"></span>(y<span style="color:#f92672"></span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, nextfloat<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>), x<span style="color:#f92672"></span>)
+<span style="color:#66d9ef">function</span> new_add_up(a, b)
+    x, y <span style="color:#f92672">=</span> new_twosum(a, b)
+    ifelse(y <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, nextfloat(x), x)
 <span style="color:#66d9ef">end</span>
 
-<span style="color:#66d9ef">function</span> new_add_down<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    x<span style="color:#f92672"></span>, y<span style="color:#f92672"></span> <span style="color:#f92672">=</span> new_twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
-    ifelse<span style="color:#f92672"></span>(y<span style="color:#f92672"></span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>, prevfloat<span style="color:#f92672"></span>(x<span style="color:#f92672"></span>), x<span style="color:#f92672"></span>)
+<span style="color:#66d9ef">function</span> new_add_down(a, b)
+    x, y <span style="color:#f92672">=</span> new_twosum(a, b)
+    ifelse(y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>, prevfloat(x), x)
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>実行結果は、もちろん今まで計算できていたものは同じ結果になり、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> new_twosum(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>)
 (<span style="color:#ae81ff">0.30000000000000004</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.7755575615628914e-17</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+julia<span style="color:#f92672">&gt;</span> new_twosum(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 (<span style="color:#ae81ff">1.2676506002282294e30</span>, <span style="color:#ae81ff">1.0</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_twosum<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> new_twosum(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 (<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">5.551115123125783e-17</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_up<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+julia<span style="color:#f92672">&gt;</span> new_add_up(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 <span style="color:#ae81ff">1.2676506002282297e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_down<span style="color:#f92672"></span>(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
+julia<span style="color:#f92672">&gt;</span> new_add_down(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">^</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.0</span>)
 <span style="color:#ae81ff">1.2676506002282294e30</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_up<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> new_add_up(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 <span style="color:#ae81ff">1.0000000000000002</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_down<span style="color:#f92672"></span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#f92672">-</span><span style="color:#ae81ff">54</span>)
+julia<span style="color:#f92672">&gt;</span> new_add_down(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">^-</span><span style="color:#ae81ff">54</span>)
 <span style="color:#ae81ff">1.0</span>
 </code></pre></div><p>先ほど計算できなかった例が、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_twosum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> new_twosum(a, b)
 (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>, <span style="color:#ae81ff">9.9792015476736e291</span>)
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_up<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> new_add_up(a, b)
 <span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135702e308</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> new_add_down<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> new_add_down(a, b)
 <span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>
 </code></pre></div><p>と計算できるようになりました。</p>
 <p>しかしながら ErrorfreeArithmetic.jl の実装も残念ながらオーバーフローが考慮されていないので、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> ErrorfreeArithmetic<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> ErrorfreeArithmetic
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> two_sum<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>)
+julia<span style="color:#f92672">&gt;</span> two_sum(a, b)
 (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>, NaN)
 </code></pre></div><p>となり、従ってそれを利用した丸めも</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> FastRounding<span style="color:#f92672"></span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> FastRounding
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>, RoundUp)
+julia<span style="color:#f92672">&gt;</span> add_round(a, b, RoundUp)
 <span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>
 
-julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> add_round<span style="color:#f92672"></span>(a<span style="color:#f92672"></span>, b<span style="color:#f92672"></span>, RoundDown)
+julia<span style="color:#f92672">&gt;</span> add_round(a, b, RoundDown)
 <span style="color:#f92672">-</span><span style="color:#ae81ff">1.4413868904135704e308</span>
 </code></pre></div><p>と丸めが正しく行われていません。記事に載っていた例については加算しか確認していませんが、他にも似たような現象が発生している可能性があるので利用には注意が必要だと思います。
 (ライブラリの作者の方々には申し訳ないですが)</p>
 <p>基本的な演算に関してのエミュレートを行うだけでもかなり気を使う必要があり、漏れなく実装するのは容易ではないようです。</p>
 <p>しかしながら、デフォルトの丸めモードだけを使って方向付き丸めのエミュレートを行う発想自体は非常に面白く感じたので、時間のある時に他の演算に関しても実装してみたいです。
 (パッケージとして通用するレベルで厳密な実装やテストを書くのは大変そうですが……)</p>
-<h3 id="20203">結論(2020/3時点)</h3>
+<h3 id="結論20203時点">結論(2020/3時点)</h3>
 <p>Julia で方向付き丸めを指定した浮動小数点数計算はコア言語としては廃止されているが、エミュレートにより丸めを行うパッケージ FastRounding.jl が存在します。</p>
 <p>しかしながら FastRounding.jl は極端な入力を与えた場合に正しい答えを返さない可能性があり、利用の際には注意が必要、と言う結論になりました。</p>
 <p>長くなりましたが最後に参考資料を載せておきます。</p>
-<h3 id="heading5">参考資料、リンク</h3>
+<h3 id="参考資料リンク">参考資料、リンク</h3>
 <p><strong>精度保証付数値計算</strong></p>
 <ul>
 <li>Tucker, W. <a href="https://press.princeton.edu/books/ebook/9781400838974/validated-numerics">Validated Numerics: A Short Introduction to Rigorous Computations</a>, Princeton University Press, 2011</li>
@@ -690,7 +515,7 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
 <ul>
 <li>柏木 雅英. <a href="http://verifiedby.me/adiary/pub/kashi/image/201406/nas2014.pdf">最近点丸めによる方向付き丸めのエミュレート</a></li>
 <li>柏木 雅英. <a href="http://verifiedby.me/kv/rounding/emu.pdf">最近点丸めのみによる方向付き丸めのエミュレート</a></li>
-<li>Takeshi O, Siegfried R, and Shin'ichi O, Accurate Sum and Dot Product, SIAM J. Sci. Comput., 26(6), 1955–1988
+<li>Takeshi O, Siegfried R, and Shin&rsquo;ichi O, Accurate Sum and Dot Product, SIAM J. Sci. Comput., 26(6), 1955–1988
 (<a href="http://www.oishi.info.waseda.ac.jp/%7Eoishi/papers/OgRuOi05.pdf">http://www.oishi.info.waseda.ac.jp/%7Eoishi/papers/OgRuOi05.pdf</a> でプレプリントが読める)</li>
 <li>「精度保証付き数値計算」の 2.2 章</li>
 <li>柏木 雅英. <a href="http://verifiedby.me/adiary/09">Error Free Transformation (EFT) is NOT error-free</a></li>
@@ -711,26 +536,165 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
 <li><a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl">JuliaIntervals / IntervalArithmetic.jl</a></li>
 <li><a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/215">JuliaIntervals / IntervalArithmetic.jl / Bugs with tiny numbers #215</a></li>
 </ul>
-
-  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-    
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/julia/'>Julia</a>, <a class='tag' href='/tags/rounding/'>Rounding</a>, <a class='tag' href='/tags/float/'>Float</a></div>
-
-  </div>
-</footer>
+	</section>
 
 
 </article>
-<div id="disqus_thread"></div>
+
+		</main>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/" title="Home page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Home
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="Blog page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/memo/" title="memo page" >
+			memo
+		</a>
+	</li>
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start  pb-2 max-h-16">
+	
+	<a href='http://github.com/matsueushi' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/matsue_ushi' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2019–2020
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 6159 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/posts/fluxjl-singan/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        Flux.jlでSinGANを実装する
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/posts/rounding-emulator/">
+        デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/fluxjl-singan/">Flux.jlでSinGANを実装する</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/fluxjl-dcgan/">Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-identity/">Juliaの単位行列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/clustering-kmean/">K-平均アルゴリズム</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gaussianprocess-jl/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-parameter-estimation/">Juliaでガウス過程を実装&amp;パラメーター推定</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-nlp-2/">ガウス過程と機械学習: 3.5まで</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習 」を読み始めた</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/shift-scale-distribution/">Distribution.jlで分布をシフト・スケールさせる</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-7/">Juliaで体験するベイズ推論(7) - The Price Is Right</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-6/">Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/rollingwindow/">JuliaでRollingWindow</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-array-dim/">Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mamba-gaussianrandomwalk/">Mamba.jlでGaussianRandomWalkを作って使う</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mamba-v-0-12-0/">Mamba.jl v0.12.0のStackOverflowError:</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -750,82 +714,15 @@ julia<span style="color:#f92672"></span><span style="color:#f92672">&gt;</span> 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/fluxjl-singan/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Flux.jlでSinGANを実装する</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/rounding-emulator/'>
-        <span class='screen-reader-text'>Next post: </span>デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
-    </div></div>
-</nav>
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/matsueushi' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/matsue_ushi' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='mailto:matsueushi@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2019-2020 matsueushi </p>
 </div>
+<hr />
 
-        </div>
-      </footer>
+		</footer>
+		
 
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
+<script src="/dist/app.js"></script>
 
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script><link rel='stylesheet' href='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css'>
-<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js'></script>
-<script src='//cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js'></script>
-
-<script type='text/javascript'>
-  renderMathInElement(document.querySelector('.entry-content'),{});
-</script>
-
+	</div>
 </body>
 
 </html>

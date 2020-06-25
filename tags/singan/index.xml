@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/singan/</link>
     <description>Recent content in SinGAN on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/singan/index.xml" rel="self" type="application/rss+xml" />
@@ -16,22 +18,531 @@
       <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
       
       <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
-      <description>今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。
-きっかけは、この紹介記事です。
-【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に
-実はDCGANをFlux.jlで実装したあと、MNISTの画像では味気ないので自分でデータセットを作成して画像の自動生成を試みていましたが、 ダブりなく大量の画像を収集してデータセットを整備するのは骨が折れ、今一つの結果しか出なかったのでお蔵入りにしていました。
-しかしながら、SinGAN記事に関する読んでみると驚いたことにSinGANではたった1枚の画像から超解像化やアニメーション生成が行え、 ハイスペックのGPUを回さなくても結果が得られるということで実装に挑戦したくなりました。
-一部実装を簡略化したので、論文の著者による実装を完全に再現できたわけではないのでご了承ください。 間違っている点・改善すべき点はご指摘頂けると幸いです。
-環境 実行環境はJulia v1.3.0 + Flux.jl v0.10.0 で、GCPのGPU環境(K80)です。
-前回と同様、Dockerによる環境構築ですが、JuliaのパッケージもDockerfileに含めてしまっていた前回と違い、 今回はDockerファイルはcudaのベースイメージ+Juliaのシンプルな構成として、Juliaのパッケージ管理はJuliaのプロジェクト機能を用いました。
-参考にしたのは主に下記のページです。
-Julia でのパッケージの作り方
-Julia v1.0 でユニットテスト
-SinGANのモデルの概略 理論的な部分の詳細は、論文 SinGAN: Learning a Generative Model from a Single Natural Image や 解説記事 に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。
-論文とは別に公開されている Supplementary Material はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。
-  SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image
-  SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。 最初は、小さい画像サイズで全体の構造を学習し、ステージを上がっていくごとに画像サイズを拡大していき、微細な構造を学習します。 各ステージでは通常のGANのようにGeneratorとDiscriminatorを並行して学習させていきます。
-GeneratorやDiscriminatorのネットワークは、特段難しい構成をしているわけではなく、 Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら tanh, Discriminator だったら identity に変えたConvolutional netがベースとなります。 Discriminator はこれで完成で、Generator はもう一手間必要です。</description>
+      <description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;
+&lt;p&gt;きっかけは、この紹介記事です。&lt;br&gt;
+&lt;a href=&#34;https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1&#34;&gt;【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;実は&lt;a href=&#34;../fluxjl-dcgan/&#34;&gt;DCGANをFlux.jlで実装&lt;/a&gt;したあと、MNISTの画像では味気ないので自分でデータセットを作成して画像の自動生成を試みていましたが、
+ダブりなく大量の画像を収集してデータセットを整備するのは骨が折れ、今一つの結果しか出なかったのでお蔵入りにしていました。&lt;/p&gt;
+&lt;p&gt;しかしながら、SinGAN記事に関する読んでみると驚いたことにSinGANではたった1枚の画像から超解像化やアニメーション生成が行え、
+ハイスペックのGPUを回さなくても結果が得られるということで実装に挑戦したくなりました。&lt;/p&gt;
+&lt;p&gt;一部実装を簡略化したので、論文の著者による実装を完全に再現できたわけではないのでご了承ください。
+間違っている点・改善すべき点はご指摘頂けると幸いです。&lt;/p&gt;
+&lt;h2 id=&#34;環境&#34;&gt;環境&lt;/h2&gt;
+&lt;p&gt;実行環境はJulia v1.3.0 + Flux.jl v0.10.0 で、GCPのGPU環境(K80)です。&lt;/p&gt;
+&lt;p&gt;前回と同様、Dockerによる環境構築ですが、JuliaのパッケージもDockerfileに含めてしまっていた前回と違い、
+今回はDockerファイルはcudaのベースイメージ+Juliaのシンプルな構成として、Juliaのパッケージ管理はJuliaのプロジェクト機能を用いました。&lt;/p&gt;
+&lt;p&gt;参考にしたのは主に下記のページです。&lt;br&gt;
+&lt;a href=&#34;https://qiita.com/cometscome_phys/items/989389db3540ebd9e026&#34;&gt;Julia でのパッケージの作り方&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://qiita.com/antimon2/items/5222f4f773bf1944b745&#34;&gt;Julia v1.0 でユニットテスト&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;singanのモデルの概略&#34;&gt;SinGANのモデルの概略&lt;/h2&gt;
+&lt;p&gt;理論的な部分の詳細は、論文 &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt; や &lt;a href=&#34;https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1&#34;&gt;解説記事&lt;/a&gt; に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。&lt;/p&gt;
+&lt;p&gt;論文とは別に公開されている &lt;a href=&#34;https://tomer.net.technion.ac.il/files/2019/09/SingleImageGan_SM.pdf&#34;&gt;Supplementary Material&lt;/a&gt; はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_pipeline.png&#34;
+         alt=&#34;SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;SinGAN’s multi-scale pipeline, retrieved from &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt;&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。
+最初は、小さい画像サイズで全体の構造を学習し、ステージを上がっていくごとに画像サイズを拡大していき、微細な構造を学習します。
+各ステージでは通常のGANのようにGeneratorとDiscriminatorを並行して学習させていきます。&lt;/p&gt;
+&lt;p&gt;GeneratorやDiscriminatorのネットワークは、特段難しい構成をしているわけではなく、
+Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら &lt;code&gt;tanh&lt;/code&gt;,
+Discriminator だったら &lt;code&gt;identity&lt;/code&gt; に変えたConvolutional netがベースとなります。
+Discriminator はこれで完成で、Generator はもう一手間必要です。&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_single.png&#34;
+         alt=&#34;Single Scale Generation, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Single Scale Generation, retrieved from &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt;&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Generatorの場合、入力には下層のステップで生成された画像+ノイズを与え、
+Convolutional net で生成された結果にもう一度下層の生成画像を加えて出力とします。&lt;/p&gt;
+&lt;p&gt;論文では Generator \( G_n \) は \(z_n \) をノイズ、\(\tilde{x}_n\) を第 \(n\) 段階の出力画像,
+\( \uparrow^r\) をスケール \(r\) 倍の画像拡大とした時に、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\tilde{x}_N &amp;amp;= G_N(z_N), \\
+\tilde{x}_n &amp;amp;= G_n(z_n, (\tilde{x}_{n+1})\uparrow^r), n &amp;lt; N
+\end{aligned}
+$$
+で、Fully convolutional net を \(\psi\) とした時に、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と言っています。実際は一段階前の画像に0パディングを行う(こともある)のでもう少し複雑になりますがあとで説明します。&lt;/p&gt;
+&lt;p&gt;損失関数ですが、各ステージで
+$$
+\begin{aligned}
+\min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
+\end{aligned}
+$$
+を考えるのですが、\(\mathcal{L}_{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+計算するときは全てのステージでノイズを加えながら生成します。
+\(\mathcal{L}_{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
+$$
+\begin{aligned}
+z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^*, 0, \ldots, 0 \}
+\end{aligned}
+$$
+を一つ学習を通して固定し、縮小した元画像との二乗誤差
+$$
+\begin{aligned}
+\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^*) - x_N ||^2, \\
+\mathcal{L}_{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
+\end{aligned}
+$$
+を損失関数とするものです。&lt;/p&gt;
+&lt;p&gt;読んでいて一つ疑問に思ったのが出力データの値域です。
+モデルでは、画像データを各数値が \( [-1,1] \) の範囲に収まる &lt;code&gt;Array&lt;/code&gt; として表現しているのですが、
+Convolutional Netで &lt;code&gt;tanh&lt;/code&gt; を適用した段階では \( [-1,1] \) の範囲に収まるものの、
+そのあと元の画像を足したらはみ出ることはあり得ます。
+ロス関数による制約条件があるため大丈夫なのかもしれませんが……&lt;/p&gt;
+&lt;h2 id=&#34;実装開始&#34;&gt;実装開始&lt;/h2&gt;
+&lt;p&gt;公式実装の &lt;a href=&#34;https://github.com/tamarott/SinGAN&#34;&gt;tamarott/SinGAN&lt;/a&gt; をベースに、他の実装
+&lt;a href=&#34;https://github.com/FriedRonaldo/SinGAN&#34;&gt;FriedRonaldo/SinGAN&lt;/a&gt; も時たま参考にしながらやっていきます。&lt;/p&gt;
+&lt;p&gt;全部説明するのは大変なので、ポイントに絞って説明します。パッケージは先に色々インポートしておきます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Adapt
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; BSON&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@load&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;@save&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; CuArrays
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; mse, pullback, glorot_normal
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Optimise&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; update!
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; JSON
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; OrderedCollections
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Random
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;配列の0乱数埋め&#34;&gt;配列の0、乱数埋め&lt;/h3&gt;
+&lt;p&gt;役立つ関数をいくつか定義しておきます。&lt;/p&gt;
+&lt;p&gt;Convolutional Layerに対するFlux.jlの入力データは WHCN の順の array であり、
+今回はカラー画像を使うのでチャンネル数は3(アルファチャンネルがないものを今回は使います), バッチサイズは1なので、画像サイズから array のサイズを計算する関数 &lt;code&gt;expand_dim&lt;/code&gt; を下のように定義します。&lt;/p&gt;
+&lt;p&gt;あとは与えた配列と同じ型 (CPU 環境だったら &lt;code&gt;Array&lt;/code&gt;, GPU 環境だと &lt;code&gt;CuArray&lt;/code&gt;) で0や乱数で埋めた配列が欲しくなることがあるので、そのための関数も用意します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;expand_dim(dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+zeros_like(T&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Type&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill!(similar(T, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;)
+zeros_like(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill!(similar(xs, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;)
+randn_like(T&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Type&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn!(similar(T, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
+randn_like(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn!(similar(xs, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Flux.jl では &lt;code&gt;gpu&lt;/code&gt; という関数が定義されていて、この関数は CUDA 環境が有効な時に限り オブジェクト (&lt;code&gt;Array&lt;/code&gt; など) を CUDA 用のオブジェクト (&lt;code&gt;CuArray&lt;/code&gt; など) にコンバートします。(CUDA 環境が有効でない時は何もしません)。逆に &lt;code&gt;Array&lt;/code&gt; に変換を行う &lt;code&gt;cpu&lt;/code&gt; という関数も存在します。&lt;/p&gt;
+&lt;p&gt;普通に &lt;code&gt;zeros&lt;/code&gt; や &lt;code&gt;randn&lt;/code&gt; を使って &lt;code&gt;gpu&lt;/code&gt; で変換してもいいのですが、
+Juliaだと関数は型安定である方がいいと言われているので、出力の型が環境に応じて変化する &lt;code&gt;gpu&lt;/code&gt; を毎回使うのを防ぐために &lt;code&gt;zeros_like&lt;/code&gt; と &lt;code&gt;randn_like&lt;/code&gt; を定義しました。&lt;/p&gt;
+&lt;p&gt;気になって変換方法について色々試してみたのですが、やはり &lt;code&gt;similar!&lt;/code&gt; を使うのが良いのではないかと思います。 &lt;a href=&#34;https://gist.github.com/matsueushi/be3071f6b6be040dd7ae9e51cf74b1e5&#34;&gt;https://gist.github.com/matsueushi/be3071f6b6be040dd7ae9e51cf74b1e5&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;画像サイズの計算&#34;&gt;画像サイズの計算&lt;/h3&gt;
+&lt;p&gt;最下層の画像のサイズ &lt;code&gt;min_size&lt;/code&gt; からスタートして、サイズを縦横 &lt;code&gt;scale&lt;/code&gt; 倍することを繰り返して最終的なサイズ &lt;code&gt;image_size&lt;/code&gt; に拡大していく関数を作ります。
+100層も学習することはないと思うので下のような形になっています。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; size_pyramid(scale, min_size, image_size)
+    current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min_size 
+    pyramid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+        push!(pyramid, current_size)
+        current_size &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; image_size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+        current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt; floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, min_size &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; scale&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;i)
+        current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(current_size, image_size)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; pyramid
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;中間の Conv 層のチャンネル数は 32 からスタートしてピラミッドを 4 階上がるごとに 2 倍になりますが、128でキャップをかけておきます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;channel_pyramid(n_stage) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(map(s&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;(floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, s &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n_stage), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;画像の拡大パディング&#34;&gt;画像の拡大、パディング&lt;/h3&gt;
+&lt;p&gt;画像を &lt;code&gt;image_shape&lt;/code&gt; の大きさに拡大したあと、周囲を &lt;code&gt;padded_shape&lt;/code&gt; の大きさになるまで0で埋める関数を作ります。&lt;/p&gt;
+&lt;p&gt;Supplimental Material の &amp;ldquo;Boundary conditions and the effect of padding&amp;rdquo; を見ると
+Conv 層における0埋めにより画像の四隅の多様性が失われるが、Generator に入力するノイズの周辺をノイズでパディングする
+(つまり、ノイズ画像の方を大きくする)と軽減されるということなので、今回アニメーションをさせることを考えて0埋めをすることにしました。&lt;/p&gt;
+&lt;p&gt;そのため
+$$
+\begin{aligned}
+G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
+\end{aligned}
+$$
+は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
+\(\langle \rangle_d\) を幅 \(d\) の0パディング,  \(\rangle \langle_d\) を幅 \(d\) のトリミングとすると、実際にやることは&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+G(x, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\
+\bar{x} &amp;amp;= \langle(x)\uparrow^r\rangle_d
+\end{aligned}
+$$
+です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
+            image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
+    &lt;span style=&#34;color:#75715e&#34;&gt;# println(size(x), image_shape, padded_shape)&lt;/span&gt;
+    x_large &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; imresize(view(x, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), image_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+    xx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; zeros(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, expand_dim(padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
+    pad1, pad2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt; (padded_shape &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; image_shape) &lt;span style=&#34;color:#f92672&#34;&gt;÷&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+    xx[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad1&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;image_shape[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad1, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad2&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;image_shape[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad2, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; , &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x_large
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; xx
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;CuArray{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
+            image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cu(resize_and_padding(adapt(&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;}, x), image_shape, padded_shape))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;関数を &lt;code&gt;Array&lt;/code&gt; と &lt;code&gt;CuArray&lt;/code&gt; で分けているのは、 画像を拡大するImages.jlの &lt;code&gt;imresize&lt;/code&gt; を使うと &lt;code&gt;GPU arrays&lt;/code&gt; のスカラー操作が極めて遅いと警告が出るためです。
+&lt;a href=&#34;https://github.com/JuliaGPU/GPUArrays.jl/blob/master/src/indexing.jl#L16&#34;&gt;https://github.com/JuliaGPU/GPUArrays.jl/blob/master/src/indexing.jl#L16&lt;/a&gt;
+&lt;code&gt;CuArray&lt;/code&gt; の場合は一旦 &lt;code&gt;Array&lt;/code&gt; に変換して拡大とパディングを行い、 &lt;code&gt;CuArray&lt;/code&gt; に戻していますが効果のほどは不明です。&lt;/p&gt;
+&lt;p&gt;あとあと各ステージの画像サイズに合わせて元画像を縮小した \( x_n \) が必要になります。これを一気に作れる関数を用意します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_image_pyramid(img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, noise_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; map((is, ns)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;resize_and_padding(img, is, ns), image_shapes, noise_shapes)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;ノイズの作成&#34;&gt;ノイズの作成&lt;/h3&gt;
+&lt;p&gt;Adversarial loss と Reconstuction loss を計算する時に使うノイズ \(z^{\text{adv}}, z^{\text{rec}}\) をそれぞれ計算する関数
+&lt;code&gt;build_noise_pyramid&lt;/code&gt; と &lt;code&gt;build_rec_pyramid&lt;/code&gt; を生成します。&lt;/p&gt;
+&lt;p&gt;学習の状況に応じてステージごとにノイズの分散は変化するので、調節が行えるようにします。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_zero_pyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; map(s&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;zeros_like(xs, expand_dim(s&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)), shapes)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_noise_pyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, amplifiers&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;})
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; map((s, a)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; randn_like(xs, expand_dim(s&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)), shapes, amplifiers)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_rec_pyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, amplifier&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;)
+    v &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_zero_pyramid(xs, shapes)
+    randn!(v[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])
+    v[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*=&lt;/span&gt; amplifier
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; v
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;convolutional-block&#34;&gt;Convolutional block&lt;/h3&gt;
+&lt;p&gt;Discriminator, Generator の準備として、Convolutional block \(\psi\) から作っていきます。&lt;/p&gt;
+&lt;p&gt;このような感じで Discriminator, Generator のどちらも使える &lt;code&gt;build_layers&lt;/code&gt; を定義しておきます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Re-define leakyrelu function&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# https://github.com/FluxML/Flux.jl/issues/963&lt;/span&gt;
+myleakyrelu(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Real&lt;/span&gt;, a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; oftype(x &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; one(x), &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; max(a &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; x, x &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; one(x))
+
+conv_block(&lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt;, out) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+        Conv((&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; out; init &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; glorot_normal, pad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)),
+        BatchNorm(out),
+        x&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;myleakyrelu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2f0&lt;/span&gt;)
+    ]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_layers(n_layers, in_chs, conv_chs, out_chs, σ)
+    layers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conv_block(in_chs, conv_chs)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n_layers &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+        push!(layers, conv_block(conv_chs, conv_chs)&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    tail_layer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Conv((&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;), conv_chs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; out_chs, σ;
+        init &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; glorot_normal, pad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+    push!(layers, tail_layer)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Chain(layers&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;leakyrelu&lt;/code&gt; は NNlib.jl で定義されているので Flux.jl で使えますが、
+&lt;code&gt;Float32&lt;/code&gt; の数値における (Zygote.jlの) 微分が &lt;code&gt;Float64&lt;/code&gt; になってしまうので自分で定義します。&lt;br&gt;
+&lt;a href=&#34;https://github.com/FluxML/Flux.jl/issues/963&#34;&gt;https://github.com/FluxML/Flux.jl/issues/963&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/FluxML/Flux.jl/issues/979&#34;&gt;https://github.com/FluxML/Flux.jl/issues/979&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;NNlib.jlに投げたこのプルリクがマージされたら定義し直す必要がなくなる予定です。(CuArrays.jl も修正する必要があるかもしれませんが……)
+&lt;a href=&#34;https://github.com/FluxML/NNlib.jl/pull/149&#34;&gt;https://github.com/FluxML/NNlib.jl/pull/149&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;discriminator-generator&#34;&gt;Discriminator, Generator&lt;/h3&gt;
+&lt;p&gt;いよいよ Discriminator, Generator の定義です。
+簡単な Discriminator から作ります。DiscriminatorPyramid に関しては、単に Discriminator を複数個集めて来ただけです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    DiscriminatorPyramid
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; DiscriminatorPyramid{T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
+    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T
+    DiscriminatorPyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new{typeof(xs)}(xs)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+build_single_discriminator(n_layers, conv_chs) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_layers(n_layers, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, conv_chs, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, identity)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; DiscriminatorPyramid(n_stage&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, n_layers&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;)
+    ds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_single_discriminator&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(n_layers, channel_pyramid(n_stage))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; DiscriminatorPyramid(gpu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(ds)&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; DiscriminatorPyramid(image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, n_layers&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;)
+    DiscriminatorPyramid(Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(image_shapes), n_layers)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DiscriminatorPyramid)
+    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DiscriminatorPyramid(&amp;#34;&lt;/span&gt;)
+    join(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ノイズ画像を足してレイヤーに通し、出力結果にオリジナルの画像を加えて周囲をトリミングする &lt;code&gt;NoiseConnection&lt;/code&gt; (名前は適当)を作ります。
+$$
+\begin{aligned}
+G(x, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\
+\bar{x} &amp;amp;= \langle(x)\uparrow^r\rangle_d
+\end{aligned}
+$$
+上の式で言えば
+$$
+\begin{aligned}
+N(\bar{x}, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;を計算するレイヤーです。&lt;code&gt;pad&lt;/code&gt; は周囲でノイズパディングを行うサイズ \(d\) です。
+&lt;code&gt;basic.jl&lt;/code&gt; の &lt;code&gt;SkipConnection&lt;/code&gt; の実装を参考にしました。
+&lt;a href=&#34;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&#34;&gt;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    NoiseConnection
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; NoiseConnection
+    layers
+    pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@Flux&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;functor NoiseConnection
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;NoiseConnection)(prev&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T, noise&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+    pad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad
+    raw_output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;layers(noise &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev)&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; raw_output[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;NoiseConnection)
+    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;NoiseConnection(&amp;#34;&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;layers, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;いよいよ GeneratorPyramid の定義です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    GeneratorPyramid
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; GeneratorPyramid{T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
+    image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}
+    noise_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}
+    pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;
+    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T
+    GeneratorPyramid(image_shapes, noise_shapes, pad, xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new{typeof(xs)}(image_shapes, noise_shapes, pad, xs)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+build_single_gen_layers(n_layers, conv_chs) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_layers(n_layers, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, conv_chs, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, tanh)
+build_single_generator(n_layers, conv_chs, pad) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; NoiseConnection(build_single_gen_layers(n_layers, conv_chs), pad)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; GeneratorPyramid(image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, n_layers&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+    n_stage &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(image_shapes)
+    &lt;span style=&#34;color:#75715e&#34;&gt;# receptive field = 11, floor(11/2) = 5&lt;/span&gt;
+    noise_shapes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; pad &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; image_shapes]
+    ds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_single_generator&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(n_layers, channel_pyramid(n_stage), pad)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; GeneratorPyramid(image_shapes, noise_shapes, pad, gpu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(ds)&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid)
+    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GeneratorPyramid(&amp;#34;&lt;/span&gt;)
+    print(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;)
+    print(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;)
+    println(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;)
+    join(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid)(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractVector&lt;/span&gt;{T}, st&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, resize&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Bool&lt;/span&gt;) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; st &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+        zeros_shape &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resize &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; first(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes) &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; first(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; zeros_like(T, expand_dim(zeros_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(xs, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+    out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st](prev, xs[st])
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; resize &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; resize_and_padding(out, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes[st &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[st &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; out
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最後の関数が画像を生成する関数で、&lt;code&gt;xs&lt;/code&gt; が与えるノイズ、&lt;code&gt;st&lt;/code&gt; が到達したいステージ、&lt;code&gt;resize&lt;/code&gt; が生成した後に拡大したいかどうかです。
+ステージの添字の数え方は論文とは上下が逆で下から上の順に大きくなっているので注意です。&lt;/p&gt;
+&lt;h3 id=&#34;損失関数&#34;&gt;損失関数&lt;/h3&gt;
+&lt;p&gt;次に損失関数を定義します。SinGAN のオリジナルの実装では GAN には WGAN-GP を使っているのですが、残念なが自分のスキルでは Gradientを損失条件の中に入れられなかった
+(損失関数の中にGradientの計算関数を入れると、損失関数の微分が取れなかった) ので、泣く泣く LSGAN に置き換えています。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; discriminator_loss(d_real&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, d_g_fake_adv&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;)
+    real_loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(&lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;, mean(d_real; dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)))
+    fake_loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(&lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;, mean(d_g_fake_adv; dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; real_loss &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; fake_loss
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+generator_adv_loss(d_g_fake_adv&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(&lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;, mean(d_g_fake_adv; dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)))
+
+generator_rec_loss(real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, g_fake_rec&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(real_img, g_fake_rec)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;いちいち0や1をベクトルに直す必要はありません。シンプルに書けていいですね。&lt;/p&gt;
+&lt;h3 id=&#34;discriminator-generator-の更新&#34;&gt;Discriminator, Generator の更新&lt;/h3&gt;
+&lt;p&gt;損失関数の値を計算し、Discriminator, Generator のパラメーターに関する微分を取ってパラメーターを更新する関数を書きます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(dscr)
+    grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+        discriminator_loss(dscr(real_img), dscr(g_fake_adv))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    update!(opt, ps, grad)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_generator!(opt, dscr, gen, real_img, prev_rec, prev_adv, noise_rec, noise_adv, alpha)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(gen)
+    grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+        g_fake_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen(prev_rec, noise_rec)
+        d_g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dscr(gen(prev_adv, noise_adv))
+        generator_adv_loss(d_g_fake_adv) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; alpha &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; generator_rec_loss(real_img, g_fake_rec)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    update!(opt, ps, grad)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ここで、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+    discriminator_loss(dscr(real_img), dscr(g_fake_adv))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;この部分はこれと一緒です。(&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/functions/index.html#man-anonymous-functions-1&#34;&gt;https://docs.julialang.org/en/v1/manual/functions/index.html#man-anonymous-functions-1&lt;/a&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; discriminator_loss(dscr(real_img), dscr(g_fake_adv)), ps)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;gradient&lt;/code&gt; の代わりに &lt;code&gt;pullback&lt;/code&gt; を使うと微分と同時に関数の値も取得できます。(&lt;a href=&#34;https://fluxml.ai/Zygote.jl/latest/adjoints/#Pullbacks-1&#34;&gt;https://fluxml.ai/Zygote.jl/latest/adjoints/#Pullbacks-1&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;パラメーターの更新後に損失関数の値を返したい場合、例えばこのように書けばOKです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(dscr)
+    loss, back &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pullback(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+        discriminator_loss(dscr(real_img), dscr(g_fake_adv))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; back(Zygote&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sensitivity(loss))
+    update!(opt, ps, grad)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; loss
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;学習&#34;&gt;学習&lt;/h3&gt;
+&lt;p&gt;1エポックの学習は次のようになります。
+改めて損失関数の値を計算しているので少し無駄になっている気もしますが気にしないでおきます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_epoch!(opt_dscr, opt_gen, st, loop_dscr, loop_gen,
+        dscr, genp, prev_rec, noise_rec, real_img, amplifiers, alpha)
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# discriminator&lt;/span&gt;
+    foreach(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;loop_dscr) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; _
+        noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
+        g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+        update_discriminator!(opt_dscr, dscr, real_img, g_fake_adv)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# generator&lt;/span&gt;
+    foreach(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;loop_gen) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; _
+        noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
+        prev_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+        update_generator!(opt_gen, dscr, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st], real_img, prev_rec, prev_adv, noise_rec, last(noise_adv), alpha)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
+    g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+    loss_dscr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; discriminator_loss(dscr(real_img), dscr(g_fake_adv))
+    d_g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dscr(g_fake_adv)
+    loss_gen_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_adv_loss(d_g_fake_adv)
+    g_fake_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st](prev_rec, noise_rec)
+    loss_gen_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_rec_loss(real_img, g_fake_rec) 
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; loss_dscr, loss_gen_adv, loss_gen_rec
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ハイパーパラメーターを入れておく箱を用意して、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; HyperParams
+    scale&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;                  &lt;span style=&#34;color:#75715e&#34;&gt;# progression scale, &amp;gt; 1&lt;/span&gt;
+    min_size_x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# minimal image width&lt;/span&gt;
+    min_size_y&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# minimal image height&lt;/span&gt;
+    img_size_x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# output image width&lt;/span&gt;
+    img_size_y&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# output image height&lt;/span&gt;
+    n_layers&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;                 &lt;span style=&#34;color:#75715e&#34;&gt;# number of conv layers&lt;/span&gt;
+    max_epoch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# training epochs&lt;/span&gt;
+    reduce_lr_epoch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;          &lt;span style=&#34;color:#75715e&#34;&gt;# reduce learining rate after training `redule_lr_epoch` epochs&lt;/span&gt;
+    save_image_every_epoch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;# save generated image every `save_image_every_epoch` epoch&lt;/span&gt;
+    save_loss_every_epoch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# save loss every `save_loss_every_epoch` epoch&lt;/span&gt;
+    loop_dscr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# training steps par descriminator training epoch&lt;/span&gt;
+    loop_gen&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;                 &lt;span style=&#34;color:#75715e&#34;&gt;# training steps par generator training epoch&lt;/span&gt;
+    lr_dscr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# discriminator learining rate&lt;/span&gt;
+    lr_gen&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;                 &lt;span style=&#34;color:#75715e&#34;&gt;# generator learning rate&lt;/span&gt;
+    alpha&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;                  &lt;span style=&#34;color:#75715e&#34;&gt;# rec loss coefficient&lt;/span&gt;
+    amplifier_init&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# noise amplifier&lt;/span&gt;
+    HyperParams() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5e-4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5e-4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50f0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+show_dict(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; OrderedDict(string(nm) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; getfield(hp, nm) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; nm &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; fieldnames(HyperParams))
+image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size_pyramid(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scale, (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_y), (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_y))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; setup_models(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams)
+    img_shapes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image_shapes(hp)
+    dscrp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DiscriminatorPyramid(img_shapes, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_layers) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
+    genp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GeneratorPyramid(img_shapes, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_layers) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dscrp, genp
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ようやく最終的な &lt;code&gt;train&lt;/code&gt; 関数の完成です。(画像を出力するところなどは省いています)。
+&lt;code&gt;estimate_noise_amplifier&lt;/code&gt; は、一段階前の画像と元画像からノイズの分散を調節する関数です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; estimate_noise_amplifier(prev_rec&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;},
+        pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, amplifier_init&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;)
+    prev_rec_crop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@view&lt;/span&gt; prev_rec[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+    rmse &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqrt(mse(real_img, prev_rec_crop))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; rmse &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; amplifier_init
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train!(dscrp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DiscriminatorPyramid, genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid, 
+        real_img_p&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{T}, hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+    stages &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes)
+
+    amplifiers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;[]
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# fixed noise for rec&lt;/span&gt;
+    fixed_noise_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_rec_pyramid(first(real_img_p), genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes, &lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;)
+    fixed_noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; similar(fixed_noise_rec)
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; st &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;stages
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;@info&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Step &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$&lt;/span&gt;(st)&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# reset optimizer&lt;/span&gt;
+        opt_dscr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ADAM(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lr_dscr, (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.999&lt;/span&gt;))
+        opt_gen &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ADAM(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lr_gen, (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.999&lt;/span&gt;))
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# calculate noise amplifier&lt;/span&gt;
+        prev_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(fixed_noise_rec, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# padded&lt;/span&gt;
+        amp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; st &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; estimate_noise_amplifier(prev_rec, real_img_p[st], genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;amplifier_init)
+        push!(amplifiers, amp)
+        &lt;span style=&#34;color:#75715e&#34;&gt;# add noise for adv &lt;/span&gt;
+        fixed_noise_adv[st] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; amp &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; randn_like(prev_rec, expand_dim(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[st]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
+
+        save_noise_amplifiers(st, amp)
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;@info&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Noise amplifier = &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$&lt;/span&gt;(amp)&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;@time&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ep &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max_epoch
+            &lt;span style=&#34;color:#75715e&#34;&gt;# reduce learnint rate&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ep &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reduce_lr_epoch
+                &lt;span style=&#34;color:#a6e22e&#34;&gt;@info&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Reduce learning rate&amp;#34;&lt;/span&gt;
+                opt_dscr&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eta &lt;span style=&#34;color:#f92672&#34;&gt;/=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+                opt_gen&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eta &lt;span style=&#34;color:#f92672&#34;&gt;/=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+            loss_dscr, loss_gen_adv, loss_gen_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;
+                train_epoch!(opt_dscr, opt_gen, st, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loop_dscr, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loop_gen,
+                    dscrp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st], genp, prev_rec, fixed_noise_rec[st], real_img_p[st], amplifiers, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;alpha)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;アニメーション結果&#34;&gt;アニメーション結果&lt;/h3&gt;
+&lt;p&gt;一応トレーニング関数まで到達したので、具体的な実行方法などは一番最後に載せたレポジトリを見てもらうこととして、とりあえずアニメーションの結果を見せたいと思います。
+公式実装のアニメーションで使われている画像を強引に 64x64 にリサイズしたものを使いました。
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34;/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;無理やり 256x256 に引き伸ばすとこんな感じです。
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34; width=&#34;256&#34;/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;25x25 のサイズからスタートして、64x64 で終了させたのですが、GCP の n1-standard-8 + K80 で一時間弱で学習が終わりました。
+今回は Julia サイドで画像だけ吐き出して、アニメーション GIF は ImageMagick で作成しました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ convert -delay &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; -loop &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; img*.png fluxjl-singan_lightning.gif
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;実際の画像はかなり小さいので、256x256 に拡大するとこんな感じです。
+もっと時間をかけて大きい画像まで学習すれば高精細な結果が得られると思います。
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;アルバムのジャケットをアニメーションさせた結果です。&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_floral.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_farside.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;まだまだ実装の改良の余地がありそうですが、一応一枚の画像だけを使ってアニメーション画像を作成するモデルを Flux.jl で実装できました。&lt;/p&gt;
+&lt;p&gt;詳細な部分も含めた全コードはこちらです。
+&lt;a href=&#34;https://github.com/matsueushi/SinGAN&#34;&gt;matsueushi/SinGAN&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

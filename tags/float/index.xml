@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/float/</link>
     <description>Recent content in Float on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/float/index.xml" rel="self" type="application/rss+xml" />
@@ -16,12 +18,425 @@
       <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
       
       <guid>https://matsueushi.github.io/posts/julia-rounding/</guid>
-      <description>2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmeitc.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。
- 最近、 数値計算を 区間演算 を使って誤差の評価を伴って実施する 精度保証付き数値計算 に興味が出てきて、 Warwich Tucker の Validated Numeric という本を購入し、少しつづ読んでいます。
-浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。 実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、 丸めモードを指定した計算を行うところでつまづいてしまいました。
-今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、 Julia における丸めの制御について調べた内容を書いておきたいと思います。 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。
-使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。
-_ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type &amp;#34;?&amp;#34; for help, &amp;#34;]?&amp;#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.</description>
+      <description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。
+IntervalArithmeitc.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で
+FastRounding.jl を利用しなくなった (v0.17.0以降) ので、
+IntervalArithmeitc.jl に関して以下に書いてある情報は古いです。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近、 数値計算を
+&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E5%8C%BA%E9%96%93%E6%BC%94%E7%AE%97&#34;&gt;区間演算&lt;/a&gt; を使って誤差の評価を伴って実施する
+&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E7%B2%BE%E5%BA%A6%E4%BF%9D%E8%A8%BC%E4%BB%98%E3%81%8D%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97&#34;&gt;精度保証付き数値計算&lt;/a&gt; に興味が出てきて、
+&lt;a href=&#34;https://press.princeton.edu/books/hardcover/9780691147819/validated-numerics&#34;&gt;Warwich Tucker の Validated Numeric&lt;/a&gt; という本を購入し、少しつづ読んでいます。&lt;/p&gt;
+&lt;p&gt;浮動小数点数のシステムなど初歩的なことから説明されていて私にとっては非常にありがたく、異常な計算例も多く載せられていて楽しく読めています。
+実際に手を動かして理解するために、本文内の MATLAB で書かれた区間演算のプログラムを Julia で実装しようとしていますが、
+丸めモードを指定した計算を行うところでつまづいてしまいました。&lt;/p&gt;
+&lt;p&gt;今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、
+Julia における丸めの制御について調べた内容を書いておきたいと思います。
+私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。&lt;/p&gt;
+&lt;p&gt;使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;               _
+   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
+  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
+   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
+  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
+  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-11-26&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+ _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
+|__/                   |
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;01--30-を計算してみる&#34;&gt;0.1 * 3.0 を計算してみる&lt;/h3&gt;
+&lt;p&gt;\( \mathbb{F}^* \) を浮動小数点全体の集合 (今回は&lt;code&gt;Float64&lt;/code&gt; としておきます)、
+\( \mathbb{F} \) を\( \mathbb{F}^* \)から &lt;code&gt;-Inf&lt;/code&gt;, &lt;code&gt;+Inf&lt;/code&gt; を除いた有限な浮動小数点全体の集合、
+\( \mathbb{R} \) を実数全体の集合、\( \mathbb{R}^* \) を \( \mathbb{R} \) に正と負の無限大を付け加えた集合とします
+(無限大が関係してくる細かい説明は今回は省略します)。
+\( \mathbb{F} \) は \( \mathbb{R} \)、
+\( \mathbb{F}^* \) は \( \mathbb{R}^* \) の有限部分集合です。&lt;/p&gt;
+&lt;p&gt;例として、 \(0.1 \in \mathbb{R} \) と \(3.0 \in \mathbb{R}\)  の積を (浮動小数点上で) 評価したいとします。
+言うまでもなく真の値は \( 0.3 \in \mathbb{R} \) です。
+一方、REPL 上で &lt;code&gt;0.1 * 3.0&lt;/code&gt; と &lt;code&gt;0.3&lt;/code&gt; を比較すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となりイコールにはなりません。&lt;code&gt;@printf&lt;/code&gt; マクロを使って小数点以下17桁まで表示すると、確かに違います。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.bitstring&#34;&gt;Base.bitstring&lt;/a&gt; を使ってビット表現を確かめても、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110100&amp;#34;&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110011&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最後の3桁が違いますね。なぜこのようなことが起こるのでしょうか？&lt;/p&gt;
+&lt;h3 id=&#34;丸め&#34;&gt;丸め&lt;/h3&gt;
+&lt;p&gt;証明は省略しますが、\( 1/3 \) が有限桁の10進数小数で表現できないのと同様、
+\( 0.1 \) は有限桁の(2進)浮動小数点数では表せません。\( 0.3 \) も同様です。&lt;/p&gt;
+&lt;p&gt;そのため、\( 0.1 \in \mathbb{R} \) はコンピューターで扱うために \( \mathbb{F} \) の元で近似されることになります。
+この近似の方法を定めるのが丸め (Rounding) で、書き方は違いますが本の中で次のように定義されています。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;定義&lt;/strong&gt; 「丸め」 とは、写像 \( \bigcirc : \mathbb{R}^* \rightarrow \mathbb{F}^* \) で、&lt;br&gt;
+(R1) \( \bigcirc \) は \( \mathbb{F}^* \) 上では恒等写像。つまり、任意の \( x \in \mathbb{F}^* \) に対して \( \bigcirc (x) = x \)&lt;br&gt;
+(R2) \( \bigcirc \) は大小関係を保存する。つまり、\( x, y \in \mathbb{R}^* \) が \( x \le y \) を満たすなら \( \bigcirc(x) \le \bigcirc(y) \) が成立する&lt;br&gt;
+の二つの条件を満たすものである。&lt;/p&gt;
+&lt;p&gt;一つ目の条件は \( \mathbb{F}^* \) でもともと表せる数に関しては余計な操作を行わないことを意味し、
+二つ目の条件は近似した時に大小関係が入れかわらないことを保証するもので、どちらも非常に自然な要請です。&lt;/p&gt;
+&lt;p&gt;丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
+\end{aligned}
+$$
+はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。&lt;/p&gt;
+&lt;p&gt;これらは勿論先ほどの丸めの定義を満たし、
+$$
+\begin{aligned}
+\triangledown (x) \le x \le \triangle (x)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して
+$$
+\begin{aligned}
+\triangledown (x) \le \bigcirc (x) \le \triangle (x)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^*\) であれば、
+\( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
+\( x \notin \mathbb{F}^*\) であれば、\( \triangledown(x) &amp;lt; x &amp;lt; \triangle (x) \) が成り立つとともに
+\( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
+つまり、丸めとは、浮動小数点数で表せないそれぞれの数に対して切り上げるか切り下げるかを条件 (R2) を守るように定めることと同じです。&lt;/p&gt;
+&lt;p&gt;浮動小数点数で表現できない数に対する Julia の&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1&#34;&gt;デフォルト丸めモード&lt;/a&gt;は
+&lt;a href=&#34;https://docs.julialang.org/en/v1/base/math/#Base.Rounding.RoundNearest&#34;&gt;RoundNearest&lt;/a&gt; で、
+最も近い浮動小数に丸めると言うものです。
+ちょうど中間になった時が気になりますが、切り上げた時と切り下げた時のうち、最後の桁が偶数 (つまり0) になるものを選びます。
+そのためこの丸めモードはNearest Evenと呼ばれることもあります。
+なぜ偶数に丸めるかについての説明は省略しますが本には載っているので気になる方は参照してください。&lt;/p&gt;
+&lt;p&gt;今後、このデフォルトの丸めを \( \square \) で表すことにします。&lt;code&gt;0.1&lt;/code&gt;, &lt;code&gt;3.0&lt;/code&gt;, &lt;code&gt;0.3&lt;/code&gt; は、
+実態はそれぞれ \( \square(0.1), \square(3.0) = 3.0, \square(0.3) \in \mathbb{F}^* \) だったということになります。&lt;/p&gt;
+&lt;h3 id=&#34;浮動小数点数同士の演算&#34;&gt;浮動小数点数同士の演算&lt;/h3&gt;
+&lt;p&gt;次に \( \mathbb{R}^* \) 上の二項演算 \( +, -, \times, /, \sqrt{} \) とそれに対応する
+\( \mathbb{F}^* \) 上の二項演算 \( \oplus, \ominus, \otimes, \oslash, \odot \) の違いを考えます。
+本当は四角の囲み文字を使いたかったのですが、ご勘弁ください。ルートの丸文字も出せませんでした。&lt;/p&gt;
+&lt;p&gt;問題は \( +, -, \times, /, \sqrt{} \) を \( \mathbb{F}^* \) に制限しても結果が \( \mathbb{F}^* \) になるとは限らないと言うことです。
+例えば、\( 2^{100}, 1 \in \mathbb{F}^* \) ですが、\( 2^{100} + 1 \notin \mathbb{F}^* \) です。
+Julia には直前、直後の浮動小数点数を計算する関数 &lt;code&gt;prevfloat&lt;/code&gt;, &lt;code&gt;nextfloat&lt;/code&gt; が存在しますので
+\( 2^{100} \)の次の数を計算してみましょう。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, x)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229401496703205376.00000000000000000&lt;/span&gt;
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, nextfloat(x))
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229682971679916032.00000000000000000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;なので、\( 2^{100} + 1 \) は確かにこの二つの隙間に落ちてしまっているので表現不能です。計算すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; x
+&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって元々の値と同じになっています。&lt;/p&gt;
+&lt;p&gt;つまりは計算した結果も丸められているわけですが、ここで丸める前と丸めた後の関係が気になります。
+Juliaの &lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1&#34;&gt;Rounding modes&lt;/a&gt; を見ると丸めモードは
+&lt;a href=&#34;https://ieeexplore.ieee.org/document/8766229&#34;&gt;IEEE754 standard&lt;/a&gt; に従っていると言うことなので、
+規格を本来は参照すべきだと思いますが、ノンメンバーだとPDFを購入するのに$100かかるようなので、断念しました。&lt;/p&gt;
+&lt;p&gt;書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート &lt;a href=&#34;https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF&#34;&gt;Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic&lt;/a&gt;
+を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
+別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。&lt;/p&gt;
+&lt;p&gt;よって、
+$$
+\begin{aligned}
+x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;の時に&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+x \circledast y = \square (x * y)
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;ということになります。&lt;/p&gt;
+&lt;p&gt;長々と書いてしまいましたが、&lt;code&gt;0.1 * 3.0&lt;/code&gt;
+\( = \square(\square(0.1) \times \square(3.0)) \),
+&lt;code&gt;0.3&lt;/code&gt; \( = \square(0.3) \) なので、&lt;code&gt;0.1 * 3.0&lt;/code&gt; と &lt;code&gt;0.3&lt;/code&gt; は近い値にはなるものの、\(\square(0.1) \times \square(3.0) \neq 0.3\) でそれぞれ別の数に丸められてしまうということでした。&lt;/p&gt;
+&lt;h3 id=&#34;区間演算&#34;&gt;区間演算&lt;/h3&gt;
+&lt;p&gt;次に、同様の計算を区間計算で (正確な定義はスキップして) 行ってみます。
+まず、\( 0.1 \) を含む、端点が共に \( \mathbb{F} \) の元で幅がなるべく小さい区間を探します。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;0.1&lt;/code&gt; と書いた時点で浮動小数点数に変換されてしまうので、別の方法で \( 0.1 \) を表現する必要があります。
+入力を文字列 &lt;code&gt;&amp;quot;0.1&amp;quot;&lt;/code&gt; にしてパースする方法もありますが、
+幸いなことに&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/complex-and-rational-numbers/#Rational-Numbers-1&#34;&gt;有理数型&lt;/a&gt;と&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Core.Float64-Tuple%7BAny%7D&#34;&gt;丸め方向つきの浮動小数点数コンストラクタ&lt;/a&gt;が利用できます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x_down, x_up &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundDown), &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundUp);
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down, x_up)
+[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.09999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.10000000000000001&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;\( 3.0 \) は浮動小数点数として誤差なく表現できるので、幅0 (thin) の区間として表わせます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundDown) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundUp)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こうして \( 0.1 \) と \(3.0\) がそれぞれ含まれる区間 &lt;code&gt;[x_down, x_up]&lt;/code&gt;, &lt;code&gt;[3.0, 3.0]&lt;/code&gt;
+が得られたので答えが取り得る範囲を考えて、真の数が含まれる区間の計算結果を &lt;code&gt;[x_down * 3.0, x_up * 3.0]&lt;/code&gt; ……とやると(一般的には)まずいです。&lt;/p&gt;
+&lt;p&gt;今回はたまたま&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;, x_up &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってうまくいきましたが、例えば、 \( 1.0 \in \mathbb{F}, 2^{-54} \in \mathbb{F} \) に対し、
+\( 1.0 + 2^{-54} \) を意図して同様の区間演算
+&lt;code&gt;[1.0, 1.0]&lt;/code&gt; + &lt;code&gt;[2^-54, 2^-54]&lt;/code&gt; を先ほどと同様に単純に行うと、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.00000000000000000&lt;/span&gt;
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
+得られる区間は &lt;code&gt;[1.0, 1.0]&lt;/code&gt; となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。&lt;/p&gt;
+&lt;p&gt;つまり、今までに定義した記号を使って表すと、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [x \oplus x&amp;rsquo;, y \oplus y&amp;rsquo;]
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [\triangledown (x + x&amp;rsquo;), \triangle (y + y&amp;rsquo;)]
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
+&lt;p&gt;非常に長くなってしまいましたが、この計算をやりたいがために丸めモードを変えたいわけです。&lt;/p&gt;
+&lt;h3 id=&#34;julia-における方向丸め付き演算のサポート&#34;&gt;Julia における方向丸め付き演算のサポート&lt;/h3&gt;
+&lt;p&gt;「さあ、いよいよ Julia で方向丸め付き演算をやっていくか、C++だと&lt;a href=&#34;http://verifiedby.me/kv/rounding/index.html&#34;&gt;丸めモードの変更は面倒な感じがする&lt;/a&gt; が、
+Julia には &lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.Rounding.setrounding-Tuple%7BType,Any%7D&#34;&gt;Base.Rounding.setrounding&lt;/a&gt;
+という関数が用意されていて楽すぎる。Julia最強！」&lt;/p&gt;
+&lt;p&gt;……とはならないのが人生の辛い所です。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;setrounding&lt;/code&gt; の説明をよく読むと、&lt;code&gt;T == BigFloat&lt;/code&gt; しかサポートされていないと書かれています。
+実は昔は &lt;code&gt;Float32&lt;/code&gt;, &lt;code&gt;Float64&lt;/code&gt; に対しても使えていたようなのですが、
+色々と問題があり(最後のリンク参照)、 experimentalと言う但し書きがドキュメントに書かれるようになり、
+最終的に&lt;a href=&#34;https://github.com/JuliaLang/julia/pull/27166&#34;&gt;廃止された&lt;/a&gt;ようです。&lt;/p&gt;
+&lt;p&gt;そのためブログの記事や Twitter の投稿で「Juliaでは浮動小数点の方向丸め付き演算がサポートされている」と書かれているものは、おそらく、
+&lt;code&gt;Float32&lt;/code&gt;, &lt;code&gt;Float64&lt;/code&gt; に対する &lt;code&gt;setrounding&lt;/code&gt; が使えるようになっていた時のものでしょう。&lt;/p&gt;
+&lt;p&gt;サポートされていない理由については、どうもLLVMで浮動小数点の丸めの制御ができないため、と言うことらしいです(未確認)。&lt;/p&gt;
+&lt;h3 id=&#34;julia-で利用できるパッケージ&#34;&gt;Julia で利用できるパッケージ&lt;/h3&gt;
+&lt;p&gt;一方、Juliaには区間演算のライブラリ &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;IntervalArithmetic.jl&lt;/a&gt; があり、頻繁にアップデートされています。
+丸めは &lt;a href=&#34;https://github.com/JeffreySarnoff/FastRounding.jl&#34;&gt;FastRounding.jl&lt;/a&gt; の機能を使っているようでした。&lt;/p&gt;
+&lt;p&gt;他にも &lt;a href=&#34;https://github.com/JeffreySarnoff/DirectedRoundings.jl&#34;&gt;DirectedRoundings.jl&lt;/a&gt; や
+&lt;a href=&#34;https://github.com/JuliaIntervals/SetRounding.jl&#34;&gt;SetRounding.jl&lt;/a&gt; を発見しましたが、あまりメンテされていないようでした。&lt;/p&gt;
+&lt;h3 id=&#34;最近点丸めによる方向付き丸め演算のエミュレート&#34;&gt;最近点丸めによる方向付き丸め演算のエミュレート&lt;/h3&gt;
+&lt;p&gt;言語でサポートされていない方向付き丸めがパッケージを使えばできるということで意味がわからなくなってしまったのですが、
+FastRounding.jl は、&lt;a href=&#34;https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl&#34;&gt;ErrorfreeArithmetic.jl&lt;/a&gt; で実装されているエラーフリー変換と言うものを用いて、
+デフォルトの丸めモードの演算のみを利用して方向付き丸めをエミュレートしているようです。&lt;/p&gt;
+&lt;p&gt;エミュレートの基本原理に関しては、 &lt;a href=&#34;http://verifiedby.me/adiary/pub/kashi/image/201406/nas2014.pdf&#34;&gt;最近点丸めによる方向付き丸めのエミュレート&lt;/a&gt; に詳細に書いてあるのですが、
+ここでは簡単に加算に関して FastRounding.jl が行っているエラーフリー変換とエミュレートについて説明してみたいと思います。&lt;/p&gt;
+&lt;p&gt;加算のエラーフリー変換は、別名 &lt;code&gt;twosum&lt;/code&gt; とも呼ばれるアルゴリズムで、\(a, b \in \mathbb{F}\) に対して,
+ペア \( (x, y) = \text{twosum}(a, b) \) を返し、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+x &amp;amp;= a \oplus b, \\
+a + b &amp;amp;= x + y
+\end{aligned}
+$$
+が厳密に成立するとされるものです。&lt;/p&gt;
+&lt;p&gt;Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; twosum(a, b)
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+    tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)
+    x, y
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となります。
+私が確認したタイミングでは、ErrorfreeArithmetic.jl の &lt;a href=&#34;https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl/blob/2494c705caef77340fba596544fac8dae9ec2951/src/errorfree.jl#L1-L11&#34;&gt;&lt;code&gt;two_sum&lt;/code&gt; の定義&lt;/a&gt;も同様になっていました。&lt;/p&gt;
+&lt;p&gt;今まで出てきた例の場合も含めて何通りか例を計算してみると&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって正しく分解されています。&lt;/p&gt;
+&lt;p&gt;\(a, b \) の絶対値について条件を課したアルゴリズム &lt;code&gt;fasttwosum&lt;/code&gt; について、
+オーバーフローが発生しない場合に等式が成立することが「精度保証付き数値計算の基礎」に定理2.5として証明されていました。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;twosum&lt;/code&gt; を用いた方向付き丸め演算のエミューレートは、上付き丸めと下付き丸めを&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_up(a, b)
+    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
+    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_down(a, b)
+    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
+    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と定義するもので、FastRounding.jlの対応箇所は&lt;a href=&#34;https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L248-L271&#34;&gt;ここ&lt;/a&gt;です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;見た感じ、良さそうです。FastRounding.jl の関数も呼び出してみます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundUp)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundDown)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundUp)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundDown)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;しかし、これで全て安心とはならず、救われない命があるようなのです……&lt;/p&gt;
+&lt;h3 id=&#34;エミュレーションにおける問題&#34;&gt;エミュレーションにおける問題&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://verifiedby.me/adiary/09&#34;&gt;Error Free Transformation (EFT) is NOT error-free&lt;/a&gt; という記事に、
+エラーフリー変換においてオーバーフローやアンダーフローが発生する例や、&lt;code&gt;twosum&lt;/code&gt; の乗算バージョンの &lt;code&gt;twoproduct&lt;/code&gt; に関して誤差が生じる例が書かれていました。&lt;/p&gt;
+&lt;p&gt;気になったので、先ほどの &lt;code&gt;twosum&lt;/code&gt; に対して記事に書かれている例を試してみると&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.5630624444874539e+307&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;3.563062444487454e307&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e+308&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e308&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(a, b)
+(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってやはり正しく計算されませんでした。&lt;/p&gt;
+&lt;p&gt;「最近点丸めによる方向付き丸めのエミュレート」にはこれを回避する方法が書いてあったので、実装してみます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_twosum(a, b)
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; abs(a) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; abs(b)
+        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_up(a, b)
+    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
+    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_down(a, b)
+    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
+    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;実行結果は、もちろん今まで計算できていたものは同じ結果になり、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;先ほど計算できなかった例が、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(a, b)
+(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;9.9792015476736e291&lt;/span&gt;)
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(a, b)
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135702e308&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(a, b)
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と計算できるようになりました。&lt;/p&gt;
+&lt;p&gt;しかしながら ErrorfreeArithmetic.jl の実装も残念ながらオーバーフローが考慮されていないので、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; ErrorfreeArithmetic
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; two_sum(a, b)
+(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となり、従ってそれを利用した丸めも&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundUp)
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundDown)
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と丸めが正しく行われていません。記事に載っていた例については加算しか確認していませんが、他にも似たような現象が発生している可能性があるので利用には注意が必要だと思います。
+(ライブラリの作者の方々には申し訳ないですが)&lt;/p&gt;
+&lt;p&gt;基本的な演算に関してのエミュレートを行うだけでもかなり気を使う必要があり、漏れなく実装するのは容易ではないようです。&lt;/p&gt;
+&lt;p&gt;しかしながら、デフォルトの丸めモードだけを使って方向付き丸めのエミュレートを行う発想自体は非常に面白く感じたので、時間のある時に他の演算に関しても実装してみたいです。
+(パッケージとして通用するレベルで厳密な実装やテストを書くのは大変そうですが……)&lt;/p&gt;
+&lt;h3 id=&#34;結論20203時点&#34;&gt;結論(2020/3時点)&lt;/h3&gt;
+&lt;p&gt;Julia で方向付き丸めを指定した浮動小数点数計算はコア言語としては廃止されているが、エミュレートにより丸めを行うパッケージ FastRounding.jl が存在します。&lt;/p&gt;
+&lt;p&gt;しかしながら FastRounding.jl は極端な入力を与えた場合に正しい答えを返さない可能性があり、利用の際には注意が必要、と言う結論になりました。&lt;/p&gt;
+&lt;p&gt;長くなりましたが最後に参考資料を載せておきます。&lt;/p&gt;
+&lt;h3 id=&#34;参考資料リンク&#34;&gt;参考資料、リンク&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;精度保証付数値計算&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Tucker, W. &lt;a href=&#34;https://press.princeton.edu/books/ebook/9781400838974/validated-numerics&#34;&gt;Validated Numerics: A Short Introduction to Rigorous Computations&lt;/a&gt;, Princeton University Press, 2011&lt;/li&gt;
+&lt;li&gt;大石 新一. &lt;a href=&#34;https://www.coronasha.co.jp/np/isbn/9784339028874/&#34;&gt;精度保証付き数値計算の基礎&lt;/a&gt;, コロナ社, 2018&lt;/li&gt;
+&lt;li&gt;Wikipedia. &lt;a href=&#34;https://ja.wikipedia.org/wiki/%E7%B2%BE%E5%BA%A6%E4%BF%9D%E8%A8%BC%E4%BB%98%E3%81%8D%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97&#34;&gt;精度保証付き数値計算&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/ValidatedNumerics.jl&#34;&gt;JuliaIntervals / ValidatedNumerics.jl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/ValidatedNumerics.jl/issues/165&#34;&gt;JuliaIntervals / ValidatedNumerics.jl / Julia rounding problem #165&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;IEEE 754&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kahan, W. &lt;a href=&#34;https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF&#34;&gt;Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia. &lt;a href=&#34;https://en.wikipedia.org/wiki/IEEE_754&#34;&gt;IEEE 754&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;”Validated Numerics&amp;rdquo; の 1.5章&lt;/li&gt;
+&lt;li&gt;IEEE Computer Society. &lt;a href=&#34;https://ieeexplore.ieee.org/document/8766229&#34;&gt;754-2019 - IEEE Standard for Floating-Point Arithmetic&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Julia言語の丸めモード&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1&#34;&gt;Integers and Floating-Point Numbers &amp;gt; Rounding modes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.Rounding.setrounding-Tuple%7BType,Any%7D&#34;&gt;Base.Rounding.setrounding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/base/math/#Base.Rounding.RoundingMode&#34;&gt;Base.Rounding.RoundingMode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaLang/julia/issues/17926&#34;&gt;JuliaLang / julia / setrounding regression for 0.5.0-rc1 #17926&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaLang/julia/issues/26935&#34;&gt;JuliaLang / julia / what to do with &lt;code&gt;setrounding&lt;/code&gt;? #26935&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaLang/julia/pull/27166&#34;&gt;JuliaLang / julia / Deprecate setrounding #27166&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;o108minmin. &lt;a href=&#34;http://o108minmin.hatenablog.com/entry/2016/06/21/235822&#34;&gt;JuliaのFloatとRoundingの奇妙な挙動[追記]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;方向付き丸めのエミュレート, Error Free Transformation&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;柏木 雅英. &lt;a href=&#34;http://verifiedby.me/adiary/pub/kashi/image/201406/nas2014.pdf&#34;&gt;最近点丸めによる方向付き丸めのエミュレート&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;柏木 雅英. &lt;a href=&#34;http://verifiedby.me/kv/rounding/emu.pdf&#34;&gt;最近点丸めのみによる方向付き丸めのエミュレート&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Takeshi O, Siegfried R, and Shin&amp;rsquo;ichi O, Accurate Sum and Dot Product, SIAM J. Sci. Comput., 26(6), 1955–1988
+(&lt;a href=&#34;http://www.oishi.info.waseda.ac.jp/%7Eoishi/papers/OgRuOi05.pdf&#34;&gt;http://www.oishi.info.waseda.ac.jp/%7Eoishi/papers/OgRuOi05.pdf&lt;/a&gt; でプレプリントが読める)&lt;/li&gt;
+&lt;li&gt;「精度保証付き数値計算」の 2.2 章&lt;/li&gt;
+&lt;li&gt;柏木 雅英. &lt;a href=&#34;http://verifiedby.me/adiary/09&#34;&gt;Error Free Transformation (EFT) is NOT error-free&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JeffreySarnoff/FastRounding.jl&#34;&gt;JeffreySarnoff / FastRounding.jl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl&#34;&gt;JeffreySarnoff / ErrorfreeArithmetic.jl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;方向つき丸めのJuliaパッケージ(未調査)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JeffreySarnoff/DirectedRoundings.jl&#34;&gt;JeffreySarnoff / DirectedRoundings.jl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/SetRounding.jl&#34;&gt;JuliaIntervals / SetRounding.jl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;区間演算&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Validated Numerics の 2章&lt;/li&gt;
+&lt;li&gt;柏木 雅英. &lt;a href=&#34;http://verifiedby.me/adiary/070&#34;&gt;区間演算の実装について(1)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;柏木 雅英. &lt;a href=&#34;http://verifiedby.me/adiary/071&#34;&gt;区間演算の実装について(2)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/mod_poppo&#34;&gt;@mod_poppo&lt;/a&gt;. &lt;a href=&#34;https://miz-ar.info/math/algebraic-real/posts/05-interval-arithmetic.html&#34;&gt;週刊 代数的実数を作る #5 区間演算と計算可能実数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;JuliaIntervals / IntervalArithmetic.jl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/215&#34;&gt;JuliaIntervals / IntervalArithmetic.jl / Bugs with tiny numbers #215&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
   </channel>

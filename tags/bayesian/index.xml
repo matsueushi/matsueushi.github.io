@@ -5,6 +5,8 @@
     <link>https://matsueushi.github.io/tags/bayesian/</link>
     <description>Recent content in Bayesian on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Wed, 17 Apr 2019 21:44:20 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/bayesian/index.xml" rel="self" type="application/rss+xml" />
@@ -16,10 +18,85 @@
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
-      <description>引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( pm.potential が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。
-問題を単純化すると、
- 二つの賞品A, Bの合計価格(これを真の価格と今後呼ぶ)を予想したい 真の価格は正規分布 \( \text{Normal}(35000, 7500^2) \) に従うと仮定する 賞品A, Bの価格の事前分布はそれぞれ正規分布 \( \text{Normal}(12000, 3000^2) \) , \( \text{Normal}(3000,500^2) \) に従うと仮定する このような条件のモデリングである。  実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( using 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。
-data = Dict{Symbol, Any}( :data_mu =&amp;gt; [3e3, 12e3], :data_std =&amp;gt; [5e2, 3e3], :mu_prior =&amp;gt; 35e3, :std_prior =&amp;gt; 75e2, ) model = Model( prize = Stochastic(1, (data_mu, data_std) -&amp;gt; MvNormal(data_mu, data_std)), price_estimate = Logical(prize -&amp;gt; sum(prize)), ) モデルを下のようにしてしまうと、</description>
+      <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( &lt;code&gt;pm.potential&lt;/code&gt; が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。&lt;/p&gt;
+&lt;p&gt;問題を単純化すると、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;二つの賞品A, Bの合計価格(これを真の価格と今後呼ぶ)を予想したい&lt;/li&gt;
+&lt;li&gt;真の価格は正規分布 \( \text{Normal}(35000, 7500^2) \) に従うと仮定する&lt;/li&gt;
+&lt;li&gt;賞品A, Bの価格の事前分布はそれぞれ正規分布 \( \text{Normal}(12000, 3000^2) \) , \( \text{Normal}(3000,500^2) \) に従うと仮定する
+このような条件のモデリングである。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( &lt;code&gt;using&lt;/code&gt; 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;data_mu &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;3e3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;12e3&lt;/span&gt;],
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;data_std &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5e2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3e3&lt;/span&gt;],
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;mu_prior &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;35e3&lt;/span&gt;,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;std_prior &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;75e2&lt;/span&gt;,
+)
+
+model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    prize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, (data_mu, data_std) 
+        &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; MvNormal(data_mu, data_std)),
+    price_estimate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(prize &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; sum(prize)),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;モデルを下のようにしてしまうと、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    true_price &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic((mu_prior, std_prior) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Normal(mu_prior, std_prior)),
+    prize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, (data_mu, data_std) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; MvNormal(data_mu, data_std)),
+    price_estimate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(prize &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; sum(prize)),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;price_estimate&lt;/code&gt; と &lt;code&gt;true_price&lt;/code&gt; が結びつかないのである。&lt;/p&gt;
+&lt;p&gt;本文のコードを見てみると、 &lt;code&gt;@pm.potential&lt;/code&gt; というデコレーターが付いた関数が使われている。(PyMC3では &lt;code&gt;pm.Potential&lt;/code&gt; )&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@pm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;potential
+def error(true_price&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;true_price, price_estimate&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;price_estimate)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; pm&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;normal_like(true_price, price_estimate, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;3e3&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;要は毎回真の価格の分布からサンプリングされている観測値 &lt;code&gt;true_price&lt;/code&gt; を \( \text{Normal}( \) &lt;code&gt;price_estimate&lt;/code&gt; \(, 3000^2) \) という分布に当てはめた時の尤度を制約条件として加えるということである。&lt;/p&gt;
+&lt;p&gt;参考にした &lt;code&gt;pm.potential&lt;/code&gt; についてのStackExchangeの質問:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What is pm.Potential in PyMC3?
+&lt;a href=&#34;https://stats.stackexchange.com/questions/251280/what-is-pm-potential-in-pymc3&#34;&gt;https://stats.stackexchange.com/questions/251280/what-is-pm-potential-in-pymc3&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;\&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pm.Potential() much needed explanation for newbie
+&lt;a href=&#34;https://discourse.pymc.io/t/pm-potential-much-needed-explanation-for-newbie/2341&#34;&gt;https://discourse.pymc.io/t/pm-potential-much-needed-explanation-for-newbie/2341&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Mambaに &lt;code&gt;pm.potential&lt;/code&gt; に該当する機能が見つからなかったので、ユーザー定義の分布を定義することで制約条件を実装した。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;true_price&lt;/code&gt; に対して計算される尤度が通常の \( \text{Normal}(\mu, \sigma^2) \) に対応する尤度と今回考えたい制約に対応する  \( \text{Normal}( \) &lt;code&gt;price_estimate&lt;/code&gt; \(, 3000^2) \) の尤度の話になるような分布にすれば良いので、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; extensions &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;quote&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; Distributions&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; minimum, maximum, logpdf
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; TruePriceDist &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; ContinuousUnivariateDistribution
+        mu&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;
+        sig&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;
+        price_estimate&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    
+    minimum(d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;TruePriceDist) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Inf
+    maximum(d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;TruePriceDist) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Inf
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; logpdf(d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;TruePriceDist, x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Real&lt;/span&gt;)
+       logpdf(Normal(d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mu, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sig), x) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; logpdf(Normal(d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;price_estimate, &lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;), x)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; eval(extensions)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と新しく分布を定義する。こうすると &lt;code&gt;logpdf&lt;/code&gt; が正規化されていないものになる(pdfを積分して1にならない)がMambaで使う分布としては問題は起こらない。&lt;/p&gt;
+&lt;p&gt;モデルはこの &lt;code&gt;TruePriceDist&lt;/code&gt; を使って、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    true_price &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(
+        (mu_prior, std_prior, price_estimate) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+        TruePriceDist(mu_prior, std_prior, price_estimate)
+        ),
+    prize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, (data_mu, data_std) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; MvNormal(data_mu, data_std)),
+    price_estimate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(prize &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; sum(prize)),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とすれば良い。&lt;/p&gt;
+&lt;p&gt;事後分布を確認すると、本と同様の結果がきちんと得られていた。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-7.png&#34; alt=&#34;事後分布&#34;&gt;&lt;/p&gt;
+&lt;p&gt;サンプリングの詳細、期待損失の計算や最小化に関しては下のipynb参照。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter5_thepriceisright.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter5_thepriceisright.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -28,11 +105,131 @@ data = Dict{Symbol, Any}( :data_mu =&amp;gt; [3e3, 12e3], :data_std =&amp;gt; [5
       <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
-      <description>最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。
-今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。
-まずはライブラリのインポート
-using Distributed addprocs(3) using CSV using DataFrames using HTTP using LaTeXStrings using LinearAlgebra @everywhere using Mamba using Plots データの加工はこのような形で行った。DataFrame で Int64 にパースしたい行にMissing valueやNaNがあるとき、convertではエラーになるので、 パースできない場合は missing になる tryparse を使って、その後 nothing になる行を削除して、Union{Nothing, Int64} から Int64 にもう一度変換している。
-r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXknD&amp;#34;); challengers_data = CSV.read(IOBuffer(r.body)) names!(challengers_data, [:date, :temperature, :incident]) # incidentのパース challengers_data[:incident] = tryparse.(Int64, challengers_data[:incident]) # NaNを削除 challengers_data = challengers_data[challengers_data[:incident] .!= nothing, :] challengers_data[:incident] = convert.(Int64, challengers_data[:incident]) disallowmissing!(challengers_data) データの図示をする。weighted_color_mean を使って、マーカーの色を青から赤にグラデーションさせた。</description>
+      <description>&lt;p&gt;最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。&lt;/p&gt;
+&lt;p&gt;今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。&lt;/p&gt;
+&lt;p&gt;まずはライブラリのインポート&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
+
+addprocs(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; CSV
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; DataFrames
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; HTTP
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LaTeXStrings
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LinearAlgebra
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Mamba
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;データの加工はこのような形で行った。&lt;code&gt;DataFrame&lt;/code&gt; で &lt;code&gt;Int64&lt;/code&gt; にパースしたい行にMissing valueやNaNがあるとき、&lt;code&gt;convert&lt;/code&gt;ではエラーになるので、
+パースできない場合は &lt;code&gt;missing&lt;/code&gt; になる &lt;code&gt;tryparse&lt;/code&gt; を使って、その後 &lt;code&gt;nothing&lt;/code&gt; になる行を削除して、&lt;code&gt;Union{Nothing, Int64}&lt;/code&gt; から &lt;code&gt;Int64&lt;/code&gt; にもう一度変換している。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HTTP&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;request(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://git.io/vXknD&amp;#34;&lt;/span&gt;);
+
+challengers_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CSV&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(&lt;span style=&#34;color:#66d9ef&#34;&gt;IOBuffer&lt;/span&gt;(r&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;body))
+names!(challengers_data, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;date, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;temperature, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident])
+&lt;span style=&#34;color:#75715e&#34;&gt;# incidentのパース&lt;/span&gt;
+challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tryparse&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident])
+&lt;span style=&#34;color:#75715e&#34;&gt;# NaNを削除&lt;/span&gt;
+challengers_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; challengers_data[challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident] &lt;span style=&#34;color:#f92672&#34;&gt;.!=&lt;/span&gt; nothing, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; convert&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident])
+disallowmissing!(challengers_data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;データの図示をする。&lt;code&gt;weighted_color_mean&lt;/code&gt; を使って、マーカーの色を青から赤にグラデーションさせた。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;temperature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;temperature]
+color_weight &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (temperature &lt;span style=&#34;color:#f92672&#34;&gt;.-&lt;/span&gt; minimum(temperature)) &lt;span style=&#34;color:#f92672&#34;&gt;./&lt;/span&gt; (maximum(temperature) &lt;span style=&#34;color:#f92672&#34;&gt;.-&lt;/span&gt; minimum(temperature))
+wcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; weighted_color_mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(color_weight, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;)
+scatter(challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;temperature, challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;incident, 
+        markercolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; wcolor, 
+        xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Temprature (F)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;O-ring failure&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_data.png&#34; alt=&#34;Oリングと破損の関係&#34;&gt;&lt;/p&gt;
+&lt;p&gt;破損発生の有無を表す確率変数 \( D_i \) は、ベルヌーイ分布とロジスティック関数を用いて&lt;/p&gt;
+&lt;p&gt;\(
+\begin{aligned}
+D_i &amp;amp;\sim \text{Bernoulli}(p(t_i)), \\
+p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
+\end{aligned}
+\)&lt;/p&gt;
+&lt;p&gt;\( t \) : 温度
+とモデリングされる。今回は、あとでサンプルされた &lt;code&gt;p&lt;/code&gt; の値を使ってデータのシミュレーションを行うために、下のように &lt;code&gt;p&lt;/code&gt; に &lt;code&gt;Logical&lt;/code&gt; ノードを割り当てたが、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    
+    observed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        p &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; UnivariateDistribution[Bernoulli(x) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; p],
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        (alpha, beta, temperature) 
+            &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; exp(beta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; temperature &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; alpha)))
+    ),
+    
+    alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Normal(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;))),
+    beta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Normal(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;))),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;observedのモデリングだけであればpを経由せずに直接モデリングすることもできる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    
+    observed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        (alpha, beta, temperature) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+            UnivariateDistribution[
+                Bernoulli(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; exp(beta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; alpha)))
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; temperature],
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Normal(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;))),
+    beta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Normal(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;))),
+
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;モデルパラメータ &lt;code&gt;alpha&lt;/code&gt;, &lt;code&gt;beta&lt;/code&gt; の事後分布は次のようになった。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;observed &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident],
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;temperature &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;temperature],
+)
+inits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;observed &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; challengers_data[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;incident],
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;beta &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+    ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+scheme &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [AMWG([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;alpha, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;beta], &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;)]
+setsamplers!(model, scheme)
+sim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model, data, inits, &lt;span style=&#34;color:#ae81ff&#34;&gt;200000&lt;/span&gt;, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;50000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;alpha, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;beta], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_density.png&#34; alt=&#34;Value, Density&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;alpha, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;beta], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;autocor, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;mean], legend&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_mean.png&#34; alt=&#34;Autocorrelation, Mean&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;alpha&lt;/code&gt; に対して &lt;code&gt;beta&lt;/code&gt; をプロットすると、次のような原点を通る直線上のグラフになる。\( p(t) = 0.5 \) となるのが \( t = -\alpha / \beta \) となるので、故障するかしないか半々となる温度はシミュレーションで大きく変化しないことがわかる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;alpha_samples &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sim[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;alpha], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+beta_samples &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sim[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;beta], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+scatter(alpha_samples, beta_samples, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, markersize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_ab.png&#34; alt=&#34;Relation between alpha and beta&#34;&gt;&lt;/p&gt;
+&lt;p&gt;破損確率の事後期待値と、サンプルから選んでプロットする。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; logistic(x, alpha, beta)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;./&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; exp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(beta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; alpha))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect((minimum(temperature) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;(maximum(temperature) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;))
+p_t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logistic(transpose(xs), alpha_samples, beta_samples)
+
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(xs, vec(mean(p_t, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)), linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Average posterior probability&amp;#34;&lt;/span&gt;)
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!(xs, p_t[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, linestyle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;dash, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Realization from posterior&amp;#34;&lt;/span&gt;)
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!(xs, p_t[&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, linestyle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;dash, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Realization from posterior&amp;#34;&lt;/span&gt;)
+scatter!(challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;temperature, challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;incident, 
+        markercolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; weighted_color_mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(color_weight, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;), 
+        xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Temprature (F)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;O-ring failure&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_realization.png&#34; alt=&#34;Realization&#34;&gt;&lt;/p&gt;
+&lt;p&gt;破損確率の事後期待値と、95%信頼区間をプロットする&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;p_t_ci &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mapslices(x &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; quantile(x, [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]), p_t, dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(xs, p_t_ci[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, 
+    fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p_t_ci[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;95% Confidence interval&amp;#34;&lt;/span&gt;)
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!(xs, vec(mean(p_t, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)), linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Average posterior probability&amp;#34;&lt;/span&gt;)
+scatter!(challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;temperature, challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;incident, 
+        markercolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; weighted_color_mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(color_weight, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;, colorant&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;), 
+        xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Temprature (F)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;O-ring failure&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-6_ci.png&#34; alt=&#34;Confidence interval&#34;&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -41,13 +238,100 @@ r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXknD&amp;#34;);
       <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
-      <description>「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。
-学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。
- コイントスを(こっそり)行い、表が出たら正直に答える 裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。   カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。
-まずはライブラリをインポート。
-using Distributed addprocs(3) @everywhere using Mamba using Plots 学生の数が100人、「カンニングした」という回答が35人とする。
-N = 100 X = 35 Mambaのモデルは次のようになる。
-model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportion), false ), proportion = Logical( (true_answers, first_coin_flips, second_coin_flips) -&amp;gt; (observed = @.(first_coin_flips * true_answers + (1 - first_coin_flips) * second_coin_flips); mean(observed)), false ), true_answers = Stochastic(1, p -&amp;gt; Bernoulli(p), false), first_coin_flips = Stochastic(1, () -&amp;gt; Bernoulli(0.</description>
+      <description>&lt;p&gt;「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。&lt;/p&gt;
+&lt;p&gt;学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コイントスを(こっそり)行い、表が出たら正直に答える&lt;/li&gt;
+&lt;li&gt;裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。&lt;/p&gt;
+&lt;p&gt;まずはライブラリをインポート。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
+addprocs(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Mamba
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;学生の数が100人、「カンニングした」という回答が35人とする。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+X &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;35&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mambaのモデルは次のようになる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(
+        (proportion, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Binomial(N, proportion),
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    proportion &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(
+        (true_answers, first_coin_flips, second_coin_flips) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;
+            (observed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(first_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; true_answers &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; first_coin_flips) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; second_coin_flips);
+            mean(observed)),
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    true_answers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, p &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(p), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    
+    first_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, () &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    second_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, () &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    
+    p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt; &lt;code&gt;proportion&lt;/code&gt;を計算するときの&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;observed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(first_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; true_answers &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; first_coin_flips) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; second_coin_flips)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;は@マクロを使った書き方で、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;observed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; first_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;.*&lt;/span&gt; true_answers &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;.-&lt;/span&gt; first_coin_flips) &lt;span style=&#34;color:#f92672&#34;&gt;.*&lt;/span&gt; second_coin_flips)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と同じである。 &lt;code&gt;true_answers&lt;/code&gt; , &lt;code&gt;first_coin_flips&lt;/code&gt; , &lt;code&gt;second_coin_flips&lt;/code&gt; は長さNの &lt;code&gt;Stochastic&lt;/code&gt; ベクターだが、Nをモデルに与えなくても、&lt;code&gt;Stochastic&lt;/code&gt; コンストラクタの第1引数を1(1次元)にして、初期値に長さNのベクターを与えれば大丈夫。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; X,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; N,
+)
+inits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; X,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;proportion &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;true_answers &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Bernoulli(), N),
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;first_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Bernoulli(), N),
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;second_coin_flips &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Bernoulli(), N),
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Uniform()),
+    ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;true_answers&lt;/code&gt; , &lt;code&gt;first_coin_flips&lt;/code&gt; , &lt;code&gt;second_coin_flips&lt;/code&gt; は \( \{0, 1\} \) からのサンプリングなので、Sampling Functionsを見ると &lt;code&gt;BHMC&lt;/code&gt;, &lt;code&gt;BIA&lt;/code&gt;, &lt;code&gt;BMC3&lt;/code&gt;, &lt;code&gt;BMG&lt;/code&gt;のどれかを使えば良いようである。&lt;code&gt;BIA&lt;/code&gt;, &lt;code&gt;BMC3&lt;/code&gt;, &lt;code&gt;BMG&lt;/code&gt;を使って比較してみた。&lt;/p&gt;
+&lt;p&gt; &lt;code&gt;BIA&lt;/code&gt;のサンプリング設定は下の通り。&lt;code&gt;BMC3&lt;/code&gt;, &lt;code&gt;BMG&lt;/code&gt; も &lt;code&gt;scheme&lt;/code&gt; だけ変えればよく同様である。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;samplings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100000&lt;/span&gt;
+burning &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20000&lt;/span&gt;
+scheme_bia &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [NUTS(&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p), BIA([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;true_answers, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;first_coin_flips, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;second_coin_flips])]
+setsamplers!(model, scheme_bia)
+sim_bia &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model, data, inits, samplings, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; burning, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+p_bia &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape(Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim_bia, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;trace, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;density, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;autocor, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;mean], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;), (&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;))
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p_bia, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;bia&#34;&gt;BIA&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-5_bia.png&#34; alt=&#34;BIA&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;bmc3&#34;&gt;BMC3&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-5_bmc3.png&#34; alt=&#34;BMC3&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;bmg&#34;&gt;BMG&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-5_bmg.png&#34; alt=&#34;BMG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;自己相関や確率密度を見ると &lt;code&gt;BIA&lt;/code&gt;, &lt;code&gt;BMC3&lt;/code&gt; が良さそう。&lt;/p&gt;
+&lt;h3 id=&#34;もう一つのモデル&#34;&gt;もう一つのモデル&lt;/h3&gt;
+&lt;p&gt;「カンニングしました」と答える確率は p/2 + 1/4 なので、&lt;code&gt;proportion&lt;/code&gt; を計算する代わりにこれを直接使ってモデリングすることもできる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;another_model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(
+        (p, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+            (p_skewed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.25&lt;/span&gt;;
+            Binomial(N, p_skewed)),
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+)
+another_scheme &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [NUTS(&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p)]
+setsamplers!(another_model, another_scheme)
+another_sim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(another_model, data, inits, samplings, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; burning, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+another_p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape(Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(another_sim, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;trace, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;density, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;autocor, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;mean], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;), (&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;))
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(another_p, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-5_another.png&#34; alt=&#34;もう一つのモデル&#34;&gt;&lt;/p&gt;
+&lt;p&gt; &lt;code&gt;true_answers&lt;/code&gt;, &lt;code&gt;first_coin_flips&lt;/code&gt;, &lt;code&gt;second_coin_flips&lt;/code&gt; をモデリングした場合に比べて、収束が大きく向上している。&lt;/p&gt;
+&lt;p&gt;コード -&amp;gt;
+&lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_cheat.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_cheat.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -56,13 +340,130 @@ model = Model( obs = Stochastic( (proportion, N) -&amp;gt; Binomial(N, proportio
       <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
-      <description>今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。
-例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。
-サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。
-まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。
-# 定数をセット p_true = 0.05 N = 1500 occurrences = rand(Bernoulli(p_true), N) Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。
-model0 = Model( obs = Stochastic(1, (p, N) -&amp;gt; UnivariateDistribution[Bernoulli(p) for _ in 1:N], false), p = Stochastic(() -&amp;gt; Uniform()), ) モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。
-model0 = Model( obs = Stochastic(1, p -&amp;gt; Bernoulli(p), false), p = Stochastic(() -&amp;gt; Uniform()), ) 観測データと初期値を作ってサンプリングし、</description>
+      <description>&lt;p&gt;今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。&lt;/p&gt;
+&lt;h2 id=&#34;例題--ベイズ的-ab-テスト&#34;&gt;例題 : ベイズ的 A/B テスト&lt;/h2&gt;
+&lt;p&gt;A/Bテストの例題を解いてみよう。&lt;/p&gt;
+&lt;p&gt;サイトAを見せられたユーザーが最終的にコンバージョンにつながる確率を \( p_A \)と仮定し、\( N \) 人がサイトAを見せられて、そのうち \( n \) 人がコンバージョンにつながったとする。&lt;/p&gt;
+&lt;p&gt;まずはベルヌーイ分布を使って、\( N \) 回の試行をシミュレートする。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 定数をセット&lt;/span&gt;
+p_true &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.05&lt;/span&gt;
+N &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt;
+occurrences &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Bernoulli(p_true), N)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mamba.jlで推論アルゴリズムを作成すると、次のようになる。\( p \) の事前分布は \( [0, 1] \) の一様分布に従うとしている。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, 
+        (p, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+         UnivariateDistribution[Bernoulli(p) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N], &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;モデルは、等価な次の形で書いた方が単純になってわかりやすいかもしれない。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, p &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(p), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;観測データと初期値を作ってサンプリングし、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;data0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; occurrences,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; N,
+)
+inits0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; occurrences,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Uniform()),
+    ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+scheme0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [NUTS(&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p)]
+setsamplers!(model0, scheme0)
+sim0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model0, data0, inits0, &lt;span style=&#34;color:#ae81ff&#34;&gt;20000&lt;/span&gt;, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;事後分布のヒストグラムをプロットすると次のようになった。\( N \) の数が小さいのか、真の値と分布のピークは多少ずれている。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;histogram(vec(sim0[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value), bins &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, normalize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;pdf,
+        linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; L&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\mbox{Value of }p_A&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Density&amp;#34;&lt;/span&gt;)
+plot!([p_true], seriestype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;vline, linestyle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;dash, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; L&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\mbox{true }p_A&amp;#34;&lt;/span&gt;, legendfontsize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_hist_1.png&#34; alt=&#34;ヒストグラム1&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;-n--の数を増やしてみる&#34;&gt;\( N \) の数を増やしてみる&lt;/h2&gt;
+&lt;p&gt;観測データ数を増やして変化を確認してみよう。\( N=1500, 5000, 15000 \) の3種類を試す。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;ab_sim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+Ns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;15000&lt;/span&gt;]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; n &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; Ns
+    ab_occur &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Bernoulli(p_true), n)
+    ab_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; ab_occur,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; n,
+    )
+    ab_inits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; ab_occur,
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; rand(Uniform()),
+        ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+    ]
+    push!(ab_sim, mcmc(model0, ab_data, ab_inits, &lt;span style=&#34;color:#ae81ff&#34;&gt;20000&lt;/span&gt;, 
+                        burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot()
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (i, sim) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; enumerate(ab_sim)
+    histogram!(vec(sim[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value), normalize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;pdf,
+            linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@sprintf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;N=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, Ns[i]), 
+            xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; L&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\mbox{Value of }p_A&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Density&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!([p_true], seriestype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;vline, 
+    linestyle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;dash, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;red,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; L&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\mbox{true }p_A&amp;#34;&lt;/span&gt;, legendfontsize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_hist_2.png&#34; alt=&#34;ヒストグラム2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;\( N \) を大きくすると分布の裾野が狭くなり、分布の中心が真の値 \( p_A \) に近づいている。&lt;/p&gt;
+&lt;h2 id=&#34;aとbを一緒に&#34;&gt;AとBを一緒に&lt;/h2&gt;
+&lt;p&gt;サイトA, Bに対し、未知数である真のコンバージョン率 &lt;code&gt;true_p_A&lt;/code&gt;, &lt;code&gt;true_p_B&lt;/code&gt; はそれぞれ0.05と0.04とし、観測データ数 &lt;code&gt;N_A&lt;/code&gt;, &lt;code&gt;N_B&lt;/code&gt; は1500, 500として観測データを作成する。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;true_p_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.05&lt;/span&gt;
+true_p_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.04&lt;/span&gt;
+N_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt;
+N_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;750&lt;/span&gt;
+observation_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Bernoulli(true_p_A), N_A)
+observation_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Bernoulli(true_p_B), N_B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;同時に推論するモデルは以下のようになる。新しく \( p_A \) と \( p_B \) の差を表す &lt;code&gt;Logical&lt;/code&gt; ノード &lt;code&gt;delta&lt;/code&gt; が増えた以外は一つだけ推論する場合をコピーペーストして二つにしただけ。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    obs_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, p_A &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(p_A), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    obs_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, p_B &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Bernoulli(p_B), &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+    
+    delta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical((p_A, p_B) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; p_A &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; p_B),
+    
+    p_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+    p_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Uniform()),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;与える観測データと初期値は下のようにした。\( p_A \) と \( p_B \) の初期値は \( [0,1] \) からランダムで取った。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;data1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs_A &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; observation_A,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs_B &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; observation_B,
+)
+inits1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;begin&lt;/span&gt;
+        p_A &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Uniform())
+        p_B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Uniform())
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs_A &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; observation_A,
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs_B &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; observation_B,
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_A &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; p_A,
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_B &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; p_B,
+            &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;delta &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; p_A &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; p_B,
+        )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+scheme1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [NUTS([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_A, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_B])]
+setsamplers!(model1, scheme1)
+sim1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model1, data1, inits1, &lt;span style=&#34;color:#ae81ff&#34;&gt;25000&lt;/span&gt;, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+p1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_A, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_B, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;delta], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p1, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_posterior.png&#34; alt=&#34;事後分布&#34;&gt;&lt;/p&gt;
+&lt;p&gt;\( p_A \) と \( p_B \) の事後分布と一つの図にプロットして分布の裾の広さを比較する。Bの方がサンプル数が少ないので裾が広い。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;histogram(vec(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_A, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value), normalize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;pdf, bins&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.8&lt;/span&gt;, linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;p_A&amp;#34;&lt;/span&gt;)
+histogram!(vec(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;p_B, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value), normalize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;pdf, bins&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.8&lt;/span&gt;, linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;p_B&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_hist_3.png&#34; alt=&#34;p_Aとp_Bのヒストグラム&#34;&gt;&lt;/p&gt;
+&lt;p&gt;サイトA, サイトBのデータを2倍にした時の &lt;code&gt;delta&lt;/code&gt; の分布の変化を見ると、このようになった。もともとの &lt;code&gt;delta&lt;/code&gt; の分布が真のデルタの値から近い値を中心に当たっていたため改善されている感じがわかりづらいが、データを2倍にすると裾が狭くなっている。&lt;/p&gt;
+&lt;p&gt;同様の改善効果があるのなら、&lt;code&gt;N_B&lt;/code&gt; を増やす方が良い(&lt;code&gt;N_B&lt;/code&gt; を2倍にするとデータサイズが750増加するが、&lt;code&gt;N_A&lt;/code&gt; を2倍にするとデータサイズが1500増加するため)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_hist_4.png&#34; alt=&#34;データを増やした場合のヒストグラム&#34;&gt;&lt;/p&gt;
+&lt;p&gt;真の \(p_A, p_B \) を動かして &lt;code&gt;delta&lt;/code&gt; の分布を見ると次のようになる。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-4_hist_5.png&#34; alt=&#34;p_A, p_Bを動かした場合のヒストグラム&#34;&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -71,11 +472,38 @@ model0 = Model( obs = Stochastic(1, p -&amp;gt; Bernoulli(p), false), p = Stocha
       <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
-      <description>引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。
-新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。
-Mamba.jlは分布の作成にDistributions.jlを使っているので、シミュレーションだけ行いたかったらDistributionsを using すれば十分。
-using Distributions using Plots データセットの作成とプロットは下のようになる。
-function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta = 20 lambda_1, lambda_2 = rand(Exponential(theta), 2) lambda_ = cat(fill(lambda_1, tau), fill(lambda_2, 80 - tau), dims = 1) data = @.rand(Poisson(lambda_)) barc = fill(1, 80) barc[tau] = 2 bar(0:80-1, data, linecolor = :transparent, fillcolor = barc, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;, label = &amp;#34;&amp;#34;) end plts = [] for i in 1:4 push!</description>
+      <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。&lt;/p&gt;
+&lt;h2 id=&#34;新しいデータセットの生成&#34;&gt;新しいデータセットの生成&lt;/h2&gt;
+&lt;p&gt;PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/brian-j-smith/Mamba.jl&#34;&gt;Mamba.jl&lt;/a&gt;は分布の作成に&lt;a href=&#34;https://github.com/JuliaStats/Distributions.jl&#34;&gt;Distributions.jl&lt;/a&gt;を使っているので、シミュレーションだけ行いたかったらDistributionsを &lt;code&gt;using&lt;/code&gt; すれば十分。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;データセットの作成とプロットは下のようになる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; plot_artificial_sms_dataset()
+    tau &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(DiscreteUniform(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+    theta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
+    lambda_1, lambda_2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(Exponential(theta), &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+    lambda_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cat(fill(lambda_1, tau), fill(lambda_2, &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tau), dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rand(Poisson(lambda_))
+    barc &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;)
+    barc[tau] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+    bar(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, data, linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent, fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; barc,
+        xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Time (days)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Count of messages&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+plts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+    push!(plts, plot_artificial_sms_dataset())
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+plot(plts&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-3_messages.png&#34; alt=&#34;メッセージ数&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Plots.jlでPythonのMatplotlibと同様に複数のSubplotsを表示するには、一旦list (e.g. &lt;code&gt;plt&lt;/code&gt; )にプロット結果を受けておいて、最後に一気に&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;plot(plts…, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;として表示すればできる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;plot(plts, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;だと &lt;code&gt;MethodError: no method matching MethodError(::String)&lt;/code&gt; が出てダメだった。&lt;/p&gt;
+&lt;p&gt;モデルシミュレーションのコード -&amp;gt;
+&lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -84,9 +512,58 @@ function plot_artificial_sms_dataset() tau = rand(DiscreteUniform(0, 80)) theta 
       <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
-      <description>前回に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。
-変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、
-model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution[Poisson(lambda[i]) for i in 1:N], false ), lambda = Logical(1, (lambda1, lambda2, lambda3, tau1, tau2, N) -&amp;gt; (out = fill(lambda1, N); i1 = Int64(tau1.value) + 1; # Juliaは1-indexingのため i2 = Int64(tau2.value) + 1; out[i1:end] .= lambda2; out[i2:end] .= lambda3; out), false, ), lambda1 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda2 = Stochastic(theta -&amp;gt; Exponential(theta)), lambda3 = Stochastic(theta -&amp;gt; Exponential(theta)), tau1 = Stochastic(N -&amp;gt; DiscreteUniform(0, N-1)), tau2 = Stochastic((tau1, N) -&amp;gt; DiscreteUniform(tau1, N)), ) 初期値とサンプリングスキームを同様に与えてサンプリングすると、</description>
+      <description>&lt;p&gt;&lt;a href=&#34;bayesian-method-julia-2.md&#34;&gt;前回&lt;/a&gt;に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。&lt;/p&gt;
+&lt;p&gt;変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        (lambda, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;
+            UnivariateDistribution[Poisson(lambda[i]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N],
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    lambda &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, 
+        (lambda1, lambda2, lambda3, tau1, tau2, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+            (out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill(lambda1, N);
+            i1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;(tau1&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;# Juliaは1-indexingのため&lt;/span&gt;
+            i2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;(tau2&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            out[i1&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;.=&lt;/span&gt; lambda2;
+            out[i2&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;.=&lt;/span&gt; lambda3;
+            out),
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
+        ),
+    
+    lambda1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(theta &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Exponential(theta)),
+    lambda2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(theta &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Exponential(theta)),
+    lambda3 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(theta &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Exponential(theta)),
+    
+    tau1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(N &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; DiscreteUniform(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, N&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)),
+    tau2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic((tau1, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; DiscreteUniform(tau1, N)),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;初期値とサンプリングスキームを同様に与えてサンプリングすると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;inits2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda3 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau1 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau2 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; N,
+    ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+scheme2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [AMWG([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda3], &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;), DGS([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau2])]
+setsamplers!(model2, scheme2) sim2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model2, data0, inits2, &lt;span style=&#34;color:#ae81ff&#34;&gt;40000&lt;/span&gt;, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;事後分布は以下のようになる。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;p2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim2[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau2], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p2, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-2_posterior_1.png&#34; alt=&#34;事後分布1&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;p2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim2[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda3], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p2, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-2_posterior_2.png&#34; alt=&#34;事後分布2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;本で言及されていた、変化点の個数についても事前分布を作ってモデリングしてみたがうまくいかなかった。&lt;/p&gt;
+&lt;p&gt;コード -&amp;gt;
+&lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -95,12 +572,91 @@ model2 = Model( obs = Stochastic(1, (lambda, N) -&amp;gt; UnivariateDistribution
       <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
-      <description>久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(GitHubリポジトリ) をJuliaとMamba.jlでモデリングしていきたいと思う。
-まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。
-元のノートブックはこれ。
-JuliaでCSVファイルをhttps上から取るには、パッケージ HTTP , CSV をインポートして
-r = HTTP.request(&amp;#34;GET&amp;#34;, &amp;#34;https://git.io/vXTVC&amp;#34;); count_data = CSV.read(IOBuffer(r.body), header=[&amp;#34;messages&amp;#34;]) とすれば良い。 Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を 0:N-1 にしておく。
-N = length(count_data.messages) bar(0:N-1, count_data.messages, label = &amp;#34;&amp;#34;, size = [600, 200], linecolor = :transparent, xlabel = &amp;#34;Time(days)&amp;#34;, ylabel = &amp;#34;Countofmessages&amp;#34;) \( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</description>
+      <description>&lt;p&gt;久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(&lt;a href=&#34;https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers&#34;&gt;GitHubリポジトリ&lt;/a&gt;) をJuliaとMamba.jlでモデリングしていきたいと思う。&lt;/p&gt;
+&lt;p&gt;まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。&lt;/p&gt;
+&lt;p&gt;元のノートブックは&lt;a href=&#34;https://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb&#34;&gt;これ&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;JuliaでCSVファイルをhttps上から取るには、パッケージ &lt;code&gt;HTTP&lt;/code&gt; , &lt;code&gt;CSV&lt;/code&gt; をインポートして&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HTTP&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;request(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://git.io/vXTVC&amp;#34;&lt;/span&gt;);
+count_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CSV&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(&lt;span style=&#34;color:#66d9ef&#34;&gt;IOBuffer&lt;/span&gt;(r&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;body), header&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;messages&amp;#34;&lt;/span&gt;])
+とすれば良い。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を &lt;code&gt;0:N-1&lt;/code&gt; にしておく。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; length(count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages)
+bar(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;],
+    linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent,
+    xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Time (days)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Count of messages&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-1_1.png&#34; alt=&#34;Count of messages&#34;&gt;&lt;/p&gt;
+&lt;p&gt;\( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &amp;lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。&lt;/p&gt;
+&lt;p&gt;この \( \tau, \lambda_1, \lambda_2 \) 推定する。\( \lambda_1, \lambda_2 \) の事前分布は指数分布 \( \text{Exp}(\alpha) \) とする。ここでαは計数データの平均の逆数である。\( \tau \) の事前分布は一様分布とする。&lt;/p&gt;
+&lt;p&gt;Mambaでモデリングするときに注意しないといけないのは、PyMCと分布のパラメトライズが一部異なるところである。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;class pymc3.distributions.continuous.Exponential(lam, *args, **kwargs)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.pymc.io/api/distributions/continuous.html#pymc3.distributions.continuous.Exponential&#34;&gt;https://docs.pymc.io/api/distributions/continuous.html#pymc3.distributions.continuous.Exponential&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;\&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Distributions.Exponential — Type.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://juliastats.github.io/Distributions.jl/stable/univariate/#Distributions.Exponential&#34;&gt;https://juliastats.github.io/Distributions.jl/stable/univariate/#Distributions.Exponential&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Exponentialのパラメトライズが違うことに気づかずにモデリングを行っていたのだが、Mambaで使っているDistiribution.jlの &lt;code&gt;Exponential(θ)&lt;/code&gt; をPyMCの &lt;code&gt;pm.Exponential(lam)&lt;/code&gt; と 同じ分布となるためには &lt;code&gt;θ=1/lam&lt;/code&gt; とする必要がある。これを間違えていたため下のように事前分布が全く異なってしまい収束しなくなってしまっていた。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-1_exponential.png&#34; alt=&#34;Exponential&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Mambaでモデルを作成すると次のようになる。パラメトライズの方法が違うので、変数は &lt;code&gt;α&lt;/code&gt; の代わりに &lt;code&gt;θ&lt;/code&gt; を使った。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;model1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
+    
+    obs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+        (lambda, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;
+            UnivariateDistribution[
+                Poisson(lambda[i]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N],
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    ),
+    
+    lambda &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Logical(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, 
+        (lambda1, lambda2, tau, N) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; 
+            (out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill(lambda1, N);
+            i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;(tau&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;# Juliaは1-indexingのため&lt;/span&gt;
+            out[i&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;.=&lt;/span&gt; lambda2;
+            out),
+        ),
+    
+    lambda1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(theta &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Exponential(theta)),
+    lambda2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(theta &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Exponential(theta)),
+    
+    tau &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Stochastic(N &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; DiscreteUniform(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, N)),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;観察されるデータと &lt;code&gt;θ &lt;/code&gt;を準備する。&lt;code&gt;θ&lt;/code&gt; はメッセージ数の平均の逆数 &lt;code&gt;α&lt;/code&gt; の逆数なので、メッセージ数の平均。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;theta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mean(count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages)
+data0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;theta &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+    &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; length(count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;初期値は下のようにする。今回はサンプリングのパスを3つとするので初期値も3つ用意する。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;inits1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Symbol&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;obs &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2 &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; theta,
+        &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+    ) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;サンプリングの設定では、 \( \tau \) は離散値なので &lt;code&gt;DGS&lt;/code&gt; を使う。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;scheme1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [AMWG([&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2], &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;), DGS(&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;サンプリングを行うと、本文と同様、44, 45日後にユーザーが振る舞いを変えたというところの確率密度が高くなっている。離散値になっていないので、何か設定が間違っているのかもしれない。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;setsamplers!(model1, scheme1)
+sim1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mcmc(model1, data0, inits1, &lt;span style=&#34;color:#ae81ff&#34;&gt;40000&lt;/span&gt;, burnin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;, thin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+p1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, [&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda1, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda2], &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+Mamba&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;draw(p1, nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, ncol &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-1_sampling.png&#34; alt=&#34;Sampling&#34;&gt;&lt;/p&gt;
+&lt;p&gt;\( \tau \) のヒストグラムを確認すると、正しくサンプリングできているようだ。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;histogram(vec(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;tau, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value), normalize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;probability, title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tau&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-1_hist.png&#34; alt=&#34;Histogram&#34;&gt;&lt;/p&gt;
+&lt;p&gt;受信メッセージ数と期待値を表示する。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;bar(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, count_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;messages, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;],
+    linecolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;transparent,
+    xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Time (days)&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Count of messages&amp;#34;&lt;/span&gt;)
+plot!(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;N&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, vec(mean(sim1[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;lambda, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;])), linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Expectation&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/bayesian-methods-julia-1_expect.png&#34; alt=&#34;Expectation&#34;&gt;&lt;/p&gt;
+&lt;p&gt;コード: &lt;a href=&#34;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb&#34;&gt;https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>
