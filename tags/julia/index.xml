@@ -295,7 +295,7 @@ IntervalArithmeitc.jl に関して以下に書いてある情報は古いです�
 &lt;p&gt;今回は、頭の整理を兼ね、具体的な例からスタートし、なぜ丸めモードを指定した計算が必要となるか説明するとともに、
 Julia における丸めの制御について調べた内容を書いておきたいと思います。
 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。&lt;/p&gt;
-&lt;p&gt;使用している Julia バージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。&lt;/p&gt;
+&lt;p&gt;使用している Julia のバージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;               _
    _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
   &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
