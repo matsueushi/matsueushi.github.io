@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Sat, 28 Mar 2020 18:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2020 22:14:55 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Fri, 26 Jun 2020 22:14:55 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://matsueushi.github.io/tags/hugo/</link>
+      <pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Julia</title>
@@ -114,7 +132,7 @@
     <item>
       <title>GaussianProcess</title>
       <link>https://matsueushi.github.io/tags/gaussianprocess/</link>
-      <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
+      <pubDate>Sun, 04 Aug 2019 11:04:13 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/gaussianprocess/</guid>
       <description></description>
@@ -126,15 +144,6 @@
       <pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/glitchpop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Music</title>
-      <link>https://matsueushi.github.io/tags/music/</link>
-      <pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/music/</guid>
       <description></description>
     </item>
     

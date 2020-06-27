@@ -17,8 +17,23 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2020-06-26T22:14:55+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2020-06-26T22:14:55+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/posts/songs20200626/</loc>
     <lastmod>2020-06-26T22:14:55+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/hugo/</loc>
+    <lastmod>2020-06-26T00:24:50+09:00</lastmod>
   </url>
   
   <url>
@@ -38,11 +53,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/tags/rounding/</loc>
-    <lastmod>2020-03-28T18:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/</loc>
     <lastmod>2020-03-28T18:00:00-05:00</lastmod>
   </url>
   
@@ -122,13 +132,13 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</loc>
+    <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
     <lastmod>2019-08-04T11:04:13-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
-    <lastmod>2019-07-17T21:22:00-04:00</lastmod>
+    <loc>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</loc>
+    <lastmod>2019-08-04T11:04:13-04:00</lastmod>
   </url>
   
   <url>
@@ -138,11 +148,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/tags/glitchpop/</loc>
-    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url>
   

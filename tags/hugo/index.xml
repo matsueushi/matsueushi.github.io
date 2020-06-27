@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/hugo/</link>
+    <description>Recent content in Hugo on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2019–2020</copyright>
+    <lastBuildDate>Fri, 26 Jun 2020 00:24:50 +0900</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>サイトのデザインを変えました</title>
+      <link>https://matsueushi.github.io/posts/tokiwa/</link>
+      <pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/tokiwa/</guid>
+      <description>&lt;p&gt;パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。&lt;/p&gt;
+&lt;p&gt;また更新を再開したいです。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

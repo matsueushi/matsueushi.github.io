@@ -1842,6 +1842,598 @@ display&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(gifs);
     </item>
     
     <item>
+      <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>
+      <link>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</link>
+      <pubDate>Sun, 04 Aug 2019 11:04:13 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;../gaussianprocess-jl/&#34;&gt;前回&lt;/a&gt; の続き。GaussianProcesses.jlを使ってガウス過程回帰のハイパーパラメータ推定を行ってみる。
+「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」の図3.20(a)を例とする。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;xxs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+yys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2.3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+
+scatter(xxs, yys)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;600&#34; height=&#34;400&#34; viewBox=&#34;0 0 2400 1600&#34;&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip8400&#34;&gt;
+    &lt;rect x=&#34;0&#34; y=&#34;0&#34; width=&#34;2400&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip8400)&#34; points=&#34;
+0,1600 2400,1600 2400,0 0,0 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip8401&#34;&gt;
+    &lt;rect x=&#34;480&#34; y=&#34;0&#34; width=&#34;1681&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip8400)&#34; points=&#34;
+161.394,1503.47 2321.26,1503.47 2321.26,47.2441 161.394,47.2441 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip8402&#34;&gt;
+    &lt;rect x=&#34;161&#34; y=&#34;47&#34; width=&#34;2161&#34; height=&#34;1457&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  513.609,1503.47 513.609,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1095.78,1503.47 1095.78,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1677.96,1503.47 1677.96,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  2260.13,1503.47 2260.13,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  161.394,1290.54 2321.26,1290.54 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  161.394,1032.95 2321.26,1032.95 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  161.394,775.359 2321.26,775.359 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  161.394,517.771 2321.26,517.771 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8402)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  161.394,260.183 2321.26,260.183 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,1503.47 2321.26,1503.47 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,1503.47 161.394,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  513.609,1503.47 513.609,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1095.78,1503.47 1095.78,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1677.96,1503.47 1677.96,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  2260.13,1503.47 2260.13,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,1290.54 193.792,1290.54 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,1032.95 193.792,1032.95 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,775.359 193.792,775.359 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,517.771 193.792,517.771 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  161.394,260.183 193.792,260.183 
+  &#34;/&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 513.609, 1557.47)&#34; x=&#34;513.609&#34; y=&#34;1557.47&#34;&gt;0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1095.78, 1557.47)&#34; x=&#34;1095.78&#34; y=&#34;1557.47&#34;&gt;1&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1677.96, 1557.47)&#34; x=&#34;1677.96&#34; y=&#34;1557.47&#34;&gt;2&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 2260.13, 1557.47)&#34; x=&#34;2260.13&#34; y=&#34;1557.47&#34;&gt;3&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 137.394, 1308.04)&#34; x=&#34;137.394&#34; y=&#34;1308.04&#34;&gt;0.9&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 137.394, 1050.45)&#34; x=&#34;137.394&#34; y=&#34;1050.45&#34;&gt;1.2&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 137.394, 792.859)&#34; x=&#34;137.394&#34; y=&#34;792.859&#34;&gt;1.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 137.394, 535.271)&#34; x=&#34;137.394&#34; y=&#34;535.271&#34;&gt;1.8&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 137.394, 277.683)&#34; x=&#34;137.394&#34; y=&#34;277.683&#34;&gt;2.1&lt;/text&gt;
+&lt;/g&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;222.522&#34; cy=&#34;1462.26&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;222.522&#34; cy=&#34;1462.26&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;804.696&#34; cy=&#34;517.771&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;804.696&#34; cy=&#34;517.771&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1095.78&#34; cy=&#34;603.634&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;1095.78&#34; cy=&#34;603.634&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1328.65&#34; cy=&#34;88.4582&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;1328.65&#34; cy=&#34;88.4582&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;2260.13&#34; cy=&#34;1204.67&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8402)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;2260.13&#34; cy=&#34;1204.67&#34; r=&#34;14&#34;/&gt;
+&lt;polygon clip-path=&#34;url(#clip8400)&#34; points=&#34;
+1958.43,251.724 2249.26,251.724 2249.26,130.764 1958.43,130.764 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip8400)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1958.43,251.724 2249.26,251.724 2249.26,130.764 1958.43,130.764 1958.43,251.724 
+  &#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8400)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;2066.43&#34; cy=&#34;191.244&#34; r=&#34;25&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip8400)&#34; style=&#34;fill:#009af9; stroke:none; fill-opacity:1&#34; cx=&#34;2066.43&#34; cy=&#34;191.244&#34; r=&#34;21&#34;/&gt;
+&lt;g clip-path=&#34;url(#clip8400)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:start;&#34; transform=&#34;rotate(0, 2150.43, 208.744)&#34; x=&#34;2150.43&#34; y=&#34;208.744&#34;&gt;y1&lt;/text&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+&lt;p&gt;平均0のガウスカーネルのガウス過程に(ノイズ項込みで)フィッティングさせるのは非常に簡単で、&lt;code&gt;optimize!&lt;/code&gt; を呼べば良いだけ。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GP(xxs, yys, MeanZero(), SE(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;))
+optimize!(gp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+ * Algorithm: L-BFGS
+ * Starting Point: [-2.0,0.0,0.0]
+ * Minimizer: [-1.250611250087999,0.5939445695924219, ...]
+ * Minimum: 5.464078e+00
+ * Iterations: 10
+ * Convergence: true
+   * |x - x&#39;| ≤ 0.0e+00: false 
+     |x - x&#39;| = 1.80e-09 
+   * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: false
+     |f(x) - f(x&#39;)| = 1.63e-16 |f(x)|
+   * |g(x)| ≤ 1.0e-08: true 
+     |g(x)| = 1.23e-14 
+   * Stopped by an increasing objective: false
+   * Reached Maximum Number of Iterations: false
+ * Objective Calls: 26
+ * Gradient Calls: 26
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;パラメーターを確認すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;print(gp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;GP Exact object:
+ Dim = 1
+ Number of observations = 5
+ Mean function:
+   Type: MeanZero, Params: Float64[]
+ Kernel:
+   Type: SEIso{Float64}, Params: [0.593945, 0.233886]
+ Input observations = 
+[-0.5 0.5 1.0 1.4 3.0]
+ Output observations = [0.7, 1.8, 1.7, 2.3, 1.0]
+ Variance of observation noise = 0.08198471101193598
+ Marginal Log-Likelihood = -5.464
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;「ガウス過程と機械学習」では、カーネルは
+$$
+k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
+$$
+となっていて、推定結果は \((\theta_1, \theta_2, \theta_3)=(1.596,6.560,0.082)\) とされている。
+\(\theta_3\)は&lt;code&gt;Variance of observation noise&lt;/code&gt;の&lt;code&gt;0.08198471101193598&lt;/code&gt;とそのまま一致。
+&lt;code&gt;SEIso&lt;/code&gt;のカーネル関数は
+$$
+k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
+$$
+で、パラメーターは \(l\) と \(\sigma\) の対数をとった &lt;code&gt;ll&lt;/code&gt; と &lt;code&gt;lσ&lt;/code&gt; だから
+\(\theta_1 = \exp(2 * l\sigma), \theta_2=2 * \exp(2 * ll)\) という変換で対応できる。
+&lt;code&gt;SEIso&lt;/code&gt; のメンバー変数 &lt;code&gt;σ2&lt;/code&gt; と &lt;code&gt;ℓ2&lt;/code&gt; を使って確認すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;theta1: &amp;#34;&lt;/span&gt;, gp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;kernel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;σ2)
+println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;theta2: &amp;#34;&lt;/span&gt;, gp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;kernel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ℓ2 &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;theta1: 1.5964347486496255
+theta2: 6.560299908989858
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;となり、同じ結果が得られている。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;plot(gp; xlabel&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.x&amp;#34;&lt;/span&gt;, ylabel&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.y&amp;#34;&lt;/span&gt;, legend&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;, fmt&lt;span style=&#34;color:#f92672&#34;&gt;=:&lt;/span&gt;png)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;600&#34; height=&#34;400&#34; viewBox=&#34;0 0 2400 1600&#34;&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip0100&#34;&gt;
+    &lt;rect x=&#34;0&#34; y=&#34;0&#34; width=&#34;2400&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip0100)&#34; points=&#34;
+0,1600 2400,1600 2400,0 0,0 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip0101&#34;&gt;
+    &lt;rect x=&#34;480&#34; y=&#34;0&#34; width=&#34;1681&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip0100)&#34; points=&#34;
+224.386,1440.48 2321.26,1440.48 2321.26,47.2441 224.386,47.2441 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip0102&#34;&gt;
+    &lt;rect x=&#34;224&#34; y=&#34;47&#34; width=&#34;2098&#34; height=&#34;1394&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  224.386,1440.48 224.386,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  523.94,1440.48 523.94,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  823.493,1440.48 823.493,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1123.05,1440.48 1123.05,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1422.6,1440.48 1422.6,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1722.15,1440.48 1722.15,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  2021.71,1440.48 2021.71,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  2321.26,1440.48 2321.26,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  224.386,1255.7 2321.26,1255.7 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  224.386,949.501 2321.26,949.501 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  224.386,643.301 2321.26,643.301 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  224.386,337.1 2321.26,337.1 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,1440.48 2321.26,1440.48 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,1440.48 224.386,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,1440.48 224.386,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  523.94,1440.48 523.94,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  823.493,1440.48 823.493,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1123.05,1440.48 1123.05,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1422.6,1440.48 1422.6,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1722.15,1440.48 1722.15,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  2021.71,1440.48 2021.71,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  2321.26,1440.48 2321.26,1419.58 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,1255.7 255.839,1255.7 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,949.501 255.839,949.501 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,643.301 255.839,643.301 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0100)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,337.1 255.839,337.1 
+  &#34;/&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 224.386, 1494.48)&#34; x=&#34;224.386&#34; y=&#34;1494.48&#34;&gt;-0.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 523.94, 1494.48)&#34; x=&#34;523.94&#34; y=&#34;1494.48&#34;&gt;0.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 823.493, 1494.48)&#34; x=&#34;823.493&#34; y=&#34;1494.48&#34;&gt;0.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1123.05, 1494.48)&#34; x=&#34;1123.05&#34; y=&#34;1494.48&#34;&gt;1.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1422.6, 1494.48)&#34; x=&#34;1422.6&#34; y=&#34;1494.48&#34;&gt;1.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1722.15, 1494.48)&#34; x=&#34;1722.15&#34; y=&#34;1494.48&#34;&gt;2.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 2021.71, 1494.48)&#34; x=&#34;2021.71&#34; y=&#34;1494.48&#34;&gt;2.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 2321.26, 1494.48)&#34; x=&#34;2321.26&#34; y=&#34;1494.48&#34;&gt;3.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 200.386, 1273.2)&#34; x=&#34;200.386&#34; y=&#34;1273.2&#34;&gt;0.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 200.386, 967.001)&#34; x=&#34;200.386&#34; y=&#34;967.001&#34;&gt;1.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 200.386, 660.801)&#34; x=&#34;200.386&#34; y=&#34;660.801&#34;&gt;1.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 200.386, 354.6)&#34; x=&#34;200.386&#34; y=&#34;354.6&#34;&gt;2.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1272.82, 1590.4)&#34; x=&#34;1272.82&#34; y=&#34;1590.4&#34;&gt;gp.x&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip0100)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;&#34; transform=&#34;rotate(-90, 57.6, 743.863)&#34; x=&#34;57.6&#34; y=&#34;743.863&#34;&gt;gp.y&lt;/text&gt;
+&lt;/g&gt;
+&lt;polygon clip-path=&#34;url(#clip0102)&#34; points=&#34;
+224.386,1401.05 245.567,1373.75 266.747,1346.85 287.928,1320.33 309.108,1294.21 330.289,1268.47 351.469,1243.11 372.65,1218.13 393.831,1193.49 415.011,1169.21 
+  436.192,1145.25 457.372,1121.62 478.553,1098.3 499.733,1075.27 520.914,1052.54 542.094,1030.08 563.275,1007.91 584.455,986.013 605.636,964.394 626.816,943.058 
+  647.997,922.013 669.178,901.269 690.358,880.841 711.539,860.746 732.719,841.005 753.9,821.641 775.08,802.681 796.261,784.155 817.441,766.095 838.622,748.534 
+  859.802,731.51 880.983,715.06 902.164,699.224 923.344,684.042 944.525,669.554 965.705,655.801 986.886,642.823 1008.07,630.658 1029.25,619.341 1050.43,608.907 
+  1071.61,599.385 1092.79,590.802 1113.97,583.179 1135.15,576.534 1156.33,570.877 1177.51,566.217 1198.69,562.555 1219.87,559.886 1241.05,558.204 1262.23,557.495 
+  1283.41,557.742 1304.59,558.926 1325.77,561.023 1346.95,564.006 1368.14,567.848 1389.32,572.518 1410.5,577.986 1431.68,584.219 1452.86,591.185 1474.04,598.85 
+  1495.22,607.181 1516.4,616.146 1537.58,625.711 1558.76,635.844 1579.94,646.514 1601.12,657.69 1622.3,669.342 1643.48,681.442 1664.66,693.961 1685.84,706.874 
+  1707.02,720.157 1728.2,733.785 1749.39,747.737 1770.57,761.995 1791.75,776.54 1812.93,791.357 1834.11,806.433 1855.29,821.759 1876.47,837.326 1897.65,853.129 
+  1918.83,869.168 1940.01,885.444 1961.19,901.962 1982.37,918.73 2003.55,935.762 2024.73,953.074 2045.91,970.685 2067.09,988.619 2088.27,1006.9 2109.45,1025.57 
+  2130.63,1044.65 2151.82,1064.18 2173,1084.19 2194.18,1104.73 2215.36,1125.83 2236.54,1147.53 2257.72,1169.85 2278.9,1192.84 2300.08,1216.51 2321.26,1240.88 
+  2321.26,589.312 2300.08,574.448 2278.9,558.891 2257.72,542.701 2236.54,525.944 2215.36,508.693 2194.18,491.024 2173,473.016 2151.82,454.75 2130.63,436.309 
+  2109.45,417.773 2088.27,399.222 2067.09,380.734 2045.91,362.384 2024.73,344.244 2003.55,326.38 1982.37,308.857 1961.19,291.734 1940.01,275.067 1918.83,258.908 
+  1897.65,243.303 1876.47,228.294 1855.29,213.922 1834.11,200.22 1812.93,187.221 1791.75,174.95 1770.57,163.432 1749.39,152.688 1728.2,142.733 1707.02,133.581 
+  1685.84,125.242 1664.66,117.724 1643.48,111.03 1622.3,105.161 1601.12,100.116 1579.94,95.8891 1558.76,92.4731 1537.58,89.8578 1516.4,88.0303 1495.22,86.9754 
+  1474.04,86.6754 1452.86,87.1103 1431.68,88.2583 1410.5,90.0956 1389.32,92.5968 1368.14,95.735 1346.95,99.4826 1325.77,103.811 1304.59,108.691 1283.41,114.095 
+  1262.23,119.995 1241.05,126.363 1219.87,133.174 1198.69,140.406 1177.51,148.037 1156.33,156.05 1135.15,164.431 1113.97,173.168 1092.79,182.253 1071.61,191.682 
+  1050.43,201.453 1029.25,211.568 1008.07,222.029 986.886,232.843 965.705,244.015 944.525,255.554 923.344,267.465 902.164,279.755 880.983,292.43 859.802,305.495 
+  838.622,318.949 817.441,332.794 796.261,347.026 775.08,361.64 753.9,376.625 732.719,391.969 711.539,407.657 690.358,423.668 669.178,439.981 647.997,456.567 
+  626.816,473.398 605.636,490.438 584.455,507.651 563.275,524.996 542.094,542.429 520.914,559.903 499.733,577.37 478.553,594.777 457.372,612.072 436.192,629.2 
+  415.011,646.105 393.831,662.732 372.65,679.025 351.469,694.931 330.289,710.396 309.108,725.371 287.928,739.808 266.747,753.663 245.567,766.896 224.386,779.471 
+  &#34; fill=&#34;#add8e6&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;0.5&#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip0102)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  224.386,1090.26 245.567,1070.32 266.747,1050.25 287.928,1030.07 309.108,1009.79 330.289,989.435 351.469,969.023 372.65,948.575 393.831,928.113 415.011,907.656 
+  436.192,887.227 457.372,866.847 478.553,846.537 499.733,826.321 520.914,806.22 542.094,786.256 563.275,766.453 584.455,746.832 605.636,727.416 626.816,708.228 
+  647.997,689.29 669.178,670.625 690.358,652.255 711.539,634.201 732.719,616.487 753.9,599.133 775.08,582.16 796.261,565.591 817.441,549.444 838.622,533.742 
+  859.802,518.502 880.983,503.745 902.164,489.49 923.344,475.753 944.525,462.554 965.705,449.908 986.886,437.833 1008.07,426.344 1029.25,415.455 1050.43,405.18 
+  1071.61,395.534 1092.79,386.528 1113.97,378.174 1135.15,370.482 1156.33,363.464 1177.51,357.127 1198.69,351.48 1219.87,346.53 1241.05,342.283 1262.23,338.745 
+  1283.41,335.919 1304.59,333.809 1325.77,332.417 1346.95,331.744 1368.14,331.791 1389.32,332.557 1410.5,334.041 1431.68,336.239 1452.86,339.148 1474.04,342.763 
+  1495.22,347.078 1516.4,352.088 1537.58,357.784 1558.76,364.159 1579.94,371.202 1601.12,378.903 1622.3,387.252 1643.48,396.236 1664.66,405.843 1685.84,416.058 
+  1707.02,426.869 1728.2,438.259 1749.39,450.212 1770.57,462.714 1791.75,475.745 1812.93,489.289 1834.11,503.327 1855.29,517.84 1876.47,532.81 1897.65,548.216 
+  1918.83,564.038 1940.01,580.256 1961.19,596.848 1982.37,613.794 2003.55,631.071 2024.73,648.659 2045.91,666.535 2067.09,684.677 2088.27,703.063 2109.45,721.671 
+  2130.63,740.478 2151.82,759.463 2173,778.603 2194.18,797.877 2215.36,817.261 2236.54,836.735 2257.72,856.277 2278.9,875.865 2300.08,895.478 2321.26,915.097 
+  &#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;224.386&#34; cy=&#34;1133.22&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;224.386&#34; cy=&#34;1133.22&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;823.493&#34; cy=&#34;459.58&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;823.493&#34; cy=&#34;459.58&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1123.05&#34; cy=&#34;520.821&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1123.05&#34; cy=&#34;520.821&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1362.69&#34; cy=&#34;153.38&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip0102)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1362.69&#34; cy=&#34;153.38&#34; r=&#34;14&#34;/&gt;
+&lt;/svg&gt;
+&lt;p&gt;上だと点が端ギリギリに配置され結構見ずらい(+ガウス誤差が含まれていない？)ので、ガウス観測誤差も含めた予測結果を自分でプロットすると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;xtest &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape(collect(range(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, stop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.5&lt;/span&gt;, length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;)
+μ, σ2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; predict_y(gp, xtest)
+dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Normal&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(μ, sqrt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(σ2))
+
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]
+qt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hcat(map(x &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; quantile&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, p), dists)&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+
+plot(xtest[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+scatter!(xxs, yys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+plot!(xtest[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(dists), linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, 
+      linestyle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;dash, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;600&#34; height=&#34;400&#34; viewBox=&#34;0 0 2400 1600&#34;&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip1800&#34;&gt;
+    &lt;rect x=&#34;0&#34; y=&#34;0&#34; width=&#34;2400&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip1800)&#34; points=&#34;
+0,1600 2400,1600 2400,0 0,0 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip1801&#34;&gt;
+    &lt;rect x=&#34;480&#34; y=&#34;0&#34; width=&#34;1681&#34; height=&#34;1600&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polygon clip-path=&#34;url(#clip1800)&#34; points=&#34;
+189.504,1503.47 2321.26,1503.47 2321.26,47.2441 189.504,47.2441 
+  &#34; fill=&#34;#ffffff&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;1&#34;/&gt;
+&lt;defs&gt;
+  &lt;clipPath id=&#34;clip1802&#34;&gt;
+    &lt;rect x=&#34;189&#34; y=&#34;47&#34; width=&#34;2133&#34; height=&#34;1457&#34;/&gt;
+  &lt;/clipPath&gt;
+&lt;/defs&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  249.837,1503.47 249.837,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  696.746,1503.47 696.746,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1143.65,1503.47 1143.65,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  1590.56,1503.47 1590.56,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  2037.47,1503.47 2037.47,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,1418.28 2321.26,1418.28 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,1210.07 2321.26,1210.07 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,1001.86 2321.26,1001.86 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,793.651 2321.26,793.651 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,585.441 2321.26,585.441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,377.232 2321.26,377.232 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none&#34; points=&#34;
+  189.504,169.022 2321.26,169.022 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,1503.47 2321.26,1503.47 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,1503.47 189.504,47.2441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  249.837,1503.47 249.837,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  696.746,1503.47 696.746,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1143.65,1503.47 1143.65,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  1590.56,1503.47 1590.56,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  2037.47,1503.47 2037.47,1481.63 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,1418.28 221.48,1418.28 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,1210.07 221.48,1210.07 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,1001.86 221.48,1001.86 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,793.651 221.48,793.651 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,585.441 221.48,585.441 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,377.232 221.48,377.232 
+  &#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1800)&#34; style=&#34;stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none&#34; points=&#34;
+  189.504,169.022 221.48,169.022 
+  &#34;/&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 249.837, 1557.47)&#34; x=&#34;249.837&#34; y=&#34;1557.47&#34;&gt;-1&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 696.746, 1557.47)&#34; x=&#34;696.746&#34; y=&#34;1557.47&#34;&gt;0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1143.65, 1557.47)&#34; x=&#34;1143.65&#34; y=&#34;1557.47&#34;&gt;1&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 1590.56, 1557.47)&#34; x=&#34;1590.56&#34; y=&#34;1557.47&#34;&gt;2&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;&#34; transform=&#34;rotate(0, 2037.47, 1557.47)&#34; x=&#34;2037.47&#34; y=&#34;1557.47&#34;&gt;3&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 1435.78)&#34; x=&#34;165.504&#34; y=&#34;1435.78&#34;&gt;-0.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 1227.57)&#34; x=&#34;165.504&#34; y=&#34;1227.57&#34;&gt;0.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 1019.36)&#34; x=&#34;165.504&#34; y=&#34;1019.36&#34;&gt;0.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 811.151)&#34; x=&#34;165.504&#34; y=&#34;811.151&#34;&gt;1.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 602.941)&#34; x=&#34;165.504&#34; y=&#34;602.941&#34;&gt;1.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 394.732)&#34; x=&#34;165.504&#34; y=&#34;394.732&#34;&gt;2.0&lt;/text&gt;
+&lt;/g&gt;
+&lt;g clip-path=&#34;url(#clip1800)&#34;&gt;
+&lt;text style=&#34;fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;&#34; transform=&#34;rotate(0, 165.504, 186.522)&#34; x=&#34;165.504&#34; y=&#34;186.522&#34;&gt;2.5&lt;/text&gt;
+&lt;/g&gt;
+&lt;polygon clip-path=&#34;url(#clip1802)&#34; points=&#34;
+249.837,1462.26 270.151,1437.64 290.465,1413.19 310.779,1388.92 331.093,1364.88 351.407,1341.09 371.721,1317.56 392.035,1294.32 412.349,1271.38 432.663,1248.75 
+  452.977,1226.44 473.291,1204.44 493.605,1182.76 513.919,1161.38 534.233,1140.31 554.547,1119.53 574.862,1099.04 595.176,1078.82 615.49,1058.87 635.804,1039.18 
+  656.118,1019.75 676.432,1000.57 696.746,981.649 717.06,962.991 737.374,944.604 757.688,926.501 778.002,908.698 798.316,891.214 818.63,874.075 838.944,857.307 
+  859.258,840.94 879.572,825.009 899.886,809.548 920.2,794.596 940.514,780.192 960.828,766.377 981.142,753.193 1001.46,740.681 1021.77,728.881 1042.08,717.834 
+  1062.4,707.577 1082.71,698.146 1103.03,689.573 1123.34,681.889 1143.65,675.118 1163.97,669.281 1184.28,664.394 1204.6,660.469 1224.91,657.513 1245.22,655.526 
+  1265.54,654.505 1285.85,654.442 1306.17,655.323 1326.48,657.13 1346.8,659.842 1367.11,663.434 1387.42,667.878 1407.74,673.142 1428.05,679.195 1448.37,686.002 
+  1468.68,693.526 1488.99,701.731 1509.31,710.58 1529.62,720.038 1549.94,730.067 1570.25,740.633 1590.56,751.703 1610.88,763.244 1631.19,775.227 1651.51,787.625 
+  1671.82,800.414 1692.13,813.572 1712.45,827.082 1732.76,840.93 1753.08,855.106 1773.39,869.604 1793.7,884.423 1814.02,899.567 1834.33,915.042 1854.65,930.86 
+  1874.96,947.037 1895.27,963.594 1915.59,980.553 1935.9,997.941 1956.22,1015.78 1976.53,1034.11 1996.84,1052.95 2017.16,1072.32 2037.47,1092.26 2057.79,1112.78 
+  2078.1,1133.89 2098.41,1155.6 2118.73,1177.91 2139.04,1200.81 2159.36,1224.3 2179.67,1248.34 2199.99,1272.9 2220.3,1297.95 2240.61,1323.44 2260.93,1349.32 
+  2260.93,554.307 2240.61,549.172 2220.3,543.111 2199.99,536.114 2179.67,528.182 2159.36,519.321 2139.04,509.549 2118.73,498.89 2098.41,487.382 2078.1,475.068 
+  2057.79,462.004 2037.47,448.253 2017.16,433.887 1996.84,418.983 1976.53,403.626 1956.22,387.904 1935.9,371.905 1915.59,355.722 1895.27,339.446 1874.96,323.166 
+  1854.65,306.97 1834.33,290.941 1814.02,275.161 1793.7,259.704 1773.39,244.641 1753.08,230.038 1732.76,215.955 1712.45,202.446 1692.13,189.561 1671.82,177.343 
+  1651.51,165.83 1631.19,155.056 1610.88,145.047 1590.56,135.827 1570.25,127.413 1549.94,119.818 1529.62,113.05 1509.31,107.114 1488.99,102.011 1468.68,97.7361 
+  1448.37,94.2834 1428.05,91.6428 1407.74,89.8019 1387.42,88.7459 1367.11,88.4582 1346.8,88.9205 1326.48,90.1137 1306.17,92.0182 1285.85,94.614 1265.54,97.8816 
+  1245.22,101.802 1224.91,106.357 1204.6,111.53 1184.28,117.305 1163.97,123.669 1143.65,130.61 1123.34,138.116 1103.03,146.178 1082.71,154.788 1062.4,163.938 
+  1042.08,173.622 1021.77,183.832 1001.46,194.561 981.142,205.801 960.828,217.542 940.514,229.774 920.2,242.482 899.886,255.653 879.572,269.266 859.258,283.3 
+  838.944,297.73 818.63,312.528 798.316,327.659 778.002,343.088 757.688,358.775 737.374,374.673 717.06,390.734 696.746,406.906 676.432,423.132 656.118,439.353 
+  635.804,455.506 615.49,471.526 595.176,487.347 574.862,502.9 554.547,518.117 534.233,532.929 513.919,547.272 493.605,561.078 473.291,574.289 452.977,586.845 
+  432.663,598.695 412.349,609.792 392.035,620.094 371.721,629.566 351.407,638.181 331.093,645.917 310.779,652.758 290.465,658.697 270.151,663.73 249.837,667.86 
+  &#34; fill=&#34;#009af9&#34; fill-rule=&#34;evenodd&#34; fill-opacity=&#34;0.3&#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#009af9; stroke-width:0; stroke-opacity:1; fill:none&#34; points=&#34;
+  249.837,1462.26 270.151,1437.64 290.465,1413.19 310.779,1388.92 331.093,1364.88 351.407,1341.09 371.721,1317.56 392.035,1294.32 412.349,1271.38 432.663,1248.75 
+  452.977,1226.44 473.291,1204.44 493.605,1182.76 513.919,1161.38 534.233,1140.31 554.547,1119.53 574.862,1099.04 595.176,1078.82 615.49,1058.87 635.804,1039.18 
+  656.118,1019.75 676.432,1000.57 696.746,981.649 717.06,962.991 737.374,944.604 757.688,926.501 778.002,908.698 798.316,891.214 818.63,874.075 838.944,857.307 
+  859.258,840.94 879.572,825.009 899.886,809.548 920.2,794.596 940.514,780.192 960.828,766.377 981.142,753.193 1001.46,740.681 1021.77,728.881 1042.08,717.834 
+  1062.4,707.577 1082.71,698.146 1103.03,689.573 1123.34,681.889 1143.65,675.118 1163.97,669.281 1184.28,664.394 1204.6,660.469 1224.91,657.513 1245.22,655.526 
+  1265.54,654.505 1285.85,654.442 1306.17,655.323 1326.48,657.13 1346.8,659.842 1367.11,663.434 1387.42,667.878 1407.74,673.142 1428.05,679.195 1448.37,686.002 
+  1468.68,693.526 1488.99,701.731 1509.31,710.58 1529.62,720.038 1549.94,730.067 1570.25,740.633 1590.56,751.703 1610.88,763.244 1631.19,775.227 1651.51,787.625 
+  1671.82,800.414 1692.13,813.572 1712.45,827.082 1732.76,840.93 1753.08,855.106 1773.39,869.604 1793.7,884.423 1814.02,899.567 1834.33,915.042 1854.65,930.86 
+  1874.96,947.037 1895.27,963.594 1915.59,980.553 1935.9,997.941 1956.22,1015.78 1976.53,1034.11 1996.84,1052.95 2017.16,1072.32 2037.47,1092.26 2057.79,1112.78 
+  2078.1,1133.89 2098.41,1155.6 2118.73,1177.91 2139.04,1200.81 2159.36,1224.3 2179.67,1248.34 2199.99,1272.9 2220.3,1297.95 2240.61,1323.44 2260.93,1349.32 
+  &#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;473.291&#34; cy=&#34;918.577&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#e26f46; stroke:none; fill-opacity:1&#34; cx=&#34;473.291&#34; cy=&#34;918.577&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;920.2&#34; cy=&#34;460.516&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#e26f46; stroke:none; fill-opacity:1&#34; cx=&#34;920.2&#34; cy=&#34;460.516&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1143.65&#34; cy=&#34;502.157&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#e26f46; stroke:none; fill-opacity:1&#34; cx=&#34;1143.65&#34; cy=&#34;502.157&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;1322.42&#34; cy=&#34;252.306&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#e26f46; stroke:none; fill-opacity:1&#34; cx=&#34;1322.42&#34; cy=&#34;252.306&#34; r=&#34;14&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#000000; stroke:none; fill-opacity:1&#34; cx=&#34;2037.47&#34; cy=&#34;793.651&#34; r=&#34;18&#34;/&gt;
+&lt;circle clip-path=&#34;url(#clip1802)&#34; style=&#34;fill:#e26f46; stroke:none; fill-opacity:1&#34; cx=&#34;2037.47&#34; cy=&#34;793.651&#34; r=&#34;14&#34;/&gt;
+&lt;polyline clip-path=&#34;url(#clip1802)&#34; style=&#34;stroke:#3da44d; stroke-width:8; stroke-opacity:1; fill:none&#34; stroke-dasharray=&#34;32, 20&#34; points=&#34;
+  249.837,1065.06 270.151,1050.69 290.465,1035.94 310.779,1020.84 331.093,1005.4 351.407,989.633 371.721,973.563 392.035,957.207 412.349,940.587 432.663,923.724 
+  452.977,906.642 473.291,889.365 493.605,871.918 513.919,854.327 534.233,836.62 554.547,818.824 574.862,800.968 595.176,783.083 615.49,765.197 635.804,747.342 
+  656.118,729.549 676.432,711.85 696.746,694.277 717.06,676.862 737.374,659.638 757.688,642.638 778.002,625.893 798.316,609.437 818.63,593.301 838.944,577.519 
+  859.258,562.12 879.572,547.137 899.886,532.6 920.2,518.539 940.514,504.983 960.828,491.96 981.142,479.497 1001.46,467.621 1021.77,456.356 1042.08,445.728 
+  1062.4,435.758 1082.71,426.467 1103.03,417.876 1123.34,410.002 1143.65,402.864 1163.97,396.475 1184.28,390.85 1204.6,386 1224.91,381.935 1245.22,378.664 
+  1265.54,376.194 1285.85,374.528 1306.17,373.67 1326.48,373.622 1346.8,374.381 1367.11,375.946 1387.42,378.312 1407.74,381.472 1428.05,385.419 1448.37,390.142 
+  1468.68,395.631 1488.99,401.871 1509.31,408.847 1529.62,416.544 1549.94,424.942 1570.25,434.023 1590.56,443.765 1610.88,454.146 1631.19,465.141 1651.51,476.728 
+  1671.82,488.878 1692.13,501.566 1712.45,514.764 1732.76,528.442 1753.08,542.572 1773.39,557.123 1793.7,572.064 1814.02,587.364 1834.33,602.991 1854.65,618.915 
+  1874.96,635.102 1895.27,651.52 1915.59,668.138 1935.9,684.923 1956.22,701.843 1976.53,718.868 1996.84,735.966 2017.16,753.105 2037.47,770.256 2057.79,787.39 
+  2078.1,804.477 2098.41,821.49 2118.73,838.4 2139.04,855.182 2159.36,871.809 2179.67,888.258 2199.99,904.505 2220.3,920.528 2240.61,936.305 2260.93,951.816 
+  &#34;/&gt;
+&lt;/svg&gt;
+&lt;p&gt;ノートブック:
+&lt;a href=&#34;https://github.com/matsueushi/notebook_blog/blob/master/gaussianprocess-julia.ipynb&#34;&gt;https://github.com/matsueushi/notebook_blog/blob/master/gaussianprocess-julia.ipynb&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
       <link>https://matsueushi.github.io/posts/gaussianprocess-jl/</link>
       <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
