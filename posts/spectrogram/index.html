@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>matsueushi  | スペクトログラムを作成する</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.73.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
+
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
+
+	
+
+	
+	
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+	
+
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-141286537-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	
+	
+
+
+
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+</head>
+
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">スペクトログラムを作成する</h1>
+
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/julia'>Julia</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/spectrogram'>Spectrogram</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/fft'>FFT</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/plots'>Plots</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/aphextwin'>AphexTwin</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2020-06-26T23:35:43&#43;09:00">2020-6-26 23:35</time>
+</div>
+
+<hr />
+
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p><a href="https://aphextwin.warp.net/">Aphex Twin</a> のシングル <a href="https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker">Windowlicker</a> は印象的なジャケット</p>
+<iframe src="https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<p>や<a href="https://www.youtube.com/watch?v=5ZT3gTu4Sjw">クリスカニンガムのPV</a>が有名ですが、2曲目に収録されている
+$\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]$ (通称 &ldquo;Formula&rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/M9xMuPWAZW8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p>上の動画を見ればどんな画像が出てくるかわかるのですが、それでは面白くないので、今回は、CDからリッピングしたWAVファイルからJuliaを使って埋め込まれた顔を抽出してみたいと思います。</p>
+<p>Juliaを含めてサウンドデータを扱ったことがあまりなかったので、今回はその練習も兼ねています。</p>
+<hr>
+<p>Juliaの環境とインストールパッケージは下の通りです。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">root@801256b1df16:/temp_julia# julia --project
+               _
+   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
+  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
+   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
+  | | | | | | |/ _<span style="color:#e6db74">`</span> |  |
+  | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version 1.4.2 <span style="color:#f92672">(</span>2020-05-23<span style="color:#f92672">)</span>
+ _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
+|__/                   |
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>Hanauta<span style="color:#f92672">)</span> pkg&gt; st
+Project Hanauta v0.1.0
+Status <span style="color:#e6db74">`</span>/temp_julia/Project.toml<span style="color:#e6db74">`</span>
+  <span style="color:#f92672">[</span>7a1cc6ca<span style="color:#f92672">]</span> FFTW v1.2.2
+  <span style="color:#f92672">[</span>82e4d734<span style="color:#f92672">]</span> ImageIO v0.2.0
+  <span style="color:#f92672">[</span>6218d12a<span style="color:#f92672">]</span> ImageMagick v1.1.5
+  <span style="color:#f92672">[</span>442fdcdd<span style="color:#f92672">]</span> Measures v0.3.1
+  <span style="color:#f92672">[</span>91a5bcdd<span style="color:#f92672">]</span> Plots v1.4.4
+  <span style="color:#f92672">[</span>8149f6b0<span style="color:#f92672">]</span> WAV v1.0.3
+</code></pre></div><p>楽曲データは、所有しているCDをWAV形式でリッピングしたものを使います。</p>
+<p><img src="/images/posts/spectrogram_windowlicker_wav.png" alt="インポートした楽曲"></p>
+<h2 id="wavファイルの読み込み">WAVファイルの読み込み</h2>
+<p>まずはデータを読み込んでみます。WAV形式のファイルフォーマットは <a href="https://github.com/dancasimiro/WAV.jl">WAV.jl</a> で読み書きできます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> WAV
+
+<span style="color:#75715e"># load wav </span>
+y, Fs, nbits, opt <span style="color:#f92672">=</span> wavread(<span style="color:#e6db74">&#34;wav/02 ΔMi-1=-a ΣDi[n][ΣF ij[n-1]+Fexti[n-1]].wav&#34;</span>)
+</code></pre></div><p>返り値は4つあり、最初のものはサンプリングデータです。2次元目のサイズが2なのはチャンネル数が二つあることに対応しています。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> y
+<span style="color:#ae81ff">15302700</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">9.15555e-5</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.1037e-5</span>
+  <span style="color:#ae81ff">3.05185e-5</span>    <span style="color:#ae81ff">0.0</span>
+  <span style="color:#ae81ff">0.0</span>           <span style="color:#ae81ff">0.000183111</span>
+  <span style="color:#ae81ff">0.0</span>          <span style="color:#f92672">-</span><span style="color:#ae81ff">0.000152593</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">9.15555e-5</span>    <span style="color:#ae81ff">0.00021363</span>
+  <span style="color:#ae81ff">0.0</span>          <span style="color:#f92672">-</span><span style="color:#ae81ff">6.1037e-5</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">9.15555e-5</span>    <span style="color:#ae81ff">9.15555e-5</span>
+  <span style="color:#ae81ff">3.05185e-5</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.05185e-5</span>
+  ⋮            
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">6.1037e-5</span>     <span style="color:#ae81ff">6.1037e-5</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">3.05185e-5</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.05185e-5</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">6.1037e-5</span>     <span style="color:#ae81ff">3.05185e-5</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">6.1037e-5</span>     <span style="color:#ae81ff">0.0</span>
+  <span style="color:#ae81ff">3.05185e-5</span>    <span style="color:#ae81ff">0.0</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.000122074</span>   <span style="color:#ae81ff">3.05185e-5</span>
+  <span style="color:#ae81ff">9.15555e-5</span>    <span style="color:#ae81ff">0.0</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.000152593</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.05185e-5</span>
+</code></pre></div><p>2つ目はサンプリング周波数です。1秒あたりの標本化数を表しており、
+サンプリングデータの長さをサンプリング周波数で割ると曲の長さ(6分47秒)になっています。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Fs
+<span style="color:#ae81ff">44100.0f0</span>
+
+julia<span style="color:#f92672">&gt;</span> size(y)[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">÷</span> Fs
+<span style="color:#ae81ff">347.0f0</span>
+</code></pre></div><p>3つ目はサンプリングビット数を表しており、16ビットで量子化されていることがわかります。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> nbits
+<span style="color:#ae81ff">0x0010</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">Int</span>(nbits)
+<span style="color:#ae81ff">16</span>
+</code></pre></div><p>4つ目には <code>WAVChank</code> というデータが入っているようなのですが、使い方はよくわかりませんでした。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> opt
+<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{WAVChunk,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ WAVChunk(<span style="color:#66d9ef">Symbol</span>(<span style="color:#e6db74">&#34;fmt &#34;</span>), <span style="color:#66d9ef">UInt8</span>[<span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0xac</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0xb1</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>])
+</code></pre></div><p>音楽CDの規格である<a href="https://en.wikipedia.org/wiki/Compact_Disc_Digital_Audio">CD-DA</a>
+では16ビット、44.1KHzでサンプリングされた2チャンネルのデータがCDには記録されていることになっているので、
+先ほどリッピングしたWAVファイルのデータを読み込んだ時の情報と一致していますね。</p>
+<h2 id="データの可視化">データの可視化</h2>
+<p><a href="http://docs.juliaplots.org/latest/">Plots.jl</a>を使って各チャンネルを可視化します。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Plots
+
+<span style="color:#75715e"># channel 1</span>
+plot(y[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>, <span style="color:#ae81ff">1</span>], title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ch1&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;ch1.png&#34;</span>)
+
+<span style="color:#75715e"># channel 2</span>
+plot(y[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>, <span style="color:#ae81ff">2</span>], title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ch2&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;ch2.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_ch1.png" alt="Channel1"></p>
+<p><img src="/images/posts/spectrogram_ch2.png" alt="Channel2"></p>
+<p>見ただけだと左右のチャンネルのズレはよくわからないですね。</p>
+<h2 id="縦波と横波">縦波と横波</h2>
+<p>そもそもこの波形が何を表しているか分からなくなってしまったのですが、色々調べて
+音は空気の密度の変化が振動して伝わっていくことによる縦波で、
+縦波は可視化するのが難しいので、基準点からの媒質のずれを用いて横波に変換して表しているということを思い出しました。小学校か中学校で習いましたね。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>π<span style="color:#f92672">:</span><span style="color:#ae81ff">0.2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>π
+plot(xs, sin<span style="color:#f92672">.</span>(xs), lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y = sinx(x)&#34;</span>)
+plot!(xs <span style="color:#f92672">.+</span> sin<span style="color:#f92672">.</span>(xs), lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, seriestype<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vline&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_sinwave.png" alt="Sin wave"></p>
+<p>サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
+横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。</p>
+<h2 id="離散フーリエ変換">離散フーリエ変換</h2>
+<p>離散フーリエ変換は標本点$\{ x = 0, \ldots, N-1 \}$に対し、関数$f(x)$を
+$$
+\begin{aligned}
+F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
+\end{aligned}
+$$
+に写す変換です。</p>
+<p>まず<a href="https://github.com/JuliaMath/FFTW.jl">FFTW.jl</a>を利用して
+$f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
+の離散フーリエ変換を求めてみます。<a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html">scipy.fftのFourier Transformsのチュートリアル</a>を参考にしています。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Fourier transform</span>
+<span style="color:#75715e"># https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html</span>
+<span style="color:#66d9ef">using</span> FFTW
+
+n_sample <span style="color:#f92672">=</span> <span style="color:#ae81ff">600</span>
+spacing <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">800.0</span>
+xs <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">0.0</span>, n_sample <span style="color:#f92672">*</span> spacing, length<span style="color:#f92672">=</span>n_sample)
+ys <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span> sin(<span style="color:#ae81ff">50.0</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>π <span style="color:#f92672">*</span> xs) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> sin(<span style="color:#ae81ff">80.0</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>π <span style="color:#f92672">*</span> xs)
+plot(xs, ys)
+savefig(<span style="color:#e6db74">&#34;twosines.png&#34;</span>)
+
+<span style="color:#75715e"># fft</span>
+yf <span style="color:#f92672">=</span> fft(ys)
+xf <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> spacing, length<span style="color:#f92672">=</span>n_sample)
+plot(xf, <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">/</span> n_sample <span style="color:#f92672">*</span> abs<span style="color:#f92672">.</span>(yf), title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fft&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;twosines_fft.png&#34;</span>)
+
+<span style="color:#75715e"># rfft</span>
+yf <span style="color:#f92672">=</span> rfft(ys)
+xf <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> spacing), length<span style="color:#f92672">=</span>(n_sample <span style="color:#f92672">÷</span> <span style="color:#ae81ff">2</span>))
+plot(xf, <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">/</span> n_sample <span style="color:#f92672">*</span> abs<span style="color:#f92672">.</span>(yf[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]), title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rfft&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;twosines_rfft.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_twosines.png" alt="Two sines"></p>
+<p><img src="/images/posts/spectrogram_twosines_fft.png" alt="FFT"></p>
+<p><img src="/images/posts/spectrogram_twosines_rfft.png" alt="RFFT"></p>
+<p><code>fft</code>と<code>rfft</code>の違いですが、実数関数の高速フーリエ変換を行う場合は、得られる結果は複素共役になっているので
+<code>fft</code>の最初の$N/2+1$個の要素だけ取り出したのが<code>rfft</code>です。今後は<code>rfft</code>を使っていきます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fft(ys)
+<span style="color:#ae81ff">1025</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Float64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.021546067690054016</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0</span>im
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.009144822218747824</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.019494434496893802</span>im
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.011255889003925152</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.0037747442427530035</span>im
+ <span style="color:#ae81ff">0.00021303373272217927</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">6.540910469289888e-6</span>im
+   <span style="color:#ae81ff">0.008011104229857957</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.004944446609708943</span>im
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0027504905105466913</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.008521501761826233</span>im
+   <span style="color:#ae81ff">0.006452083992530002</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.002329259327304883</span>im
+  <span style="color:#ae81ff">0.0012487142795432917</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.00400665047994312</span>im
+                        ⋮
+  <span style="color:#ae81ff">0.0018973158062596494</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.0015495945378345682</span>im
+   <span style="color:#ae81ff">0.001248714279543291</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0040066504799431205</span>im
+   <span style="color:#ae81ff">0.006452083992530002</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0023292593273048835</span>im
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0027504905105466965</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.008521501761826231</span>im
+   <span style="color:#ae81ff">0.008011104229857955</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0049444466097089395</span>im
+ <span style="color:#ae81ff">0.00021303373272217938</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">6.540910469289725e-6</span>im
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.011255889003925153</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0037747442427530026</span>im
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.009144822218747822</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.019494434496893802</span>im
+
+julia<span style="color:#f92672">&gt;</span> rfft(ys)
+<span style="color:#ae81ff">513</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Float64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.021546067690054016</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0</span>im
+   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.009144822218747822</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.019494434496893802</span>im
+   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.011255889003925152</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.0037747442427530004</span>im
+  <span style="color:#ae81ff">0.00021303373272217986</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">6.54091046929146e-6</span>im
+    <span style="color:#ae81ff">0.008011104229857957</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.004944446609708941</span>im
+   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.002750490510546692</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.008521501761826231</span>im
+    <span style="color:#ae81ff">0.006452083992530001</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.0023292593273048826</span>im
+   <span style="color:#ae81ff">0.0012487142795432919</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.00400665047994312</span>im
+                         ⋮
+   <span style="color:#ae81ff">0.0005688670923895223</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.001286209219029025</span>im
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00010711318682722653</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.00023560706166791262</span>im
+    <span style="color:#ae81ff">3.781279114026053e-5</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.00021509339265025993</span>im
+  <span style="color:#ae81ff">0.00045924223521861597</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0002559596431659331</span>im
+    <span style="color:#ae81ff">3.076053805043007e-5</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.0003691736809030828</span>im
+   <span style="color:#ae81ff">0.0004897414415673067</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.00019917744535980088</span>im
+  <span style="color:#ae81ff">0.00020016708413113154</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.00021927127231187687</span>im
+    <span style="color:#ae81ff">5.662713730124005e-5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">6.958061643819614e-5</span>im
+</code></pre></div><h2 id="ハン関数">ハン関数</h2>
+<p>スペクトログラムを作成する際には、短時間フーリエ変換を行います。
+楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。</p>
+<p>この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。</p>
+<p>今回はハン関数(<a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a>)を使うことにします。
+サンプル数が $N + 1$ のとき、ハン関数は
+$$
+\begin{aligned}
+w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
+\end{aligned}
+$$
+で与えられます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Statistics
+
+<span style="color:#75715e"># Hann function</span>
+<span style="color:#66d9ef">function</span> hann(n_window)
+    ns <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>n_window
+    xs_hann <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> cos(<span style="color:#ae81ff">2</span>π <span style="color:#f92672">*</span> ns <span style="color:#f92672">/</span> n_window))
+    xs_hann
+<span style="color:#66d9ef">end</span>
+
+plot(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">64</span>, hann(<span style="color:#ae81ff">64</span>), title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Hann function (N=64)&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;hann_function.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_hann_function.png" alt="Hann function"></p>
+<p>切り出したサンプルに対して適用してみるとこんな感じです。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">window_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>
+xs <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>window_size<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+
+signal <span style="color:#f92672">=</span> mean(y, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+ys <span style="color:#f92672">=</span> signal[xs]
+ys_hann <span style="color:#f92672">=</span> hann(window_size) <span style="color:#f92672">.*</span> ys
+
+plot(xs, ys, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Original&#34;</span>)
+plot!(xs, ys_hann, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Filtered&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;filtered.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_filtered.png" alt="ハン関数を適用"></p>
+<p>適用する前と後で得られるスペクトラムを比較すると、</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xf <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>(window_size <span style="color:#f92672">÷</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+yf <span style="color:#f92672">=</span> rfft(ys)
+yf_hann <span style="color:#f92672">=</span> rfft(ys_hann)
+plot(xf, <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">/</span> window_size <span style="color:#f92672">*</span> abs<span style="color:#f92672">.</span>(yf), label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Original&#34;</span>)
+plot!(xf, <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">/</span> window_size <span style="color:#f92672">*</span> abs<span style="color:#f92672">.</span>(yf_hann), label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Filtered&#34;</span>)
+savefig(<span style="color:#e6db74">&#34;rfft_hann.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_rfft_hann.png" alt="Spectrogramの比較"></p>
+<p>ハン関数を適用した方が全体的にノイズが低減されているように見えます。</p>
+<h2 id="いよいよスペクトログラムを描く">いよいよスペクトログラムを描く</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># spectrogram</span>
+<span style="color:#66d9ef">using</span> Measures
+
+<span style="color:#66d9ef">function</span> spectrogram(window_size, signal)
+    overlap <span style="color:#f92672">=</span> window_size <span style="color:#f92672">÷</span> <span style="color:#ae81ff">2</span>
+    data <span style="color:#f92672">=</span> []
+    hann_window <span style="color:#f92672">=</span> hann(window_size)
+    <span style="color:#66d9ef">for</span> idx <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>(window_size <span style="color:#f92672">-</span> overlap)<span style="color:#f92672">:</span>Base<span style="color:#f92672">.</span>length(signal)
+        <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">+</span> window_size <span style="color:#f92672">&gt;</span> Base<span style="color:#f92672">.</span>length(signal)
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">end</span>
+        rfft_result <span style="color:#f92672">=</span> rfft(hann_window <span style="color:#f92672">.*</span> signal[idx<span style="color:#f92672">:</span>idx <span style="color:#f92672">+</span> window_size])
+        rfft_log <span style="color:#f92672">=</span> abs<span style="color:#f92672">.</span>(rfft_result) <span style="color:#f92672">.^</span> <span style="color:#ae81ff">2</span>
+        push!(data, rfft_log)
+    <span style="color:#66d9ef">end</span>
+    hcat(data<span style="color:#f92672">...</span>)
+<span style="color:#66d9ef">end</span>
+
+data <span style="color:#f92672">=</span> spectrogram(window_size, signal)
+heatmap_data <span style="color:#f92672">=</span> log<span style="color:#f92672">.</span>(data[<span style="color:#f92672">:</span>, <span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2000</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">800</span>])
+heatmap(heatmap_data, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm)
+savefig(<span style="color:#e6db74">&#34;spectrogram_formula.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_formula.png" alt="Formulaのスペクトログラム"></p>
+<p>うーん、なんか見た目が微妙ですね。y軸を対数軸にすると</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">heatmap(heatmap_data, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm, yaxis<span style="color:#f92672">=:</span>log)
+savefig(<span style="color:#e6db74">&#34;spectrogram_formula_log.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_formula_log.png" alt="Formulaのスペクトログラム(log)"></p>
+<p>となりようやく「顔」に対面できました。</p>
+<p>ついでに1曲目のWindowlickerに隠されている螺旋模様も見ましょう。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># windowlicker</span>
+y, Fs, nbits, opt <span style="color:#f92672">=</span> wavread(<span style="color:#e6db74">&#34;wav/01 Windowlicker.wav&#34;</span>)
+signal <span style="color:#f92672">=</span> mean(y, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+data <span style="color:#f92672">=</span> spectrogram(window_size, signal)
+heatmap_data <span style="color:#f92672">=</span> log<span style="color:#f92672">.</span>(data[<span style="color:#f92672">:</span>, <span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">900</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">200</span>])
+heatmap(heatmap_data, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm, yaxis<span style="color:#f92672">=:</span>log)
+savefig(<span style="color:#e6db74">&#34;windowlicker_log.png&#34;</span>)
+</code></pre></div><p><img src="/images/posts/spectrogram_windowlicker_log.png" alt="Spiral of Windowlicker"></p>
+<p>今回は以上です。</p>
+<hr>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="http://wakariyasui.sakura.ne.jp/p/wave/hadou/yokotate.html">横波と縦波</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E9%9B%A2%E6%95%A3%E3%83%95%E3%83%BC%E3%83%AA%E3%82%A8%E5%A4%89%E6%8F%9B">離散フーリエ変換</a></li>
+<li><a href="https://www.logical-arts.jp/archives/124">窓関数を用いる理由</a></li>
+<li><a href="http://pman0214.github.io/blog/fft-rfft.html">np.fft.fftとnp.fft.rfft</a></li>
+<li><a href="https://towardsdatascience.com/understanding-audio-data-fourier-transform-fft-spectrogram-and-speech-recognition-a4072d228520">Understanding Audio data, Fourier Transform, FFT and Spectrogram features for a Speech Recognition System</a></li>
+<li><a href="https://fairyonice.github.io/implement-the-spectrogram-from-scratch-in-python.html">Implement the Spectrogram from scratch in python</a></li>
+<li><a href="https://pnsn.org/spectrograms/what-is-a-spectrogram">What is a Spectrogram?</a></li>
+<li><a href="https://qiita.com/namaozi/items/dec1575cd455c746f597">numpyでスペクトログラムによる音楽信号の可視化</a></li>
+<li><a href="http://www.bastwood.com/?page_id=10">The Aphex Face</a></li>
+</ul>
+</div>
+	</section>
+
+
+</article>
+
+		</main>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/" title="Home page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Home
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="Blog page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/page/memo/" title="memo page" >
+			memo
+		</a>
+	</li>
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start  pb-2 max-h-16">
+	
+	<a href='http://github.com/matsueushi' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/matsue_ushi' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2019–2020
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2483 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+
+<hr class="double-line" />
+<div>
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/posts/songs20200626/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        最近聞いた曲(2020/6/26)
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/page/about/">
+        About
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/plotly-scale/">Plots.jlでx軸、y軸のスケールを揃える</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-rounding/">Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/fluxjl-singan/">Flux.jlでSinGANを実装する</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/fluxjl-dcgan/">Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-identity/">Juliaの単位行列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/clustering-kmean/">K-平均アルゴリズム</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gaussianprocess-jl-2/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gaussianprocess-jl/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-parameter-estimation/">Juliaでガウス過程を実装&amp;パラメーター推定</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-nlp-2/">ガウス過程と機械学習: 3.5まで</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習 」を読み始めた</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/shift-scale-distribution/">Distribution.jlで分布をシフト・スケールさせる</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-7/">Juliaで体験するベイズ推論(7) - The Price Is Right</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bayesian-methods-julia-6/">Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
+
+	</div>
+</body>
+
+</html>
