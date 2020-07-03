@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Sun, 28 Jun 2020 23:35:43 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2020 23:06:44 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Fri, 03 Jul 2020 23:06:44 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>AphexTwin</title>
@@ -54,15 +63,6 @@
       <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/spectrogram/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Music</title>
-      <link>https://matsueushi.github.io/tags/music/</link>
-      <pubDate>Fri, 26 Jun 2020 22:14:55 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/music/</guid>
       <description></description>
     </item>
     
