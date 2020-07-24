@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | Plots.jlでx軸、y軸のスケールを揃える</title>
+	<title>matsueushi  | numpy.whereのようなことをJuliaでやりたい</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.74.3" />
 	
@@ -83,7 +83,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">Plots.jlでx軸、y軸のスケールを揃える</h1>
+<h1 class="pt-2">numpy.whereのようなことをJuliaでやりたい</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -95,15 +95,12 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/julia'>Julia</a>&nbsp;&#47;
-	
-	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/plots'>Plots</a>
+		href='/tags/julia'>julia</a>
 	
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2019-03-24T21:43:34-04:00">2019-3-24 21:43</time>
+		datetime="2020-07-24T21:42:14&#43;09:00">2020-7-24 21:42</time>
 </div>
 
 <hr />
@@ -115,18 +112,50 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p> <code>aspece_ratio=1</code> とすれば良いだけだった。簡単だった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions
-<span style="color:#66d9ef">using</span> Plots
-x <span style="color:#f92672">=</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>
-exp_x <span style="color:#f92672">=</span> Exponential(<span style="color:#ae81ff">3</span>)
-exp_y <span style="color:#f92672">=</span> Exponential(<span style="color:#ae81ff">10</span>)
-z <span style="color:#f92672">=</span> Surface((s, t) <span style="color:#f92672">-&gt;</span> pdf(exp_x, s) <span style="color:#f92672">*</span> pdf(exp_y, t), x, y)
-heatmap(x, y, z)
-</code></pre></div><p><img src="/images/posts/plotly-scale_default.png" alt="デフォルト"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">heatmap(x, y, z, aspect_ratio <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-</code></pre></div><p><img src="/images/posts/plotly-scale_aspect.png" alt="変更後"></p>
-</div>
+		<div class="c-rich-text"><p><code>Array</code> から条件を満たすインデックスを取得する時は、<code>findall</code> を使う。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ar <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+   <span style="color:#ae81ff">1</span>
+   <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">9</span>
+  <span style="color:#ae81ff">16</span>
+  <span style="color:#ae81ff">25</span>
+  <span style="color:#ae81ff">36</span>
+  <span style="color:#ae81ff">49</span>
+  <span style="color:#ae81ff">64</span>
+  <span style="color:#ae81ff">81</span>
+ <span style="color:#ae81ff">100</span>
+
+julia<span style="color:#f92672">&gt;</span> findall(x <span style="color:#f92672">-&gt;</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>, ar)
+<span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">2</span>
+  <span style="color:#ae81ff">4</span>
+  <span style="color:#ae81ff">6</span>
+  <span style="color:#ae81ff">8</span>
+ <span style="color:#ae81ff">10</span>
+</code></pre></div><p>2次元の場合</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ar <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bool</span>[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>;
+                 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>;
+                 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>;
+                 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>;
+                 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>]
+<span style="color:#ae81ff">5</span>×5 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Bool</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+
+julia<span style="color:#f92672">&gt;</span> findall(ar)
+<span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">CartesianIndex</span>{<span style="color:#ae81ff">2</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#66d9ef">CartesianIndex</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#66d9ef">CartesianIndex</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</code></pre></div><p><code>getindex</code> と組み合わせると良い。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> getindex<span style="color:#f92672">.</span>(findall(ar), [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>])
+<span style="color:#ae81ff">2</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>
+ <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">4</span>
+</code></pre></div></div>
 	</section>
 
 
@@ -218,7 +247,7 @@ heatmap(x, y, z)
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2020
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 55 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 161 words in this page.
 	</div>
 </div>
 
@@ -233,17 +262,17 @@ heatmap(x, y, z)
 </div>
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/posts/julia-array-matrix/">
+    <a class="flex-grow-0" href="/posts/songs20200714/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        Arrayを横に並べてMatrixにする
+        最近聞いた曲(2020/7/14) 
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/gcp-julia/">
-        GCPでJuliaのノートブックを実行
+    <a class="flex-grow-0" href="/page/boat/">
+        BOaT
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -253,29 +282,6 @@ heatmap(x, y, z)
 <div >
 
 
-
-<div class="font-serif pb-2 flex align-start leading-loose">
-	<span class="heading pr-6 leading-loose">Related</span>
-	<span >
-		
-			<a href="/posts/julia-array-matrix/">Arrayを横に並べてMatrixにする</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/bayesian-methods-julia-5/">Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/bayesian-methods-julia-4/">Juliaで体験するベイズ推論(4) -ベイズ的 A/B</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/bayesian-methods-julia-3/">Juliaで体験するベイズ推論(3) -新しいデータセットの生成</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/bayesian-methods-julia-2/">Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？ </a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/julia-array-of-array/">JuliaでArray of Arrayを1次元Vectorにする方法</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/bayesian-methods-julia-1/">Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/julia-kubo/">Julia版「データ解析のための統計モデリング入門」読書ノート</a>
-		
-</span>
-</div>
 
 </div>
 <hr />
