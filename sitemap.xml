@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2020-07-24T21:42:14+09:00</lastmod>
+    <lastmod>2020-08-01T18:18:54+09:00</lastmod>
   </url>
   
   <url>
@@ -18,7 +18,7 @@
   
   <url>
     <loc>https://matsueushi.github.io/playlist/</loc>
-    <lastmod>2020-07-14T23:53:47+09:00</lastmod>
+    <lastmod>2020-08-01T18:18:54+09:00</lastmod>
   </url>
   
   <url>
@@ -30,6 +30,21 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2020-08-01T18:18:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2020-08-01T18:18:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/playlist/20200801/</loc>
+    <lastmod>2020-08-01T18:18:54+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/julia/</loc>
     <lastmod>2020-07-24T21:42:14+09:00</lastmod>
   </url>
@@ -37,16 +52,6 @@
   <url>
     <loc>https://matsueushi.github.io/posts/getindex/</loc>
     <lastmod>2020-07-24T21:42:14+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2020-07-24T21:42:14+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
-    <lastmod>2020-07-14T23:53:47+09:00</lastmod>
   </url>
   
   <url>
