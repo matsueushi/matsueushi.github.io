@@ -5,7 +5,7 @@
     <link>https://matsueushi.github.io/tags/ml/</link>
     <description>Recent content in ML on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sat, 08 Jun 2019 20:08:12 -0400</lastBuildDate>
     
@@ -49,7 +49,7 @@ $$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$
 本文では
 $$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$
 この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
-\( exp \)
+\( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;abstract type&lt;/span&gt; Kernel &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 

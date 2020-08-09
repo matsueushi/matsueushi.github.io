@@ -5,7 +5,7 @@
     <link>https://matsueushi.github.io/</link>
     <description>Recent content in Home on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
     <lastBuildDate>Sat, 01 Aug 2020 18:18:54 +0900</lastBuildDate>
     
@@ -450,6 +450,7 @@ email: matsueushi(at)gmail.com&lt;/p&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;axsxe提供曲&#34;&gt;AxSxE提供曲&lt;/h2&gt;
+&lt;p&gt;AxSxEが他のアーティストに提供している曲を調べました。&lt;/p&gt;
 &lt;p&gt;TOKIO&lt;br&gt;
 カンパイ!!&lt;br&gt;
 2001.8.8&lt;br&gt;
@@ -5628,7 +5629,7 @@ $$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$
 本文では
 $$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$
 この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
-\( exp \)
+\( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;abstract type&lt;/span&gt; Kernel &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
