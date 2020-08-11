@@ -123,7 +123,7 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; setrounding
 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と呼び出せば使えて、確実に動くことが保証されていないですが、テストを行うにあたっては、Windows, MacOS, LinuxのCIで
 自分で計算した値と、&lt;code&gt;setrounding_raw&lt;/code&gt; で丸めモードを変更した時の値が等しくなることを特殊な値
-(&lt;code&gt;zero(T)&lt;/code&gt;, &lt;code&gt;floatmax(T)&lt;/code&gt;, `flaotmin(T) など)とランダムにサンプリングした値に対して確かめる、
+(&lt;code&gt;zero(T)&lt;/code&gt;, &lt;code&gt;floatmax(T)&lt;/code&gt;, &lt;code&gt;flaotmin(T)&lt;/code&gt; など)とランダムにサンプリングした値に対して確かめる、
 という方法を現在は取っています。&lt;/p&gt;
 &lt;p&gt;確実に正しいことがわかっている入力と出力のペアからテストを作成するのが一番良いと思うのですが、今回はそこまでやっていません。&lt;/p&gt;
 &lt;h2 id=&#34;signed-zero&#34;&gt;Signed zero&lt;/h2&gt;
@@ -205,8 +205,8 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;
 julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;)
 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;浮動小数点数をランダムにサンプリングする&#34;&gt;浮動小数点数をランダムにサンプリングする&lt;/h2&gt;
-&lt;p&gt;全ての浮動小数点数から一様にサンプリングしたい時、&lt;code&gt;rand&lt;/code&gt; を普通に呼び出すと \([0, 1)\) から一様にサンプリングされます。
-https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1&lt;/p&gt;
+&lt;p&gt;全ての浮動小数点数から一様にサンプリングしたい時、&lt;code&gt;rand&lt;/code&gt; を普通に呼び出すと \([0, 1)\) から一様にサンプリングされます。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1&#34;&gt;https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; rand(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
 &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6021596191997549&lt;/span&gt;

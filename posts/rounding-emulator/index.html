@@ -243,7 +243,7 @@ julia<span style="color:#f92672">&gt;</span> setrounding_raw(<span style="color:
 <span style="color:#ae81ff">0</span>
 </code></pre></div><p>と呼び出せば使えて、確実に動くことが保証されていないですが、テストを行うにあたっては、Windows, MacOS, LinuxのCIで
 自分で計算した値と、<code>setrounding_raw</code> で丸めモードを変更した時の値が等しくなることを特殊な値
-(<code>zero(T)</code>, <code>floatmax(T)</code>, `flaotmin(T) など)とランダムにサンプリングした値に対して確かめる、
+(<code>zero(T)</code>, <code>floatmax(T)</code>, <code>flaotmin(T)</code> など)とランダムにサンプリングした値に対して確かめる、
 という方法を現在は取っています。</p>
 <p>確実に正しいことがわかっている入力と出力のペアからテストを作成するのが一番良いと思うのですが、今回はそこまでやっていません。</p>
 <h2 id="signed-zero">Signed zero</h2>
@@ -325,8 +325,8 @@ julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#f92672">
 julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>)
 <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>
 </code></pre></div><h2 id="浮動小数点数をランダムにサンプリングする">浮動小数点数をランダムにサンプリングする</h2>
-<p>全ての浮動小数点数から一様にサンプリングしたい時、<code>rand</code> を普通に呼び出すと \([0, 1)\) から一様にサンプリングされます。
-https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1</p>
+<p>全ての浮動小数点数から一様にサンプリングしたい時、<code>rand</code> を普通に呼び出すと \([0, 1)\) から一様にサンプリングされます。</p>
+<p><a href="https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1">https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> rand(<span style="color:#66d9ef">Float64</span>, <span style="color:#ae81ff">10</span>)
 <span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">0.6021596191997549</span>
