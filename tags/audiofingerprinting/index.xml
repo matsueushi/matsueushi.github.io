@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Sat, 01 Aug 2020 14:37:45 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2020 23:17:00 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/audiofingerprinting/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
       <link>https://matsueushi.github.io/posts/audiofingerprinting/</link>
-      <pubDate>Sat, 01 Aug 2020 14:37:45 +0900</pubDate>
+      <pubDate>Tue, 11 Aug 2020 23:17:00 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/posts/audiofingerprinting/</guid>
       <description>&lt;p&gt;音楽が好きな人であれば&lt;a href=&#34;https://www.shazam.com/&#34;&gt;Shazam&lt;/a&gt;というアプリはご存知かと思います。&lt;/p&gt;
