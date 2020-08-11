@@ -22,11 +22,38 @@
     </item>
     
     <item>
+      <title>AudioFingerprinting</title>
+      <link>https://matsueushi.github.io/tags/audiofingerprinting/</link>
+      <pubDate>Sat, 01 Aug 2020 14:37:45 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/audiofingerprinting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Julia</title>
       <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Fri, 24 Jul 2020 21:42:14 +0900</pubDate>
+      <pubDate>Sat, 01 Aug 2020 14:37:45 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shazam</title>
+      <link>https://matsueushi.github.io/tags/shazam/</link>
+      <pubDate>Sat, 01 Aug 2020 14:37:45 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/shazam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spectrogram</title>
+      <link>https://matsueushi.github.io/tags/spectrogram/</link>
+      <pubDate>Sat, 01 Aug 2020 14:37:45 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/spectrogram/</guid>
       <description></description>
     </item>
     
@@ -54,15 +81,6 @@
       <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/plots/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Spectrogram</title>
-      <link>https://matsueushi.github.io/tags/spectrogram/</link>
-      <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/spectrogram/</guid>
       <description></description>
     </item>
     

@@ -9,7 +9,7 @@
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2020-07-24T21:42:14+09:00</lastmod>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
   </url>
   
   <url>
@@ -45,8 +45,28 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/audiofingerprinting/</loc>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2020-07-24T21:42:14+09:00</lastmod>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/audiofingerprinting/</loc>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/shazam/</loc>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/spectrogram/</loc>
+    <lastmod>2020-08-01T14:37:45+09:00</lastmod>
   </url>
   
   <url>
@@ -81,11 +101,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/tags/plots/</loc>
-    <lastmod>2020-06-28T23:35:43+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/spectrogram/</loc>
     <lastmod>2020-06-28T23:35:43+09:00</lastmod>
   </url>
   
