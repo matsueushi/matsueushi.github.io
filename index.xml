@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Tue, 11 Aug 2020 23:17:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 21:25:36 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -665,6 +665,23 @@
 &lt;li&gt;&lt;a href=&#34;https://lineblog.me/zaningen/archives/9350587.html&#34;&gt;挫・人間 公式ブログ - 明日、俺はAxSxEになる……その3&lt;/a&gt; (&lt;a href=&#34;https://archive.is/q1GQy&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://lineblog.me/zaningen/archives/9350775.html&#34;&gt;挫・人間 公式ブログ - 明日、俺はAxSxEになる……その4&lt;/a&gt; (&lt;a href=&#34;https://archive.is/d2Mm9&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugoのページを検索できるようにした</title>
+      <link>https://matsueushi.github.io/posts/hugo-search/</link>
+      <pubDate>Sun, 23 Aug 2020 21:25:36 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/hugo-search/</guid>
+      <description>&lt;p&gt;下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae&#34;&gt;Client side searching for Hugo.io with Fuse.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.mamansoft.net/2019/11/11/add-search-page-in-blog-made-by-hugo/&#34;&gt;Hugo製ブログに検索ページを追加してみた&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.unigiri.net/article/hugo-lunr%E3%81%AB%E3%82%88%E3%82%8B%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2/&#34;&gt;Hugo + Lunrによる日本語全文検索&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;なんか微妙に検索結果がおかしい時もありますが、いったん置いておきます。&lt;/p&gt;
+&lt;p&gt;あとはフォルダ構成をいろいろいじりました。&lt;/p&gt;
 </description>
     </item>
     
