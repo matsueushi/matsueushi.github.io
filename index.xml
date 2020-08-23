@@ -13,25 +13,11 @@
     
     
     <item>
-      <title>About</title>
-      <link>https://matsueushi.github.io/page/about/</link>
+      <title>行ったライブの記録</title>
+      <link>https://matsueushi.github.io/other/live/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matsueushi.github.io/page/about/</guid>
-      <description>&lt;p&gt;GitHub: &lt;a href=&#34;https://github.com/matsueushi&#34;&gt;https://github.com/matsueushi&lt;/a&gt;&lt;br&gt;
-Twitter: &lt;a href=&#34;https://twitter.com/matsue_ushi&#34;&gt;https://twitter.com/matsue_ushi&lt;/a&gt;&lt;br&gt;
-Last.fm: &lt;a href=&#34;https://www.last.fm/user/tanh&#34;&gt;https://www.last.fm/user/tanh&lt;/a&gt;&lt;br&gt;
-RateYourMusic(更新してません): &lt;a href=&#34;https://rateyourmusic.com/~matsueushi&#34;&gt;https://rateyourmusic.com/~matsueushi&lt;/a&gt;&lt;br&gt;
-email: matsueushi(at)gmail.com&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Memo</title>
-      <link>https://matsueushi.github.io/page/memo/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://matsueushi.github.io/page/memo/</guid>
+      <guid>https://matsueushi.github.io/other/live/</guid>
       <description>&lt;p&gt;自分用メモ&lt;/p&gt;
 &lt;p&gt;行ったライブの記録。まだ他にもあるはず……&lt;/p&gt;
 &lt;table&gt;
@@ -404,11 +390,11 @@ email: matsueushi(at)gmail.com&lt;/p&gt;
     </item>
     
     <item>
-      <title>BOaT/AxSxE</title>
-      <link>https://matsueushi.github.io/page/boat/</link>
+      <title>BOaT/AxSxEまとめ</title>
+      <link>https://matsueushi.github.io/other/boat/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matsueushi.github.io/page/boat/</guid>
+      <guid>https://matsueushi.github.io/other/boat/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../../posts/boat-roro/&#34;&gt;アルバムの紹介&lt;/a&gt;にも書いたバンドBOaTの情報がインターネット上で見つかりづらいので、
 関連する情報をこのページにまとめていきたいと思います。&lt;/p&gt;
 &lt;p&gt;当初はBOaT関連の情報だけまとめようと思っていたのですが、NATSUMEN関連の情報や、自分がメモしておきたい情報も混ざってきています。&lt;/p&gt;

@@ -13,20 +13,24 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/page/about/</loc>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/playlist/</loc>
     <lastmod>2020-08-01T18:18:54+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/page/memo/</loc>
+    <loc>https://matsueushi.github.io/other/</loc>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/page/boat/</loc>
+    <loc>https://matsueushi.github.io/other/live/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/other/boat/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/about/</loc>
   </url>
   
   <url>
@@ -596,10 +600,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/page/</loc>
   </url>
   
   <url>
