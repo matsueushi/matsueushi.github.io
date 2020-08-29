@@ -7,10 +7,139 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Wed, 26 Aug 2020 22:49:08 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2020 22:49:57 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Julia vs Python Cheatsheet</title>
+      <link>https://matsueushi.github.io/posts/julia-python-cheatsheet/</link>
+      <pubDate>Fri, 28 Aug 2020 22:49:57 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia-python-cheatsheet/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cheatsheets.quantecon.org/&#34;&gt;MATLAB–Python–Julia cheatsheet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://juliadocs.github.io/Julia-Cheat-Sheet/&#34;&gt;The Fast Track to A quick and dirty overview of Julia 1.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;julia&#34;&gt;Julia&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;% julia
+               _
+   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
+  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
+   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
+  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
+  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.5.1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2020-08-25&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+ _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
+|__/                   |
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python&#34;&gt;Python&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;% python
+Python 3.8.5 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;default, Aug  &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt; 2020, 08:22:02&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;GCC 8.3.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; on linux
+Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;help&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;copyright&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;credits&amp;#34;&lt;/span&gt; or &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;license&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; more information.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;get-the-list-of-all-files&#34;&gt;Get the list of all files&lt;/h2&gt;
+&lt;h3 id=&#34;julia-basefilesystemreaddirhttpsdocsjulialangorgenv1basefilebasefilesystemreaddir&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/file/#Base.Filesystem.readdir&#34;&gt;&lt;code&gt;Base.Filesystem.readdir&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; readdir()
+&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{String,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.dockerenv&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bin&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dev&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;etc&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;home&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lib&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lib64&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;media&amp;#34;&lt;/span&gt;
+ ⋮
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;run&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sbin&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;srv&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sys&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tmp&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;usr&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;var&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-oslistdirhttpsdocspythonorg38libraryoshtmloslistdir&#34;&gt;Python: &lt;a href=&#34;https://docs.python.org/3.8/library/os.html#os.listdir&#34;&gt;&lt;code&gt;os.listdir&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;listdir()
+[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;lib&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;home&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;etc&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;media&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;var&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;srv&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sys&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bin&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;usr&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;root&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;boot&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;tmp&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dev&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;opt&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mnt&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;lib64&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;proc&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;run&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sbin&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.dockerenv&amp;#39;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;join-path-components&#34;&gt;Join path components&lt;/h2&gt;
+&lt;h3 id=&#34;julia-basefilesystemjoinpathhttpsdocsjulialangorgenv1basefilebasefilesystemjoinpath&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/file/#Base.Filesystem.joinpath&#34;&gt;&lt;code&gt;Base.Filesystem.joinpath&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; joinpath(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/home&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;file.txt&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/home/file.txt&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-ospathjoinhttpsdocspythonorg38libraryospathhtmlospathjoin&#34;&gt;Python: &lt;a href=&#34;https://docs.python.org/3.8/library/os.path.html#os.path.join&#34;&gt;&lt;code&gt;os.path.join&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/home&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;file.txt&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/home/file.txt&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;get-the-current-working-directory&#34;&gt;Get the current working directory&lt;/h2&gt;
+&lt;h3 id=&#34;julia-base__dir__httpsdocsjulialangorgenv1basefilebase__dir__&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/file/#Base.@__DIR__&#34;&gt;&lt;code&gt;Base.@__DIR__&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@__DIR__&lt;/span&gt;
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-osgetcwdhttpsdocspythonorg38libraryoshtmlosgetcwd&#34;&gt;Python: &lt;a href=&#34;https://docs.python.org/3.8/library/os.html#os.getcwd&#34;&gt;&lt;code&gt;os.getcwd&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getcwd()
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;get-the-running-file-path&#34;&gt;Get the running file path&lt;/h2&gt;
+&lt;h3 id=&#34;julia-base__file__httpsdocsjulialangorgenv1basefilebase__file__&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/file/#Base.@__FILE__&#34;&gt;&lt;code&gt;Base.@__FILE__&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;python-__path__httpsdocspythonorg3referenceimporthtml__file__&#34;&gt;Python: &lt;a href=&#34;https://docs.python.org/3/reference/import.html#__file__&#34;&gt;&lt;code&gt;__path__&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;return-an-array-of-zeros-with-the-same-shape&#34;&gt;Return an array of zeros with the same shape&lt;/h2&gt;
+&lt;h3 id=&#34;julia-basezerohttpsdocsjulialangorgenv1basenumbersbasezero&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.zero&#34;&gt;&lt;code&gt;Base.zero&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 reshape(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;UnitRange&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;) with eltype &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; zero(x)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-numpyzeros_likehttpsnumpyorgdocstablereferencegeneratednumpyzeros_likehtml&#34;&gt;Python: &lt;a href=&#34;https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html&#34;&gt;&lt;code&gt;numpy.zeros_like&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; numpy &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; np
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;arange(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reshape((&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;))
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x
+array([[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],
+       [&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]])
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zeros_like(x)
+array([[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],
+       [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;return-an-array-of-ones-with-the-same-shape&#34;&gt;Return an array of ones with the same shape&lt;/h2&gt;
+&lt;h3 id=&#34;julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basecollecthttpsdocsjulialangorgenv1basecollectionsbasecollect-tupletypeany&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/arrays/#Base.fill!&#34;&gt;&lt;code&gt;Base.fill!&lt;/code&gt;&lt;/a&gt; + &lt;a href=&#34;https://docs.julialang.org/en/v1/base/collections/#Base.collect-Tuple%7BType,Any%7D&#34;&gt;&lt;code&gt;Base.collect&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 reshape(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;UnitRange&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;) with eltype &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; fill!(collect(x), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-numpyones_likehttpsnumpyorgdocstablereferencegeneratednumpyones_likehtml&#34;&gt;Python: &lt;a href=&#34;https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html&#34;&gt;&lt;code&gt;numpy.ones_like&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; numpy &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; np
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;arange(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reshape((&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;))
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; x
+array([[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],
+       [&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]])
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ones_like(x)
+array([[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],
+       [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+</description>
+    </item>
     
     <item>
       <title>Mochitsuki - Net New Resources (2020)</title>
