@@ -234,7 +234,7 @@ array([[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</spa
        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]])
 </code></pre></div><hr>
 <h2 id="return-an-array-of-ones-with-the-same-shape">Return an array of ones with the same shape</h2>
-<h3 id="julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basecollecthttpsdocsjulialangorgenv1basecollectionsbasecollect-tupletypeany">Julia: <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.fill!"><code>Base.fill!</code></a> + <a href="https://docs.julialang.org/en/v1/base/collections/#Base.collect-Tuple%7BType,Any%7D"><code>Base.collect</code></a></h3>
+<h3 id="julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basesimilarhttpsdocsjulialangorgenv1basearraysbasesimilar">Julia: <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.fill!"><code>Base.fill!</code></a> + <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.similar"><code>Base.similar</code></a></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 
@@ -243,7 +243,12 @@ julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</sp
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">6</span>
 
-julia<span style="color:#f92672">&gt;</span> fill!(collect(x), <span style="color:#ae81ff">1</span>)
+julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> collect(x)
+<span style="color:#ae81ff">2</span>×3 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>
+ <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">6</span>
+
+julia<span style="color:#f92672">&gt;</span> fill!(similar(x), <span style="color:#ae81ff">1</span>)
 <span style="color:#ae81ff">2</span>×3 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
@@ -357,7 +362,7 @@ array([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</spa
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2020
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 356 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 368 words in this page.
 	</div>
 </div>
 

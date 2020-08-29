@@ -114,7 +114,7 @@ array([[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style
        [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;return-an-array-of-ones-with-the-same-shape&#34;&gt;Return an array of ones with the same shape&lt;/h2&gt;
-&lt;h3 id=&#34;julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basecollecthttpsdocsjulialangorgenv1basecollectionsbasecollect-tupletypeany&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/arrays/#Base.fill!&#34;&gt;&lt;code&gt;Base.fill!&lt;/code&gt;&lt;/a&gt; + &lt;a href=&#34;https://docs.julialang.org/en/v1/base/collections/#Base.collect-Tuple%7BType,Any%7D&#34;&gt;&lt;code&gt;Base.collect&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basesimilarhttpsdocsjulialangorgenv1basearraysbasesimilar&#34;&gt;Julia: &lt;a href=&#34;https://docs.julialang.org/en/v1/base/arrays/#Base.fill!&#34;&gt;&lt;code&gt;Base.fill!&lt;/code&gt;&lt;/a&gt; + &lt;a href=&#34;https://docs.julialang.org/en/v1/base/arrays/#Base.similar&#34;&gt;&lt;code&gt;Base.similar&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
 
@@ -123,7 +123,12 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span 
  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
  &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
 
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; fill!(collect(x), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect(x)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; fill!(similar(x), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
 &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;×3 &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
