@@ -7,10 +7,79 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Fri, 28 Aug 2020 22:49:57 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2020 20:37:55 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>レコードをデジタル化する（前編）</title>
+      <link>https://matsueushi.github.io/posts/how-to-digitize-vinyl-1/</link>
+      <pubDate>Mon, 31 Aug 2020 20:37:55 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/how-to-digitize-vinyl-1/</guid>
+      <description>&lt;p&gt;今回はちょっといつもとは毛色は違いますがレコードのデジタル化について書きたいと思います。&lt;/p&gt;
+&lt;h2 id=&#34;レコードプレイヤー&#34;&gt;レコードプレイヤー&lt;/h2&gt;
+&lt;p&gt;私が持っているレコードプレイヤー(人生初)は、2年ほど前に買ったオーディオテクニカの
+&lt;a href=&#34;https://www.audio-technica.com/en-us/at-lp60-usb&#34;&gt;AT-LP60-USB&lt;/a&gt;というモデルで、
+正確な値段は覚えていないですが購入価格は大体15,000円だったと思います。&lt;/p&gt;
+&lt;p&gt;USB端子が付いているので、とりあえずこれを買っておけばアンプやスピーカーなどを購入しなくても、
+パソコンにつないでレコードを再生して聞いたり録音(音声ファイル化)したりできるので私のようにちょっと試しに聞いてみたい人にとっては良いです。&lt;/p&gt;
+&lt;p&gt;すでにAT-LP60-USBは製造中止になっているようですが、
+後継の&lt;a href=&#34;https://www.audio-technica.com/en-us/at-lp60xusb&#34;&gt;AT-LP60XUSB&lt;/a&gt;が出ているようです。&lt;/p&gt;
+&lt;h2 id=&#34;レコードをデジタル化するのは面倒&#34;&gt;レコードをデジタル化するのは面倒&lt;/h2&gt;
+&lt;p&gt;プレイヤーにセットして読み込むだけで全自動で曲ごとに分割されたリッピングを行い、
+アーティスト名や曲名を入力してくれるCDとは違い、レコードの場合は曲データが繋がった状態で録音され、
+さらに曲情報も自動では読み込まれないのでデジタル化には手間を要します。ノイズの除去なども含めるとさらに面倒ですね。&lt;/p&gt;
+&lt;p&gt;そんなにパソコンに取り込みたいなら最初からCDとかデジタルで買えばいいじゃん、
+ストリーミングなら取り込む必要性すらないですよ、
+なんでわざわざアナログ媒体で購入して手間をかけてデジタル化するんですかという耳の痛い意見もありますが、
+レコードでしかプレスされておらずCDやストリーミングで聞くことができない曲をデータ化して簡単に聴けるようにしておいたり、
+盤面に傷やホコリが着く前のスナップショットを保存しておいたりしたくなるんです……。&lt;/p&gt;
+&lt;p&gt;新譜でレコード買うとダウンロードコードが付属してきたり、
+Bandcamp経由でレコード買うとデジタルライブラリーにも追加されるなど、
+簡単に取り込めるレコードが最近は多いですけどね。&lt;/p&gt;
+&lt;p&gt;以後、私が所有しているAT-LP60-USBを前提にして話を進めて行きますが、
+他のUSB端子があるレコードプレイヤーでも同様なのではないかと思います。&lt;/p&gt;
+&lt;h2 id=&#34;audacityの注意点&#34;&gt;Audacityの注意点&lt;/h2&gt;
+&lt;p&gt;AT-LP60-USBではフリーでオープンソースのデジタルオーディオエディターである&lt;a href=&#34;https://www.audacityteam.org/&#34;&gt;Audacity&lt;/a&gt;でレコードをデジタル化できることが謳われています。&lt;/p&gt;
+&lt;p&gt;基本はオーディオテクニカのウェブサイトでダウンロードできるソフトウェアマニュアル(Downloadsのところにある)
+を見て接続や設定をすれば良いので詳細はスキップしますが、MacOS 10.15 Catalinaを使っている場合注意する必要があります。&lt;/p&gt;
+&lt;p&gt;AudacityをDockから起動した場合、&lt;strong&gt;AT-LP60-USBが認識されず、音が出ません。&lt;/strong&gt;
+これは公式のウェブサイトでも言及されている既知の問題です。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.audacityteam.org/macos-10-15-catalina-is-not-yet-supported-by-audacity/&#34;&gt;MacOS 10.15 (Catalina) does not support Audacity 2.3.2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;私の場合は上のworkaroundに従い、Terminalから&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;open /Applications/Audacity.app/Contents/MacOS/Audacity
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と打ち込んでAudacityを起動すると無事に音が再生できるようになりました。&lt;/p&gt;
+&lt;h2 id=&#34;録音&#34;&gt;録音&lt;/h2&gt;
+&lt;p&gt;録音自体はそれほど大変ではなく、通常の再生時と同じように右上の&lt;code&gt;Click to Start Monitoring&lt;/code&gt;を押して赤色の丸の録音ボタンを押すだけです。&lt;/p&gt;
+&lt;p&gt;$n$倍速 $(n &amp;gt; 1)$で読み込むことができるCDとは違い等速の録音になりますが、ゆっくり曲を聴きながら待ちましょう。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/how-to-digitize-vinyl-audacity-1.png&#34; alt=&#34;録音終了後&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ノイズの除去&#34;&gt;ノイズの除去&lt;/h2&gt;
+&lt;p&gt;録音した楽曲データにはレコードの傷、ホコリや汚れによりノイズが含まれています。
+録音前に注意深くホコリを取り除いたとしても多少は入るもので、自分はそこまで神経質になってはいないのですが、
+ノイズが気になる時はEffect -&amp;gt; Noise Reductionでバックグラウンドノイズを除去しています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://taira-komori.jpn.org/09noiseremoval.html&#34;&gt;ノイズの除去～Audacityエフェクト解説&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;プチプチノイズ（クリックノイズ）も除去できますがあまり使ってません。個人的にはそこまで一生懸命加工しなくても良いのではないかと思っています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://taira-komori.jpn.org/05clickremoval.html&#34;&gt;クリックノイズの除去～Audacityエフェクト解説&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;曲の分割&#34;&gt;曲の分割&lt;/h2&gt;
+&lt;p&gt;次は曲の分割です。&lt;/p&gt;
+&lt;p&gt;まず、先頭と末尾の無音部分を選択して削除します。次に、波形を全選択してAnalyze -&amp;gt; Silence Finder&amp;hellip;で無音部分にラベルを付けます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/how-to-digitize-vinyl-audacity-labels.png&#34; alt=&#34;分割後&#34;&gt;&lt;/p&gt;
+&lt;p&gt;上のようにラベルトラックが追加されてラベルが設定されるので、曲間ではないものを削除します。
+Tabキーで一つずつ進みながら消していくのが手っ取り早いです。この時にラベル名も編集して、&amp;ldquo;1&amp;rdquo;, &amp;ldquo;2&amp;rdquo;, &amp;ldquo;3&amp;rdquo;&amp;hellip;と番号をつけておきます。&lt;/p&gt;
+&lt;h2 id=&#34;書き出し&#34;&gt;書き出し&lt;/h2&gt;
+&lt;p&gt;File -&amp;gt; Export -&amp;gt; Export Multipleでファイルをラベルの位置で分割して保存できます。
+アーティストや曲名などのメタデータを入力します。
+&lt;img src=&#34;https://matsueushi.github.io/images/posts/how-to-digitize-vinyl-audacity-metadata.png&#34; alt=&#34;メタデータ&#34;&gt;
+これで終わりで、あとはiTunesにインポートするだけです。&lt;/p&gt;
+&lt;p&gt;最後のメタデータをチマチマ手で入力するのはしんどいので、次回は手を抜く方法を書きたいと思います。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Julia vs Python Cheatsheet</title>
