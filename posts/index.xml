@@ -7,10 +7,49 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Mon, 31 Aug 2020 20:37:55 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2020 23:27:01 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juliaのパッケージ内から自分自身のバージョンを取得する</title>
+      <link>https://matsueushi.github.io/posts/julia-package-version/</link>
+      <pubDate>Thu, 03 Sep 2020 23:27:01 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/julia-package-version/</guid>
+      <description>&lt;p&gt;小ネタです。&lt;/p&gt;
+&lt;p&gt;自分で簡単なパッケージを作っている時に、Project.toml内の&lt;code&gt;version&lt;/code&gt;の情報を取りたくなったので。&lt;/p&gt;
+&lt;p&gt;プロジェクト情報は&lt;a href=&#34;https://julialang.github.io/Pkg.jl/v1/api/&#34;&gt;&lt;code&gt;Pkg.project()&lt;/code&gt;&lt;/a&gt;で取得できます。
+ドキュメントにはJulia 1.4以上が必要で、この機能はexperimentalとありました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Pkg
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; pj &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Pkg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;project()
+Pkg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Types&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ProjectInfo(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;RunOut&amp;#34;&lt;/span&gt;, UUID(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;03328d24-db5d-422f-afe8-b99de72c82b3&amp;#34;&lt;/span&gt;), v&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.1.0&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{String,Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;UUID}(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;JSON&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; UUID(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;682c06a0-de6a-54ab-a142-c8b1cf79cde6&amp;#34;&lt;/span&gt;),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;HTTP&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; UUID(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cd3eb016-35fb-5094-929b-558a96fad6f3&amp;#34;&lt;/span&gt;)), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/juliatmp/Project.toml&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;バージョン取得は&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; pj&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;version
+v&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.1.0&amp;#34;&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; typeof(pj&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;version)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;VersionNumber&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;でできて、&lt;a href=&#34;https://docs.julialang.org/en/v1/base/base/#Base.VersionNumber&#34;&gt;&lt;code&gt;Base.VersionNumber&lt;/code&gt;&lt;/a&gt;が返ってきます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; String(pj&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;version)
+ERROR&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;MethodError&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; no method matching String(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;VersionNumber&lt;/span&gt;)
+Closest candidates are&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+  String(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;String) at boot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;jl&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;321&lt;/span&gt;
+  String(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;UInt8&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}) at strings&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;jl&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;
+  String(&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;CodeUnits{&lt;span style=&#34;color:#66d9ef&#34;&gt;UInt8&lt;/span&gt;,String}) at strings&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;jl&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;77&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+Stacktrace&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+ [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] top&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;level scope at REPL[&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;文字列に変換するには、&lt;code&gt;String&lt;/code&gt;ではなく&lt;code&gt;$&lt;/code&gt;を使えばいいのかな。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$&lt;/span&gt;(pj&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;version)&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.1.0&amp;#34;&lt;/span&gt;
+
+julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; typeof(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$&lt;/span&gt;(pj&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;version)&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+String
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>レコードをデジタル化する（前編）</title>
