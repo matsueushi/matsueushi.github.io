@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | Juliaのパッケージ内から自分自身のバージョンを取得する</title>
+	<title>matsueushi  | Nanoray - Gacha (2019)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.74.3" />
 	
@@ -106,7 +106,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">Juliaのパッケージ内から自分自身のバージョンを取得する</h1>
+<h1 class="pt-2">Nanoray - Gacha (2019)</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -118,12 +118,12 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/julia'>Julia</a>
+		href='/tags/music'>Music</a>
 	
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2020-09-03T23:27:01&#43;09:00">2020-9-3 23:27</time>
+		datetime="2020-09-06T21:15:15&#43;09:00">2020-9-6 21:15</time>
 </div>
 
 <hr />
@@ -135,37 +135,18 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>小ネタです。</p>
-<p>自分で簡単なパッケージを作っている時に、Project.toml内の<code>version</code>の情報を取りたくなったので。</p>
-<p>プロジェクト情報は<a href="https://julialang.github.io/Pkg.jl/v1/api/"><code>Pkg.project()</code></a>で取得できます。
-ドキュメントにはJulia 1.4以上が必要で、この機能はexperimentalとありました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
-
-julia<span style="color:#f92672">&gt;</span> pj <span style="color:#f92672">=</span> Pkg<span style="color:#f92672">.</span>project()
-Pkg<span style="color:#f92672">.</span>Types<span style="color:#f92672">.</span>ProjectInfo(<span style="color:#e6db74">&#34;RunOut&#34;</span>, UUID(<span style="color:#e6db74">&#34;03328d24-db5d-422f-afe8-b99de72c82b3&#34;</span>), v<span style="color:#e6db74">&#34;0.1.0&#34;</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">Dict</span>{String,Base<span style="color:#f92672">.</span>UUID}(<span style="color:#e6db74">&#34;JSON&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;682c06a0-de6a-54ab-a142-c8b1cf79cde6&#34;</span>),<span style="color:#e6db74">&#34;HTTP&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;cd3eb016-35fb-5094-929b-558a96fad6f3&#34;</span>)), <span style="color:#e6db74">&#34;/juliatmp/Project.toml&#34;</span>)
-</code></pre></div><p>バージョン取得は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> pj<span style="color:#f92672">.</span>version
-v<span style="color:#e6db74">&#34;0.1.0&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> typeof(pj<span style="color:#f92672">.</span>version)
-<span style="color:#66d9ef">VersionNumber</span>
-</code></pre></div><p>でできて、<a href="https://docs.julialang.org/en/v1/base/base/#Base.VersionNumber"><code>Base.VersionNumber</code></a>が返ってきます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> String(pj<span style="color:#f92672">.</span>version)
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching String(<span style="color:#f92672">::</span><span style="color:#66d9ef">VersionNumber</span>)
-Closest candidates are<span style="color:#f92672">:</span>
-  String(<span style="color:#f92672">::</span>String) at boot<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">321</span>
-  String(<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>,<span style="color:#ae81ff">1</span>}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">39</span>
-  String(<span style="color:#f92672">::</span>Base<span style="color:#f92672">.</span>CodeUnits{<span style="color:#66d9ef">UInt8</span>,String}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">77</span>
-  <span style="color:#f92672">...</span>
-Stacktrace<span style="color:#f92672">:</span>
- [<span style="color:#ae81ff">1</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">16</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</code></pre></div><p>文字列に変換するには、<code>String</code>ではなく<code>$</code>を使えばいいのかな。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span>(pj<span style="color:#f92672">.</span>version)<span style="color:#e6db74">&#34;</span>
-<span style="color:#e6db74">&#34;0.1.0&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> typeof(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span>(pj<span style="color:#f92672">.</span>version)<span style="color:#e6db74">&#34;</span>)
-String
-</code></pre></div></div>
+		<div class="c-rich-text"><p>アメリカ・ネブラスカ州オマハのNanorayというアーティストの二枚目？Gacha。</p>
+<iframe style="border: 0; width: 400px; height: 472px;" src="https://bandcamp.com/EmbeddedPlayer/album=2567470031/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/" seamless><a href="http://nanoray.bandcamp.com/album/gacha">Gacha by NANORAY</a></iframe>
+<p>ドラムンベースとカラフルなシンセのゲームミュージックの融合といった感じで聞いていると高揚感に包まれる。
+曲名にShibuya, Himeji、Subaruなどを使っているので日本文化に馴染みがあるのかもしれない。</p>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/882078244&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/nanoray" title="NANORAY" target="_blank" style="color: #cccccc; text-decoration: none;">NANORAY</a> · <a href="https://soundcloud.com/nanoray/lovely-you" title="魔法渦状Lovely You!" target="_blank" style="color: #cccccc; text-decoration: none;">魔法渦状Lovely You!</a></div>
+<ul>
+<li><a href="https://nanoray.bandcamp.com/">BandCamp - NANORAY</a></li>
+<li><a href="https://open.spotify.com/artist/62JS3xgd6kKS7OjzHNSFv1?si=kaWjEfYvRwSN6K9kdsWUAg">Spotify - NANORAY</a></li>
+<li><a href="https://twitter.com/Nanoraydx">Twitter - Nanoray-DX</a></li>
+<li><a href="https://rateyourmusic.com/artist/nanoray">Rate Your Music - Nanoray</a></li>
+</ul>
+</div>
 	</section>
 
 
@@ -264,7 +245,7 @@ String
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2020
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 265 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 176 words in this page.
 	</div>
 </div>
 
@@ -275,17 +256,17 @@ String
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/posts/how-to-digitize-vinyl-1/">
+    <a class="flex-grow-0" href="/posts/julia-package-version/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        レコードをデジタル化する（前編）
+        Juliaのパッケージ内から自分自身のバージョンを取得する
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/nanoray/">
-        Nanoray - Gacha (2019)
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -300,35 +281,35 @@ String
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
 		
-			<a href="/posts/julia-python-cheatsheet/">Julia vs Python Cheatsheet</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/audiofingerprinting/">JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/mochitsuki-net-new-resources/">Mochitsuki - Net New Resources (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/getindex/">numpy.whereのようなことをJuliaでやりたい</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200801/">最近聞いた曲(2020/8/1)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/spectrogram/">スペクトログラムを作成する</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200714/">最近聞いた曲(2020/7/14) </a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200709/">最近聞いた曲(2020/7/8)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/julia-rounding/">Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200703/">最近聞いた曲(2020/7/3)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/fluxjl-singan/">Flux.jlでSinGANを実装する</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200626/">最近聞いた曲(2020/6/26)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/fluxjl-dcgan/">Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200404/">最近聞いた曲(2020/4/4)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/julia-identity/">Juliaの単位行列</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/sweettrip-velocity-design-comfort/">Sweet Trip - velocity:design:comfort. (2003)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/clustering-kmean/">K-平均アルゴリズム</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/softman-500ms/">Softman - 500ms (2018)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gaussianprocess-jl-2/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/hiiragipage/">ヒイラギペイジ</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gaussianprocess-jl/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/lolica-tonica/">忘られぬLolica Tonica</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gp-parameter-estimation/">Juliaでガウス過程を実装&amp;パラメーター推定</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/blooklyn-record-store/">ブルックリンのレコードショップ</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gp-nlp-2/">ガウス過程と機械学習: 3.5まで</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/manhattan-record-store/">マンハッタンのレコードショップ</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習 」を読み始めた</a>
+			<a href="/posts/bdp-bytes/">Black Dog Productions - Bytes (1993)</a>
 		
 </span>
 </div>

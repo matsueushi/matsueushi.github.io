@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Thu, 03 Sep 2020 23:27:01 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2020 21:15:15 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nanoray - Gacha (2019)</title>
+      <link>https://matsueushi.github.io/posts/nanoray/</link>
+      <pubDate>Sun, 06 Sep 2020 21:15:15 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/nanoray/</guid>
+      <description>&lt;p&gt;アメリカ・ネブラスカ州オマハのNanorayというアーティストの二枚目？Gacha。&lt;/p&gt;
+&lt;iframe style=&#34;border: 0; width: 400px; height: 472px;&#34; src=&#34;https://bandcamp.com/EmbeddedPlayer/album=2567470031/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/&#34; seamless&gt;&lt;a href=&#34;http://nanoray.bandcamp.com/album/gacha&#34;&gt;Gacha by NANORAY&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;ドラムンベースとカラフルなシンセのゲームミュージックの融合といった感じで聞いていると高揚感に包まれる。
+曲名にShibuya, Himeji、Subaruなどを使っているので日本文化に馴染みがあるのかもしれない。&lt;/p&gt;
+&lt;iframe width=&#34;100%&#34; height=&#34;166&#34; scrolling=&#34;no&#34; frameborder=&#34;no&#34; allow=&#34;autoplay&#34; src=&#34;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/882078244&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&#34;&gt;&lt;/iframe&gt;&lt;div style=&#34;font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;&#34;&gt;&lt;a href=&#34;https://soundcloud.com/nanoray&#34; title=&#34;NANORAY&#34; target=&#34;_blank&#34; style=&#34;color: #cccccc; text-decoration: none;&#34;&gt;NANORAY&lt;/a&gt; · &lt;a href=&#34;https://soundcloud.com/nanoray/lovely-you&#34; title=&#34;魔法渦状Lovely You!&#34; target=&#34;_blank&#34; style=&#34;color: #cccccc; text-decoration: none;&#34;&gt;魔法渦状Lovely You!&lt;/a&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://nanoray.bandcamp.com/&#34;&gt;BandCamp - NANORAY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/artist/62JS3xgd6kKS7OjzHNSFv1?si=kaWjEfYvRwSN6K9kdsWUAg&#34;&gt;Spotify - NANORAY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/Nanoraydx&#34;&gt;Twitter - Nanoray-DX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rateyourmusic.com/artist/nanoray&#34;&gt;Rate Your Music - Nanoray&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Juliaのパッケージ内から自分自身のバージョンを取得する</title>
