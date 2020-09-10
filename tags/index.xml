@@ -7,42 +7,60 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Sun, 06 Sep 2020 21:15:15 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 09:10:30 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Music</title>
-      <link>https://matsueushi.github.io/tags/music/</link>
-      <pubDate>Sun, 06 Sep 2020 21:15:15 +0900</pubDate>
+      <title>API</title>
+      <link>https://matsueushi.github.io/tags/api/</link>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/tags/music/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Julia</title>
-      <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Thu, 03 Sep 2020 23:27:01 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <guid>https://matsueushi.github.io/tags/api/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Audacity</title>
       <link>https://matsueushi.github.io/tags/audacity/</link>
-      <pubDate>Mon, 31 Aug 2020 20:37:55 +0900</pubDate>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/audacity/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Discogs</title>
+      <link>https://matsueushi.github.io/tags/discogs/</link>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/discogs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Julia</title>
+      <link>https://matsueushi.github.io/tags/julia/</link>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Vinyl</title>
       <link>https://matsueushi.github.io/tags/vinyl/</link>
-      <pubDate>Mon, 31 Aug 2020 20:37:55 +0900</pubDate>
+      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/vinyl/</guid>
       <description></description>

@@ -4,12 +4,12 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2020-09-06T21:15:15+09:00</lastmod>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2020-09-06T21:15:15+09:00</lastmod>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url>
   
   <url>
@@ -38,8 +38,43 @@
   </url>
   
   <url>
+    <loc>https://matsueushi.github.io/tags/api/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/audacity/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/discogs/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://matsueushi.github.io/tags/music/</loc>
-    <lastmod>2020-09-06T21:15:15+09:00</lastmod>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/vinyl/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</loc>
+    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url>
   
   <url>
@@ -48,28 +83,8 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2020-09-06T21:15:15+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2020-09-03T23:27:01+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://matsueushi.github.io/posts/julia-package-version/</loc>
     <lastmod>2020-09-03T23:27:01+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/audacity/</loc>
-    <lastmod>2020-08-31T20:37:55+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/vinyl/</loc>
-    <lastmod>2020-08-31T20:37:55+09:00</lastmod>
   </url>
   
   <url>

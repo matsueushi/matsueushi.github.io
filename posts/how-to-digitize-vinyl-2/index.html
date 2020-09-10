@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>matsueushi  | レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.74.3" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
+
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
+
+	
+
+	
+	
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+	
+
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-141286537-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	
+	
+
+
+
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/matsueushi.github.io\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	
+	
+</head>
+
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</h1>
+
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/music'>Music</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/vinyl'>Vinyl</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/audacity'>Audacity</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/julia'>Julia</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/discogs'>Discogs</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/api'>API</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2020-09-10T09:10:30&#43;09:00">2020-9-10 09:10</time>
+</div>
+
+<hr />
+
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p><a href="../how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>の続きです。</p>
+<p>今回は、レコードをデジタル化する際に障害となる楽曲メタデータの取得・入力にフォーカスしたいと思います。
+Audacityでは保存する際にタグを入力する画面が表示されますが、これを一枚一枚真心を込めて手入力していたら発狂してしまいます。</p>
+<p>そこで、ディスコグラフィのデータベースサイトで、CD/レコード/カセットテープ等のマーケットプレイスでもあるDiscogsからデータを取得してみました。</p>
+<h2 id="discogs-api">Discogs API</h2>
+<p>RESTful APIの説明はここで見れます。</p>
+<ul>
+<li><a href="https://www.discogs.com/developers/">Discogs API Documentation</a></li>
+</ul>
+<p>基本的な機能を使いたいだけならば、Discogs APIを使うのに特にAPIキーは必要ありません。
+サムネイル画像のURLなど、登録をしてpersonal access tokenを取得し<code>user_token</code>として渡さないと取得できない情報もあり、
+<code>user_token</code>を渡さないとレスポンスのなかの画像のURLが空白になります。
+Discogsにはアプリケーション用のConsumer KeyとConsumer Secretもあるのですが、こちらは使ったことがありません。
+自分のpersonal access tokenはDiscogsの<a href="https://www.discogs.com/settings/developers">Settings -&gt; Developers</a>で確認できます。</p>
+<p>DiscogsのAPIを各言語で利用できるようなクライアント/Exampleはいくつかあり、APIのドキュメンテーションに書いてありますが
+例えばPythonであれば<a href="https://github.com/jesseward/discogs-oauth-example">jesseward / discogs-oauth-example</a>があります。</p>
+<p>以前はPythonであれば公式が提供する<a href="https://github.com/discogs/discogs_client">discogs / discogs_client</a>がありましたが、いつの間にかdeprecatedになっていたようです。</p>
+<p>実は、過去discogs_clientを使ってPythonでタグをダウンロードするスクリプトを書いていたのですが、
+久しぶりに使おうと思ったらdeprecatedになっていたのでJuliaで書き直しました。</p>
+<h2 id="runoutjl">RunOut.jl</h2>
+<p>Registratorには登録していないのですが気が向いたら登録しようと思います。</p>
+<p><a href="https://github.com/matsueushi/RunOut.jl">https://github.com/matsueushi/RunOut.jl</a></p>
+<p>使い方は簡単で、レポジトリをクローンして</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ julia --project
+</code></pre></div><p>でプロジェクトを有効化します。</p>
+<p>そして、ダウンロードしたいリリースのリリースIDを調べます。Discogsにはマスターリリースとリリースという概念があり、
+雑に言うとマスターリリースはアルバム・シングル名、リリースはそれぞれのエディション(CD, LP, 初回限定盤、再発など)に対応しています。</p>
+<p>そのため、今回調べる必要があるのはマスターリリースではなくリリースのIDです。
+CDとLPの収録曲の違いや、初回限定版や再発のボーナストラックなどがありますからね。</p>
+<p>例として<a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%83%BB%E3%83%96%E3%83%A9%E3%83%83%E3%83%87%E3%82%A3%E3%83%BB%E3%83%B4%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%A4%E3%83%B3">My Bloody Valentine</a>の<a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%B4%E3%83%AC%E3%82%B9_(%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0)">Loveless</a>
+のNice Price再発盤であれば、対応するリリースは</p>
+<p><a href="https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364">https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364</a></p>
+<p>となるので、idは<code>919364</code>です。</p>
+<p>まず、クライアントをセットアップします。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> RunOut
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
+
+julia<span style="color:#f92672">&gt;</span> useragent <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;RunOut/</span><span style="color:#e6db74">$</span>(Pkg<span style="color:#f92672">.</span>project()<span style="color:#f92672">.</span>version)<span style="color:#e6db74"> +https://matsueushi.github.io&#34;</span>
+<span style="color:#e6db74">&#34;RunOut/0.1.0 +https://matsueushi.github.io&#34;</span>
+
+julia<span style="color:#f92672">&gt;</span> client <span style="color:#f92672">=</span> Client(useragent)
+Client(<span style="color:#e6db74">&#34;RunOut/0.1.0 +https://matsueushi.github.io&#34;</span>, nothing)
+</code></pre></div><p>クライアントは<code>user_token</code>を渡してinstantiateすることもできます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">client <span style="color:#f92672">=</span> Client(useragent; usertoken<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;user token&gt;&#34;</span>)
+</code></pre></div><p>リリース情報を取得するのは非常に簡単です。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> release <span style="color:#f92672">=</span> fetch_release(client, <span style="color:#ae81ff">919364</span>)
+Release
+  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x00000000000e0744</span>
+  title<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Loveless&#34;</span>
+  resource_url<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;https://api.discogs.com/releases/919364&#34;</span>
+  artists<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Artist}((<span style="color:#ae81ff">1</span>,))
+  artists_sort<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;My Bloody Valentine&#34;</span>
+  data_quality<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Needs Vote&#34;</span>
+  thumb<span style="color:#f92672">:</span> Nothing nothing
+  community<span style="color:#f92672">:</span> Community
+  companies<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Company}((<span style="color:#ae81ff">4</span>,))
+  country<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Japan&#34;</span>
+  date_added<span style="color:#f92672">:</span> TimeZones<span style="color:#f92672">.</span>ZonedDateTime
+  date_changed<span style="color:#f92672">:</span> TimeZones<span style="color:#f92672">.</span>ZonedDateTime
+  estimated_weight<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x0000000000000055</span>
+  extraartists<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Artist}((<span style="color:#ae81ff">7</span>,))
+  format_quantity<span style="color:#f92672">:</span> <span style="color:#66d9ef">Int64</span> <span style="color:#ae81ff">1</span>
+  formats<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Format}((<span style="color:#ae81ff">1</span>,))
+  genres<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{String}((<span style="color:#ae81ff">1</span>,))
+  identifiers<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Identifier}((<span style="color:#ae81ff">5</span>,))
+  images<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Image}((<span style="color:#ae81ff">9</span>,))
+  labels<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Label}((<span style="color:#ae81ff">1</span>,))
+  lowest_price<span style="color:#f92672">:</span> <span style="color:#66d9ef">Float64</span> <span style="color:#ae81ff">2.99</span>
+  master_id<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x000000000000173c</span>
+  master_url<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;https://api.discogs.com/masters/5948&#34;</span>
+  notes<span style="color:#f92672">:</span> Nothing nothing
+  num_for_sale<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x000000000000001e</span>
+  released<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;1998-03-21&#34;</span>
+  released_formatted<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;21 Mar 1998&#34;</span>
+  series<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Label}((<span style="color:#ae81ff">1</span>,))
+  status<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Accepted&#34;</span>
+  styles<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{String}((<span style="color:#ae81ff">3</span>,))
+  tracklist<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Track}((<span style="color:#ae81ff">11</span>,))
+  uri<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364&#34;</span>
+  videos<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{Video}((<span style="color:#ae81ff">9</span>,))
+  year<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x00000000000007ce</span>
+</code></pre></div><p>地道な作業により情報を<code>struct</code>に<a href="https://github.com/matsueushi/RunOut.jl/blob/master/src/models.jl">マッピング</a>したので、単なる<code>Dict</code>より取り扱いが容易になっています。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> release<span style="color:#f92672">.</span>tracklist
+<span style="color:#ae81ff">11</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{Track,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ Track(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;Only Shallow = オンリー・シャロウ&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;4:17&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;Loomer = ルーマー&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;2:38&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;Touched = タッチト&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;0:56&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;4&#34;</span>, <span style="color:#e6db74">&#34;To Here Knows When = トゥ・ヒア・ノウズ・ホエン&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;5:31&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;5&#34;</span>, <span style="color:#e6db74">&#34;When You Sleep = ホエン・ユー・スリープ&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;4:11&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;6&#34;</span>, <span style="color:#e6db74">&#34;I Only Said = アイ・オンリー・セッド&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;5:34&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;7&#34;</span>, <span style="color:#e6db74">&#34;Come In Alone = カム・イン・アローン&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;3:58&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;8&#34;</span>, <span style="color:#e6db74">&#34;Sometimes = サムタイムズ&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;5:19&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;9&#34;</span>, <span style="color:#e6db74">&#34;Blown A Wish = ブロウン・ア・ウィッシュ&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;3:36&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;10&#34;</span>, <span style="color:#e6db74">&#34;What You Want = ホワット・ユー・ウオント&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;5:33&#34;</span>, nothing, nothing)
+ Track(<span style="color:#e6db74">&#34;11&#34;</span>, <span style="color:#e6db74">&#34;Soon = スーン&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;6:59&#34;</span>, nothing, nothing)
+</code></pre></div><p>そして</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> save_xml(release, <span style="color:#e6db74">&#34;output&#34;</span>)
+</code></pre></div><p>で<code>output</code>フォルダにXMLが生成されるので、あとはXMLをAudacityのメタデータ編集画面で<code>Load...</code>を押してロードすれば良いです。</p>
+<p><img src="/images/posts/how-to-digitize-vinyl-audacity-metadata.png" alt="メタデータ"></p>
+<p>まあ、自分以外使う人がいなそうですが。。。</p>
+<p>以下は些細な内容ですが実際やっていて気になった点です。</p>
+<h3 id="heading">Heading</h3>
+<p>例えば<a href="https://www.discogs.com/Radiohead-OK-Computer/release/4950798">RadiohaadのOK Computer</a>
+のTracklistを見てみると&quot;Enry&rdquo;, &ldquo;Meeny&rdquo;, &ldquo;Miney&rdquo;, &ldquo;Mo&rdquo; といったHeadingの情報が存在することがわかります。
+これらは曲には対応していないので、XMLを吐き出す際には無視します。
+<code>Track</code>の<code>position</code>が<code>nothing</code>になっているものを飛ばせば良いです。</p>
+<h3 id="曲のナンバリング">曲のナンバリング</h3>
+<p>また、これはiTunes/Music.appに特有の現象かもしれませんが、
+<a href="https://www.discogs.com/Boat-2-%E9%87%8E%E6%9D%91%E7%BE%A9%E7%94%B7-Boat-%E9%87%8E%E6%9D%91%E7%BE%A9%E7%94%B7/release/12578270">Tracklistのpositionが数字ではなく記号やアルファベットが入っている場合(&ldquo;A&rdquo;, &ldquo;A1&quot;など)</a>
+は曲のpositionとして認識されないため、ナンバリングは自分で行う必要があります。</p>
+<h3 id="アーティスト名">アーティスト名</h3>
+<p>Discogsでは、同名別人・別アーティストを末尾にカッコ付き番号をつけて区別しています。
+例えば、<a href="https://www.discogs.com/artist/607044-BOAT">&ldquo;BOAT&rdquo;</a>は<a href="https://en.wikipedia.org/wiki/Boat_(band)">アメリカのインディーロックバンド</a>、
+<a href="https://www.discogs.com/artist/1401530-Boat-2">&ldquo;Boat (2)&quot;</a>は<a href="https://ja.wikipedia.org/wiki/BOAT">日本のロックバンド</a>といった形です。</p>
+<p>カッコ付き番号を除去するために、</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">replace(artist_name, <span style="color:#e6db74">r&#34; \(\d\)$&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><p>を使って置き換えます。</p>
+<h2 id="あとがき">あとがき</h2>
+<p>Windows用ですが、Mp3tagを使えば同様のことができるようです……こちらの方が簡単かもしれません。</p>
+<ul>
+<li><a href="https://dj3dub.com/archives/1414">Mp3tag + Discogsを利用したデジタルファイルのTag付け方法</a></li>
+</ul>
+</div>
+	</section>
+
+
+</article>
+
+		</main>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/" title="Home page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Home
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="Blog page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/other/" title="Other page" >
+			Other
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/playlist/" title="Playlist page" >
+			Playlist
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/search" title="Search page" >
+			Search
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='http://github.com/matsueushi' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/matsue_ushi' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2019–2020
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2370 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/posts/nanoray/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        Nanoray - Gacha (2019)
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/nanoray/">Nanoray - Gacha (2019)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-package-version/">Juliaのパッケージ内から自分自身のバージョンを取得する</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/julia-python-cheatsheet/">Julia vs Python Cheatsheet</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mochitsuki-net-new-resources/">Mochitsuki - Net New Resources (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/audiofingerprinting/">JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200801/">最近聞いた曲(2020/8/1)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/getindex/">numpy.whereのようなことをJuliaでやりたい</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200714/">最近聞いた曲(2020/7/14) </a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200709/">最近聞いた曲(2020/7/8)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200703/">最近聞いた曲(2020/7/3)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/spectrogram/">スペクトログラムを作成する</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200626/">最近聞いた曲(2020/6/26)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200404/">最近聞いた曲(2020/4/4)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/rounding-emulator/">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
+
+
+	</div>
+</body>
+
+</html>
