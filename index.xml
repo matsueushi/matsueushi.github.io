@@ -914,7 +914,7 @@
       <guid>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</guid>
       <description>&lt;p&gt;WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。
 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。&lt;/p&gt;
-&lt;p&gt;さらに、単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
+&lt;p&gt;単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
 複雑なJSONの場合はごちゃごちゃと辞書を弄り回すよりも自分で定義した型にデータをマッピングしたいものです。&lt;/p&gt;
 &lt;p&gt;今回はJuliaにおけるJSON(から得られる&lt;code&gt;Dict&lt;/code&gt; )の&lt;code&gt;struct&lt;/code&gt;へのマッピング方法について書いてみたいと思います。&lt;/p&gt;
 &lt;h2 id=&#34;parametersjlhttpsgithubcommauro3parametersjlを利用したマッピング&#34;&gt;&lt;a href=&#34;https://github.com/mauro3/Parameters.jl&#34;&gt;Parameters.jl&lt;/a&gt;を利用したマッピング&lt;/h2&gt;
@@ -1248,7 +1248,7 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; j3 &lt;span
 &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{String,&lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;} with &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; entries&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;items&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{String,&lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Open&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{String,&lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Open New&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;OpenNew&amp;#34;&lt;/span&gt;), nothing, &lt;span style=&#34;color:#66d9ef&#34;&gt;Dict&lt;/span&gt;{String,&lt;span style=&#34;color:#66d9ef&#34;&gt;Any&lt;/span&gt;}(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Zoom In&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;…
   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;header&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SVG Viewer&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;null&lt;/code&gt;は&lt;code&gt;nothing&lt;/code&gt;にマッピングされていますね。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;null&lt;/code&gt;は&lt;code&gt;nothing&lt;/code&gt;にマッピングされています。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@with_kw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; Item
          id&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;String
          label&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Union&lt;/span&gt;{String, Nothing} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nothing
@@ -1333,7 +1333,7 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; menu&lt;spa
  Item
   id&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;About&amp;#34;&lt;/span&gt;
   label&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;About Adobe CVG Viewer...&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;問題なく&lt;code&gt;nothing&lt;/code&gt;や&lt;code&gt;Vector&lt;/code&gt;と&lt;code&gt;Union&lt;/code&gt;の組み合わせを処理できていますね。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;問題なく&lt;code&gt;nothing&lt;/code&gt;や&lt;code&gt;Vector&lt;/code&gt;と&lt;code&gt;Union&lt;/code&gt;の組み合わせを処理できています。&lt;/p&gt;
 &lt;h2 id=&#34;パッケージ&#34;&gt;パッケージ&lt;/h2&gt;
 &lt;p&gt;パッケージとするほどのものでもないかもしれませんが、一応JuliaRegistries/Generalに登録してあります。
 &lt;code&gt;] add StructMapping&lt;/code&gt; でお使いください。&lt;/p&gt;

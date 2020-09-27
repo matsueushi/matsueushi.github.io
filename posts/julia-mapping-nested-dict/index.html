@@ -143,7 +143,7 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。
 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。</p>
-<p>さらに、単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
+<p>単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
 複雑なJSONの場合はごちゃごちゃと辞書を弄り回すよりも自分で定義した型にデータをマッピングしたいものです。</p>
 <p>今回はJuliaにおけるJSON(から得られる<code>Dict</code> )の<code>struct</code>へのマッピング方法について書いてみたいと思います。</p>
 <h2 id="parametersjlhttpsgithubcommauro3parametersjlを利用したマッピング"><a href="https://github.com/mauro3/Parameters.jl">Parameters.jl</a>を利用したマッピング</h2>
@@ -477,7 +477,7 @@ julia<span style="color:#f92672">&gt;</span> j3 <span style="color:#f92672">=</s
 <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
   <span style="color:#e6db74">&#34;items&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Any</span>[<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open&#34;</span>), <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open New&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;OpenNew&#34;</span>), nothing, <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Zoom In&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=</span>…
   <span style="color:#e6db74">&#34;header&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>
-</code></pre></div><p><code>null</code>は<code>nothing</code>にマッピングされていますね。</p>
+</code></pre></div><p><code>null</code>は<code>nothing</code>にマッピングされています。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> Item
          id<span style="color:#f92672">::</span>String
          label<span style="color:#f92672">::</span><span style="color:#66d9ef">Union</span>{String, Nothing} <span style="color:#f92672">=</span> nothing
@@ -562,7 +562,7 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
  Item
   id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;About&#34;</span>
   label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>
-</code></pre></div><p>問題なく<code>nothing</code>や<code>Vector</code>と<code>Union</code>の組み合わせを処理できていますね。</p>
+</code></pre></div><p>問題なく<code>nothing</code>や<code>Vector</code>と<code>Union</code>の組み合わせを処理できています。</p>
 <h2 id="パッケージ">パッケージ</h2>
 <p>パッケージとするほどのものでもないかもしれませんが、一応JuliaRegistries/Generalに登録してあります。
 <code>] add StructMapping</code> でお使いください。</p>
@@ -666,7 +666,7 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2020
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2736 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2730 words in this page.
 	</div>
 </div>
 
