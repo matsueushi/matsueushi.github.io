@@ -4,12 +4,12 @@
   
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
@@ -38,32 +38,52 @@
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/json/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <loc>https://matsueushi.github.io/tags/dreampop/</loc>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <loc>https://matsueushi.github.io/tags/jpop/</loc>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/tags/struct/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/posts/sacoyans-yomosue/</loc>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/shoegaze/</loc>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matsueushi.github.io/posts/julia-mapping-nested-dict-en/</loc>
-    <lastmod>2020-09-30T21:08:11+09:00</lastmod>
+    <loc>https://matsueushi.github.io/tags/json/</loc>
+    <lastmod>2020-09-27T21:08:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/julia/</loc>
+    <lastmod>2020-09-27T21:08:11+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</loc>
+    <lastmod>2020-09-27T21:08:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matsueushi.github.io/tags/struct/</loc>
     <lastmod>2020-09-27T21:08:11+09:00</lastmod>
   </url>
   
@@ -79,11 +99,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/tags/discogs/</loc>
-    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
     <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url>
   
@@ -314,11 +329,6 @@
   
   <url>
     <loc>https://matsueushi.github.io/tags/glitchpop/</loc>
-    <lastmod>2019-07-16T21:00:12-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matsueushi.github.io/tags/shoegaze/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url>
   

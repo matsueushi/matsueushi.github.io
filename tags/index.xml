@@ -7,15 +7,51 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2020</copyright>
-    <lastBuildDate>Wed, 30 Sep 2020 21:08:11 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2020 00:07:12 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Dreampop</title>
+      <link>https://matsueushi.github.io/tags/dreampop/</link>
+      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/dreampop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jpop</title>
+      <link>https://matsueushi.github.io/tags/jpop/</link>
+      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/jpop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shoegaze</title>
+      <link>https://matsueushi.github.io/tags/shoegaze/</link>
+      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/shoegaze/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>JSON</title>
       <link>https://matsueushi.github.io/tags/json/</link>
-      <pubDate>Wed, 30 Sep 2020 21:08:11 +0900</pubDate>
+      <pubDate>Sun, 27 Sep 2020 21:08:11 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/json/</guid>
       <description></description>
@@ -24,7 +60,7 @@
     <item>
       <title>Julia</title>
       <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Wed, 30 Sep 2020 21:08:11 +0900</pubDate>
+      <pubDate>Sun, 27 Sep 2020 21:08:11 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
@@ -33,7 +69,7 @@
     <item>
       <title>struct</title>
       <link>https://matsueushi.github.io/tags/struct/</link>
-      <pubDate>Wed, 30 Sep 2020 21:08:11 +0900</pubDate>
+      <pubDate>Sun, 27 Sep 2020 21:08:11 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/struct/</guid>
       <description></description>
@@ -63,15 +99,6 @@
       <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/discogs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Music</title>
-      <link>https://matsueushi.github.io/tags/music/</link>
-      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/music/</guid>
       <description></description>
     </item>
     
@@ -261,15 +288,6 @@
       <pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/glitchpop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shoegaze</title>
-      <link>https://matsueushi.github.io/tags/shoegaze/</link>
-      <pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/shoegaze/</guid>
       <description></description>
     </item>
     
