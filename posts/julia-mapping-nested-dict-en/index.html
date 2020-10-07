@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | JuliaでネストしているDictをstructにマッピングする</title>
+	<title>matsueushi  | Translating nested dictionary to struct in Julia</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.74.3" />
 	
@@ -106,7 +106,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">JuliaでネストしているDictをstructにマッピングする</h1>
+<h1 class="pt-2">Translating nested dictionary to struct in Julia</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -129,7 +129,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2020-09-27T21:08:11&#43;09:00">2020-9-27 21:08</time>
+		datetime="2020-09-30T21:08:11&#43;09:00">2020-9-30 21:08</time>
 </div>
 
 <hr />
@@ -141,12 +141,14 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。
+		<div class="c-rich-text"><p><a href="../julia-mapping-nested-dict.md">「Julia でネストしている Dict を struct にマッピングする」</a>の英語版です。</p>
+<hr>
+<p>Sometimes we get a responce of Web API as a JSON string.
 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。</p>
 <p>単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
 複雑なJSONの場合はごちゃごちゃと辞書を弄り回すよりも自分で定義した型にデータをマッピングしたいものです。</p>
 <p>今回はJuliaにおけるJSON(から得られる<code>Dict</code> )の<code>struct</code>へのマッピング方法について書いてみたいと思います。</p>
-<h2 id="parametersjlhttpsgithubcommauro3parametersjlを利用したマッピング"><a href="https://github.com/mauro3/Parameters.jl">Parameters.jl</a>を利用したマッピング</h2>
+<h2 id="mapping-with-parametersjlhttpsgithubcommauro3parametersjl">Mapping with <a href="https://github.com/mauro3/Parameters.jl">Parameters.jl</a></h2>
 <p>Juliaではネストしていない<code>Dict</code>であればマッピングは比較的容易です。例として次のようなJSONを考えます。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;hello&#34;</span>,
@@ -215,7 +217,7 @@ Window
   height<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x0000000000000190</span>
   width<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x00000000000001f4</span>
 </code></pre></div><p>と無事にマッピングできました。</p>
-<h2 id="ネストされている場合">ネストされている場合</h2>
+<h2 id="nested-case">Nested case</h2>
 <p>しかしながら、実際にレスポンスとして帰ってくるJSONはしばしばもっと複雑です。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;glossary&#34;</span>: {
@@ -353,7 +355,7 @@ julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="co
 </tr>
 </tbody>
 </table>
-<h3 id="convertdictの構成"><code>convertdict</code>の構成</h3>
+<h3 id="define-convertdict-function">Define <code>convertdict</code> function</h3>
 <p>あとは先ほどの表に合わせて関数を整えていきます。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, x) <span style="color:#f92672">=</span> x
 convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{T, Nothing}}, x) where T <span style="color:#f92672">=</span> convertdict(T, x)
@@ -666,7 +668,7 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2020
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2730 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2695 words in this page.
 	</div>
 </div>
 
@@ -677,17 +679,17 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/posts/how-to-digitize-vinyl-2/">
+    <a class="flex-grow-0" href="/posts/julia-mapping-nested-dict/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-
+        JuliaでネストしているDictをstructにマッピングする
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/julia-mapping-nested-dict-en/">
-        Translating nested dictionary to struct in Julia
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -701,6 +703,8 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
+		
+			<a href="/posts/julia-mapping-nested-dict/">JuliaでネストしているDictをstructにマッピングする</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/posts/how-to-digitize-vinyl-2/">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -728,9 +732,7 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 		
 			<a href="/posts/gaussianprocess-jl-2/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gaussianprocess-jl/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/posts/gp-parameter-estimation/">Juliaでガウス過程を実装&amp;パラメーター推定</a>
+			<a href="/posts/gaussianprocess-jl/">Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</a>
 		
 </span>
 </div>
