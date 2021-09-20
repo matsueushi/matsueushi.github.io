@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -139,61 +140,61 @@ onload='renderMathInElement(document.body);'></script>
 </ul>
 <p>カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。</p>
 <p>まずはライブラリをインポート。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
 addprocs(<span style="color:#ae81ff">3</span>)
 <span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
 <span style="color:#66d9ef">using</span> Plots
 </code></pre></div><p>学生の数が100人、「カンニングした」という回答が35人とする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
 X <span style="color:#f92672">=</span> <span style="color:#ae81ff">35</span>
 </code></pre></div><p>Mambaのモデルは次のようになる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
     obs <span style="color:#f92672">=</span> Stochastic(
         (proportion, N) <span style="color:#f92672">-&gt;</span> Binomial(N, proportion),
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
     proportion <span style="color:#f92672">=</span> Logical(
         (true_answers, first_coin_flips, second_coin_flips) <span style="color:#f92672">-&gt;</span>
-            (observed <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips);
+            (observed <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips);
             mean(observed)),
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
-    true_answers <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, p <span style="color:#f92672">-&gt;</span> Bernoulli(p), <span style="color:#66d9ef">false</span>),
+    true_answers <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, p <span style="color:#f92672">-&gt;</span> Bernoulli(p), false),
     
-    first_coin_flips <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, () <span style="color:#f92672">-&gt;</span> Bernoulli(<span style="color:#ae81ff">0.5</span>), <span style="color:#66d9ef">false</span>),
-    second_coin_flips <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, () <span style="color:#f92672">-&gt;</span> Bernoulli(<span style="color:#ae81ff">0.5</span>), <span style="color:#66d9ef">false</span>),
+    first_coin_flips <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, () <span style="color:#f92672">-&gt;</span> Bernoulli(<span style="color:#ae81ff">0.5</span>), false),
+    second_coin_flips <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, () <span style="color:#f92672">-&gt;</span> Bernoulli(<span style="color:#ae81ff">0.5</span>), false),
     
     p <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
 )
 </code></pre></div><p> <code>proportion</code>を計算するときの</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">observed <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">observed <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips)
 </code></pre></div><p>は@マクロを使った書き方で、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">observed <span style="color:#f92672">=</span> first_coin_flips <span style="color:#f92672">.*</span> true_answers <span style="color:#f92672">.+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">.-</span> first_coin_flips) <span style="color:#f92672">.*</span> second_coin_flips)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">observed <span style="color:#f92672">=</span> first_coin_flips <span style="color:#f92672">.*</span> true_answers <span style="color:#f92672">.+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">.-</span> first_coin_flips) <span style="color:#f92672">.*</span> second_coin_flips)
 </code></pre></div><p>と同じである。 <code>true_answers</code> , <code>first_coin_flips</code> , <code>second_coin_flips</code> は長さNの <code>Stochastic</code> ベクターだが、Nをモデルに与えなくても、<code>Stochastic</code> コンストラクタの第1引数を1(1次元)にして、初期値に長さNのベクターを与えれば大丈夫。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-    <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> X,
-    <span style="color:#f92672">:</span>N <span style="color:#f92672">=&gt;</span> N,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+    <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> X,
+    <span style="color:#e6db74">:N</span> <span style="color:#f92672">=&gt;</span> N,
 )
 inits <span style="color:#f92672">=</span> [
     <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-        <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> X,
-        <span style="color:#f92672">:</span>proportion <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0.5</span>,
-        <span style="color:#f92672">:</span>true_answers <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
-        <span style="color:#f92672">:</span>first_coin_flips <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
-        <span style="color:#f92672">:</span>second_coin_flips <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
-        <span style="color:#f92672">:</span>p <span style="color:#f92672">=&gt;</span> rand(Uniform()),
+        <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> X,
+        <span style="color:#e6db74">:proportion</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0.5</span>,
+        <span style="color:#e6db74">:true_answers</span> <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
+        <span style="color:#e6db74">:first_coin_flips</span> <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
+        <span style="color:#e6db74">:second_coin_flips</span> <span style="color:#f92672">=&gt;</span> rand(Bernoulli(), N),
+        <span style="color:#e6db74">:p</span> <span style="color:#f92672">=&gt;</span> rand(Uniform()),
     ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
 ]
 </code></pre></div><p><code>true_answers</code> , <code>first_coin_flips</code> , <code>second_coin_flips</code> は \( \{0, 1\} \) からのサンプリングなので、Sampling Functionsを見ると <code>BHMC</code>, <code>BIA</code>, <code>BMC3</code>, <code>BMG</code>のどれかを使えば良いようである。<code>BIA</code>, <code>BMC3</code>, <code>BMG</code>を使って比較してみた。</p>
 <p> <code>BIA</code>のサンプリング設定は下の通り。<code>BMC3</code>, <code>BMG</code> も <code>scheme</code> だけ変えればよく同様である。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">samplings <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">samplings <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
 burning <span style="color:#f92672">=</span> <span style="color:#ae81ff">20000</span>
-scheme_bia <span style="color:#f92672">=</span> [NUTS(<span style="color:#f92672">:</span>p), BIA([<span style="color:#f92672">:</span>true_answers, <span style="color:#f92672">:</span>first_coin_flips, <span style="color:#f92672">:</span>second_coin_flips])]
+scheme_bia <span style="color:#f92672">=</span> [NUTS(<span style="color:#e6db74">:p</span>), BIA([<span style="color:#e6db74">:true_answers</span>, <span style="color:#e6db74">:first_coin_flips</span>, <span style="color:#e6db74">:second_coin_flips</span>])]
 setsamplers!(model, scheme_bia)
 sim_bia <span style="color:#f92672">=</span> mcmc(model, data, inits, samplings, burnin <span style="color:#f92672">=</span> burning, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-p_bia <span style="color:#f92672">=</span> reshape(Mamba<span style="color:#f92672">.</span>plot(sim_bia, [<span style="color:#f92672">:</span>trace, <span style="color:#f92672">:</span>density, <span style="color:#f92672">:</span>autocor, <span style="color:#f92672">:</span>mean], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>))
+p_bia <span style="color:#f92672">=</span> reshape(Mamba<span style="color:#f92672">.</span>plot(sim_bia, [<span style="color:#e6db74">:trace</span>, <span style="color:#e6db74">:density</span>, <span style="color:#e6db74">:autocor</span>, <span style="color:#e6db74">:mean</span>], legend <span style="color:#f92672">=</span> true), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>))
 Mamba<span style="color:#f92672">.</span>draw(p_bia, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><h3 id="bia">BIA</h3>
 <p><img src="/images/posts/bayesian-methods-julia-5_bia.png" alt="BIA"></p>
@@ -204,20 +205,20 @@ Mamba<span style="color:#f92672">.</span>draw(p_bia, nrow <span style="color:#f9
 <p>自己相関や確率密度を見ると <code>BIA</code>, <code>BMC3</code> が良さそう。</p>
 <h3 id="もう一つのモデル">もう一つのモデル</h3>
 <p>「カンニングしました」と答える確率は p/2 + 1/4 なので、<code>proportion</code> を計算する代わりにこれを直接使ってモデリングすることもできる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">another_model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">another_model <span style="color:#f92672">=</span> Model(
     obs <span style="color:#f92672">=</span> Stochastic(
         (p, N) <span style="color:#f92672">-&gt;</span> 
             (p_skewed <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> p <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.25</span>;
             Binomial(N, p_skewed)),
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
     p <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
 )
-another_scheme <span style="color:#f92672">=</span> [NUTS(<span style="color:#f92672">:</span>p)]
+another_scheme <span style="color:#f92672">=</span> [NUTS(<span style="color:#e6db74">:p</span>)]
 setsamplers!(another_model, another_scheme)
 another_sim <span style="color:#f92672">=</span> mcmc(another_model, data, inits, samplings, burnin <span style="color:#f92672">=</span> burning, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-another_p <span style="color:#f92672">=</span> reshape(Mamba<span style="color:#f92672">.</span>plot(another_sim, [<span style="color:#f92672">:</span>trace, <span style="color:#f92672">:</span>density, <span style="color:#f92672">:</span>autocor, <span style="color:#f92672">:</span>mean], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>))
+another_p <span style="color:#f92672">=</span> reshape(Mamba<span style="color:#f92672">.</span>plot(another_sim, [<span style="color:#e6db74">:trace</span>, <span style="color:#e6db74">:density</span>, <span style="color:#e6db74">:autocor</span>, <span style="color:#e6db74">:mean</span>], legend <span style="color:#f92672">=</span> true), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>))
 Mamba<span style="color:#f92672">.</span>draw(another_p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-5_another.png" alt="もう一つのモデル"></p>
 <p> <code>true_answers</code>, <code>first_coin_flips</code>, <code>second_coin_flips</code> をモデリングした場合に比べて、収束が大きく向上している。</p>
@@ -230,6 +231,7 @@ Mamba<span style="color:#f92672">.</span>draw(another_p, nrow <span style="color
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -320,7 +322,7 @@ Mamba<span style="color:#f92672">.</span>draw(another_p, nrow <span style="color
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 964 words in this page.
 	</div>

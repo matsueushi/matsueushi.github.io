@@ -6,7 +6,7 @@
     <description>Recent content in MCMC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Mon, 04 Mar 2019 23:01:57 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
@@ -28,7 +28,7 @@
 &lt;p&gt;実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。&lt;/p&gt;
 &lt;h2 id=&#34;binomial分布のglm&#34;&gt;Binomial分布のGLM&lt;/h2&gt;
 &lt;p&gt;  &lt;code&gt;formula&lt;/code&gt; で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;yy &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;y &lt;span style=&#34;color:#f92672&#34;&gt;./&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;N
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;yy &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;y &lt;span style=&#34;color:#f92672&#34;&gt;./&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;N
 df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;N &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; convert(&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}, df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;N)
 result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; glm(&lt;span style=&#34;color:#a6e22e&#34;&gt;@formula&lt;/span&gt;(yy &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; f), df, Binomial(), wts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;N)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;モデルのグラフ表示&#34;&gt;モデルのグラフ表示&lt;/h2&gt;
@@ -37,10 +37,10 @@ result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; glm(&lt;span sty
 &lt;p&gt;&lt;a href=&#34;https://github.com/biaslab/ForneyLab.jl&#34;&gt;ForneyLab.jl&lt;/a&gt;がGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。&lt;/p&gt;
 &lt;h2 id=&#34;multiprocessing&#34;&gt;Multiprocessing&lt;/h2&gt;
 &lt;p&gt;Mambaは &lt;code&gt;addproc&lt;/code&gt; でプロセスを追加して、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
 addprocs(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mambaをインポートするときに &lt;code&gt;@everywhere&lt;/code&gt; を付ければMambaが自動的にMCMCのチェインごとのサンプリングを並列化してくれる。(section10.ipynb参照)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Mamba
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@everywhere&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Mamba
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;11章の空間構造のある階層ベイズモデル(intrinsic Gaussian CARモデル)も実装できたらアップデートしたい。&lt;/p&gt;
 &lt;p&gt;3/14追記: 11章の空間構造のある階層ベイズモデルも実装したのでアップデートした。これで一通り読破したことになるのかな？次は以前読もうとして諦めた「Pythonで体験するベイズ推論」をJuliaでやってみようか。&lt;/p&gt;
 </description>

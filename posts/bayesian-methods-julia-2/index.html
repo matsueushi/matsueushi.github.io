@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -132,12 +133,12 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="bayesian-method-julia-2.md">前回</a>に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。</p>
 <p>変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model2 <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model2 <span style="color:#f92672">=</span> Model(
     
     obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
         (lambda, N) <span style="color:#f92672">-&gt;</span>
             UnivariateDistribution[Poisson(lambda[i]) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N],
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
     lambda <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>, 
@@ -145,10 +146,10 @@ onload='renderMathInElement(document.body);'></script>
             (out <span style="color:#f92672">=</span> fill(lambda1, N);
             i1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>(tau1<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e"># Juliaは1-indexingのため</span>
             i2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>(tau2<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-            out[i1<span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>] <span style="color:#f92672">.=</span> lambda2;
-            out[i2<span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>] <span style="color:#f92672">.=</span> lambda3;
+            out[i1<span style="color:#f92672">:</span>end] <span style="color:#f92672">.=</span> lambda2;
+            out[i2<span style="color:#f92672">:</span>end] <span style="color:#f92672">.=</span> lambda3;
             out),
-            <span style="color:#66d9ef">false</span>,
+            false,
         ),
     
     lambda1 <span style="color:#f92672">=</span> Stochastic(theta <span style="color:#f92672">-&gt;</span> Exponential(theta)),
@@ -159,23 +160,23 @@ onload='renderMathInElement(document.body);'></script>
     tau2 <span style="color:#f92672">=</span> Stochastic((tau1, N) <span style="color:#f92672">-&gt;</span> DiscreteUniform(tau1, N)),
 )
 </code></pre></div><p>初期値とサンプリングスキームを同様に与えてサンプリングすると、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">inits2 <span style="color:#f92672">=</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">inits2 <span style="color:#f92672">=</span> [
     <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-        <span style="color:#f92672">:</span>obs <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
-        <span style="color:#f92672">:</span>lambda1 <span style="color:#f92672">=&gt;</span> theta,
-        <span style="color:#f92672">:</span>lambda2 <span style="color:#f92672">=&gt;</span> theta,
-        <span style="color:#f92672">:</span>lambda3 <span style="color:#f92672">=&gt;</span> theta,
-        <span style="color:#f92672">:</span>tau1 <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
-        <span style="color:#f92672">:</span>tau2 <span style="color:#f92672">=&gt;</span> N,
+        <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
+        <span style="color:#e6db74">:lambda1</span> <span style="color:#f92672">=&gt;</span> theta,
+        <span style="color:#e6db74">:lambda2</span> <span style="color:#f92672">=&gt;</span> theta,
+        <span style="color:#e6db74">:lambda3</span> <span style="color:#f92672">=&gt;</span> theta,
+        <span style="color:#e6db74">:tau1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
+        <span style="color:#e6db74">:tau2</span> <span style="color:#f92672">=&gt;</span> N,
     ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
 ]
-scheme2 <span style="color:#f92672">=</span> [AMWG([<span style="color:#f92672">:</span>lambda1, <span style="color:#f92672">:</span>lambda2, <span style="color:#f92672">:</span>lambda3], <span style="color:#ae81ff">1.0</span>), DGS([<span style="color:#f92672">:</span>tau1, <span style="color:#f92672">:</span>tau2])]
+scheme2 <span style="color:#f92672">=</span> [AMWG([<span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>, <span style="color:#e6db74">:lambda3</span>], <span style="color:#ae81ff">1.0</span>), DGS([<span style="color:#e6db74">:tau1</span>, <span style="color:#e6db74">:tau2</span>])]
 setsamplers!(model2, scheme2) sim2 <span style="color:#f92672">=</span> mcmc(model2, data0, inits2, <span style="color:#ae81ff">40000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
 </code></pre></div><p>事後分布は以下のようになる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p2 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim2[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>tau1, <span style="color:#f92672">:</span>tau2], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p2 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim2[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:tau1</span>, <span style="color:#e6db74">:tau2</span>], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> true)
 Mamba<span style="color:#f92672">.</span>draw(p2, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-2_posterior_1.png" alt="事後分布1"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p2 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim2[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>lambda1, <span style="color:#f92672">:</span>lambda2, <span style="color:#f92672">:</span>lambda3], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p2 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim2[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>, <span style="color:#e6db74">:lambda3</span>], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> true)
 Mamba<span style="color:#f92672">.</span>draw(p2, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-2_posterior_2.png" alt="事後分布2"></p>
 <p>本で言及されていた、変化点の個数についても事前分布を作ってモデリングしてみたがうまくいかなかった。</p>
@@ -188,6 +189,7 @@ Mamba<span style="color:#f92672">.</span>draw(p2, nrow <span style="color:#f9267
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -278,7 +280,7 @@ Mamba<span style="color:#f92672">.</span>draw(p2, nrow <span style="color:#f9267
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 402 words in this page.
 	</div>

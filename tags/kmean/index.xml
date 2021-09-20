@@ -6,7 +6,7 @@
     <description>Recent content in KMean on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/kmean/index.xml" rel="self" type="application/rss+xml" />
@@ -58,7 +58,7 @@ $$
 &lt;p&gt;使ったデータは &lt;a href=&#34;https://github.com/cstjean/ScikitLearn.jl&#34;&gt;ScikitLearn.jl&lt;/a&gt; で作成。
 下の図のような三種類のパターン (&lt;code&gt;noisy_circles&lt;/code&gt;, &lt;code&gt;noisy_moons&lt;/code&gt;, &lt;code&gt;blobs&lt;/code&gt;) を用意して、サンプル点は1500個。
 &lt;a href=&#34;https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb&#34;&gt;このページ&lt;/a&gt; が参考になる。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; ScikitLearn
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; ScikitLearn
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
@@ -68,8 +68,8 @@ $$
 
 n_samples &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt;
 noisy_circles &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; make_circles(n_samples&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;n_samples, 
-                             factor&lt;span style=&#34;color:#f92672&#34;&gt;=.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, noise&lt;span style=&#34;color:#f92672&#34;&gt;=.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;05&lt;/span&gt;)
-noisy_moons &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; make_moons(n_samples&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;n_samples, noise&lt;span style=&#34;color:#f92672&#34;&gt;=.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;05&lt;/span&gt;)
+                             factor&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;.5&lt;/span&gt;, noise&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;.05&lt;/span&gt;)
+noisy_moons &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; make_moons(n_samples&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;n_samples, noise&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;.05&lt;/span&gt;)
 blobs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; make_blobs(n_samples&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;n_samples, random_state&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;)
 
 plts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
@@ -83,7 +83,7 @@ plts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(plts&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;), size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;400&lt;/span&gt;])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/clustering-kmean_dataset.png&#34; alt=&#34;Dataset&#34;&gt;&lt;/p&gt;
 &lt;p&gt;本体の実装はこんな感じで、&lt;code&gt;dist&lt;/code&gt; で \( f \) の値、 &lt;code&gt;dist_change&lt;/code&gt; で \( f \) の変化を保持。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; KMean
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable struct&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;KMean&lt;/span&gt;
     points&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}
     K&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;
     zs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}
@@ -95,7 +95,7 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(plts&lt;span s
 &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; KMean(points&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}, K&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;)
     n_points &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size(points, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
     init_zs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nothing
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; true
         init_zs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;K, n_points)
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(&lt;span style=&#34;color:#66d9ef&#34;&gt;Set&lt;/span&gt;(init_zs)) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; K
             &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
@@ -108,7 +108,7 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(plts&lt;span s
     kmean
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_μs!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;KMean)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_μs!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;KMean&lt;/span&gt;)
     km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cat([mean(km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;points[km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zs &lt;span style=&#34;color:#f92672&#34;&gt;.==&lt;/span&gt; i, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;K]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
     new_dist &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sum((km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;points &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; reshape(km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zs], &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
     km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dist_change &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dist &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; new_dist
@@ -116,11 +116,11 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(plts&lt;span s
     km
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_zs!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;KMean)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_zs!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;KMean&lt;/span&gt;)
     norms &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sum((km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;points &lt;span style=&#34;color:#f92672&#34;&gt;.-&lt;/span&gt; km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
     argmin_norms &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [x[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; argmin(norms, dims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)][&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
     
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; true
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(&lt;span style=&#34;color:#66d9ef&#34;&gt;Set&lt;/span&gt;(argmin_norms)) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;K
             &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
         &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
@@ -131,14 +131,14 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(plts&lt;span s
     km
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;KMean)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update!(km&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;KMean&lt;/span&gt;)
     update_zs!(km)
     update_μs!(km)
     km
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;それぞれのサンプルデータに対し、\( f \) の減少幅が0.1以下になるまでイテレーションを行う(最高100回)様子をアニメーションして、gifファイルに出力させると下のようになる。
 Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gifs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gifs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (i, (data, K)) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; enumerate(zip([noisy_circles, noisy_moons, blobs], [&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]))
     points, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data
@@ -150,7 +150,7 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p
             &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
         &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
         scatter(km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;points[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;points[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;], mc&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zs, label&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
-        plt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; scatter!(km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], ms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, mc&lt;span style=&#34;color:#f92672&#34;&gt;=:&lt;/span&gt;yellow, msw&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, label&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, 
+        plt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; scatter!(km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], km&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;μs[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], ms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, mc&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;:yellow&lt;/span&gt;, msw&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, label&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, 
                        title&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@sprintf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Iterations=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, n))
         update!(km)
         plt

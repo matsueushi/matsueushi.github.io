@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -120,6 +120,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -131,7 +132,7 @@ onload='renderMathInElement(document.body);'></script>
 チュートリアルはまだ未整備のようなので、<a href="https://github.com/STOR-i/GaussianProcesses.jl/tree/master/notebooks">サンプルノートブック</a>と<a href="http://chasen.org/~daiti-m/gpbook/">ガウス過程と機械学習</a>」などを参考にしながらやっていく。
 Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。</p>
 <p>インストールはいつものように</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Pkg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Pkg
 Pkg<span style="color:#f92672">.</span>add(<span style="color:#e6db74">&#34;GaussianProcesses&#34;</span>)
 </code></pre></div><h3 id="カーネル関数">カーネル関数</h3>
 <p>すでに多くの種類のカーネル関数が<a href="http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html">実装されており</a>、
@@ -152,14 +153,14 @@ $$</p>
 <p>だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">rbf <span style="color:#f92672">=</span> SEIso(log(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>sqrt(<span style="color:#ae81ff">2</span>)), <span style="color:#ae81ff">0.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">rbf <span style="color:#f92672">=</span> SEIso(log(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>sqrt(<span style="color:#ae81ff">2</span>)), <span style="color:#ae81ff">0.0</span>)
 </code></pre></div><p>に対応している。「ガウス過程と機械学習」の pp.69 のように、\( (x_1, x_2, x_3, x_4) = (1, 2, 3, 4) \) とした時の共分散行列を求める。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
 cov(rbf, xs, xs)
 </code></pre></div><p>このようにすると <code>xs</code> の全体が1要素として認識されてしまい</p>
 <pre><code>1.0
 </code></pre><p>が帰ってきてダメなので、<code>reshape</code> で 1×4 Arrayに変換して次のようにする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
 cov(rbf, xs, xs)
 </code></pre></div><pre><code>4×4 Array{Float64,2}:
  1.0         0.367879   0.0183156  0.00012341
@@ -167,7 +168,7 @@ cov(rbf, xs, xs)
  0.0183156   0.367879   1.0        0.367879  
  0.00012341  0.0183156  0.367879   1.0       
 </code></pre><p>となり本と同様の結果が得られた。ちなみに</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
 cov(rbf, xs, xs)
 </code></pre></div><p>は</p>
 <pre><code>InexactError: Int64(0.3678794411714422)
@@ -182,7 +183,7 @@ cov(rbf, xs, xs)
 <p>コード上ではカーネルのみを指定して平均は与えていないが、<code>GPE</code> の <code>mean</code> 引数のデフォルトが <code>MeanZero()</code> なので平均0のガウス過程を考えていることになる。
 <code>mean</code> 引数を変更すれば様々な平均関数のガウス過程を考えられる(はず、未確認)。</p>
 <p>サンプルは <code>rand</code> で行うことができ、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>
 gp_rbf <span style="color:#f92672">=</span> GPE(kernel <span style="color:#f92672">=</span> rbf)
 samples <span style="color:#f92672">=</span> rand(gp_rbf, xs, <span style="color:#ae81ff">5</span>)
 plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
@@ -573,7 +574,7 @@ plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:
 <p>非常にお手軽である。</p>
 <h3 id="カーネルの和積">カーネルの和、積</h3>
 <p>カーネルの和と積も定義されている。線形カーネルと周期カーネルで和、積を使ってみる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">kernel_sum <span style="color:#f92672">=</span> Lin(<span style="color:#ae81ff">2.0</span>) <span style="color:#f92672">+</span> Periodic(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">kernel_sum <span style="color:#f92672">=</span> Lin(<span style="color:#ae81ff">2.0</span>) <span style="color:#f92672">+</span> Periodic(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span>)
 gp_sum <span style="color:#f92672">=</span> GPE(kernel <span style="color:#f92672">=</span> kernel_sum)
 samples <span style="color:#f92672">=</span> rand(gp_sum, xs, <span style="color:#ae81ff">5</span>)
 plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
@@ -979,7 +980,7 @@ plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:
   2259.79,1399.2 
   "/>
 </svg>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">kernel_prod <span style="color:#f92672">=</span> Lin(<span style="color:#ae81ff">2.0</span>) <span style="color:#f92672">*</span> Periodic(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">kernel_prod <span style="color:#f92672">=</span> Lin(<span style="color:#ae81ff">2.0</span>) <span style="color:#f92672">*</span> Periodic(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span>)
 gp_prod <span style="color:#f92672">=</span> GPE(kernel <span style="color:#f92672">=</span> kernel_prod)
 samples <span style="color:#f92672">=</span> rand(gp_prod, xs, <span style="color:#ae81ff">5</span>)
 plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
@@ -1405,6 +1406,7 @@ plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -1495,7 +1497,7 @@ plot(xs, samples, label <span style="color:#f92672">=</span> <span style="color:
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1479 words in this page.
 	</div>

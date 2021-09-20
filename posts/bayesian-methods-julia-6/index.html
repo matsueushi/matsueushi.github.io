@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -133,7 +134,7 @@ onload='renderMathInElement(document.body);'></script>
 		<div class="c-rich-text"><p>最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。</p>
 <p>今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。</p>
 <p>まずはライブラリのインポート</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
 
 addprocs(<span style="color:#ae81ff">3</span>)
 <span style="color:#66d9ef">using</span> CSV
@@ -145,20 +146,20 @@ addprocs(<span style="color:#ae81ff">3</span>)
 <span style="color:#66d9ef">using</span> Plots
 </code></pre></div><p>データの加工はこのような形で行った。<code>DataFrame</code> で <code>Int64</code> にパースしたい行にMissing valueやNaNがあるとき、<code>convert</code>ではエラーになるので、
 パースできない場合は <code>missing</code> になる <code>tryparse</code> を使って、その後 <code>nothing</code> になる行を削除して、<code>Union{Nothing, Int64}</code> から <code>Int64</code> にもう一度変換している。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">r <span style="color:#f92672">=</span> HTTP<span style="color:#f92672">.</span>request(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;https://git.io/vXknD&#34;</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">r <span style="color:#f92672">=</span> HTTP<span style="color:#f92672">.</span>request(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;https://git.io/vXknD&#34;</span>);
 
 challengers_data <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#66d9ef">IOBuffer</span>(r<span style="color:#f92672">.</span>body))
-names!(challengers_data, [<span style="color:#f92672">:</span>date, <span style="color:#f92672">:</span>temperature, <span style="color:#f92672">:</span>incident])
+names!(challengers_data, [<span style="color:#e6db74">:date</span>, <span style="color:#e6db74">:temperature</span>, <span style="color:#e6db74">:incident</span>])
 <span style="color:#75715e"># incidentのパース</span>
-challengers_data[<span style="color:#f92672">:</span>incident] <span style="color:#f92672">=</span> tryparse<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, challengers_data[<span style="color:#f92672">:</span>incident])
+challengers_data[<span style="color:#e6db74">:incident</span>] <span style="color:#f92672">=</span> tryparse<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, challengers_data[<span style="color:#e6db74">:incident</span>])
 <span style="color:#75715e"># NaNを削除</span>
-challengers_data <span style="color:#f92672">=</span> challengers_data[challengers_data[<span style="color:#f92672">:</span>incident] <span style="color:#f92672">.!=</span> nothing, <span style="color:#f92672">:</span>]
-challengers_data[<span style="color:#f92672">:</span>incident] <span style="color:#f92672">=</span> convert<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, challengers_data[<span style="color:#f92672">:</span>incident])
+challengers_data <span style="color:#f92672">=</span> challengers_data[challengers_data[<span style="color:#e6db74">:incident</span>] <span style="color:#f92672">.!=</span> nothing, <span style="color:#f92672">:</span>]
+challengers_data[<span style="color:#e6db74">:incident</span>] <span style="color:#f92672">=</span> convert<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, challengers_data[<span style="color:#e6db74">:incident</span>])
 disallowmissing!(challengers_data)
 </code></pre></div><p>データの図示をする。<code>weighted_color_mean</code> を使って、マーカーの色を青から赤にグラデーションさせた。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">temperature <span style="color:#f92672">=</span> challengers_data[<span style="color:#f92672">:</span>temperature]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">temperature <span style="color:#f92672">=</span> challengers_data[<span style="color:#e6db74">:temperature</span>]
 color_weight <span style="color:#f92672">=</span> (temperature <span style="color:#f92672">.-</span> minimum(temperature)) <span style="color:#f92672">./</span> (maximum(temperature) <span style="color:#f92672">.-</span> minimum(temperature))
-wcolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, colorant<span style="color:#e6db74">&#34;red&#34;</span>, colorant<span style="color:#e6db74">&#34;blue&#34;</span>)
+wcolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;blue&#34;</span>)
 scatter(challengers_data<span style="color:#f92672">.</span>temperature, challengers_data<span style="color:#f92672">.</span>incident, 
         markercolor <span style="color:#f92672">=</span> wcolor, 
         xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Temprature (F)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;O-ring failure&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
@@ -172,30 +173,30 @@ p(t) &amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
 \)</p>
 <p>\( t \) : 温度
 とモデリングされる。今回は、あとでサンプルされた <code>p</code> の値を使ってデータのシミュレーションを行うために、下のように <code>p</code> に <code>Logical</code> ノードを割り当てたが、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
     
     observed <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
         p <span style="color:#f92672">-&gt;</span> UnivariateDistribution[Bernoulli(x) <span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> p],
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
     p <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>,
         (alpha, beta, temperature) 
-            <span style="color:#f92672">-&gt;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">.</span>(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> exp(beta <span style="color:#f92672">*</span> temperature <span style="color:#f92672">+</span> alpha)))
+            <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@.</span>(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> exp(beta <span style="color:#f92672">*</span> temperature <span style="color:#f92672">+</span> alpha)))
     ),
     
     alpha <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal(<span style="color:#ae81ff">0</span>, sqrt(<span style="color:#ae81ff">1000</span>))),
     beta <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal(<span style="color:#ae81ff">0</span>, sqrt(<span style="color:#ae81ff">1000</span>))),
 )
 </code></pre></div><p>observedのモデリングだけであればpを経由せずに直接モデリングすることもできる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
     
     observed <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
         (alpha, beta, temperature) <span style="color:#f92672">-&gt;</span> 
             UnivariateDistribution[
                 Bernoulli(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> exp(beta <span style="color:#f92672">*</span> x <span style="color:#f92672">+</span> alpha)))
             <span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> temperature],
-        <span style="color:#66d9ef">false</span>
+        false
     ),
     
     alpha <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal(<span style="color:#ae81ff">0</span>, sqrt(<span style="color:#ae81ff">1000</span>))),
@@ -203,33 +204,33 @@ p(t) &amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
 
 )
 </code></pre></div><p>モデルパラメータ <code>alpha</code>, <code>beta</code> の事後分布は次のようになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-    <span style="color:#f92672">:</span>observed <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#f92672">:</span>incident],
-    <span style="color:#f92672">:</span>temperature <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#f92672">:</span>temperature],
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+    <span style="color:#e6db74">:observed</span> <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#e6db74">:incident</span>],
+    <span style="color:#e6db74">:temperature</span> <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#e6db74">:temperature</span>],
 )
 inits <span style="color:#f92672">=</span> [
     <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-        <span style="color:#f92672">:</span>observed <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#f92672">:</span>incident],
-        <span style="color:#f92672">:</span>alpha <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#f92672">:</span>beta <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+        <span style="color:#e6db74">:observed</span> <span style="color:#f92672">=&gt;</span> challengers_data[<span style="color:#e6db74">:incident</span>],
+        <span style="color:#e6db74">:alpha</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+        <span style="color:#e6db74">:beta</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
     ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
 ]
-scheme <span style="color:#f92672">=</span> [AMWG([<span style="color:#f92672">:</span>alpha, <span style="color:#f92672">:</span>beta], <span style="color:#ae81ff">0.1</span>)]
+scheme <span style="color:#f92672">=</span> [AMWG([<span style="color:#e6db74">:alpha</span>, <span style="color:#e6db74">:beta</span>], <span style="color:#ae81ff">0.1</span>)]
 setsamplers!(model, scheme)
 sim <span style="color:#f92672">=</span> mcmc(model, data, inits, <span style="color:#ae81ff">200000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">50000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>alpha, <span style="color:#f92672">:</span>beta], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:alpha</span>, <span style="color:#e6db74">:beta</span>], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> true)
 Mamba<span style="color:#f92672">.</span>draw(p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-6_density.png" alt="Value, Density"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>alpha, <span style="color:#f92672">:</span>beta], <span style="color:#f92672">:</span>], [<span style="color:#f92672">:</span>autocor, <span style="color:#f92672">:</span>mean], legend<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:alpha</span>, <span style="color:#e6db74">:beta</span>], <span style="color:#f92672">:</span>], [<span style="color:#e6db74">:autocor</span>, <span style="color:#e6db74">:mean</span>], legend<span style="color:#f92672">=</span>true)
 Mamba<span style="color:#f92672">.</span>draw(p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-6_mean.png" alt="Autocorrelation, Mean"></p>
 <p><code>alpha</code> に対して <code>beta</code> をプロットすると、次のような原点を通る直線上のグラフになる。\( p(t) = 0.5 \) となるのが \( t = -\alpha / \beta \) となるので、故障するかしないか半々となる温度はシミュレーションで大きく変化しないことがわかる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">alpha_samples <span style="color:#f92672">=</span> sim[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>alpha], <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value[<span style="color:#f92672">:</span>]
-beta_samples <span style="color:#f92672">=</span> sim[<span style="color:#f92672">:</span>, [<span style="color:#f92672">:</span>beta], <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value[<span style="color:#f92672">:</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">alpha_samples <span style="color:#f92672">=</span> sim[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:alpha</span>], <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value[<span style="color:#f92672">:</span>]
+beta_samples <span style="color:#f92672">=</span> sim[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:beta</span>], <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value[<span style="color:#f92672">:</span>]
 scatter(alpha_samples, beta_samples, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, markersize <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-6_ab.png" alt="Relation between alpha and beta"></p>
 <p>破損確率の事後期待値と、サンプルから選んでプロットする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> logistic(x, alpha, beta)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> logistic(x, alpha, beta)
     <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">./</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">.+</span> exp<span style="color:#f92672">.</span>(beta <span style="color:#f92672">*</span> x <span style="color:#f92672">.+</span> alpha))
 <span style="color:#66d9ef">end</span>
 
@@ -237,21 +238,21 @@ xs <span style="color:#f92672">=</span> collect((minimum(temperature) <span styl
 p_t <span style="color:#f92672">=</span> logistic(transpose(xs), alpha_samples, beta_samples)
 
 Plots<span style="color:#f92672">.</span>plot(xs, vec(mean(p_t, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)), linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Average posterior probability&#34;</span>)
-Plots<span style="color:#f92672">.</span>plot!(xs, p_t[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, linestyle <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>dash, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Realization from posterior&#34;</span>)
-Plots<span style="color:#f92672">.</span>plot!(xs, p_t[<span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, linestyle <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>dash, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Realization from posterior&#34;</span>)
+Plots<span style="color:#f92672">.</span>plot!(xs, p_t[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, linestyle <span style="color:#f92672">=</span> <span style="color:#e6db74">:dash</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Realization from posterior&#34;</span>)
+Plots<span style="color:#f92672">.</span>plot!(xs, p_t[<span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, linestyle <span style="color:#f92672">=</span> <span style="color:#e6db74">:dash</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Realization from posterior&#34;</span>)
 scatter!(challengers_data<span style="color:#f92672">.</span>temperature, challengers_data<span style="color:#f92672">.</span>incident, 
-        markercolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, colorant<span style="color:#e6db74">&#34;blue&#34;</span>, colorant<span style="color:#e6db74">&#34;red&#34;</span>), 
+        markercolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;red&#34;</span>), 
         xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Temprature (F)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;O-ring failure&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-6_realization.png" alt="Realization"></p>
 <p>破損確率の事後期待値と、95%信頼区間をプロットする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p_t_ci <span style="color:#f92672">=</span> mapslices(x <span style="color:#f92672">-&gt;</span> quantile(x, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]), p_t, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">p_t_ci <span style="color:#f92672">=</span> mapslices(x <span style="color:#f92672">-&gt;</span> quantile(x, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]), p_t, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
 
 Plots<span style="color:#f92672">.</span>plot(xs, p_t_ci[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, 
     fillrange <span style="color:#f92672">=</span> p_t_ci[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>,
     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;95% Confidence interval&#34;</span>)
 Plots<span style="color:#f92672">.</span>plot!(xs, vec(mean(p_t, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)), linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Average posterior probability&#34;</span>)
 scatter!(challengers_data<span style="color:#f92672">.</span>temperature, challengers_data<span style="color:#f92672">.</span>incident, 
-        markercolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, colorant<span style="color:#e6db74">&#34;blue&#34;</span>, colorant<span style="color:#e6db74">&#34;red&#34;</span>), 
+        markercolor <span style="color:#f92672">=</span> weighted_color_mean<span style="color:#f92672">.</span>(color_weight, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">colorant</span><span style="color:#e6db74">&#34;red&#34;</span>), 
         xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Temprature (F)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;O-ring failure&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </code></pre></div><p><img src="/images/posts/bayesian-methods-julia-6_ci.png" alt="Confidence interval"></p>
 </div>
@@ -261,6 +262,7 @@ scatter!(challengers_data<span style="color:#f92672">.</span>temperature, challe
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -351,7 +353,7 @@ scatter!(challengers_data<span style="color:#f92672">.</span>temperature, challe
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1142 words in this page.
 	</div>

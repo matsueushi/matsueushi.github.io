@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | GCPでJuliaのノートブックを実行</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -137,9 +138,9 @@ onload='renderMathInElement(document.body);'></script>
 <a href="https://sleepless-se.net/2018/09/15/gcp-ssh/">https://sleepless-se.net/2018/09/15/gcp-ssh/</a></p>
 </blockquote>
 <p>Juliaのバイナリをダウンロード</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz
 </code></pre></div><p>解凍</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo mkdir /bin/julia
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo mkdir /bin/julia
 $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia
 $ /bin/julia/julia-1.1.0/bin/julia
                _
@@ -153,7 +154,7 @@ $ /bin/julia/julia-1.1.0/bin/julia
 
 julia&gt;
 </code></pre></div><p>シンボリックリンクを作成</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo ln -s /bin/julia/julia-1.1.0/bin/julia /usr/local/bin/julia
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo ln -s /bin/julia/julia-1.1.0/bin/julia /usr/local/bin/julia
 $ julia
                _
    _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
@@ -165,25 +166,25 @@ $ julia
 |__/                   |
 julia&gt;
 </code></pre></div><p>IJuliaのインストール</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
 julia<span style="color:#f92672">&gt;</span> Pkg<span style="color:#f92672">.</span>add(“IJulia”)
 </code></pre></div><p>Anacondaもインストールしておく。bzip2が入っていなかったのでインストールして、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get update
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get update
 $ sudo apt-get install bzip2
 </code></pre></div><p>Anacondaをインストール</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -OL https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -OL https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
 $ bash Anaconda3-2018.12-Linux-x86_64.sh
 </code></pre></div><p>これを参考にしてJupyter Notebookの設定に入る</p>
 <blockquote>
 <p>Running Jupyter Notebook on Google Cloud Platform in 15 min<br>
 <a href="https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52">https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52</a></p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jupyter notebook --generate-config
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /home/matsueushi/.jupyter/jupyter_notebook_config.py
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jupyter notebook --generate-config
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /home/matsueushi/.jupyter/jupyter_notebook_config.py
 </code></pre></div><p>を開いて</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c <span style="color:#f92672">=</span> get_config()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c <span style="color:#f92672">=</span> get_config()
 c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0.0.0.0&#39;</span>
-c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>open_browser <span style="color:#f92672">=</span> False
+c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>open_browser <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
 c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>Port Number<span style="color:#f92672">&gt;</span>
 </code></pre></div><p>を追加する</p>
 <p>GCPのVMインスタンス設定画面でFirewallsの「Allow HTTPS traffic」をチェック</p>
@@ -191,7 +192,7 @@ c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</s
 <p>「Target tags」を「https-server」、</p>
 <p>「Source IP range」を「0.0.0.0/0」、</p>
 <p>「Protocols and ports」の「Specified protocols and ports-&gt;tcp」をチェックしてポート番号に</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>Port Number<span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>Port Number<span style="color:#f92672">&gt;</span>
 </code></pre></div><p>のポート番号を追加。</p>
 <p>http://<External IP>:8888/</p>
 <p>にアクセスして、</p>
@@ -203,6 +204,7 @@ c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</s
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -293,7 +295,7 @@ c<span style="color:#f92672">.</span>NotebookApp<span style="color:#f92672">.</s
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 628 words in this page.
 	</div>

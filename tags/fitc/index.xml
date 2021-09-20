@@ -6,7 +6,7 @@
     <description>Recent content in FITC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/fitc/index.xml" rel="self" type="application/rss+xml" />
@@ -28,13 +28,13 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 &lt;li&gt;カーネル &lt;code&gt;k&lt;/code&gt; に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ &lt;code&gt;ker(k, x, y)&lt;/code&gt; と &lt;code&gt;cov(k, xs, ys)&lt;/code&gt; で計算できる&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;と仮定する。ということで、まずはライブラリの読み込み。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LinearAlgebra
 
 include(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.jl&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;データは、MLPシリーズ 「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# サンプルデータの作成&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# サンプルデータの作成&lt;/span&gt;
 
 xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vcat(rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;),rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;.+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
 sort!(xs)
@@ -51,7 +51,7 @@ scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 
 (最初にやっていた時は観測値を予測していて、本の図と同じにならなくて混乱していた)&lt;/p&gt;
 &lt;p&gt;考えるカーネルは、ガウスカーネル \( k(x, x^\prime) = \exp(-|x- x^\prime|^2) \) である。
 観測誤差は \( \sigma^2 = 1.0 \) としておく。コードの中ではこれを &lt;code&gt;eta&lt;/code&gt; で表す。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianKernel()
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianKernel()
 eta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gp&#34;&gt;GP&lt;/h3&gt;
 &lt;p&gt;まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、&lt;/p&gt;
@@ -61,7 +61,7 @@ p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K
 $$&lt;/p&gt;
 &lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
 &lt;p&gt;1点の予測分布を計算する関数を実装しよう。自分の実装では、&lt;code&gt;cov&lt;/code&gt; は行列を返すため、1x1の行列を &lt;code&gt;first&lt;/code&gt; を使ってスカラーにしている。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
 n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(xs)
 Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}(I, n, n))
 
@@ -77,7 +77,7 @@ n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#
     Normal(first(gp_mu), sqrt(first(gp_cov)))
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下のコードで表示すると、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gp_dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [gp(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts]
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gp_dists &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [gp(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts]
 gp_mean &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mean&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(gp_dists)
 gp_qt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hcat([quantile&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(s, [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.975&lt;/span&gt;]) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; gp_dists]&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
 
@@ -95,7 +95,7 @@ gp_plot()
 &lt;p&gt;(なぜか &lt;code&gt;savefig&lt;/code&gt; でpng形式で保存すると &lt;code&gt;fillrange&lt;/code&gt; した最小値の部分に線が出てしまった。)&lt;/p&gt;
 &lt;p&gt;早速それぞれの補助変数法でどれくらい近似できているかを見ていこう。補助入力点が、2点、5点、10点ある場合を考え、点は等間隔に配置されているとする。(SoD を除く)&lt;/p&gt;
 &lt;p&gt;本質的な部分とは関係ないが、先にプロット用の関数を定義しておく。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; plot_result(gp_mean, gp_qt, mn, qt, ind_xs, label)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; plot_result(gp_mean, gp_qt, mn, qt, ind_xs, label)
     plot(ts, gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gp_qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], 
         fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GP&amp;#34;&lt;/span&gt;, linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
     plot!(ts, qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillrange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; qt[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;], fillalpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;,
@@ -107,14 +107,14 @@ gp_plot()
 
     scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
     scatter!(ind_xs, fill(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(ind_xs)), 
-    markershape &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;x, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+    markershape &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;:x&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;the-subset-of-data-sod&#34;&gt;The Subset of Data (SoD)&lt;/h3&gt;
 &lt;p&gt;SoD は他の SoR, DTC, FITC とは違い、任意に補助入力点を選べる訳ではなく元の入力点の部分集合として選ばなくてはいけない。
 ここでは、サンプルの左からの順番が等間隔になるように選んだ。(例えば5点選ぶ場合、左から1, 21, 41, 61, 81番目)。&lt;/p&gt;
 &lt;p&gt;ランダムに選択したり、なるべく等間隔になるように選んだりすればもっとデータがよく代表されるようになり精度が向上するかもしれない。
 実装に関しては、GPの入力点を減らしただけである。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sod_plot(sod_xs, sod_ys)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sod_plot(sod_xs, sod_ys)
     Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, sod_xs, sod_xs)
     n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(sod_xs)
     Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}(I, n, n))
@@ -165,7 +165,7 @@ $$
 \end{aligned}
 $$
 と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
     Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
     Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
     Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
@@ -209,7 +209,7 @@ q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
 \end{aligned}
 $$&lt;/p&gt;
 &lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
 Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
 Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; eta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kfu &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Kuu)
@@ -246,11 +246,11 @@ q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
 \end{aligned}
 $$&lt;/p&gt;
 &lt;p&gt;だったから同様に&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
 Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
 
-Λ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Diagonal&lt;/span&gt;([ker(gk, xs[i], xs[i]) 
+Λ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Diagonal([ker(gk, xs[i], xs[i]) 
         &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Kfu[i, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Kuu) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kuf[&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; eta 
         &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(xs)])
 Σ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inv(Kuf &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inv(Λ) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; Kfu &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Kuu)

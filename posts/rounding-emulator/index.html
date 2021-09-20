@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -120,6 +120,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -133,10 +134,10 @@ onload='renderMathInElement(document.body);'></script>
 <h2 id="roundingemulatorjl">RoundingEmulator.jl</h2>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl">https://github.com/matsueushi/RoundingEmulator.jl</a></p>
 <p>Registratorにも登録したので、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">] add RoundingEmulator
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">] add RoundingEmulator
 </code></pre></div><p>でインストールして使えます。</p>
 <p>定義されているのは <code>add</code>, <code>sub</code>, <code>mul</code>, <code>div</code>, <code>sqrt</code> に対して上付き丸め <code>_up</code> と下付き丸め <code>_down</code> と2つと非常なシンプルなものです。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> RoundingEmulator
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> RoundingEmulator
 
 julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>)
 <span style="color:#ae81ff">0.30000000000000004</span>
@@ -168,7 +169,7 @@ julia<span style="color:#f92672">&gt;</span> sqrt_up(<span style="color:#ae81ff"
 julia<span style="color:#f92672">&gt;</span> sqrt_down(<span style="color:#ae81ff">2.0</span>)
 <span style="color:#ae81ff">1.414213562373095</span>
 </code></pre></div><p><a href="https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L187-L194">https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L187-L194</a> の例も正しく計算できていました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> sqrt_up(<span style="color:#ae81ff">3.9036066558023176e-154</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> sqrt_up(<span style="color:#ae81ff">3.9036066558023176e-154</span>)
 <span style="color:#ae81ff">1.9757547053726885e-77</span>
 
 julia<span style="color:#f92672">&gt;</span> sqrt_down(<span style="color:#ae81ff">3.9036066558023176e-154</span>)
@@ -184,7 +185,7 @@ Issueやプルリクは大歓迎です。</p>
 <p>エクスポートされていない関数ですが、Julia の <a href="https://github.com/JuliaLang/julia/blob/master/base/twiceprecision.jl">base/twiceprecision.jl</a> には
 加算、乗算のエラーフリー変換の関数 <code>add12</code> と <code>mul12</code> が定義されています。
 前回言及したオーバーフロー対策もなされていました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">:</span> add12, mul12
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">:</span> add12, mul12
 
 julia<span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.5630624444874539e+307</span>
 <span style="color:#ae81ff">3.563062444487454e307</span>
@@ -211,7 +212,7 @@ julia<span style="color:#f92672">&gt;</span> mul12(b, a)
 (<span style="color:#ae81ff">1.7976931348623157e308</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0027614963959625e291</span>)
 </code></pre></div><h2 id="setrounding_raw"><code>setrounding_raw</code></h2>
 <p>deprecatedになった <code>setrounding</code> は、強引に</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">.</span>Rounding<span style="color:#f92672">:</span> setrounding_raw, to_fenv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">.</span>Rounding<span style="color:#f92672">:</span> setrounding_raw, to_fenv
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>
 <span style="color:#ae81ff">0.30000000000000004</span>
@@ -238,7 +239,7 @@ julia<span style="color:#f92672">&gt;</span> setrounding_raw(<span style="color:
 <h2 id="signed-zero">Signed zero</h2>
 <p>符号付きゼロもの符号も含めて正確に再現する場合、下付き丸めによる加算の定義で注意する必要があります。
 上付き丸めによる加算は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_up(a, b)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_up(a, b)
     x, y <span style="color:#f92672">=</span> add12(a, b)
     <span style="color:#66d9ef">if</span> isinf(x)
         ifelse(x <span style="color:#f92672">==</span> typemin(x) <span style="color:#f92672">&amp;&amp;</span> isfinite(a) <span style="color:#f92672">&amp;&amp;</span> isfinite(b), <span style="color:#f92672">-</span>floatmax(x), x)
@@ -285,7 +286,7 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
 </tbody>
 </table>
 <p>このようになります。よって、下のように修正することでゼロの符号を調整しています。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_down(a, b)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> add_down(a, b)
     x, y <span style="color:#f92672">=</span> add12(a, b)
     <span style="color:#66d9ef">if</span> isinf(x)
         ifelse(x <span style="color:#f92672">==</span> typemax(x) <span style="color:#f92672">&amp;&amp;</span> isfinite(a) <span style="color:#f92672">&amp;&amp;</span> isfinite(b), floatmax(x), x)
@@ -296,7 +297,7 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>計算結果:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> add_up(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>)
 <span style="color:#ae81ff">0.0</span>
 
 julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>)
@@ -316,7 +317,7 @@ julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#f92672
 </code></pre></div><h2 id="浮動小数点数をランダムにサンプリングする">浮動小数点数をランダムにサンプリングする</h2>
 <p>全ての浮動小数点数から一様にサンプリングしたい時、<code>rand</code> を普通に呼び出すと \([0, 1)\) から一様にサンプリングされます。</p>
 <p><a href="https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1">https://docs.julialang.org/en/v1/stdlib/Random/index.html#Random-Numbers-1</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> rand(<span style="color:#66d9ef">Float64</span>, <span style="color:#ae81ff">10</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> rand(<span style="color:#66d9ef">Float64</span>, <span style="color:#ae81ff">10</span>)
 <span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">0.6021596191997549</span>
  <span style="color:#ae81ff">0.8268352152178551</span>
@@ -329,7 +330,7 @@ julia<span style="color:#f92672">&gt;</span> add_down(<span style="color:#f92672
  <span style="color:#ae81ff">0.5721143543965341</span>
  <span style="color:#ae81ff">0.24735574564535145</span>
 </code></pre></div><p><code>Int64</code> 用の <code>rand</code> を使って乱数を発生させ、<code>reinterpret</code> で <code>Float64</code> に変換すれば良いです。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> rand(<span style="color:#66d9ef">Int64</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> rand(<span style="color:#66d9ef">Int64</span>)
 <span style="color:#ae81ff">7738226609100433883</span>
 
 julia<span style="color:#f92672">&gt;</span> bitstring(x)
@@ -343,38 +344,38 @@ julia<span style="color:#f92672">&gt;</span> bitstring(y)
 </code></pre></div><p>細かいことを言うと <code>NaN</code>, <code>Inf</code> なども含まれてしまいますが、今回は特別扱いはせずそのまま使っています。</p>
 <h2 id="-vs-isequal"><code>==</code> vs <code>isequal</code></h2>
 <p>Julia で<a href="https://docs.julialang.org/en/v1/stdlib/Test/index.html">ユニットテスト</a>を書くとき、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@test</span> f(x) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1.0</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@test</span> f(x) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1.0</span>
 </code></pre></div><p>のように書くことが多いのですが、浮動小数点数のテストの際、<code>NaN</code> や符号付きゼロなどをテストしたい場合は注意が必要です。まず、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> NaN <span style="color:#f92672">==</span> NaN
-<span style="color:#66d9ef">false</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> NaN <span style="color:#f92672">==</span> NaN
+false
 </code></pre></div><p>です。また、IEEE 754で定められている符号付きゼロ <code>-0.0</code> と <code>0.0</code> は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> bitstring(<span style="color:#ae81ff">0.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> bitstring(<span style="color:#ae81ff">0.0</span>)
 <span style="color:#e6db74">&#34;0000000000000000000000000000000000000000000000000000000000000000&#34;</span>
 
 julia<span style="color:#f92672">&gt;</span> bitstring(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>)
 <span style="color:#e6db74">&#34;1000000000000000000000000000000000000000000000000000000000000000&#34;</span>
 </code></pre></div><p>と異なるビット列が対応していますが、<code>==</code> では</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.0</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>
-<span style="color:#66d9ef">true</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.0</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>
+true
 </code></pre></div><p>となるのでこの二つの違いは判別できません。
 そのため、<code>setrounding</code> をエミュレートできているかをテストする際には、<code>isequal</code> を使いました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">3.0</span>)
-<span style="color:#66d9ef">false</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">3.0</span>)
+false
 
 julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>)
-<span style="color:#66d9ef">true</span>
+true
 
 julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>)
-<span style="color:#66d9ef">true</span>
+true
 
 julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>)
-<span style="color:#66d9ef">false</span>
+false
 
 julia<span style="color:#f92672">&gt;</span> isequal(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0</span>)
-<span style="color:#66d9ef">true</span>
+true
 
 julia<span style="color:#f92672">&gt;</span> isequal(NaN, NaN)
-<span style="color:#66d9ef">true</span>
+true
 </code></pre></div><h2 id="set_zero_subnormals"><code>set_zero_subnormals</code></h2>
 <p>なかなか変更することは少ないとは思われますが、Juliaには非正規化数が0に変換されることを許容することで計算を高速化する(かもしれない)設定が存在します。</p>
 <p><a href="https://docs.julialang.org/en/v1/base/numbers/#Base.Rounding.set_zero_subnormals">Base.Rounding.set_zero_subnormals</a><br>
@@ -387,6 +388,7 @@ julia<span style="color:#f92672">&gt;</span> isequal(NaN, NaN)
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -477,7 +479,7 @@ julia<span style="color:#f92672">&gt;</span> isequal(NaN, NaN)
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1938 words in this page.
 	</div>

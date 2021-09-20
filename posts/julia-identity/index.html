@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaの単位行列</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -117,6 +117,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -125,22 +126,22 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>何かと必要になる単位行列だが、Julia v1.0以降だと <code>LinearAlgebra</code> をインポートして <code>Matrix</code> と <code>I</code> の組み合わせで作成するのが楽なようだ。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> LinearAlgebra
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> LinearAlgebra
 <span style="color:#66d9ef">using</span> Distributions
 <span style="color:#66d9ef">Matrix</span>(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
 </code></pre></div><pre><code>2×2 Array{Bool,2}:
   true  false
  false   true
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
 </code></pre></div><pre><code>2×2 Array{Int64,2}:
  1  0
  0  1
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
 </code></pre></div><pre><code>2×2 Array{Float64,2}:
  1.0  0.0
  0.0  1.0
 </code></pre><p><code>MvNormal</code> の分散を単位行列にしたいときは、 <code>I</code> だけで大丈夫。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal([<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], I)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal([<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], I)
 </code></pre></div><pre><code>IsoNormal(
 dim: 2
 μ: [3.0, 4.0]
@@ -157,6 +158,7 @@ dim: 2
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -247,7 +249,7 @@ dim: 2
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 142 words in this page.
 	</div>

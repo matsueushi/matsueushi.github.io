@@ -6,7 +6,7 @@
     <description>Recent content in Flux on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/flux/index.xml" rel="self" type="application/rss+xml" />
@@ -37,9 +37,8 @@
 &lt;h2 id=&#34;singanのモデルの概略&#34;&gt;SinGANのモデルの概略&lt;/h2&gt;
 &lt;p&gt;理論的な部分の詳細は、論文 &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt; や &lt;a href=&#34;https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1&#34;&gt;解説記事&lt;/a&gt; に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。&lt;/p&gt;
 &lt;p&gt;論文とは別に公開されている &lt;a href=&#34;https://tomer.net.technion.ac.il/files/2019/09/SingleImageGan_SM.pdf&#34;&gt;Supplementary Material&lt;/a&gt; はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_pipeline.png&#34;
-         alt=&#34;SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_pipeline.png&#34;
+         alt=&#34;SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt;&lt;figcaption&gt;
             &lt;p&gt;SinGAN’s multi-scale pipeline, retrieved from &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt;&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -51,9 +50,8 @@
 Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を Generator だったら &lt;code&gt;tanh&lt;/code&gt;,
 Discriminator だったら &lt;code&gt;identity&lt;/code&gt; に変えたConvolutional netがベースとなります。
 Discriminator はこれで完成で、Generator はもう一手間必要です。&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_single.png&#34;
-         alt=&#34;Single Scale Generation, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_single.png&#34;
+         alt=&#34;Single Scale Generation, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image&#34;/&gt;&lt;figcaption&gt;
             &lt;p&gt;Single Scale Generation, retrieved from &lt;a href=&#34;https://arxiv.org/abs/1905.01164&#34;&gt;SinGAN: Learning a Generative Model from a Single Natural Image&lt;/a&gt;&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -106,7 +104,7 @@ Convolutional Netで &lt;code&gt;tanh&lt;/code&gt; を適用した段階では \
 &lt;p&gt;公式実装の &lt;a href=&#34;https://github.com/tamarott/SinGAN&#34;&gt;tamarott/SinGAN&lt;/a&gt; をベースに、他の実装
 &lt;a href=&#34;https://github.com/FriedRonaldo/SinGAN&#34;&gt;FriedRonaldo/SinGAN&lt;/a&gt; も時たま参考にしながらやっていきます。&lt;/p&gt;
 &lt;p&gt;全部説明するのは大変なので、ポイントに絞って説明します。パッケージは先に色々インポートしておきます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Adapt
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Adapt
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; BSON&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@load&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;@save&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; CuArrays
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
@@ -121,7 +119,7 @@ Convolutional Netで &lt;code&gt;tanh&lt;/code&gt; を適用した段階では \
 &lt;p&gt;Convolutional Layerに対するFlux.jlの入力データは WHCN の順の array であり、
 今回はカラー画像を使うのでチャンネル数は3(アルファチャンネルがないものを今回は使います), バッチサイズは1なので、画像サイズから array のサイズを計算する関数 &lt;code&gt;expand_dim&lt;/code&gt; を下のように定義します。&lt;/p&gt;
 &lt;p&gt;あとは与えた配列と同じ型 (CPU 環境だったら &lt;code&gt;Array&lt;/code&gt;, GPU 環境だと &lt;code&gt;CuArray&lt;/code&gt;) で0や乱数で埋めた配列が欲しくなることがあるので、そのための関数も用意します。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;expand_dim(dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;expand_dim(dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (dim&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
 zeros_like(T&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Type&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill!(similar(T, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;)
 zeros_like(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fill!(similar(xs, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;)
 randn_like(T&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Type&lt;/span&gt;, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn!(similar(T, dims&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
@@ -133,19 +131,19 @@ Juliaだと関数は型安定である方がいいと言われているので、
 &lt;h3 id=&#34;画像サイズの計算&#34;&gt;画像サイズの計算&lt;/h3&gt;
 &lt;p&gt;最下層の画像のサイズ &lt;code&gt;min_size&lt;/code&gt; からスタートして、サイズを縦横 &lt;code&gt;scale&lt;/code&gt; 倍することを繰り返して最終的なサイズ &lt;code&gt;image_size&lt;/code&gt; に拡大していく関数を作ります。
 100層も学習することはないと思うので下のような形になっています。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; size_pyramid(scale, min_size, image_size)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; size_pyramid(scale, min_size, image_size)
     current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min_size 
     pyramid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}()
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
         push!(pyramid, current_size)
         current_size &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; image_size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-        current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt; floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, min_size &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; scale&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;i)
+        current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@.&lt;/span&gt; floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, min_size &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; scale&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;i)
         current_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(current_size, image_size)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; pyramid
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;中間の Conv 層のチャンネル数は 32 からスタートしてピラミッドを 4 階上がるごとに 2 倍になりますが、128でキャップをかけておきます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;channel_pyramid(n_stage) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(map(s&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;(floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, s &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n_stage), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;channel_pyramid(n_stage) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; min&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(map(s&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;(floor(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;, s &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n_stage), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;画像の拡大パディング&#34;&gt;画像の拡大、パディング&lt;/h3&gt;
 &lt;p&gt;画像を &lt;code&gt;image_shape&lt;/code&gt; の大きさに拡大したあと、周囲を &lt;code&gt;padded_shape&lt;/code&gt; の大きさになるまで0で埋める関数を作ります。&lt;/p&gt;
 &lt;p&gt;Supplimental Material の &amp;ldquo;Boundary conditions and the effect of padding&amp;rdquo; を見ると
@@ -166,17 +164,17 @@ G(x, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\
 \end{aligned}
 $$
 です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
             image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
     &lt;span style=&#34;color:#75715e&#34;&gt;# println(size(x), image_shape, padded_shape)&lt;/span&gt;
     x_large &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; imresize(view(x, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), image_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
     xx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; zeros(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, expand_dim(padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
-    pad1, pad2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt; (padded_shape &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; image_shape) &lt;span style=&#34;color:#f92672&#34;&gt;÷&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+    pad1, pad2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;@.&lt;/span&gt; (padded_shape &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; image_shape) &lt;span style=&#34;color:#f92672&#34;&gt;÷&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
     xx[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad1&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;image_shape[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad1, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad2&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;image_shape[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad2, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; , &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x_large
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; xx
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;CuArray{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;CuArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
             image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cu(resize_and_padding(adapt(&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;}, x), image_shape, padded_shape))
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
@@ -184,14 +182,14 @@ $$
 &lt;a href=&#34;https://github.com/JuliaGPU/GPUArrays.jl/blob/master/src/indexing.jl#L16&#34;&gt;https://github.com/JuliaGPU/GPUArrays.jl/blob/master/src/indexing.jl#L16&lt;/a&gt;
 &lt;code&gt;CuArray&lt;/code&gt; の場合は一旦 &lt;code&gt;Array&lt;/code&gt; に変換して拡大とパディングを行い、 &lt;code&gt;CuArray&lt;/code&gt; に戻していますが効果のほどは不明です。&lt;/p&gt;
 &lt;p&gt;あとあと各ステージの画像サイズに合わせて元画像を縮小した \( x_n \) が必要になります。これを一気に作れる関数を用意します。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_image_pyramid(img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, noise_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_image_pyramid(img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}, noise_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; map((is, ns)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;resize_and_padding(img, is, ns), image_shapes, noise_shapes)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;ノイズの作成&#34;&gt;ノイズの作成&lt;/h3&gt;
 &lt;p&gt;Adversarial loss と Reconstuction loss を計算する時に使うノイズ \(z^{\text{adv}}, z^{\text{rec}}\) をそれぞれ計算する関数
 &lt;code&gt;build_noise_pyramid&lt;/code&gt; と &lt;code&gt;build_rec_pyramid&lt;/code&gt; を生成します。&lt;/p&gt;
 &lt;p&gt;学習の状況に応じてステージごとにノイズの分散は変化するので、調節が行えるようにします。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_zero_pyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; build_zero_pyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}})
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; map(s&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;zeros_like(xs, expand_dim(s&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)), shapes)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
@@ -208,7 +206,7 @@ $$
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;convolutional-block&#34;&gt;Convolutional block&lt;/h3&gt;
 &lt;p&gt;Discriminator, Generator の準備として、Convolutional block \(\psi\) から作っていきます。&lt;/p&gt;
 &lt;p&gt;このような感じで Discriminator, Generator のどちらも使える &lt;code&gt;build_layers&lt;/code&gt; を定義しておきます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Re-define leakyrelu function&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Re-define leakyrelu function&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# https://github.com/FluxML/Flux.jl/issues/963&lt;/span&gt;
 myleakyrelu(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Real&lt;/span&gt;, a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; oftype(x &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; one(x), &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; max(a &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; x, x &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; one(x))
 
@@ -237,12 +235,12 @@ conv_block(&lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt;, out) &lt;s
 &lt;h3 id=&#34;discriminator-generator&#34;&gt;Discriminator, Generator&lt;/h3&gt;
 &lt;p&gt;いよいよ Discriminator, Generator の定義です。
 簡単な Discriminator から作ります。DiscriminatorPyramid に関しては、単に Discriminator を複数個集めて来ただけです。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    DiscriminatorPyramid
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; DiscriminatorPyramid{T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
-    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T
-    DiscriminatorPyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new{typeof(xs)}(xs)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable struct&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;DiscriminatorPyramid&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
+    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;
+    DiscriminatorPyramid(xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;xs&lt;/span&gt;)}(xs)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
 build_single_discriminator(n_layers, conv_chs) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_layers(n_layers, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, conv_chs, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, identity)
@@ -256,7 +254,7 @@ build_single_discriminator(n_layers, conv_chs) &lt;span style=&#34;color:#f92672
     DiscriminatorPyramid(Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(image_shapes), n_layers)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DiscriminatorPyramid)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;DiscriminatorPyramid&lt;/span&gt;)
     print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DiscriminatorPyramid(&amp;#34;&lt;/span&gt;)
     join(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
     print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
@@ -277,35 +275,35 @@ $$&lt;/p&gt;
 &lt;p&gt;を計算するレイヤーです。&lt;code&gt;pad&lt;/code&gt; は周囲でノイズパディングを行うサイズ \(d\) です。
 &lt;code&gt;basic.jl&lt;/code&gt; の &lt;code&gt;SkipConnection&lt;/code&gt; の実装を参考にしました。
 &lt;a href=&#34;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&#34;&gt;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    NoiseConnection
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; NoiseConnection
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable struct&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;NoiseConnection&lt;/span&gt;
     layers
     pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
 &lt;span style=&#34;color:#a6e22e&#34;&gt;@Flux&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;functor NoiseConnection
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;NoiseConnection)(prev&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T, noise&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;NoiseConnection&lt;/span&gt;)(prev&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;, noise&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;where&lt;/span&gt; {&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
     pad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad
-    raw_output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;layers(noise &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev)&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; raw_output[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+    raw_output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;layers(noise &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev)&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; prev
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; raw_output[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;NoiseConnection)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;NoiseConnection&lt;/span&gt;)
     print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;NoiseConnection(&amp;#34;&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;layers, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;, nc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;いよいよ GeneratorPyramid の定義です。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    GeneratorPyramid
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; GeneratorPyramid{T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable struct&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;GeneratorPyramid&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;}
     image_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}
     noise_shapes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}}
     pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;
-    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;T
-    GeneratorPyramid(image_shapes, noise_shapes, pad, xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new{typeof(xs)}(image_shapes, noise_shapes, pad, xs)
+    chains&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;
+    GeneratorPyramid(image_shapes, noise_shapes, pad, xs&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;xs&lt;/span&gt;)}(image_shapes, noise_shapes, pad, xs)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
 build_single_gen_layers(n_layers, conv_chs) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_layers(n_layers, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, conv_chs, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, tanh)
@@ -319,7 +317,7 @@ build_single_generator(n_layers, conv_chs, pad) &lt;span style=&#34;color:#f9267
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; GeneratorPyramid(image_shapes, noise_shapes, pad, gpu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(ds)&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(io&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;IO&lt;/span&gt;, d&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GeneratorPyramid&lt;/span&gt;)
     print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GeneratorPyramid(&amp;#34;&lt;/span&gt;)
     print(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;)
     print(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;)
@@ -328,12 +326,12 @@ build_single_generator(n_layers, conv_chs, pad) &lt;span style=&#34;color:#f9267
     print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid)(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractVector&lt;/span&gt;{T}, st&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, resize&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Bool&lt;/span&gt;) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GeneratorPyramid&lt;/span&gt;)(xs&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractVector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;}, st&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, resize&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Bool&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;where&lt;/span&gt; {&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; st &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
         zeros_shape &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resize &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; first(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes) &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; first(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes)
         &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; zeros_like(T, expand_dim(zeros_shape&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;))
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(xs, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+    prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(xs, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, true)
     out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st](prev, xs[st])
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; resize &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; resize_and_padding(out, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes[st &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[st &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; out
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
@@ -342,7 +340,7 @@ build_single_generator(n_layers, conv_chs, pad) &lt;span style=&#34;color:#f9267
 &lt;h3 id=&#34;損失関数&#34;&gt;損失関数&lt;/h3&gt;
 &lt;p&gt;次に損失関数を定義します。SinGAN のオリジナルの実装では GAN には WGAN-GP を使っているのですが、残念なが自分のスキルでは Gradientを損失条件の中に入れられなかった
 (損失関数の中にGradientの計算関数を入れると、損失関数の微分が取れなかった) ので、泣く泣く LSGAN に置き換えています。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; discriminator_loss(d_real&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, d_g_fake_adv&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; discriminator_loss(d_real&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;, d_g_fake_adv&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;)
     real_loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(&lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;, mean(d_real; dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)))
     fake_loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(&lt;span style=&#34;color:#ae81ff&#34;&gt;0f0&lt;/span&gt;, mean(d_g_fake_adv; dims &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)))
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; real_loss &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; fake_loss
@@ -354,18 +352,18 @@ generator_rec_loss(real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;いちいち0や1をベクトルに直す必要はありません。シンプルに書けていいですね。&lt;/p&gt;
 &lt;h3 id=&#34;discriminator-generator-の更新&#34;&gt;Discriminator, Generator の更新&lt;/h3&gt;
 &lt;p&gt;損失関数の値を計算し、Discriminator, Generator のパラメーターに関する微分を取ってパラメーターを更新する関数を書きます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; true
     ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(dscr)
     grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
         discriminator_loss(dscr(real_img), dscr(g_fake_adv))
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
     update!(opt, ps, grad)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; false
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_generator!(opt, dscr, gen, real_img, prev_rec, prev_adv, noise_rec, noise_adv, alpha)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; true
     ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(gen)
     grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
         g_fake_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen(prev_rec, noise_rec)
@@ -373,49 +371,49 @@ generator_rec_loss(real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span
         generator_adv_loss(d_g_fake_adv) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; alpha &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; generator_rec_loss(real_img, g_fake_rec)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
     update!(opt, ps, grad)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; false
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ここで、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     discriminator_loss(dscr(real_img), dscr(g_fake_adv))
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;この部分はこれと一緒です。(&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/functions/index.html#man-anonymous-functions-1&#34;&gt;https://docs.julialang.org/en/v1/manual/functions/index.html#man-anonymous-functions-1&lt;/a&gt;)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; discriminator_loss(dscr(real_img), dscr(g_fake_adv)), ps)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; discriminator_loss(dscr(real_img), dscr(g_fake_adv)), ps)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;gradient&lt;/code&gt; の代わりに &lt;code&gt;pullback&lt;/code&gt; を使うと微分と同時に関数の値も取得できます。(&lt;a href=&#34;https://fluxml.ai/Zygote.jl/latest/adjoints/#Pullbacks-1&#34;&gt;https://fluxml.ai/Zygote.jl/latest/adjoints/#Pullbacks-1&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;パラメーターの更新後に損失関数の値を返したい場合、例えばこのように書けばOKです。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; update_discriminator!(opt, dscr, real_img, g_fake_adv)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; true
     ps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params(dscr)
     loss, back &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pullback(ps) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
         discriminator_loss(dscr(real_img), dscr(g_fake_adv))
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
     grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; back(Zygote&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sensitivity(loss))
     update!(opt, ps, grad)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@eval&lt;/span&gt; Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;istraining() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; false
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; loss
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;学習&#34;&gt;学習&lt;/h3&gt;
 &lt;p&gt;1エポックの学習は次のようになります。
 改めて損失関数の値を計算しているので少し無駄になっている気もしますが気にしないでおきます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_epoch!(opt_dscr, opt_gen, st, loop_dscr, loop_gen,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_epoch!(opt_dscr, opt_gen, st, loop_dscr, loop_gen,
         dscr, genp, prev_rec, noise_rec, real_img, amplifiers, alpha)
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# discriminator&lt;/span&gt;
     foreach(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;loop_dscr) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; _
         noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
-        g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+        g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, false)
         update_discriminator!(opt_dscr, dscr, real_img, g_fake_adv)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# generator&lt;/span&gt;
     foreach(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;loop_gen) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; _
         noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
-        prev_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+        prev_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, true)
         update_generator!(opt_gen, dscr, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains[st], real_img, prev_rec, prev_adv, noise_rec, last(noise_adv), alpha)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
     noise_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; build_noise_pyramid(prev_rec, genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_shapes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;st], amplifiers)
-    g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+    g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(noise_adv, st, false)
     loss_dscr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; discriminator_loss(dscr(real_img), dscr(g_fake_adv))
     d_g_fake_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dscr(g_fake_adv)
     loss_gen_adv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_adv_loss(d_g_fake_adv)
@@ -425,7 +423,7 @@ generator_rec_loss(real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; loss_dscr, loss_gen_adv, loss_gen_rec
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ハイパーパラメーターを入れておく箱を用意して、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; HyperParams
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mutable struct&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;HyperParams&lt;/span&gt;
     scale&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;                  &lt;span style=&#34;color:#75715e&#34;&gt;# progression scale, &amp;gt; 1&lt;/span&gt;
     min_size_x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# minimal image width&lt;/span&gt;
     min_size_y&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;               &lt;span style=&#34;color:#75715e&#34;&gt;# minimal image height&lt;/span&gt;
@@ -445,10 +443,10 @@ generator_rec_loss(real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span
     HyperParams() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1600&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5e-4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5e-4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50f0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-show_dict(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; OrderedDict(string(nm) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; getfield(hp, nm) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; nm &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; fieldnames(HyperParams))
-image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size_pyramid(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scale, (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_y), (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_y))
+show_dict(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;HyperParams&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; OrderedDict(string(nm) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; getfield(hp, nm) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; nm &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; fieldnames(HyperParams))
+image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;HyperParams&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size_pyramid(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scale, (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;min_size_y), (hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_x, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;img_size_y))
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; setup_models(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; setup_models(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;HyperParams&lt;/span&gt;)
     img_shapes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image_shapes(hp)
     dscrp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DiscriminatorPyramid(img_shapes, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_layers) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
     genp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GeneratorPyramid(img_shapes, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_layers) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
@@ -456,15 +454,15 @@ image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperPar
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ようやく最終的な &lt;code&gt;train&lt;/code&gt; 関数の完成です。(画像を出力するところなどは省いています)。
 &lt;code&gt;estimate_noise_amplifier&lt;/code&gt; は、一段階前の画像と元画像からノイズの分散を調節する関数です。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; estimate_noise_amplifier(prev_rec&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;},
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; estimate_noise_amplifier(prev_rec&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, real_img&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;},
         pad&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Integer&lt;/span&gt;, amplifier_init&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;)
-    prev_rec_crop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@view&lt;/span&gt; prev_rec[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
+    prev_rec_crop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@view&lt;/span&gt; prev_rec[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pad&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; pad, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;]
     rmse &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqrt(mse(real_img, prev_rec_crop))
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; rmse &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; amplifier_init
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train!(dscrp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DiscriminatorPyramid, genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;GeneratorPyramid, 
-        real_img_p&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{T}, hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperParams) where {T &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train!(dscrp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;DiscriminatorPyramid&lt;/span&gt;, genp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GeneratorPyramid&lt;/span&gt;, 
+        real_img_p&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt;}, hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;HyperParams&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;where&lt;/span&gt; {&lt;span style=&#34;color:#66d9ef&#34;&gt;T&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}}
     stages &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;image_shapes)
 
     amplifiers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;[]
@@ -480,7 +478,7 @@ image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperPar
         opt_gen &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ADAM(hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lr_gen, (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.999&lt;/span&gt;))
 
         &lt;span style=&#34;color:#75715e&#34;&gt;# calculate noise amplifier&lt;/span&gt;
-        prev_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(fixed_noise_rec, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# padded&lt;/span&gt;
+        prev_rec &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; genp(fixed_noise_rec, st &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, true) &lt;span style=&#34;color:#75715e&#34;&gt;# padded&lt;/span&gt;
         amp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; st &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1f0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; estimate_noise_amplifier(prev_rec, real_img_p[st], genp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pad, hp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;amplifier_init)
         push!(amplifiers, amp)
         &lt;span style=&#34;color:#75715e&#34;&gt;# add noise for adv &lt;/span&gt;
@@ -508,35 +506,29 @@ image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperPar
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;アニメーション結果&#34;&gt;アニメーション結果&lt;/h3&gt;
 &lt;p&gt;一応トレーニング関数まで到達したので、具体的な実行方法などは一番最後に載せたレポジトリを見てもらうこととして、とりあえずアニメーションの結果を見せたいと思います。
 公式実装のアニメーションで使われている画像を強引に 64x64 にリサイズしたものを使いました。
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34;/&gt; 
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34;/&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;無理やり 256x256 に引き伸ばすとこんな感じです。
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34; width=&#34;256&#34;/&gt; 
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning_original.png&#34; width=&#34;256&#34;/&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;25x25 のサイズからスタートして、64x64 で終了させたのですが、GCP の n1-standard-8 + K80 で一時間弱で学習が終わりました。
 今回は Julia サイドで画像だけ吐き出して、アニメーション GIF は ImageMagick で作成しました。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ convert -delay &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; -loop &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; img*.png fluxjl-singan_lightning.gif
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34;/&gt; 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ convert -delay &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; -loop &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; img*.png fluxjl-singan_lightning.gif
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34;/&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;実際の画像はかなり小さいので、256x256 に拡大するとこんな感じです。
 もっと時間をかけて大きい画像まで学習すれば高精細な結果が得られると思います。
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_lightning.gif&#34; width=&#34;256&#34;/&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;アルバムのジャケットをアニメーションさせた結果です。&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_floral.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_floral.gif&#34; width=&#34;256&#34;/&gt;
 &lt;/figure&gt;
 
-&lt;figure&gt;
-    &lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_farside.gif&#34; width=&#34;256&#34;/&gt; 
+&lt;figure&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/fluxjl-singan_farside.gif&#34; width=&#34;256&#34;/&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;まだまだ実装の改良の余地がありそうですが、一応一枚の画像だけを使ってアニメーション画像を作成するモデルを Flux.jl で実装できました。&lt;/p&gt;
@@ -564,7 +556,7 @@ image_shapes(hp&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;HyperPar
 &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;p&gt;&lt;del&gt;このあたり、&lt;a href=&#34;https://www.tensorflow.org/install/docker&#34;&gt;GPUのDockerイメージ&lt;/a&gt; が利用できるTensorflowが羨ましく感じられる部分ではある。&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;JuliaGPUのDockerイメージ &lt;a href=&#34;https://github.com/JuliaGPU/docker&#34;&gt;JuliaGPU/docker&lt;/a&gt; はメンテナンスされていないので、&lt;a href=&#34;https://hub.docker.com/r/nvidia/cuda/&#34;&gt;nvidia/cuda&lt;/a&gt; のイメージをベースに、Juliaのインストール部分は &lt;a href=&#34;https://github.com/docker-library/julia&#34;&gt;docker-library/julia&lt;/a&gt; を参考にDockerfileを作成。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-docker&#34; data-lang=&#34;docker&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Dockerfile Julia 1.3.0 + CUDA for Flux.jl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-docker&#34; data-lang=&#34;docker&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Dockerfile Julia 1.3.0 + CUDA for Flux.jl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;ARG&lt;/span&gt; CUDA&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;.0&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;ARG&lt;/span&gt; UBUNTU_VERSION&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;18&lt;/span&gt;.04&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
@@ -643,7 +635,7 @@ v0.9.0で実装する際にはGANに関係したプルリクエスト
 &lt;p&gt;しかしながら、後にも触れるが、v0.10.0で、&lt;a href=&#34;https://github.com/FluxML/Flux.jl/pull/669&#34;&gt;デフォルトの自動微分エンジンをTrackerからZygote.jlに変える大きな変更&lt;/a&gt; がマージされたので、
 そのままコピペしただけでは動かないと思われるため要注意。&lt;/p&gt;
 &lt;p&gt;ネットワーク、ロス関数の構成は &lt;a href=&#34;https://www.tensorflow.org/tutorials/generative/dcgan&#34;&gt;TensorflowのDCGANチュートリアル&lt;/a&gt; を参考にした。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise_dim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise_dim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
 channels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
 
 generator &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Chain(
@@ -697,7 +689,7 @@ discriminator &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  Chain(
 初めてFlux.jlに&lt;a href=&#34;https://github.com/FluxML/Flux.jl/pull/940&#34;&gt;Pull resuestを投げて&lt;/a&gt;取り込んでもらった。&lt;/p&gt;
 &lt;p&gt;DiscriminatorとGeneratorのtrain関数は下のように書ける。
 細かい部分はリポジトリ参照&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_discriminator!(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DCGAN, batch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;})
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_discriminator!(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;DCGAN&lt;/span&gt;, batch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;})
     noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_dim, dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;batch_size) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
     fake_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;generator(noise)
     loss(m) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; discriminator_loss(m(batch), m(fake_input))
@@ -706,7 +698,7 @@ discriminator &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  Chain(
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; loss(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;discriminator)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_generator!(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;DCGAN, batch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;})
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; train_generator!(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;DCGAN&lt;/span&gt;, batch&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;AbstractArray&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;})
     noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;noise_dim, dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;batch_size) &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; gpu
     loss(m) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_loss(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;discriminator(m(noise)))
     gen_grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(()&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;loss(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;generator), Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;params(dcgan&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;generator))
@@ -719,7 +711,7 @@ Trackerで書かれたモデルは、Zygote.jlに合わせて多少書き直す�
 &lt;h3 id=&#34;型の変更&#34;&gt;型の変更&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;gradient&lt;/code&gt; を取った時に返ってくる型が変わった。&lt;/p&gt;
 &lt;p&gt;v0.9.0&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; using Flux.Tracker: gradient
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; using Flux.Tracker: gradient
 
 julia&amp;gt; f&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 3x^2 + 2x + 1;
 
@@ -729,7 +721,7 @@ julia&amp;gt; gr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradie
 julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gr&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 Tuple&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Tracker.TrackedReal&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float64&lt;span style=&#34;color:#f92672&#34;&gt;}}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;v0.10.0&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; f&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 3x^2 + 2x + 1;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; f&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 3x^2 + 2x + 1;
 
 julia&amp;gt; gr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;f, 2.0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;14.0,&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
@@ -741,14 +733,14 @@ Tuple&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float64&lt;span sty
 &lt;p&gt;Zygote.jl の&lt;a href=&#34;https://fluxml.ai/Zygote.jl/latest/flux/&#34;&gt;リファレンス&lt;/a&gt; には &lt;code&gt;Tracker.gradient&lt;/code&gt; を単に &lt;code&gt;Zygote.gradient&lt;/code&gt; に置き換えれば良いと書いてあるが、
 自分の場合はTrackerで取れた微分がZygoteにバックエンドが変わって取れなくなった。&lt;/p&gt;
 &lt;p&gt;Trackerでは微分を取るときに&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
 fake_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator(noise)
 fake_output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; discriminator(fake_input)
 loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sum(fake_output)
 gen_grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(()&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;loss, Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;params(generator))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このような書き方もできた。model-zooのPull RequestのDCGANのコードもこのような形式で書いてある。&lt;/p&gt;
 &lt;p&gt;v0.9.0&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
 IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; with &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; entries:
   Tracked&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Array&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float32,1&lt;span style=&#34;color:#f92672&#34;&gt;}}(&lt;/span&gt;0x00000000, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0456388, -0.00530366, -0.0689154, 0.0356684, 0.033944, 0.0469224, 0…
   Tracked&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Array&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float32,4&lt;span style=&#34;color:#f92672&#34;&gt;}}(&lt;/span&gt;0x00000000, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-0.0663779 0.470391 0.0135268 0.169848; -0.265991 0.113839 -0.297718 …
@@ -765,7 +757,7 @@ IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span st
   Tracked&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Array&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float32,2&lt;span style=&#34;color:#f92672&#34;&gt;}}(&lt;/span&gt;0x00000000, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-0.210451 -0.383133 … -0.441269 -0.122698; 0.0191366 -0.273669 … -0.1…
   Tracked&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Array&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Float32,1&lt;span style=&#34;color:#f92672&#34;&gt;}}(&lt;/span&gt;0x00000000, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0, -2.23517e-8, 2.6077e-8, 0.0, 2.00234e-8, -9.31323e-9, -2.98023e-…
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;一方、v0.10.0では&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
 IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; with &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; entries:
   Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0396942 0.00191599 0.0301089 0.00723371; 0.0816196 0.036961 0.0352632 0.0343… &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; nothing
   Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;                                                                            &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; nothing
@@ -782,10 +774,10 @@ IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span st
   Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; nothing
   Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; nothing
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;微分が &lt;code&gt;nothing&lt;/code&gt; になってしまう。自分は、下のように書き換えた。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;noise &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; randn(&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
 loss(m) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sum(discriminator(m(noise)))
 gen_grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gradient(()&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;loss(generator), Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;params(generator))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; gen_grad.grads
 IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; with &lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt; entries:
   RefValue&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;^&lt;span style=&#34;color:#f92672&#34;&gt;)}(&lt;/span&gt;^&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; RefValue&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any&lt;span style=&#34;color:#f92672&#34;&gt;}((&lt;/span&gt;x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nothing,&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
   Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0.0396942 0.00191599 0.… &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-0.136635 -0.1123 -0.0335189 -0.108103; -0.0265187 -0…
@@ -814,7 +806,7 @@ IdDict&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Any,Any&lt;span st
 Zygote.jlの &lt;a href=&#34;https://fluxml.ai/Zygote.jl/latest/#Gradients-of-ML-models-1&#34;&gt;Gradients of ML models&lt;/a&gt; にはimplicitな書き方は、
 Trackerとの互換性のために残してあると書いてある。&lt;/p&gt;
 &lt;p&gt;しかしながら、この二つを利用したときに返ってくる型が異なる&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gen_grad&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gen_grad&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 Zygote.Grads
 
 julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gradient&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;loss, generator&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
@@ -829,7 +821,7 @@ implicitに書く必要がある。このあたりは、将来的に変わって
 が、Zygote.jlではその必要がなくなっている。
 v0.9.0でこれに気づかず正しく学習が進まず苦戦したので、この修正はありがたい。&lt;/p&gt;
 &lt;p&gt;v0.9.0&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
 
 d1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Dense(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
 d2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Dense(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
@@ -858,7 +850,7 @@ Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Tracker&lt;span styl
 Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Tracker&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zero_grad!&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(Tracker&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(p2))
 Flux&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Tracker&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;gradient(loss, p2)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grads &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; values &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; println
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Output&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case1
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case1
 Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-6.40395 -5.80043&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-4.58864&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;10.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-15.8992&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)]&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case2
 Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-6.40395 -5.80043&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-15.8992&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)]&lt;/span&gt;
@@ -868,7 +860,7 @@ Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style
 Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-4.58864&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;10.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tracked&lt;span style=&#34;color:#f92672&#34;&gt;)]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上のCase2のような状況を防ぐために、Case3のように途中に&lt;code&gt;zero_grad!&lt;/code&gt;を挟む必要があった。
 一方、v0.10.0は&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Flux
 
 d1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Dense(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
 d2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Dense(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
@@ -888,7 +880,7 @@ gradient(loss, pall)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
 gradient(loss, p1)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grads &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; values &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; println
 gradient(loss, p2)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grads &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; values &lt;span style=&#34;color:#f92672&#34;&gt;|&amp;gt;&lt;/span&gt; println
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Output&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case1
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case1
 Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;9.715003&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3.7775292 4.41461&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;10.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-5.8413825&lt;span style=&#34;color:#f92672&#34;&gt;]]&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; Info: Case2
 Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;9.715003&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;, Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3.7775292 4.41461&lt;span style=&#34;color:#f92672&#34;&gt;]]&lt;/span&gt;
@@ -904,7 +896,7 @@ Any&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Float32&lt;span style
 &lt;p&gt;これはバージョンは関係ない話で、
 &lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/performance/#Don&#39;t-use-more-precision-than-you-need.-1&#34;&gt;Don&amp;rsquo;t use more precision than you need.&lt;/a&gt; には、必ずしも &lt;code&gt;Float64&lt;/code&gt; を使う必要はなく、 &lt;code&gt;Float32&lt;/code&gt; を使えば良いとある。&lt;/p&gt;
 &lt;p&gt;何も考えずにJuliaで実数型を使うと &lt;code&gt;Float64&lt;/code&gt; になるので、明示的に &lt;code&gt;Float32&lt;/code&gt; を使う意識が必要。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1.0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;julia&amp;gt; typeof&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1.0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 Float64
 
 julia&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1.0, 2.0, 3.0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
@@ -924,9 +916,9 @@ julia&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これと関連して、&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/performance/#Make-sure-your-activation-and-loss-functions-preserve-the-type-of-their-inputs-1&#34;&gt;Make sure your activation and loss functions preserve the type of their inputs&lt;/a&gt;
 に書いてあることではあるが、&lt;code&gt;Float64&lt;/code&gt; と &lt;code&gt;Float32&lt;/code&gt; の変換が起こらないようにする。&lt;/p&gt;
 &lt;p&gt;例えば、&lt;code&gt;Float32&lt;/code&gt; を使ってモデル構築をしているのに、&lt;code&gt;leakyrelu&lt;/code&gt; の勾配を変更して&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;leakyrelu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;leakyrelu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と書いてしまうと &lt;code&gt;0.2&lt;/code&gt; の型が &lt;code&gt;Float64&lt;/code&gt; であるため、型の変換が行われて激烈に遅くなる。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;leakyrelu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2f0&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;leakyrelu&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(x, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2f0&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とするのが良い。自分は最初これを知らず前者のように書いてしまい、一向に計算が終わらなくなってしまい時間を浪費した。
 &lt;code&gt;logitbinarycrossentropy&lt;/code&gt; に &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt; ではなく &lt;code&gt;0f0&lt;/code&gt;, &lt;code&gt;1f0&lt;/code&gt;を渡したのも同様の理由。&lt;/p&gt;
 &lt;h2 id=&#34;生成結果&#34;&gt;生成結果&lt;/h2&gt;

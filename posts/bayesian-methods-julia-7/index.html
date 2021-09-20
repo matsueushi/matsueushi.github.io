@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(7) - The Price Is Right</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -139,11 +140,11 @@ onload='renderMathInElement(document.body);'></script>
 このような条件のモデリングである。</li>
 </ol>
 <p>実際にモデリングをやってみて、賞品A, Bの事前分布と、その和をモデリングするところまでは下のようにすればいいので簡単であるのだが、( <code>using</code> 等は略した)真の価格の分布とサンプリングした賞品A, Bの価格の分布の和を結びつける段階で、はて？？？となった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-    <span style="color:#f92672">:</span>data_mu <span style="color:#f92672">=&gt;</span> [<span style="color:#ae81ff">3e3</span>, <span style="color:#ae81ff">12e3</span>],
-    <span style="color:#f92672">:</span>data_std <span style="color:#f92672">=&gt;</span> [<span style="color:#ae81ff">5e2</span>, <span style="color:#ae81ff">3e3</span>],
-    <span style="color:#f92672">:</span>mu_prior <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">35e3</span>,
-    <span style="color:#f92672">:</span>std_prior <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">75e2</span>,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+    <span style="color:#e6db74">:data_mu</span> <span style="color:#f92672">=&gt;</span> [<span style="color:#ae81ff">3e3</span>, <span style="color:#ae81ff">12e3</span>],
+    <span style="color:#e6db74">:data_std</span> <span style="color:#f92672">=&gt;</span> [<span style="color:#ae81ff">5e2</span>, <span style="color:#ae81ff">3e3</span>],
+    <span style="color:#e6db74">:mu_prior</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">35e3</span>,
+    <span style="color:#e6db74">:std_prior</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">75e2</span>,
 )
 
 model <span style="color:#f92672">=</span> Model(
@@ -152,14 +153,14 @@ model <span style="color:#f92672">=</span> Model(
     price_estimate <span style="color:#f92672">=</span> Logical(prize <span style="color:#f92672">-&gt;</span> sum(prize)),
 )
 </code></pre></div><p>モデルを下のようにしてしまうと、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
     true_price <span style="color:#f92672">=</span> Stochastic((mu_prior, std_prior) <span style="color:#f92672">-&gt;</span> Normal(mu_prior, std_prior)),
     prize <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>, (data_mu, data_std) <span style="color:#f92672">-&gt;</span> MvNormal(data_mu, data_std)),
     price_estimate <span style="color:#f92672">=</span> Logical(prize <span style="color:#f92672">-&gt;</span> sum(prize)),
 )
 </code></pre></div><p><code>price_estimate</code> と <code>true_price</code> が結びつかないのである。</p>
 <p>本文のコードを見てみると、 <code>@pm.potential</code> というデコレーターが付いた関数が使われている。(PyMC3では <code>pm.Potential</code> )</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@pm</span><span style="color:#f92672">.</span>potential
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@pm</span><span style="color:#f92672">.</span>potential
 def error(true_price<span style="color:#f92672">=</span>true_price, price_estimate<span style="color:#f92672">=</span>price_estimate)<span style="color:#f92672">:</span>
     <span style="color:#66d9ef">return</span> pm<span style="color:#f92672">.</span>normal_like(true_price, price_estimate, <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">3e3</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
 </code></pre></div><p>要は毎回真の価格の分布からサンプリングされている観測値 <code>true_price</code> を \( \text{Normal}( \) <code>price_estimate</code> \(, 3000^2) \) という分布に当てはめた時の尤度を制約条件として加えるということである。</p>
@@ -175,27 +176,27 @@ def error(true_price<span style="color:#f92672">=</span>true_price, price_estima
 </blockquote>
 <p>Mambaに <code>pm.potential</code> に該当する機能が見つからなかったので、ユーザー定義の分布を定義することで制約条件を実装した。</p>
 <p><code>true_price</code> に対して計算される尤度が通常の \( \text{Normal}(\mu, \sigma^2) \) に対応する尤度と今回考えたい制約に対応する  \( \text{Normal}( \) <code>price_estimate</code> \(, 3000^2) \) の尤度の話になるような分布にすれば良いので、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@everywhere</span> extensions <span style="color:#f92672">=</span> <span style="color:#66d9ef">quote</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@everywhere</span> extensions <span style="color:#f92672">=</span> <span style="color:#66d9ef">quote</span>
     <span style="color:#66d9ef">using</span> Distributions
     <span style="color:#66d9ef">import</span> Distributions<span style="color:#f92672">:</span> minimum, maximum, logpdf
     
-    <span style="color:#66d9ef">mutable</span> <span style="color:#66d9ef">struct</span> TruePriceDist <span style="color:#f92672">&lt;:</span> ContinuousUnivariateDistribution
+    <span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">TruePriceDist</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">ContinuousUnivariateDistribution</span>
         mu<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
         sig<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
         price_estimate<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
     <span style="color:#66d9ef">end</span>
     
-    minimum(d<span style="color:#f92672">::</span>TruePriceDist) <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>Inf
-    maximum(d<span style="color:#f92672">::</span>TruePriceDist) <span style="color:#f92672">=</span> Inf
+    minimum(d<span style="color:#f92672">::</span><span style="color:#66d9ef">TruePriceDist</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>Inf
+    maximum(d<span style="color:#f92672">::</span><span style="color:#66d9ef">TruePriceDist</span>) <span style="color:#f92672">=</span> Inf
     
-    <span style="color:#66d9ef">function</span> logpdf(d<span style="color:#f92672">::</span>TruePriceDist, x<span style="color:#f92672">::</span><span style="color:#66d9ef">Real</span>)
+    <span style="color:#66d9ef">function</span> logpdf(d<span style="color:#f92672">::</span><span style="color:#66d9ef">TruePriceDist</span>, x<span style="color:#f92672">::</span><span style="color:#66d9ef">Real</span>)
        logpdf(Normal(d<span style="color:#f92672">.</span>mu, d<span style="color:#f92672">.</span>sig), x) <span style="color:#f92672">+</span> logpdf(Normal(d<span style="color:#f92672">.</span>price_estimate, <span style="color:#ae81ff">3000</span>), x)
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
 <span style="color:#a6e22e">@everywhere</span> eval(extensions)
 </code></pre></div><p>と新しく分布を定義する。こうすると <code>logpdf</code> が正規化されていないものになる(pdfを積分して1にならない)がMambaで使う分布としては問題は起こらない。</p>
 <p>モデルはこの <code>TruePriceDist</code> を使って、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model <span style="color:#f92672">=</span> Model(
     true_price <span style="color:#f92672">=</span> Stochastic(
         (mu_prior, std_prior, price_estimate) <span style="color:#f92672">-&gt;</span> 
         TruePriceDist(mu_prior, std_prior, price_estimate)
@@ -215,6 +216,7 @@ def error(true_price<span style="color:#f92672">=</span>true_price, price_estima
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -305,7 +307,7 @@ def error(true_price<span style="color:#f92672">=</span>true_price, price_estima
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1012 words in this page.
 	</div>

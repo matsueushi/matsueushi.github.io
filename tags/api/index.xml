@@ -6,7 +6,7 @@
     <description>Recent content in API on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Thu, 10 Sep 2020 09:10:30 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
@@ -41,7 +41,7 @@ Discogsにはアプリケーション用のConsumer KeyとConsumer Secretもあ�
 &lt;p&gt;Registratorには登録していないのですが気が向いたら登録しようと思います。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RunOut.jl&#34;&gt;https://github.com/matsueushi/RunOut.jl&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;使い方は簡単で、レポジトリをクローンして&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ julia --project
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ julia --project
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;でプロジェクトを有効化します。&lt;/p&gt;
 &lt;p&gt;そして、ダウンロードしたいリリースのリリースIDを調べます。Discogsにはマスターリリースとリリースという概念があり、
 雑に言うとマスターリリースはアルバム・シングル名、リリースはそれぞれのエディション(CD, LP, 初回限定盤、再発など)に対応しています。&lt;/p&gt;
@@ -52,7 +52,7 @@ CDとLPの収録曲の違いや、初回限定版や再発のボーナストラ�
 &lt;p&gt;&lt;a href=&#34;https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364&#34;&gt;https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;となるので、idは&lt;code&gt;919364&lt;/code&gt;です。&lt;/p&gt;
 &lt;p&gt;まず、クライアントをセットアップします。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; RunOut
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; RunOut
 
 julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Pkg
 
@@ -62,47 +62,47 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; useragent &
 julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; client &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Client(useragent)
 Client(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;RunOut/0.1.0 +https://matsueushi.github.io&amp;#34;&lt;/span&gt;, nothing)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;クライアントは&lt;code&gt;user_token&lt;/code&gt;を渡してinstantiateすることもできます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;client &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Client(useragent; usertoken&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;user token&amp;gt;&amp;#34;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;client &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Client(useragent; usertoken&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;user token&amp;gt;&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;リリース情報を取得するのは非常に簡単です。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; release &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fetch_release(client, &lt;span style=&#34;color:#ae81ff&#34;&gt;919364&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; release &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fetch_release(client, &lt;span style=&#34;color:#ae81ff&#34;&gt;919364&lt;/span&gt;)
 Release
   id&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UInt64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x00000000000e0744&lt;/span&gt;
-  title&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Loveless&amp;#34;&lt;/span&gt;
-  resource_url&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.discogs.com/releases/919364&amp;#34;&lt;/span&gt;
-  artists&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Artist}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
-  artists_sort&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;My Bloody Valentine&amp;#34;&lt;/span&gt;
-  data_quality&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Needs Vote&amp;#34;&lt;/span&gt;
-  thumb&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Nothing nothing
+  title&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Loveless&amp;#34;&lt;/span&gt;
+  resource_url&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.discogs.com/releases/919364&amp;#34;&lt;/span&gt;
+  artists&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Artist&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
+  artists_sort&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;My Bloody Valentine&amp;#34;&lt;/span&gt;
+  data_quality&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Needs Vote&amp;#34;&lt;/span&gt;
+  thumb&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Nothing&lt;/span&gt; nothing
   community&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Community
-  companies&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Company}((&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,))
-  country&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Japan&amp;#34;&lt;/span&gt;
+  companies&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Company&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,))
+  country&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Japan&amp;#34;&lt;/span&gt;
   date_added&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; TimeZones&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ZonedDateTime
   date_changed&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; TimeZones&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ZonedDateTime
   estimated_weight&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UInt64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0000000000000055&lt;/span&gt;
-  extraartists&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Artist}((&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;,))
+  extraartists&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Artist&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;,))
   format_quantity&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-  formats&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Format}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
-  genres&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{String}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
-  identifiers&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Identifier}((&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,))
-  images&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Image}((&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;,))
-  labels&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Label}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
+  formats&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Format&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
+  genres&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
+  identifiers&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Identifier&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,))
+  images&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Image&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;,))
+  labels&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Label&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
   lowest_price&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.99&lt;/span&gt;
   master_id&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UInt64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x000000000000173c&lt;/span&gt;
-  master_url&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.discogs.com/masters/5948&amp;#34;&lt;/span&gt;
-  notes&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Nothing nothing
+  master_url&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.discogs.com/masters/5948&amp;#34;&lt;/span&gt;
+  notes&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Nothing&lt;/span&gt; nothing
   num_for_sale&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UInt64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x000000000000001e&lt;/span&gt;
-  released&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1998-03-21&amp;#34;&lt;/span&gt;
-  released_formatted&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;21 Mar 1998&amp;#34;&lt;/span&gt;
-  series&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Label}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
-  status&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Accepted&amp;#34;&lt;/span&gt;
-  styles&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{String}((&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,))
-  tracklist&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Track}((&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;,))
-  uri&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; String &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364&amp;#34;&lt;/span&gt;
-  videos&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Video}((&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;,))
+  released&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1998-03-21&amp;#34;&lt;/span&gt;
+  released_formatted&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;21 Mar 1998&amp;#34;&lt;/span&gt;
+  series&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Label&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,))
+  status&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Accepted&amp;#34;&lt;/span&gt;
+  styles&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,))
+  tracklist&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Track&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;,))
+  uri&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://www.discogs.com/My-Bloody-Valentine-Loveless/release/919364&amp;#34;&lt;/span&gt;
+  videos&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Video&lt;/span&gt;}((&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;,))
   year&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UInt64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x00000000000007ce&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;地道な作業により情報を&lt;code&gt;struct&lt;/code&gt;に&lt;a href=&#34;https://github.com/matsueushi/RunOut.jl/blob/master/src/models.jl&#34;&gt;マッピング&lt;/a&gt;したので、単なる&lt;code&gt;Dict&lt;/code&gt;より取り扱いが容易になっています。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; release&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;tracklist
-&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{Track,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; release&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;tracklist
+&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Track&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
  Track(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Only Shallow = オンリー・シャロウ&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;track&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;4:17&amp;#34;&lt;/span&gt;, nothing, nothing)
  Track(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Loomer = ルーマー&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;track&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2:38&amp;#34;&lt;/span&gt;, nothing, nothing)
  Track(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Touched = タッチト&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;track&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0:56&amp;#34;&lt;/span&gt;, nothing, nothing)
@@ -115,14 +115,14 @@ Release
  Track(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;What You Want = ホワット・ユー・ウオント&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;track&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;5:33&amp;#34;&lt;/span&gt;, nothing, nothing)
  Track(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;11&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Soon = スーン&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;track&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;6:59&amp;#34;&lt;/span&gt;, nothing, nothing)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;そして&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; save_xml(release, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output&amp;#34;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; save_xml(release, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;で&lt;code&gt;output&lt;/code&gt;フォルダにXMLが生成されるので、あとはXMLをAudacityのメタデータ編集画面で&lt;code&gt;Load...&lt;/code&gt;を押してロードすれば良いです。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/how-to-digitize-vinyl-audacity-metadata.png&#34; alt=&#34;メタデータ&#34;&gt;&lt;/p&gt;
 &lt;p&gt;まあ、自分以外使う人がいなそうですが。。。&lt;/p&gt;
 &lt;p&gt;以下は些細な内容ですが実際やっていて気になった点です。&lt;/p&gt;
 &lt;h3 id=&#34;heading&#34;&gt;Heading&lt;/h3&gt;
 &lt;p&gt;例えば&lt;a href=&#34;https://www.discogs.com/Radiohead-OK-Computer/release/4950798&#34;&gt;RadiohaadのOK Computer&lt;/a&gt;
-のTracklistを見てみると&amp;quot;Enry&amp;rdquo;, &amp;ldquo;Meeny&amp;rdquo;, &amp;ldquo;Miney&amp;rdquo;, &amp;ldquo;Mo&amp;rdquo; といったHeadingの情報が存在することがわかります。
+のTracklistを見てみると&amp;quot;Enry&amp;quot;, &amp;ldquo;Meeny&amp;rdquo;, &amp;ldquo;Miney&amp;rdquo;, &amp;ldquo;Mo&amp;rdquo; といったHeadingの情報が存在することがわかります。
 これらは曲には対応していないので、XMLを吐き出す際には無視します。
 &lt;code&gt;Track&lt;/code&gt;の&lt;code&gt;position&lt;/code&gt;が&lt;code&gt;nothing&lt;/code&gt;になっているものを飛ばせば良いです。&lt;/p&gt;
 &lt;h3 id=&#34;曲のナンバリング&#34;&gt;曲のナンバリング&lt;/h3&gt;
@@ -134,7 +134,7 @@ Release
 例えば、&lt;a href=&#34;https://www.discogs.com/artist/607044-BOAT&#34;&gt;&amp;ldquo;BOAT&amp;rdquo;&lt;/a&gt;は&lt;a href=&#34;https://en.wikipedia.org/wiki/Boat_(band)&#34;&gt;アメリカのインディーロックバンド&lt;/a&gt;、
 &lt;a href=&#34;https://www.discogs.com/artist/1401530-Boat-2&#34;&gt;&amp;ldquo;Boat (2)&amp;quot;&lt;/a&gt;は&lt;a href=&#34;https://ja.wikipedia.org/wiki/BOAT&#34;&gt;日本のロックバンド&lt;/a&gt;といった形です。&lt;/p&gt;
 &lt;p&gt;カッコ付き番号を除去するために、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;replace(artist_name, &lt;span style=&#34;color:#e6db74&#34;&gt;r&amp;#34; \(\d\)$&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;replace(artist_name, &lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;d&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)$&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を使って置き換えます。&lt;/p&gt;
 &lt;h2 id=&#34;あとがき&#34;&gt;あとがき&lt;/h2&gt;
 &lt;p&gt;Windows用ですが、Mp3tagを使えば同様のことができるようです……こちらの方が簡単かもしれません。&lt;/p&gt;

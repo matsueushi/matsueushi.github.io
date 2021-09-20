@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Mamba.jl v0.12.0のStackOverflowError:</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -120,6 +120,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -128,11 +129,11 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>GCPに環境を作っていて気づいたのだが、Distibution.jlのv0.17.0と関数が干渉していて <code>using Mamba</code> すると下のようなワーニングが出て、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">WARNING: Method definition <span style="color:#f92672">(</span>::Type<span style="color:#f92672">{</span>Distributions.DiscreteNonParametric<span style="color:#f92672">{</span>Int64, P, Base.OneTo<span style="color:#f92672">{</span>Int64<span style="color:#f92672">}</span>, Ps<span style="color:#f92672">}</span> where Ps where P<span style="color:#f92672">})(</span>AbstractArray<span style="color:#f92672">{</span>T&lt;:Real, 1<span style="color:#f92672">})</span> where <span style="color:#f92672">{</span>T&lt;:Real<span style="color:#f92672">}</span> in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/univariate/discrete/categorical.jl:40 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:7.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">WARNING: Method definition <span style="color:#f92672">(</span>::Type<span style="color:#f92672">{</span>Distributions.DiscreteNonParametric<span style="color:#f92672">{</span>Int64, P, Base.OneTo<span style="color:#f92672">{</span>Int64<span style="color:#f92672">}</span>, Ps<span style="color:#f92672">}</span> where Ps where P<span style="color:#f92672">})(</span>AbstractArray<span style="color:#f92672">{</span>T&lt;:Real, 1<span style="color:#f92672">})</span> where <span style="color:#f92672">{</span>T&lt;:Real<span style="color:#f92672">}</span> in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/univariate/discrete/categorical.jl:40 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:7.
 WARNING: Method definition <span style="color:#f92672">(</span>::Type<span style="color:#f92672">{</span>Distributions.MvNormal<span style="color:#f92672">{</span>T, Cov, Mean<span style="color:#f92672">}</span> where Mean&lt;:<span style="color:#f92672">(</span>AbstractArray<span style="color:#f92672">{</span>T, 1<span style="color:#f92672">}</span> where T<span style="color:#f92672">)</span> where Cov&lt;:<span style="color:#f92672">(</span>PDMats.AbstractPDMat<span style="color:#f92672">{</span>T<span style="color:#f92672">}</span> where T&lt;:Real<span style="color:#f92672">)</span> where T&lt;:Real<span style="color:#f92672">})(</span>AbstractArray<span style="color:#f92672">{</span>T&lt;:Real, 1<span style="color:#f92672">}</span>, Real<span style="color:#f92672">)</span> where <span style="color:#f92672">{</span>T&lt;:Real<span style="color:#f92672">}</span> in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/multivariate/mvnormal.jl:200 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:35.
 WARNING: Method definition <span style="color:#f92672">(</span>::Type<span style="color:#f92672">{</span>Distributions.MvNormalCanon<span style="color:#f92672">{</span>T, P, V<span style="color:#f92672">}</span> where V&lt;:<span style="color:#f92672">(</span>AbstractArray<span style="color:#f92672">{</span>T, 1<span style="color:#f92672">}</span> where T<span style="color:#f92672">)</span> where P&lt;:<span style="color:#f92672">(</span>PDMats.AbstractPDMat<span style="color:#f92672">{</span>T<span style="color:#f92672">}</span> where T&lt;:Real<span style="color:#f92672">)</span> where T&lt;:Real<span style="color:#f92672">})(</span>AbstractArray<span style="color:#f92672">{</span>T&lt;:Real, 1<span style="color:#f92672">}</span>, U&lt;:Real<span style="color:#f92672">)</span> where <span style="color:#f92672">{</span>T&lt;:Real, U&lt;:Real<span style="color:#f92672">}</span> in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/multivariate/mvnormalcanon.jl:116 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:53.
 </code></pre></div><p>以前動いていた次のようなコードが動かない。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(zeros(<span style="color:#ae81ff">3</span>), <span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(zeros(<span style="color:#ae81ff">3</span>), <span style="color:#ae81ff">4</span>)
 <span style="color:#66d9ef">StackOverflowError</span><span style="color:#f92672">:</span>
 
 Stacktrace<span style="color:#f92672">:</span>
@@ -143,11 +144,11 @@ Stacktrace<span style="color:#f92672">:</span>
 <a href="https://github.com/brian-j-smith/Mamba.jl/commit/dcaf1ccac1c468d20d49a21acbaeb0cb6adcb4cf">https://github.com/brian-j-smith/Mamba.jl/commit/dcaf1ccac1c468d20d49a21acbaeb0cb6adcb4cf</a></p>
 </blockquote>
 <p>応急処置として代わりに</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(zeros(<span style="color:#ae81ff">3</span>), fill(<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">3</span>))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(zeros(<span style="color:#ae81ff">3</span>), fill(<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">3</span>))
 </code></pre></div><p>にしておけば動くのでこっちを使っておくか。</p>
 <p>追記:</p>
 <p>平均が0だったら</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">MvNormal(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4.0</span>)
 </code></pre></div><p>これで良さそう。</p>
 <p>追記:</p>
 <p><a href="https://github.com/brian-j-smith/Mamba.jl/releases/tag/v0.12.1">Mamba 0.12.1</a>で直っていた！</p>
@@ -158,6 +159,7 @@ Stacktrace<span style="color:#f92672">:</span>
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -248,7 +250,7 @@ Stacktrace<span style="color:#f92672">:</span>
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 321 words in this page.
 	</div>

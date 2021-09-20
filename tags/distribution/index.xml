@@ -6,7 +6,7 @@
     <description>Recent content in Distribution on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2020</copyright>
+    <copyright>Copyright © 2019–2021</copyright>
     <lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
@@ -24,11 +24,11 @@
 &lt;a href=&#34;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&#34;&gt;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;例えば、PyMC3の &lt;code&gt;StudentT&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;pm&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;StudentT(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, nu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;nu, mu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mu, lam&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;lam)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;pm&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;StudentT(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, nu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;nu, mu&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mu, lam&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;lam)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの &lt;code&gt;TDist&lt;/code&gt; のパラメトライズは &lt;code&gt;nu&lt;/code&gt; だけで &lt;code&gt;mu&lt;/code&gt; や &lt;code&gt;lam&lt;/code&gt; は指定できないが、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;LocationScale(mu, lam, TDist(nu))
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;LocationScale(mu, lam, TDist(nu))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とすればOK。PyMCの &lt;code&gt;StudentT&lt;/code&gt; に出ている &lt;code&gt;pdf&lt;/code&gt; と同じグラフを書いて確認しよう。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
 

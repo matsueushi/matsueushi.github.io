@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaのパッケージ内から自分自身のバージョンを取得する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -117,6 +117,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -128,32 +129,32 @@ onload='renderMathInElement(document.body);'></script>
 <p>自分で簡単なパッケージを作っている時に、Project.toml内の<code>version</code>の情報を取りたくなったので。</p>
 <p>プロジェクト情報は<a href="https://julialang.github.io/Pkg.jl/v1/api/"><code>Pkg.project()</code></a>で取得できます。
 ドキュメントにはJulia 1.4以上が必要で、この機能はexperimentalとありました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Pkg
 
 julia<span style="color:#f92672">&gt;</span> pj <span style="color:#f92672">=</span> Pkg<span style="color:#f92672">.</span>project()
-Pkg<span style="color:#f92672">.</span>Types<span style="color:#f92672">.</span>ProjectInfo(<span style="color:#e6db74">&#34;RunOut&#34;</span>, UUID(<span style="color:#e6db74">&#34;03328d24-db5d-422f-afe8-b99de72c82b3&#34;</span>), v<span style="color:#e6db74">&#34;0.1.0&#34;</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">Dict</span>{String,Base<span style="color:#f92672">.</span>UUID}(<span style="color:#e6db74">&#34;JSON&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;682c06a0-de6a-54ab-a142-c8b1cf79cde6&#34;</span>),<span style="color:#e6db74">&#34;HTTP&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;cd3eb016-35fb-5094-929b-558a96fad6f3&#34;</span>)), <span style="color:#e6db74">&#34;/juliatmp/Project.toml&#34;</span>)
+Pkg<span style="color:#f92672">.</span>Types<span style="color:#f92672">.</span>ProjectInfo(<span style="color:#e6db74">&#34;RunOut&#34;</span>, UUID(<span style="color:#e6db74">&#34;03328d24-db5d-422f-afe8-b99de72c82b3&#34;</span>), <span style="color:#e6db74">v</span><span style="color:#e6db74">&#34;0.1.0&#34;</span>, true, <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Base</span><span style="color:#f92672">.</span><span style="color:#66d9ef">UUID</span>}(<span style="color:#e6db74">&#34;JSON&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;682c06a0-de6a-54ab-a142-c8b1cf79cde6&#34;</span>),<span style="color:#e6db74">&#34;HTTP&#34;</span> <span style="color:#f92672">=&gt;</span> UUID(<span style="color:#e6db74">&#34;cd3eb016-35fb-5094-929b-558a96fad6f3&#34;</span>)), <span style="color:#e6db74">&#34;/juliatmp/Project.toml&#34;</span>)
 </code></pre></div><p>バージョン取得は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> pj<span style="color:#f92672">.</span>version
-v<span style="color:#e6db74">&#34;0.1.0&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> pj<span style="color:#f92672">.</span>version
+<span style="color:#e6db74">v</span><span style="color:#e6db74">&#34;0.1.0&#34;</span>
 
 julia<span style="color:#f92672">&gt;</span> typeof(pj<span style="color:#f92672">.</span>version)
 <span style="color:#66d9ef">VersionNumber</span>
 </code></pre></div><p>でできて、<a href="https://docs.julialang.org/en/v1/base/base/#Base.VersionNumber"><code>Base.VersionNumber</code></a>が返ってきます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> String(pj<span style="color:#f92672">.</span>version)
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching String(<span style="color:#f92672">::</span><span style="color:#66d9ef">VersionNumber</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">String</span>(pj<span style="color:#f92672">.</span>version)
+ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching <span style="color:#66d9ef">String</span>(<span style="color:#f92672">::</span><span style="color:#66d9ef">VersionNumber</span>)
 Closest candidates are<span style="color:#f92672">:</span>
-  String(<span style="color:#f92672">::</span>String) at boot<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">321</span>
-  String(<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>,<span style="color:#ae81ff">1</span>}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">39</span>
-  String(<span style="color:#f92672">::</span>Base<span style="color:#f92672">.</span>CodeUnits{<span style="color:#66d9ef">UInt8</span>,String}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">77</span>
+  <span style="color:#66d9ef">String</span>(<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>) at boot<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">321</span>
+  <span style="color:#66d9ef">String</span>(<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>,<span style="color:#ae81ff">1</span>}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">39</span>
+  <span style="color:#66d9ef">String</span>(<span style="color:#f92672">::</span><span style="color:#66d9ef">Base</span><span style="color:#f92672">.</span><span style="color:#66d9ef">CodeUnits</span>{<span style="color:#66d9ef">UInt8</span>,<span style="color:#66d9ef">String</span>}) at strings<span style="color:#f92672">/</span>string<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">77</span>
   <span style="color:#f92672">...</span>
 Stacktrace<span style="color:#f92672">:</span>
  [<span style="color:#ae81ff">1</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">16</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
 </code></pre></div><p>文字列に変換するには、<code>String</code>ではなく<code>$</code>を使えばいいのかな。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span>(pj<span style="color:#f92672">.</span>version)<span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span>(pj<span style="color:#f92672">.</span>version)<span style="color:#e6db74">&#34;</span>
 <span style="color:#e6db74">&#34;0.1.0&#34;</span>
 
 julia<span style="color:#f92672">&gt;</span> typeof(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span>(pj<span style="color:#f92672">.</span>version)<span style="color:#e6db74">&#34;</span>)
-String
+<span style="color:#66d9ef">String</span>
 </code></pre></div></div>
 	</section>
 
@@ -161,6 +162,7 @@ String
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -251,7 +253,7 @@ String
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 265 words in this page.
 	</div>

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -129,6 +129,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -149,7 +150,7 @@ onload='renderMathInElement(document.body);'></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p><del>このあたり、<a href="https://www.tensorflow.org/install/docker">GPUのDockerイメージ</a> が利用できるTensorflowが羨ましく感じられる部分ではある。</del></p>
 <p>JuliaGPUのDockerイメージ <a href="https://github.com/JuliaGPU/docker">JuliaGPU/docker</a> はメンテナンスされていないので、<a href="https://hub.docker.com/r/nvidia/cuda/">nvidia/cuda</a> のイメージをベースに、Juliaのインストール部分は <a href="https://github.com/docker-library/julia">docker-library/julia</a> を参考にDockerfileを作成。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#75715e"># Dockerfile Julia 1.3.0 + CUDA for Flux.jl</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#75715e"># Dockerfile Julia 1.3.0 + CUDA for Flux.jl</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> CUDA<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>.0<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> UBUNTU_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>.04<span style="color:#960050;background-color:#1e0010">
@@ -228,7 +229,7 @@ v0.9.0で実装する際にはGANに関係したプルリクエスト
 <p>しかしながら、後にも触れるが、v0.10.0で、<a href="https://github.com/FluxML/Flux.jl/pull/669">デフォルトの自動微分エンジンをTrackerからZygote.jlに変える大きな変更</a> がマージされたので、
 そのままコピペしただけでは動かないと思われるため要注意。</p>
 <p>ネットワーク、ロス関数の構成は <a href="https://www.tensorflow.org/tutorials/generative/dcgan">TensorflowのDCGANチュートリアル</a> を参考にした。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise_dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise_dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
 channels <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
 
 generator <span style="color:#f92672">=</span> Chain(
@@ -282,7 +283,7 @@ discriminator <span style="color:#f92672">=</span>  Chain(
 初めてFlux.jlに<a href="https://github.com/FluxML/Flux.jl/pull/940">Pull resuestを投げて</a>取り込んでもらった。</p>
 <p>DiscriminatorとGeneratorのtrain関数は下のように書ける。
 細かい部分はリポジトリ参照</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> train_discriminator!(dcgan<span style="color:#f92672">::</span>DCGAN, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> train_discriminator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
     noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
     fake_input <span style="color:#f92672">=</span> dcgan<span style="color:#f92672">.</span>generator(noise)
     loss(m) <span style="color:#f92672">=</span> discriminator_loss(m(batch), m(fake_input))
@@ -291,7 +292,7 @@ discriminator <span style="color:#f92672">=</span>  Chain(
     <span style="color:#66d9ef">return</span> loss(dcgan<span style="color:#f92672">.</span>discriminator)
 <span style="color:#66d9ef">end</span>
 
-<span style="color:#66d9ef">function</span> train_generator!(dcgan<span style="color:#f92672">::</span>DCGAN, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
+<span style="color:#66d9ef">function</span> train_generator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
     noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
     loss(m) <span style="color:#f92672">=</span> generator_loss(dcgan<span style="color:#f92672">.</span>discriminator(m(noise)))
     gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(dcgan<span style="color:#f92672">.</span>generator), Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>generator))
@@ -304,7 +305,7 @@ Trackerで書かれたモデルは、Zygote.jlに合わせて多少書き直す�
 <h3 id="型の変更">型の変更</h3>
 <p><code>gradient</code> を取った時に返ってくる型が変わった。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; using Flux.Tracker: gradient
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; using Flux.Tracker: gradient
 
 julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
 
@@ -314,7 +315,7 @@ julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f9
 julia&gt; typeof<span style="color:#f92672">(</span>gr<span style="color:#f92672">)</span>
 Tuple<span style="color:#f92672">{</span>Tracker.TrackedReal<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}}</span>
 </code></pre></div><p>v0.10.0</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
 
 julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f92672">(</span>f, 2.0<span style="color:#f92672">)</span>
 <span style="color:#f92672">(</span>14.0,<span style="color:#f92672">)</span>
@@ -326,14 +327,14 @@ Tuple<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}</s
 <p>Zygote.jl の<a href="https://fluxml.ai/Zygote.jl/latest/flux/">リファレンス</a> には <code>Tracker.gradient</code> を単に <code>Zygote.gradient</code> に置き換えれば良いと書いてあるが、
 自分の場合はTrackerで取れた微分がZygoteにバックエンドが変わって取れなくなった。</p>
 <p>Trackerでは微分を取るときに</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
 fake_input <span style="color:#f92672">=</span> generator(noise)
 fake_output <span style="color:#f92672">=</span> discriminator(fake_input)
 loss <span style="color:#f92672">=</span> sum(fake_output)
 gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss, Flux<span style="color:#f92672">.</span>params(generator))
 </code></pre></div><p>このような書き方もできた。model-zooのPull RequestのDCGANのコードもこのような形式で書いてある。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
 IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
   Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0456388, -0.00530366, -0.0689154, 0.0356684, 0.033944, 0.0469224, 0…
   Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.0663779 0.470391 0.0135268 0.169848; -0.265991 0.113839 -0.297718 …
@@ -350,7 +351,7 @@ IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</
   Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,2<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.210451 -0.383133 … -0.441269 -0.122698; 0.0191366 -0.273669 … -0.1…
   Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0, -2.23517e-8, 2.6077e-8, 0.0, 2.00234e-8, -9.31323e-9, -2.98023e-…
 </code></pre></div><p>一方、v0.10.0では</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
 IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
   Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.0301089 0.00723371; 0.0816196 0.036961 0.0352632 0.0343… <span style="color:#f92672">=</span>&gt; nothing
   Float32<span style="color:#f92672">[</span>0.0<span style="color:#f92672">]</span>                                                                            <span style="color:#f92672">=</span>&gt; nothing
@@ -367,10 +368,10 @@ IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</
   Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
   Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
 </code></pre></div><p>微分が <code>nothing</code> になってしまう。自分は、下のように書き換えた。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
 loss(m) <span style="color:#f92672">=</span> sum(discriminator(m(noise)))
 gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(generator), Flux<span style="color:#f92672">.</span>params(generator))
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
 IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">23</span> entries:
   RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
   Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.… <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.136635 -0.1123 -0.0335189 -0.108103; -0.0265187 -0…
@@ -399,7 +400,7 @@ IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</
 Zygote.jlの <a href="https://fluxml.ai/Zygote.jl/latest/#Gradients-of-ML-models-1">Gradients of ML models</a> にはimplicitな書き方は、
 Trackerとの互換性のために残してあると書いてある。</p>
 <p>しかしながら、この二つを利用したときに返ってくる型が異なる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>gen_grad<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>gen_grad<span style="color:#f92672">)</span>
 Zygote.Grads
 
 julia&gt; typeof<span style="color:#f92672">(</span>gradient<span style="color:#f92672">(</span>loss, generator<span style="color:#f92672">))</span>
@@ -414,7 +415,7 @@ implicitに書く必要がある。このあたりは、将来的に変わって
 が、Zygote.jlではその必要がなくなっている。
 v0.9.0でこれに気づかず正しく学習が進まず苦戦したので、この修正はありがたい。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
 
 d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
 d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
@@ -443,7 +444,7 @@ Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</sp
 Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p2))
 Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
 </code></pre></div><p>Output</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
 Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
 <span style="color:#f92672">[</span> Info: Case2
 Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
@@ -453,7 +454,7 @@ Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</spa
 Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
 </code></pre></div><p>上のCase2のような状況を防ぐために、Case3のように途中に<code>zero_grad!</code>を挟む必要があった。
 一方、v0.10.0は</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
 
 d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
 d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
@@ -473,7 +474,7 @@ gradient(loss, pall)<span style="color:#f92672">.</span>grads <span style="color
 gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
 gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
 </code></pre></div><p>Output</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
 Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>-5.8413825<span style="color:#f92672">]]</span>
 <span style="color:#f92672">[</span> Info: Case2
 Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]]</span>
@@ -489,7 +490,7 @@ Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</spa
 <p>これはバージョンは関係ない話で、
 <a href="https://fluxml.ai/Flux.jl/stable/performance/#Don't-use-more-precision-than-you-need.-1">Don&rsquo;t use more precision than you need.</a> には、必ずしも <code>Float64</code> を使う必要はなく、 <code>Float32</code> を使えば良いとある。</p>
 <p>何も考えずにJuliaで実数型を使うと <code>Float64</code> になるので、明示的に <code>Float32</code> を使う意識が必要。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>1.0<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>1.0<span style="color:#f92672">)</span>
 Float64
 
 julia&gt; <span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="color:#f92672">]</span>
@@ -509,9 +510,9 @@ julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="c
 </code></pre></div><p>これと関連して、<a href="https://fluxml.ai/Flux.jl/stable/performance/#Make-sure-your-activation-and-loss-functions-preserve-the-type-of-their-inputs-1">Make sure your activation and loss functions preserve the type of their inputs</a>
 に書いてあることではあるが、<code>Float64</code> と <code>Float32</code> の変換が起こらないようにする。</p>
 <p>例えば、<code>Float32</code> を使ってモデル構築をしているのに、<code>leakyrelu</code> の勾配を変更して</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2</span>)
 </code></pre></div><p>と書いてしまうと <code>0.2</code> の型が <code>Float64</code> であるため、型の変換が行われて激烈に遅くなる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2f0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2f0</span>)
 </code></pre></div><p>とするのが良い。自分は最初これを知らず前者のように書いてしまい、一向に計算が終わらなくなってしまい時間を浪費した。
 <code>logitbinarycrossentropy</code> に <code>0</code>, <code>1</code> ではなく <code>0f0</code>, <code>1f0</code>を渡したのも同様の理由。</p>
 <h2 id="生成結果">生成結果</h2>
@@ -543,6 +544,7 @@ julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="c
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -633,7 +635,7 @@ julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="c
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5126 words in this page.
 	</div>

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Julia版「データ解析のための統計モデリング入門」読書ノート</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -123,6 +123,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -140,7 +141,7 @@ onload='renderMathInElement(document.body);'></script>
 <p>実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。</p>
 <h2 id="binomial分布のglm">Binomial分布のGLM</h2>
 <p>  <code>formula</code> で指定する説明変数は、0から1の間になっている必要がある。個体の数で割って、wtsに個体の数を指定してフィッティングを行う。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">df<span style="color:#f92672">.</span>yy <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>y <span style="color:#f92672">./</span> df<span style="color:#f92672">.</span>N
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">df<span style="color:#f92672">.</span>yy <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>y <span style="color:#f92672">./</span> df<span style="color:#f92672">.</span>N
 df<span style="color:#f92672">.</span>N <span style="color:#f92672">=</span> convert(<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}, df<span style="color:#f92672">.</span>N)
 result <span style="color:#f92672">=</span> glm(<span style="color:#a6e22e">@formula</span>(yy <span style="color:#f92672">~</span> x <span style="color:#f92672">+</span> f), df, Binomial(), wts <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>N)
 </code></pre></div><h2 id="モデルのグラフ表示">モデルのグラフ表示</h2>
@@ -149,10 +150,10 @@ result <span style="color:#f92672">=</span> glm(<span style="color:#a6e22e">@for
 <p><a href="https://github.com/biaslab/ForneyLab.jl">ForneyLab.jl</a>がGraphViz.jlの後継としてモデルのグラフ表示をサポートしているので、こちらを使用すれば良い。</p>
 <h2 id="multiprocessing">Multiprocessing</h2>
 <p>Mambaは <code>addproc</code> でプロセスを追加して、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
 addprocs(<span style="color:#ae81ff">3</span>)
 </code></pre></div><p>Mambaをインポートするときに <code>@everywhere</code> を付ければMambaが自動的にMCMCのチェインごとのサンプリングを並列化してくれる。(section10.ipynb参照)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
 </code></pre></div><p>11章の空間構造のある階層ベイズモデル(intrinsic Gaussian CARモデル)も実装できたらアップデートしたい。</p>
 <p>3/14追記: 11章の空間構造のある階層ベイズモデルも実装したのでアップデートした。これで一通り読破したことになるのかな？次は以前読もうとして諦めた「Pythonで体験するベイズ推論」をJuliaでやってみようか。</p>
 </div>
@@ -162,6 +163,7 @@ addprocs(<span style="color:#ae81ff">3</span>)
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -252,7 +254,7 @@ addprocs(<span style="color:#ae81ff">3</span>)
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 763 words in this page.
 	</div>

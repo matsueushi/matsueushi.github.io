@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Julia vs Python Cheatsheet</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.87.0" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -120,6 +120,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -133,7 +134,7 @@ onload='renderMathInElement(document.body);'></script>
 </ul>
 <hr>
 <h3 id="julia">Julia</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% julia
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% julia
                _
    _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
   <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
@@ -143,15 +144,15 @@ onload='renderMathInElement(document.body);'></script>
  _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
 |__/                   |
 </code></pre></div><h3 id="python">Python</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% python
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% python
 Python 3.8.5 <span style="color:#f92672">(</span>default, Aug  <span style="color:#ae81ff">5</span> 2020, 08:22:02<span style="color:#f92672">)</span> 
 <span style="color:#f92672">[</span>GCC 8.3.0<span style="color:#f92672">]</span> on linux
 Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> or <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information.
 </code></pre></div><hr>
 <h2 id="get-the-list-of-all-files">Get the list of all files</h2>
 <h3 id="julia-basefilesystemreaddirhttpsdocsjulialangorgenv1basefilebasefilesystemreaddir">Julia: <a href="https://docs.julialang.org/en/v1/base/file/#Base.Filesystem.readdir"><code>Base.Filesystem.readdir</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> readdir()
-<span style="color:#ae81ff">20</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{String,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> readdir()
+<span style="color:#ae81ff">20</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">String</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
  <span style="color:#e6db74">&#34;.dockerenv&#34;</span>
  <span style="color:#e6db74">&#34;bin&#34;</span>
  <span style="color:#e6db74">&#34;boot&#34;</span>
@@ -161,7 +162,7 @@ Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db
  <span style="color:#e6db74">&#34;lib&#34;</span>
  <span style="color:#e6db74">&#34;lib64&#34;</span>
  <span style="color:#e6db74">&#34;media&#34;</span>
- ⋮
+ <span style="color:#f92672">⋮</span>
  <span style="color:#e6db74">&#34;root&#34;</span>
  <span style="color:#e6db74">&#34;run&#34;</span>
  <span style="color:#e6db74">&#34;sbin&#34;</span>
@@ -171,25 +172,25 @@ Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db
  <span style="color:#e6db74">&#34;usr&#34;</span>
  <span style="color:#e6db74">&#34;var&#34;</span>
 </code></pre></div><h3 id="python-oslistdirhttpsdocspythonorg3libraryoshtmloslistdir">Python: <a href="https://docs.python.org/3/library/os.html#os.listdir"><code>os.listdir</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
 <span style="color:#f92672">&gt;&gt;&gt;</span> os<span style="color:#f92672">.</span>listdir()
 [<span style="color:#e6db74">&#39;lib&#39;</span>, <span style="color:#e6db74">&#39;home&#39;</span>, <span style="color:#e6db74">&#39;etc&#39;</span>, <span style="color:#e6db74">&#39;media&#39;</span>, <span style="color:#e6db74">&#39;var&#39;</span>, <span style="color:#e6db74">&#39;srv&#39;</span>, <span style="color:#e6db74">&#39;sys&#39;</span>, <span style="color:#e6db74">&#39;bin&#39;</span>, <span style="color:#e6db74">&#39;usr&#39;</span>, <span style="color:#e6db74">&#39;root&#39;</span>, <span style="color:#e6db74">&#39;boot&#39;</span>, <span style="color:#e6db74">&#39;tmp&#39;</span>, <span style="color:#e6db74">&#39;dev&#39;</span>, <span style="color:#e6db74">&#39;opt&#39;</span>, <span style="color:#e6db74">&#39;mnt&#39;</span>, <span style="color:#e6db74">&#39;lib64&#39;</span>, <span style="color:#e6db74">&#39;proc&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;sbin&#39;</span>, <span style="color:#e6db74">&#39;.dockerenv&#39;</span>]
 </code></pre></div><hr>
 <h2 id="join-path-components">Join path components</h2>
 <h3 id="julia-basefilesystemjoinpathhttpsdocsjulialangorgenv1basefilebasefilesystemjoinpath">Julia: <a href="https://docs.julialang.org/en/v1/base/file/#Base.Filesystem.joinpath"><code>Base.Filesystem.joinpath</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> joinpath(<span style="color:#e6db74">&#34;/home&#34;</span>, <span style="color:#e6db74">&#34;file.txt&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> joinpath(<span style="color:#e6db74">&#34;/home&#34;</span>, <span style="color:#e6db74">&#34;file.txt&#34;</span>)
 <span style="color:#e6db74">&#34;/home/file.txt&#34;</span>
 </code></pre></div><h3 id="python-ospathjoinhttpsdocspythonorg3libraryospathhtmlospathjoin">Python: <a href="https://docs.python.org/3/library/os.path.html#os.path.join"><code>os.path.join</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
 <span style="color:#f92672">&gt;&gt;&gt;</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;/home&#39;</span>, <span style="color:#e6db74">&#39;file.txt&#39;</span>)
 <span style="color:#e6db74">&#39;/home/file.txt&#39;</span>
 </code></pre></div><hr>
 <h2 id="get-the-current-working-directory">Get the current working directory</h2>
 <h3 id="julia-base__dir__httpsdocsjulialangorgenv1basefilebase__dir__">Julia: <a href="https://docs.julialang.org/en/v1/base/file/#Base.@__DIR__"><code>Base.@__DIR__</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@__DIR__</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@__DIR__</span>
 <span style="color:#e6db74">&#34;/&#34;</span>
 </code></pre></div><h3 id="python-osgetcwdhttpsdocspythonorg3libraryoshtmlosgetcwd">Python: <a href="https://docs.python.org/3/library/os.html#os.getcwd"><code>os.getcwd</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
 <span style="color:#f92672">&gt;&gt;&gt;</span> os<span style="color:#f92672">.</span>getcwd()
 <span style="color:#e6db74">&#39;/&#39;</span>
 </code></pre></div><hr>
@@ -199,20 +200,20 @@ Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db
 <hr>
 <h2 id="return-an-array-of-zeros-with-the-same-shape">Return an array of zeros with the same shape</h2>
 <h3 id="julia-basezerohttpsdocsjulialangorgenv1basenumbersbasezero">Julia: <a href="https://docs.julialang.org/en/v1/base/numbers/#Base.zero"><code>Base.zero</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> reshape(x, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-<span style="color:#ae81ff">2</span>×3 reshape(<span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> reshape(<span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> zero(x)
-<span style="color:#ae81ff">2</span>×3 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
 </code></pre></div><h3 id="python-numpyzeros_likehttpsnumpyorgdocstablereferencegeneratednumpyzeros_likehtml">Python: <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html"><code>numpy.zeros_like</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 <span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">6</span>)
 <span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
 <span style="color:#f92672">&gt;&gt;&gt;</span> x
@@ -224,25 +225,25 @@ array([[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</spa
 </code></pre></div><hr>
 <h2 id="return-an-array-of-ones-with-the-same-shape">Return an array of ones with the same shape</h2>
 <h3 id="julia-basefillhttpsdocsjulialangorgenv1basearraysbasefill--basesimilarhttpsdocsjulialangorgenv1basearraysbasesimilar">Julia: <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.fill!"><code>Base.fill!</code></a> + <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.similar"><code>Base.similar</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> reshape(x, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-<span style="color:#ae81ff">2</span>×3 reshape(<span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> reshape(<span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> collect(x)
-<span style="color:#ae81ff">2</span>×3 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> fill!(similar(x), <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">2</span>×3 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
 </code></pre></div><h3 id="python-numpyones_likehttpsnumpyorgdocstablereferencegeneratednumpyones_likehtml">Python: <a href="https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html"><code>numpy.ones_like</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 <span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">6</span>)
 <span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
 <span style="color:#f92672">&gt;&gt;&gt;</span> x
@@ -254,8 +255,8 @@ array([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</spa
 </code></pre></div><hr>
 <h2 id="get-the-value-for-the-given-key-if-key-is-in-dictionary-and-return-the-default-value-if-the-key-is-not-found">Get the value for the given key if key is in dictionary, and return the default value if the key is not found</h2>
 <h3 id="julia-basegethttpsdocsjulialangorgenv1basecollectionsbaseget-tupleanyanyany">Julia: <a href="https://docs.julialang.org/en/v1/base/collections/#Base.get-Tuple%7BAny,Any,Any%7D"><code>Base.get</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(<span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#ae81ff">2</span>)
-<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(<span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#ae81ff">2</span>)
+<span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
   <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
   <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
 
@@ -265,7 +266,7 @@ julia<span style="color:#f92672">&gt;</span> get(d, <span style="color:#e6db74">
 julia<span style="color:#f92672">&gt;</span> get(d, <span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#ae81ff">0</span>)
 <span style="color:#ae81ff">0</span>
 </code></pre></div><h3 id="python-dictgethttpsdocspythonorg3librarystdtypeshtmldictget">Python: <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> d <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">2</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> d <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">2</span>}
 <span style="color:#f92672">&gt;&gt;&gt;</span> d<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#ae81ff">0</span>)
 <span style="color:#ae81ff">1</span>
 <span style="color:#f92672">&gt;&gt;&gt;</span> d<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#ae81ff">0</span>)
@@ -278,6 +279,7 @@ julia<span style="color:#f92672">&gt;</span> get(d, <span style="color:#e6db74">
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -368,7 +370,7 @@ julia<span style="color:#f92672">&gt;</span> get(d, <span style="color:#e6db74">
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2021
 		<br />
 		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 435 words in this page.
 	</div>
