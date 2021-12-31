@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.87.0" />
+	<meta name="generator" content="Hugo 0.91.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -158,11 +158,11 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
 cov(rbf, xs, xs)
 </code></pre></div><p>このようにすると <code>xs</code> の全体が1要素として認識されてしまい</p>
-<pre><code>1.0
+<pre tabindex="0"><code>1.0
 </code></pre><p>が帰ってきてダメなので、<code>reshape</code> で 1×4 Arrayに変換して次のようにする。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
 cov(rbf, xs, xs)
-</code></pre></div><pre><code>4×4 Array{Float64,2}:
+</code></pre></div><pre tabindex="0"><code>4×4 Array{Float64,2}:
  1.0         0.367879   0.0183156  0.00012341
  0.367879    1.0        0.367879   0.0183156 
  0.0183156   0.367879   1.0        0.367879  
@@ -171,7 +171,7 @@ cov(rbf, xs, xs)
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">xs <span style="color:#f92672">=</span> reshape([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>)
 cov(rbf, xs, xs)
 </code></pre></div><p>は</p>
-<pre><code>InexactError: Int64(0.3678794411714422)
+<pre tabindex="0"><code>InexactError: Int64(0.3678794411714422)
 </code></pre><p>となり動かないので、<code>xs</code> を <code>Real</code> のベクターにする。</p>
 <h3 id="ガウス過程からのサンプル">ガウス過程からのサンプル</h3>
 <p>次はこのカーネル関数で定義したガウス過程からサンプリングを行う。GaussianProcesses.jl でガウス過程を呼び出すメソッド <code>GPE</code> は、

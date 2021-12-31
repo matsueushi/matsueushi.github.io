@@ -76,22 +76,22 @@ $$&lt;/p&gt;
 &lt;p&gt;損失関数ですが、各ステージで
 $$
 \begin{aligned}
-\min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
+\min_{G_n} \min_{D_n} ( \mathcal{L}&lt;em&gt;{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}&lt;/em&gt;{\text{rec}}(G_n) )
 \end{aligned}
 $$
-を考えるのですが、\(\mathcal{L}_{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+を考えるのですが、\(\mathcal{L}&lt;em&gt;{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
 計算するときは全てのステージでノイズを加えながら生成します。
-\(\mathcal{L}_{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
+\(\mathcal{L}&lt;/em&gt;{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
 $$
 \begin{aligned}
-z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^*, 0, \ldots, 0 \}
+z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^&lt;em&gt;, 0, \ldots, 0 \}
 \end{aligned}
 $$
 を一つ学習を通して固定し、縮小した元画像との二乗誤差
 $$
 \begin{aligned}
-\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^*) - x_N ||^2, \\
-\mathcal{L}_{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
+\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^&lt;/em&gt;) - x_N ||^2, \\
+\mathcal{L}&lt;em&gt;{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}&lt;/em&gt;{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
 \end{aligned}
 $$
 を損失関数とするものです。&lt;/p&gt;

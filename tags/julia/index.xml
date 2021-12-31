@@ -2264,22 +2264,22 @@ $$&lt;/p&gt;
 &lt;p&gt;損失関数ですが、各ステージで
 $$
 \begin{aligned}
-\min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
+\min_{G_n} \min_{D_n} ( \mathcal{L}&lt;em&gt;{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}&lt;/em&gt;{\text{rec}}(G_n) )
 \end{aligned}
 $$
-を考えるのですが、\(\mathcal{L}_{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+を考えるのですが、\(\mathcal{L}&lt;em&gt;{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
 計算するときは全てのステージでノイズを加えながら生成します。
-\(\mathcal{L}_{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
+\(\mathcal{L}&lt;/em&gt;{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
 $$
 \begin{aligned}
-z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^*, 0, \ldots, 0 \}
+z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^&lt;em&gt;, 0, \ldots, 0 \}
 \end{aligned}
 $$
 を一つ学習を通して固定し、縮小した元画像との二乗誤差
 $$
 \begin{aligned}
-\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^*) - x_N ||^2, \\
-\mathcal{L}_{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
+\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^&lt;/em&gt;) - x_N ||^2, \\
+\mathcal{L}&lt;em&gt;{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}&lt;/em&gt;{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
 \end{aligned}
 $$
 を損失関数とするものです。&lt;/p&gt;
@@ -3144,20 +3144,20 @@ julia&amp;gt; Float32&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1.0
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LinearAlgebra
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
 &lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;(I, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;2×2 Array{Bool,2}:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;2×2 Array{Bool,2}:
   true  false
  false   true
 &lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}(I, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;2×2 Array{Int64,2}:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;2×2 Array{Int64,2}:
  1  0
  0  1
 &lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Matrix&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;}(I, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;2×2 Array{Float64,2}:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;2×2 Array{Float64,2}:
  1.0  0.0
  0.0  1.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;MvNormal&lt;/code&gt; の分散を単位行列にしたいときは、 &lt;code&gt;I&lt;/code&gt; だけで大丈夫。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;MvNormal([&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;], I)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;IsoNormal(
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;IsoNormal(
 dim: 2
 μ: [3.0, 4.0]
 Σ: [1.0 0.0; 0.0 1.0]
@@ -3478,7 +3478,7 @@ scatter(xxs, yys)
 &lt;p&gt;平均0のガウスカーネルのガウス過程に(ノイズ項込みで)フィッティングさせるのは非常に簡単で、&lt;code&gt;optimize!&lt;/code&gt; を呼べば良いだけ。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GP(xxs, yys, MeanZero(), SE(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;))
 optimize!(gp)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Results of Optimization Algorithm
  * Algorithm: L-BFGS
  * Starting Point: [-2.0,0.0,0.0]
  * Minimizer: [-1.250611250087999,0.5939445695924219, ...]
@@ -3497,7 +3497,7 @@ optimize!(gp)
  * Gradient Calls: 26
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;パラメーターを確認すると、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;print(gp)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;GP Exact object:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GP Exact object:
  Dim = 1
  Number of observations = 5
  Mean function:
@@ -3524,7 +3524,7 @@ $$
 &lt;code&gt;SEIso&lt;/code&gt; のメンバー変数 &lt;code&gt;σ2&lt;/code&gt; と &lt;code&gt;ℓ2&lt;/code&gt; を使って確認すると、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;theta1: &amp;#34;&lt;/span&gt;, gp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;kernel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;σ2)
 println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;theta2: &amp;#34;&lt;/span&gt;, gp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;kernel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ℓ2 &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;theta1: 1.5964347486496255
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;theta1: 1.5964347486496255
 theta2: 6.560299908989858
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;となり、同じ結果が得られている。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;plot(gp; xlabel&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.x&amp;#34;&lt;/span&gt;, ylabel&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gp.y&amp;#34;&lt;/span&gt;, legend&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;false, fmt&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;:png&lt;/span&gt;)
@@ -3960,11 +3960,11 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
 cov(rbf, xs, xs)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このようにすると &lt;code&gt;xs&lt;/code&gt; の全体が1要素として認識されてしまい&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;1.0
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;が帰ってきてダメなので、&lt;code&gt;reshape&lt;/code&gt; で 1×4 Arrayに変換して次のようにする。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape([&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;)
 cov(rbf, xs, xs)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;4×4 Array{Float64,2}:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;4×4 Array{Float64,2}:
  1.0         0.367879   0.0183156  0.00012341
  0.367879    1.0        0.367879   0.0183156 
  0.0183156   0.367879   1.0        0.367879  
@@ -3973,7 +3973,7 @@ cov(rbf, xs, xs)
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reshape([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;)
 cov(rbf, xs, xs)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;は&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;InexactError: Int64(0.3678794411714422)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;InexactError: Int64(0.3678794411714422)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;となり動かないので、&lt;code&gt;xs&lt;/code&gt; を &lt;code&gt;Real&lt;/code&gt; のベクターにする。&lt;/p&gt;
 &lt;h3 id=&#34;ガウス過程からのサンプル&#34;&gt;ガウス過程からのサンプル&lt;/h3&gt;
 &lt;p&gt;次はこのカーネル関数で定義したガウス過程からサンプリングを行う。GaussianProcesses.jl でガウス過程を呼び出すメソッド &lt;code&gt;GPE&lt;/code&gt; は、
@@ -5293,7 +5293,7 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(xs, rand(gk_di
     label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f&amp;#34;&lt;/span&gt;,
     linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
     title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;PosDefException: matrix is not positive definite; Cholesky factorization failed.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PosDefException: matrix is not positive definite; Cholesky factorization failed.
 
 Stacktrace:
  [1] checkpositivedefinite at /Users/osx/buildbot/slave/package_osx64/build/usr/share/julia/stdlib/v1.1/LinearAlgebra/src/factorization.jl:11 [inlined]
@@ -5443,7 +5443,7 @@ Plots&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot!(xtest, mean(p
 
 scatter!(xs, ys, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Posterior distribution&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;実は、これだとうまくいかない&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;PosDefException: matrix is not Hermitian; Cholesky factorization failed.
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PosDefException: matrix is not Hermitian; Cholesky factorization failed.
 
 Stacktrace:
  [1] checkpositivedefinite(::Int64) at /Users/osx/buildbot/slave/package_osx64/build/usr/share/julia/stdlib/v1.1/LinearAlgebra/src/factorization.jl:11
@@ -5601,7 +5601,7 @@ res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; optimize(
 println(res)
 pars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Optim&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;minimizer(res)
 println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[theta1, theta2, theta3] = &amp;#34;&lt;/span&gt;, exp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(pars))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Results of Optimization Algorithm
  * Algorithm: Fminbox with Gradient Descent
  * Starting Point: [0.0,0.0,0.0]
  * Minimizer: [0.4677728528438338,1.8810363129622452, ...]
@@ -5695,7 +5695,7 @@ println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[theta1, theta2, thet
 println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logp:&amp;#34;&lt;/span&gt;, logp(gp, xs, ys))
 
 plot_gp_100m(gp, pars)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,0.0]
  * Minimizer: [1.4404906589345008,2.6294999978819886, ...]
@@ -5727,7 +5727,7 @@ println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[theta1, theta2, thet
 println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logp:&amp;#34;&lt;/span&gt;, logp(gp, xs, ys))
 
 plot_gp_100m(gp, pars)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,-3.0]
  * Minimizer: [0.4403584574143354,-1.4741097963164387, ...]
@@ -5762,7 +5762,7 @@ println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[theta1, theta2, thet
 println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logp:&amp;#34;&lt;/span&gt;, logp(gp_2, xs, ys))
 
 plot_gp_100m(gp_2, pars)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Results of Optimization Algorithm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,0.0,0.0,-3.0]
  * Minimizer: [-3.591175043240611,-0.6634886622587809, ...]
@@ -6549,7 +6549,6 @@ julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; repeat([&lt
 &lt;li&gt;裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。&lt;/li&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。&lt;/p&gt;
 &lt;p&gt;まずはライブラリをインポート。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
 addprocs(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)

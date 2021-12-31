@@ -245,7 +245,6 @@ scatter!(challengers_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt
 &lt;li&gt;裏が出た場合、もう一枚コインを(こっそり)投げ、表が出たら「カンニングした」と答え、裏が出たら「カンニングしなかった」と答える。&lt;/li&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。&lt;/p&gt;
 &lt;p&gt;まずはライブラリをインポート。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributed
 addprocs(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)

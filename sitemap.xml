@@ -3,10 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2021-03-01T23:00:00+09:00</lastmod>
+    <lastmod>2021-12-31T21:05:26+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2020-10-05T00:07:12+09:00</lastmod>
+    <lastmod>2021-12-31T21:05:26+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/playlist/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
@@ -20,6 +20,9 @@
     <loc>https://matsueushi.github.io/other/boat/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
+  </url><url>
+    <loc>https://matsueushi.github.io/posts/2021/</loc>
+    <lastmod>2021-12-31T21:05:26+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/music/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>

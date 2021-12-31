@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaでガウス過程を実装&amp;パラメーター推定</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.87.0" />
+	<meta name="generator" content="Hugo 0.91.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -217,7 +217,7 @@ Plots<span style="color:#f92672">.</span>plot(xs, rand(gk_dist, <span style="col
     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
     linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
     title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</code></pre></div><pre><code>PosDefException: matrix is not positive definite; Cholesky factorization failed.
+</code></pre></div><pre tabindex="0"><code>PosDefException: matrix is not positive definite; Cholesky factorization failed.
 
 Stacktrace:
  [1] checkpositivedefinite at /Users/osx/buildbot/slave/package_osx64/build/usr/share/julia/stdlib/v1.1/LinearAlgebra/src/factorization.jl:11 [inlined]
@@ -367,7 +367,7 @@ Plots<span style="color:#f92672">.</span>plot!(xtest, mean(pred), label <span st
 
 scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Posterior distribution&#34;</span>)
 </code></pre></div><p>実は、これだとうまくいかない</p>
-<pre><code>PosDefException: matrix is not Hermitian; Cholesky factorization failed.
+<pre tabindex="0"><code>PosDefException: matrix is not Hermitian; Cholesky factorization failed.
 
 Stacktrace:
  [1] checkpositivedefinite(::Int64) at /Users/osx/buildbot/slave/package_osx64/build/usr/share/julia/stdlib/v1.1/LinearAlgebra/src/factorization.jl:11
@@ -525,7 +525,7 @@ res <span style="color:#f92672">=</span> optimize(
 println(res)
 pars <span style="color:#f92672">=</span> Optim<span style="color:#f92672">.</span>minimizer(res)
 println(<span style="color:#e6db74">&#34;[theta1, theta2, theta3] = &#34;</span>, exp<span style="color:#f92672">.</span>(pars))
-</code></pre></div><pre><code>Results of Optimization Algorithm
+</code></pre></div><pre tabindex="0"><code>Results of Optimization Algorithm
  * Algorithm: Fminbox with Gradient Descent
  * Starting Point: [0.0,0.0,0.0]
  * Minimizer: [0.4677728528438338,1.8810363129622452, ...]
@@ -619,7 +619,7 @@ println(<span style="color:#e6db74">&#34;[theta1, theta2, theta3] = &#34;</span>
 println(<span style="color:#e6db74">&#34;logp:&#34;</span>, logp(gp, xs, ys))
 
 plot_gp_100m(gp, pars)
-</code></pre></div><pre><code>Results of Optimization Algorithm
+</code></pre></div><pre tabindex="0"><code>Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,0.0]
  * Minimizer: [1.4404906589345008,2.6294999978819886, ...]
@@ -651,7 +651,7 @@ println(<span style="color:#e6db74">&#34;[theta1, theta2, theta3] = &#34;</span>
 println(<span style="color:#e6db74">&#34;logp:&#34;</span>, logp(gp, xs, ys))
 
 plot_gp_100m(gp, pars)
-</code></pre></div><pre><code>Results of Optimization Algorithm
+</code></pre></div><pre tabindex="0"><code>Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,-3.0]
  * Minimizer: [0.4403584574143354,-1.4741097963164387, ...]
@@ -686,7 +686,7 @@ println(<span style="color:#e6db74">&#34;[theta1, theta2, theta3, theta4, theta5
 println(<span style="color:#e6db74">&#34;logp:&#34;</span>, logp(gp_2, xs, ys))
 
 plot_gp_100m(gp_2, pars)
-</code></pre></div><pre><code>Results of Optimization Algorithm
+</code></pre></div><pre tabindex="0"><code>Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
  * Starting Point: [0.0,0.0,0.0,0.0,-3.0]
  * Minimizer: [-3.591175043240611,-0.6634886622587809, ...]

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Flux.jlでSinGANを実装する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.87.0" />
+	<meta name="generator" content="Hugo 0.91.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -195,22 +195,22 @@ $$</p>
 <p>損失関数ですが、各ステージで
 $$
 \begin{aligned}
-\min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
+\min_{G_n} \min_{D_n} ( \mathcal{L}<em>{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}</em>{\text{rec}}(G_n) )
 \end{aligned}
 $$
-を考えるのですが、\(\mathcal{L}_{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+を考えるのですが、\(\mathcal{L}<em>{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
 計算するときは全てのステージでノイズを加えながら生成します。
-\(\mathcal{L}_{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
+\(\mathcal{L}</em>{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
 $$
 \begin{aligned}
-z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^*, 0, \ldots, 0 \}
+z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^<em>, 0, \ldots, 0 \}
 \end{aligned}
 $$
 を一つ学習を通して固定し、縮小した元画像との二乗誤差
 $$
 \begin{aligned}
-\mathcal{L}_{\text{rec}, N} &amp;= || G_N(z^*) - x_N ||^2, \\
-\mathcal{L}_{\text{rec}, n} &amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&lt;N
+\mathcal{L}_{\text{rec}, N} &amp;= || G_N(z^</em>) - x_N ||^2, \\
+\mathcal{L}<em>{\text{rec}, n} &amp;= || G_n(0, (\tilde{x}</em>{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&lt;N
 \end{aligned}
 $$
 を損失関数とするものです。</p>
@@ -753,7 +753,7 @@ image_shapes(hp<span style="color:#f92672">::</span><span style="color:#66d9ef">
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2021
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5785 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5784 words in this page.
 	</div>
 </div>
 

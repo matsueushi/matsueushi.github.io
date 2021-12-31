@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.87.0" />
+	<meta name="generator" content="Hugo 0.91.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -268,7 +268,7 @@ scatter(xxs, yys)
 <p>平均0のガウスカーネルのガウス過程に(ノイズ項込みで)フィッティングさせるのは非常に簡単で、<code>optimize!</code> を呼べば良いだけ。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">gp <span style="color:#f92672">=</span> GP(xxs, yys, MeanZero(), SE(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>))
 optimize!(gp)
-</code></pre></div><pre><code>Results of Optimization Algorithm
+</code></pre></div><pre tabindex="0"><code>Results of Optimization Algorithm
  * Algorithm: L-BFGS
  * Starting Point: [-2.0,0.0,0.0]
  * Minimizer: [-1.250611250087999,0.5939445695924219, ...]
@@ -287,7 +287,7 @@ optimize!(gp)
  * Gradient Calls: 26
 </code></pre><p>パラメーターを確認すると、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">print(gp)
-</code></pre></div><pre><code>GP Exact object:
+</code></pre></div><pre tabindex="0"><code>GP Exact object:
  Dim = 1
  Number of observations = 5
  Mean function:
@@ -314,7 +314,7 @@ $$
 <code>SEIso</code> のメンバー変数 <code>σ2</code> と <code>ℓ2</code> を使って確認すると、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">println(<span style="color:#e6db74">&#34;theta1: &#34;</span>, gp<span style="color:#f92672">.</span>kernel<span style="color:#f92672">.</span>σ2)
 println(<span style="color:#e6db74">&#34;theta2: &#34;</span>, gp<span style="color:#f92672">.</span>kernel<span style="color:#f92672">.</span>ℓ2 <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
-</code></pre></div><pre><code>theta1: 1.5964347486496255
+</code></pre></div><pre tabindex="0"><code>theta1: 1.5964347486496255
 theta2: 6.560299908989858
 </code></pre><p>となり、同じ結果が得られている。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot(gp; xlabel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gp.x&#34;</span>, ylabel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gp.y&#34;</span>, legend<span style="color:#f92672">=</span>false, fmt<span style="color:#f92672">=</span><span style="color:#e6db74">:png</span>)
