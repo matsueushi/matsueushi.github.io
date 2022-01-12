@@ -3029,12 +3029,12 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     </item>
     
     <item>
-      <title>「ガウス過程と機械学習 」を読み始めた</title>
+      <title>「ガウス過程と機械学習」を読み始めた</title>
       <link>https://matsueushi.github.io/posts/gp-nlp-1/</link>
       <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/gp-nlp-1/</guid>
-      <description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機会学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;
+      <description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;
 &lt;p&gt;本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。&lt;/p&gt;
 &lt;p&gt;分散共分散行列の成分を作る時に使われるカーネル \( k(x,x^\prime) \) は \( x \) と \(x^\prime \) の「近さ」を表す関数とでも考えれば良いのだろうか。&lt;/p&gt;
 &lt;p&gt;なんでそういうことを考えるのかという気持ちの部分が丁寧に説明されているので意図がわからずに数式の中に闇雲に迷い込むことなく今の所楽しく読み進められている。&lt;/p&gt;
