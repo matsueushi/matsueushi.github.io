@@ -20,6 +20,17 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "DiscogsというレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。\n音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、 そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。\nそこまでレアなCDか？と思うようなものが過去に20万とか40万円で取引されていてかなり謎です(価格は右の方に表記あり)。 https://www.discogs.com/ja/release/7218654-Heather-Nova-South\nhttps://www.discogs.com/ja/release/15283232-Valerie-Carter-Midnight-Over-Honey-River\nマネーロンダリングという考察もあるようですが、真偽は不明です。誰か知っていたら教えてください。\nMoney Laundering on Discogs\nMoney Laundering?\n",
+    "permalink": "https://matsueushi.github.io/posts/discogs-money-laundering/",
+    "tags": [
+      "Music",
+      "Discogs",
+      "CD",
+      "Record"
+    ],
+    "title": "Discogsの高額CD, レコードの謎"
+  },
+  {
     "contents": "去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。\nひとまず、AtCoderの競プロ典型 90 問を解いて行く予定です。 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。\n下に解答を記録していこうと思います。\nhttps://github.com/matsueushi/ProgrammingChallenges\nさてはて、いつまで続くやら。\n",
     "permalink": "https://matsueushi.github.io/posts/julia-atcoder/",
     "tags": [

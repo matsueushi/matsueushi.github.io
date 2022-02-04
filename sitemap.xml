@@ -3,10 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2022-02-04T23:09:38+09:00</lastmod>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/</loc>
-    <lastmod>2022-02-04T23:09:38+09:00</lastmod>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/playlist/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
@@ -21,6 +21,24 @@
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
   </url><url>
+    <loc>https://matsueushi.github.io/tags/cd/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/discogs/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/posts/discogs-money-laundering/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/record/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2022-02-04T23:19:38+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/tags/atcoder/</loc>
     <lastmod>2022-02-04T23:09:38+09:00</lastmod>
   </url><url>
@@ -30,14 +48,8 @@
     <loc>https://matsueushi.github.io/posts/julia-atcoder/</loc>
     <lastmod>2022-02-04T23:09:38+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/tags/</loc>
-    <lastmod>2022-02-04T23:09:38+09:00</lastmod>
-  </url><url>
     <loc>https://matsueushi.github.io/posts/2021/</loc>
     <lastmod>2021-12-31T21:05:26+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
-    <lastmod>2021-03-01T23:00:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/playlist/20210228/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
@@ -67,9 +79,6 @@
     <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/audacity/</loc>
-    <lastmod>2020-09-10T09:10:30+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/discogs/</loc>
     <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/vinyl/</loc>
@@ -368,9 +377,6 @@
   </url><url>
     <loc>https://matsueushi.github.io/posts/lolica-tonica/</loc>
     <lastmod>2018-10-21T17:16:51-04:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/record/</loc>
-    <lastmod>2018-10-14T16:47:50-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/blooklyn-record-store/</loc>
     <lastmod>2018-10-14T16:47:50-04:00</lastmod>

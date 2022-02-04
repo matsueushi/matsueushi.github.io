@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2021</copyright>
-    <lastBuildDate>Fri, 04 Feb 2022 23:09:38 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 04 Feb 2022 23:19:38 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CD</title>
+      <link>https://matsueushi.github.io/tags/cd/</link>
+      <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/cd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Discogs</title>
+      <link>https://matsueushi.github.io/tags/discogs/</link>
+      <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/discogs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Music</title>
+      <link>https://matsueushi.github.io/tags/music/</link>
+      <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Record</title>
+      <link>https://matsueushi.github.io/tags/record/</link>
+      <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/record/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>AtCoder</title>
@@ -27,15 +63,6 @@
       <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/julia/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Music</title>
-      <link>https://matsueushi.github.io/tags/music/</link>
-      <pubDate>Mon, 01 Mar 2021 23:00:00 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/music/</guid>
       <description></description>
     </item>
     
@@ -99,15 +126,6 @@
       <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/audacity/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Discogs</title>
-      <link>https://matsueushi.github.io/tags/discogs/</link>
-      <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/discogs/</guid>
       <description></description>
     </item>
     
@@ -486,15 +504,6 @@
       <pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/tags/yubikey/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Record</title>
-      <link>https://matsueushi.github.io/tags/record/</link>
-      <pubDate>Sun, 14 Oct 2018 16:47:50 -0400</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/record/</guid>
       <description></description>
     </item>
     
