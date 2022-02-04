@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。\nひとまず、AtCoderの競プロ典型 90 問を解いて行く予定です。 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。\n下に解答を記録していこうと思います。\nhttps://github.com/matsueushi/ProgrammingChallenges\nさてはて、いつまで続くやら。\n",
+    "permalink": "https://matsueushi.github.io/posts/julia-atcoder/",
+    "tags": [
+      "Julia",
+      "AtCoder"
+    ],
+    "title": "JuliaでAtCoderに挑戦"
+  },
+  {
     "contents": "2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。\n",
     "permalink": "https://matsueushi.github.io/posts/2021/",
     "tags": null,
