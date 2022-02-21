@@ -1879,9 +1879,9 @@ $$
 \triangledown (x) \le \bigcirc (x) \le \triangle (x)
 \end{aligned}
 $$&lt;/p&gt;
-&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^&lt;em&gt;\) であれば、
+&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
 \( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
-\( x \notin \mathbb{F}^&lt;/em&gt;\) であれば、\( \triangledown(x) &amp;lt; x &amp;lt; \triangle (x) \) が成り立つとともに
+\( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) &amp;lt; x &amp;lt; \triangle (x) \) が成り立つとともに
 \( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
 つまり、丸めとは、浮動小数点数で表せないそれぞれの数に対して切り上げるか切り下げるかを条件 (R2) を守るように定めることと同じです。&lt;/p&gt;
 &lt;p&gt;浮動小数点数で表現できない数に対する Julia の&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1&#34;&gt;デフォルト丸めモード&lt;/a&gt;は
