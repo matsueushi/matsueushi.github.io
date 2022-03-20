@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | K-平均アルゴリズム</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -168,109 +168,109 @@ $$
 <p>使ったデータは <a href="https://github.com/cstjean/ScikitLearn.jl">ScikitLearn.jl</a> で作成。
 下の図のような三種類のパターン (<code>noisy_circles</code>, <code>noisy_moons</code>, <code>blobs</code>) を用意して、サンプル点は1500個。
 <a href="https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb">このページ</a> が参考になる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> ScikitLearn
-<span style="color:#66d9ef">using</span> Statistics
-<span style="color:#66d9ef">using</span> Plots
-<span style="color:#66d9ef">using</span> Printf
-<span style="color:#66d9ef">using</span> Random
-
-<span style="color:#a6e22e">@sk_import</span> datasets<span style="color:#f92672">:</span> (make_circles, make_moons, make_blobs)
-
-n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
-noisy_circles <span style="color:#f92672">=</span> make_circles(n_samples<span style="color:#f92672">=</span>n_samples, 
-                             factor<span style="color:#f92672">=</span><span style="color:#ae81ff">.5</span>, noise<span style="color:#f92672">=</span><span style="color:#ae81ff">.05</span>)
-noisy_moons <span style="color:#f92672">=</span> make_moons(n_samples<span style="color:#f92672">=</span>n_samples, noise<span style="color:#f92672">=</span><span style="color:#ae81ff">.05</span>)
-blobs <span style="color:#f92672">=</span> make_blobs(n_samples<span style="color:#f92672">=</span>n_samples, random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
-
-plts <span style="color:#f92672">=</span> []
-
-<span style="color:#66d9ef">for</span> data <span style="color:#66d9ef">in</span> [noisy_circles, noisy_moons, blobs]
-    points, label <span style="color:#f92672">=</span> data
-    push!(plts, scatter(points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], 
-                        label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, mc<span style="color:#f92672">=</span>label))
-<span style="color:#66d9ef">end</span>
-
-Plots<span style="color:#f92672">.</span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">400</span>])
-</code></pre></div><p><img src="/images/posts/clustering-kmean_dataset.png" alt="Dataset"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> ScikitLearn
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Statistics
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@sk_import</span> datasets<span style="color:#f92672">:</span> (make_circles, make_moons, make_blobs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
+</span></span><span style="display:flex;"><span>noisy_circles <span style="color:#f92672">=</span> make_circles(n_samples<span style="color:#f92672">=</span>n_samples, 
+</span></span><span style="display:flex;"><span>                             factor<span style="color:#f92672">=</span><span style="color:#ae81ff">.5</span>, noise<span style="color:#f92672">=</span><span style="color:#ae81ff">.05</span>)
+</span></span><span style="display:flex;"><span>noisy_moons <span style="color:#f92672">=</span> make_moons(n_samples<span style="color:#f92672">=</span>n_samples, noise<span style="color:#f92672">=</span><span style="color:#ae81ff">.05</span>)
+</span></span><span style="display:flex;"><span>blobs <span style="color:#f92672">=</span> make_blobs(n_samples<span style="color:#f92672">=</span>n_samples, random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plts <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> data <span style="color:#66d9ef">in</span> [noisy_circles, noisy_moons, blobs]
+</span></span><span style="display:flex;"><span>    points, label <span style="color:#f92672">=</span> data
+</span></span><span style="display:flex;"><span>    push!(plts, scatter(points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], 
+</span></span><span style="display:flex;"><span>                        label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, mc<span style="color:#f92672">=</span>label))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">400</span>])
+</span></span></code></pre></div><p><img src="/images/posts/clustering-kmean_dataset.png" alt="Dataset"></p>
 <p>本体の実装はこんな感じで、<code>dist</code> で \( f \) の値、 <code>dist_change</code> で \( f \) の変化を保持。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">KMean</span>
-    points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
-    K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>
-    zs<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
-    μs<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
-    dist<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
-    dist_change<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> KMean(points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}, K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>)
-    n_points <span style="color:#f92672">=</span> size(points, <span style="color:#ae81ff">1</span>)
-    init_zs <span style="color:#f92672">=</span> nothing
-    <span style="color:#66d9ef">while</span> true
-        init_zs <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>K, n_points)
-        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(init_zs)) <span style="color:#f92672">==</span> K
-            <span style="color:#66d9ef">break</span>
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-    zs <span style="color:#f92672">=</span> init_zs
-    kmean <span style="color:#f92672">=</span> KMean(points, K, zs, 
-                  zeros(<span style="color:#ae81ff">1</span>, size(points, <span style="color:#ae81ff">2</span>), K), <span style="color:#ae81ff">0</span>, typemax(<span style="color:#66d9ef">Float64</span>))
-    update_μs!(kmean)
-    kmean
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> update_μs!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
-    km<span style="color:#f92672">.</span>μs <span style="color:#f92672">=</span> cat([mean(km<span style="color:#f92672">.</span>points[km<span style="color:#f92672">.</span>zs <span style="color:#f92672">.==</span> i, <span style="color:#f92672">:</span>], dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K]<span style="color:#f92672">...</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
-    new_dist <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">-</span> reshape(km<span style="color:#f92672">.</span>μs[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>, km<span style="color:#f92672">.</span>zs], <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>)<span style="color:#f92672">&#39;</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)
-    km<span style="color:#f92672">.</span>dist_change <span style="color:#f92672">=</span> km<span style="color:#f92672">.</span>dist <span style="color:#f92672">-</span> new_dist
-    km<span style="color:#f92672">.</span>dist <span style="color:#f92672">=</span> new_dist
-    km
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> update_zs!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
-    norms <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">.-</span> km<span style="color:#f92672">.</span>μs)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-    argmin_norms <span style="color:#f92672">=</span> [x[<span style="color:#ae81ff">3</span>] <span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> argmin(norms, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)][<span style="color:#f92672">:</span>]
-    
-    <span style="color:#66d9ef">while</span> true
-        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(argmin_norms)) <span style="color:#f92672">==</span> km<span style="color:#f92672">.</span>K
-            <span style="color:#66d9ef">break</span>
-        <span style="color:#66d9ef">end</span>
-        argmin_norms <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K, size(km<span style="color:#f92672">.</span>points, <span style="color:#ae81ff">1</span>))
-    <span style="color:#66d9ef">end</span>
-    
-    km<span style="color:#f92672">.</span>zs <span style="color:#f92672">=</span> argmin_norms
-    km
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> update!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
-    update_zs!(km)
-    update_μs!(km)
-    km
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>それぞれのサンプルデータに対し、\( f \) の減少幅が0.1以下になるまでイテレーションを行う(最高100回)様子をアニメーションして、gifファイルに出力させると下のようになる。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">KMean</span>
+</span></span><span style="display:flex;"><span>    points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
+</span></span><span style="display:flex;"><span>    K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>
+</span></span><span style="display:flex;"><span>    zs<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
+</span></span><span style="display:flex;"><span>    μs<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
+</span></span><span style="display:flex;"><span>    dist<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
+</span></span><span style="display:flex;"><span>    dist_change<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> KMean(points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}, K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>)
+</span></span><span style="display:flex;"><span>    n_points <span style="color:#f92672">=</span> size(points, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    init_zs <span style="color:#f92672">=</span> nothing
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> true
+</span></span><span style="display:flex;"><span>        init_zs <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>K, n_points)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(init_zs)) <span style="color:#f92672">==</span> K
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    zs <span style="color:#f92672">=</span> init_zs
+</span></span><span style="display:flex;"><span>    kmean <span style="color:#f92672">=</span> KMean(points, K, zs, 
+</span></span><span style="display:flex;"><span>                  zeros(<span style="color:#ae81ff">1</span>, size(points, <span style="color:#ae81ff">2</span>), K), <span style="color:#ae81ff">0</span>, typemax(<span style="color:#66d9ef">Float64</span>))
+</span></span><span style="display:flex;"><span>    update_μs!(kmean)
+</span></span><span style="display:flex;"><span>    kmean
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update_μs!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
+</span></span><span style="display:flex;"><span>    km<span style="color:#f92672">.</span>μs <span style="color:#f92672">=</span> cat([mean(km<span style="color:#f92672">.</span>points[km<span style="color:#f92672">.</span>zs <span style="color:#f92672">.==</span> i, <span style="color:#f92672">:</span>], dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K]<span style="color:#f92672">...</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    new_dist <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">-</span> reshape(km<span style="color:#f92672">.</span>μs[<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>, km<span style="color:#f92672">.</span>zs], <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>)<span style="color:#f92672">&#39;</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    km<span style="color:#f92672">.</span>dist_change <span style="color:#f92672">=</span> km<span style="color:#f92672">.</span>dist <span style="color:#f92672">-</span> new_dist
+</span></span><span style="display:flex;"><span>    km<span style="color:#f92672">.</span>dist <span style="color:#f92672">=</span> new_dist
+</span></span><span style="display:flex;"><span>    km
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update_zs!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
+</span></span><span style="display:flex;"><span>    norms <span style="color:#f92672">=</span> sum((km<span style="color:#f92672">.</span>points <span style="color:#f92672">.-</span> km<span style="color:#f92672">.</span>μs)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    argmin_norms <span style="color:#f92672">=</span> [x[<span style="color:#ae81ff">3</span>] <span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> argmin(norms, dims<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)][<span style="color:#f92672">:</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> true
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> Base<span style="color:#f92672">.</span>length(<span style="color:#66d9ef">Set</span>(argmin_norms)) <span style="color:#f92672">==</span> km<span style="color:#f92672">.</span>K
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        argmin_norms <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>km<span style="color:#f92672">.</span>K, size(km<span style="color:#f92672">.</span>points, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    km<span style="color:#f92672">.</span>zs <span style="color:#f92672">=</span> argmin_norms
+</span></span><span style="display:flex;"><span>    km
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update!(km<span style="color:#f92672">::</span><span style="color:#66d9ef">KMean</span>)
+</span></span><span style="display:flex;"><span>    update_zs!(km)
+</span></span><span style="display:flex;"><span>    update_μs!(km)
+</span></span><span style="display:flex;"><span>    km
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>それぞれのサンプルデータに対し、\( f \) の減少幅が0.1以下になるまでイテレーションを行う(最高100回)様子をアニメーションして、gifファイルに出力させると下のようになる。
 Juliaはgifのアニメーションを作るのも楽でいいですね。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">gifs <span style="color:#f92672">=</span> []
-
-<span style="color:#66d9ef">for</span> (i, (data, K)) <span style="color:#66d9ef">in</span> enumerate(zip([noisy_circles, noisy_moons, blobs], [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]))
-    points, label <span style="color:#f92672">=</span> data
-
-    km <span style="color:#f92672">=</span> KMean(points, K)
-
-    anim <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>
-        <span style="color:#66d9ef">if</span> abs(km<span style="color:#f92672">.</span>dist_change) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.01</span>
-            <span style="color:#66d9ef">break</span>
-        <span style="color:#66d9ef">end</span>
-        scatter(km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], mc<span style="color:#f92672">=</span>km<span style="color:#f92672">.</span>zs, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
-        plt <span style="color:#f92672">=</span> scatter!(km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], ms<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, mc<span style="color:#f92672">=</span><span style="color:#e6db74">:yellow</span>, msw<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, 
-                       title<span style="color:#f92672">=</span><span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;Iterations=</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>, n))
-        update!(km)
-        plt
-    <span style="color:#66d9ef">end</span>
-
-    push!(gifs, gif(anim, <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;clustering-kmean_</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">.gif&#34;</span>, i), fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>))
-<span style="color:#66d9ef">end</span>
-
-display<span style="color:#f92672">.</span>(gifs);
-</code></pre></div><p>結果は下の通り。黄色の点が、\( (\boldsymbol{\mu}_k)_{k=1}^K \) に該当。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gifs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i, (data, K)) <span style="color:#66d9ef">in</span> enumerate(zip([noisy_circles, noisy_moons, blobs], [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]))
+</span></span><span style="display:flex;"><span>    points, label <span style="color:#f92672">=</span> data
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    km <span style="color:#f92672">=</span> KMean(points, K)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    anim <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> abs(km<span style="color:#f92672">.</span>dist_change) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.01</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        scatter(km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], km<span style="color:#f92672">.</span>points[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>], mc<span style="color:#f92672">=</span>km<span style="color:#f92672">.</span>zs, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>        plt <span style="color:#f92672">=</span> scatter!(km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], km<span style="color:#f92672">.</span>μs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], ms<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, mc<span style="color:#f92672">=</span><span style="color:#e6db74">:yellow</span>, msw<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, 
+</span></span><span style="display:flex;"><span>                       title<span style="color:#f92672">=</span><span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;Iterations=</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>, n))
+</span></span><span style="display:flex;"><span>        update!(km)
+</span></span><span style="display:flex;"><span>        plt
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    push!(gifs, gif(anim, <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;clustering-kmean_</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">.gif&#34;</span>, i), fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>display<span style="color:#f92672">.</span>(gifs);
+</span></span></code></pre></div><p>結果は下の通り。黄色の点が、\( (\boldsymbol{\mu}_k)_{k=1}^K \) に該当。</p>
 <p><code>noisy_circles</code> と <code>noisy_moons</code> では次のような結果で、
 代表点からの距離でクラスタリングするならばまあそうなるだろう、という結果。</p>
 <p><img src="/images/posts/clustering-kmean_circles.gif" alt="noisy circles"></p>
@@ -456,7 +456,7 @@ display<span style="color:#f92672">.</span>(gifs);
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

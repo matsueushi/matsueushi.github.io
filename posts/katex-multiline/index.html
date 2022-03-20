@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | KaTeXで複数行の数式を入力</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -127,13 +127,13 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>結構手間取った。<br>
 バックスラッシュを4つ重ねた後スペースを置く <code>\\\\</code> と改行できる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex"><span style="color:#66d9ef">\\</span>(
-    <span style="color:#66d9ef">\begin</span>{aligned} 
-    x &amp;= 1+1 <span style="color:#66d9ef">\\\\</span> 
-    &amp;= 2
-    <span style="color:#66d9ef">\end</span>{aligned}
-<span style="color:#66d9ef">\\</span>)
-</code></pre></div><p>結果:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span><span style="color:#66d9ef">\\</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\begin</span>{aligned} 
+</span></span><span style="display:flex;"><span>    x &amp;= 1+1 <span style="color:#66d9ef">\\\\</span> 
+</span></span><span style="display:flex;"><span>    &amp;= 2
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\end</span>{aligned}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\\</span>)
+</span></span></code></pre></div><p>結果:</p>
 <p>\(
 \begin{aligned}
 x &amp;= 1+1 \\
@@ -291,7 +291,7 @@ x &amp;= 1+1 \\
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

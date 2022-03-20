@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Intrinsic Gaussian CARモデルをMambaで実装</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -122,67 +122,67 @@ onload='renderMathInElement(document.body);'></script>
 <p>参考にしたMatrix Multiplicationを用いたPyMC3の実装:</p>
 <p><a href="https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html#PyMC3-implementation-using-Matrix-multiplication">https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html#PyMC3-implementation-using-Matrix-multiplication</a></p>
 <p>PyMCのモデル</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">with</span> pm<span style="color:#f92672">.</span>Model() <span style="color:#66d9ef">as</span> model3:
-    <span style="color:#75715e"># Vague prior on intercept and effect</span>
-    beta <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Normal(<span style="color:#e6db74">&#39;beta&#39;</span>, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, tau<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>))
-
-    <span style="color:#75715e"># Priors for spatial random effects</span>
-    tau <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Gamma(<span style="color:#e6db74">&#39;tau&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">2.</span>, beta<span style="color:#f92672">=</span><span style="color:#ae81ff">2.</span>)
-    alpha <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Uniform(<span style="color:#e6db74">&#39;alpha&#39;</span>, lower<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, upper<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-    phi <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>MvNormal(<span style="color:#e6db74">&#39;phi&#39;</span>, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, 
-            tau<span style="color:#f92672">=</span>tau<span style="color:#f92672">*</span>(D <span style="color:#f92672">-</span> alpha<span style="color:#f92672">*</span>W), shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>, N))
-
-    <span style="color:#75715e"># Mean model</span>
-    mu <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Deterministic(<span style="color:#e6db74">&#39;mu&#39;</span>, 
-                    tt<span style="color:#f92672">.</span>exp(tt<span style="color:#f92672">.</span>dot(X, beta) <span style="color:#f92672">+</span> phi<span style="color:#f92672">.</span>T <span style="color:#f92672">+</span> log_offset))
-
-    <span style="color:#75715e"># Likelihood</span>
-    Yi <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Poisson(<span style="color:#e6db74">&#39;Yi&#39;</span>, mu<span style="color:#f92672">=</span>mu<span style="color:#f92672">.</span>ravel(), observed<span style="color:#f92672">=</span>O)
-
-    trace3 <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>sample(<span style="color:#ae81ff">3e3</span>, cores<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, tune<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>)
-</code></pre></div><p>は、Mambaだと下のようになる。PyMCとMambaで分布を指定するときに使うDistribution.jlでは<code>MvNormal</code>のパラメーターの持ち方が違うことに注意。PyMCの<code>MvNormal</code>に該当するDistibution.jlの分布は 、<code>MvNormal</code>ではなく<code>MvNormalCanon</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">car_model <span style="color:#f92672">=</span> Model(
-    beta0 <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal()),
-    beta1 <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal()),
-    
-    tau <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Distributions<span style="color:#f92672">.</span>Gamma(<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">0.5</span>)),
-    alpha <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
-    phi <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-        (tau, alpha, N, D, W) 
-            <span style="color:#f92672">-&gt;</span> MvNormalCanon(zeros(N), tau <span style="color:#f92672">*</span> (D <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> W)),
-    ),
-    
-    mu <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>, 
-        (beta0, beta1, zscore_aff, phi, log_offset) <span style="color:#f92672">-&gt;</span> 
-        exp<span style="color:#f92672">.</span>(beta0 <span style="color:#f92672">.+</span> beta1 <span style="color:#f92672">.*</span> zscore_aff <span style="color:#f92672">.+</span> phi <span style="color:#f92672">.+</span> log_offset)
-    ),
-    
-    y <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-        (mu, N) <span style="color:#f92672">-&gt;</span> 
-            UnivariateDistribution[Poisson(mu[i]) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N],
-        false
-    )
-)
-</code></pre></div><p>サンプリングに関しては、NUTSが遅すぎるのでAWMGを使った。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">car_scheme <span style="color:#f92672">=</span> [
-    AMWG([<span style="color:#e6db74">:beta0</span>, <span style="color:#e6db74">:beta1</span>, <span style="color:#e6db74">:phi</span>], <span style="color:#ae81ff">1.0</span>), 
-    Slice(<span style="color:#e6db74">:alpha</span>, <span style="color:#ae81ff">1.0</span>),
-    Slice(<span style="color:#e6db74">:tau</span>, <span style="color:#ae81ff">10.0</span>),
-]
-setsamplers!(car_model, car_scheme)
-car_sim <span style="color:#f92672">=</span> mcmc(car_model, car_data, car_inits, <span style="color:#ae81ff">21000</span>, 
-                burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-</code></pre></div><p><img src="/images/posts/intrinsic-gaussian-car_1.png" alt="CAR1"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> pm<span style="color:#f92672">.</span>Model() <span style="color:#66d9ef">as</span> model3:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Vague prior on intercept and effect</span>
+</span></span><span style="display:flex;"><span>    beta <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Normal(<span style="color:#e6db74">&#39;beta&#39;</span>, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, tau<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Priors for spatial random effects</span>
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Gamma(<span style="color:#e6db74">&#39;tau&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">2.</span>, beta<span style="color:#f92672">=</span><span style="color:#ae81ff">2.</span>)
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Uniform(<span style="color:#e6db74">&#39;alpha&#39;</span>, lower<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, upper<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    phi <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>MvNormal(<span style="color:#e6db74">&#39;phi&#39;</span>, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, 
+</span></span><span style="display:flex;"><span>            tau<span style="color:#f92672">=</span>tau<span style="color:#f92672">*</span>(D <span style="color:#f92672">-</span> alpha<span style="color:#f92672">*</span>W), shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>, N))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Mean model</span>
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Deterministic(<span style="color:#e6db74">&#39;mu&#39;</span>, 
+</span></span><span style="display:flex;"><span>                    tt<span style="color:#f92672">.</span>exp(tt<span style="color:#f92672">.</span>dot(X, beta) <span style="color:#f92672">+</span> phi<span style="color:#f92672">.</span>T <span style="color:#f92672">+</span> log_offset))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Likelihood</span>
+</span></span><span style="display:flex;"><span>    Yi <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>Poisson(<span style="color:#e6db74">&#39;Yi&#39;</span>, mu<span style="color:#f92672">=</span>mu<span style="color:#f92672">.</span>ravel(), observed<span style="color:#f92672">=</span>O)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    trace3 <span style="color:#f92672">=</span> pm<span style="color:#f92672">.</span>sample(<span style="color:#ae81ff">3e3</span>, cores<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, tune<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>)
+</span></span></code></pre></div><p>は、Mambaだと下のようになる。PyMCとMambaで分布を指定するときに使うDistribution.jlでは<code>MvNormal</code>のパラメーターの持ち方が違うことに注意。PyMCの<code>MvNormal</code>に該当するDistibution.jlの分布は 、<code>MvNormal</code>ではなく<code>MvNormalCanon</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>car_model <span style="color:#f92672">=</span> Model(
+</span></span><span style="display:flex;"><span>    beta0 <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal()),
+</span></span><span style="display:flex;"><span>    beta1 <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Normal()),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Distributions<span style="color:#f92672">.</span>Gamma(<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">0.5</span>)),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
+</span></span><span style="display:flex;"><span>    phi <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (tau, alpha, N, D, W) 
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">-&gt;</span> MvNormalCanon(zeros(N), tau <span style="color:#f92672">*</span> (D <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> W)),
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>        (beta0, beta1, zscore_aff, phi, log_offset) <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>        exp<span style="color:#f92672">.</span>(beta0 <span style="color:#f92672">.+</span> beta1 <span style="color:#f92672">.*</span> zscore_aff <span style="color:#f92672">.+</span> phi <span style="color:#f92672">.+</span> log_offset)
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (mu, N) <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>            UnivariateDistribution[Poisson(mu[i]) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N],
+</span></span><span style="display:flex;"><span>        false
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>サンプリングに関しては、NUTSが遅すぎるのでAWMGを使った。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>car_scheme <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    AMWG([<span style="color:#e6db74">:beta0</span>, <span style="color:#e6db74">:beta1</span>, <span style="color:#e6db74">:phi</span>], <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span>    Slice(<span style="color:#e6db74">:alpha</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>    Slice(<span style="color:#e6db74">:tau</span>, <span style="color:#ae81ff">10.0</span>),
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>setsamplers!(car_model, car_scheme)
+</span></span><span style="display:flex;"><span>car_sim <span style="color:#f92672">=</span> mcmc(car_model, car_data, car_inits, <span style="color:#ae81ff">21000</span>, 
+</span></span><span style="display:flex;"><span>                burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p><img src="/images/posts/intrinsic-gaussian-car_1.png" alt="CAR1"></p>
 <p>PyMCの場合とおおよそ同じ分布になったが、<code>beta0</code> の収束がやや微妙な気がする。</p>
 <p>サンプリング方法を下のように変更しても<code>beta0</code>の収束はあまり良くならない。何か良い方法はあるのだろうか。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">car_scheme <span style="color:#f92672">=</span> [
- AMWG([<span style="color:#e6db74">:alpha</span>, <span style="color:#e6db74">:beta0</span>], <span style="color:#ae81ff">1.0</span>), 
- AMWG([<span style="color:#e6db74">:beta1</span>, <span style="color:#e6db74">:phi</span>], <span style="color:#ae81ff">0.1</span>), 
- Slice(<span style="color:#e6db74">:tau</span>, <span style="color:#ae81ff">10.0</span>),
-]
-setsamplers!(car_model, car_scheme)
-car_sim <span style="color:#f92672">=</span> mcmc(car_model, car_data, car_inits, <span style="color:#ae81ff">25000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-</code></pre></div><p><img src="/images/posts/intrinsic-gaussian-car_2.png" alt="CAR2"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>car_scheme <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span> AMWG([<span style="color:#e6db74">:alpha</span>, <span style="color:#e6db74">:beta0</span>], <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span> AMWG([<span style="color:#e6db74">:beta1</span>, <span style="color:#e6db74">:phi</span>], <span style="color:#ae81ff">0.1</span>), 
+</span></span><span style="display:flex;"><span> Slice(<span style="color:#e6db74">:tau</span>, <span style="color:#ae81ff">10.0</span>),
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>setsamplers!(car_model, car_scheme)
+</span></span><span style="display:flex;"><span>car_sim <span style="color:#f92672">=</span> mcmc(car_model, car_data, car_inits, <span style="color:#ae81ff">25000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p><img src="/images/posts/intrinsic-gaussian-car_2.png" alt="CAR2"></p>
 </div>
 	</section>
 
@@ -320,7 +320,7 @@ car_sim <span style="color:#f92672">=</span> mcmc(car_model, car_data, car_inits
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

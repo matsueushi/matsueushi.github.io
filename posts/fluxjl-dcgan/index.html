@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -150,70 +150,70 @@ onload='renderMathInElement(document.body);'></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p><del>このあたり、<a href="https://www.tensorflow.org/install/docker">GPUのDockerイメージ</a> が利用できるTensorflowが羨ましく感じられる部分ではある。</del></p>
 <p>JuliaGPUのDockerイメージ <a href="https://github.com/JuliaGPU/docker">JuliaGPU/docker</a> はメンテナンスされていないので、<a href="https://hub.docker.com/r/nvidia/cuda/">nvidia/cuda</a> のイメージをベースに、Juliaのインストール部分は <a href="https://github.com/docker-library/julia">docker-library/julia</a> を参考にDockerfileを作成。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#75715e"># Dockerfile Julia 1.3.0 + CUDA for Flux.jl</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> CUDA<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>.0<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> UBUNTU_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>.04<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> nvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_PATH<span style="color:#f92672">=</span>/usr/local/julia<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PATH<span style="color:#f92672">=</span>$JULIA_PATH/bin:$PATH<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_TAR_ARCH<span style="color:#f92672">=</span>x86_64
-<span style="color:#66d9ef">ENV</span> JULIA_DIR_ARCH<span style="color:#f92672">=</span>x64
-
-<span style="color:#66d9ef">ENV</span> JULIA_GPG<span style="color:#f92672">=</span>3673DF529D9049477F76B37566E3C7DC03D6E495
-<span style="color:#66d9ef">ENV</span> JULIA_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>.3.0<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_SHA256<span style="color:#f92672">=</span>9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8
-
-<span style="color:#75715e"># Based on https://github.com/docker-library/julia</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copyright (c) 2014 Docker, Inc.</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Released under the MIT license</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># https://opensource.org/licenses/mit-license.php</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -eux; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    apt-get update; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    apt-get install -y --no-install-recommends curl gnupg dirmngr; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    rm -rf /var/lib/apt/lists/*; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    folder<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$JULIA_VERSION<span style="color:#e6db74">&#34;</span> | cut -d. -f1-2<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    julia_tar_url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://julialang-s3.julialang.org/bin/linux/</span><span style="color:#e6db74">${</span>JULIA_DIR_ARCH<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/julia-</span><span style="color:#e6db74">${</span>JULIA_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-linux-</span><span style="color:#e6db74">${</span>JULIA_TAR_ARCH<span style="color:#e6db74">}</span><span style="color:#e6db74">.tar.gz&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    curl -fL -o julia.tar.gz.asc <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>julia_tar_url<span style="color:#e6db74">}</span><span style="color:#e6db74">.asc&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    curl -fL -o julia.tar.gz     <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>julia_tar_url<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JULIA_SHA256<span style="color:#e6db74">}</span><span style="color:#e6db74"> *julia.tar.gz&#34;</span> | sha256sum -c -; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    export GNUPGHOME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>mktemp -d<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys <span style="color:#e6db74">&#34;</span>$JULIA_GPG<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    gpg --batch --verify julia.tar.gz.asc julia.tar.gz; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    command -v gpgconf &gt; /dev/null <span style="color:#f92672">&amp;&amp;</span> gpgconf --kill all; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    rm -rf <span style="color:#e6db74">&#34;</span>$GNUPGHOME<span style="color:#e6db74">&#34;</span> julia.tar.gz.asc; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    mkdir <span style="color:#e6db74">&#34;</span>$JULIA_PATH<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    tar -xzf julia.tar.gz -C <span style="color:#e6db74">&#34;</span>$JULIA_PATH<span style="color:#e6db74">&#34;</span> --strip-components 1; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    rm julia.tar.gz; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#75715e"># smoke test</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    julia --version<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># install packages</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> julia -e <span style="color:#e6db74">&#39;import Pkg; \
-</span><span style="color:#e6db74">    Pkg.add([ \
-</span><span style="color:#e6db74">    &#34;BSON&#34;, \
-</span><span style="color:#e6db74">    &#34;Distributions&#34;, \
-</span><span style="color:#e6db74">    &#34;HDF5&#34;, \
-</span><span style="color:#e6db74">    &#34;JLD&#34;, \
-</span><span style="color:#e6db74">    &#34;FileIO&#34;, \
-</span><span style="color:#e6db74">    &#34;ImageMagick&#34;, \
-</span><span style="color:#e6db74">    &#34;Images&#34;, \
-</span><span style="color:#e6db74">    ]); \
-</span><span style="color:#e6db74">    Pkg.add([ \
-</span><span style="color:#e6db74">    Pkg.PackageSpec(name=&#34;Flux&#34;, version=&#34;0.10&#34;), \
-</span><span style="color:#e6db74">    ]); \
-</span><span style="color:#e6db74">    using BSON, Distributions, HDF5, JLD, FileIO, ImageMagick, Images, Flux&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;julia&#34;</span>]<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p><a href="https://qiita.com/SatoshiTerasaki/items/10d53e4061f11b63155c">CUDAが動く Julia の深層学習フレームワーク Flux.jl の環境構築をDockerで行う．</a> でもっと丁寧に説明されていた(こっちだとソースからビルドしている)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-docker" data-lang="docker"><span style="display:flex;"><span><span style="color:#75715e"># Dockerfile Julia 1.3.0 + CUDA for Flux.jl</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> CUDA<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>.0<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> UBUNTU_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>.04<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> nvidia/cuda:${CUDA}-cudnn7-devel-ubuntu${UBUNTU_VERSION}</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_PATH<span style="color:#f92672">=</span>/usr/local/julia<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PATH<span style="color:#f92672">=</span>$JULIA_PATH/bin:$PATH<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_TAR_ARCH<span style="color:#f92672">=</span>x86_64
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> JULIA_DIR_ARCH<span style="color:#f92672">=</span>x64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> JULIA_GPG<span style="color:#f92672">=</span>3673DF529D9049477F76B37566E3C7DC03D6E495
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> JULIA_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>.3.0<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> JULIA_SHA256<span style="color:#f92672">=</span>9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Based on https://github.com/docker-library/julia</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copyright (c) 2014 Docker, Inc.</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Released under the MIT license</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># https://opensource.org/licenses/mit-license.php</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -eux; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    apt-get update; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    apt-get install -y --no-install-recommends curl gnupg dirmngr; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    rm -rf /var/lib/apt/lists/*; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    folder<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$JULIA_VERSION<span style="color:#e6db74">&#34;</span> | cut -d. -f1-2<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    julia_tar_url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://julialang-s3.julialang.org/bin/linux/</span><span style="color:#e6db74">${</span>JULIA_DIR_ARCH<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/julia-</span><span style="color:#e6db74">${</span>JULIA_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-linux-</span><span style="color:#e6db74">${</span>JULIA_TAR_ARCH<span style="color:#e6db74">}</span><span style="color:#e6db74">.tar.gz&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    curl -fL -o julia.tar.gz.asc <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>julia_tar_url<span style="color:#e6db74">}</span><span style="color:#e6db74">.asc&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    curl -fL -o julia.tar.gz     <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>julia_tar_url<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JULIA_SHA256<span style="color:#e6db74">}</span><span style="color:#e6db74"> *julia.tar.gz&#34;</span> | sha256sum -c -; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    export GNUPGHOME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>mktemp -d<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys <span style="color:#e6db74">&#34;</span>$JULIA_GPG<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    gpg --batch --verify julia.tar.gz.asc julia.tar.gz; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    command -v gpgconf &gt; /dev/null <span style="color:#f92672">&amp;&amp;</span> gpgconf --kill all; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    rm -rf <span style="color:#e6db74">&#34;</span>$GNUPGHOME<span style="color:#e6db74">&#34;</span> julia.tar.gz.asc; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    mkdir <span style="color:#e6db74">&#34;</span>$JULIA_PATH<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    tar -xzf julia.tar.gz -C <span style="color:#e6db74">&#34;</span>$JULIA_PATH<span style="color:#e6db74">&#34;</span> --strip-components 1; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    rm julia.tar.gz; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#75715e"># smoke test</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    julia --version<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># install packages</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> julia -e <span style="color:#e6db74">&#39;import Pkg; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Pkg.add([ \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;BSON&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;Distributions&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;HDF5&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;JLD&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;FileIO&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;ImageMagick&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;Images&#34;, \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ]); \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Pkg.add([ \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Pkg.PackageSpec(name=&#34;Flux&#34;, version=&#34;0.10&#34;), \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ]); \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    using BSON, Distributions, HDF5, JLD, FileIO, ImageMagick, Images, Flux&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;julia&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p><a href="https://qiita.com/SatoshiTerasaki/items/10d53e4061f11b63155c">CUDAが動く Julia の深層学習フレームワーク Flux.jl の環境構築をDockerで行う．</a> でもっと丁寧に説明されていた(こっちだとソースからビルドしている)。</p>
 <p>v0.9.0では<a href="https://github.com/FluxML/Flux.jl/issues/918">LoadError: LoadError: UndefVarError: libcudnn not defined #918</a> などのエラーが発生しCuArrays.jlをv1.3に下げる必要があったのだが、v0.10.0ではそのような心配はないのでいいですね。</p>
 <h2 id="dcganのモデル作成">DCGANのモデル作成</h2>
 <p>GANの仕組み自体の説明は<br>
@@ -229,41 +229,41 @@ v0.9.0で実装する際にはGANに関係したプルリクエスト
 <p>しかしながら、後にも触れるが、v0.10.0で、<a href="https://github.com/FluxML/Flux.jl/pull/669">デフォルトの自動微分エンジンをTrackerからZygote.jlに変える大きな変更</a> がマージされたので、
 そのままコピペしただけでは動かないと思われるため要注意。</p>
 <p>ネットワーク、ロス関数の構成は <a href="https://www.tensorflow.org/tutorials/generative/dcgan">TensorflowのDCGANチュートリアル</a> を参考にした。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise_dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
-channels <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-
-generator <span style="color:#f92672">=</span> Chain(
-    Dense(noise_dim, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>; initW <span style="color:#f92672">=</span> glorot_normal),
-    BatchNorm(<span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>, relu),
-    x<span style="color:#f92672">-&gt;</span>reshape(x, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">256</span>, <span style="color:#f92672">:</span>),
-    ConvTranspose((<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>), <span style="color:#ae81ff">256</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">128</span>; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>),
-    BatchNorm(<span style="color:#ae81ff">128</span>, relu),
-    ConvTranspose((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">128</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">64</span>; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
-    BatchNorm(<span style="color:#ae81ff">64</span>, relu),
-    ConvTranspose((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">64</span> <span style="color:#f92672">=&gt;</span> channels, tanh; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
-    ) <span style="color:#f92672">|&gt;</span> gpu
-
-discriminator <span style="color:#f92672">=</span>  Chain(
-    Conv((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), channels <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">64</span>, leakyrelu; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
-    Dropout(<span style="color:#ae81ff">0.25</span>),
-    Conv((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">64</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">128</span>, leakyrelu; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
-    Dropout(<span style="color:#ae81ff">0.25</span>), 
-    x<span style="color:#f92672">-&gt;</span>reshape(x, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#f92672">:</span>),
-    Dense(<span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">1</span>; initW <span style="color:#f92672">=</span> glorot_normal)) <span style="color:#f92672">|&gt;</span> gpu
-
-
-<span style="color:#66d9ef">function</span> generator_loss(fake_output)
-    loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(fake_output, <span style="color:#ae81ff">1f0</span>))
-    <span style="color:#66d9ef">return</span> loss 
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> discriminator_loss(real_output, fake_output)
-    real_loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(real_output, <span style="color:#ae81ff">1f0</span>))
-    fake_loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(fake_output, <span style="color:#ae81ff">0f0</span>))
-    loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5f0</span> <span style="color:#f92672">*</span> (real_loss <span style="color:#f92672">+</span>  fake_loss)
-    <span style="color:#66d9ef">return</span> loss
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>GANのdiscriminatorは、オリジナルの画像と、Generatorが生成したフェイクの画像を見分ける役割(二値分類)のため、出力層の活性化関数がシグモイド関数、ロス関数がbinarycrossentropyである実装が多いが、
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>noise_dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>channels <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>generator <span style="color:#f92672">=</span> Chain(
+</span></span><span style="display:flex;"><span>    Dense(noise_dim, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>; initW <span style="color:#f92672">=</span> glorot_normal),
+</span></span><span style="display:flex;"><span>    BatchNorm(<span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>, relu),
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>reshape(x, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">256</span>, <span style="color:#f92672">:</span>),
+</span></span><span style="display:flex;"><span>    ConvTranspose((<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>), <span style="color:#ae81ff">256</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">128</span>; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    BatchNorm(<span style="color:#ae81ff">128</span>, relu),
+</span></span><span style="display:flex;"><span>    ConvTranspose((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">128</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">64</span>; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    BatchNorm(<span style="color:#ae81ff">64</span>, relu),
+</span></span><span style="display:flex;"><span>    ConvTranspose((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">64</span> <span style="color:#f92672">=&gt;</span> channels, tanh; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">|&gt;</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>discriminator <span style="color:#f92672">=</span>  Chain(
+</span></span><span style="display:flex;"><span>    Conv((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), channels <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">64</span>, leakyrelu; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    Dropout(<span style="color:#ae81ff">0.25</span>),
+</span></span><span style="display:flex;"><span>    Conv((<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">64</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">128</span>, leakyrelu; init <span style="color:#f92672">=</span> glorot_normal, stride <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    Dropout(<span style="color:#ae81ff">0.25</span>), 
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>reshape(x, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#f92672">:</span>),
+</span></span><span style="display:flex;"><span>    Dense(<span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">1</span>; initW <span style="color:#f92672">=</span> glorot_normal)) <span style="color:#f92672">|&gt;</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> generator_loss(fake_output)
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(fake_output, <span style="color:#ae81ff">1f0</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loss 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> discriminator_loss(real_output, fake_output)
+</span></span><span style="display:flex;"><span>    real_loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(real_output, <span style="color:#ae81ff">1f0</span>))
+</span></span><span style="display:flex;"><span>    fake_loss <span style="color:#f92672">=</span> mean(logitbinarycrossentropy<span style="color:#f92672">.</span>(fake_output, <span style="color:#ae81ff">0f0</span>))
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5f0</span> <span style="color:#f92672">*</span> (real_loss <span style="color:#f92672">+</span>  fake_loss)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loss
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>GANのdiscriminatorは、オリジナルの画像と、Generatorが生成したフェイクの画像を見分ける役割(二値分類)のため、出力層の活性化関数がシグモイド関数、ロス関数がbinarycrossentropyである実装が多いが、
 今回はTensorflowの実装同様、出力層には活性化関数を適用せず(恒等写像), ロス関数にlogitbinarycrossentropyを用いた。</p>
 <p>シグモイド関数を\( \sigma \) とすると、</p>
 <p>\(
@@ -283,129 +283,129 @@ discriminator <span style="color:#f92672">=</span>  Chain(
 初めてFlux.jlに<a href="https://github.com/FluxML/Flux.jl/pull/940">Pull resuestを投げて</a>取り込んでもらった。</p>
 <p>DiscriminatorとGeneratorのtrain関数は下のように書ける。
 細かい部分はリポジトリ参照</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> train_discriminator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
-    noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
-    fake_input <span style="color:#f92672">=</span> dcgan<span style="color:#f92672">.</span>generator(noise)
-    loss(m) <span style="color:#f92672">=</span> discriminator_loss(m(batch), m(fake_input))
-    disc_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(dcgan<span style="color:#f92672">.</span>discriminator), Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>discriminator))
-    update!(dcgan<span style="color:#f92672">.</span>discriminator_optimizer, Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>discriminator), disc_grad)
-    <span style="color:#66d9ef">return</span> loss(dcgan<span style="color:#f92672">.</span>discriminator)
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> train_generator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
-    noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
-    loss(m) <span style="color:#f92672">=</span> generator_loss(dcgan<span style="color:#f92672">.</span>discriminator(m(noise)))
-    gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(dcgan<span style="color:#f92672">.</span>generator), Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>generator))
-    update!(dcgan<span style="color:#f92672">.</span>generator_optimizer, Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>generator), gen_grad)
-    <span style="color:#66d9ef">return</span> loss(dcgan<span style="color:#f92672">.</span>generator)
-<span style="color:#66d9ef">end</span>
-</code></pre></div><h2 id="tracker-から-zygotejl-への変更">Tracker から Zygote.jl への変更</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> train_discriminator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
+</span></span><span style="display:flex;"><span>    noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
+</span></span><span style="display:flex;"><span>    fake_input <span style="color:#f92672">=</span> dcgan<span style="color:#f92672">.</span>generator(noise)
+</span></span><span style="display:flex;"><span>    loss(m) <span style="color:#f92672">=</span> discriminator_loss(m(batch), m(fake_input))
+</span></span><span style="display:flex;"><span>    disc_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(dcgan<span style="color:#f92672">.</span>discriminator), Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>discriminator))
+</span></span><span style="display:flex;"><span>    update!(dcgan<span style="color:#f92672">.</span>discriminator_optimizer, Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>discriminator), disc_grad)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loss(dcgan<span style="color:#f92672">.</span>discriminator)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> train_generator!(dcgan<span style="color:#f92672">::</span><span style="color:#66d9ef">DCGAN</span>, batch<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractArray</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">4</span>})
+</span></span><span style="display:flex;"><span>    noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, dcgan<span style="color:#f92672">.</span>noise_dim, dcgan<span style="color:#f92672">.</span>batch_size) <span style="color:#f92672">|&gt;</span> gpu
+</span></span><span style="display:flex;"><span>    loss(m) <span style="color:#f92672">=</span> generator_loss(dcgan<span style="color:#f92672">.</span>discriminator(m(noise)))
+</span></span><span style="display:flex;"><span>    gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(dcgan<span style="color:#f92672">.</span>generator), Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>generator))
+</span></span><span style="display:flex;"><span>    update!(dcgan<span style="color:#f92672">.</span>generator_optimizer, Flux<span style="color:#f92672">.</span>params(dcgan<span style="color:#f92672">.</span>generator), gen_grad)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loss(dcgan<span style="color:#f92672">.</span>generator)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="tracker-から-zygotejl-への変更">Tracker から Zygote.jl への変更</h2>
 <p><a href="https://github.com/FluxML/Flux.jl/pull/669">using Zygote #669</a> のマージにより自動微分のバックエンドがTrackerから<a href="https://github.com/FluxML/Zygote.jl">Zygote.jl</a>に変更された。
 Trackerで書かれたモデルは、Zygote.jlに合わせて多少書き直す必要がある。</p>
 <h3 id="型の変更">型の変更</h3>
 <p><code>gradient</code> を取った時に返ってくる型が変わった。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; using Flux.Tracker: gradient
-
-julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
-
-julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f92672">(</span>f, 2.0<span style="color:#f92672">)</span>
-<span style="color:#f92672">(</span>14.0 <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>,<span style="color:#f92672">)</span>
-
-julia&gt; typeof<span style="color:#f92672">(</span>gr<span style="color:#f92672">)</span>
-Tuple<span style="color:#f92672">{</span>Tracker.TrackedReal<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}}</span>
-</code></pre></div><p>v0.10.0</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
-
-julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f92672">(</span>f, 2.0<span style="color:#f92672">)</span>
-<span style="color:#f92672">(</span>14.0,<span style="color:#f92672">)</span>
-
-julia&gt; typeof<span style="color:#f92672">(</span>gr<span style="color:#f92672">)</span>
-Tuple<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}</span>
-</code></pre></div><p>この変更で <code>Tracker.data</code> や <code>.data</code> で <code>TrackerArray</code> や <code>TrackerReal</code> などでラップされた型からデータを取り出す必要がなくなって便利になった。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; using Flux.Tracker: gradient
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f92672">(</span>f, 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>14.0 <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>,<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>gr<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Tuple<span style="color:#f92672">{</span>Tracker.TrackedReal<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}}</span>
+</span></span></code></pre></div><p>v0.10.0</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; f<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 3x^2 + 2x + 1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; gr <span style="color:#f92672">=</span> gradient<span style="color:#f92672">(</span>f, 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>14.0,<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>gr<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Tuple<span style="color:#f92672">{</span>Float64<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>この変更で <code>Tracker.data</code> や <code>.data</code> で <code>TrackerArray</code> や <code>TrackerReal</code> などでラップされた型からデータを取り出す必要がなくなって便利になった。</p>
 <h3 id="gradientの書き方">gradientの書き方</h3>
 <p>Zygote.jl の<a href="https://fluxml.ai/Zygote.jl/latest/flux/">リファレンス</a> には <code>Tracker.gradient</code> を単に <code>Zygote.gradient</code> に置き換えれば良いと書いてあるが、
 自分の場合はTrackerで取れた微分がZygoteにバックエンドが変わって取れなくなった。</p>
 <p>Trackerでは微分を取るときに</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
-fake_input <span style="color:#f92672">=</span> generator(noise)
-fake_output <span style="color:#f92672">=</span> discriminator(fake_input)
-loss <span style="color:#f92672">=</span> sum(fake_output)
-gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss, Flux<span style="color:#f92672">.</span>params(generator))
-</code></pre></div><p>このような書き方もできた。model-zooのPull RequestのDCGANのコードもこのような形式で書いてある。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>fake_input <span style="color:#f92672">=</span> generator(noise)
+</span></span><span style="display:flex;"><span>fake_output <span style="color:#f92672">=</span> discriminator(fake_input)
+</span></span><span style="display:flex;"><span>loss <span style="color:#f92672">=</span> sum(fake_output)
+</span></span><span style="display:flex;"><span>gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss, Flux<span style="color:#f92672">.</span>params(generator))
+</span></span></code></pre></div><p>このような書き方もできた。model-zooのPull RequestのDCGANのコードもこのような形式で書いてある。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
-IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0456388, -0.00530366, -0.0689154, 0.0356684, 0.033944, 0.0469224, 0…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.0663779 0.470391 0.0135268 0.169848; -0.265991 0.113839 -0.297718 …
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.0491<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0448993, -0.0436305, -0.0396288, -0.0178894, 0.0191187, 0.0322982, …
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>3.05707e-7, -6.56961e-7, -1.86265e-7, 6.1249e-8, 3.40864e-7, 3.57977e…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-2.31666e-8, -1.72295e-7, 4.83415e-8, 2.7474e-8, 2.61934e-8, -9.76142…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.257108, -1.30009, 0.643118, -0.70479, -0.0380322, 0.047996, 0.1616…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.68035, -1.09166, -1.92644, 0.398565, 0.342392, -0.541331, 0.957729…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.34392, -1.29767, 0.489044, -0.76697, -0.265278, 0.834581, 0.20901,…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.86325, -1.0232, -2.0715, -0.0989702, 0.453471, -0.632238, 1.33671,…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.161715 0.358326 1.0731 1.53449; 1.10473 0.652393 -0.844213 0.973572…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.107908 0.042381 … -0.0503733 -0.0570333; 0.141959 -0.0503319 … -0.…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,2<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.210451 -0.383133 … -0.441269 -0.122698; 0.0191366 -0.273669 … -0.1…
-  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0, -2.23517e-8, 2.6077e-8, 0.0, 2.00234e-8, -9.31323e-9, -2.98023e-…
-</code></pre></div><p>一方、v0.10.0では</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
-IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
-  Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.0301089 0.00723371; 0.0816196 0.036961 0.0352632 0.0343… <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0<span style="color:#f92672">]</span>                                                                            <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>-0.0002127 0.0137428 … -0.0121552 0.0268332; -0.0131425 -0.00983153 … -0.02382… <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0171712 0.00370337 0.0333522 -0.0189711; 0.0416152 -0.0110209 0.0113975 -0.0… <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>-0.0109217 0.0165013 … -0.0128005 0.000112204; -0.00316031 -0.0308092 … -0.011… <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
-</code></pre></div><p>微分が <code>nothing</code> になってしまう。自分は、下のように書き換えた。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
-loss(m) <span style="color:#f92672">=</span> sum(discriminator(m(noise)))
-gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(generator), Flux<span style="color:#f92672">.</span>params(generator))
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; gen_grad.grads
-IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">23</span> entries:
-  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.… <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.136635 -0.1123 -0.0335189 -0.108103; -0.0265187 -0…
-  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-2.7719e-10, 3.03544e-11, 2.1797e-10, 2.24403e-10, 2.26078e-…
-  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  Float32<span style="color:#f92672">[</span>-0.0109217 0.0165013 … … <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-0.00735242 0.000570209 … 0.00351829 0.0103457; 0.0116238 -0…
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00270601, -0.0176082, 0.00565182, 0.0125242, …
-  BatchNorm<span style="color:#f92672">(</span>128, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>         <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>0.00270601, -0.…
-  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.00987214, -0.0315625, 0.0199244, 0.0148943, …
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00182929, 0.00162896, 0.00011289, 0.00182924,…
-  Float32<span style="color:#f92672">[</span>-0.0002127 0.0137428 … … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.00630109 0.0134955 … 0.0117517 0.000913039; -0.0059…
-  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.0303094, -0.028408, 0.0697083, -0.00634472, …
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.0158277, -0.0324276, 0.0719301, 0.00790212, …
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00251813, 0.00111592, -0.000486438, 0.0019682…
-  BatchNorm<span style="color:#f92672">(</span>64, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>          <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>-0.0158277, -0.…
-  Float32<span style="color:#f92672">[</span>0.0171712 0.00370337 0.… <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.00725331 -0.00364046 -0.000333806 -0.00218348; 0.00…
-  Float32<span style="color:#f92672">[</span>0.0<span style="color:#f92672">]</span>                     <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-0.426291<span style="color:#f92672">]</span>
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-9.77911e-11, -9.91324e-11, -7.81544e-10, -2.83712e-11, -4.1…
-  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>5.82077e-11, -6.54836e-11, -5.45697e-12, -3.49246e-10, -2.25…
-  BatchNorm<span style="color:#f92672">(</span>12544, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>0.00251813, 0.0…
-</code></pre></div><p>Zygoteでは上のようなimplicit parametersの書き方だけではなく、explicitな書き方 <code>gradient(loss, generator)</code> による微分も可能で、
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; gen_grad.grads
+</span></span><span style="display:flex;"><span>IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0456388, -0.00530366, -0.0689154, 0.0356684, 0.033944, 0.0469224, 0…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.0663779 0.470391 0.0135268 0.169848; -0.265991 0.113839 -0.297718 …
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.0491<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0448993, -0.0436305, -0.0396288, -0.0178894, 0.0191187, 0.0322982, …
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>3.05707e-7, -6.56961e-7, -1.86265e-7, 6.1249e-8, 3.40864e-7, 3.57977e…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-2.31666e-8, -1.72295e-7, 4.83415e-8, 2.7474e-8, 2.61934e-8, -9.76142…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.257108, -1.30009, 0.643118, -0.70479, -0.0380322, 0.047996, 0.1616…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.68035, -1.09166, -1.92644, 0.398565, 0.342392, -0.541331, 0.957729…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.34392, -1.29767, 0.489044, -0.76697, -0.265278, 0.834581, 0.20901,…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-1.86325, -1.0232, -2.0715, -0.0989702, 0.453471, -0.632238, 1.33671,…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.161715 0.358326 1.0731 1.53449; 1.10473 0.652393 -0.844213 0.973572…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.107908 0.042381 … -0.0503733 -0.0570333; 0.141959 -0.0503319 … -0.…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,2<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.210451 -0.383133 … -0.441269 -0.122698; 0.0191366 -0.273669 … -0.1…
+</span></span><span style="display:flex;"><span>  Tracked<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}}(</span>0x00000000, … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.0, -2.23517e-8, 2.6077e-8, 0.0, 2.00234e-8, -9.31323e-9, -2.98023e-…
+</span></span></code></pre></div><p>一方、v0.10.0では</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; gen_grad.grads
+</span></span><span style="display:flex;"><span>IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">14</span> entries:
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.0301089 0.00723371; 0.0816196 0.036961 0.0352632 0.0343… <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0<span style="color:#f92672">]</span>                                                                            <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>-0.0002127 0.0137428 … -0.0121552 0.0268332; -0.0131425 -0.00983153 … -0.02382… <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0171712 0.00370337 0.0333522 -0.0189711; 0.0416152 -0.0110209 0.0113975 -0.0… <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>-0.0109217 0.0165013 … -0.0128005 0.000112204; -0.00316031 -0.0308092 … -0.011… <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0  …  1.0, 1.0, 1.0, 1.0, 1.0, … <span style="color:#f92672">=</span>&gt; nothing
+</span></span></code></pre></div><p>微分が <code>nothing</code> になってしまう。自分は、下のように書き換えた。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>noise <span style="color:#f92672">=</span> randn(<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>loss(m) <span style="color:#f92672">=</span> sum(discriminator(m(noise)))
+</span></span><span style="display:flex;"><span>gen_grad <span style="color:#f92672">=</span> gradient(()<span style="color:#f92672">-&gt;</span>loss(generator), Flux<span style="color:#f92672">.</span>params(generator))
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; gen_grad.grads
+</span></span><span style="display:flex;"><span>IdDict<span style="color:#f92672">{</span>Any,Any<span style="color:#f92672">}</span> with <span style="color:#ae81ff">23</span> entries:
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0396942 0.00191599 0.… <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>-0.136635 -0.1123 -0.0335189 -0.108103; -0.0265187 -0…
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-2.7719e-10, 3.03544e-11, 2.1797e-10, 2.24403e-10, 2.26078e-…
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>-0.0109217 0.0165013 … … <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-0.00735242 0.000570209 … 0.00351829 0.0103457; 0.0116238 -0…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00270601, -0.0176082, 0.00565182, 0.0125242, …
+</span></span><span style="display:flex;"><span>  BatchNorm<span style="color:#f92672">(</span>128, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>         <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>0.00270601, -0.…
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}}(</span>Val<span style="color:#f92672">{</span>2<span style="color:#f92672">}())</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  RefValue<span style="color:#f92672">{</span>typeof<span style="color:#f92672">(</span>^<span style="color:#f92672">)}(</span>^<span style="color:#f92672">)</span>           <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>x <span style="color:#f92672">=</span> nothing,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.00987214, -0.0315625, 0.0199244, 0.0148943, …
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00182929, 0.00162896, 0.00011289, 0.00182924,…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>-0.0002127 0.0137428 … … <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.00630109 0.0134955 … 0.0117517 0.000913039; -0.0059…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>1.0, 1.0, 1.0, 1.0, 1.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.0303094, -0.028408, 0.0697083, -0.00634472, …
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>-0.0158277, -0.0324276, 0.0719301, 0.00790212, …
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; AbstractFloat<span style="color:#f92672">[</span>0.00251813, 0.00111592, -0.000486438, 0.0019682…
+</span></span><span style="display:flex;"><span>  BatchNorm<span style="color:#f92672">(</span>64, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>          <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>-0.0158277, -0.…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0171712 0.00370337 0.… <span style="color:#f92672">=</span>&gt; Float32<span style="color:#f92672">[</span>0.00725331 -0.00364046 -0.000333806 -0.00218348; 0.00…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0<span style="color:#f92672">]</span>                     <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-0.426291<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>-9.77911e-11, -9.91324e-11, -7.81544e-10, -2.83712e-11, -4.1…
+</span></span><span style="display:flex;"><span>  Float32<span style="color:#f92672">[</span>0.0, 0.0, 0.0, 0.0, 0.0… <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>5.82077e-11, -6.54836e-11, -5.45697e-12, -3.49246e-10, -2.25…
+</span></span><span style="display:flex;"><span>  BatchNorm<span style="color:#f92672">(</span>12544, λ <span style="color:#f92672">=</span> relu<span style="color:#f92672">)</span>       <span style="color:#f92672">=</span>&gt; RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}((</span>λ <span style="color:#f92672">=</span> nothing, β <span style="color:#f92672">=</span> AbstractFloat<span style="color:#f92672">[</span>0.00251813, 0.0…
+</span></span></code></pre></div><p>Zygoteでは上のようなimplicit parametersの書き方だけではなく、explicitな書き方 <code>gradient(loss, generator)</code> による微分も可能で、
 Zygote.jlの <a href="https://fluxml.ai/Zygote.jl/latest/#Gradients-of-ML-models-1">Gradients of ML models</a> にはimplicitな書き方は、
 Trackerとの互換性のために残してあると書いてある。</p>
 <p>しかしながら、この二つを利用したときに返ってくる型が異なる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>gen_grad<span style="color:#f92672">)</span>
-Zygote.Grads
-
-julia&gt; typeof<span style="color:#f92672">(</span>gradient<span style="color:#f92672">(</span>loss, generator<span style="color:#f92672">))</span>
-Tuple<span style="color:#f92672">{</span>NamedTuple<span style="color:#f92672">{(</span>:layers,<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Tuple<span style="color:#f92672">{</span>NamedTuple<span style="color:#f92672">{(</span>:W, :b, :σ<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float64,2<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,Nothing,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}}}}}</span>
-</code></pre></div><p>ため、<a href="https://github.com/FluxML/Flux.jl/blob/v0.10.0/src/optimise/train.jl#L13"><code>update!</code></a> を使ってモデルパラメータを更新しようとすると、
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>gen_grad<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Zygote.Grads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>gradient<span style="color:#f92672">(</span>loss, generator<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>Tuple<span style="color:#f92672">{</span>NamedTuple<span style="color:#f92672">{(</span>:layers,<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Tuple<span style="color:#f92672">{</span>NamedTuple<span style="color:#f92672">{(</span>:W, :b, :σ<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Array<span style="color:#f92672">{</span>Float64,2<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,Nothing,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}</span>,Base.RefValue<span style="color:#f92672">{</span>Any<span style="color:#f92672">}</span>,NamedTuple<span style="color:#f92672">{(</span>:σ, :weight, :bias, :stride, :pad, :dilation<span style="color:#f92672">)</span>,Tuple<span style="color:#f92672">{</span>Nothing,Array<span style="color:#f92672">{</span>Float32,4<span style="color:#f92672">}</span>,Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>,Tuple<span style="color:#f92672">{</span>Nothing,Nothing<span style="color:#f92672">}</span>,Nothing,Nothing<span style="color:#f92672">}}}}}}</span>
+</span></span></code></pre></div><p>ため、<a href="https://github.com/FluxML/Flux.jl/blob/v0.10.0/src/optimise/train.jl#L13"><code>update!</code></a> を使ってモデルパラメータを更新しようとすると、
 implicitに書く必要がある。このあたりは、将来的に変わっていく可能性もありそう。</p>
 <h3 id="zero_grad-が不要に">zero_grad! が不要に</h3>
 <p>DCGANでDiscriminator, Generatorを交互に学習させる時、TrackerではDiscriminatorを学習させた後
@@ -415,71 +415,71 @@ implicitに書く必要がある。このあたりは、将来的に変わって
 が、Zygote.jlではその必要がなくなっている。
 v0.9.0でこれに気づかず正しく学習が進まず苦戦したので、この修正はありがたい。</p>
 <p>v0.9.0</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
-
-d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
-d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
-c <span style="color:#f92672">=</span> Chain(d1, d2)
-p1 <span style="color:#f92672">=</span> params(d1)
-p2 <span style="color:#f92672">=</span> params(d2)
-pall <span style="color:#f92672">=</span> params(c)
-
-x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>)
-
-loss() <span style="color:#f92672">=</span> sum(c(x))
-
-<span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case1&#34;</span>
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, pall)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-
-<span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case2&#34;</span>
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-
-<span style="color:#75715e"># zero out for next case</span>
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p1))
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p2))
-
-<span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case3&#34;</span>
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p2))
-Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-</code></pre></div><p>Output</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
-<span style="color:#f92672">[</span> Info: Case2
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-9.17728<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>20.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
-<span style="color:#f92672">[</span> Info: Case3
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
-</code></pre></div><p>上のCase2のような状況を防ぐために、Case3のように途中に<code>zero_grad!</code>を挟む必要があった。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Flux
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> Chain(d1, d2)
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> params(d1)
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> params(d2)
+</span></span><span style="display:flex;"><span>pall <span style="color:#f92672">=</span> params(c)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loss() <span style="color:#f92672">=</span> sum(c(x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case1&#34;</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, pall)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case2&#34;</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># zero out for next case</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p1))
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p2))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case3&#34;</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>zero_grad!<span style="color:#f92672">.</span>(Tracker<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>(p2))
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span>Tracker<span style="color:#f92672">.</span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span></code></pre></div><p>Output</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span> Info: Case1
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> Info: Case2
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-9.17728<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>20.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> Info: Case3
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-6.40395 -5.80043<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>-15.8992<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>-4.58864<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>tracked<span style="color:#f92672">)]</span>
+</span></span></code></pre></div><p>上のCase2のような状況を防ぐために、Case3のように途中に<code>zero_grad!</code>を挟む必要があった。
 一方、v0.10.0は</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
-
-d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
-d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
-c <span style="color:#f92672">=</span> Chain(d1, d2)
-p1 <span style="color:#f92672">=</span> params(d1)
-p2 <span style="color:#f92672">=</span> params(d2)
-pall <span style="color:#f92672">=</span> params(c)
-
-x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>)
-
-loss() <span style="color:#f92672">=</span> sum(c(x))
-
-<span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case1&#34;</span>
-gradient(loss, pall)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-
-<span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case2&#34;</span>
-gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
-</code></pre></div><p>Output</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span> Info: Case1
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>-5.8413825<span style="color:#f92672">]]</span>
-<span style="color:#f92672">[</span> Info: Case2
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]]</span>
-Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>-5.8413825<span style="color:#f92672">]]</span>
-</code></pre></div><p>と正しく計算できる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Flux
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d1 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d2 <span style="color:#f92672">=</span> Dense(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> Chain(d1, d2)
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> params(d1)
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> params(d2)
+</span></span><span style="display:flex;"><span>pall <span style="color:#f92672">=</span> params(c)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loss() <span style="color:#f92672">=</span> sum(c(x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case1&#34;</span>
+</span></span><span style="display:flex;"><span>gradient(loss, pall)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@info</span> <span style="color:#e6db74">&#34;Case2&#34;</span>
+</span></span><span style="display:flex;"><span>gradient(loss, p1)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span><span style="display:flex;"><span>gradient(loss, p2)<span style="color:#f92672">.</span>grads <span style="color:#f92672">|&gt;</span> values <span style="color:#f92672">|&gt;</span> println
+</span></span></code></pre></div><p>Output</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span> Info: Case1
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>-5.8413825<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> Info: Case2
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>9.715003<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>3.7775292 4.41461<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span>Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</span>10.0<span style="color:#f92672">]</span>, Float32<span style="color:#f92672">[</span>-5.8413825<span style="color:#f92672">]]</span>
+</span></span></code></pre></div><p>と正しく計算できる。</p>
 <h2 id="fluxistraining">Flux.istraining()</h2>
 <p><code>testmode!</code> が廃止されて <code>istraining</code> になった。<code>@eval Flux.istraining() = true</code> と <code>@eval Flux.istraining() = false</code> で切り替えると思われるが正直よく分かっていない。<br>
 今までモデル単位で設定していたのがグローバルな設定となり、機能性について<br>
@@ -490,30 +490,30 @@ Any<span style="color:#f92672">[</span>Float32<span style="color:#f92672">[</spa
 <p>これはバージョンは関係ない話で、
 <a href="https://fluxml.ai/Flux.jl/stable/performance/#Don't-use-more-precision-than-you-need.-1">Don&rsquo;t use more precision than you need.</a> には、必ずしも <code>Float64</code> を使う必要はなく、 <code>Float32</code> を使えば良いとある。</p>
 <p>何も考えずにJuliaで実数型を使うと <code>Float64</code> になるので、明示的に <code>Float32</code> を使う意識が必要。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">julia&gt; typeof<span style="color:#f92672">(</span>1.0<span style="color:#f92672">)</span>
-Float64
-
-julia&gt; <span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="color:#f92672">]</span>
-3-element Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>:
- 1.0
- 2.0
- 3.0
-
-julia&gt; typeof<span style="color:#f92672">(</span>1.0f0<span style="color:#f92672">)</span>
-Float32
-
-julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="color:#f92672">]</span>
-3-element Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}</span>:
- 1.0
- 2.0
- 3.0
-</code></pre></div><p>これと関連して、<a href="https://fluxml.ai/Flux.jl/stable/performance/#Make-sure-your-activation-and-loss-functions-preserve-the-type-of-their-inputs-1">Make sure your activation and loss functions preserve the type of their inputs</a>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>1.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Float64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; <span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>3-element Array<span style="color:#f92672">{</span>Float64,1<span style="color:#f92672">}</span>:
+</span></span><span style="display:flex;"><span> 1.0
+</span></span><span style="display:flex;"><span> 2.0
+</span></span><span style="display:flex;"><span> 3.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; typeof<span style="color:#f92672">(</span>1.0f0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Float32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>3-element Array<span style="color:#f92672">{</span>Float32,1<span style="color:#f92672">}</span>:
+</span></span><span style="display:flex;"><span> 1.0
+</span></span><span style="display:flex;"><span> 2.0
+</span></span><span style="display:flex;"><span> 3.0
+</span></span></code></pre></div><p>これと関連して、<a href="https://fluxml.ai/Flux.jl/stable/performance/#Make-sure-your-activation-and-loss-functions-preserve-the-type-of-their-inputs-1">Make sure your activation and loss functions preserve the type of their inputs</a>
 に書いてあることではあるが、<code>Float64</code> と <code>Float32</code> の変換が起こらないようにする。</p>
 <p>例えば、<code>Float32</code> を使ってモデル構築をしているのに、<code>leakyrelu</code> の勾配を変更して</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2</span>)
-</code></pre></div><p>と書いてしまうと <code>0.2</code> の型が <code>Float64</code> であるため、型の変換が行われて激烈に遅くなる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2f0</span>)
-</code></pre></div><p>とするのが良い。自分は最初これを知らず前者のように書いてしまい、一向に計算が終わらなくなってしまい時間を浪費した。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2</span>)
+</span></span></code></pre></div><p>と書いてしまうと <code>0.2</code> の型が <code>Float64</code> であるため、型の変換が行われて激烈に遅くなる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>x<span style="color:#f92672">-&gt;</span>leakyrelu<span style="color:#f92672">.</span>(x, <span style="color:#ae81ff">0.2f0</span>)
+</span></span></code></pre></div><p>とするのが良い。自分は最初これを知らず前者のように書いてしまい、一向に計算が終わらなくなってしまい時間を浪費した。
 <code>logitbinarycrossentropy</code> に <code>0</code>, <code>1</code> ではなく <code>0f0</code>, <code>1f0</code>を渡したのも同様の理由。</p>
 <h2 id="生成結果">生成結果</h2>
 <p>MNISTを使って、バッチサイズ128、30エポック(14,000イテレーション)回した結果、</p>
@@ -711,7 +711,7 @@ julia&gt; Float32<span style="color:#f92672">[</span>1.0, 2.0, 3.0<span style="c
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

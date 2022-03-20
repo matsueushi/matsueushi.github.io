@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -140,15 +140,15 @@ onload='renderMathInElement(document.body);'></script>
 しかも多少雑音が混じってしまっていても大丈夫という非常に便利なアプリです。</p>
 <p>仕組みが気になったので、調べて一部をJuliaで実装してみました。</p>
 <p>Juliaのバージョンは1.5.0です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">               _
-   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
-  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
-   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
-  | | | | | | |/ _<span style="color:#e6db74">`</span> |  |
-  | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version 1.5.0 <span style="color:#f92672">(</span>2020-08-01<span style="color:#f92672">)</span>
- _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
-|__/                   |
-</code></pre></div><h2 id="意外と単純な基本原理">意外と単純な基本原理</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>               _
+</span></span><span style="display:flex;"><span>   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
+</span></span><span style="display:flex;"><span>   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
+</span></span><span style="display:flex;"><span>  | | | | | | |/ _<span style="color:#e6db74">`</span> |  |
+</span></span><span style="display:flex;"><span>  | | |_| | | | <span style="color:#f92672">(</span>_| |  |  Version 1.5.0 <span style="color:#f92672">(</span>2020-08-01<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> _/ |<span style="color:#ae81ff">\_</span>_<span style="color:#e6db74">&#39;_|_|_|\__&#39;</span>_|  |  Official https://julialang.org/ release
+</span></span><span style="display:flex;"><span>|__/                   |
+</span></span></code></pre></div><h2 id="意外と単純な基本原理">意外と単純な基本原理</h2>
 <p>最初、ディープラーニング的なテクニックを使っているのかと思ったのですが、調べてみると意外と手法自体はシンプルなものでした。</p>
 <p>曲を認識させるにあたり、原曲の曲データの特徴量を以下の方法でフィンガープリント
 (<a href="https://en.wikipedia.org/wiki/Acoustic_fingerprint">Audio fingerprint/Acoustic fingerprint</a>) します。</p>
@@ -186,126 +186,126 @@ onload='renderMathInElement(document.body);'></script>
 <h3 id="wavファイル">WAVファイル</h3>
 <p>WAVファイルの読み込みは <a href="https://github.com/dancasimiro/WAV.jl">WAV.jl</a> を使います。
 詳細は<a href="../spectrogram/">ここ</a> を見てください。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> WAV
-
-julia<span style="color:#f92672">&gt;</span> ys, fs, _, _ <span style="color:#f92672">=</span> wavread(<span style="color:#e6db74">&#34;test/data/original.wav&#34;</span>)
-([<span style="color:#f92672">-</span><span style="color:#ae81ff">0.44181646168401134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.40189825128940704</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">0.43061616870632036</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.3761101107821894</span>; <span style="color:#f92672">…</span> ; <span style="color:#ae81ff">0.17578661458174383</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.04297006134220405</span>; <span style="color:#ae81ff">0.1151768547624134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.1497848445081942</span>], <span style="color:#ae81ff">44100.0f0</span>, <span style="color:#ae81ff">0x0010</span>, WAVChunk[WAVChunk(<span style="color:#66d9ef">Symbol</span>(<span style="color:#e6db74">&#34;fmt &#34;</span>), <span style="color:#66d9ef">UInt8</span>[<span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0xac</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0xb1</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>])])
-</code></pre></div><h3 id="スペクトログラム">スペクトログラム</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> WAV
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> ys, fs, _, _ <span style="color:#f92672">=</span> wavread(<span style="color:#e6db74">&#34;test/data/original.wav&#34;</span>)
+</span></span><span style="display:flex;"><span>([<span style="color:#f92672">-</span><span style="color:#ae81ff">0.44181646168401134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.40189825128940704</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">0.43061616870632036</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.3761101107821894</span>; <span style="color:#f92672">…</span> ; <span style="color:#ae81ff">0.17578661458174383</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.04297006134220405</span>; <span style="color:#ae81ff">0.1151768547624134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.1497848445081942</span>], <span style="color:#ae81ff">44100.0f0</span>, <span style="color:#ae81ff">0x0010</span>, WAVChunk[WAVChunk(<span style="color:#66d9ef">Symbol</span>(<span style="color:#e6db74">&#34;fmt &#34;</span>), <span style="color:#66d9ef">UInt8</span>[<span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0xac</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0xb1</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>])])
+</span></span></code></pre></div><h3 id="スペクトログラム">スペクトログラム</h3>
 <p>今回は簡単のため、スペクトログラムは <a href="https://github.com/JuliaDSP/DSP.jl">DSP.jl</a> を使って作りましょう。</p>
 <p>DSP.Periodograms.spectrogramの<a href="https://docs.juliadsp.org/stable/periodograms/#DSP.Periodograms.spectrogram">ドキュメンテーション</a> はかなり簡素なので
 <a href="https://matplotlib.org/3.1.1/api/mlab_api.html#matplotlib.mlab.specgram">matplotlib.mlab.specgram</a> や
 <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.spectrogram.html">scipy.signal.spectrogram</a>
 も参照したりしていました。</p>
 <p><code>spectrogram</code> が返す <code>Spectrogram</code> オブジェクトからスペクトログラムの2次元配列を取得するには <code>.power</code> でアクセスすれば良いです。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> DSP
-
-<span style="color:#66d9ef">function</span> songspectrogram(samples, n, fs)
-    spec <span style="color:#f92672">=</span> spectrogram(samples, n; fs <span style="color:#f92672">=</span> fs, window <span style="color:#f92672">=</span> DSP<span style="color:#f92672">.</span>Windows<span style="color:#f92672">.</span>hanning)<span style="color:#f92672">.</span>power
-    normspec <span style="color:#f92672">=</span> log10<span style="color:#f92672">.</span>(spec)
-    <span style="color:#66d9ef">return</span> normspec
-<span style="color:#66d9ef">end</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
-<span style="color:#ae81ff">4096</span>
-
-julia<span style="color:#f92672">&gt;</span> songspectrogram(ys[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], n, fs)
-<span style="color:#ae81ff">2049</span><span style="color:#f92672">×</span><span style="color:#ae81ff">284</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">9.70616</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.07873</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.17428</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.92614</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.63062</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.47055</span>  <span style="color:#f92672">…</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.40998</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.13383</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.47217</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.79269</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.69248</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.65601</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">8.32769</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.22531</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.85743</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.56021</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.97262</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.67239</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">7.66505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.78739</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.7776</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">7.62074</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.43576</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.01717</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">8.03</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">7.558</span>     <span style="color:#f92672">-</span><span style="color:#ae81ff">5.53623</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.9818</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">6.17798</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.68783</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">6.94568</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.43333</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.61844</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.74417</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.42553</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.95556</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">5.43267</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.78585</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.39696</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4776</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">5.94032</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.69941</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">6.9579</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4222</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.48091</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.12551</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.49895</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.33804</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">4.77574</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.66916</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.62902</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.67299</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.92199</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.97365</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">5.47771</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.91721</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.9714</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">5.75402</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.86911</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.84826</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4678</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.45818</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.10731</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.27021</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.21703</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.90298</span>  <span style="color:#f92672">…</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.07139</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.17006</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.64172</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.11589</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.22632</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.74766</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.58357</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.90762</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.7872</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">3.43402</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.40083</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.44588</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">3.23751</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.09109</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.55516</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.60761</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.69366</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.61307</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.80939</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.70587</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.69206</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.20379</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.66742</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.45696</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">3.87312</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.02429</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.4179</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">3.71929</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.72232</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.55507</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.26219</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.08835</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.81918</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.87016</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.02507</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.6202</span>       <span style="color:#f92672">-</span><span style="color:#ae81ff">3.44302</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.35965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.34106</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.80432</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.04157</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.25322</span>
-   <span style="color:#f92672">⋮</span>                                                      <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋱</span>                          <span style="color:#f92672">⋮</span>                              
- <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6353</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.9023</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7465</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6273</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">15.0526</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7402</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5892</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8856</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8646</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.332</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3234</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8574</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0681</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.2647</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.8669</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.1085</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4588</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9597</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">13.332</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.1384</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9654</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3453</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8526</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">14.436</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4502</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5558</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7107</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4894</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7158</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8924</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7527</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.745</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8113</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.007</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0835</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.283</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">11.849</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9355</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.6198</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.6698</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7177</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8629</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.4374</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7903</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5631</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7018</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7313</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4594</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8144</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.0432</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7412</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8539</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.1211</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3507</span>   <span style="color:#f92672">…</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5013</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.6661</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4602</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5109</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.4371</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5457</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9763</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.1635</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.687</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.7323</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.827</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7099</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7457</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.372</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.088</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.1428</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8306</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.9932</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5124</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.445</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">10.5719</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9994</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9061</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9427</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5007</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.151</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.2719</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.2705</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.2111</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.879</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8636</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">14.4831</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7474</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3807</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.008</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.2068</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5433</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7996</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0267</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.3213</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6664</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.6277</span>
-</code></pre></div><h3 id="最大値フィルター">最大値フィルター</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DSP
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> songspectrogram(samples, n, fs)
+</span></span><span style="display:flex;"><span>    spec <span style="color:#f92672">=</span> spectrogram(samples, n; fs <span style="color:#f92672">=</span> fs, window <span style="color:#f92672">=</span> DSP<span style="color:#f92672">.</span>Windows<span style="color:#f92672">.</span>hanning)<span style="color:#f92672">.</span>power
+</span></span><span style="display:flex;"><span>    normspec <span style="color:#f92672">=</span> log10<span style="color:#f92672">.</span>(spec)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> normspec
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> songspectrogram(ys[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], n, fs)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2049</span><span style="color:#f92672">×</span><span style="color:#ae81ff">284</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">9.70616</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.07873</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.17428</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.92614</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.63062</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.47055</span>  <span style="color:#f92672">…</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.40998</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.13383</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.47217</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.79269</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.69248</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">9.65601</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">8.32769</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.22531</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.85743</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.56021</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.97262</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.67239</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">7.66505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.78739</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.7776</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">7.62074</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.43576</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.01717</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">8.03</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">7.558</span>     <span style="color:#f92672">-</span><span style="color:#ae81ff">5.53623</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.9818</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">6.17798</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.68783</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">6.94568</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.43333</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.61844</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.74417</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">8.42553</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.95556</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">5.43267</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.78585</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.39696</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4776</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">5.94032</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.69941</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">6.9579</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4222</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.48091</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">7.12551</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.49895</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.33804</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">4.77574</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.66916</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.62902</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.67299</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.92199</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.97365</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">5.47771</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.91721</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.9714</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">5.75402</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.86911</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.84826</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">4.4678</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">4.45818</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.10731</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.27021</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.21703</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.90298</span>  <span style="color:#f92672">…</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.07139</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.17006</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.64172</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.11589</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.22632</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.74766</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.58357</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.90762</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.7872</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">3.43402</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.40083</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.44588</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">3.23751</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.09109</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.55516</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.60761</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.69366</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.61307</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.80939</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.70587</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.69206</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.20379</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.66742</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">6.45696</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">3.87312</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.02429</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.4179</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">3.71929</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.72232</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.55507</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.26219</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.08835</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">2.81918</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.87016</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.02507</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.6202</span>       <span style="color:#f92672">-</span><span style="color:#ae81ff">3.44302</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">3.35965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.34106</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.80432</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">5.04157</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">4.25322</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">⋮</span>                                                      <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋱</span>                          <span style="color:#f92672">⋮</span>                              
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6353</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.9023</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7465</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6273</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">15.0526</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7402</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5892</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8856</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8646</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.332</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3234</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8574</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0681</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.2647</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.8669</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.1085</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4588</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9597</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">13.332</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.1384</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9654</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3453</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8526</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">14.436</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4502</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5558</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7107</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4894</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7158</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8924</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7527</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.745</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8113</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.007</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0835</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.283</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">11.849</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9355</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.6198</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.6698</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7177</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8629</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.4374</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7903</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5631</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7018</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7313</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4594</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8144</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.0432</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7412</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8539</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.1211</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3507</span>   <span style="color:#f92672">…</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5013</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.6661</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.4602</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5109</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.4371</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.5457</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9763</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.1635</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.687</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.7323</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.827</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7099</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.7457</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.372</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.088</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">12.1428</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.8306</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.9932</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5124</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.445</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">10.5719</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9994</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9061</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.9427</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5007</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.151</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.2719</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.2705</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.2111</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.879</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">12.8636</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">14.4831</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">10.7474</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.3807</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.008</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">13.2068</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5433</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.7996</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.0267</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">11.3213</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">12.6664</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">13.6277</span>
+</span></span></code></pre></div><h3 id="最大値フィルター">最大値フィルター</h3>
 <p>Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.maximum_filter.html"><code>scipy.ndimage.maximum_filter</code></a>
 に該当するフィルターが見つからなかったので、下のように最大値フィルターを構成します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> maxfilter(matrix, filtersize)
-    temp, result <span style="color:#f92672">=</span> zero(matrix), zero(matrix)
-    n1, n2 <span style="color:#f92672">=</span> size(matrix)
-    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n1
-        imin <span style="color:#f92672">=</span> max(i <span style="color:#f92672">-</span> filtersize, <span style="color:#ae81ff">1</span>)
-        imax <span style="color:#f92672">=</span> min(i <span style="color:#f92672">+</span> filtersize, n1)
-        temp[i, <span style="color:#f92672">:</span>] <span style="color:#f92672">=</span> maximum(view(matrix, imin<span style="color:#f92672">:</span>imax, <span style="color:#f92672">:</span>), dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n2
-        jmin <span style="color:#f92672">=</span> max(j <span style="color:#f92672">-</span> filtersize, <span style="color:#ae81ff">1</span>)
-        jmax <span style="color:#f92672">=</span> min(j <span style="color:#f92672">+</span> filtersize, n2)
-        result[<span style="color:#f92672">:</span>, j] <span style="color:#f92672">=</span> maximum(view(temp, <span style="color:#f92672">:</span>, jmin<span style="color:#f92672">:</span>jmax), dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> result
-<span style="color:#66d9ef">end</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.94</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.67</span> <span style="color:#ae81ff">0.48</span> <span style="color:#ae81ff">0.10</span>;
-           <span style="color:#ae81ff">0.77</span> <span style="color:#ae81ff">0.98</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.63</span> <span style="color:#ae81ff">0.32</span>;
-           <span style="color:#ae81ff">0.83</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.57</span> <span style="color:#ae81ff">0.96</span> <span style="color:#ae81ff">0.50</span>;
-           <span style="color:#ae81ff">0.56</span> <span style="color:#ae81ff">0.40</span> <span style="color:#ae81ff">0.79</span> <span style="color:#ae81ff">0.69</span> <span style="color:#ae81ff">0.43</span>;
-           <span style="color:#ae81ff">0.47</span> <span style="color:#ae81ff">0.61</span> <span style="color:#ae81ff">0.10</span> <span style="color:#ae81ff">0.18</span> <span style="color:#ae81ff">0.88</span>]
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0.94</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.67</span>  <span style="color:#ae81ff">0.48</span>  <span style="color:#ae81ff">0.1</span>
- <span style="color:#ae81ff">0.77</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.63</span>  <span style="color:#ae81ff">0.32</span>
- <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.57</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.5</span>
- <span style="color:#ae81ff">0.56</span>  <span style="color:#ae81ff">0.4</span>   <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.69</span>  <span style="color:#ae81ff">0.43</span>
- <span style="color:#ae81ff">0.47</span>  <span style="color:#ae81ff">0.61</span>  <span style="color:#ae81ff">0.1</span>   <span style="color:#ae81ff">0.18</span>  <span style="color:#ae81ff">0.88</span>
-
-julia<span style="color:#f92672">&gt;</span> maxfilter(x, <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.67</span>  <span style="color:#ae81ff">0.63</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.61</span>  <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.88</span>  <span style="color:#ae81ff">0.88</span>
-
-julia<span style="color:#f92672">&gt;</span> maxfilter(x, <span style="color:#ae81ff">2</span>)
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
- <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
-</code></pre></div><h3 id="ピークを探す">ピークを探す</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> maxfilter(matrix, filtersize)
+</span></span><span style="display:flex;"><span>    temp, result <span style="color:#f92672">=</span> zero(matrix), zero(matrix)
+</span></span><span style="display:flex;"><span>    n1, n2 <span style="color:#f92672">=</span> size(matrix)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n1
+</span></span><span style="display:flex;"><span>        imin <span style="color:#f92672">=</span> max(i <span style="color:#f92672">-</span> filtersize, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        imax <span style="color:#f92672">=</span> min(i <span style="color:#f92672">+</span> filtersize, n1)
+</span></span><span style="display:flex;"><span>        temp[i, <span style="color:#f92672">:</span>] <span style="color:#f92672">=</span> maximum(view(matrix, imin<span style="color:#f92672">:</span>imax, <span style="color:#f92672">:</span>), dims<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n2
+</span></span><span style="display:flex;"><span>        jmin <span style="color:#f92672">=</span> max(j <span style="color:#f92672">-</span> filtersize, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        jmax <span style="color:#f92672">=</span> min(j <span style="color:#f92672">+</span> filtersize, n2)
+</span></span><span style="display:flex;"><span>        result[<span style="color:#f92672">:</span>, j] <span style="color:#f92672">=</span> maximum(view(temp, <span style="color:#f92672">:</span>, jmin<span style="color:#f92672">:</span>jmax), dims<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.94</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.67</span> <span style="color:#ae81ff">0.48</span> <span style="color:#ae81ff">0.10</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.77</span> <span style="color:#ae81ff">0.98</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.63</span> <span style="color:#ae81ff">0.32</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.83</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.57</span> <span style="color:#ae81ff">0.96</span> <span style="color:#ae81ff">0.50</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.56</span> <span style="color:#ae81ff">0.40</span> <span style="color:#ae81ff">0.79</span> <span style="color:#ae81ff">0.69</span> <span style="color:#ae81ff">0.43</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.47</span> <span style="color:#ae81ff">0.61</span> <span style="color:#ae81ff">0.10</span> <span style="color:#ae81ff">0.18</span> <span style="color:#ae81ff">0.88</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.94</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.67</span>  <span style="color:#ae81ff">0.48</span>  <span style="color:#ae81ff">0.1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.77</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.63</span>  <span style="color:#ae81ff">0.32</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.54</span>  <span style="color:#ae81ff">0.57</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.56</span>  <span style="color:#ae81ff">0.4</span>   <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.69</span>  <span style="color:#ae81ff">0.43</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.47</span>  <span style="color:#ae81ff">0.61</span>  <span style="color:#ae81ff">0.1</span>   <span style="color:#ae81ff">0.18</span>  <span style="color:#ae81ff">0.88</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> maxfilter(x, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.67</span>  <span style="color:#ae81ff">0.63</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.61</span>  <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.79</span>  <span style="color:#ae81ff">0.88</span>  <span style="color:#ae81ff">0.88</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> maxfilter(x, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.98</span>  <span style="color:#ae81ff">0.96</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.83</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>  <span style="color:#ae81ff">0.96</span>
+</span></span></code></pre></div><h3 id="ピークを探す">ピークを探す</h3>
 <p>次に<code>maxfilter</code>をかけて得られた行列からピーク(実際には局所的なピークなわけですが)を取得します。
 ピークを求めるときに背景部分は排除しています。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> getmaskindex(mask)
-    maskindex <span style="color:#f92672">=</span> getindex<span style="color:#f92672">.</span>(findall(mask), [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>])
-    freqs <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>]
-    times <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>]
-    <span style="color:#66d9ef">return</span> collect(zip(times, freqs))
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> findpeaks(matrix, filtersize)
-    maxmatrix <span style="color:#f92672">=</span> maxfilter(matrix, filtersize)
-    maxmask <span style="color:#f92672">=</span> maxmatrix <span style="color:#f92672">.==</span> matrix
-    nobackground <span style="color:#f92672">=</span> matrix <span style="color:#f92672">.!=</span> minimum(matrix)
-    <span style="color:#66d9ef">return</span> getmaskindex(maxmask <span style="color:#f92672">.*</span> nobackground)
-<span style="color:#66d9ef">end</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> findpeaks(x, <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
- (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>)
- (<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>)
-
-julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">=</span> zeros(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>); y[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; y
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">6</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
- <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">1.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
- <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
- <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
- <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
-
-julia<span style="color:#f92672">&gt;</span> findpeaks(y, <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
-</code></pre></div><p>dejavuでは<a href="https://github.com/worldveil/dejavu/blob/e56a4a221ad204654a191d217f92aebf3f058b62/dejavu/logic/fingerprint.py#L88-L90">ピークに出現させたくない箇所のマスクを作成</a>する際に、背景を抽出した後
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> getmaskindex(mask)
+</span></span><span style="display:flex;"><span>    maskindex <span style="color:#f92672">=</span> getindex<span style="color:#f92672">.</span>(findall(mask), [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    freqs <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    times <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> collect(zip(times, freqs))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> findpeaks(matrix, filtersize)
+</span></span><span style="display:flex;"><span>    maxmatrix <span style="color:#f92672">=</span> maxfilter(matrix, filtersize)
+</span></span><span style="display:flex;"><span>    maxmask <span style="color:#f92672">=</span> maxmatrix <span style="color:#f92672">.==</span> matrix
+</span></span><span style="display:flex;"><span>    nobackground <span style="color:#f92672">=</span> matrix <span style="color:#f92672">.!=</span> minimum(matrix)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> getmaskindex(maxmask <span style="color:#f92672">.*</span> nobackground)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> findpeaks(x, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">=</span> zeros(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>); y[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; y
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">6</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">1.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>  <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> findpeaks(y, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>dejavuでは<a href="https://github.com/worldveil/dejavu/blob/e56a4a221ad204654a191d217f92aebf3f058b62/dejavu/logic/fingerprint.py#L88-L90">ピークに出現させたくない箇所のマスクを作成</a>する際に、背景を抽出した後
 <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.binary_erosion.html">scipy.ndimage.binary_erosion</a>
 を使って領域の内部を取得して作成、と言う手順を取っているのですが、このようにする意味はよくわかりませんでした。</p>
 <p>余談ですがこのような<a href="https://en.wikipedia.org/wiki/Mathematical_morphology">Mathematical morphology</a>の操作は
@@ -316,104 +316,104 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 全ての組み合わせてペアを作ると大変なので、各ピークに対して<code>fanvalue</code>個先までのピークをチェックし、
 時間、周波数の位置の差分がそれぞれ<code>timerange</code>, <code>freqrange</code>(これらは<code>Pair{Int64}</code>の元とします)に入っていたらペアリングすることにしましょう。</p>
 <p>ハッシュは標準ライブラリ<a href="https://docs.julialang.org/en/v1/stdlib/SHA/index.html"><code>SHA</code></a>で生成出来ます。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> SHA
-
-<span style="color:#66d9ef">function</span> paringpeaks(peaks, fanvalue, timerange, freqrange)
-    data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">NTuple</span>{<span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">Int64</span>}}()
-    ntimes <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(peaks)
-    <span style="color:#75715e"># println(peaks)</span>
-    mintdelta, maxtdelta <span style="color:#f92672">=</span> timerange
-    minfdelta, maxfdelta <span style="color:#f92672">=</span> freqrange
-    <span style="color:#66d9ef">for</span> (i1, (t1, f1)) <span style="color:#66d9ef">in</span> pairs(<span style="color:#66d9ef">IndexLinear</span>(), peaks)
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>fanvalue
-            i2 <span style="color:#f92672">=</span> i1 <span style="color:#f92672">+</span> i
-            i2 <span style="color:#f92672">&gt;</span> ntimes <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">break</span>
-            t2, f2 <span style="color:#f92672">=</span> peaks[i2]
-            dt <span style="color:#f92672">=</span> t2 <span style="color:#f92672">-</span> t1
-            df <span style="color:#f92672">=</span> f2 <span style="color:#f92672">-</span> f1
-            (mintdelta <span style="color:#f92672">&lt;=</span> dt <span style="color:#f92672">&amp;&amp;</span> dt <span style="color:#f92672">&lt;=</span> maxtdelta <span style="color:#f92672">&amp;&amp;</span> minfdelta <span style="color:#f92672">&lt;=</span> df <span style="color:#f92672">&amp;&amp;</span> df <span style="color:#f92672">&lt;=</span> maxfdelta) <span style="color:#f92672">||</span> <span style="color:#66d9ef">continue</span>
-            push!(data, (f1, f2, dt, t1))
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> data
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
-    hashdict <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int64</span>}()
-    pairs <span style="color:#f92672">=</span> paringpeaks(peaks, fanvalue, timerange, freqrange)
-    <span style="color:#66d9ef">for</span> (f1, f2, dt, t1) <span style="color:#66d9ef">in</span> pairs
-        info <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$f1</span><span style="color:#e6db74">|</span><span style="color:#e6db74">$f2</span><span style="color:#e6db74">|</span><span style="color:#e6db74">$dt</span><span style="color:#e6db74">&#34;</span>
-        hash <span style="color:#f92672">=</span> bytes2hex(sha256(info))
-        hashdict[hash] <span style="color:#f92672">=</span> t1
-        <span style="color:#75715e"># println(&#34;($t1, $f1) - ($t2, $f2), $info [$hash] -&gt; $t1&#34;)</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> hashdict
-<span style="color:#66d9ef">end</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> peaks <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)]
-<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>)
- (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
- (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
- (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
- (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)
- (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>)
- (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)
-
-julia<span style="color:#f92672">&gt;</span> fanvalue <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
-<span style="color:#ae81ff">2</span>
-
-julia<span style="color:#f92672">&gt;</span> timerange <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
-<span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
-
-julia<span style="color:#f92672">&gt;</span> freqrange <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
-<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
-
-julia<span style="color:#f92672">&gt;</span> hashdict <span style="color:#f92672">=</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
-<span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">8</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#e6db74">&#34;db724d0a500003163dce50a08d4cb5199d837df32ff9bea778229f6f89e0ec49&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
-  <span style="color:#e6db74">&#34;9fc7745cc33e507d9ad28f16e9bd8d717b0de72ed078424da70292feb19248e4&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
-  <span style="color:#e6db74">&#34;3533f2977e2cb6bb57e7135baff39dbb15e418fa6e7841216ebb6979110a5da4&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
-  <span style="color:#e6db74">&#34;fe812d99d40bccea0f739ed5716d6f77af15b68fc73190b56bd11d579b7ed5d7&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
-  <span style="color:#e6db74">&#34;798fb293c5fce0ad4b6c4405d361322ada948757accfbfb43c79b094702c419f&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
-  <span style="color:#e6db74">&#34;8b0bbed14dafb6086bf675ee4fe2ab1e3a33a79bcc45f990918ba5cb24f12089&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
-  <span style="color:#e6db74">&#34;1c22c9113f4f50934e03ac63bf365ddebfb220f6af556f6dd31ee9c8be4eb619&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
-  <span style="color:#e6db74">&#34;c241ae9f10dd86f58a0c97363f4de1f08d10e3b0dae3cf139efd6027f2c75482&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">4</span>
-</code></pre></div><h3 id="曲をフィンガープリント">曲をフィンガープリント</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> SHA
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> paringpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">NTuple</span>{<span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">Int64</span>}}()
+</span></span><span style="display:flex;"><span>    ntimes <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(peaks)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># println(peaks)</span>
+</span></span><span style="display:flex;"><span>    mintdelta, maxtdelta <span style="color:#f92672">=</span> timerange
+</span></span><span style="display:flex;"><span>    minfdelta, maxfdelta <span style="color:#f92672">=</span> freqrange
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i1, (t1, f1)) <span style="color:#66d9ef">in</span> pairs(<span style="color:#66d9ef">IndexLinear</span>(), peaks)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>fanvalue
+</span></span><span style="display:flex;"><span>            i2 <span style="color:#f92672">=</span> i1 <span style="color:#f92672">+</span> i
+</span></span><span style="display:flex;"><span>            i2 <span style="color:#f92672">&gt;</span> ntimes <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            t2, f2 <span style="color:#f92672">=</span> peaks[i2]
+</span></span><span style="display:flex;"><span>            dt <span style="color:#f92672">=</span> t2 <span style="color:#f92672">-</span> t1
+</span></span><span style="display:flex;"><span>            df <span style="color:#f92672">=</span> f2 <span style="color:#f92672">-</span> f1
+</span></span><span style="display:flex;"><span>            (mintdelta <span style="color:#f92672">&lt;=</span> dt <span style="color:#f92672">&amp;&amp;</span> dt <span style="color:#f92672">&lt;=</span> maxtdelta <span style="color:#f92672">&amp;&amp;</span> minfdelta <span style="color:#f92672">&lt;=</span> df <span style="color:#f92672">&amp;&amp;</span> df <span style="color:#f92672">&lt;=</span> maxfdelta) <span style="color:#f92672">||</span> <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            push!(data, (f1, f2, dt, t1))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> data
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    hashdict <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int64</span>}()
+</span></span><span style="display:flex;"><span>    pairs <span style="color:#f92672">=</span> paringpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (f1, f2, dt, t1) <span style="color:#66d9ef">in</span> pairs
+</span></span><span style="display:flex;"><span>        info <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$f1</span><span style="color:#e6db74">|</span><span style="color:#e6db74">$f2</span><span style="color:#e6db74">|</span><span style="color:#e6db74">$dt</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        hash <span style="color:#f92672">=</span> bytes2hex(sha256(info))
+</span></span><span style="display:flex;"><span>        hashdict[hash] <span style="color:#f92672">=</span> t1
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># println(&#34;($t1, $f1) - ($t2, $f2), $info [$hash] -&gt; $t1&#34;)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hashdict
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> peaks <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> fanvalue <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> timerange <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> freqrange <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> hashdict <span style="color:#f92672">=</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">8</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;db724d0a500003163dce50a08d4cb5199d837df32ff9bea778229f6f89e0ec49&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;9fc7745cc33e507d9ad28f16e9bd8d717b0de72ed078424da70292feb19248e4&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;3533f2977e2cb6bb57e7135baff39dbb15e418fa6e7841216ebb6979110a5da4&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fe812d99d40bccea0f739ed5716d6f77af15b68fc73190b56bd11d579b7ed5d7&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;798fb293c5fce0ad4b6c4405d361322ada948757accfbfb43c79b094702c419f&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;8b0bbed14dafb6086bf675ee4fe2ab1e3a33a79bcc45f990918ba5cb24f12089&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;1c22c9113f4f50934e03ac63bf365ddebfb220f6af556f6dd31ee9c8be4eb619&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;c241ae9f10dd86f58a0c97363f4de1f08d10e3b0dae3cf139efd6027f2c75482&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><h3 id="曲をフィンガープリント">曲をフィンガープリント</h3>
 <p>今までの準備で部品は揃ったので、あとはつなげていくだけです。
 今回は左右それぞれのチャンネルで独立にフィンガープリントして合体させています。
 フィンガープリントの結果を可視化したくなったので、<code>fingerprint_song</code>に関連するコードが入っています。
 長い時間の曲データのフィンガープリントの結果を可視化するのには時間がかかるのでご注意ください。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Plots
-
-<span style="color:#66d9ef">function</span> fingerprint(samples, n, fs, filtersize, fanvalue, timerange, freqrange)
-    spec <span style="color:#f92672">=</span> songspectrogram(samples, n, fs)
-    peaks <span style="color:#f92672">=</span> findpeaks(spec, filtersize)
-    hashdict <span style="color:#f92672">=</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
-    <span style="color:#66d9ef">return</span> hashdict
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> fingerprint_song(ys, fs, n, filtersize, fanvalue, timerange, freqrange; path <span style="color:#f92672">=</span> nothing)
-    hashdict <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int64</span>}()
-    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size(ys, <span style="color:#ae81ff">2</span>)
-        samples <span style="color:#f92672">=</span> view(ys, <span style="color:#f92672">:</span>, i)
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>isnothing(path)
-            spec <span style="color:#f92672">=</span> songspectrogram(samples, n, fs)
-            peaks <span style="color:#f92672">=</span> findpeaks(spec, filtersize)
-            pairs <span style="color:#f92672">=</span> Hanauta<span style="color:#f92672">.</span>paringpeaks(peaks, fanvalue, timerange, freqrange)
-            heatmap(spec)
-            <span style="color:#66d9ef">for</span> (f1, f2, dt, t1) <span style="color:#66d9ef">in</span> pairs
-                plot!([t1, t1 <span style="color:#f92672">+</span> dt], [f1, f2], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, linecolor<span style="color:#f92672">=</span><span style="color:#e6db74">:blue</span>)
-            <span style="color:#66d9ef">end</span>
-            scatter!(peaks, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
-            output <span style="color:#f92672">=</span> path <span style="color:#f92672">*</span> <span style="color:#e6db74">&#34;_ch</span><span style="color:#e6db74">$i</span><span style="color:#e6db74">.png&#34;</span>
-            savefig(output)
-        <span style="color:#66d9ef">end</span>
-        newdict <span style="color:#f92672">=</span> fingerprint(samples, n, fs, filtersize, fanvalue, timerange, freqrange)
-        merge!(hashdict, newdict)
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> hashdict
-<span style="color:#66d9ef">end</span>
-</code></pre></div><h2 id="マッチングさせてみる">マッチングさせてみる</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> fingerprint(samples, n, fs, filtersize, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    spec <span style="color:#f92672">=</span> songspectrogram(samples, n, fs)
+</span></span><span style="display:flex;"><span>    peaks <span style="color:#f92672">=</span> findpeaks(spec, filtersize)
+</span></span><span style="display:flex;"><span>    hashdict <span style="color:#f92672">=</span> hashpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hashdict
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> fingerprint_song(ys, fs, n, filtersize, fanvalue, timerange, freqrange; path <span style="color:#f92672">=</span> nothing)
+</span></span><span style="display:flex;"><span>    hashdict <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int64</span>}()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size(ys, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        samples <span style="color:#f92672">=</span> view(ys, <span style="color:#f92672">:</span>, i)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>isnothing(path)
+</span></span><span style="display:flex;"><span>            spec <span style="color:#f92672">=</span> songspectrogram(samples, n, fs)
+</span></span><span style="display:flex;"><span>            peaks <span style="color:#f92672">=</span> findpeaks(spec, filtersize)
+</span></span><span style="display:flex;"><span>            pairs <span style="color:#f92672">=</span> Hanauta<span style="color:#f92672">.</span>paringpeaks(peaks, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>            heatmap(spec)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (f1, f2, dt, t1) <span style="color:#66d9ef">in</span> pairs
+</span></span><span style="display:flex;"><span>                plot!([t1, t1 <span style="color:#f92672">+</span> dt], [f1, f2], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, linecolor<span style="color:#f92672">=</span><span style="color:#e6db74">:blue</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>            scatter!(peaks, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>            output <span style="color:#f92672">=</span> path <span style="color:#f92672">*</span> <span style="color:#e6db74">&#34;_ch</span><span style="color:#e6db74">$i</span><span style="color:#e6db74">.png&#34;</span>
+</span></span><span style="display:flex;"><span>            savefig(output)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        newdict <span style="color:#f92672">=</span> fingerprint(samples, n, fs, filtersize, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>        merge!(hashdict, newdict)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hashdict
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="マッチングさせてみる">マッチングさせてみる</h2>
 <p>以上でWAVファイルからフィンガープリントを作成することができるようになったので、実際にマッチングできることを確かめてみます。
 元のWAVにホワイトノイズを加えたデータや、スピーカーで曲を再生したものをiPhoneのボイスメモで録音してWAVファイルに変換したものでマッチングできることを確認します。</p>
 <p>サンプル曲として、Windows 95のCD-ROMにビデオが収録されていたことでも知られる
@@ -427,54 +427,54 @@ julia<span style="color:#f92672">&gt;</span> hashdict <span style="color:#f92672
 <p>ノイズを加える際は、Amplitudeが0.4と普通に聞いてかなり邪魔に感じるレベルのノイズを加えました。
 <img src="/images/posts/audiofingerprinting_noise.png" alt="Noise"></p>
 <p>以下のコードで原曲とオリジナル曲のハッシュのマッチング結果の図示を行います。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Plots
-<span style="color:#66d9ef">using</span> Measures
-
-<span style="color:#66d9ef">function</span> plot_fingerprint(input, n, filtersize, fanvalue, timerange, freqrange)
-    ys, fs, _, _ <span style="color:#f92672">=</span> wavread(input)
-    <span style="color:#75715e"># ysview = view(ys, 100000:300000, :)</span>
-    ysview <span style="color:#f92672">=</span> ys
-    path, _ <span style="color:#f92672">=</span> splitext(input)
-    <span style="color:#66d9ef">return</span> fingerprint_song(ysview, fs, n, filtersize, fanvalue, timerange, freqrange; path <span style="color:#f92672">=</span> path)
-<span style="color:#66d9ef">end</span>
-
-
-<span style="color:#66d9ef">function</span> hashmatching(hash1, hash2)
-    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    ts1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}()
-    ts2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}()
-    <span style="color:#66d9ef">for</span> h <span style="color:#66d9ef">in</span> keys(hash2)
-        <span style="color:#66d9ef">if</span> haskey(hash1, h)
-            t1, t2 <span style="color:#f92672">=</span> hash1[h], hash2[h]
-            push!(ts1, t1)
-            push!(ts2, t2)
-            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-    println(<span style="color:#e6db74">&#34;Match: </span><span style="color:#e6db74">$i</span><span style="color:#e6db74">&#34;</span>)
-    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>
-        scatter(ts1, ts2, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm)
-        savefig(joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;output/scatter.png&#34;</span>))
-        tsdiff <span style="color:#f92672">=</span> ts1 <span style="color:#f92672">.-</span> ts2
-        histogram(tsdiff, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm)
-        savefig(joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;output/hist.png&#34;</span>))
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-
-n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
-filtersize <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-fanvalue <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
-timerange <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">20</span>
-freqrange <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">200</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">200</span>
-
-input1 <span style="color:#f92672">=</span> joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;data/04 Buddy Holly.wav&#34;</span>)
-input2 <span style="color:#f92672">=</span> joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;data/noise_added.wav&#34;</span>)
-
-hash1 <span style="color:#f92672">=</span> plot_fingerprint(input1, n, filtersize, fanvalue, timerange, freqrange)
-hash2 <span style="color:#f92672">=</span> plot_fingerprint(input2, n, filtersize, fanvalue, timerange, freqrange)
-
-hashmatching(hash1, hash2)
-</code></pre></div><p>まずはWAVファイルにノイズを加えたものの比較結果を見ましょう。横軸は原曲ファイルの時間、縦軸は比較対象ファイルの時間です。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Measures
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_fingerprint(input, n, filtersize, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>    ys, fs, _, _ <span style="color:#f92672">=</span> wavread(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ysview = view(ys, 100000:300000, :)</span>
+</span></span><span style="display:flex;"><span>    ysview <span style="color:#f92672">=</span> ys
+</span></span><span style="display:flex;"><span>    path, _ <span style="color:#f92672">=</span> splitext(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fingerprint_song(ysview, fs, n, filtersize, fanvalue, timerange, freqrange; path <span style="color:#f92672">=</span> path)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> hashmatching(hash1, hash2)
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    ts1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}()
+</span></span><span style="display:flex;"><span>    ts2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> h <span style="color:#66d9ef">in</span> keys(hash2)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> haskey(hash1, h)
+</span></span><span style="display:flex;"><span>            t1, t2 <span style="color:#f92672">=</span> hash1[h], hash2[h]
+</span></span><span style="display:flex;"><span>            push!(ts1, t1)
+</span></span><span style="display:flex;"><span>            push!(ts2, t2)
+</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Match: </span><span style="color:#e6db74">$i</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        scatter(ts1, ts2, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm)
+</span></span><span style="display:flex;"><span>        savefig(joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;output/scatter.png&#34;</span>))
+</span></span><span style="display:flex;"><span>        tsdiff <span style="color:#f92672">=</span> ts1 <span style="color:#f92672">.-</span> ts2
+</span></span><span style="display:flex;"><span>        histogram(tsdiff, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, margin<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>mm)
+</span></span><span style="display:flex;"><span>        savefig(joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;output/hist.png&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span>filtersize <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>fanvalue <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>timerange <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>freqrange <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">200</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>input1 <span style="color:#f92672">=</span> joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;data/04 Buddy Holly.wav&#34;</span>)
+</span></span><span style="display:flex;"><span>input2 <span style="color:#f92672">=</span> joinpath(<span style="color:#a6e22e">@__DIR__</span>, <span style="color:#e6db74">&#34;data/noise_added.wav&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hash1 <span style="color:#f92672">=</span> plot_fingerprint(input1, n, filtersize, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>hash2 <span style="color:#f92672">=</span> plot_fingerprint(input2, n, filtersize, fanvalue, timerange, freqrange)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hashmatching(hash1, hash2)
+</span></span></code></pre></div><p>まずはWAVファイルにノイズを加えたものの比較結果を見ましょう。横軸は原曲ファイルの時間、縦軸は比較対象ファイルの時間です。
 点を画面に納める都合上アスペクト比率は1ではないです。
 <img src="/images/posts/audiofingerprinting_scatter_noise.png" alt="Scatter"></p>
 <p>時間のオフセットのヒストグラムも見てみましょう。
@@ -701,7 +701,7 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

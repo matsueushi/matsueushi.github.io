@@ -34,15 +34,15 @@ IntervalArithmeitc.jl に関して以下に書いてある情報は古いです�
 Julia における丸めの制御について調べた内容を書いておきたいと思います。
 私はこの分野の専門家ではないので、間違っている場所があれば教えていただけると助かります。&lt;/p&gt;
 &lt;p&gt;使用している Julia のバージョンは 1.3.0 です。将来的に丸めの扱いが変更される可能性があるので注意してください。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;               _
-   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
-  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
-   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
-  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
-  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-11-26&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
- _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
-|__/                   |
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;01--30-を計算してみる&#34;&gt;0.1 * 3.0 を計算してみる&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               _
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-11-26&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|__/                   |
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;01--30-を計算してみる&#34;&gt;0.1 * 3.0 を計算してみる&lt;/h3&gt;
 &lt;p&gt;\( \mathbb{F}^* \) を浮動小数点全体の集合 (今回は&lt;code&gt;Float64&lt;/code&gt; としておきます)、
 \( \mathbb{F} \) を\( \mathbb{F}^* \)から &lt;code&gt;-Inf&lt;/code&gt;, &lt;code&gt;+Inf&lt;/code&gt; を除いた有限な浮動小数点全体の集合、
 \( \mathbb{R} \) を実数全体の集合、\( \mathbb{R}^* \) を \( \mathbb{R} \) に正と負の無限大を付け加えた集合とします
@@ -52,22 +52,22 @@ Julia における丸めの制御について調べた内容を書いておき�
 &lt;p&gt;例として、 \(0.1 \in \mathbb{R} \) と \(3.0 \in \mathbb{R}\)  の積を (浮動小数点上で) 評価したいとします。
 言うまでもなく真の値は \( 0.3 \in \mathbb{R} \) です。
 一方、REPL 上で &lt;code&gt;0.1 * 3.0&lt;/code&gt; と &lt;code&gt;0.3&lt;/code&gt; を比較すると、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;
-false
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となりイコールにはなりません。&lt;code&gt;@printf&lt;/code&gt; マクロを使って小数点以下17桁まで表示すると、確かに違います。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.bitstring&#34;&gt;Base.bitstring&lt;/a&gt; を使ってビット表現を確かめても、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
-&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110100&amp;#34;&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
-&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110011&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最後の3桁が違いますね。なぜこのようなことが起こるのでしょうか？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となりイコールにはなりません。&lt;code&gt;@printf&lt;/code&gt; マクロを使って小数点以下17桁まで表示すると、確かに違います。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Printf
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Base.bitstring&#34;&gt;Base.bitstring&lt;/a&gt; を使ってビット表現を確かめても、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110100&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; bitstring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0011111111010011001100110011001100110011001100110011001100110011&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最後の3桁が違いますね。なぜこのようなことが起こるのでしょうか？&lt;/p&gt;
 &lt;h3 id=&#34;丸め&#34;&gt;丸め&lt;/h3&gt;
 &lt;p&gt;証明は省略しますが、\( 1/3 \) が有限桁の10進数小数で表現できないのと同様、
 \( 0.1 \) は有限桁の(2進)浮動小数点数では表せません。\( 0.3 \) も同様です。&lt;/p&gt;
@@ -124,20 +124,20 @@ $$&lt;/p&gt;
 例えば、\( 2^{100}, 1 \in \mathbb{F}^* \) ですが、\( 2^{100} + 1 \notin \mathbb{F}^* \) です。
 Julia には直前、直後の浮動小数点数を計算する関数 &lt;code&gt;prevfloat&lt;/code&gt;, &lt;code&gt;nextfloat&lt;/code&gt; が存在しますので
 \( 2^{100} \)の次の数を計算してみましょう。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, x)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229401496703205376.00000000000000000&lt;/span&gt;
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, nextfloat(x))
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229682971679916032.00000000000000000&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;なので、\( 2^{100} + 1 \) は確かにこの二つの隙間に落ちてしまっているので表現不能です。計算すると、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; x
-true
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって元々の値と同じになっています。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229401496703205376.00000000000000000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, nextfloat(x))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1267650600228229682971679916032.00000000000000000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;なので、\( 2^{100} + 1 \) は確かにこの二つの隙間に落ちてしまっているので表現不能です。計算すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; x
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって元々の値と同じになっています。&lt;/p&gt;
 &lt;p&gt;つまりは計算した結果も丸められているわけですが、ここで丸める前と丸めた後の関係が気になります。
 Juliaの &lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1&#34;&gt;Rounding modes&lt;/a&gt; を見ると丸めモードは
 &lt;a href=&#34;https://ieeexplore.ieee.org/document/8766229&#34;&gt;IEEE754 standard&lt;/a&gt; に従っていると言うことなので、
@@ -167,37 +167,37 @@ $$&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;0.1&lt;/code&gt; と書いた時点で浮動小数点数に変換されてしまうので、別の方法で \( 0.1 \) を表現する必要があります。
 入力を文字列 &lt;code&gt;&amp;quot;0.1&amp;quot;&lt;/code&gt; にしてパースする方法もありますが、
 幸いなことに&lt;a href=&#34;https://docs.julialang.org/en/v1/manual/complex-and-rational-numbers/#Rational-Numbers-1&#34;&gt;有理数型&lt;/a&gt;と&lt;a href=&#34;https://docs.julialang.org/en/v1/base/numbers/#Core.Float64-Tuple%7BAny%7D&#34;&gt;丸め方向つきの浮動小数点数コンストラクタ&lt;/a&gt;が利用できます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x_down, x_up &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundDown), &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundUp);
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down, x_up)
-[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.09999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.10000000000000001&lt;/span&gt;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;\( 3.0 \) は浮動小数点数として誤差なく表現できるので、幅0 (thin) の区間として表わせます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundDown) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundUp)
-true
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こうして \( 0.1 \) と \(3.0\) がそれぞれ含まれる区間 &lt;code&gt;[x_down, x_up]&lt;/code&gt;, &lt;code&gt;[3.0, 3.0]&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x_down, x_up &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundDown), &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, RoundUp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down, x_up)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.09999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.10000000000000001&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;\( 3.0 \) は浮動小数点数として誤差なく表現できるので、幅0 (thin) の区間として表わせます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundDown) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, RoundUp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こうして \( 0.1 \) と \(3.0\) がそれぞれ含まれる区間 &lt;code&gt;[x_down, x_up]&lt;/code&gt;, &lt;code&gt;[3.0, 3.0]&lt;/code&gt;
 が得られたので答えが取り得る範囲を考えて、真の数が含まれる区間の計算結果を &lt;code&gt;[x_down * 3.0, x_up * 3.0]&lt;/code&gt; ……とやると(一般的には)まずいです。&lt;/p&gt;
 &lt;p&gt;今回はたまたま&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;, x_up &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
-[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってうまくいきましたが、例えば、 \( 1.0 \in \mathbb{F}, 2^{-54} \in \mathbb{F} \) に対し、
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]&amp;#34;&lt;/span&gt;, x_down &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;, x_up &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.29999999999999999&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってうまくいきましたが、例えば、 \( 1.0 \in \mathbb{F}, 2^{-54} \in \mathbb{F} \) に対し、
 \( 1.0 + 2^{-54} \) を意図して同様の区間演算
 &lt;code&gt;[1.0, 1.0]&lt;/code&gt; + &lt;code&gt;[2^-54, 2^-54]&lt;/code&gt; を先ほどと同様に単純に行うと、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.00000000000000000&lt;/span&gt;
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
-true
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%17.17f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.00000000000000000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
 得られる区間は &lt;code&gt;[1.0, 1.0]&lt;/code&gt; となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。&lt;/p&gt;
 &lt;p&gt;つまり、今までに定義した記号を使って表すと、&lt;/p&gt;
 &lt;p&gt;$$
 \begin{aligned}
-[x, y] + [x&#39;, y&#39;] = [x \oplus x&#39;, y \oplus y&#39;]
+[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [x \oplus x&amp;rsquo;, y \oplus y&amp;rsquo;]
 \end{aligned}
 $$&lt;/p&gt;
 &lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
 &lt;p&gt;$$
 \begin{aligned}
-[x, y] + [x&#39;, y&#39;] = [\triangledown (x + x&#39;), \triangle (y + y&#39;)]
+[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [\triangledown (x + x&amp;rsquo;), \triangle (y + y&amp;rsquo;)]
 \end{aligned}
 $$&lt;/p&gt;
 &lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
@@ -235,148 +235,148 @@ a + b &amp;amp;= x + y
 $$
 が厳密に成立するとされるものです。&lt;/p&gt;
 &lt;p&gt;Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; twosum(a, b)
-    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
-    tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
-    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)
-    x, y
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となります。
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x, y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となります。
 私が確認したタイミングでは、ErrorfreeArithmetic.jl の &lt;a href=&#34;https://github.com/JeffreySarnoff/ErrorfreeArithmetic.jl/blob/2494c705caef77340fba596544fac8dae9ec2951/src/errorfree.jl#L1-L11&#34;&gt;&lt;code&gt;two_sum&lt;/code&gt; の定義&lt;/a&gt;も同様になっていました。&lt;/p&gt;
 &lt;p&gt;今まで出てきた例の場合も含めて何通りか例を計算してみると&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;
-&lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって正しく分解されています。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となって正しく分解されています。&lt;/p&gt;
 &lt;p&gt;\(a, b \) の絶対値について条件を課したアルゴリズム &lt;code&gt;fasttwosum&lt;/code&gt; について、
 オーバーフローが発生しない場合に等式が成立することが「精度保証付き数値計算の基礎」に定理2.5として証明されていました。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;twosum&lt;/code&gt; を用いた方向付き丸め演算のエミューレートは、上付き丸めと下付き丸めを&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_up(a, b)
-    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
-    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_down(a, b)
-    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
-    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と定義するもので、FastRounding.jlの対応箇所は&lt;a href=&#34;https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L248-L271&#34;&gt;ここ&lt;/a&gt;です。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;見た感じ、良さそうです。FastRounding.jl の関数も呼び出してみます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundUp)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundDown)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundUp)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundDown)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;しかし、これで全て安心とはならず、救われない命があるようなのです……&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_up(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; add_down(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と定義するもので、FastRounding.jlの対応箇所は&lt;a href=&#34;https://github.com/JeffreySarnoff/FastRounding.jl/blob/03ff386d36aa7de101f22ca740748a31e57942c0/src/FastRounding.jl#L248-L271&#34;&gt;ここ&lt;/a&gt;です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;見た感じ、良さそうです。FastRounding.jl の関数も呼び出してみます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundUp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, RoundDown)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundUp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;, RoundDown)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;しかし、これで全て安心とはならず、救われない命があるようなのです……&lt;/p&gt;
 &lt;h3 id=&#34;エミュレーションにおける問題&#34;&gt;エミュレーションにおける問題&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;http://verifiedby.me/adiary/09&#34;&gt;Error Free Transformation (EFT) is NOT error-free&lt;/a&gt; という記事に、
 エラーフリー変換においてオーバーフローやアンダーフローが発生する例や、&lt;code&gt;twosum&lt;/code&gt; の乗算バージョンの &lt;code&gt;twoproduct&lt;/code&gt; に関して誤差が生じる例が書かれていました。&lt;/p&gt;
 &lt;p&gt;気になったので、先ほどの &lt;code&gt;twosum&lt;/code&gt; に対して記事に書かれている例を試してみると&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.5630624444874539e+307&lt;/span&gt;
-&lt;span style=&#34;color:#ae81ff&#34;&gt;3.563062444487454e307&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e+308&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e308&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(a, b)
-(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってやはり正しく計算されませんでした。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.5630624444874539e+307&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3.563062444487454e307&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e+308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7976931348623157e308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となってやはり正しく計算されませんでした。&lt;/p&gt;
 &lt;p&gt;「最近点丸めによる方向付き丸めのエミュレート」にはこれを回避する方法が書いてあったので、実装してみます。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_twosum(a, b)
-    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; abs(a) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; abs(b)
-        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
-        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_up(a, b)
-    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
-    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_down(a, b)
-    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
-    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;実行結果は、もちろん今まで計算できていたものは同じ結果になり、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;先ほど計算できなかった例が、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(a, b)
-(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;9.9792015476736e291&lt;/span&gt;)
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(a, b)
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135702e308&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(a, b)
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と計算できるようになりました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; abs(a) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; abs(b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        tmp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x, a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_up(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, nextfloat(x), x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; new_add_down(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; new_twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ifelse(y &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prevfloat(x), x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;実行結果は、もちろん今まで計算できていたものは同じ結果になり、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.30000000000000004&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2.7755575615628914e-17&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.551115123125783e-17&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282297e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.2676506002282294e30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0000000000000002&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;^-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;先ほど計算できなかった例が、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_twosum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;9.9792015476736e291&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_up(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135702e308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; new_add_down(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と計算できるようになりました。&lt;/p&gt;
 &lt;p&gt;しかしながら ErrorfreeArithmetic.jl の実装も残念ながらオーバーフローが考慮されていないので、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; ErrorfreeArithmetic
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; two_sum(a, b)
-(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となり、従ってそれを利用した丸めも&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundUp)
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
-
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundDown)
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と丸めが正しく行われていません。記事に載っていた例については加算しか確認していませんが、他にも似たような現象が発生している可能性があるので利用には注意が必要だと思います。
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; ErrorfreeArithmetic
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; two_sum(a, b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;, NaN)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;となり、従ってそれを利用した丸めも&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; FastRounding
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundUp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; add_round(a, b, RoundDown)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.4413868904135704e308&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と丸めが正しく行われていません。記事に載っていた例については加算しか確認していませんが、他にも似たような現象が発生している可能性があるので利用には注意が必要だと思います。
 (ライブラリの作者の方々には申し訳ないですが)&lt;/p&gt;
 &lt;p&gt;基本的な演算に関してのエミュレートを行うだけでもかなり気を使う必要があり、漏れなく実装するのは容易ではないようです。&lt;/p&gt;
 &lt;p&gt;しかしながら、デフォルトの丸めモードだけを使って方向付き丸めのエミュレートを行う発想自体は非常に面白く感じたので、時間のある時に他の演算に関しても実装してみたいです。

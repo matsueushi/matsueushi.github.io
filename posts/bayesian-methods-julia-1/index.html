@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -135,15 +135,15 @@ onload='renderMathInElement(document.body);'></script>
 <p>まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。</p>
 <p>元のノートブックは<a href="https://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">これ</a>。</p>
 <p>JuliaでCSVファイルをhttps上から取るには、パッケージ <code>HTTP</code> , <code>CSV</code> をインポートして</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">r <span style="color:#f92672">=</span> HTTP<span style="color:#f92672">.</span>request(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;https://git.io/vXTVC&#34;</span>);
-count_data <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#66d9ef">IOBuffer</span>(r<span style="color:#f92672">.</span>body), header<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;messages&#34;</span>])
-とすれば良い。
-</code></pre></div><p>Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を <code>0:N-1</code> にしておく。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">N <span style="color:#f92672">=</span> length(count_data<span style="color:#f92672">.</span>messages)
-bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, count_data<span style="color:#f92672">.</span>messages, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">200</span>],
-    linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>,
-    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>)
-</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_1.png" alt="Count of messages"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>r <span style="color:#f92672">=</span> HTTP<span style="color:#f92672">.</span>request(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;https://git.io/vXTVC&#34;</span>);
+</span></span><span style="display:flex;"><span>count_data <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#66d9ef">IOBuffer</span>(r<span style="color:#f92672">.</span>body), header<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;messages&#34;</span>])
+</span></span><span style="display:flex;"><span>とすれば良い。
+</span></span></code></pre></div><p>Plotsでプロットすると下のような感じ。Juliaはインデックスが1から始まるので、x軸を <code>0:N-1</code> にしておく。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>N <span style="color:#f92672">=</span> length(count_data<span style="color:#f92672">.</span>messages)
+</span></span><span style="display:flex;"><span>bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, count_data<span style="color:#f92672">.</span>messages, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">200</span>],
+</span></span><span style="display:flex;"><span>    linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>,
+</span></span><span style="display:flex;"><span>    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>)
+</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_1.png" alt="Count of messages"></p>
 <p>\( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</p>
 <p>この \( \tau, \lambda_1, \lambda_2 \) 推定する。\( \lambda_1, \lambda_2 \) の事前分布は指数分布 \( \text{Exp}(\alpha) \) とする。ここでαは計数データの平均の逆数である。\( \tau \) の事前分布は一様分布とする。</p>
 <p>Mambaでモデリングするときに注意しないといけないのは、PyMCと分布のパラメトライズが一部異なるところである。</p>
@@ -159,61 +159,61 @@ bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<sp
 <p>Exponentialのパラメトライズが違うことに気づかずにモデリングを行っていたのだが、Mambaで使っているDistiribution.jlの <code>Exponential(θ)</code> をPyMCの <code>pm.Exponential(lam)</code> と 同じ分布となるためには <code>θ=1/lam</code> とする必要がある。これを間違えていたため下のように事前分布が全く異なってしまい収束しなくなってしまっていた。</p>
 <p><img src="/images/posts/bayesian-methods-julia-1_exponential.png" alt="Exponential"></p>
 <p>Mambaでモデルを作成すると次のようになる。パラメトライズの方法が違うので、変数は <code>α</code> の代わりに <code>θ</code> を使った。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">model1 <span style="color:#f92672">=</span> Model(
-    
-    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-        (lambda, N) <span style="color:#f92672">-&gt;</span>
-            UnivariateDistribution[
-                Poisson(lambda[i]) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N],
-        false
-    ),
-    
-    lambda <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>, 
-        (lambda1, lambda2, tau, N) <span style="color:#f92672">-&gt;</span> 
-            (out <span style="color:#f92672">=</span> fill(lambda1, N);
-            i <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>(tau<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e"># Juliaは1-indexingのため</span>
-            out[i<span style="color:#f92672">:</span>end, <span style="color:#f92672">:</span>] <span style="color:#f92672">.=</span> lambda2;
-            out),
-        ),
-    
-    lambda1 <span style="color:#f92672">=</span> Stochastic(theta <span style="color:#f92672">-&gt;</span> Exponential(theta)),
-    lambda2 <span style="color:#f92672">=</span> Stochastic(theta <span style="color:#f92672">-&gt;</span> Exponential(theta)),
-    
-    tau <span style="color:#f92672">=</span> Stochastic(N <span style="color:#f92672">-&gt;</span> DiscreteUniform(<span style="color:#ae81ff">0</span>, N)),
-)
-</code></pre></div><p>観察されるデータと <code>θ </code>を準備する。<code>θ</code> はメッセージ数の平均の逆数 <code>α</code> の逆数なので、メッセージ数の平均。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">theta <span style="color:#f92672">=</span> mean(count_data<span style="color:#f92672">.</span>messages)
-data0 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-    <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
-    <span style="color:#e6db74">:theta</span> <span style="color:#f92672">=&gt;</span> theta,
-    <span style="color:#e6db74">:N</span> <span style="color:#f92672">=&gt;</span> length(count_data<span style="color:#f92672">.</span>messages),
-)
-</code></pre></div><p>初期値は下のようにする。今回はサンプリングのパスを3つとするので初期値も3つ用意する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">inits1 <span style="color:#f92672">=</span> [
-    <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
-        <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
-        <span style="color:#e6db74">:lambda1</span> <span style="color:#f92672">=&gt;</span> theta,
-        <span style="color:#e6db74">:lambda2</span> <span style="color:#f92672">=&gt;</span> theta,
-        <span style="color:#e6db74">:tau</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
-    ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
-]
-</code></pre></div><p>サンプリングの設定では、 \( \tau \) は離散値なので <code>DGS</code> を使う。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">scheme1 <span style="color:#f92672">=</span> [AMWG([<span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>], <span style="color:#ae81ff">1.0</span>), DGS(<span style="color:#e6db74">:tau</span>)]
-</code></pre></div><p>サンプリングを行うと、本文と同様、44, 45日後にユーザーが振る舞いを変えたというところの確率密度が高くなっている。離散値になっていないので、何か設定が間違っているのかもしれない。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">setsamplers!(model1, scheme1)
-sim1 <span style="color:#f92672">=</span> mcmc(model1, data0, inits1, <span style="color:#ae81ff">40000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
-p1 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim1[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:tau</span>, <span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> true)
-Mamba<span style="color:#f92672">.</span>draw(p1, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
-</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_sampling.png" alt="Sampling"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>model1 <span style="color:#f92672">=</span> Model(
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (lambda, N) <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>            UnivariateDistribution[
+</span></span><span style="display:flex;"><span>                Poisson(lambda[i]) <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N],
+</span></span><span style="display:flex;"><span>        false
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    lambda <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>        (lambda1, lambda2, tau, N) <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>            (out <span style="color:#f92672">=</span> fill(lambda1, N);
+</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>(tau<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e"># Juliaは1-indexingのため</span>
+</span></span><span style="display:flex;"><span>            out[i<span style="color:#f92672">:</span>end, <span style="color:#f92672">:</span>] <span style="color:#f92672">.=</span> lambda2;
+</span></span><span style="display:flex;"><span>            out),
+</span></span><span style="display:flex;"><span>        ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    lambda1 <span style="color:#f92672">=</span> Stochastic(theta <span style="color:#f92672">-&gt;</span> Exponential(theta)),
+</span></span><span style="display:flex;"><span>    lambda2 <span style="color:#f92672">=</span> Stochastic(theta <span style="color:#f92672">-&gt;</span> Exponential(theta)),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> Stochastic(N <span style="color:#f92672">-&gt;</span> DiscreteUniform(<span style="color:#ae81ff">0</span>, N)),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>観察されるデータと <code>θ </code>を準備する。<code>θ</code> はメッセージ数の平均の逆数 <code>α</code> の逆数なので、メッセージ数の平均。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> mean(count_data<span style="color:#f92672">.</span>messages)
+</span></span><span style="display:flex;"><span>data0 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:theta</span> <span style="color:#f92672">=&gt;</span> theta,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:N</span> <span style="color:#f92672">=&gt;</span> length(count_data<span style="color:#f92672">.</span>messages),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>初期値は下のようにする。今回はサンプリングのパスを3つとするので初期値も3つ用意する。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>inits1 <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> count_data<span style="color:#f92672">.</span>messages,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:lambda1</span> <span style="color:#f92672">=&gt;</span> theta,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:lambda2</span> <span style="color:#f92672">=&gt;</span> theta,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:tau</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    ) <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>サンプリングの設定では、 \( \tau \) は離散値なので <code>DGS</code> を使う。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>scheme1 <span style="color:#f92672">=</span> [AMWG([<span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>], <span style="color:#ae81ff">1.0</span>), DGS(<span style="color:#e6db74">:tau</span>)]
+</span></span></code></pre></div><p>サンプリングを行うと、本文と同様、44, 45日後にユーザーが振る舞いを変えたというところの確率密度が高くなっている。離散値になっていないので、何か設定が間違っているのかもしれない。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>setsamplers!(model1, scheme1)
+</span></span><span style="display:flex;"><span>sim1 <span style="color:#f92672">=</span> mcmc(model1, data0, inits1, <span style="color:#ae81ff">40000</span>, burnin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>, thin <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim1[<span style="color:#f92672">:</span>, [<span style="color:#e6db74">:tau</span>, <span style="color:#e6db74">:lambda1</span>, <span style="color:#e6db74">:lambda2</span>], <span style="color:#f92672">:</span>], legend <span style="color:#f92672">=</span> true)
+</span></span><span style="display:flex;"><span>Mamba<span style="color:#f92672">.</span>draw(p1, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_sampling.png" alt="Sampling"></p>
 <p>\( \tau \) のヒストグラムを確認すると、正しくサンプリングできているようだ。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">histogram(vec(sim1[<span style="color:#f92672">:</span>, <span style="color:#e6db74">:tau</span>, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), normalize <span style="color:#f92672">=</span> <span style="color:#e6db74">:probability</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tau&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_hist.png" alt="Histogram"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>histogram(vec(sim1[<span style="color:#f92672">:</span>, <span style="color:#e6db74">:tau</span>, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value), normalize <span style="color:#f92672">=</span> <span style="color:#e6db74">:probability</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tau&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_hist.png" alt="Histogram"></p>
 <p>受信メッセージ数と期待値を表示する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, count_data<span style="color:#f92672">.</span>messages, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">200</span>],
-    linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>,
-    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>)
-plot!(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, vec(mean(sim1[<span style="color:#f92672">:</span>, <span style="color:#e6db74">:lambda</span>, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value, dims<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>])), linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Expectation&#34;</span>)
-</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_expect.png" alt="Expectation"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, count_data<span style="color:#f92672">.</span>messages, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">200</span>],
+</span></span><span style="display:flex;"><span>    linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>,
+</span></span><span style="display:flex;"><span>    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>)
+</span></span><span style="display:flex;"><span>plot!(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, vec(mean(sim1[<span style="color:#f92672">:</span>, <span style="color:#e6db74">:lambda</span>, <span style="color:#f92672">:</span>]<span style="color:#f92672">.</span>value, dims<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>])), linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Expectation&#34;</span>)
+</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-1_expect.png" alt="Expectation"></p>
 <p>コード: <a href="https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb">https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter1_message.ipynb</a></p>
 </div>
 	</section>
@@ -361,7 +361,7 @@ plot!(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>N<
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

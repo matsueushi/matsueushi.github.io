@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Mamba.jlでGaussianRandomWalkを作って使う</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -134,28 +134,28 @@ onload='renderMathInElement(document.body);'></script>
 		<div class="c-rich-text"><p>PyMC3にはTimeseriesとして <code>GaussianRandomWalk</code> などの時系列モデルが実装されている。</p>
 <p><a href="https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk">https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk</a></p>
 <p>だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように <code>cumsum</code> を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">local_level_model <span style="color:#f92672">=</span> Model(
-    
-    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-        (N, T, sigma_I) <span style="color:#f92672">-&gt;</span> MvNormal(T, sigma_I),
-        false
-    ),
-    
-    T <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>,
-        (T_0, disturbance) <span style="color:#f92672">-&gt;</span> T_0 <span style="color:#f92672">.+</span> vcat([<span style="color:#ae81ff">0</span>], cumsum(disturbance)),
-    ),
-    
-    disturbance <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-        (N, sigma_T) <span style="color:#f92672">-&gt;</span> MvNormal(N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, sigma_T),
-        false
-    ),
-    
-    sigma_I <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> InverseGamma()),
-    sigma_T <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> InverseGamma()),
-    
-    T_0 <span style="color:#f92672">=</span> Stochastic(T_init <span style="color:#f92672">-&gt;</span> Normal(T_init, <span style="color:#ae81ff">100</span>)),
-)
-</code></pre></div><p>だからと言ってそのためにわざわざPython+PyMC3に移るのも癪だし、練習を兼ねてJulia+Mamba用の確率分布を試しに作ってみようと思ったのが今回の内容である。幸いなことに、Mamba.jlには作り方のガイドラインが書いてあるので、<a href="https://mambajl.readthedocs.io/en/latest/mcmc/distributions.html#user-defined-multivariate-distributions">多変量分布用のガイドライン</a>を参考にして作ることができた。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>local_level_model <span style="color:#f92672">=</span> Model(
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (N, T, sigma_I) <span style="color:#f92672">-&gt;</span> MvNormal(T, sigma_I),
+</span></span><span style="display:flex;"><span>        false
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    T <span style="color:#f92672">=</span> Logical(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (T_0, disturbance) <span style="color:#f92672">-&gt;</span> T_0 <span style="color:#f92672">.+</span> vcat([<span style="color:#ae81ff">0</span>], cumsum(disturbance)),
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    disturbance <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        (N, sigma_T) <span style="color:#f92672">-&gt;</span> MvNormal(N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, sigma_T),
+</span></span><span style="display:flex;"><span>        false
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    sigma_I <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> InverseGamma()),
+</span></span><span style="display:flex;"><span>    sigma_T <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> InverseGamma()),
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    T_0 <span style="color:#f92672">=</span> Stochastic(T_init <span style="color:#f92672">-&gt;</span> Normal(T_init, <span style="color:#ae81ff">100</span>)),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>だからと言ってそのためにわざわざPython+PyMC3に移るのも癪だし、練習を兼ねてJulia+Mamba用の確率分布を試しに作ってみようと思ったのが今回の内容である。幸いなことに、Mamba.jlには作り方のガイドラインが書いてあるので、<a href="https://mambajl.readthedocs.io/en/latest/mcmc/distributions.html#user-defined-multivariate-distributions">多変量分布用のガイドライン</a>を参考にして作ることができた。</p>
 <p>今回は、<code>GaussianRandomWalk</code> は、初期値の分布 \( D \) とドリフト \( \mu_i \) , 分散 \( \sigma \) とした時に、</p>
 <p>\(
 \begin{aligned}
@@ -167,32 +167,32 @@ Y_{i+1} &amp;= Y_i + \mu_i + \epsilon_i, \\
 <p>というモデルに従っているとする。</p>
 <p>Mamba.jlでUser-Definedの多変量分布を使うためには, Distributionの全ての関数を定義する必要はなく、
 次元 <code>length</code>, 分布のサポート <code>insupport</code>, 確率密度関数の対数 <code>_logpdf</code> だけ定義すればサンプリングができる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributed
-
-<span style="color:#a6e22e">@everywhere</span> extensions <span style="color:#f92672">=</span> <span style="color:#66d9ef">quote</span>
-
-    <span style="color:#66d9ef">using</span> Distributions
-    <span style="color:#66d9ef">import</span> Distributions<span style="color:#f92672">:</span> length, insupport, _logpdf
-
-    <span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">GaussianRandomWalk</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">ContinuousMultivariateDistribution</span>
-        mu<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}
-        sig<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
-        init<span style="color:#f92672">::</span><span style="color:#66d9ef">ContinuousUnivariateDistribution</span>
-    <span style="color:#66d9ef">end</span>
-
-    length(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>) <span style="color:#f92672">=</span> length(d<span style="color:#f92672">.</span>mu) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-
-    <span style="color:#66d9ef">function</span> insupport(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>, x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>{<span style="color:#66d9ef">T</span>}) <span style="color:#66d9ef">where</span> {<span style="color:#66d9ef">T</span><span style="color:#f92672">&lt;:</span><span style="color:#66d9ef">Real</span>}
-        length(d) <span style="color:#f92672">==</span> length(x) <span style="color:#f92672">&amp;&amp;</span> all(isfinite<span style="color:#f92672">.</span>(x))
-    <span style="color:#66d9ef">end</span>
-
-    <span style="color:#66d9ef">function</span> _logpdf(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>, x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>{<span style="color:#66d9ef">T</span>}) <span style="color:#66d9ef">where</span> {<span style="color:#66d9ef">T</span><span style="color:#f92672">&lt;:</span><span style="color:#66d9ef">Real</span>}
-        randomwalk_like <span style="color:#f92672">=</span> logpdf<span style="color:#f92672">.</span>(Normal<span style="color:#f92672">.</span>(d<span style="color:#f92672">.</span>mu <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], d<span style="color:#f92672">.</span>sig), x[<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>])
-        logpdf(d<span style="color:#f92672">.</span>init, x[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">+</span> sum(randomwalk_like)
-    <span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p><code>length</code> を定義するときは、ドリフト項の数が次元より一つ小さくなることに注意。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> extensions <span style="color:#f92672">=</span> <span style="color:#66d9ef">quote</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">import</span> Distributions<span style="color:#f92672">:</span> length, insupport, _logpdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">GaussianRandomWalk</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">ContinuousMultivariateDistribution</span>
+</span></span><span style="display:flex;"><span>        mu<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}
+</span></span><span style="display:flex;"><span>        sig<span style="color:#f92672">::</span><span style="color:#66d9ef">Float64</span>
+</span></span><span style="display:flex;"><span>        init<span style="color:#f92672">::</span><span style="color:#66d9ef">ContinuousUnivariateDistribution</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    length(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>) <span style="color:#f92672">=</span> length(d<span style="color:#f92672">.</span>mu) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> insupport(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>, x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>{<span style="color:#66d9ef">T</span>}) <span style="color:#66d9ef">where</span> {<span style="color:#66d9ef">T</span><span style="color:#f92672">&lt;:</span><span style="color:#66d9ef">Real</span>}
+</span></span><span style="display:flex;"><span>        length(d) <span style="color:#f92672">==</span> length(x) <span style="color:#f92672">&amp;&amp;</span> all(isfinite<span style="color:#f92672">.</span>(x))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> _logpdf(d<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianRandomWalk</span>, x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>{<span style="color:#66d9ef">T</span>}) <span style="color:#66d9ef">where</span> {<span style="color:#66d9ef">T</span><span style="color:#f92672">&lt;:</span><span style="color:#66d9ef">Real</span>}
+</span></span><span style="display:flex;"><span>        randomwalk_like <span style="color:#f92672">=</span> logpdf<span style="color:#f92672">.</span>(Normal<span style="color:#f92672">.</span>(d<span style="color:#f92672">.</span>mu <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], d<span style="color:#f92672">.</span>sig), x[<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>])
+</span></span><span style="display:flex;"><span>        logpdf(d<span style="color:#f92672">.</span>init, x[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">+</span> sum(randomwalk_like)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p><code>length</code> を定義するときは、ドリフト項の数が次元より一つ小さくなることに注意。</p>
 <p>\( D \) の確率密度関数を \( f_D \), \( \text{Normal}(\mu, \sigma) \)の確率密度関数を \( f_{\mu, \sigma} \) とすると、
 多変量分布 \( (Y_0, …, Y_n) \) の確率密度関数 \( f \) が</p>
 <p>\(
@@ -200,96 +200,96 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
 \)</p>
 <p>となるので <code>_logpdf</code> は上のような定義になっている。(本当はここの理由もちゃんと詰めて書いた方が良い気がする)</p>
 <p> <code>quote</code> の意味が最初わからなかったが、これで <code>quote</code> から <code>end</code> までのコード全体をオブジェクトとして <code>extensions</code> に代入して、下のように空のモジュールを作成して、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">module</span> Testing <span style="color:#66d9ef">end</span>
-</code></pre></div><p>下を実行すると</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">Core<span style="color:#f92672">.</span>eval(Testing, extensions)
-</code></pre></div><p> <code>Testing</code> モジュール内で <code>quote</code> した <code>extension</code> の内容が読み込まれるということのようだ。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Testing <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>下を実行すると</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Core<span style="color:#f92672">.</span>eval(Testing, extensions)
+</span></span></code></pre></div><p> <code>Testing</code> モジュール内で <code>quote</code> した <code>extension</code> の内容が読み込まれるということのようだ。</p>
 <p><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/index.html#Metaprogramming-1">https://docs.julialang.org/en/v1/manual/metaprogramming/index.html#Metaprogramming-1</a></p>
 <p>新しく作成した分布を用いてMambaのモデルを作成し、サンプリングをしてみよう。
 簡単のためにドリフトは無視して、分散 \( \sqrt{100} \) の正規分布の列からなる100次元の <code>GaussianRandomWalk</code> のサンプルを作成し、モデルを作成して分散を推定してみる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
-<span style="color:#a6e22e">@everywhere</span> eval(extensions)
-
-model <span style="color:#f92672">=</span> Model(
-
-y <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
-    sig <span style="color:#f92672">-&gt;</span> GaussianRandomWalk(zeros(<span style="color:#ae81ff">99</span>), sqrt(sig), Normal(<span style="color:#ae81ff">0</span>, sqrt(sig))),
-        false
-    ),
-    sig <span style="color:#f92672">=</span> Stochastic(
-        () <span style="color:#f92672">-&gt;</span> InverseGamma(<span style="color:#ae81ff">0.001</span>, <span style="color:#ae81ff">0.001</span>)
-    ),
-)
-
-scheme <span style="color:#f92672">=</span> [AMWG(<span style="color:#e6db74">:sig</span>, <span style="color:#ae81ff">10.0</span>)]
-setsamplers!(model, scheme)
-
-data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(
-    <span style="color:#e6db74">:y</span> <span style="color:#f92672">=&gt;</span> cumsum(rand(MvNormal(<span style="color:#ae81ff">100</span>, sqrt(<span style="color:#ae81ff">100</span>))))
-)
-
-inits <span style="color:#f92672">=</span> [
-    <span style="color:#66d9ef">Dict</span>(
-        <span style="color:#e6db74">:y</span> <span style="color:#f92672">=&gt;</span> data[<span style="color:#e6db74">:y</span>],
-        <span style="color:#e6db74">:sig</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
-    )
-    <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
-]
-
-sim <span style="color:#f92672">=</span> mcmc(model, data, inits, <span style="color:#ae81ff">21000</span>, burnin<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, thin<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
-describe(sim)
-
-println(<span style="color:#e6db74">&#34;Actual variance: &#34;</span>, var(diff(data[<span style="color:#e6db74">:y</span>])))
-
-p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim, legend <span style="color:#f92672">=</span> true)
-Mamba<span style="color:#f92672">.</span>draw(p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
-</code></pre></div><p>結果-&gt;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">MCMC Simulation of <span style="color:#ae81ff">21000</span> Iterations x <span style="color:#ae81ff">3</span> Chains...
-Chain 1:   0% <span style="color:#f92672">[</span>1:17:22 of 1:17:24 remaining<span style="color:#f92672">]</span>
-Chain 1:  10% <span style="color:#f92672">[</span>0:00:24 of 0:00:27 remaining<span style="color:#f92672">]</span>
-Chain 1:  20% <span style="color:#f92672">[</span>0:00:11 of 0:00:14 remaining<span style="color:#f92672">]</span>
-Chain 1:  30% <span style="color:#f92672">[</span>0:00:07 of 0:00:09 remaining<span style="color:#f92672">]</span>
-Chain 1:  40% <span style="color:#f92672">[</span>0:00:04 of 0:00:07 remaining<span style="color:#f92672">]</span>
-Chain 1:  50% <span style="color:#f92672">[</span>0:00:03 of 0:00:06 remaining<span style="color:#f92672">]</span>
-Chain 1:  60% <span style="color:#f92672">[</span>0:00:02 of 0:00:05 remaining<span style="color:#f92672">]</span>
-Chain 1:  70% <span style="color:#f92672">[</span>0:00:01 of 0:00:05 remaining<span style="color:#f92672">]</span>
-Chain 1:  80% <span style="color:#f92672">[</span>0:00:01 of 0:00:04 remaining<span style="color:#f92672">]</span>
-Chain 1:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:04 remaining<span style="color:#f92672">]</span>
-Chain 1: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:04 remaining<span style="color:#f92672">]</span>
-Chain 2:   0% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  10% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  20% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  30% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  40% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  50% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  60% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  70% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  80% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 2: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:   0% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  10% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  20% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  30% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  40% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  50% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  60% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  70% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  80% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Chain 3: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
-Iterations <span style="color:#f92672">=</span> 1004:21000
-Thinning interval <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
-Chains <span style="color:#f92672">=</span> 1,2,3
-Samples per chain <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
-Empirical Posterior Estimates:
-      Mean       SD      Naive SE     MCSE       ESS  
-sig 91.87928 13.629016 0.111280453 0.21081987 4179.323
-Quantiles:
-       2.5%     25.0%     50.0%    75.0%     97.5%  
-sig 69.039156 82.188388 90.31312 100.2171 122.073783
-Actual variance: 92.0192593899444
-</code></pre></div><p><img src="/images/posts/mamba-gaussianrandomwalk.png" alt="事後分布"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> eval(extensions)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Model(
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    sig <span style="color:#f92672">-&gt;</span> GaussianRandomWalk(zeros(<span style="color:#ae81ff">99</span>), sqrt(sig), Normal(<span style="color:#ae81ff">0</span>, sqrt(sig))),
+</span></span><span style="display:flex;"><span>        false
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    sig <span style="color:#f92672">=</span> Stochastic(
+</span></span><span style="display:flex;"><span>        () <span style="color:#f92672">-&gt;</span> InverseGamma(<span style="color:#ae81ff">0.001</span>, <span style="color:#ae81ff">0.001</span>)
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scheme <span style="color:#f92672">=</span> [AMWG(<span style="color:#e6db74">:sig</span>, <span style="color:#ae81ff">10.0</span>)]
+</span></span><span style="display:flex;"><span>setsamplers!(model, scheme)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:y</span> <span style="color:#f92672">=&gt;</span> cumsum(rand(MvNormal(<span style="color:#ae81ff">100</span>, sqrt(<span style="color:#ae81ff">100</span>))))
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>inits <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Dict</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:y</span> <span style="color:#f92672">=&gt;</span> data[<span style="color:#e6db74">:y</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">:sig</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sim <span style="color:#f92672">=</span> mcmc(model, data, inits, <span style="color:#ae81ff">21000</span>, burnin<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, thin<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>describe(sim)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Actual variance: &#34;</span>, var(diff(data[<span style="color:#e6db74">:y</span>])))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim, legend <span style="color:#f92672">=</span> true)
+</span></span><span style="display:flex;"><span>Mamba<span style="color:#f92672">.</span>draw(p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>結果-&gt;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>MCMC Simulation of <span style="color:#ae81ff">21000</span> Iterations x <span style="color:#ae81ff">3</span> Chains...
+</span></span><span style="display:flex;"><span>Chain 1:   0% <span style="color:#f92672">[</span>1:17:22 of 1:17:24 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  10% <span style="color:#f92672">[</span>0:00:24 of 0:00:27 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  20% <span style="color:#f92672">[</span>0:00:11 of 0:00:14 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  30% <span style="color:#f92672">[</span>0:00:07 of 0:00:09 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  40% <span style="color:#f92672">[</span>0:00:04 of 0:00:07 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  50% <span style="color:#f92672">[</span>0:00:03 of 0:00:06 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  60% <span style="color:#f92672">[</span>0:00:02 of 0:00:05 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  70% <span style="color:#f92672">[</span>0:00:01 of 0:00:05 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  80% <span style="color:#f92672">[</span>0:00:01 of 0:00:04 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:04 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 1: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:04 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:   0% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  10% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  20% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  30% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  40% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  50% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  60% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  70% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  80% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 2: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:   0% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  10% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  20% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  30% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  40% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  50% <span style="color:#f92672">[</span>0:00:01 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  60% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  70% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  80% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3:  90% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Chain 3: 100% <span style="color:#f92672">[</span>0:00:00 of 0:00:01 remaining<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Iterations <span style="color:#f92672">=</span> 1004:21000
+</span></span><span style="display:flex;"><span>Thinning interval <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>Chains <span style="color:#f92672">=</span> 1,2,3
+</span></span><span style="display:flex;"><span>Samples per chain <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>Empirical Posterior Estimates:
+</span></span><span style="display:flex;"><span>      Mean       SD      Naive SE     MCSE       ESS  
+</span></span><span style="display:flex;"><span>sig 91.87928 13.629016 0.111280453 0.21081987 4179.323
+</span></span><span style="display:flex;"><span>Quantiles:
+</span></span><span style="display:flex;"><span>       2.5%     25.0%     50.0%    75.0%     97.5%  
+</span></span><span style="display:flex;"><span>sig 69.039156 82.188388 90.31312 100.2171 122.073783
+</span></span><span style="display:flex;"><span>Actual variance: 92.0192593899444
+</span></span></code></pre></div><p><img src="/images/posts/mamba-gaussianrandomwalk.png" alt="事後分布"></p>
 <p>標本分散が92だから正しく推定できているのではないだろうか。</p>
 <p>次は、確認を兼ねて、作った <code>GaussianRandomWalk</code> を使って時系列モデルの構築に挑戦したい。</p>
 <p>全部のコード:</p>
@@ -459,7 +459,7 @@ Actual variance: 92.0192593899444
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

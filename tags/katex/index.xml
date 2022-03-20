@@ -20,13 +20,13 @@
       <guid>https://matsueushi.github.io/posts/katex-multiline/</guid>
       <description>&lt;p&gt;結構手間取った。&lt;br&gt;
 バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;(
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;\begin&lt;/span&gt;{aligned} 
-    x &amp;amp;= 1+1 &lt;span style=&#34;color:#66d9ef&#34;&gt;\\\\&lt;/span&gt; 
-    &amp;amp;= 2
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;\end&lt;/span&gt;{aligned}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;\begin&lt;/span&gt;{aligned} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &amp;amp;= 1+1 &lt;span style=&#34;color:#66d9ef&#34;&gt;\\\\&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;amp;= 2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;\end&lt;/span&gt;{aligned}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;
 &lt;p&gt;\(
 \begin{aligned}
 x &amp;amp;= 1+1 \\

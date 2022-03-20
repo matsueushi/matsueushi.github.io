@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Distribution.jlで分布をシフト・スケールさせる</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -134,29 +134,29 @@ onload='renderMathInElement(document.body);'></script>
 <a href="https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl">https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl</a></p>
 </blockquote>
 <p>例えば、PyMC3の <code>StudentT</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">pm<span style="color:#f92672">.</span>StudentT(<span style="color:#e6db74">&#39;x&#39;</span>, nu<span style="color:#f92672">=</span>nu, mu<span style="color:#f92672">=</span>mu, lam<span style="color:#f92672">=</span>lam)
-</code></pre></div><p>に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの <code>TDist</code> のパラメトライズは <code>nu</code> だけで <code>mu</code> や <code>lam</code> は指定できないが、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">LocationScale(mu, lam, TDist(nu))
-</code></pre></div><p>とすればOK。PyMCの <code>StudentT</code> に出ている <code>pdf</code> と同じグラフを書いて確認しよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions
-<span style="color:#66d9ef">using</span> Plots
-<span style="color:#66d9ef">using</span> Printf
-
-<span style="color:#75715e"># StudentT分布のシフト</span>
-x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span>
-mu <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]
-lam <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
-nu <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>]
-plt <span style="color:#f92672">=</span> Plots<span style="color:#f92672">.</span>plot()
-
-<span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
-    y <span style="color:#f92672">=</span> pdf<span style="color:#f92672">.</span>(LocationScale(mu[i], lam[i], TDist(nu[i])), x)
-    Plots<span style="color:#f92672">.</span>plot!(x, y, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
-        label <span style="color:#f92672">=</span> <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;mu = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">, lam = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">, nu = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">&#34;</span>, 
-            mu[i], lam[i], nu[i]))
-<span style="color:#66d9ef">end</span>
-plt
-</code></pre></div><p><img src="/images/posts/shift-scale-distribution.png" alt="シフトした分布"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>pm<span style="color:#f92672">.</span>StudentT(<span style="color:#e6db74">&#39;x&#39;</span>, nu<span style="color:#f92672">=</span>nu, mu<span style="color:#f92672">=</span>mu, lam<span style="color:#f92672">=</span>lam)
+</span></span></code></pre></div><p>に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの <code>TDist</code> のパラメトライズは <code>nu</code> だけで <code>mu</code> や <code>lam</code> は指定できないが、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>LocationScale(mu, lam, TDist(nu))
+</span></span></code></pre></div><p>とすればOK。PyMCの <code>StudentT</code> に出ている <code>pdf</code> と同じグラフを書いて確認しよう。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Printf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># StudentT分布のシフト</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>mu <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>lam <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>nu <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>]
+</span></span><span style="display:flex;"><span>plt <span style="color:#f92672">=</span> Plots<span style="color:#f92672">.</span>plot()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> pdf<span style="color:#f92672">.</span>(LocationScale(mu[i], lam[i], TDist(nu[i])), x)
+</span></span><span style="display:flex;"><span>    Plots<span style="color:#f92672">.</span>plot!(x, y, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>        label <span style="color:#f92672">=</span> <span style="color:#a6e22e">@sprintf</span>(<span style="color:#e6db74">&#34;mu = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">, lam = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">, nu = </span><span style="color:#e6db74">%.1f</span><span style="color:#e6db74">&#34;</span>, 
+</span></span><span style="display:flex;"><span>            mu[i], lam[i], nu[i]))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>plt
+</span></span></code></pre></div><p><img src="/images/posts/shift-scale-distribution.png" alt="シフトした分布"></p>
 <p>良さそうだ。</p>
 </div>
 	</section>
@@ -332,7 +332,7 @@ plt
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

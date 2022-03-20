@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Arrayを横に並べてMatrixにする</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -126,21 +126,21 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>自分用メモ。Juliaで <code>Array</code> を横に並べて <code>Matrix</code> にする方法は、<code>repeat</code> で第1引数を1にして、第2引数を並べたい個数にすればいい。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]
-<span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">2</span>
- <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">4</span>
- <span style="color:#ae81ff">5</span>
-julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>], <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>
- <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>
- <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>
-</code></pre></div></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>], <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div></div>
 	</section>
 
 
@@ -298,7 +298,7 @@ julia<span style="color:#f92672">&gt;</span> repeat([<span style="color:#ae81ff"
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

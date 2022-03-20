@@ -25,62 +25,62 @@
 &lt;a href=&#34;https://sleepless-se.net/2018/09/15/gcp-ssh/&#34;&gt;https://sleepless-se.net/2018/09/15/gcp-ssh/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Juliaのバイナリをダウンロード&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解凍&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo mkdir /bin/julia
-$ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia
-$ /bin/julia/julia-1.1.0/bin/julia
-               _
-   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
-  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
-   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
-  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
-  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-01-21&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
- _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
-|__/                   |
-
-julia&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;シンボリックリンクを作成&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo ln -s /bin/julia/julia-1.1.0/bin/julia /usr/local/bin/julia
-$ julia
-               _
-   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
-  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
-   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
-  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
-  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-01-21&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
- _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
-|__/                   |
-julia&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;IJuliaのインストール&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Pkg
-julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; Pkg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(“IJulia”)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Anacondaもインストールしておく。bzip2が入っていなかったのでインストールして、&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo apt-get update
-$ sudo apt-get install bzip2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Anacondaをインストール&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ curl -OL https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
-$ bash Anaconda3-2018.12-Linux-x86_64.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これを参考にしてJupyter Notebookの設定に入る&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解凍&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo mkdir /bin/julia
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /bin/julia/julia-1.1.0/bin/julia
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               _
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-01-21&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|__/                   |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;シンボリックリンクを作成&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo ln -s /bin/julia/julia-1.1.0/bin/julia /usr/local/bin/julia
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ julia
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               _
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _       _ _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;_     |  Documentation: https://docs.julialang.org
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;     | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;    |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   _ _   _| |_  __ _   |  Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;]?&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Pkg help.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | | | | | |/ _&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; |  |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  | | |_| | | | &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;_| |  |  Version 1.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2019-01-21&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; _/ |&lt;span style=&#34;color:#ae81ff&#34;&gt;\_&lt;/span&gt;_&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_|  |  Official https://julialang.org/ release
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|__/                   |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;IJuliaのインストール&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Pkg
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; Pkg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(“IJulia”)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Anacondaもインストールしておく。bzip2が入っていなかったのでインストールして、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo apt-get install bzip2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Anacondaをインストール&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ curl -OL https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ bash Anaconda3-2018.12-Linux-x86_64.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これを参考にしてJupyter Notebookの設定に入る&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Running Jupyter Notebook on Google Cloud Platform in 15 min&lt;br&gt;
 &lt;a href=&#34;https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52&#34;&gt;https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ jupyter notebook --generate-config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;vim /home/matsueushi/.jupyter/jupyter_notebook_config.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を開いて&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_config()
-c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0.0.0.0&amp;#39;&lt;/span&gt;
-c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open_browser &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
-c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Port Number&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を追加する&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ jupyter notebook --generate-config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim /home/matsueushi/.jupyter/jupyter_notebook_config.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を開いて&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_config()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0.0.0.0&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open_browser &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Port Number&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を追加する&lt;/p&gt;
 &lt;p&gt;GCPのVMインスタンス設定画面でFirewallsの「Allow HTTPS traffic」をチェック&lt;/p&gt;
 &lt;p&gt;「NETWORKING -&amp;gt; VPC Network -&amp;gt; Firewall rules -&amp;gt; Create a firewall」で&lt;/p&gt;
 &lt;p&gt;「Target tags」を「https-server」、&lt;/p&gt;
 &lt;p&gt;「Source IP range」を「0.0.0.0/0」、&lt;/p&gt;
 &lt;p&gt;「Protocols and ports」の「Specified protocols and ports-&amp;gt;tcp」をチェックしてポート番号に&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Port Number&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;のポート番号を追加。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Port Number&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;のポート番号を追加。&lt;/p&gt;
 &lt;p&gt;http://&lt;External IP&gt;:8888/&lt;/p&gt;
 &lt;p&gt;にアクセスして、&lt;/p&gt;
 &lt;p&gt;http://(julia or 127.0.0.1):8888/?token= のあとのtokenを入れる&lt;/p&gt;
@@ -93,11 +93,11 @@ c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;NotebookApp&lt;span sty
       <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
       
       <guid>https://matsueushi.github.io/posts/jupyter-kernel-location/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ jupyter kernelspec list
-Available kernels:
-  julia-1.1    /home/matsueushi/.local/share/jupyter/kernels/julia-1.1
-  python3      /home/matsueushi/.local/share/jupyter/kernels/python3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ jupyter kernelspec list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Available kernels:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  julia-1.1    /home/matsueushi/.local/share/jupyter/kernels/julia-1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  python3      /home/matsueushi/.local/share/jupyter/kernels/python3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;How do I add python3 kernel to jupyter (IPython)
 &lt;a href=&#34;https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803&#34;&gt;https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

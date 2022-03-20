@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -153,32 +153,32 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 <li>カーネル <code>k</code> に対してカーネル関数 \( k(x, y) \) と相互共分散 \( (k(x_i, y_j))_{i,j}\) がそれぞれ <code>ker(k, x, y)</code> と <code>cov(k, xs, ys)</code> で計算できる</li>
 </ol>
 <p>と仮定する。ということで、まずはライブラリの読み込み。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions
-<span style="color:#66d9ef">using</span> Plots
-<span style="color:#66d9ef">using</span> LinearAlgebra
-
-include(<span style="color:#e6db74">&#34;gp.jl&#34;</span>)
-</code></pre></div><p>データは、MLPシリーズ 「<a href="http://chasen.org/~daiti-m/gpbook/">ガウス過程と機械学習</a>」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># サンプルデータの作成</span>
-
-xs <span style="color:#f92672">=</span> vcat(rand(<span style="color:#ae81ff">80</span>),rand(<span style="color:#ae81ff">20</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">.+</span> <span style="color:#ae81ff">1.0</span>)
-sort!(xs)
-fx <span style="color:#f92672">=</span> sin<span style="color:#f92672">.</span>(xs<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
-ys <span style="color:#f92672">=</span> fx <span style="color:#f92672">+</span> rand(Normal(), Base<span style="color:#f92672">.</span>length(fx)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.3</span>
-
-ts <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>)
-plot(ts, sin<span style="color:#f92672">.</span>(ts<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>), lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-
-scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</code></pre></div><p><img src="/images/posts/ivm-sample-data.png" alt="サンプルデータ"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> LinearAlgebra
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>include(<span style="color:#e6db74">&#34;gp.jl&#34;</span>)
+</span></span></code></pre></div><p>データは、MLPシリーズ 「<a href="http://chasen.org/~daiti-m/gpbook/">ガウス過程と機械学習</a>」の pp.157, 図5.3 補助入力点の配置 と同じサンプルを使う。上記のページに掲載されている、「補助変数法の例 (1次元の場合).」のデータの生成方法を参考にして次のようにデータを100個作成した。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># サンプルデータの作成</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> vcat(rand(<span style="color:#ae81ff">80</span>),rand(<span style="color:#ae81ff">20</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">.+</span> <span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>sort!(xs)
+</span></span><span style="display:flex;"><span>fx <span style="color:#f92672">=</span> sin<span style="color:#f92672">.</span>(xs<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>ys <span style="color:#f92672">=</span> fx <span style="color:#f92672">+</span> rand(Normal(), Base<span style="color:#f92672">.</span>length(fx)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ts <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>plot(ts, sin<span style="color:#f92672">.</span>(ts<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>), lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p><img src="/images/posts/ivm-sample-data.png" alt="サンプルデータ"></p>
 <p>\( y = \sin (2x) \) にノイズを加えたもので、\( [0,1] \) の間はデータの密度が高くなっている。<code>ts</code> は、あとで使う分布を予測したい点である。</p>
 <p>今回予測するのは、観測値 \( y \) ではなく、出力値 \( f \)とする。
 (最初にやっていた時は観測値を予測していて、本の図と同じにならなくて混乱していた)</p>
 <p>考えるカーネルは、ガウスカーネル \( k(x, x^\prime) = \exp(-|x- x^\prime|^2) \) である。
 観測誤差は \( \sigma^2 = 1.0 \) としておく。コードの中ではこれを <code>eta</code> で表す。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">gk <span style="color:#f92672">=</span> GaussianKernel()
-eta <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
-</code></pre></div><h3 id="gp">GP</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gk <span style="color:#f92672">=</span> GaussianKernel()
+</span></span><span style="display:flex;"><span>eta <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span></code></pre></div><h3 id="gp">GP</h3>
 <p>まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、</p>
 <p>$$
 p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
@@ -186,95 +186,95 @@ p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K
 $$</p>
 <p>であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。</p>
 <p>1点の予測分布を計算する関数を実装しよう。自分の実装では、<code>cov</code> は行列を返すため、1x1の行列を <code>first</code> を使ってスカラーにしている。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">Kff <span style="color:#f92672">=</span> cov(gk, xs, xs)
-n <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(xs)
-Σ <span style="color:#f92672">=</span> inv(Kff <span style="color:#f92672">+</span> eta <span style="color:#f92672">*</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, n, n))
-
-<span style="color:#75715e"># 1点の予測分布</span>
-
-<span style="color:#66d9ef">function</span> gp(t)
-    Kft <span style="color:#f92672">=</span> cov(gk, xs, [t])
-    Ktf <span style="color:#f92672">=</span> Kft<span style="color:#f92672">&#39;</span>
-    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
-
-    gp_mu <span style="color:#f92672">=</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> ys
-    gp_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kft
-    Normal(first(gp_mu), sqrt(first(gp_cov)))
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>以下のコードで表示すると、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">gp_dists <span style="color:#f92672">=</span> [gp(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
-gp_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(gp_dists)
-gp_qt <span style="color:#f92672">=</span> hcat([quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> gp_dists]<span style="color:#f92672">...</span>)
-
-<span style="color:#66d9ef">function</span> gp_plot()
-    plot(ts, gp_qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> gp_qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], 
-        fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
-
-    plot!(ts, sin<span style="color:#f92672">.</span>(ts<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>), lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y=sin(2x)&#34;</span>)
-    plot!(ts, gp_mean, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GP&#34;</span>)
-    scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-<span style="color:#66d9ef">end</span>
-
-gp_plot()
-</code></pre></div><p><img src="/images/posts/ivm-gp.png" alt="GP"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kff <span style="color:#f92672">=</span> cov(gk, xs, xs)
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(xs)
+</span></span><span style="display:flex;"><span>Σ <span style="color:#f92672">=</span> inv(Kff <span style="color:#f92672">+</span> eta <span style="color:#f92672">*</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, n, n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1点の予測分布</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> gp(t)
+</span></span><span style="display:flex;"><span>    Kft <span style="color:#f92672">=</span> cov(gk, xs, [t])
+</span></span><span style="display:flex;"><span>    Ktf <span style="color:#f92672">=</span> Kft<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    gp_mu <span style="color:#f92672">=</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> ys
+</span></span><span style="display:flex;"><span>    gp_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kft
+</span></span><span style="display:flex;"><span>    Normal(first(gp_mu), sqrt(first(gp_cov)))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>以下のコードで表示すると、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp_dists <span style="color:#f92672">=</span> [gp(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
+</span></span><span style="display:flex;"><span>gp_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(gp_dists)
+</span></span><span style="display:flex;"><span>gp_qt <span style="color:#f92672">=</span> hcat([quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> gp_dists]<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> gp_plot()
+</span></span><span style="display:flex;"><span>    plot(ts, gp_qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> gp_qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], 
+</span></span><span style="display:flex;"><span>        fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plot!(ts, sin<span style="color:#f92672">.</span>(ts<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>), lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y=sin(2x)&#34;</span>)
+</span></span><span style="display:flex;"><span>    plot!(ts, gp_mean, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GP&#34;</span>)
+</span></span><span style="display:flex;"><span>    scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gp_plot()
+</span></span></code></pre></div><p><img src="/images/posts/ivm-gp.png" alt="GP"></p>
 <p>(なぜか <code>savefig</code> でpng形式で保存すると <code>fillrange</code> した最小値の部分に線が出てしまった。)</p>
 <p>早速それぞれの補助変数法でどれくらい近似できているかを見ていこう。補助入力点が、2点、5点、10点ある場合を考え、点は等間隔に配置されているとする。(SoD を除く)</p>
 <p>本質的な部分とは関係ないが、先にプロット用の関数を定義しておく。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> plot_result(gp_mean, gp_qt, mn, qt, ind_xs, label)
-    plot(ts, gp_qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> gp_qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], 
-        fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GP&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
-    plot!(ts, qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>,
-               label <span style="color:#f92672">=</span> label, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
-
-    plot!(ts, gp_mean, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-    
-    plot!(ts, mn, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-
-    scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-    scatter!(ind_xs, fill(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, Base<span style="color:#f92672">.</span>length(ind_xs)), 
-    markershape <span style="color:#f92672">=</span> <span style="color:#e6db74">:x</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-<span style="color:#66d9ef">end</span>
-</code></pre></div><h3 id="the-subset-of-data-sod">The Subset of Data (SoD)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_result(gp_mean, gp_qt, mn, qt, ind_xs, label)
+</span></span><span style="display:flex;"><span>    plot(ts, gp_qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> gp_qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], 
+</span></span><span style="display:flex;"><span>        fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GP&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    plot!(ts, qt[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">:</span>], fillrange <span style="color:#f92672">=</span> qt[<span style="color:#ae81ff">2</span>, <span style="color:#f92672">:</span>], fillalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>,
+</span></span><span style="display:flex;"><span>               label <span style="color:#f92672">=</span> label, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plot!(ts, gp_mean, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    plot!(ts, mn, lw <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    scatter!(xs, ys, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    scatter!(ind_xs, fill(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, Base<span style="color:#f92672">.</span>length(ind_xs)), 
+</span></span><span style="display:flex;"><span>    markershape <span style="color:#f92672">=</span> <span style="color:#e6db74">:x</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h3 id="the-subset-of-data-sod">The Subset of Data (SoD)</h3>
 <p>SoD は他の SoR, DTC, FITC とは違い、任意に補助入力点を選べる訳ではなく元の入力点の部分集合として選ばなくてはいけない。
 ここでは、サンプルの左からの順番が等間隔になるように選んだ。(例えば5点選ぶ場合、左から1, 21, 41, 61, 81番目)。</p>
 <p>ランダムに選択したり、なるべく等間隔になるように選んだりすればもっとデータがよく代表されるようになり精度が向上するかもしれない。
 実装に関しては、GPの入力点を減らしただけである。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> sod_plot(sod_xs, sod_ys)
-    Kff <span style="color:#f92672">=</span> cov(gk, sod_xs, sod_xs)
-    n <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(sod_xs)
-    Σ <span style="color:#f92672">=</span> inv(Kff <span style="color:#f92672">+</span> eta <span style="color:#f92672">*</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, n, n))
-
-    <span style="color:#75715e"># 各点の分布を計算して信用区間を計算する</span>
-
-    <span style="color:#66d9ef">function</span> sod(t)
-        Kft <span style="color:#f92672">=</span> cov(gk, sod_xs, [t])
-        Ktf <span style="color:#f92672">=</span> Kft<span style="color:#f92672">&#39;</span>
-        Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
-
-        gp_mu <span style="color:#f92672">=</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> sod_ys
-        gp_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kft
-        Normal(first(gp_mu), sqrt(first(gp_cov)))
-    <span style="color:#66d9ef">end</span>
-
-    sod_dists <span style="color:#f92672">=</span> [sod(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
-    sod_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(sod_dists)
-    sod_qt <span style="color:#f92672">=</span> hcat(
-        [quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> sod_dists]<span style="color:#f92672">...</span>)
-
-    plot_result(gp_mean, gp_qt, sod_mean, sod_qt, sod_xs, <span style="color:#e6db74">&#34;SoD&#34;</span>)
-<span style="color:#66d9ef">end</span>
-
-plts <span style="color:#f92672">=</span> [gp_plot()]
-
-<span style="color:#66d9ef">for</span> where_xs <span style="color:#66d9ef">in</span> [<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">50</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>]
-    sod_xs <span style="color:#f92672">=</span> xs[where_xs]
-    sod_ys <span style="color:#f92672">=</span> ys[where_xs]
-
-    push!(plts, sod_plot(sod_xs, sod_ys))
-<span style="color:#66d9ef">end</span>
-
-plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">600</span>])
-</code></pre></div><p><img src="/images/posts/ivm-sod.png" alt="SoD"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> sod_plot(sod_xs, sod_ys)
+</span></span><span style="display:flex;"><span>    Kff <span style="color:#f92672">=</span> cov(gk, sod_xs, sod_xs)
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(sod_xs)
+</span></span><span style="display:flex;"><span>    Σ <span style="color:#f92672">=</span> inv(Kff <span style="color:#f92672">+</span> eta <span style="color:#f92672">*</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}(I, n, n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 各点の分布を計算して信用区間を計算する</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> sod(t)
+</span></span><span style="display:flex;"><span>        Kft <span style="color:#f92672">=</span> cov(gk, sod_xs, [t])
+</span></span><span style="display:flex;"><span>        Ktf <span style="color:#f92672">=</span> Kft<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>        Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        gp_mu <span style="color:#f92672">=</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> sod_ys
+</span></span><span style="display:flex;"><span>        gp_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Ktf <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kft
+</span></span><span style="display:flex;"><span>        Normal(first(gp_mu), sqrt(first(gp_cov)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sod_dists <span style="color:#f92672">=</span> [sod(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
+</span></span><span style="display:flex;"><span>    sod_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(sod_dists)
+</span></span><span style="display:flex;"><span>    sod_qt <span style="color:#f92672">=</span> hcat(
+</span></span><span style="display:flex;"><span>        [quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> sod_dists]<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plot_result(gp_mean, gp_qt, sod_mean, sod_qt, sod_xs, <span style="color:#e6db74">&#34;SoD&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plts <span style="color:#f92672">=</span> [gp_plot()]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> where_xs <span style="color:#66d9ef">in</span> [<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">50</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>]
+</span></span><span style="display:flex;"><span>    sod_xs <span style="color:#f92672">=</span> xs[where_xs]
+</span></span><span style="display:flex;"><span>    sod_ys <span style="color:#f92672">=</span> ys[where_xs]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    push!(plts, sod_plot(sod_xs, sod_ys))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">600</span>])
+</span></span></code></pre></div><p><img src="/images/posts/ivm-sod.png" alt="SoD"></p>
 <p>左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。</p>
 <h3 id="the-subset-of-regressors-sor">The Subset of Regressors (SoR)</h3>
 <p>前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が
@@ -290,39 +290,39 @@ $$
 \end{aligned}
 $$
 と表されることを思い出すと、SoRは次のように実装できる。<code>us</code> の取り方が SoD と違っていることに注意。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> sor_plot(us)
-    Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
-    Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
-    Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
-    Σ <span style="color:#f92672">=</span> inv(<span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
-
-    <span style="color:#66d9ef">function</span> sor(t)
-        Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
-        Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
-
-        sor_mu <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> ys
-        sor_cov <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
-        Normal(first(sor_mu), sqrt(first(sor_cov)))
-    <span style="color:#66d9ef">end</span>
-
-    sor_dists <span style="color:#f92672">=</span> [sor(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
-    sor_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(sor_dists)
-    sor_qt <span style="color:#f92672">=</span> hcat(
-        [quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> sor_dists]<span style="color:#f92672">...</span>)
-
-    plot_result(gp_mean, gp_qt, sor_mean, sor_qt, us, <span style="color:#e6db74">&#34;SoR&#34;</span>)
-<span style="color:#66d9ef">end</span>
-
-plts <span style="color:#f92672">=</span> [gp_plot()]
-
-<span style="color:#66d9ef">for</span> du <span style="color:#66d9ef">in</span> [<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.5</span>]
-    us <span style="color:#f92672">=</span> collect(range(<span style="color:#ae81ff">0</span>, stop <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span> du, step <span style="color:#f92672">=</span> du))
-
-    push!(plts, sor_plot(us))
-<span style="color:#66d9ef">end</span>
-
-plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">600</span>])
-</code></pre></div><p><img src="/images/posts/ivm-sor.png" alt="SoR"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> sor_plot(us)
+</span></span><span style="display:flex;"><span>    Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
+</span></span><span style="display:flex;"><span>    Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
+</span></span><span style="display:flex;"><span>    Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>    Σ <span style="color:#f92672">=</span> inv(<span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> sor(t)
+</span></span><span style="display:flex;"><span>        Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
+</span></span><span style="display:flex;"><span>        Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        sor_mu <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> ys
+</span></span><span style="display:flex;"><span>        sor_cov <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
+</span></span><span style="display:flex;"><span>        Normal(first(sor_mu), sqrt(first(sor_cov)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sor_dists <span style="color:#f92672">=</span> [sor(t) <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> ts]
+</span></span><span style="display:flex;"><span>    sor_mean <span style="color:#f92672">=</span> mean<span style="color:#f92672">.</span>(sor_dists)
+</span></span><span style="display:flex;"><span>    sor_qt <span style="color:#f92672">=</span> hcat(
+</span></span><span style="display:flex;"><span>        [quantile<span style="color:#f92672">.</span>(s, [<span style="color:#ae81ff">0.025</span>, <span style="color:#ae81ff">0.975</span>]) <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> sor_dists]<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plot_result(gp_mean, gp_qt, sor_mean, sor_qt, us, <span style="color:#e6db74">&#34;SoR&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plts <span style="color:#f92672">=</span> [gp_plot()]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> du <span style="color:#66d9ef">in</span> [<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.5</span>]
+</span></span><span style="display:flex;"><span>    us <span style="color:#f92672">=</span> collect(range(<span style="color:#ae81ff">0</span>, stop <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span> du, step <span style="color:#f92672">=</span> du))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    push!(plts, sor_plot(us))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">600</span>])
+</span></span></code></pre></div><p><img src="/images/posts/ivm-sor.png" alt="SoR"></p>
 <p>式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。</p>
 <h3 id="the-deterministic-training-conditional-dtc">The Deterministic Training Conditional (DTC)</h3>
 <p>DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。
@@ -334,24 +334,24 @@ q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
 \end{aligned}
 $$</p>
 <p>だったから、SoRの最初の計算部分を</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
-Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
-Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
-Σ <span style="color:#f92672">=</span> inv(<span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
-
-<span style="color:#66d9ef">function</span> dtc(t)
-    Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
-    Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
-
-    Qtt <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kut
-    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
-
-    sor_mu <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> ys
-    sor_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Qtt <span style="color:#f92672">+</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
-
-    Normal(first(sor_mu), sqrt(first(sor_cov)))
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>に変えるだけでいい。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
+</span></span><span style="display:flex;"><span>Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
+</span></span><span style="display:flex;"><span>Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>Σ <span style="color:#f92672">=</span> inv(<span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> dtc(t)
+</span></span><span style="display:flex;"><span>    Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
+</span></span><span style="display:flex;"><span>    Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Qtt <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kut
+</span></span><span style="display:flex;"><span>    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sor_mu <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> eta <span style="color:#f92672">*</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> ys
+</span></span><span style="display:flex;"><span>    sor_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Qtt <span style="color:#f92672">+</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Normal(first(sor_mu), sqrt(first(sor_cov)))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>に変えるだけでいい。</p>
 <p><img src="/images/posts/ivm-dtc.png" alt="DTC"></p>
 <p>5点の場合のデータがない部分の分散の情報がかなり改善されているし、10点ではほとんど平均、分散共にぴったり近似できている。
 そうなるとFITCを使うまでもないということにもなりかねないが……</p>
@@ -371,28 +371,28 @@ q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
 \end{aligned}
 $$</p>
 <p>だったから同様に</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
-Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
-Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
-
-Λ <span style="color:#f92672">=</span> Diagonal([ker(gk, xs[i], xs[i]) 
-        <span style="color:#f92672">-</span> Kfu[i, <span style="color:#f92672">:</span>]<span style="color:#f92672">&#39;</span> <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kuf[<span style="color:#f92672">:</span>, i] <span style="color:#f92672">+</span> eta 
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>Base<span style="color:#f92672">.</span>length(xs)])
-Σ <span style="color:#f92672">=</span> inv(Kuf <span style="color:#f92672">*</span> inv(Λ) <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
-
-<span style="color:#66d9ef">function</span> fitc(t)
-    Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
-    Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
-
-    Qtt <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kut
-    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
-
-    sor_mu <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> inv(Λ) <span style="color:#f92672">*</span> ys
-    sor_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Qtt <span style="color:#f92672">+</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
-
-    Normal(first(sor_mu), sqrt(first(sor_cov)))
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p><img src="/images/posts/ivm-fitc.png" alt="FITC"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
+</span></span><span style="display:flex;"><span>Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
+</span></span><span style="display:flex;"><span>Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Λ <span style="color:#f92672">=</span> Diagonal([ker(gk, xs[i], xs[i]) 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">-</span> Kfu[i, <span style="color:#f92672">:</span>]<span style="color:#f92672">&#39;</span> <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kuf[<span style="color:#f92672">:</span>, i] <span style="color:#f92672">+</span> eta 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>Base<span style="color:#f92672">.</span>length(xs)])
+</span></span><span style="display:flex;"><span>Σ <span style="color:#f92672">=</span> inv(Kuf <span style="color:#f92672">*</span> inv(Λ) <span style="color:#f92672">*</span> Kfu <span style="color:#f92672">+</span> Kuu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> fitc(t)
+</span></span><span style="display:flex;"><span>    Kut <span style="color:#f92672">=</span> cov(gk, us, [t])
+</span></span><span style="display:flex;"><span>    Ktu <span style="color:#f92672">=</span> Kut<span style="color:#f92672">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Qtt <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> inv(Kuu) <span style="color:#f92672">*</span> Kut
+</span></span><span style="display:flex;"><span>    Ktt <span style="color:#f92672">=</span> [ker(gk, t, t)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sor_mu <span style="color:#f92672">=</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kuf <span style="color:#f92672">*</span> inv(Λ) <span style="color:#f92672">*</span> ys
+</span></span><span style="display:flex;"><span>    sor_cov <span style="color:#f92672">=</span> Ktt <span style="color:#f92672">-</span> Qtt <span style="color:#f92672">+</span> Ktu <span style="color:#f92672">*</span> Σ <span style="color:#f92672">*</span> Kut
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Normal(first(sor_mu), sqrt(first(sor_cov)))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p><img src="/images/posts/ivm-fitc.png" alt="FITC"></p>
 <p>あまりDTCと変わらない感じになってしまった。この場合だと追加で計算した分散の対角線部分があまり効いてこなかったのだろう。</p>
 <h3 id="手法の比較">手法の比較</h3>
 <p>最後に、点の数を揃えて比較してみる。図示方法を変えるだけなので、コードは省略。</p>
@@ -558,7 +558,7 @@ Kfu <span style="color:#f92672">=</span> Kuf<span style="color:#f92672">&#39;</s
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.92.0" />
+	<meta name="generator" content="Hugo 0.94.2" />
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -135,31 +135,31 @@ onload='renderMathInElement(document.body);'></script>
 <h2 id="新しいデータセットの生成">新しいデータセットの生成</h2>
 <p>PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。</p>
 <p><a href="https://github.com/brian-j-smith/Mamba.jl">Mamba.jl</a>は分布の作成に<a href="https://github.com/JuliaStats/Distributions.jl">Distributions.jl</a>を使っているので、シミュレーションだけ行いたかったらDistributionsを <code>using</code> すれば十分。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distributions
-<span style="color:#66d9ef">using</span> Plots
-</code></pre></div><p>データセットの作成とプロットは下のようになる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> plot_artificial_sms_dataset()
-    tau <span style="color:#f92672">=</span> rand(DiscreteUniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">80</span>))
-    theta <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
-    lambda_1, lambda_2 <span style="color:#f92672">=</span> rand(Exponential(theta), <span style="color:#ae81ff">2</span>)
-    lambda_ <span style="color:#f92672">=</span> cat(fill(lambda_1, tau), fill(lambda_2, <span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> tau), dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-    data <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>rand(Poisson(lambda_))
-    barc <span style="color:#f92672">=</span> fill(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">80</span>)
-    barc[tau] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
-    bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, data, linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>, fillcolor <span style="color:#f92672">=</span> barc,
-        xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-<span style="color:#66d9ef">end</span>
-plts <span style="color:#f92672">=</span> []
-<span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
-    push!(plts, plot_artificial_sms_dataset())
-<span style="color:#66d9ef">end</span>
-plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
-</code></pre></div><p><img src="/images/posts/bayesian-methods-julia-3_messages.png" alt="メッセージ数"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+</span></span></code></pre></div><p>データセットの作成とプロットは下のようになる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_artificial_sms_dataset()
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> rand(DiscreteUniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">80</span>))
+</span></span><span style="display:flex;"><span>    theta <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>    lambda_1, lambda_2 <span style="color:#f92672">=</span> rand(Exponential(theta), <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    lambda_ <span style="color:#f92672">=</span> cat(fill(lambda_1, tau), fill(lambda_2, <span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> tau), dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>rand(Poisson(lambda_))
+</span></span><span style="display:flex;"><span>    barc <span style="color:#f92672">=</span> fill(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">80</span>)
+</span></span><span style="display:flex;"><span>    barc[tau] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    bar(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, data, linecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:transparent</span>, fillcolor <span style="color:#f92672">=</span> barc,
+</span></span><span style="display:flex;"><span>        xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (days)&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of messages&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>plts <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    push!(plts, plot_artificial_sms_dataset())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-3_messages.png" alt="メッセージ数"></p>
 <p>Plots.jlでPythonのMatplotlibと同様に複数のSubplotsを表示するには、一旦list (e.g. <code>plt</code> )にプロット結果を受けておいて、最後に一気に</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot(plts…, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
-</code></pre></div><p>として表示すればできる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">plot(plts, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
-</code></pre></div><p>だと <code>MethodError: no method matching MethodError(::String)</code> が出てダメだった。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(plts…, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</span></span></code></pre></div><p>として表示すればできる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(plts, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">800</span>])
+</span></span></code></pre></div><p>だと <code>MethodError: no method matching MethodError(::String)</code> が出てダメだった。</p>
 <p>モデルシミュレーションのコード -&gt;
 <a href="https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb">https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_simulate_model.ipynb</a></p>
 </div>
@@ -314,7 +314,7 @@ plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f926
 <div class="pb-2">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
