@@ -7,6 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
+    <lastBuildDate>Sat, 23 Apr 2022 07:11:38 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/other/index.xml" rel="self" type="application/rss+xml" />
     
@@ -936,6 +937,17 @@
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>自分用メモ</title>
+      <link>https://matsueushi.github.io/other/matsueushi-memo/</link>
+      <pubDate>Sat, 23 Apr 2022 07:11:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/other/matsueushi-memo/</guid>
+      <description>&lt;p&gt;Dockerでコンテナ作成&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -p 8888:8888 --name &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;名前&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; -it -v &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;:/home/jovyan/work &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;イメージ名&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

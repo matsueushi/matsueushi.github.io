@@ -20,6 +20,12 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] ",
+    "permalink": "https://matsueushi.github.io/other/matsueushi-memo/",
+    "tags": null,
+    "title": "自分用メモ"
+  },
+  {
     "contents": "DiscogsというレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。\n音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、 そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。\nそこまでレアなCDか？と思うようなものが過去に20万とか40万円で取引されていてかなり謎です(価格は右の方に表記あり)。 https://www.discogs.com/ja/release/7218654-Heather-Nova-South\nhttps://www.discogs.com/ja/release/15283232-Valerie-Carter-Midnight-Over-Honey-River\nマネーロンダリングという考察もあるようですが、真偽は不明です。誰か知っていたら教えてください。\nMoney Laundering on Discogs\nMoney Laundering?\n",
     "permalink": "https://matsueushi.github.io/posts/discogs-money-laundering/",
     "tags": [
