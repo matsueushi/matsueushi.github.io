@@ -20,6 +20,14 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc250/tasks/abc250_e\nコンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。\n\\(S_i= \\{a_1, \\ldots, a_i\\}, T_i=\\{b_i, \\ldots, b_i \\} \\)とおくと、\\( S_1 \\subseteq S_2 \\subseteq \\cdots \\subseteq S_n, T_1 \\subseteq T_2 \\subseteq \\cdots \\subseteq T_n\\)となる。\n\\(f_i= \\max \\{j \\mid T_j \\subseteq S_i \\}, g_i= \\max \\{j \\mid S_j \\subseteq T_i \\} \\) を計算する。例えば\\(f_i\\)まで計算した後に\\(f_{i+1}\\)を計算するときは、\\(b_{f_i+1}, b_{f_i+2}, \\ldots \\) が \\(S_{i+1}\\) に含まれているかをチェックしていき含まれなくなったら打ち切れば良い。\n後は\\(S_i = T_j \\Leftrightarrow S_i \\subseteq T_j, T_j \\subseteq S_i \\Leftrightarrow i \\le g_j, j \\le f_i\\)でクエリを判定すればよかった。\n(Julia, 564 ms) https://atcoder.jp/contests/abc250/submissions/31571164\n",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-250e/",
+    "tags": [
+      "AtCoder"
+    ],
+    "title": "Atcoder 250 E - Prefix Equality"
+  },
+  {
     "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] ",
     "permalink": "https://matsueushi.github.io/other/matsueushi-memo/",
     "tags": null,
