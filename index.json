@@ -25,7 +25,7 @@
     "tags": [
       "AtCoder"
     ],
-    "title": "Atcoder 250 E - Prefix Equality"
+    "title": "AtCoder 250 E - Prefix Equality"
   },
   {
     "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] ",
