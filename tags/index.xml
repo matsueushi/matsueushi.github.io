@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Mon, 09 May 2022 21:47:26 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 May 2022 21:55:31 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,9 +15,18 @@
     <item>
       <title>AtCoder</title>
       <link>https://matsueushi.github.io/tags/atcoder/</link>
-      <pubDate>Mon, 09 May 2022 21:47:26 +0900</pubDate>
+      <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/atcoder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CompetitiveProgramming</title>
+      <link>https://matsueushi.github.io/tags/competitiveprogramming/</link>
+      <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/competitiveprogramming/</guid>
       <description></description>
     </item>
     

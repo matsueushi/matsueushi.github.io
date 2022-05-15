@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoder 250 E - Prefix Equality</title>
+	<title>matsueushi  | CompetitiveProgramming</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.97.3" />
 	
@@ -26,6 +26,9 @@
 
 	
 
+	
+	<link rel="alternate" href="/tags/competitiveprogramming/index.xml" type="application/rss+xml" title="matsueushi">
+	<link rel="feed" href="/tags/competitiveprogramming/index.xml" type="application/rss+xml" title="matsueushi">
 	
 	
 	
@@ -89,65 +92,11 @@ onload='renderMathInElement(document.body);'></script>
 		<header class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
 			<div
 				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
-				
-<div>
-	<h2>
-		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
-	</h2>
-</div>
-<h1 class="pt-2">AtCoder 250 E - Prefix Equality</h1>
-
-<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
-	
-
-	
-
-	
-	
-	
-	
-	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
-	
-	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
-	
-	
-	
-</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-05-09T21:47:26&#43;09:00">2022-5-9 21:47</time>
-</div>
-
-<hr />
-
-
-			</div>
-		</header>
-		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
-			
-
-<article>
-	<section class="mx-auto content">
-		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc250/tasks/abc250_e">https://atcoder.jp/contests/abc250/tasks/abc250_e</a></p>
-<p>コンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。</p>
-<p>\(S_i= \{a_1, \ldots, a_i\}, T_i=\{b_i, \ldots, b_i \} \)とおくと、\( S_1 \subseteq S_2 \subseteq \cdots \subseteq S_n, T_1 \subseteq T_2 \subseteq \cdots \subseteq T_n\)となる。</p>
-<p>\(f_i= \max \{j \mid T_j \subseteq S_i \}, g_i= \max \{j \mid S_j \subseteq T_i \} \) を計算する。例えば\(f_i\)まで計算した後に\(f_{i+1}\)を計算するときは、\(b_{f_i+1}, b_{f_i+2}, \ldots \) が \(S_{i+1}\) に含まれているかをチェックしていき含まれなくなったら打ち切れば良い。</p>
-<p>後は\(S_i = T_j \Leftrightarrow S_i \subseteq T_j, T_j \subseteq S_i \Leftrightarrow i \le g_j, j \le f_i\)でクエリを判定すればよかった。</p>
-<p>(Julia, 564 ms)
-<a href="https://atcoder.jp/contests/abc250/submissions/31571164">https://atcoder.jp/contests/abc250/submissions/31571164</a></p>
-</div>
-	</section>
-
-
-</article>
-
-		</main>
-		<div class="w-full h-0 flex-none order-3"></div>
-		<aside role="contentinfo"
-			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
-			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
-				
-	<div class="md:max-w-xs  flex flex-col md:items-end">
+					<div class="pb-4">
+		<h1 >
+			<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+		</h1>
+	</div>
 	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
 	
 	
@@ -159,8 +108,7 @@ onload='renderMathInElement(document.body);'></script>
 	</li>
 	
 	<li class="px-1 md:px-0">
-		<a href="/posts/" title="Blog page" 
-			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+		<a href="/posts/" title="Blog page" >
 			Blog
 		</a>
 	</li>
@@ -190,15 +138,451 @@ onload='renderMathInElement(document.body);'></script>
 	</li>
 	
 	<li class="px-1 md:px-0">
-		<a href="/tags/" title="Tags page" >
+		<a href="/tags/" title="Tags page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
 			Tags
 		</a>
 	</li>
 	
 	
+	<li>
+		<a href='/tags/competitiveprogramming/index.xml'>RSS</a>
+	</li>
+	
 	
 	
 </ul>
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+<h1 class="pb-4">
+	CompetitiveProgramming
+</h1>
+<div>
+	<section>
+		
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="https://matsueushi.github.io/posts/atcoder-green/">
+			AtCoderで緑色になった
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2022-05-15T21:55:31&#43;09:00">2022-5-15 21:55</time>
+	</div>
+</div>
+
+		</div>
+		
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="https://matsueushi.github.io/posts/atcoder-250e/">
+			AtCoder 250 E - Prefix Equality
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2022-05-09T21:47:26&#43;09:00">2022-5-9 21:47</time>
+	</div>
+</div>
+
+		</div>
+		
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="https://matsueushi.github.io/posts/julia-atcoder/">
+			JuliaでAtCoderに挑戦
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/julia'>Julia</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2022-02-04T23:09:38&#43;09:00">2022-2-4 23:09</time>
+	</div>
+</div>
+
+		</div>
+		
+	</section>
+</div>
+
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="md:max-w-xs  flex flex-col md:items-end pt-2">
 	
 
 <div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
@@ -232,75 +616,24 @@ onload='renderMathInElement(document.body);'></script>
 	</a>
 	
 </div>
-	<div class="text-sm text-gray-500 leading-tight a-gray">
+	<div class="a-gray text-sm text-gray-500 leading-tight">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 246 words in this page.
+		Built with Hugo and theme <a 
+			href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>.
+			<br />
 	</div>
 </div>
-
 			</div>
 		</aside>
 		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
 			
-<hr class="double-line" />
-<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
-    
-    <a class="flex-grow-0" href="/other/matsueushi-memo/">
-        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-            height="24">
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        自分用メモ
-    </a>
-    
-    
-    <a class="flex-grow-0" href="/posts/atcoder-green/">
-        AtCoderで緑色になった
-        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-            height="24">
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
-    
-</div>
-<div >
 
 
 
-<div class="font-serif pb-2 flex align-start leading-loose">
-	<span class="heading pr-6 leading-loose">Related</span>
-	<span >
-		
-			<a href="/posts/julia-atcoder/">JuliaでAtCoderに挑戦</a>
-		
-</span>
-</div>
 
-</div>
-<hr />
-<div class="pb-2">
-    <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
-<hr />
+
+
 
 		</footer>
 		

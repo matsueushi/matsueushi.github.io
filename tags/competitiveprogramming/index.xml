@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AtCoder on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/atcoder/</link>
-    <description>Recent content in AtCoder on matsueushi</description>
+    <title>CompetitiveProgramming on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/competitiveprogramming/</link>
+    <description>Recent content in CompetitiveProgramming on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
     <lastBuildDate>Sun, 15 May 2022 21:55:31 +0900</lastBuildDate>
     
-	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
