@@ -954,15 +954,15 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
     
     <item>
       <title>AtCoder 250 E - Prefix Equality</title>
-      <link>https://matsueushi.github.io/posts/atcoder-250e/</link>
+      <link>https://matsueushi.github.io/posts/atcoder-abc-250-e/</link>
       <pubDate>Mon, 09 May 2022 21:47:26 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/atcoder-250e/</guid>
+      <guid>https://matsueushi.github.io/posts/atcoder-abc-250-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc250/tasks/abc250_e&#34;&gt;https://atcoder.jp/contests/abc250/tasks/abc250_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;コンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。&lt;/p&gt;
 &lt;p&gt;\(S_i= \{a_1, \ldots, a_i\}, T_i=\{b_i, \ldots, b_i \} \)とおくと、\( S_1 \subseteq S_2 \subseteq \cdots \subseteq S_n, T_1 \subseteq T_2 \subseteq \cdots \subseteq T_n\)となる。&lt;/p&gt;
-&lt;p&gt;\(f_i= \max \{j \mid T_j \subseteq S_i \}, g_i= \max \{j \mid S_j \subseteq T_i \} \) を計算する。例えば\(f_i\)まで計算した後に\(f_{i+1}\)を計算するときは、\(b_{f_i+1}, b_{f_i+2}, \ldots \) が \(S_{i+1}\) に含まれているかをチェックしていき含まれなくなったら打ち切れば良い。&lt;/p&gt;
-&lt;p&gt;後は\(S_i = T_j \Leftrightarrow S_i \subseteq T_j, T_j \subseteq S_i \Leftrightarrow i \le g_j, j \le f_i\)でクエリを判定すればよかった。&lt;/p&gt;
+&lt;p&gt;\(f_i= \max \{j \mid T_j \subseteq S_i \}, g_i= \max \{j \mid S_j \subseteq T_i \} \) を計算する。例えば\(f_i\)まで計算した後に\(f_{i+1}\)を計算するときは、\(b_{f_i+1}, b_{f_i+2}, \ldots , b_j\) が \(S_{i+1}\) に含まれているかをチェックしていき含まれなくなったら\(f_{i+1}=j-1\) とすれば良い。&lt;/p&gt;
+&lt;p&gt;後は\(S_i = T_j \Leftrightarrow S_i \subseteq T_j, T_j \subseteq S_i \Leftrightarrow i \le g_j, j \le f_i\)でクエリを判定すれば良い。&lt;/p&gt;
 &lt;p&gt;(Julia, 564 ms)
 &lt;a href=&#34;https://atcoder.jp/contests/abc250/submissions/31571164&#34;&gt;https://atcoder.jp/contests/abc250/submissions/31571164&lt;/a&gt;&lt;/p&gt;
 </description>
