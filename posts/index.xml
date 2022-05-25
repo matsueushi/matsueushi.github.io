@@ -33,6 +33,7 @@
 &lt;p&gt;\(dp[i+1,k,0] = dp[i,k,0]+9\cdot dp[i,k-1,0]+dp[i,k,1]+(N_{i+1}-1)dp[i,k-1,1] (k \ge 1, N_{i+1}\neq 0),\)&lt;/p&gt;
 &lt;p&gt;\(dp[i+1,k,1] = dp[i,k,1] (N_{i+1} = 0),\)&lt;/p&gt;
 &lt;p&gt;\(dp[i+1,k,1] = dp[i,k-1,1](N_{i+1} \neq 0),\)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc154/submissions/31951620&#34;&gt;https://atcoder.jp/contests/abc154/submissions/31951620&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;調べてみたらこういうものを桁DPというらしい。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;参考
