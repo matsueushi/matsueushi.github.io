@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc154/tasks/abc154_e\n\\(N\\) の上 \\(i\\) 桁をつなげた数を \\(N(i)\\) とする。 \\(N\\) の上から \\(i\\) 桁目を \\(N_i\\) とする。\\(N\\) の桁数を \\(l\\) とする。\n\\(dp[i,k,0] = \\{ n \\in \\mathbb{Z} \\mid n \u0026lt; N(i) ,n の 0 でない数字の数が k \\}\\) \\(dp[i,k,1] = \\{ n \\in \\mathbb{Z} \\mid n = N(i) ,n の 0 でない数字の数が k \\}\\) とすると、求めたいのは \\(dp[l,K,0] + dp[l,K,1]\\) である。\n\\(dp[i,0,0]=1, \\) (0 に対応)\n\\(dp[1,1,0] = N_1-1,\\) (1,\u0026hellip;,N1- 1に対応)\n\\(dp[1,k,0]= 0 (k \\ge 2),\\)\n\\(dp[1,k,1] = 1,\\)\n遷移を考えると\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0] (k \\ge 1, N_{i+1}=0),\\)\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0]+dp[i,k,1]+(N_{i+1}-1)dp[i,k-1,1] (k \\ge 1, N_{i+1}\\neq 0),\\)\n\\(dp[i+1,k,1] = dp[i,k,1] (N_{i+1} = 0),\\)\n\\(dp[i+1,k,1] = dp[i,k-1,1](N_{i+1} \\neq 0),\\)\n調べてみたらこういうものを桁DPというらしい。\n 参考 桁DP(Digit DP) を考え方から問題例まで徹底解説！  ",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-abc154-e/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "Atcoder ABC154 E - Almost Everywhere Zero"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc135/tasks/abc135_c\n勇者が倒せるモンスターの数を無駄にしたくないので、 他の勇者が倒せるモンスターよりも自分しか倒せないモンスターを優先して倒すようにする。\n1番目の街のモンスターは1番目の勇者しか倒せないので、1番目の勇者は優先的に1番目の街のモンスターを倒し、 余力があれば2番の街のモンスターを倒す。 2番目の勇者は残っている2番目の街ののモンスターから倒す…… と順々に考えれば良い\nhttps://atcoder.jp/contests/abc135/submissions/31950249\n",
     "permalink": "https://matsueushi.github.io/posts/atcoder-abc135-c/",
     "tags": [

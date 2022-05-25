@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Wed, 25 May 2022 21:19:09 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 25 May 2022 21:30:34 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -935,6 +935,35 @@
 &lt;li&gt;&lt;a href=&#34;http://web.archive.org/web/20020126201019/http://www2.justnet.ne.jp/~ichiro/oto-crazy-boat.htm&#34;&gt;サークルサウンズの輪 - boat&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは&lt;/a&gt; (&lt;a href=&#34;https://archive.is/WipIb#selection-581.2-613.68&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Atcoder ABC154 E - Almost Everywhere Zero</title>
+      <link>https://matsueushi.github.io/posts/atcoder-abc154-e/</link>
+      <pubDate>Wed, 25 May 2022 21:30:34 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/atcoder-abc154-e/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc154/tasks/abc154_e&#34;&gt;https://atcoder.jp/contests/abc154/tasks/abc154_e&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;\(N\) の上 \(i\) 桁をつなげた数を \(N(i)\) とする。
+\(N\) の上から \(i\) 桁目を \(N_i\) とする。\(N\) の桁数を \(l\) とする。&lt;/p&gt;
+&lt;p&gt;\(dp[i,k,0] = \{ n \in \mathbb{Z} \mid  n &amp;lt; N(i) ,n の 0 でない数字の数が k \}\)
+\(dp[i,k,1] = \{ n \in \mathbb{Z} \mid  n = N(i) ,n の 0 でない数字の数が k \}\)
+とすると、求めたいのは \(dp[l,K,0] + dp[l,K,1]\) である。&lt;/p&gt;
+&lt;p&gt;\(dp[i,0,0]=1, \) (0 に対応)&lt;/p&gt;
+&lt;p&gt;\(dp[1,1,0] = N_1-1,\) (1,&amp;hellip;,N1- 1に対応)&lt;/p&gt;
+&lt;p&gt;\(dp[1,k,0]= 0 (k \ge 2),\)&lt;/p&gt;
+&lt;p&gt;\(dp[1,k,1] = 1,\)&lt;/p&gt;
+&lt;p&gt;遷移を考えると&lt;/p&gt;
+&lt;p&gt;\(dp[i+1,k,0] = dp[i,k,0]+9\cdot dp[i,k-1,0] (k \ge 1, N_{i+1}=0),\)&lt;/p&gt;
+&lt;p&gt;\(dp[i+1,k,0] = dp[i,k,0]+9\cdot dp[i,k-1,0]+dp[i,k,1]+(N_{i+1}-1)dp[i,k-1,1] (k \ge 1, N_{i+1}\neq 0),\)&lt;/p&gt;
+&lt;p&gt;\(dp[i+1,k,1] = dp[i,k,1] (N_{i+1} = 0),\)&lt;/p&gt;
+&lt;p&gt;\(dp[i+1,k,1] = dp[i,k-1,1](N_{i+1} \neq 0),\)&lt;/p&gt;
+&lt;p&gt;調べてみたらこういうものを桁DPというらしい。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参考
+&lt;a href=&#34;https://algo-logic.info/digit-dp/&#34;&gt;桁DP(Digit DP) を考え方から問題例まで徹底解説！&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
