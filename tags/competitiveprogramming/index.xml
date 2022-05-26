@@ -7,10 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Wed, 25 May 2022 21:30:34 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 25 May 2022 23:05:47 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Atcoder みんなのプロコン2019 C - When I hit my pocket...</title>
+      <link>https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/</link>
+      <pubDate>Wed, 25 May 2022 23:05:47 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c&#34;&gt;https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。&lt;/p&gt;
+&lt;p&gt;よって、Kアクション与えられた際、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1アクション使って、ビスケットを1枚増やす&lt;/li&gt;
+&lt;li&gt;2アクション使って、ビスケットA枚をビスケットB枚に交換する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;この二つの選択の組み合わせでビスケットの枚数を最大化する、という問題に帰着される。&lt;/p&gt;
+&lt;p&gt;一つ目の行動を二回繰り返すとビスケットが2枚増える、ということは B&amp;gt;A+2でないと二つ目の行動をする意味がない。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B&amp;gt;A+2であったら二つ目の行動の方が効率が良いので、一つ目の行動でビスケットをA枚まで増やした後二つ目の行動を繰り返し、アクションが最後に1残ったら最後にもう一枚増やす&lt;/li&gt;
+&lt;li&gt;B≤A+2だったら一つ目の行動を連打&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;で良い。後はkとaの大小関係に注意すればOK&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356&#34;&gt;https://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Atcoder ABC154 E - Almost Everywhere Zero</title>

@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c\n円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。\nよって、Kアクション与えられた際、\n 1アクション使って、ビスケットを1枚増やす 2アクション使って、ビスケットA枚をビスケットB枚に交換する  この二つの選択の組み合わせでビスケットの枚数を最大化する、という問題に帰着される。\n一つ目の行動を二回繰り返すとビスケットが2枚増える、ということは B\u0026gt;A+2でないと二つ目の行動をする意味がない。\n B\u0026gt;A+2であったら二つ目の行動の方が効率が良いので、一つ目の行動でビスケットをA枚まで増やした後二つ目の行動を繰り返し、アクションが最後に1残ったら最後にもう一枚増やす B≤A+2だったら一つ目の行動を連打  で良い。後はkとaの大小関係に注意すればOK\nhttps://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356\n",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "Atcoder みんなのプロコン2019 C - When I hit my pocket..."
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc154/tasks/abc154_e\n\\(N\\) の上 \\(i\\) 桁をつなげた数を \\(N(i)\\) とする。 \\(N\\) の上から \\(i\\) 桁目を \\(N_i\\) とする。\\(N\\) の桁数を \\(l\\) とする。\n\\(dp[i,k,0] = \\{ n \\in \\mathbb{Z} \\mid n \u0026lt; N(i) ,n の 0 でない数字の数が k \\}\\) \\(dp[i,k,1] = \\{ n \\in \\mathbb{Z} \\mid n = N(i) ,n の 0 でない数字の数が k \\}\\) とすると、求めたいのは \\(dp[l,K,0] + dp[l,K,1]\\) である。\n\\(dp[i,0,0]=1, \\) (0 に対応)\n\\(dp[1,1,0] = N_1-1,\\) (1,\u0026hellip;,N1- 1に対応)\n\\(dp[1,k,0]= 0 (k \\ge 2),\\)\n\\(dp[1,k,1] = 1,\\)\n遷移を考えると\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0] (k \\ge 1, N_{i+1}=0),\\)\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0]+dp[i,k,1]+(N_{i+1}-1)dp[i,k-1,1] (k \\ge 1, N_{i+1}\\neq 0),\\)\n\\(dp[i+1,k,1] = dp[i,k,1] (N_{i+1} = 0),\\)\n\\(dp[i+1,k,1] = dp[i,k-1,1](N_{i+1} \\neq 0),\\)\nhttps://atcoder.jp/contests/abc154/submissions/31951620\n調べてみたらこういうものを桁DPというらしい。\n 参考 桁DP(Digit DP) を考え方から問題例まで徹底解説！  ",
     "permalink": "https://matsueushi.github.io/posts/atcoder-abc154-e/",
     "tags": [
@@ -736,5 +745,11 @@
       "Cymbals"
     ],
     "title": "Cymbals - That's Entertainment (2000)"
+  },
+  {
+    "contents": "",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-abc117-c/",
+    "tags": null,
+    "title": ""
   }
 ]
