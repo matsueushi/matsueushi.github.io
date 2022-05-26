@@ -7,10 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Wed, 25 May 2022 23:05:47 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 26 May 2022 23:47:34 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Atcoder ABC137 D - Summer Vacation</title>
+      <link>https://matsueushi.github.io/posts/atcoder-abc137-d/</link>
+      <pubDate>Thu, 26 May 2022 23:47:34 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/atcoder-abc137-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc137/tasks/abc137_d&#34;&gt;https://atcoder.jp/contests/abc137/tasks/abc137_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;後ろから貪欲法で解ける気がする。
+M-1日目を考えると、 残っている仕事のうち、
+Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。&lt;/p&gt;
+&lt;p&gt;必要であれば受けた仕事の順番を入れ替えて、
+M-1日目にする仕事は、全てのN件の日雇いバイトの中でAi=1を満たし報酬Biが最大となる仕事である、とできる。&lt;/p&gt;
+&lt;p&gt;次にM-2日目を考えると、できる仕事はAi=1,2である仕事。Ai=1,Biが最大となる仕事は最終日にやることが決まっているので、
+M-1日目と同様の考察により、それを除いた仕事のうち報酬最大となるものを働けば良い。&lt;/p&gt;
+&lt;p&gt;以下繰り返す。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc137/submissions/31967629&#34;&gt;https://atcoder.jp/contests/abc137/submissions/31967629&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Atcoder みんなのプロコン2019 C - When I hit my pocket...</title>

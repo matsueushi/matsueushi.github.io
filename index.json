@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc137/tasks/abc137_d\n後ろから貪欲法で解ける気がする。 M-1日目を考えると、 残っている仕事のうち、 Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。\n必要であれば受けた仕事の順番を入れ替えて、 M-1日目にする仕事は、全てのN件の日雇いバイトの中でAi=1を満たし報酬Biが最大となる仕事である、とできる。\n次にM-2日目を考えると、できる仕事はAi=1,2である仕事。Ai=1,Biが最大となる仕事は最終日にやることが決まっているので、 M-1日目と同様の考察により、それを除いた仕事のうち報酬最大となるものを働けば良い。\n以下繰り返す。\nhttps://atcoder.jp/contests/abc137/submissions/31967629\n",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-abc137-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "Atcoder ABC137 D - Summer Vacation"
+  },
+  {
     "contents": "https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c\n円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。\nよって、Kアクション与えられた際、\n 1アクション使って、ビスケットを1枚増やす 2アクション使って、ビスケットA枚をビスケットB枚に交換する  この二つの選択の組み合わせでビスケットの枚数を最大化する、という問題に帰着される。\n一つ目の行動を二回繰り返すとビスケットが2枚増える、ということは B\u0026gt;A+2でないと二つ目の行動をする意味がない。\n B\u0026gt;A+2であったら二つ目の行動の方が効率が良いので、一つ目の行動でビスケットをA枚まで増やした後二つ目の行動を繰り返し、アクションが最後に1残ったら最後にもう一枚増やす B≤A+2だったら一つ目の行動を連打  で良い。後はkとaの大小関係に注意すればOK\nhttps://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356\n",
     "permalink": "https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/",
     "tags": [
