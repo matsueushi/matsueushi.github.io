@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c\n各行に一つ以上イチゴが乗っている場合、行ごとに分割すれば目的が達成できる。 ある行に注目したときに、\n|🍓|　|　|🍓|　|　|\nであれば\n|1|2|2|2|2|2|\nのような帯に切り分ける。これを繰り返していくとイチゴが乗っていない行以外は、 行だけで注目するとイチゴが一つだけ乗った長方形のケーキに分かれる。 後はイチゴが1つも乗っていない行の切り方をイチゴが乗っている上の行か下の行に合わせて長方形になるようにする。\nhttps://atcoder.jp/contests/ddcc2020-qual/submissions/31996005\n",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-ddcc2020-qual-c/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc137/tasks/abc137_d\n後ろから貪欲法で解ける気がする。 M-1日目を考えると、 残っている仕事のうち、 Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。\n必要であれば受けた仕事の順番を入れ替えて、 M-1日目にする仕事は、全てのN件の日雇いバイトの中でAi=1を満たし報酬Biが最大となる仕事である、とできる。\n次にM-2日目を考えると、できる仕事はAi=1,2である仕事。Ai=1,Biが最大となる仕事は最終日にやることが決まっているので、 M-1日目と同様の考察により、それを除いた仕事のうち報酬最大となるものを働けば良い。\n以下繰り返す。\nhttps://atcoder.jp/contests/abc137/submissions/31967629\n",
     "permalink": "https://matsueushi.github.io/posts/atcoder-abc137-d/",
     "tags": [

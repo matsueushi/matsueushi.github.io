@@ -7,10 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Thu, 26 May 2022 23:47:34 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 28 May 2022 19:55:21 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</title>
+      <link>https://matsueushi.github.io/posts/atcoder-ddcc2020-qual-c/</link>
+      <pubDate>Sat, 28 May 2022 19:55:21 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/atcoder-ddcc2020-qual-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c&#34;&gt;https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;各行に一つ以上イチゴが乗っている場合、行ごとに分割すれば目的が達成できる。
+ある行に注目したときに、&lt;/p&gt;
+&lt;p&gt;|🍓|　|　|🍓|　|　|&lt;/p&gt;
+&lt;p&gt;であれば&lt;/p&gt;
+&lt;p&gt;|1|2|2|2|2|2|&lt;/p&gt;
+&lt;p&gt;のような帯に切り分ける。これを繰り返していくとイチゴが乗っていない行以外は、
+行だけで注目するとイチゴが一つだけ乗った長方形のケーキに分かれる。
+後はイチゴが1つも乗っていない行の切り方をイチゴが乗っている上の行か下の行に合わせて長方形になるようにする。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/ddcc2020-qual/submissions/31996005&#34;&gt;https://atcoder.jp/contests/ddcc2020-qual/submissions/31996005&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Atcoder ABC137 D - Summer Vacation</title>
