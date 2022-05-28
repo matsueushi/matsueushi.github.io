@@ -35,7 +35,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "Atcoder ABC137 D - Summer Vacation"
+    "title": "AtCoder ABC137 D - Summer Vacation"
   },
   {
     "contents": "https://atcoder.jp/contests/abc117/tasks/abc117_c\n数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。 塗りつぶす面積を最小化したい。 X_1, \u0026hellip;, X_M によって M-1 個の区間が作られる。 N=1だったら全ての区間をぬりぶさないとM個の地点全てに到達できない。 N=2だったら一つの区間は塗りつぶさずにスキップできる。 と考えると、最大N-1個の区間は塗りつぶさずにスキップ可能。 よって、塗りつぶさないといけない区間はmax(0, M-N)個。 区間の長さをソートして、短い順にmax(0, M-N)個足した和が答えになる。\nhttps://atcoder.jp/contests/abc117/submissions/31965997\n",
@@ -44,7 +44,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "Atcoder ABC 117 C - Streamline"
+    "title": "AtCoder ABC 117 C - Streamline"
   },
   {
     "contents": "https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c\n円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。\nよって、Kアクション与えられた際、\n 1アクション使って、ビスケットを1枚増やす 2アクション使って、ビスケットA枚をビスケットB枚に交換する  この二つの選択の組み合わせでビスケットの枚数を最大化する、という問題に帰着される。\n一つ目の行動を二回繰り返すとビスケットが2枚増える、ということは B\u0026gt;A+2でないと二つ目の行動をする意味がない。\n B\u0026gt;A+2であったら二つ目の行動の方が効率が良いので、一つ目の行動でビスケットをA枚まで増やした後二つ目の行動を繰り返し、アクションが最後に1残ったら最後にもう一枚増やす B≤A+2だったら一つ目の行動を連打  で良い。後はkとaの大小関係に注意すればOK\nhttps://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356\n",
@@ -53,7 +53,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "Atcoder みんなのプロコン2019 C - When I hit my pocket..."
+    "title": "AtCoder みんなのプロコン2019 C - When I hit my pocket..."
   },
   {
     "contents": "https://atcoder.jp/contests/abc154/tasks/abc154_e\n\\(N\\) の上 \\(i\\) 桁をつなげた数を \\(N(i)\\) とする。 \\(N\\) の上から \\(i\\) 桁目を \\(N_i\\) とする。\\(N\\) の桁数を \\(l\\) とする。\n\\(dp[i,k,0] = \\{ n \\in \\mathbb{Z} \\mid n \u0026lt; N(i) ,n の 0 でない数字の数が k \\}\\) \\(dp[i,k,1] = \\{ n \\in \\mathbb{Z} \\mid n = N(i) ,n の 0 でない数字の数が k \\}\\) とすると、求めたいのは \\(dp[l,K,0] + dp[l,K,1]\\) である。\n\\(dp[i,0,0]=1, \\) (0 に対応)\n\\(dp[1,1,0] = N_1-1,\\) (1,\u0026hellip;,N1- 1に対応)\n\\(dp[1,k,0]= 0 (k \\ge 2),\\)\n\\(dp[1,k,1] = 1,\\)\n遷移を考えると\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0] (k \\ge 1, N_{i+1}=0),\\)\n\\(dp[i+1,k,0] = dp[i,k,0]+9\\cdot dp[i,k-1,0]+dp[i,k,1]+(N_{i+1}-1)dp[i,k-1,1] (k \\ge 1, N_{i+1}\\neq 0),\\)\n\\(dp[i+1,k,1] = dp[i,k,1] (N_{i+1} = 0),\\)\n\\(dp[i+1,k,1] = dp[i,k-1,1](N_{i+1} \\neq 0),\\)\nhttps://atcoder.jp/contests/abc154/submissions/31951620\n調べてみたらこういうものを桁DPというらしい。\n 参考 桁DP(Digit DP) を考え方から問題例まで徹底解説！  ",
@@ -62,7 +62,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "Atcoder ABC154 E - Almost Everywhere Zero"
+    "title": "AtCoder ABC154 E - Almost Everywhere Zero"
   },
   {
     "contents": "https://atcoder.jp/contests/abc135/tasks/abc135_c\n勇者が倒せるモンスターの数を無駄にしたくないので、 他の勇者が倒せるモンスターよりも自分しか倒せないモンスターを優先して倒すようにする。\n1番目の街のモンスターは1番目の勇者しか倒せないので、1番目の勇者は優先的に1番目の街のモンスターを倒し、 余力があれば2番の街のモンスターを倒す。 2番目の勇者は残っている2番目の街ののモンスターから倒す…… と順々に考えれば良い\nhttps://atcoder.jp/contests/abc135/submissions/31950249\n",
@@ -71,7 +71,16 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "Atcoder ABC135 C - City Savers"
+    "title": "AtCoder ABC135 C - City Savers"
+  },
+  {
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero\n数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ ABC 252 E Road Reduction\n ",
+    "permalink": "https://matsueushi.github.io/other/atcoder-memo/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoderメモ書き"
   },
   {
     "contents": "4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。 https://atcoder.jp/users/matsueushi\n蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。 D問題で時間がかかってしまうことが多いので、AtCoder Problems の「Boot camp for Beginners」を解きまくろうと思います。\n",
