@@ -959,6 +959,25 @@ M-1日目と同様の考察により、それを除いた仕事のうち報酬�
     </item>
     
     <item>
+      <title>Atcoder ABC 117 C - Streamline</title>
+      <link>https://matsueushi.github.io/posts/atcoder-abc117-c/</link>
+      <pubDate>Wed, 25 May 2022 23:28:21 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/atcoder-abc117-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc117/tasks/abc117_c&#34;&gt;https://atcoder.jp/contests/abc117/tasks/abc117_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。
+塗りつぶす面積を最小化したい。
+X_1, &amp;hellip;, X_M によって M-1 個の区間が作られる。
+N=1だったら全ての区間をぬりぶさないとM個の地点全てに到達できない。
+N=2だったら一つの区間は塗りつぶさずにスキップできる。
+と考えると、最大N-1個の区間は塗りつぶさずにスキップ可能。
+よって、塗りつぶさないといけない区間はmax(0, M-N)個。
+区間の長さをソートして、短い順にmax(0, M-N)個足した和が答えになる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc117/submissions/31965997&#34;&gt;https://atcoder.jp/contests/abc117/submissions/31965997&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Atcoder みんなのプロコン2019 C - When I hit my pocket...</title>
       <link>https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/</link>
       <pubDate>Wed, 25 May 2022 23:05:47 +0900</pubDate>
@@ -10402,15 +10421,6 @@ New Orderで一番有名な曲、Blue Monday。最初に聞いた時は印象的
 &lt;p&gt; 
 CD、Amazonにはなかったけどタワーレコードには置いてるのでタワレコに急げ！！！！&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://matsueushi.github.io/posts/atcoder-abc117-c/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://matsueushi.github.io/posts/atcoder-abc117-c/</guid>
-      <description></description>
     </item>
     
   </channel>

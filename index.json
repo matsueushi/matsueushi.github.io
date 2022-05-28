@@ -29,6 +29,15 @@
     "title": "Atcoder ABC137 D - Summer Vacation"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc117/tasks/abc117_c\n数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。 塗りつぶす面積を最小化したい。 X_1, \u0026hellip;, X_M によって M-1 個の区間が作られる。 N=1だったら全ての区間をぬりぶさないとM個の地点全てに到達できない。 N=2だったら一つの区間は塗りつぶさずにスキップできる。 と考えると、最大N-1個の区間は塗りつぶさずにスキップ可能。 よって、塗りつぶさないといけない区間はmax(0, M-N)個。 区間の長さをソートして、短い順にmax(0, M-N)個足した和が答えになる。\nhttps://atcoder.jp/contests/abc117/submissions/31965997\n",
+    "permalink": "https://matsueushi.github.io/posts/atcoder-abc117-c/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "Atcoder ABC 117 C - Streamline"
+  },
+  {
     "contents": "https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c\n円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。\nよって、Kアクション与えられた際、\n 1アクション使って、ビスケットを1枚増やす 2アクション使って、ビスケットA枚をビスケットB枚に交換する  この二つの選択の組み合わせでビスケットの枚数を最大化する、という問題に帰着される。\n一つ目の行動を二回繰り返すとビスケットが2枚増える、ということは B\u0026gt;A+2でないと二つ目の行動をする意味がない。\n B\u0026gt;A+2であったら二つ目の行動の方が効率が良いので、一つ目の行動でビスケットをA枚まで増やした後二つ目の行動を繰り返し、アクションが最後に1残ったら最後にもう一枚増やす B≤A+2だったら一つ目の行動を連打  で良い。後はkとaの大小関係に注意すればOK\nhttps://atcoder.jp/contests/yahoo-procon2019-qual/submissions/31952356\n",
     "permalink": "https://matsueushi.github.io/posts/atcoder-yahoo-procon2019-c/",
     "tags": [
@@ -103,7 +112,9 @@
   {
     "contents": "2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。\n",
     "permalink": "https://matsueushi.github.io/posts/2021/",
-    "tags": null,
+    "tags": [
+      "Diary"
+    ],
     "title": "2021年"
   },
   {
@@ -754,11 +765,5 @@
       "Cymbals"
     ],
     "title": "Cymbals - That's Entertainment (2000)"
-  },
-  {
-    "contents": "",
-    "permalink": "https://matsueushi.github.io/posts/atcoder-abc117-c/",
-    "tags": null,
-    "title": ""
   }
 ]
