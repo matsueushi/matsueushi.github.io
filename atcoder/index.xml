@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Mon, 30 May 2022 23:05:11 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 30 May 2022 23:21:40 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder ABC094 C - Many Medians</title>
+      <link>https://matsueushi.github.io/atcoder/abc094-c/</link>
+      <pubDate>Mon, 30 May 2022 23:21:40 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc094-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc094/tasks/arc095_a&#34;&gt;https://atcoder.jp/contests/abc094/tasks/arc095_a&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;具体例で考えてみる。aがソートされているとして、&lt;/p&gt;
+&lt;p&gt;1,2,3,4,5&lt;/p&gt;
+&lt;p&gt;で左からi番目の数を取り除いた中央値を考えると&lt;/p&gt;
+&lt;p&gt;3,3,2,2,2&lt;/p&gt;
+&lt;p&gt;となる。&lt;/p&gt;
+&lt;p&gt;1,2,2,3&lt;/p&gt;
+&lt;p&gt;であれば&lt;/p&gt;
+&lt;p&gt;2,2,2&lt;/p&gt;
+&lt;p&gt;である。&lt;/p&gt;
+&lt;p&gt;pos = floor((l+1)/2), 取り除かれた値をxとすると、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;l が偶数の時&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;x ≤ a[pos] -&amp;gt; 取り除いた後は a[pos+1] が中央値&lt;/li&gt;
+&lt;li&gt;x &amp;gt; a[pos] -&amp;gt; a[pos]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;l が奇数の時&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;x &amp;lt; a[pos] -&amp;gt; a[pos]&lt;/li&gt;
+&lt;li&gt;x ≥ a[pos] -&amp;gt; a[pos-1]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;となる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc094/submissions/32115333&#34;&gt;https://atcoder.jp/contests/abc094/submissions/32115333&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC183 E - Queen on Grid</title>
