@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 28 May 2022 19:55:21 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 30 May 2022 23:05:11 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -940,7 +940,51 @@
     </item>
     
     <item>
-      <title>DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</title>
+      <title>AtCoder ABC183 E - Queen on Grid</title>
+      <link>https://matsueushi.github.io/atcoder/abc183-e/</link>
+      <pubDate>Mon, 30 May 2022 23:05:11 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc183-e/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;https://atcoder.jp/contests/abc183/tasks/abc183_e&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;まず1次元で右にしか進めない場合を考える。
+dp[i]=左からi番目に移動する方法
+とする。&lt;/p&gt;
+&lt;p&gt;dp[i]=2^(n-1)である。1,…,i-1それぞれで立ち止まるか通過するか選べると考えてもいいが、dp[1]=1であり、i番目にいる時、移動をそこでやめてそこで立ち止まってi+1に進むか、そのまま移動してi+1に行くかの2通りがあるので、dp[i+1]=2*dp[i]であると考えられる。&lt;/p&gt;
+&lt;p&gt;2次元にすると、向きが変わる場合があるので&lt;/p&gt;
+&lt;p&gt;各マスでの状態を&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;右向きで進んでいる&lt;/li&gt;
+&lt;li&gt;下向きに進んでいる&lt;/li&gt;
+&lt;li&gt;斜め右下向きに進んでいる&lt;/li&gt;
+&lt;li&gt;立ち止まっている&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;という状態も含めて考える。
+dp[1,1,1]=1,dp[1,1,k]=0 (k=1,2,3)で、&lt;/p&gt;
+&lt;p&gt;dp[i,j,1]=dp[i-1,j,1]+dp[i-1,j,4]&lt;/p&gt;
+&lt;p&gt;dp[i,j,2]=dp[i,-1j,2]+dp[i,j-1,4]&lt;/p&gt;
+&lt;p&gt;dp[i,j,3]=dp[i-1,j-1,3]+dp[i-1,j-1,4]&lt;/p&gt;
+&lt;p&gt;dp[i,j,4]=dp[i-1,j,1]+dp[i,j-1,2]+dp[i-1,j-1,3] + dp[i-1,j,4]+dp[i,j-1,4]+dp[i-1,j-1,4]&lt;/p&gt;
+&lt;p&gt;最後に(h,w)で着地する必要があるので、dp[h,w,4]が答えである。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/submissions/32114608&#34;&gt;https://atcoder.jp/contests/abc183/submissions/32114608&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 130 C - Rectangle Cutting</title>
+      <link>https://matsueushi.github.io/atcoder/abc130-c/</link>
+      <pubDate>Mon, 30 May 2022 21:40:55 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc130-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc130/tasks/abc130_c&#34;&gt;https://atcoder.jp/contests/abc130/tasks/abc130_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;長方形の対角線の交点をCとする。C=(x,y)ならどのように切っても長方形の面積を二等分できる。
+そうでない場合はCと(x,y)を結ぶと二等分できる。
+よって最初の答えは(x,y)の位置に関係なく長方形の面積の半分。最適な切り方が複数あるかは、C=(x,y)であるかどうか。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc130/submissions/32113015&#34;&gt;https://atcoder.jp/contests/abc130/submissions/32113015&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</title>
       <link>https://matsueushi.github.io/atcoder/ddcc2020-qual-c/</link>
       <pubDate>Sat, 28 May 2022 19:55:21 +0900</pubDate>
       
@@ -1090,6 +1134,8 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
 &lt;h2 id=&#34;dp&#34;&gt;DP&lt;/h2&gt;
 &lt;p&gt;ABC 154 E Almost Everywhere Zero&lt;/p&gt;
+&lt;p&gt;2次元
+&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 Queen on Grid&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;数列&#34;&gt;数列&lt;/h2&gt;
 &lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
 &lt;ul&gt;
