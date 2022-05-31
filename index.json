@@ -20,13 +20,22 @@
     "title": "BOaTまとめ"
   },
   {
-    "contents": "https://atcoder.jp/contests/abc094/tasks/arc095_a\n具体例で考えてみる。aがソートされているとして、\n1,2,3,4,5\nで左からi番目の数を取り除いた中央値を考えると\n3,3,2,2,2\nとなる。\n1,2,2,3\nであれば\n2,2,2\nである。\npos = floor((l+1)/2), 取り除かれた値をxとすると、\n l が偶数の時   x ≤ a[pos] -\u0026gt; 取り除いた後は a[pos+1] が中央値 x \u0026gt; a[pos] -\u0026gt; a[pos]  l が奇数の時   x \u0026lt; a[pos] -\u0026gt; a[pos] x ≥ a[pos] -\u0026gt; a[pos-1]  となる。\nhttps://atcoder.jp/contests/abc094/submissions/32115333\n",
+    "contents": "山 i に降った雨の量を \\(2 * x_i\\) とすると、\\(\\sum A_i = 2 \\sum x_i\\) だから、\\(x_i\\) の合計がわかる。\nNが奇数であることから \\(A_i = x_i + x_{i+1}\\) をうまく足して \\(\\sum_{i \\neq j} x_i\\) が作れ、合計から引くことで \\(x_j\\) が求められる。\nhttps://atcoder.jp/contests/abc133/submissions/32131263\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc133-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 133　D - Rain Flows into Dams"
+  },
+  {
+    "contents": "https://atcoder.jp/contests/abc094/tasks/arc095_a\nまず、具体例で考えてみる。aがソートされている場合を考えよう。\n1,2,3,4,5\nで左からi番目の数を取り除いた中央値を考えると\n3,3,2,2,2\nとなる。\n1,2,2,3\nであれば\n2,2,2\nである。\nよって、pos = floor((l+1)/2), 取り除かれた値をxとすると、\n l が偶数の時   x ≤ a[pos] -\u0026gt; 取り除いた後は a[pos+1] が中央値 x \u0026gt; a[pos] -\u0026gt; a[pos]  l が奇数の時   x \u0026lt; a[pos] -\u0026gt; a[pos] x ≥ a[pos] -\u0026gt; a[pos-1]  であることがわかる。\nhttps://atcoder.jp/contests/abc094/submissions/32115333\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc094-c/",
     "tags": [
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC094 C - Many Medians"
+    "title": "AtCoder ABC 094 C - Many Medians"
   },
   {
     "contents": "https://atcoder.jp/contests/abc183/tasks/abc183_e\nまず1次元で右にしか進めない場合を考える。 dp[i]=左からi番目に移動する方法 とする。\ndp[i]=2^(n-1)である。1,…,i-1それぞれで立ち止まるか通過するか選べると考えてもいいが、dp[1]=1であり、i番目にいる時、移動をそこでやめてそこで立ち止まってi+1に進むか、そのまま移動してi+1に行くかの2通りがあるので、dp[i+1]=2*dp[i]であると考えられる。\n2次元にすると、向きが変わる場合があるので\n各マスでの状態を\n 右向きで進んでいる 下向きに進んでいる 斜め右下向きに進んでいる 立ち止まっている  という状態も含めて考える。 dp[1,1,1]=1,dp[1,1,k]=0 (k=1,2,3)で、\ndp[i,j,1]=dp[i-1,j,1]+dp[i-1,j,4]\ndp[i,j,2]=dp[i,-1j,2]+dp[i,j-1,4]\ndp[i,j,3]=dp[i-1,j-1,3]+dp[i-1,j-1,4]\ndp[i,j,4]=dp[i-1,j,1]+dp[i,j-1,2]+dp[i-1,j-1,3] + dp[i-1,j,4]+dp[i,j-1,4]+dp[i-1,j-1,4]\n最後に(h,w)で着地する必要があるので、dp[h,w,4]が答えである。\nhttps://atcoder.jp/contests/abc183/submissions/32114608\n",
@@ -35,7 +44,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC183 E - Queen on Grid"
+    "title": "AtCoder ABC 183 E - Queen on Grid"
   },
   {
     "contents": "https://atcoder.jp/contests/abc130/tasks/abc130_c\n長方形の対角線の交点をCとする。C=(x,y)ならどのように切っても長方形の面積を二等分できる。 そうでない場合はCと(x,y)を結ぶと二等分できる。 よって最初の答えは(x,y)の位置に関係なく長方形の面積の半分。最適な切り方が複数あるかは、C=(x,y)であるかどうか。\nhttps://atcoder.jp/contests/abc130/submissions/32113015\n",
@@ -56,16 +65,16 @@
     "title": "AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes"
   },
   {
-    "contents": "https://atcoder.jp/contests/abc137/tasks/abc137_d\n後ろから貪欲法で解ける気がする。 M-1日目を考えると、 残っている仕事のうち、 Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。\n必要であれば受けた仕事の順番を入れ替えて、 M-1日目にする仕事は、全てのN件の日雇いバイトの中でAi=1を満たし報酬Biが最大となる仕事である、とできる。\n次にM-2日目を考えると、できる仕事はAi=1,2である仕事。Ai=1,Biが最大となる仕事は最終日にやることが決まっているので、 M-1日目と同様の考察により、それを除いた仕事のうち報酬最大となるものを働けば良い。\n以下繰り返す。\nhttps://atcoder.jp/contests/abc137/submissions/31967629\n",
+    "contents": "https://atcoder.jp/contests/abc137/tasks/abc137_d\n後ろから貪欲法で解ける気がする。 M-1日目を考えると、 残っている仕事のうち、 Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。\n必要であれば受けた仕事の順番を入れ替えて、 M-1日目にする仕事は、全てのN件の日雇いバイトの中でAi=1を満たし報酬Biが最大となる仕事である、とできる。\n次にM-2日目を考えると、できる仕事はAi=1,2である仕事。Ai=1,Biが最大となる仕事は最終日にやることが決まっているので、 M-1日目と同様の考察により、それを除いた仕事のうち報酬が最大となるものを働けば良い。\n以下繰り返す。\nhttps://atcoder.jp/contests/abc137/submissions/31967629\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc137-d/",
     "tags": [
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC137 D - Summer Vacation"
+    "title": "AtCoder ABC 137 D - Summer Vacation"
   },
   {
-    "contents": "https://atcoder.jp/contests/abc117/tasks/abc117_c\n数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。 塗りつぶす面積を最小化したい。 X_1, \u0026hellip;, X_M によって M-1 個の区間が作られる。 N=1だったら全ての区間をぬりぶさないとM個の地点全てに到達できない。 N=2だったら一つの区間は塗りつぶさずにスキップできる。 と考えると、最大N-1個の区間は塗りつぶさずにスキップ可能。 よって、塗りつぶさないといけない区間はmax(0, M-N)個。 区間の長さをソートして、短い順にmax(0, M-N)個足した和が答えになる。\nhttps://atcoder.jp/contests/abc117/submissions/31965997\n",
+    "contents": "https://atcoder.jp/contests/abc117/tasks/abc117_c\n数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。\n移動回数を最小化したいので、塗りつぶす面積を最小化することを考える。\nX_1, \u0026hellip;, X_M によって M-1 個の区間が作られる。\nN=1だったら全ての区間をぬりぶさないとM個の地点全てに到達できない。 N=2だったら一つの区間は塗りつぶさずにスキップできる。 このように考えると、最大N-1個の区間は塗りつぶさずにスキップ可能であることがわかる。 よって、塗りつぶさないといけない区間はmax(0, M-N)個。\n区間の長さをソートし、短い順にmax(0, M-N)個の区間の長さの合計を求めると答えになる。\nhttps://atcoder.jp/contests/abc117/submissions/31965997\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc117-c/",
     "tags": [
       "AtCoder",
@@ -89,7 +98,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC154 E - Almost Everywhere Zero"
+    "title": "AtCoder ABC 154 E - Almost Everywhere Zero"
   },
   {
     "contents": "https://atcoder.jp/contests/abc135/tasks/abc135_c\n勇者が倒せるモンスターの数を無駄にしたくないので、 他の勇者が倒せるモンスターよりも自分しか倒せないモンスターを優先して倒すようにする。\n1番目の街のモンスターは1番目の勇者しか倒せないので、1番目の勇者は優先的に1番目の街のモンスターを倒し、 余力があれば2番の街のモンスターを倒す。 2番目の勇者は残っている2番目の街ののモンスターから倒す…… と順々に考えれば良い\nhttps://atcoder.jp/contests/abc135/submissions/31950249\n",
@@ -98,7 +107,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC135 C - City Savers"
+    "title": "AtCoder ABC 135 C - City Savers"
   },
   {
     "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero\n2次元 ABC 183 Queen on Grid\n数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ ABC 252 E Road Reduction\nFenwick Tree  ABC 254 F - Operations on a Matrix   ",
@@ -125,7 +134,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC250 E - Prefix Equality"
+    "title": "AtCoder ABC 250 E - Prefix Equality"
   },
   {
     "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] ",
