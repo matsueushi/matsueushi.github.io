@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc064/tasks/abc064_d\n先頭に\u0026quot;(\u0026quot;, 末尾に\u0026quot;)\u0026ldquo;を繋げて括弧列を作るのが辞書式最小となる。 (そのような作り方をしないと、より左の位置に\u0026rdquo;)\u0026ldquo;が出現する)\n\u0026ldquo;(\u0026rdquo; -\u0026gt; +1, \u0026ldquo;)\u0026rdquo; -\u0026gt; -1 と文字列を置き換えて累積和を取ったものを c[i] とすると、 c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である。\nhttps://atcoder.jp/contests/abc064/submissions/32131694\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc064-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 064 D - Insertion"
+  },
+  {
     "contents": "山 i に降った雨の量を \\(2 * x_i\\) とすると、\\(\\sum A_i = 2 \\sum x_i\\) だから、\\(x_i\\) の合計がわかる。\nNが奇数であることから \\(A_i = x_i + x_{i+1}\\) をうまく足して \\(\\sum_{i \\neq j} x_i\\) が作れ、合計から引くことで \\(x_j\\) が求められる。\nhttps://atcoder.jp/contests/abc133/submissions/32131263\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc133-d/",
     "tags": [
