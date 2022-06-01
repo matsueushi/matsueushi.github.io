@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc134/tasks/abc134_d\n条件を満たすボールの入れ方は、一意に定まる。\nn = 4 の場合、4 までに 3, 4 の倍数は一つしかないので、 | | |X|X| a_3, a_4 の情報から i = 3,4 のボールの個数が確定する。\n次に、a_2 の情報から i = 2 のボールの個数が確定する。最後に i = 1 が確定する。\nこのように考えると、第 k ステップで i ≥ floor(n/2^k) の場所のボールの個数が確定することがわかる。\nhttps://atcoder.jp/contests/abc134/submissions/32148310\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc134-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 134 D - Preparing Boxes"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc064/tasks/abc064_d\n先頭に\u0026quot;(\u0026quot;, 末尾に\u0026quot;)\u0026ldquo;を繋げて括弧列を作るのが辞書式最小となる。 (そのような作り方をしないと、より左の位置に\u0026rdquo;)\u0026ldquo;が出現する)\n\u0026ldquo;(\u0026rdquo; -\u0026gt; +1, \u0026ldquo;)\u0026rdquo; -\u0026gt; -1 と文字列を置き換えて累積和を取ったものを c[i] とすると、 c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である。\nhttps://atcoder.jp/contests/abc064/submissions/32131694\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc064-d/",
     "tags": [
@@ -119,7 +128,7 @@
     "title": "AtCoder ABC 135 C - City Savers"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero\n2次元 ABC 183 Queen on Grid\n数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ ABC 252 E Road Reduction\nFenwick Tree  ABC 254 F - Operations on a Matrix   ",
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero\n2次元 ABC 183 Queen on Grid\n数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes   ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

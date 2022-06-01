@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Tue, 31 May 2022 22:18:08 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jun 2022 22:16:01 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder ABC 134 D - Preparing Boxes</title>
+      <link>https://matsueushi.github.io/atcoder/abc134-d/</link>
+      <pubDate>Wed, 01 Jun 2022 22:16:01 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc134-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/tasks/abc134_d&#34;&gt;https://atcoder.jp/contests/abc134/tasks/abc134_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;条件を満たすボールの入れ方は、一意に定まる。&lt;/p&gt;
+&lt;p&gt;n = 4 の場合、4 までに 3, 4 の倍数は一つしかないので、
+| | |X|X|
+a_3, a_4 の情報から i = 3,4 のボールの個数が確定する。&lt;/p&gt;
+&lt;p&gt;次に、a_2 の情報から i = 2 のボールの個数が確定する。最後に i = 1 が確定する。&lt;/p&gt;
+&lt;p&gt;このように考えると、第 k ステップで i ≥ floor(n/2^k) の場所のボールの個数が確定することがわかる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/submissions/32148310&#34;&gt;https://atcoder.jp/contests/abc134/submissions/32148310&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC 064 D - Insertion</title>
@@ -278,10 +295,20 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_e&#34;&gt;ABC 253 E Distance Sequence&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;ダイクストラ&#34;&gt;ダイクストラ&lt;/h2&gt;
-&lt;p&gt;ABC 252 E Road Reduction&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc252/tasks/abc252_e&#34;&gt;ABC 252 E Road Reduction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;fenwick-tree&#34;&gt;Fenwick Tree&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_f&#34;&gt;ABC 254 F - Operations on a Matrix&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;括弧&#34;&gt;括弧&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc064/tasks/abc064_d&#34;&gt;ABC 064 D - Insertion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;約数&#34;&gt;約数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/tasks/abc134_d&#34;&gt;ABC 134 D - Preparing Boxes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 </description>
