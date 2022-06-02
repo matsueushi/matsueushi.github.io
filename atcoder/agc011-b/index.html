@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi </title>
+	<title>matsueushi  | AtCoder AGC 011 B - Colorful Creatures</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.99.1" />
 	
@@ -26,9 +26,6 @@
 
 	
 
-	
-	<link rel="alternate" href="/series/index.xml" type="application/rss+xml" title="matsueushi">
-	<link rel="feed" href="/series/index.xml" type="application/rss+xml" title="matsueushi">
 	
 	
 	
@@ -92,11 +89,67 @@ onload='renderMathInElement(document.body);'></script>
 		<header class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
 			<div
 				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
-					<div class="pb-4">
-		<h1 >
-			<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
-		</h1>
-	</div>
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">AtCoder AGC 011 B - Colorful Creatures</h1>
+
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-06-02T23:12:47&#43;09:00">2022-6-2 23:12</time>
+</div>
+
+<hr />
+
+
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/agc011/tasks/agc011_b">https://atcoder.jp/contests/agc011/tasks/agc011_b</a></p>
+<p>\(A_i\) を降順にソートしても一般性を失わない。</p>
+<p>大きいものの方が吸収しづらいから、1番最後に\(1\), その前に \(2, \ldots, \)を吸収したとして良い。
+\(A_1, \ldots, A_i\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \(B_i\) とする。</p>
+<p>\(B_1 = \lceil A_1 / 2\rceil \) である。
+\(A_i\) が吸収でき、さらにその後 \(i-1, \ldots, 1\) が吸収できる条件を考えると、
+\(B_i = \max(\lceil A_i / 2 \rceil, B_{i-1}-A_i)\) である。</p>
+<p>各 \(i \) に対し、\(i\) は \(i+1\) 以降を吸収できるから、\( \sum_{k=i}^n A_k \ge B_{i-1} \) を満たすかどうか判定すれば良い。</p>
+<p><a href="https://atcoder.jp/contests/agc011/submissions/32165993">https://atcoder.jp/contests/agc011/submissions/32165993</a></p>
+</div>
+	</section>
+
+
+</article>
+
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
 	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
 	
 	
@@ -114,7 +167,8 @@ onload='renderMathInElement(document.body);'></script>
 	</li>
 	
 	<li class="px-1 md:px-0">
-		<a href="/atcoder/" title="AtCoder page" >
+		<a href="/atcoder/" title="AtCoder page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
 			AtCoder
 		</a>
 	</li>
@@ -150,372 +204,9 @@ onload='renderMathInElement(document.body);'></script>
 	</li>
 	
 	
-	<li>
-		<a href='/series/index.xml'>RSS</a>
-	</li>
-	
 	
 	
 </ul>
-			</div>
-		</header>
-		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
-			
-
-
-<article>
-	<div>
-		
-	</div>
-</article>
-<div>
-	<section>
-		
-	</section>
-</div>
-
-		</main>
-		<div class="w-full h-0 flex-none order-3"></div>
-		<aside role="contentinfo"
-			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
-			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
-				
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="md:max-w-xs  flex flex-col md:items-end pt-2">
 	
 
 <div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
@@ -549,19 +240,104 @@ onload='renderMathInElement(document.body);'></script>
 	</a>
 	
 </div>
-	<div class="a-gray text-sm text-gray-500 leading-tight">
+	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a 
-			href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>.
-			<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 206 words in this page.
 	</div>
 </div>
+
 			</div>
 		</aside>
 		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
 			
-			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/atcoder/abc134-d/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        AtCoder ABC 134 D - Preparing Boxes
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/atcoder/abc134-d/">AtCoder ABC 134 D - Preparing Boxes</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc064-d/">AtCoder ABC 064 D - Insertion</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc133-d/">AtCoder ABC 133　D - Rain Flows into Dams</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc094-c/">AtCoder ABC 094 C - Many Medians</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc183-e/">AtCoder ABC 183 E - Queen on Grid</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc130-c/">AtCoder ABC 130 C - Rectangle Cutting</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/ddcc2020-qual-c/">AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc137-d/">AtCoder ABC 137 D - Summer Vacation</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc117-c/">AtCoder ABC 117 C - Streamline</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/yahoo-procon2019-c/">AtCoder みんなのプロコン2019 C - When I hit my pocket...</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc154-e/">AtCoder ABC 154 E - Almost Everywhere Zero</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc135-c/">AtCoder ABC 135 C - City Savers</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/memo/">AtCoderメモ書き</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/green/">AtCoderで緑色になった</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc250-e/">AtCoder ABC 250 E - Prefix Equality</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
 		</footer>
 		
 

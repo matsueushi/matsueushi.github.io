@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/agc011/tasks/agc011_b\n\\(A_i\\) を降順にソートしても一般性を失わない。\n大きいものの方が吸収しづらいから、1番最後に\\(1\\), その前に \\(2, \\ldots, \\)を吸収したとして良い。 \\(A_1, \\ldots, A_i\\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \\(B_i\\) とする。\n\\(B_1 = \\lceil A_1 / 2\\rceil \\) である。 \\(A_i\\) が吸収でき、さらにその後 \\(i-1, \\ldots, 1\\) が吸収できる条件を考えると、 \\(B_i = \\max(\\lceil A_i / 2 \\rceil, B_{i-1}-A_i)\\) である。\n各 \\(i \\) に対し、\\(i\\) は \\(i+1\\) 以降を吸収できるから、\\( \\sum_{k=i}^n A_k \\ge B_{i-1} \\) を満たすかどうか判定すれば良い。\nhttps://atcoder.jp/contests/agc011/submissions/32165993\n",
+    "permalink": "https://matsueushi.github.io/atcoder/agc011-b/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder AGC 011 B - Colorful Creatures"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc134/tasks/abc134_d\n条件を満たすボールの入れ方は、一意に定まる。\nn = 4 の場合、4 までに 3, 4 の倍数は一つしかないので、 | | |X|X| a_3, a_4 の情報から i = 3,4 のボールの個数が確定する。\n次に、a_2 の情報から i = 2 のボールの個数が確定する。最後に i = 1 が確定する。\nこのように考えると、第 k ステップで i ≥ floor(n/2^k) の場所のボールの個数が確定することがわかる。\nhttps://atcoder.jp/contests/abc134/submissions/32148310\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc134-d/",
     "tags": [
@@ -128,7 +137,7 @@
     "title": "AtCoder ABC 135 C - City Savers"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero\n2次元 ABC 183 Queen on Grid\n数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes   ",
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 Queen on Grid  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes   ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

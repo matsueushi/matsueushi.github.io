@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Wed, 01 Jun 2022 22:16:01 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jun 2022 23:12:47 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -940,6 +940,24 @@
     </item>
     
     <item>
+      <title>AtCoder AGC 011 B - Colorful Creatures</title>
+      <link>https://matsueushi.github.io/atcoder/agc011-b/</link>
+      <pubDate>Thu, 02 Jun 2022 23:12:47 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/agc011-b/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc011/tasks/agc011_b&#34;&gt;https://atcoder.jp/contests/agc011/tasks/agc011_b&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;\(A_i\) を降順にソートしても一般性を失わない。&lt;/p&gt;
+&lt;p&gt;大きいものの方が吸収しづらいから、1番最後に\(1\), その前に \(2, \ldots, \)を吸収したとして良い。
+\(A_1, \ldots, A_i\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \(B_i\) とする。&lt;/p&gt;
+&lt;p&gt;\(B_1 = \lceil A_1 / 2\rceil \) である。
+\(A_i\) が吸収でき、さらにその後 \(i-1, \ldots, 1\) が吸収できる条件を考えると、
+\(B_i = \max(\lceil A_i / 2 \rceil, B_{i-1}-A_i)\) である。&lt;/p&gt;
+&lt;p&gt;各 \(i \) に対し、\(i\) は \(i+1\) 以降を吸収できるから、\( \sum_{k=i}^n A_k \ge B_{i-1} \) を満たすかどうか判定すれば良い。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc011/submissions/32165993&#34;&gt;https://atcoder.jp/contests/agc011/submissions/32165993&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>AtCoder ABC 134 D - Preparing Boxes</title>
       <link>https://matsueushi.github.io/atcoder/abc134-d/</link>
       <pubDate>Wed, 01 Jun 2022 22:16:01 +0900</pubDate>
@@ -1213,9 +1231,17 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
 &lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
 &lt;h2 id=&#34;dp&#34;&gt;DP&lt;/h2&gt;
-&lt;p&gt;ABC 154 E Almost Everywhere Zero&lt;/p&gt;
-&lt;p&gt;2次元
-&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 Queen on Grid&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;&#34;&gt;ABC 154 E Almost Everywhere Zero&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;1次元&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;AGC 034 A - Kenken Race&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2次元&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 Queen on Grid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;数列&#34;&gt;数列&lt;/h2&gt;
 &lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
 &lt;ul&gt;
