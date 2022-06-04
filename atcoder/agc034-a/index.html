@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoder AGC 011 B - Colorful Creatures</title>
+	<title>matsueushi  | AtCoder ABC 034 A - Kenken Race</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.99.1" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoder AGC 011 B - Colorful Creatures</h1>
+<h1 class="pt-2">AtCoder ABC 034 A - Kenken Race</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-06-02T23:12:47&#43;09:00">2022-6-2 23:12</time>
+		datetime="2022-06-04T18:32:50&#43;09:00">2022-6-4 18:32</time>
 </div>
 
 <hr />
@@ -128,15 +128,22 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/agc011/tasks/agc011_b">https://atcoder.jp/contests/agc011/tasks/agc011_b</a></p>
-<p>\(A_i\) を降順にソートしても一般性を失わない。</p>
-<p>大きいものの方が吸収しづらいから、1番最後に\(1\), その前に \(2, \ldots, \)を吸収したとして良い。
-\(A_1, \ldots, A_i\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \(B_i\) とする。</p>
-<p>\(B_1 = \lceil A_1 / 2\rceil \) である。
-\(A_i\) が吸収でき、さらにその後 \(i-1, \ldots, 1\) が吸収できる条件を考えると、
-\(B_i = \max(\lceil A_i / 2 \rceil, B_{i-1}-A_i)\) である。</p>
-<p>各 \(i \) に対し、\(i\) は \(i+1\) 以降を吸収できるから、\( \sum_{k=i}^n A_k \ge B_{i-1} \) を満たすかどうか判定すれば良い。</p>
-<p><a href="https://atcoder.jp/contests/agc011/submissions/32165993">https://atcoder.jp/contests/agc011/submissions/32165993</a></p>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">https://atcoder.jp/contests/agc034/tasks/agc034_a</a></p>
+<p>すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。</p>
+<p>2人いる場合を考えると、\(c&lt;d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、
+ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。
+よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。</p>
+<p>\(c &gt; d \) の場合、順序を入れ替える必要がある。順序が入れ替わるのは、</p>
+<p>(す)(ふ)(空)</p>
+<p>という状態になっている時だから、ふぬけくんの現在いる位置、またはそれより右側で、前後が白マスになっているところを探す。
+つまり、三連続で白マスになっている場所を探す。</p>
+<p>この時、候補の中で1番左の位置にある三連続白マスを考えれば良い。(状態が実現できなければ、それより右の三連続白マスで実現することは不可能のため)</p>
+<p>後は、</p>
+<p>(す)(ふ)(空)</p>
+<p>の状態に到達できるか確認して、到達できれば、順番を入れ替える必要がない\(c &lt; d \)の場合に帰着できる。
+この時、当初の目的地を飛び越えていないかもチェックする。
+到達できなければ、実現不可能。</p>
+<p><a href="https://atcoder.jp/contests/agc034/submissions/32194980">https://atcoder.jp/contests/agc034/submissions/32194980</a></p>
 </div>
 	</section>
 
@@ -243,7 +250,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 206 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 492 words in this page.
 	</div>
 </div>
 
@@ -254,17 +261,17 @@ onload='renderMathInElement(document.body);'></script>
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/atcoder/abc134-d/">
+    <a class="flex-grow-0" href="/atcoder/agc011-b/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        AtCoder ABC 134 D - Preparing Boxes
+        AtCoder AGC 011 B - Colorful Creatures
     </a>
     
     
-    <a class="flex-grow-0" href="/atcoder/agc034-a/">
-        AtCoder ABC 034 A - Kenken Race
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -278,6 +285,8 @@ onload='renderMathInElement(document.body);'></script>
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
+		
+			<a href="/atcoder/agc011-b/">AtCoder AGC 011 B - Colorful Creatures</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/abc134-d/">AtCoder ABC 134 D - Preparing Boxes</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -305,9 +314,7 @@ onload='renderMathInElement(document.body);'></script>
 		
 			<a href="/atcoder/memo/">AtCoderメモ書き</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/green/">AtCoderで緑色になった</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/atcoder/abc250-e/">AtCoder ABC 250 E - Prefix Equality</a>
+			<a href="/atcoder/green/">AtCoderで緑色になった</a>
 		
 </span>
 </div>

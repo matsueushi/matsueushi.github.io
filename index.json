@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/agc034/tasks/agc034_a\nすぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\\([a,c]\\)の間に連続する黒マスがないこと、である。\n2人いる場合を考えると、\\(c\u0026lt;d \\) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、 ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。 よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。\n\\(c \u0026gt; d \\) の場合、順序を入れ替える必要がある。順序が入れ替わるのは、\n(す)(ふ)(空)\nという状態になっている時だから、ふぬけくんの現在いる位置、またはそれより右側で、前後が白マスになっているところを探す。 つまり、三連続で白マスになっている場所を探す。\nこの時、候補の中で1番左の位置にある三連続白マスを考えれば良い。(状態が実現できなければ、それより右の三連続白マスで実現することは不可能のため)\n後は、\n(す)(ふ)(空)\nの状態に到達できるか確認して、到達できれば、順番を入れ替える必要がない\\(c \u0026lt; d \\)の場合に帰着できる。 この時、当初の目的地を飛び越えていないかもチェックする。 到達できなければ、実現不可能。\nhttps://atcoder.jp/contests/agc034/submissions/32194980\n",
+    "permalink": "https://matsueushi.github.io/atcoder/agc034-a/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 034 A - Kenken Race"
+  },
+  {
     "contents": "https://atcoder.jp/contests/agc011/tasks/agc011_b\n\\(A_i\\) を降順にソートしても一般性を失わない。\n大きいものの方が吸収しづらいから、1番最後に\\(1\\), その前に \\(2, \\ldots, \\)を吸収したとして良い。 \\(A_1, \\ldots, A_i\\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \\(B_i\\) とする。\n\\(B_1 = \\lceil A_1 / 2\\rceil \\) である。 \\(A_i\\) が吸収でき、さらにその後 \\(i-1, \\ldots, 1\\) が吸収できる条件を考えると、 \\(B_i = \\max(\\lceil A_i / 2 \\rceil, B_{i-1}-A_i)\\) である。\n各 \\(i \\) に対し、\\(i\\) は \\(i+1\\) 以降を吸収できるから、\\( \\sum_{k=i}^n A_k \\ge B_{i-1} \\) を満たすかどうか判定すれば良い。\nhttps://atcoder.jp/contests/agc011/submissions/32165993\n",
     "permalink": "https://matsueushi.github.io/atcoder/agc011-b/",
     "tags": [
@@ -137,7 +146,7 @@
     "title": "AtCoder ABC 135 C - City Savers"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 Queen on Grid  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes   ",
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS ABC 138 D - Ki\n木を辿る\n ABC 220 F - Distance Sums 2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number   ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",
