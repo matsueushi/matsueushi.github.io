@@ -80,7 +80,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder ABC 133　D - Rain Flows into Dams"
+    "title": "AtCoder ABC 133 D - Rain Flows into Dams"
   },
   {
     "contents": "https://atcoder.jp/contests/abc094/tasks/arc095_a\nまず、具体例で考えてみる。aがソートされている場合を考えよう。\n1,2,3,4,5\nで左からi番目の数を取り除いた中央値を考えると\n3,3,2,2,2\nとなる。\n1,2,2,3\nであれば\n2,2,2\nである。\nよって、pos = floor((l+1)/2), 取り除かれた値をxとすると、\n l が偶数の時   x ≤ a[pos] -\u0026gt; 取り除いた後は a[pos+1] が中央値 x \u0026gt; a[pos] -\u0026gt; a[pos]  l が奇数の時   x \u0026lt; a[pos] -\u0026gt; a[pos] x ≥ a[pos] -\u0026gt; a[pos-1]  であることがわかる。\nhttps://atcoder.jp/contests/abc094/submissions/32115333\n",
@@ -164,15 +164,6 @@
     "title": "AtCoder ABC 135 C - City Savers"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number   ",
-    "permalink": "https://matsueushi.github.io/atcoder/memo/",
-    "tags": [
-      "AtCoder",
-      "CompetitiveProgramming"
-    ],
-    "title": "AtCoderメモ書き"
-  },
-  {
     "contents": "4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。 https://atcoder.jp/users/matsueushi\n蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。 D問題で時間がかかってしまうことが多いので、AtCoder Problems の「Boot camp for Beginners」を解きまくろうと思います。\n",
     "permalink": "https://matsueushi.github.io/atcoder/green/",
     "tags": [
@@ -197,7 +188,7 @@
     "title": "自分用メモ"
   },
   {
-    "contents": "DiscogsというレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。\n音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、 そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。\nそこまでレアなCDか？と思うようなものが過去に20万とか40万円で取引されていてかなり謎です(価格は右の方に表記あり)。 https://www.discogs.com/ja/release/7218654-Heather-Nova-South\nhttps://www.discogs.com/ja/release/15283232-Valerie-Carter-Midnight-Over-Honey-River\nマネーロンダリングという考察もあるようですが、真偽は不明です。誰か知っていたら教えてください。\nMoney Laundering on Discogs\nMoney Laundering?\n",
+    "contents": "DiscogsというレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。\n音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、 そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。\nそこまでレアなCDか？と思うようなものが過去に20万とか40万円で取引されていてかなり謎です(価格は右の方に表記あり)。 https://www.discogs.com/ja/release/7218654-Heather-Nova-South\nhttps://www.discogs.com/ja/release/15283232-Valerie-Carter-Midnight-Over-Honey-River\nマネーロンダリングという考察もあるようですが、真偽は不明です。誰か知っていたら教えてください。\nMoney Laundering on Discogs\nMoney Laundering?\n 後で読む用のメモ\nEverything We Know About Scaramanga Silk and Choose Your Weapon https://blog.discogs.com/en/scaramanga-silk-choose-your-weapon-most-expensive-record/\nRecord by near-unknown producer sells for $41,000 to become most expensive on Discogs https://www.theguardian.com/music/2021/feb/03/record-by-near-unknown-producer-sells-for-41000-most-expensive-discogs-scaramanga-silk\n",
     "permalink": "https://matsueushi.github.io/posts/discogs-money-laundering/",
     "tags": [
       "Music",
@@ -873,5 +864,14 @@
       "Cymbals"
     ],
     "title": "Cymbals - That's Entertainment (2000)"
+  },
+  {
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number  三角形  ABC 143 D - Triangles    StringからVector{Char}への変換\ncs = Vector{Char}(s) これだけでいい。\n",
+    "permalink": "https://matsueushi.github.io/atcoder/memo/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoderメモ書き"
   }
 ]

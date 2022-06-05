@@ -123,7 +123,7 @@ c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である
     </item>
     
     <item>
-      <title>AtCoder ABC 133　D - Rain Flows into Dams</title>
+      <title>AtCoder ABC 133 D - Rain Flows into Dams</title>
       <link>https://matsueushi.github.io/atcoder/abc133-d/</link>
       <pubDate>Tue, 31 May 2022 21:40:17 +0900</pubDate>
       
@@ -343,9 +343,53 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     </item>
     
     <item>
+      <title>AtCoderで緑色になった</title>
+      <link>https://matsueushi.github.io/atcoder/green/</link>
+      <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/green/</guid>
+      <description>&lt;p&gt;4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。
+&lt;a href=&#34;https://atcoder.jp/users/matsueushi&#34;&gt;https://atcoder.jp/users/matsueushi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。
+D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;https://kenkoooo.com/atcoder/#/training/Boot%20camp%20for%20Beginners&#34;&gt;AtCoder Problems&lt;/a&gt; の「Boot camp for Beginners」を解きまくろうと思います。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 250 E - Prefix Equality</title>
+      <link>https://matsueushi.github.io/atcoder/abc250-e/</link>
+      <pubDate>Mon, 09 May 2022 21:47:26 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc250-e/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc250/tasks/abc250_e&#34;&gt;https://atcoder.jp/contests/abc250/tasks/abc250_e&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;コンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。&lt;/p&gt;
+&lt;p&gt;\(S_i= \{a_1, \ldots, a_i\}, T_i=\{b_i, \ldots, b_i \} \)とおくと、\( S_1 \subseteq S_2 \subseteq \cdots \subseteq S_n, T_1 \subseteq T_2 \subseteq \cdots \subseteq T_n\)となる。&lt;/p&gt;
+&lt;p&gt;\(f_i= \max \{j \mid T_j \subseteq S_i \}, g_i= \max \{j \mid S_j \subseteq T_i \} \) を計算する。例えば\(f_i\)まで計算した後に\(f_{i+1}\)を計算するときは、\(b_{f_i+1}, b_{f_i+2}, \ldots , b_j\) が \(S_{i+1}\) に含まれているかをチェックしていき含まれなくなったら\(f_{i+1}=j-1\) とすれば良い。&lt;/p&gt;
+&lt;p&gt;後は\(S_i = T_j \Leftrightarrow S_i \subseteq T_j, T_j \subseteq S_i \Leftrightarrow i \le g_j, j \le f_i\)でクエリを判定すれば良い。&lt;/p&gt;
+&lt;p&gt;(Julia, 564 ms)
+&lt;a href=&#34;https://atcoder.jp/contests/abc250/submissions/31571164&#34;&gt;https://atcoder.jp/contests/abc250/submissions/31571164&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JuliaでAtCoderに挑戦</title>
+      <link>https://matsueushi.github.io/atcoder/julia-atcoder/</link>
+      <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/julia-atcoder/</guid>
+      <description>&lt;p&gt;去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。&lt;/p&gt;
+&lt;p&gt;ひとまず、AtCoderの&lt;a href=&#34;https://atcoder.jp/contests/typical90&#34;&gt;競プロ典型 90 問&lt;/a&gt;を解いて行く予定です。
+ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。&lt;/p&gt;
+&lt;p&gt;下に解答を記録していこうと思います。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/CompetitiveProgramming&#34;&gt;https://github.com/matsueushi/CompetitiveProgramming&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;さてはて、いつまで続くやら。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>AtCoderメモ書き</title>
       <link>https://matsueushi.github.io/atcoder/memo/</link>
-      <pubDate>Mon, 23 May 2022 22:43:57 +0900</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matsueushi.github.io/atcoder/memo/</guid>
       <description>&lt;p&gt;自分用&lt;/p&gt;
@@ -411,51 +455,15 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc084/tasks/abc084_d&#34;&gt;ABC 084 D - 2017-like Number&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;三角形&#34;&gt;三角形&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc143/tasks/abc143_d&#34;&gt;ABC 143 D - Triangles&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>AtCoderで緑色になった</title>
-      <link>https://matsueushi.github.io/atcoder/green/</link>
-      <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/atcoder/green/</guid>
-      <description>&lt;p&gt;4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。
-&lt;a href=&#34;https://atcoder.jp/users/matsueushi&#34;&gt;https://atcoder.jp/users/matsueushi&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。
-D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;https://kenkoooo.com/atcoder/#/training/Boot%20camp%20for%20Beginners&#34;&gt;AtCoder Problems&lt;/a&gt; の「Boot camp for Beginners」を解きまくろうと思います。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>AtCoder ABC 250 E - Prefix Equality</title>
-      <link>https://matsueushi.github.io/atcoder/abc250-e/</link>
-      <pubDate>Mon, 09 May 2022 21:47:26 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/atcoder/abc250-e/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc250/tasks/abc250_e&#34;&gt;https://atcoder.jp/contests/abc250/tasks/abc250_e&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;コンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。&lt;/p&gt;
-&lt;p&gt;\(S_i= \{a_1, \ldots, a_i\}, T_i=\{b_i, \ldots, b_i \} \)とおくと、\( S_1 \subseteq S_2 \subseteq \cdots \subseteq S_n, T_1 \subseteq T_2 \subseteq \cdots \subseteq T_n\)となる。&lt;/p&gt;
-&lt;p&gt;\(f_i= \max \{j \mid T_j \subseteq S_i \}, g_i= \max \{j \mid S_j \subseteq T_i \} \) を計算する。例えば\(f_i\)まで計算した後に\(f_{i+1}\)を計算するときは、\(b_{f_i+1}, b_{f_i+2}, \ldots , b_j\) が \(S_{i+1}\) に含まれているかをチェックしていき含まれなくなったら\(f_{i+1}=j-1\) とすれば良い。&lt;/p&gt;
-&lt;p&gt;後は\(S_i = T_j \Leftrightarrow S_i \subseteq T_j, T_j \subseteq S_i \Leftrightarrow i \le g_j, j \le f_i\)でクエリを判定すれば良い。&lt;/p&gt;
-&lt;p&gt;(Julia, 564 ms)
-&lt;a href=&#34;https://atcoder.jp/contests/abc250/submissions/31571164&#34;&gt;https://atcoder.jp/contests/abc250/submissions/31571164&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>JuliaでAtCoderに挑戦</title>
-      <link>https://matsueushi.github.io/atcoder/julia-atcoder/</link>
-      <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/atcoder/julia-atcoder/</guid>
-      <description>&lt;p&gt;去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。&lt;/p&gt;
-&lt;p&gt;ひとまず、AtCoderの&lt;a href=&#34;https://atcoder.jp/contests/typical90&#34;&gt;競プロ典型 90 問&lt;/a&gt;を解いて行く予定です。
-ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。&lt;/p&gt;
-&lt;p&gt;下に解答を記録していこうと思います。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/CompetitiveProgramming&#34;&gt;https://github.com/matsueushi/CompetitiveProgramming&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;さてはて、いつまで続くやら。&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;p&gt;StringからVector{Char}への変換&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Char&lt;/span&gt;}(s)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これだけでいい。&lt;/p&gt;
 </description>
     </item>
     

@@ -1050,7 +1050,7 @@ c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である
     </item>
     
     <item>
-      <title>AtCoder ABC 133　D - Rain Flows into Dams</title>
+      <title>AtCoder ABC 133 D - Rain Flows into Dams</title>
       <link>https://matsueushi.github.io/atcoder/abc133-d/</link>
       <pubDate>Tue, 31 May 2022 21:40:17 +0900</pubDate>
       
@@ -1270,79 +1270,6 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     </item>
     
     <item>
-      <title>AtCoderメモ書き</title>
-      <link>https://matsueushi.github.io/atcoder/memo/</link>
-      <pubDate>Mon, 23 May 2022 22:43:57 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/atcoder/memo/</guid>
-      <description>&lt;p&gt;自分用&lt;/p&gt;
-&lt;h2 id=&#34;lca&#34;&gt;LCA&lt;/h2&gt;
-&lt;p&gt;蟻本 pp.292&lt;/p&gt;
-&lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;dfs&#34;&gt;DFS&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc138/tasks/abc138_d&#34;&gt;ABC 138 D - Ki&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;木を辿る&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc220/tasks/abc220_f&#34;&gt;ABC 220 F - Distance Sums 2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;bfs&#34;&gt;BFS&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc151/tasks/abc151_d&#34;&gt;ABC 151 D - Maze Master&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
-&lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
-&lt;h2 id=&#34;dp&#34;&gt;DP&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;&#34;&gt;ABC 154 E Almost Everywhere Zero&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;1次元&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;AGC 034 A - Kenken Race&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;2次元&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 E - Queen on Grid&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc043/tasks/agc043_a&#34;&gt;AGC 043 A - Range Flip Find Route&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;数列&#34;&gt;数列&lt;/h2&gt;
-&lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_e&#34;&gt;ABC 253 E Distance Sequence&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;ダイクストラ&#34;&gt;ダイクストラ&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc252/tasks/abc252_e&#34;&gt;ABC 252 E Road Reduction&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;ワーシャルフロイド&#34;&gt;ワーシャルフロイド&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc079/tasks/abc079_d&#34;&gt;ABC 079 D - Wall&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;fenwick-tree&#34;&gt;Fenwick Tree&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_f&#34;&gt;ABC 254 F - Operations on a Matrix&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;括弧&#34;&gt;括弧&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc064/tasks/abc064_d&#34;&gt;ABC 064 D - Insertion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;約数&#34;&gt;約数&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/tasks/abc134_d&#34;&gt;ABC 134 D - Preparing Boxes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;素数&#34;&gt;素数&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc084/tasks/abc084_d&#34;&gt;ABC 084 D - 2017-like Number&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-</description>
-    </item>
-    
-    <item>
       <title>AtCoderで緑色になった</title>
       <link>https://matsueushi.github.io/atcoder/green/</link>
       <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
@@ -1397,6 +1324,12 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;p&gt;マネーロンダリングという考察もあるようですが、真偽は不明です。誰か知っていたら教えてください。&lt;br&gt;
 &lt;a href=&#34;https://forums.stevehoffman.tv/threads/money-laundering-on-discogs.1011027/&#34;&gt;Money Laundering on Discogs&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;https://www.discogs.com/forum/thread/913774&#34;&gt;Money Laundering?&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;後で読む用のメモ&lt;/p&gt;
+&lt;p&gt;Everything We Know About Scaramanga Silk and Choose Your Weapon
+&lt;a href=&#34;https://blog.discogs.com/en/scaramanga-silk-choose-your-weapon-most-expensive-record/&#34;&gt;https://blog.discogs.com/en/scaramanga-silk-choose-your-weapon-most-expensive-record/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Record by near-unknown producer sells for $41,000 to become most expensive on Discogs
+&lt;a href=&#34;https://www.theguardian.com/music/2021/feb/03/record-by-near-unknown-producer-sells-for-41000-most-expensive-discogs-scaramanga-silk&#34;&gt;https://www.theguardian.com/music/2021/feb/03/record-by-near-unknown-producer-sells-for-41000-most-expensive-discogs-scaramanga-silk&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -10714,6 +10647,87 @@ New Orderで一番有名な曲、Blue Monday。最初に聞いた時は印象的
 &lt;p&gt;ま、実際はメロンソーダは注文しないし、サイクリングなんか行かないんだけど、そんなことはどうでもいいんですよ！！！圧倒的なポップセンス最高！&lt;/p&gt;
 &lt;p&gt; 
 CD、Amazonにはなかったけどタワーレコードには置いてるのでタワレコに急げ！！！！&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoderメモ書き</title>
+      <link>https://matsueushi.github.io/atcoder/memo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/memo/</guid>
+      <description>&lt;p&gt;自分用&lt;/p&gt;
+&lt;h2 id=&#34;lca&#34;&gt;LCA&lt;/h2&gt;
+&lt;p&gt;蟻本 pp.292&lt;/p&gt;
+&lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dfs&#34;&gt;DFS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc138/tasks/abc138_d&#34;&gt;ABC 138 D - Ki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;木を辿る&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc220/tasks/abc220_f&#34;&gt;ABC 220 F - Distance Sums 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bfs&#34;&gt;BFS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc151/tasks/abc151_d&#34;&gt;ABC 151 D - Maze Master&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
+&lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
+&lt;h2 id=&#34;dp&#34;&gt;DP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;&#34;&gt;ABC 154 E Almost Everywhere Zero&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;1次元&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;AGC 034 A - Kenken Race&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2次元&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 E - Queen on Grid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc043/tasks/agc043_a&#34;&gt;AGC 043 A - Range Flip Find Route&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;数列&#34;&gt;数列&lt;/h2&gt;
+&lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_e&#34;&gt;ABC 253 E Distance Sequence&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ダイクストラ&#34;&gt;ダイクストラ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc252/tasks/abc252_e&#34;&gt;ABC 252 E Road Reduction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ワーシャルフロイド&#34;&gt;ワーシャルフロイド&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc079/tasks/abc079_d&#34;&gt;ABC 079 D - Wall&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;fenwick-tree&#34;&gt;Fenwick Tree&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_f&#34;&gt;ABC 254 F - Operations on a Matrix&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;括弧&#34;&gt;括弧&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc064/tasks/abc064_d&#34;&gt;ABC 064 D - Insertion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;約数&#34;&gt;約数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/tasks/abc134_d&#34;&gt;ABC 134 D - Preparing Boxes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;素数&#34;&gt;素数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc084/tasks/abc084_d&#34;&gt;ABC 084 D - 2017-like Number&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三角形&#34;&gt;三角形&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc143/tasks/abc143_d&#34;&gt;ABC 143 D - Triangles&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;p&gt;StringからVector{Char}への変換&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Char&lt;/span&gt;}(s)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これだけでいい。&lt;/p&gt;
 </description>
     </item>
     
