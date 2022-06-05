@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc161/tasks/abc161_d\n桁数の少ないルンルン数から順に作っていけば良い。\n1桁のルンルン数 = 1,2,\u0026hellip;,9\n2桁のルンルン数 = ([1 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\n3桁のルンルン数 = ([2 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\nこのように考えていくと、自然にルンルン数が昇順に列挙できる。\nhttps://atcoder.jp/contests/abc161/submissions/32271070\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc161-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC161 D - Lunlun Number"
+  },
+  {
     "contents": "https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c\n目標が達成可能かどうかは、s から \u0026lsquo;x\u0026rsquo; を取り除いてできる文字列が回文であるかどうかで判定できる。 以後、目標が達成可能な場合を考える。\ns の \u0026lsquo;x\u0026rsquo; でない文字列のうち左から i 番目の文字を \\(cs[i]\\) とする。(i = 1,\u0026hellip;,m とする)\n\\(ds[i]\\) を \\(cs[i]\\) と \\(cs[i+1]\\) の間にある \u0026lsquo;x\u0026rsquo; の個数とする。 \\(ds[0]\\) を \\(cs[1]\\) の前にある \u0026lsquo;x\u0026rsquo; の数、\\(ds[m]\\) を \\(cs[m]\\) の後にある \u0026lsquo;x\u0026rsquo; の数と拡張しておく。\ns = \u0026ldquo;xabxa\u0026rdquo; の時は、cs = [\u0026lsquo;a\u0026rsquo;, \u0026lsquo;b\u0026rsquo;, \u0026lsquo;a\u0026rsquo;], ds = [1,0,1,0]である。\n\u0026lsquo;x\u0026rsquo; を挿入する操作は、ds の一つの数字を +1 することに相当する。ds が左右対称となった時文字列が回文になるから、 答えは l = length(ds) として \\(\\sum_{i=1}^{\\lfloor l/2 \\rfloor}|ds[i] - ds[l-i+1]| \\) で求められる。\nhttps://atcoder.jp/contests/code-festival-2017-qualc/submissions/32267860\n",
     "permalink": "https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/",
     "tags": [
@@ -155,7 +164,7 @@
     "title": "AtCoder ABC 135 C - City Savers"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number   ",
+    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number   ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

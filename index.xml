@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 05 Jun 2022 18:08:29 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jun 2022 21:16:30 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -940,6 +940,22 @@
     </item>
     
     <item>
+      <title>AtCoder ABC161 D - Lunlun Number</title>
+      <link>https://matsueushi.github.io/atcoder/abc161-d/</link>
+      <pubDate>Sun, 05 Jun 2022 21:16:30 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc161-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc161/tasks/abc161_d&#34;&gt;https://atcoder.jp/contests/abc161/tasks/abc161_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;桁数の少ないルンルン数から順に作っていけば良い。&lt;/p&gt;
+&lt;p&gt;1桁のルンルン数 = 1,2,&amp;hellip;,9&lt;/p&gt;
+&lt;p&gt;2桁のルンルン数 = ([1 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)&lt;/p&gt;
+&lt;p&gt;3桁のルンルン数 = ([2 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)&lt;/p&gt;
+&lt;p&gt;このように考えていくと、自然にルンルン数が昇順に列挙できる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc161/submissions/32271070&#34;&gt;https://atcoder.jp/contests/abc161/submissions/32271070&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</title>
       <link>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</link>
       <pubDate>Sun, 05 Jun 2022 18:08:29 +0900</pubDate>
@@ -1301,6 +1317,10 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;h2 id=&#34;ダイクストラ&#34;&gt;ダイクストラ&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc252/tasks/abc252_e&#34;&gt;ABC 252 E Road Reduction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ワーシャルフロイド&#34;&gt;ワーシャルフロイド&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc079/tasks/abc079_d&#34;&gt;ABC 079 D - Wall&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;fenwick-tree&#34;&gt;Fenwick Tree&lt;/h2&gt;
 &lt;ul&gt;
