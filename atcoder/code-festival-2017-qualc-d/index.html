@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoder ABC 034 A - Kenken Race</title>
+	<title>matsueushi  | AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.99.1" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoder ABC 034 A - Kenken Race</h1>
+<h1 class="pt-2">AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-06-04T18:32:50&#43;09:00">2022-6-4 18:32</time>
+		datetime="2022-06-05T18:08:29&#43;09:00">2022-6-5 18:08</time>
 </div>
 
 <hr />
@@ -128,22 +128,16 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">https://atcoder.jp/contests/agc034/tasks/agc034_a</a></p>
-<p>すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。</p>
-<p>2人いる場合を考えると、\(c&lt;d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、
-ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。
-よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。</p>
-<p>\(c &gt; d \) の場合、順序を入れ替える必要がある。順序が入れ替わるのは、</p>
-<p>(す)(ふ)(空)</p>
-<p>という状態になっている時だから、ふぬけくんの現在いる位置、またはそれより右側で、前後が白マスになっているところを探す。
-つまり、三連続で白マスになっている場所を探す。</p>
-<p>この時、候補の中で1番左の位置にある三連続白マスを考えれば良い。(状態が実現できなければ、それより右の三連続白マスで実現することは不可能のため)</p>
-<p>後は、</p>
-<p>(す)(ふ)(空)</p>
-<p>の状態に到達できるか確認して、到達できれば、順番を入れ替える必要がない\(c &lt; d \)の場合に帰着できる。
-この時、当初の目的地を飛び越えていないかもチェックする。
-到達できなければ、実現不可能。</p>
-<p><a href="https://atcoder.jp/contests/agc034/submissions/32194980">https://atcoder.jp/contests/agc034/submissions/32194980</a></p>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c">https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c</a></p>
+<p>目標が達成可能かどうかは、s から &lsquo;x&rsquo; を取り除いてできる文字列が回文であるかどうかで判定できる。
+以後、目標が達成可能な場合を考える。</p>
+<p>s の &lsquo;x&rsquo; でない文字列のうち左から i 番目の文字を \(cs[i]\) とする。(i = 1,&hellip;,m とする)</p>
+<p>\(ds[i]\) を \(cs[i]\) と \(cs[i+1]\) の間にある &lsquo;x&rsquo; の個数とする。
+\(ds[0]\) を \(cs[1]\) の前にある &lsquo;x&rsquo; の数、\(ds[m]\) を \(cs[m]\) の後にある &lsquo;x&rsquo; の数と拡張しておく。</p>
+<p>s = &ldquo;xabxa&rdquo; の時は、cs = [&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;a&rsquo;], ds = [1,0,1,0]である。</p>
+<p>&lsquo;x&rsquo; を挿入する操作は、ds の一つの数字を +1 することに相当する。ds が左右対称となった時文字列が回文になるから、
+答えは l = length(ds) として \(\sum_{i=1}^{\lfloor l/2 \rfloor}|ds[i] - ds[l-i+1]| \) で求められる。</p>
+<p><a href="https://atcoder.jp/contests/code-festival-2017-qualc/submissions/32267860">https://atcoder.jp/contests/code-festival-2017-qualc/submissions/32267860</a></p>
 </div>
 	</section>
 
@@ -250,7 +244,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 492 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 262 words in this page.
 	</div>
 </div>
 
@@ -261,17 +255,17 @@ onload='renderMathInElement(document.body);'></script>
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/atcoder/agc011-b/">
+    <a class="flex-grow-0" href="/atcoder/agc034-a/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        AtCoder AGC 011 B - Colorful Creatures
+        AtCoder ABC 034 A - Kenken Race
     </a>
     
     
-    <a class="flex-grow-0" href="/atcoder/code-festival-2017-qualc-d/">
-        AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -285,6 +279,8 @@ onload='renderMathInElement(document.body);'></script>
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
+		
+			<a href="/atcoder/agc034-a/">AtCoder ABC 034 A - Kenken Race</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/agc011-b/">AtCoder AGC 011 B - Colorful Creatures</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -312,9 +308,7 @@ onload='renderMathInElement(document.body);'></script>
 		
 			<a href="/atcoder/abc135-c/">AtCoder ABC 135 C - City Savers</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/memo/">AtCoderメモ書き</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/atcoder/green/">AtCoderで緑色になった</a>
+			<a href="/atcoder/memo/">AtCoderメモ書き</a>
 		
 </span>
 </div>

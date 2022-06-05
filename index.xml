@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 04 Jun 2022 18:32:50 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jun 2022 18:08:29 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -940,6 +940,25 @@
     </item>
     
     <item>
+      <title>AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</title>
+      <link>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</link>
+      <pubDate>Sun, 05 Jun 2022 18:08:29 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c&#34;&gt;https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目標が達成可能かどうかは、s から &amp;lsquo;x&amp;rsquo; を取り除いてできる文字列が回文であるかどうかで判定できる。
+以後、目標が達成可能な場合を考える。&lt;/p&gt;
+&lt;p&gt;s の &amp;lsquo;x&amp;rsquo; でない文字列のうち左から i 番目の文字を \(cs[i]\) とする。(i = 1,&amp;hellip;,m とする)&lt;/p&gt;
+&lt;p&gt;\(ds[i]\) を \(cs[i]\) と \(cs[i+1]\) の間にある &amp;lsquo;x&amp;rsquo; の個数とする。
+\(ds[0]\) を \(cs[1]\) の前にある &amp;lsquo;x&amp;rsquo; の数、\(ds[m]\) を \(cs[m]\) の後にある &amp;lsquo;x&amp;rsquo; の数と拡張しておく。&lt;/p&gt;
+&lt;p&gt;s = &amp;ldquo;xabxa&amp;rdquo; の時は、cs = [&amp;lsquo;a&amp;rsquo;, &amp;lsquo;b&amp;rsquo;, &amp;lsquo;a&amp;rsquo;], ds = [1,0,1,0]である。&lt;/p&gt;
+&lt;p&gt;&amp;lsquo;x&amp;rsquo; を挿入する操作は、ds の一つの数字を +1 することに相当する。ds が左右対称となった時文字列が回文になるから、
+答えは l = length(ds) として \(\sum_{i=1}^{\lfloor l/2 \rfloor}|ds[i] - ds[l-i+1]| \) で求められる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/code-festival-2017-qualc/submissions/32267860&#34;&gt;https://atcoder.jp/contests/code-festival-2017-qualc/submissions/32267860&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>AtCoder ABC 034 A - Kenken Race</title>
       <link>https://matsueushi.github.io/atcoder/agc034-a/</link>
       <pubDate>Sat, 04 Jun 2022 18:32:50 +0900</pubDate>
@@ -1248,10 +1267,16 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
 &lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;dfs&#34;&gt;DFS&lt;/h2&gt;
-&lt;p&gt;ABC 138 D - Ki&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc138/tasks/abc138_d&#34;&gt;ABC 138 D - Ki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;木を辿る&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc220/tasks/abc220_f&#34;&gt;ABC 220 F - Distance Sums 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bfs&#34;&gt;BFS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc151/tasks/abc151_d&#34;&gt;ABC 151 D - Maze Master&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
 &lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
