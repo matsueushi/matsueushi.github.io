@@ -26,7 +26,7 @@
       "AtCoder",
       "CompetitiveProgramming"
     ],
-    "title": "AtCoder 153 E - Crested Ibis vs Monster"
+    "title": "AtCoder ABC 153 E - Crested Ibis vs Monster"
   },
   {
     "contents": "https://atcoder.jp/contests/abc161/tasks/abc161_d\n桁数の少ないルンルン数から順に作っていけば良い。\n1桁のルンルン数 = 1,2,\u0026hellip;,9\n2桁のルンルン数 = ([1 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\n3桁のルンルン数 = ([2 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\nこのように考えていくと、自然にルンルン数が昇順に列挙できる。\nhttps://atcoder.jp/contests/abc161/submissions/32271070\n",
