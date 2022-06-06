@@ -203,12 +203,71 @@ onload='renderMathInElement(document.body);'></script>
 <ul>
 <li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
 </ul>
+<h2 id="チェスのナイト">チェスのナイト</h2>
+<p>斜めに動くとわかりづらいので、座標変換を行う。
+$$
+\begin{aligned}
+\left(
+\begin{matrix}
+x \\
+y
+\end{matrix}
+\right) =
+\left(
+\begin{matrix}
+1 &amp; 2 \\
+2 &amp; 1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+s \\
+t
+\end{matrix}
+\right)
+\end{aligned}
+$$
+だから、逆変換
+$$
+\begin{aligned}
+\left(
+\begin{matrix}
+s \\
+t
+\end{matrix}
+\right) =
+\cfrac{1}{3}
+\left(
+\begin{matrix}
+1 &amp; -2 \\
+-2 &amp; 1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+x \\
+y
+\end{matrix}
+\right)
+\end{aligned}
+$$
+を考えることにより縦横の単純な移動に変換する。</p>
+<ul>
+<li>蟻本 pp.353 Endless Knight</li>
+</ul>
 <hr>
-<h2 id="heading"></h2>
-<p>StringからVector{Char}への変換</p>
+<h2 id="julia-特有のテクニック">Julia 特有のテクニック</h2>
+<ul>
+<li>StringからVector{Char}への変換</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>cs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}(s)
 </span></span></code></pre></div><p>これだけでいい。</p>
-</div>
+<ul>
+<li>負の数の剰余</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> mod(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span></code></pre></div></div>
 	</section>
 
 
@@ -314,7 +373,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 270 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 415 words in this page.
 	</div>
 </div>
 
