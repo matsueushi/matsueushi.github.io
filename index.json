@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc153/tasks/abc153_e\n\\(dp[i][k]\\) = \\(i\\) 番目までの魔法からダメージが \\(k\\) 以上になるように選んだ時に消費するMPの最小値\nとすると、個数制限なしナップザック問題（の類似）に帰着される。 (参考:蟻本の2章 p.p.58 漸化式を工夫する)\n\\(dp[i+1][k] = \\min(dp[i][k], dp[i+1][k-a[i]]+b[i])\\)\nである。ここで、\\(dp[-1][k] = 0\\) と \\(dp[i][k] = 0 \\ (k \u0026lt; 0)\\) とおいた。\n答えは \\(dp[n][h]\\) であり、\\(O(nh)\\) で求められる。\nhttps://atcoder.jp/contests/abc153/submissions/32290815\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc153-e/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder 153 E - Crested Ibis vs Monster"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc161/tasks/abc161_d\n桁数の少ないルンルン数から順に作っていけば良い。\n1桁のルンルン数 = 1,2,\u0026hellip;,9\n2桁のルンルン数 = ([1 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\n3桁のルンルン数 = ([2 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\nこのように考えていくと、自然にルンルン数が昇順に列挙できる。\nhttps://atcoder.jp/contests/abc161/submissions/32271070\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc161-d/",
     "tags": [
@@ -866,7 +875,7 @@
     "title": "Cymbals - That's Entertainment (2000)"
   },
   {
-    "contents": "自分用\nLCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  DFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number  三角形  ABC 143 D - Triangles    StringからVector{Char}への変換\ncs = Vector{Char}(s) これだけでいい。\n",
+    "contents": "自分用\nDFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  Bit全探索  ABC 147 C - HonestOrUnkind2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  ナップザック問題  ABC 153 E - Crested Ibis vs Monster  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number  三角形  ABC 143 D - Triangles  LCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120    StringからVector{Char}への変換\ncs = Vector{Char}(s) これだけでいい。\n",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

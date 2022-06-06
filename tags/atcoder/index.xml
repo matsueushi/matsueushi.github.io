@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 05 Jun 2022 21:16:30 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jun 2022 22:06:55 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder 153 E - Crested Ibis vs Monster</title>
+      <link>https://matsueushi.github.io/atcoder/abc153-e/</link>
+      <pubDate>Mon, 06 Jun 2022 22:06:55 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc153-e/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc153/tasks/abc153_e&#34;&gt;https://atcoder.jp/contests/abc153/tasks/abc153_e&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;\(dp[i][k]\) = \(i\) 番目までの魔法からダメージが \(k\) 以上になるように選んだ時に消費するMPの最小値&lt;/p&gt;
+&lt;p&gt;とすると、個数制限なしナップザック問題（の類似）に帰着される。
+(参考:蟻本の2章 p.p.58 漸化式を工夫する)&lt;/p&gt;
+&lt;p&gt;\(dp[i+1][k] = \min(dp[i][k], dp[i+1][k-a[i]]+b[i])\)&lt;/p&gt;
+&lt;p&gt;である。ここで、\(dp[-1][k] = 0\) と \(dp[i][k] = 0 \ (k &amp;lt; 0)\) とおいた。&lt;/p&gt;
+&lt;p&gt;答えは \(dp[n][h]\) であり、\(O(nh)\) で求められる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc153/submissions/32290815&#34;&gt;https://atcoder.jp/contests/abc153/submissions/32290815&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC161 D - Lunlun Number</title>
@@ -393,12 +410,6 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
       
       <guid>https://matsueushi.github.io/atcoder/memo/</guid>
       <description>&lt;p&gt;自分用&lt;/p&gt;
-&lt;h2 id=&#34;lca&#34;&gt;LCA&lt;/h2&gt;
-&lt;p&gt;蟻本 pp.292&lt;/p&gt;
-&lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h2 id=&#34;dfs&#34;&gt;DFS&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc138/tasks/abc138_d&#34;&gt;ABC 138 D - Ki&lt;/a&gt;&lt;/li&gt;
@@ -410,6 +421,10 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;h2 id=&#34;bfs&#34;&gt;BFS&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc151/tasks/abc151_d&#34;&gt;ABC 151 D - Maze Master&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bit全探索&#34;&gt;Bit全探索&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc147/tasks/abc147_c&#34;&gt;ABC 147 C - HonestOrUnkind2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
 &lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
@@ -425,6 +440,10 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;ABC 183 E - Queen on Grid&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc043/tasks/agc043_a&#34;&gt;AGC 043 A - Range Flip Find Route&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ナップザック問題&#34;&gt;ナップザック問題&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc153/tasks/abc153_e&#34;&gt;ABC 153 E - Crested Ibis vs Monster&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;数列&#34;&gt;数列&lt;/h2&gt;
 &lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
@@ -458,6 +477,12 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;h2 id=&#34;三角形&#34;&gt;三角形&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc143/tasks/abc143_d&#34;&gt;ABC 143 D - Triangles&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lca&#34;&gt;LCA&lt;/h2&gt;
+&lt;p&gt;蟻本 pp.292&lt;/p&gt;
+&lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
