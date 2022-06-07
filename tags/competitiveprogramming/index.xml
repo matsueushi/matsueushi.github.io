@@ -7,13 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Tue, 07 Jun 2022 22:27:13 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jun 2022 23:42:09 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>AtCoder ABC129 D - Lamp</title>
+      <title>AtCoder ABC 198 D - Send More Money</title>
+      <link>https://matsueushi.github.io/atcoder/abc198-d/</link>
+      <pubDate>Tue, 07 Jun 2022 23:42:09 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc198-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc198/tasks/abc198_d&#34;&gt;https://atcoder.jp/contests/abc198/tasks/abc198_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;覆面算を解く問題。Send More Moneyって何？と思ったのですが &lt;code&gt;SEND + MORE = MONEY&lt;/code&gt; という覆面算が有名らしいです。&lt;/p&gt;
+&lt;p&gt;戦略としては、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;S_1, S_2, S_3&lt;/code&gt; に出てくる文字の集合を作る。10種類以上出てきたら &lt;code&gt;UNSOLVABLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;先ほど文字の集合に番号をつける。順番はどうでもいい。&lt;code&gt;[&#39;v&#39;, &#39;f&#39;, &#39;c&#39;]&lt;/code&gt; だったら v = 1番目、f = 2番目、のような対応づけをする。&lt;/li&gt;
+&lt;li&gt;これにより、&lt;code&gt;S_1, S_2, S_3&lt;/code&gt; が &lt;code&gt;[3,5,1], [1,4,2], [2,2,2]&lt;/code&gt; のような 1~10の整数の数列に変換できる。&lt;/li&gt;
+&lt;li&gt;あとは 1~10番目の文字に対して 0~9 の数字をどのように当てはめるか全探索。
+全探索しても10!=3628800通りなので間に合う。
+Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/reference/algorithm/next_permutation/&#34;&gt;&lt;code&gt;std::next_permutaiton&lt;/code&gt;&lt;/a&gt; が標準ライブラリに無い(存在を知らない) ので自分で作る必要がありますね。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc198/submissions/32308692&#34;&gt;https://atcoder.jp/contests/abc198/submissions/32308692&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 129 D - Lamp</title>
       <link>https://matsueushi.github.io/atcoder/abc129-d/</link>
       <pubDate>Tue, 07 Jun 2022 22:27:13 +0900</pubDate>
       
@@ -67,7 +88,7 @@
     </item>
     
     <item>
-      <title>AtCoder ABC161 D - Lunlun Number</title>
+      <title>AtCoder ABC 161 D - Lunlun Number</title>
       <link>https://matsueushi.github.io/atcoder/abc161-d/</link>
       <pubDate>Sun, 05 Jun 2022 21:16:30 +0900</pubDate>
       
