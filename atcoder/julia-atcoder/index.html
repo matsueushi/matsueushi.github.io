@@ -137,7 +137,51 @@ onload='renderMathInElement(document.body);'></script>
 <p>下に解答を記録していこうと思います。</p>
 <p><a href="https://github.com/matsueushi/CompetitiveProgramming">https://github.com/matsueushi/CompetitiveProgramming</a></p>
 <p>さてはて、いつまで続くやら。</p>
-</div>
+<hr>
+<p>2022/6/7 追記 (随時更新)</p>
+<p>ちょっとしたテクニック</p>
+<ul>
+<li>入力</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>parseint() <span style="color:#f92672">=</span> parse(<span style="color:#66d9ef">Int</span>, readline())
+</span></span><span style="display:flex;"><span>parseints() <span style="color:#f92672">=</span> parse<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int</span>, split(readline()))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> parsepoints(n<span style="color:#f92672">::</span><span style="color:#66d9ef">Int</span>)
+</span></span><span style="display:flex;"><span>    xs, ys <span style="color:#f92672">=</span> zeros(<span style="color:#66d9ef">Int</span>, n), zeros(<span style="color:#66d9ef">Int</span>, n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n
+</span></span><span style="display:flex;"><span>        xs[i], ys[i] <span style="color:#f92672">=</span> parseints()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    xs, ys
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> parsestrings(n)
+</span></span><span style="display:flex;"><span>    ss <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">String</span>}(undef, n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n
+</span></span><span style="display:flex;"><span>        ss[i] <span style="color:#f92672">=</span> readline()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    ss
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>このようなテンプレートを作っておくと便利</p>
+<ul>
+<li>パッケージのバージョンを確認する
+ローカルの実行環境をジャッジと合わせておかないと、予期しないエラーが起こる可能性あり。
+コードテストで</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Pkg
+</span></span><span style="display:flex;"><span>println(Pkg<span style="color:#f92672">.</span>status())
+</span></span></code></pre></div><p>を実行すると使われているパッケージのバージョンが分かります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Status <span style="color:#e6db74">`</span>~/.julia/environments/v1.4/Project.toml<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>864edb3b<span style="color:#f92672">]</span> DataStructures v0.17.11
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>27ebfcd6<span style="color:#f92672">]</span> Primes v0.4.0
+</span></span><span style="display:flex;"><span>nothing
+</span></span></code></pre></div><ul>
+<li>StringからVector{Char}への変換</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>cs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}(s)
+</span></span></code></pre></div><ul>
+<li>負の数の剰余</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> mod(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span></code></pre></div></div>
 	</section>
 
 
@@ -243,7 +287,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 203 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 435 words in this page.
 	</div>
 </div>
 

@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc129/tasks/abc129_d\n水平方向、垂直方向にそれぞれ見て行った時に、\u0026rsquo;#\u0026rsquo;, \u0026lsquo;.\u0026lsquo;の連続数を並べた数列を作る。\n#..#.. .....# ....#. #.#... であったら\n[ [1, 2, 1, 2], [5, 1], [4, 1, 1], [1, 1, 1, 3], ] さらにこれの累積和をとると、\n[ [1, 3, 4, 6], [5, 6], [4, 5, 6], [1, 2, 3, 6], ] となり、(3,4)に置いた光が横方向にどれくらい届くか調べたかったら、\n (3,4) が \u0026lsquo;.\u0026rsquo; であるかを調べる 3行目の累積和 [4, 5, 6]を見て、4番目を超えている場所のインデックスを探す(この場合は1番目) 累積和を取る前の [4, 1, 1] の対応する場所を見れば、横方向に連続している白マスがカウントできる。  垂直方向も同様にカウントできる。(横方向の連続数)+(縦方向の連続数)-1 を白マスで計算してmaxを取れば良い。\nhttps://atcoder.jp/contests/abc129/submissions/32307404\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc129-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC129 D - Lamp"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc153/tasks/abc153_e\n\\(dp[i][k]\\) = \\(i\\) 番目までの魔法からダメージが \\(k\\) 以上になるように選んだ時に消費するMPの最小値\nとすると、個数制限なしナップザック問題（の類似）に帰着される。 (参考:蟻本の2章 p.p.58 漸化式を工夫する)\n\\(dp[i+1][k] = \\min(dp[i][k], dp[i+1][k-a[i]]+b[i])\\)\nである。ここで、\\(dp[-1][k] = 0\\) と \\(dp[i][k] = 0 \\ (k \u0026lt; 0)\\) とおいた。\n答えは \\(dp[n][h]\\) であり、\\(O(nh)\\) で求められる。\nhttps://atcoder.jp/contests/abc153/submissions/32290815\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc153-e/",
     "tags": [
@@ -208,7 +217,7 @@
     "title": "Discogsの高額CD, レコードの謎"
   },
   {
-    "contents": "去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。\nひとまず、AtCoderの競プロ典型 90 問を解いて行く予定です。 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。\n下に解答を記録していこうと思います。\nhttps://github.com/matsueushi/CompetitiveProgramming\nさてはて、いつまで続くやら。\n",
+    "contents": "去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。\nひとまず、AtCoderの競プロ典型 90 問を解いて行く予定です。 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。\n下に解答を記録していこうと思います。\nhttps://github.com/matsueushi/CompetitiveProgramming\nさてはて、いつまで続くやら。\n 2022/6/7 追記 (随時更新)\nちょっとしたテクニック\n 入力  parseint() = parse(Int, readline()) parseints() = parse.(Int, split(readline())) function parsepoints(n::Int)  xs, ys = zeros(Int, n), zeros(Int, n)  for i in 1:n  xs[i], ys[i] = parseints()  end  xs, ys end function parsestrings(n)  ss = Vector{String}(undef, n)  for i in 1:n  ss[i] = readline()  end  ss end このようなテンプレートを作っておくと便利\n パッケージのバージョンを確認する ローカルの実行環境をジャッジと合わせておかないと、予期しないエラーが起こる可能性あり。 コードテストで  using Pkg println(Pkg.status()) を実行すると使われているパッケージのバージョンが分かります。\nStatus `~/.julia/environments/v1.4/Project.toml`  [864edb3b] DataStructures v0.17.11  [27ebfcd6] Primes v0.4.0 nothing  StringからVector{Char}への変換  cs = Vector{Char}(s)  負の数の剰余  julia\u0026gt; mod(-1, 4) 3 ",
     "permalink": "https://matsueushi.github.io/atcoder/julia-atcoder/",
     "tags": [
       "Julia",
@@ -875,7 +884,7 @@
     "title": "Cymbals - That's Entertainment (2000)"
   },
   {
-    "contents": "自分用\nDFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  Bit全探索  ABC 147 C - HonestOrUnkind2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  ナップザック問題  ABC 153 E - Crested Ibis vs Monster  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number  三角形  ABC 143 D - Triangles  LCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  チェスのナイト 斜めに動くとわかりづらいので、座標変換を行う。 $$ \\begin{aligned} \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) = \\left( \\begin{matrix} 1 \u0026amp; 2 \\\\ 2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) \\end{aligned} $$ だから、逆変換 $$ \\begin{aligned} \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) = \\cfrac{1}{3} \\left( \\begin{matrix} 1 \u0026amp; -2 \\\\ -2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) \\end{aligned} $$ を考えることにより縦横の単純な移動に変換する。\n 蟻本 pp.353 Endless Knight   Julia 特有のテクニック  StringからVector{Char}への変換  cs = Vector{Char}(s) これだけでいい。\n 負の数の剰余  julia\u0026gt; mod(-1, 4) 3 ",
+    "contents": "自分用\nDFS  ABC 138 D - Ki  木を辿る\n ABC 220 F - Distance Sums 2  BFS  ABC 151 D - Maze Master  Bit全探索  ABC 147 C - HonestOrUnkind2  区間スケジュール問題 キーエンス2020 B Robot Arms\nDP  ABC 154 E Almost Everywhere Zero  1次元\n AGC 034 A - Kenken Race  2次元\n ABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route  ナップザック問題  ABC 153 E - Crested Ibis vs Monster  数列 数列の連続する項目が離れている条件-\u0026gt;累積和\n ABC 253 E Distance Sequence  ダイクストラ  ABC 252 E Road Reduction  ワーシャルフロイド  ABC 079 D - Wall  Fenwick Tree  ABC 254 F - Operations on a Matrix  括弧  ABC 064 D - Insertion  約数  ABC 134 D - Preparing Boxes  素数  ABC 084 D - 2017-like Number  三角形  ABC 143 D - Triangles  LCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n 競プロ典型90問 35日目解説@e869120  チェスのナイト 斜めに動くとわかりづらいので、座標変換を行う。 $$ \\begin{aligned} \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) = \\left( \\begin{matrix} 1 \u0026amp; 2 \\\\ 2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) \\end{aligned} $$ だから、逆変換 $$ \\begin{aligned} \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) = \\cfrac{1}{3} \\left( \\begin{matrix} 1 \u0026amp; -2 \\\\ -2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) \\end{aligned} $$ を考えることにより縦横の単純な移動に変換する。\n 蟻本 pp.353 Endless Knight   ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

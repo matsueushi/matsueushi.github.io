@@ -7,10 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Mon, 06 Jun 2022 22:06:55 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jun 2022 22:27:13 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder ABC129 D - Lamp</title>
+      <link>https://matsueushi.github.io/atcoder/abc129-d/</link>
+      <pubDate>Tue, 07 Jun 2022 22:27:13 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc129-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc129/tasks/abc129_d&#34;&gt;https://atcoder.jp/contests/abc129/tasks/abc129_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;水平方向、垂直方向にそれぞれ見て行った時に、&amp;rsquo;#&amp;rsquo;, &amp;lsquo;.&amp;lsquo;の連続数を並べた数列を作る。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#..#..
+.....#
+....#.
+#.#...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;であったら&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[
+    [1, 2, 1, 2],
+    [5, 1],
+    [4, 1, 1],
+    [1, 1, 1, 3],
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;さらにこれの累積和をとると、&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[
+    [1, 3, 4, 6],
+    [5, 6],
+    [4, 5, 6],
+    [1, 2, 3, 6],
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;となり、&lt;code&gt;(3,4)&lt;/code&gt;に置いた光が横方向にどれくらい届くか調べたかったら、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;(3,4)&lt;/code&gt; が &amp;lsquo;.&amp;rsquo; であるかを調べる&lt;/li&gt;
+&lt;li&gt;3行目の累積和 &lt;code&gt;[4, 5, 6]&lt;/code&gt;を見て、4番目を超えている場所のインデックスを探す(この場合は1番目)&lt;/li&gt;
+&lt;li&gt;累積和を取る前の &lt;code&gt;[4, 1, 1]&lt;/code&gt; の対応する場所を見れば、横方向に連続している白マスがカウントできる。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;垂直方向も同様にカウントできる。&lt;code&gt;(横方向の連続数)+(縦方向の連続数)-1&lt;/code&gt; を白マスで計算してmaxを取れば良い。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc129/submissions/32307404&#34;&gt;https://atcoder.jp/contests/abc129/submissions/32307404&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC 153 E - Crested Ibis vs Monster</title>
@@ -400,7 +437,51 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;p&gt;下に解答を記録していこうと思います。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/CompetitiveProgramming&#34;&gt;https://github.com/matsueushi/CompetitiveProgramming&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;さてはて、いつまで続くやら。&lt;/p&gt;
-</description>
+&lt;hr&gt;
+&lt;p&gt;2022/6/7 追記 (随時更新)&lt;/p&gt;
+&lt;p&gt;ちょっとしたテクニック&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;入力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;parseint() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; parse(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int&lt;/span&gt;, readline())
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;parseints() &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; parse&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int&lt;/span&gt;, split(readline()))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; parsepoints(n&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Int&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    xs, ys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; zeros(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int&lt;/span&gt;, n), zeros(&lt;span style=&#34;color:#66d9ef&#34;&gt;Int&lt;/span&gt;, n)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xs[i], ys[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; parseints()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    xs, ys
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; parsestrings(n)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;}(undef, n)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;n
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ss[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; readline()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ss
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このようなテンプレートを作っておくと便利&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;パッケージのバージョンを確認する
+ローカルの実行環境をジャッジと合わせておかないと、予期しないエラーが起こる可能性あり。
+コードテストで&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Pkg
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;println(Pkg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;status())
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を実行すると使われているパッケージのバージョンが分かります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Status &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;~/.julia/environments/v1.4/Project.toml&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;864edb3b&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; DataStructures v0.17.11
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;27ebfcd6&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Primes v0.4.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nothing
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;StringからVector{Char}への変換&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Char&lt;/span&gt;}(s)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;負の数の剰余&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; mod(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -537,18 +618,7 @@ $$
 &lt;li&gt;蟻本 pp.353 Endless Knight&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;julia-特有のテクニック&#34;&gt;Julia 特有のテクニック&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;StringからVector{Char}への変換&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Vector&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Char&lt;/span&gt;}(s)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これだけでいい。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;負の数の剰余&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; mod(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+</description>
     </item>
     
   </channel>
