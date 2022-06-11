@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoderメモ書き</title>
+	<title>matsueushi  | AtCoder APC 001 B - Two Arrays</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.99.1" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoderメモ書き</h1>
+<h1 class="pt-2">AtCoder APC 001 B - Two Arrays</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="0001-01-01T00:00:00Z">0001-1-1 00:00</time>
+		datetime="2022-06-10T08:35:23&#43;09:00">2022-6-10 08:35</time>
 </div>
 
 <hr />
@@ -128,135 +128,32 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>自分用</p>
-<h2 id="dfs">DFS</h2>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/apc001/tasks/apc001_b">https://atcoder.jp/contests/apc001/tasks/apc001_b</a></p>
+<p>$c_i = a_i - b_i$ とする。</p>
+<pre tabindex="0"><code>3
+1 2 3
+5 2 2
+</code></pre><p>であれば $c = [-4,0,1]$ となる。 目的は、全ての $i$ に対して $c_i = 0$ とすること。</p>
+<p>$a_i$ に $2$ を足し、$b_i$ に $1$ を足す操作は、$i=j$ であれば $c_i$ に $1$ を足し(操作1とする）、
+$i \neq j$ ならば $c_i$ に $2$ を足し、$c_j$ から $1$ を引く操作(操作2とする)に対応する。
+数字を減らすのは操作2でしか行えないことに注意。</p>
+<p>$c_i$ を非負の部分と負の部分に分け、
+$I_+ = \{ i \mid c_i ≥ 0\}, I_- = \{ i \mid c_i &lt; 0 \}$,
+$S = \sum_{i \in I+} c_i, V = \sum_{i \in I-}\lfloor |c_i|/2 \rfloor$ とおく。</p>
+<p>$S$ は、操作2を行わなくてはいけない最低回数、$V$ は $0$ を超えないようにマイナスになっている $c_i$ に $2$ を足すことのできる最大回数とも考えられる。</p>
+<p>操作1で任意の場所の数字を任意の数だけ増やせるので、$I_+ = \empty$ つまり $S=0$ の状態にできれば良い。</p>
+<p>操作1 または 操作2 で $S$ を減らすことを考える。</p>
+<p>操作2で、$c_i \le -2, c_j &gt; 0$ となっている $i,j$ を選んで $c_i$ に $+2$, $c_j$ に $-1$ すること(操作☆と呼ぶ)でしか $S$ は減らせないことがわかる。
+この時、$S、V$ がともに1減少する。</p>
+<p>それ以外のパターンを考えると、</p>
 <ul>
-<li><a href="https://atcoder.jp/contests/abc138/tasks/abc138_d">ABC 138 D - Ki</a></li>
+<li>操作1 -&gt; $c_i \ge 0$ なら $S$ が1増加、それ以外なら $V$ が0または1減少</li>
+<li>操作2 -&gt; $+2$ する操作により、 $S$ が 1以上増加するか $V$ が1減少する。$c_j \le 0$ の時、$-1$ する操作では $V$ を高々1しか増やせない。</li>
 </ul>
-<p>木を辿る</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc220/tasks/abc220_f">ABC 220 F - Distance Sums 2</a></li>
-</ul>
-<h2 id="bfs">BFS</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc151/tasks/abc151_d">ABC 151 D - Maze Master</a></li>
-<li><a href="https://atcoder.jp/contests/abc088/tasks/abc088_d">ABC 088 D - Grid Repainting</a></li>
-</ul>
-<h2 id="bit全探索">Bit全探索</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc147/tasks/abc147_c">ABC 147 C - HonestOrUnkind2</a></li>
-</ul>
-<h2 id="区間スケジュール問題">区間スケジュール問題</h2>
-<p>キーエンス2020 B Robot Arms</p>
-<h2 id="dp">DP</h2>
-<ul>
-<li><a href="">ABC 154 E Almost Everywhere Zero</a></li>
-</ul>
-<p>1次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">AGC 034 A - Kenken Race</a></li>
-</ul>
-<p>2次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc183/tasks/abc183_e">ABC 183 E - Queen on Grid</a></li>
-<li><a href="https://atcoder.jp/contests/agc043/tasks/agc043_a">AGC 043 A - Range Flip Find Route</a></li>
-</ul>
-<h2 id="ナップザック問題">ナップザック問題</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc153/tasks/abc153_e">ABC 153 E - Crested Ibis vs Monster</a></li>
-</ul>
-<h2 id="数列">数列</h2>
-<p>数列の連続する項目が離れている条件-&gt;累積和</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_e">ABC 253 E Distance Sequence</a></li>
-</ul>
-<h2 id="ダイクストラ">ダイクストラ</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc252/tasks/abc252_e">ABC 252 E Road Reduction</a></li>
-</ul>
-<h2 id="ワーシャルフロイド">ワーシャルフロイド</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc079/tasks/abc079_d">ABC 079 D - Wall</a></li>
-</ul>
-<h2 id="fenwick-tree">Fenwick Tree</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_f">ABC 254 F - Operations on a Matrix</a></li>
-</ul>
-<h2 id="括弧">括弧</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc064/tasks/abc064_d">ABC 064 D - Insertion</a></li>
-</ul>
-<h2 id="約数">約数</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc134/tasks/abc134_d">ABC 134 D - Preparing Boxes</a></li>
-</ul>
-<h2 id="素数">素数</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc084/tasks/abc084_d">ABC 084 D - 2017-like Number</a></li>
-</ul>
-<h2 id="三角形">三角形</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc143/tasks/abc143_d">ABC 143 D - Triangles</a></li>
-</ul>
-<h2 id="lca">LCA</h2>
-<p>蟻本 pp.292</p>
-<p>\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)</p>
-<ul>
-<li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
-</ul>
-<h2 id="チェスのナイト">チェスのナイト</h2>
-<p>斜めに動くとわかりづらいので、座標変換を行う。
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right) =
-\left(
-\begin{matrix}
-1 &amp; 2 \\
-2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right)
-\end{aligned}
-$$
-だから、逆変換
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right) =
-\cfrac{1}{3}
-\left(
-\begin{matrix}
-1 &amp; -2 \\
--2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right)
-\end{aligned}
-$$
-を考えることにより縦横の単純な移動に変換する。</p>
-<ul>
-<li>蟻本 pp.353 Endless Knight</li>
-</ul>
-<hr>
+<p>上により、どう頑張っても $V$ を増やすことはできないことがわかる。</p>
+<p>$S ≤ V$ ならば、$c_i \le -2, c_j &gt; 0$ となっている $i,j$ を選んで操作☆を続けることで $S=0$ とできる。
+それ以外ならどう頑張っても $S$ 回上のような操作ができないので、目的が達成できない。</p>
+<p><a href="https://atcoder.jp/contests/apc001/submissions/32369370">https://atcoder.jp/contests/apc001/submissions/32369370</a></p>
 </div>
 	</section>
 
@@ -363,7 +260,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 367 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 648 words in this page.
 	</div>
 </div>
 
@@ -374,9 +271,17 @@ $$
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
+    <a class="flex-grow-0" href="/atcoder/abc198-d/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        AtCoder ABC 198 D - Send More Money
+    </a>
     
-    <a class="flex-grow-0" href="/posts/cymbals-entertainment/">
-        Cymbals - That&#39;s Entertainment (2000)
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -390,8 +295,6 @@ $$
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
-		
-			<a href="/atcoder/apc001-b/">AtCoder APC 001 B - Two Arrays</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/abc198-d/">AtCoder ABC 198 D - Send More Money</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -419,7 +322,9 @@ $$
 		
 			<a href="/atcoder/abc130-c/">AtCoder ABC 130 C - Rectangle Cutting</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/ddcc2020-qual-c/">AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</a>
+			<a href="/atcoder/ddcc2020-qual-c/">AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc137-d/">AtCoder ABC 137 D - Summer Vacation</a>
 		
 </span>
 </div>
