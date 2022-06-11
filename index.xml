@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Fri, 10 Jun 2022 08:35:23 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jun 2022 19:45:34 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -936,6 +936,20 @@
 &lt;li&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは&lt;/a&gt; (&lt;a href=&#34;https://archive.is/WipIb#selection-581.2-613.68&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder diverta 2019 Programming Contest D - DivRem Number</title>
+      <link>https://matsueushi.github.io/atcoder/diverta2019-d/</link>
+      <pubDate>Sat, 11 Jun 2022 19:45:34 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/diverta2019-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&#34;&gt;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$t = \lfloor n/m\rfloor = n \mod m$ とおくと $0 \le t &amp;lt; m$であり、$n=\alpha m + t$ とおける。
+$t$ の条件から $\alpha = \lfloor n/m\rfloor = t$ だから結局 $n = t(m+1)$ とかける。&lt;/p&gt;
+&lt;p&gt;$n = t(m+1) \ge t^2$ より、$t \le \sqrt{n}$ を探索すれば良い。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/diverta2019/submissions/32371542&#34;&gt;https://atcoder.jp/contests/diverta2019/submissions/32371542&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
