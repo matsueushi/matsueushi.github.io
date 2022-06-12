@@ -7,10 +7,65 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 11 Jun 2022 19:45:34 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jun 2022 21:11:31 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder ABC 255 C - ±1 Operation 1 </title>
+      <link>https://matsueushi.github.io/atcoder/abc255-c/</link>
+      <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc255-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_c&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$\min_{i=0,\ldots,n-1}|A+Di-X|$ を求めれば良い。$y=A+Dx$ と $y=X$ の交点を求め、
+$x &amp;lt; 0, 1 \le x \le n-1 ,x &amp;gt; n-1$ の場合に応じて計算すれば良い。&lt;/p&gt;
+&lt;p&gt;$|A+Di-X|$ が最も小さくなるのは、$x$ に最も近い $0\le i \le n-1$ を選んだ時である。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/submissions/32387318&#34;&gt;https://atcoder.jp/contests/abc255/submissions/32387318&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 255 D - ±1 Operation 2</title>
+      <link>https://matsueushi.github.io/atcoder/abc255-d/</link>
+      <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc255-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_d&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$i$ を一つ固定した時、操作の最低回数は $\sum_{j=1}^N |A_j-X_i|$ である。&lt;/p&gt;
+&lt;p&gt;$A_k$ の順番は関係ないので、 $A_k$ は昇順にソートしているとして良い。$A_k$ をソートするのは最初に一回だけやれば良い。&lt;/p&gt;
+&lt;p&gt;累積和 $C_k = \sum_{j=1}^k A_j$ を使って  $S = \sum_{j=1}^N |A_j-X|$ を次のように求める。
+$l = \max \{ j \mid A_j \le X\}$ とすると $S = (lX - C_l) + ((C_N-C_l) - (N-l)X)$ となる。&lt;/p&gt;
+&lt;p&gt;$A = [1,2,4,5], X=3$ の時、求めたいのは下の赤と青の面積で、&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/abc255-d.svg&#34; alt=&#34;hist&#34;&gt;&lt;/p&gt;
+&lt;p&gt;$l = 2$ で赤色の部分が $lX - C_l$, 青色の部分が $(C_N-C_l) - (N-l)X$ に対応。&lt;/p&gt;
+&lt;p&gt;各クエリに対して2分探索するところで $O(\log N)$ 時間かかるので、$O(Q\log N)$ で全てのクエリを処理できる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/submissions/32393722&#34;&gt;https://atcoder.jp/contests/abc255/submissions/32393722&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 255 E - Lucky Numbers</title>
+      <link>https://matsueushi.github.io/atcoder/abc255-e/</link>
+      <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc255-e/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_e&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_e&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$A_1 = \alpha$ とおくと、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$A_2 = S_1 - A_1 = S_1 - \alpha$&lt;/li&gt;
+&lt;li&gt;$A_3 = S_2 - A_2 = S_2 - S_1 + \alpha$
+&amp;hellip;
+となることがわかる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$T_1 = 0, T_k = \sum_{i=1}^{k-1} (-1)^{i+k+1}S_k$ とおくと、どんな $A$ に対しても、 ある $\alpha$ が存在して $A_k = T_k + (-1)^{k+1} \alpha$ が全ての $k$ に対して成り立つことがわかる。&lt;/p&gt;
+&lt;p&gt;$F(i,\alpha) = |\{ k \mid  T_k + (-1)^{k+1} \alpha = X_i \} |$ とする。
+これは、 $i, \alpha$ に対して、$X_i = T_k + (-1)^{k+1} \alpha$ となる $k$ の数を数えていることになる。$T, X$ の条件から $F(i,\alpha) \neq 0$ となる $\alpha$ は絞り込むことができる。&lt;/p&gt;
+&lt;p&gt;あとは、$i$ を動かして $\sum_i F(i,\alpha)$ の最大値を取れば良い。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/submissions/32403143&#34;&gt;https://atcoder.jp/contests/abc255/submissions/32403143&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder diverta 2019 Programming Contest D - DivRem Number</title>
@@ -579,7 +634,7 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc147/tasks/abc147_c&#34;&gt;ABC 147 C - HonestOrUnkind2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;区間スケジュール問題&#34;&gt;区間スケジュール問題&lt;/h2&gt;
-&lt;p&gt;キーエンス2020 B Robot Arms&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/keyence2020/tasks/keyence2020_b&#34;&gt;キーエンス2020 B Robot Arms&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;dp&#34;&gt;DP&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;&#34;&gt;ABC 154 E Almost Everywhere Zero&lt;/a&gt;&lt;/li&gt;
@@ -609,6 +664,11 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;h2 id=&#34;ワーシャルフロイド&#34;&gt;ワーシャルフロイド&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc079/tasks/abc079_d&#34;&gt;ABC 079 D - Wall&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;橋&#34;&gt;橋&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://nupioca.hatenadiary.jp/entry/2013/11/03/200006&#34;&gt;橋（bridge）検出アルゴリズム - nupiocaの日記&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc075/tasks/abc075_c&#34;&gt;ABC 075 C - Bridge&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;fenwick-tree&#34;&gt;Fenwick Tree&lt;/h2&gt;
 &lt;ul&gt;
@@ -688,7 +748,6 @@ $$
 &lt;ul&gt;
 &lt;li&gt;蟻本 pp.353 Endless Knight&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;
 </description>
     </item>
     
