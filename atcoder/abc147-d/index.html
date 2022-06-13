@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoder ABC 255 E - Lucky Numbers</title>
+	<title>matsueushi  | AtCoder ABC 147 D - Xor Sum 4</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.99.1" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoder ABC 255 E - Lucky Numbers</h1>
+<h1 class="pt-2">AtCoder ABC 147 D - Xor Sum 4</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-06-12T21:11:31&#43;09:00">2022-6-12 21:11</time>
+		datetime="2022-06-13T21:39:24&#43;09:00">2022-6-13 21:39</time>
 </div>
 
 <hr />
@@ -128,19 +128,24 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc255/tasks/abc255_e">https://atcoder.jp/contests/abc255/tasks/abc255_e</a></p>
-<p>$A_1 = \alpha$ とおくと、</p>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc147/tasks/abc147_d">https://atcoder.jp/contests/abc147/tasks/abc147_d</a></p>
+<p>もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。</p>
+<p>$z_i = 1 \ll i$ とおくと、任意の $x$ に対して $x = \sum_i x \&amp; z_i$ であり、
+$(x \oplus y) \&amp; z_i = (x \&amp; z_i )\oplus (y \&amp; z_i)$ である。</p>
+<p>$\sum_{i=1}^{N-1} \sum_{j=i+1}^N (A_i \oplus A_j) = \sum_k \sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k))$
+であり、右のように変形すると、$A_i \&amp; z_k = 0$ または $z_k$ であるので計算が簡単にできる。</p>
+<p>$B_k = \#\{ i \mid A_i \&amp; z_k = 0 \}, C_k = \#\{ i \mid A_i \&amp; z_k = z_k \}$ とおくと、
+$(A_i \&amp; z_k) \oplus (A_j \&amp; z_k)$ は</p>
 <ul>
-<li>$A_2 = S_1 - A_1 = S_1 - \alpha$</li>
-<li>$A_3 = S_2 - A_2 = S_2 - S_1 + \alpha$
-&hellip;
-となることがわかる。</li>
+<li>$0 \oplus 0 = 0$</li>
+<li>$0 \oplus z_k = z_k$</li>
+<li>$z_k \oplus 0 = z_k$</li>
+<li>$z_k \oplus z_k = 0$</li>
 </ul>
-<p>$T_1 = 0, T_k = \sum_{i=1}^{k-1} (-1)^{i+k+1}S_k$ とおくと、どんな $A$ に対しても、 ある $\alpha$ が存在して $A_k = T_k + (-1)^{k+1} \alpha$ が全ての $k$ に対して成り立つことがわかる。</p>
-<p>$F(i,\alpha) = |\{ k \mid  T_k + (-1)^{k+1} \alpha = X_i \} |$ とする。
-これは、 $i, \alpha$ に対して、$X_i = T_k + (-1)^{k+1} \alpha$ となる $k$ を数えていることになる。$T, X$ の条件から $F(i,\alpha) \neq 0$ となる $\alpha$ は絞り込むことができる。</p>
-<p>あとは、$i$ を動かして $\sum_i F(i,\alpha)$ の最大値を取れば良い。</p>
-<p><a href="https://atcoder.jp/contests/abc255/submissions/32403143">https://atcoder.jp/contests/abc255/submissions/32403143</a></p>
+<p>の4通りなので、
+$\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)) = B_k * C_k * z_k$ である。
+あとはこれを $k$ について足し合わせる。</p>
+<p><a href="https://atcoder.jp/contests/abc147/submissions/32456970">https://atcoder.jp/contests/abc147/submissions/32456970</a></p>
 </div>
 	</section>
 
@@ -247,7 +252,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 203 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 239 words in this page.
 	</div>
 </div>
 
@@ -258,17 +263,17 @@ onload='renderMathInElement(document.body);'></script>
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/atcoder/diverta2019-d/">
+    <a class="flex-grow-0" href="/atcoder/agc023-a/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        AtCoder diverta 2019 Programming Contest D - DivRem Number
+        AtCoder AGC 023 A - Zero-Sum Ranges
     </a>
     
     
-    <a class="flex-grow-0" href="/atcoder/abc255-d/">
-        AtCoder ABC 255 D - ±1 Operation 2
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -283,9 +288,13 @@ onload='renderMathInElement(document.body);'></script>
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
 		
+			<a href="/atcoder/agc023-a/">AtCoder AGC 023 A - Zero-Sum Ranges</a>&nbsp;&nbsp;&#47;&nbsp;
+		
 			<a href="/atcoder/abc255-c/">AtCoder ABC 255 C - ±1 Operation 1 </a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/abc255-d/">AtCoder ABC 255 D - ±1 Operation 2</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc255-e/">AtCoder ABC 255 E - Lucky Numbers</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/diverta2019-d/">AtCoder diverta 2019 Programming Contest D - DivRem Number</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -307,11 +316,7 @@ onload='renderMathInElement(document.body);'></script>
 		
 			<a href="/atcoder/abc134-d/">AtCoder ABC 134 D - Preparing Boxes</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc064-d/">AtCoder ABC 064 D - Insertion</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/atcoder/abc133-d/">AtCoder ABC 133 D - Rain Flows into Dams</a>&nbsp;&nbsp;&#47;&nbsp;
-		
-			<a href="/atcoder/abc094-c/">AtCoder ABC 094 C - Many Medians</a>
+			<a href="/atcoder/abc064-d/">AtCoder ABC 064 D - Insertion</a>
 		
 </span>
 </div>

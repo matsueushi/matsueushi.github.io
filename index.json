@@ -20,6 +20,24 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc147/tasks/abc147_d\nもちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。\n$z_i = 1 \\ll i$ とおくと、任意の $x$ に対して $x = \\sum_i x \\\u0026amp; z_i$ であり、 $(x \\oplus y) \\\u0026amp; z_i = (x \\\u0026amp; z_i )\\oplus (y \\\u0026amp; z_i)$ である。\n$\\sum_{i=1}^{N-1} \\sum_{j=i+1}^N (A_i \\oplus A_j) = \\sum_k \\sum_{i=1}^{N-1} \\sum_{j=i+1}^N ((A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k))$ であり、右のように変形すると、$A_i \\\u0026amp; z_k = 0$ または $z_k$ であるので計算が簡単にできる。\n$B_k = \\#\\{ i \\mid A_i \\\u0026amp; z_k = 0 \\}, C_k = \\#\\{ i \\mid A_i \\\u0026amp; z_k = z_k \\}$ とおくと、 $(A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k)$ は\n $0 \\oplus 0 = 0$ $0 \\oplus z_k = z_k$ $z_k \\oplus 0 = z_k$ $z_k \\oplus z_k = 0$  の4通りなので、 $\\sum_{i=1}^{N-1} \\sum_{j=i+1}^N ((A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k)) = B_k * C_k * z_k$ である。 あとはこれを $k$ について足し合わせる。\nhttps://atcoder.jp/contests/abc147/submissions/32456970\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc147-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 147 D - Xor Sum 4"
+  },
+  {
+    "contents": "https://atcoder.jp/contests/agc023/tasks/agc023_a\n$C_j = \\sum_{k=1}^j A_k$ とおくと、 $\\sum_{k=i}^j A_k = 0 \\Leftrightarrow C_j = C_{k-1}$ であるから、 累積和を求めて $C_0=0, C_j = \\sum_{k=1}^j A_k$ とおき、 $I_x = \\{ i \\mid C_i = x\\}$ を計算して、$\\sum_x |I_x| (|I_x|-1)/2$ を求めれば良い。\nhttps://atcoder.jp/contests/agc023/submissions/32455933\n",
+    "permalink": "https://matsueushi.github.io/atcoder/agc023-a/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder AGC 023 A - Zero-Sum Ranges"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc255/tasks/abc255_c\n$\\min_{i=0,\\ldots,n-1}|A+Di-X|$ を求めれば良い。$y=A+Dx$ と $y=X$ の交点を求め、 $x \u0026lt; 0, 1 \\le x \\le n-1 ,x \u0026gt; n-1$ の場合に応じて計算すれば良い。\n$|A+Di-X|$ が最も小さくなるのは、$x$ に最も近い $0\\le i \\le n-1$ を選んだ時である。\nhttps://atcoder.jp/contests/abc255/submissions/32387318\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc255-c/",
     "tags": [
@@ -38,7 +56,7 @@
     "title": "AtCoder ABC 255 D - ±1 Operation 2"
   },
   {
-    "contents": "https://atcoder.jp/contests/abc255/tasks/abc255_e\n$A_1 = \\alpha$ とおくと、\n $A_2 = S_1 - A_1 = S_1 - \\alpha$ $A_3 = S_2 - A_2 = S_2 - S_1 + \\alpha$ \u0026hellip; となることがわかる。  $T_1 = 0, T_k = \\sum_{i=1}^{k-1} (-1)^{i+k+1}S_k$ とおくと、どんな $A$ に対しても、 ある $\\alpha$ が存在して $A_k = T_k + (-1)^{k+1} \\alpha$ が全ての $k$ に対して成り立つことがわかる。\n$F(i,\\alpha) = |\\{ k \\mid T_k + (-1)^{k+1} \\alpha = X_i \\} |$ とする。 これは、 $i, \\alpha$ に対して、$X_i = T_k + (-1)^{k+1} \\alpha$ となる $k$ の数を数えていることになる。$T, X$ の条件から $F(i,\\alpha) \\neq 0$ となる $\\alpha$ は絞り込むことができる。\nあとは、$i$ を動かして $\\sum_i F(i,\\alpha)$ の最大値を取れば良い。\nhttps://atcoder.jp/contests/abc255/submissions/32403143\n",
+    "contents": "https://atcoder.jp/contests/abc255/tasks/abc255_e\n$A_1 = \\alpha$ とおくと、\n $A_2 = S_1 - A_1 = S_1 - \\alpha$ $A_3 = S_2 - A_2 = S_2 - S_1 + \\alpha$ \u0026hellip; となることがわかる。  $T_1 = 0, T_k = \\sum_{i=1}^{k-1} (-1)^{i+k+1}S_k$ とおくと、どんな $A$ に対しても、 ある $\\alpha$ が存在して $A_k = T_k + (-1)^{k+1} \\alpha$ が全ての $k$ に対して成り立つことがわかる。\n$F(i,\\alpha) = |\\{ k \\mid T_k + (-1)^{k+1} \\alpha = X_i \\} |$ とする。 これは、 $i, \\alpha$ に対して、$X_i = T_k + (-1)^{k+1} \\alpha$ となる $k$ を数えていることになる。$T, X$ の条件から $F(i,\\alpha) \\neq 0$ となる $\\alpha$ は絞り込むことができる。\nあとは、$i$ を動かして $\\sum_i F(i,\\alpha)$ の最大値を取れば良い。\nhttps://atcoder.jp/contests/abc255/submissions/32403143\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc255-e/",
     "tags": [
       "AtCoder",
