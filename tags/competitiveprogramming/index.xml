@@ -7,10 +7,83 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Mon, 13 Jun 2022 21:39:24 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jun 2022 22:55:50 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>全国統一プログラミング王決定戦予選 C - Different Strokes</title>
+      <link>https://matsueushi.github.io/atcoder/nikkei2019-qual-c/</link>
+      <pubDate>Tue, 14 Jun 2022 22:55:50 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/nikkei2019-qual-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c&#34;&gt;https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2人が最適な戦略を取るとき、残っている料理のうち $A_i+B_i$ が最大となるものを交互に選んでいくことになることを示す。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;3
+20 10
+20 20
+20 30
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;この入力の場合を考える。&lt;/p&gt;
+&lt;p&gt;Aの立場で考えてみよう。
+全部相手に料理を食べられてしまった時の自分から見た幸福度の差は、$-B_1-B_2-B_3$ である。料理 $i$ を食べると、この値が $A_i+B_i$ 改善することがわかる。そのため、Aの立場で考えると $A_i+B_i$ が大きいものを優先して食べたいことがわかる。&lt;/p&gt;
+&lt;p&gt;次にBの立場で考えてみると、同じように $A_i+B_i$ が大きいものを優先するのが最適解であることが同様の議論でわかる。
+A も B も料理 $i$ を食べるとそれぞれの立場で見た幸福度の差が $A_i+B_i$ 改善するため、$A_i+B_i$ と書かれた $N$ 個の料理を合計の数値が最大となるよう二人で交互に取り合っているのと同値な状況とみなせる。&lt;/p&gt;
+&lt;p&gt;$A_i+B_i$ を降順にソートし、奇数番目を高橋くん、偶数番目を青木さんが選んだとして幸福度の差を計算すればOK。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/nikkei2019-qual/submissions/32474436&#34;&gt;https://atcoder.jp/contests/nikkei2019-qual/submissions/32474436&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AtCoder ABC 121 D - XOR World</title>
+      <link>https://matsueushi.github.io/atcoder/abc121-d/</link>
+      <pubDate>Tue, 14 Jun 2022 21:31:14 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc121-d/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc121/tasks/abc121_d&#34;&gt;https://atcoder.jp/contests/abc121/tasks/abc121_d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ビットごとの排他的論理和は二回繰り返すと元に戻り、可換で結合法則を満たすことから、&lt;/p&gt;
+&lt;p&gt;$f(A,B)=A \veebar A+1 \veebar \cdots \veebar B = (0 \veebar 2 \veebar \cdots \veebar A-1) \veebar (0 \veebar 2 \veebar \cdots \veebar B) = f(1,A-1) \veebar f(1,B)$&lt;/p&gt;
+&lt;p&gt;だから、$A=0$ の場合に帰着される。&lt;/p&gt;
+&lt;p&gt;それぞれの桁毎に、$0~B$ に出てくる $1$ の数が偶数個か奇数個か数えれば、$f(1,B)$ の各ビットがわかる。 $A=0$ の 1,2,3,&amp;hellip;$ のビット表示を確認すると、&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;10進数&lt;/th&gt;
+&lt;th&gt;2進数&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;00000001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;00000010&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;00000011&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;00000100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;$1$ の位は $0 \rightarrow 1 \rightarrow 0  \rightarrow 1 \rightarrow \cdots$ と1つごとに切り替わり、 $2$ の位は $0 \rightarrow 0 \rightarrow 1 \rightarrow 1 \rightarrow \cdots$ と2つ毎に切り替わり、と規則的になっている。&lt;/p&gt;
+&lt;p&gt;$2^i$ 桁目のビットを考えよう。$i=0$ の時は $B \equiv 1 \mod 4$ なら $1$, それ以外なら $0$ が立っている。&lt;/p&gt;
+&lt;p&gt;$i \ge 1$ であれば、$2^{i+1}$ 毎に $1$ が $2^i$ 個(偶数個)出てくるから、$1$ の出現数の偶奇は $(B+1) \mod 2^{i+1}$ で考えれば良い。
+$2^{i+1}$ 個ごとの $0/1$ の出現順は、最初に $0$ が $2^i$ 個続き、そのあと $1$ が $2^i$ 個続くから、 $1$ の数は、$\max(0, ((B+1) \mod 2^{i+1}) - 2^i)$。
+この数が偶数なら $0$, 奇数なら $1$ のビットが立っている。&lt;/p&gt;
+&lt;p&gt;(実装は結構手間取りました)
+&lt;a href=&#34;https://atcoder.jp/contests/abc121/submissions/32474342&#34;&gt;https://atcoder.jp/contests/abc121/submissions/32474342&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC 147 D - Xor Sum 4</title>

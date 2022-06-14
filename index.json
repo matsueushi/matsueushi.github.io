@@ -20,6 +20,24 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c\n2人が最適な戦略を取るとき、残っている料理のうち $A_i+B_i$ が最大となるものを交互に選んでいくことになることを示す。\n3 20 10 20 20 20 30 この入力の場合を考える。\nAの立場で考えてみよう。 全部相手に料理を食べられてしまった時の自分から見た幸福度の差は、$-B_1-B_2-B_3$ である。料理 $i$ を食べると、この値が $A_i+B_i$ 改善することがわかる。そのため、Aの立場で考えると $A_i+B_i$ が大きいものを優先して食べたいことがわかる。\n次にBの立場で考えてみると、同じように $A_i+B_i$ が大きいものを優先するのが最適解であることが同様の議論でわかる。 A も B も料理 $i$ を食べるとそれぞれの立場で見た幸福度の差が $A_i+B_i$ 改善するため、$A_i+B_i$ と書かれた $N$ 個の料理を合計の数値が最大となるよう二人で交互に取り合っているのと同値な状況とみなせる。\n$A_i+B_i$ を降順にソートし、奇数番目を高橋くん、偶数番目を青木さんが選んだとして幸福度の差を計算すればOK。\nhttps://atcoder.jp/contests/nikkei2019-qual/submissions/32474436\n",
+    "permalink": "https://matsueushi.github.io/atcoder/nikkei2019-qual-c/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "全国統一プログラミング王決定戦予選 C - Different Strokes"
+  },
+  {
+    "contents": "https://atcoder.jp/contests/abc121/tasks/abc121_d\nビットごとの排他的論理和は二回繰り返すと元に戻り、可換で結合法則を満たすことから、\n$f(A,B)=A \\veebar A+1 \\veebar \\cdots \\veebar B = (0 \\veebar 2 \\veebar \\cdots \\veebar A-1) \\veebar (0 \\veebar 2 \\veebar \\cdots \\veebar B) = f(1,A-1) \\veebar f(1,B)$\nだから、$A=0$ の場合に帰着される。\nそれぞれの桁毎に、$0~B$ に出てくる $1$ の数が偶数個か奇数個か数えれば、$f(1,B)$ の各ビットがわかる。 $A=0$ の 1,2,3,\u0026hellip;$ のビット表示を確認すると、\n   10進数 2進数     0 00000000   1 00000001   2 00000010   3 00000011   4 00000100    $1$ の位は $0 \\rightarrow 1 \\rightarrow 0 \\rightarrow 1 \\rightarrow \\cdots$ と1つごとに切り替わり、 $2$ の位は $0 \\rightarrow 0 \\rightarrow 1 \\rightarrow 1 \\rightarrow \\cdots$ と2つ毎に切り替わり、と規則的になっている。\n$2^i$ 桁目のビットを考えよう。$i=0$ の時は $B \\equiv 1 \\mod 4$ なら $1$, それ以外なら $0$ が立っている。\n$i \\ge 1$ であれば、$2^{i+1}$ 毎に $1$ が $2^i$ 個(偶数個)出てくるから、$1$ の出現数の偶奇は $(B+1) \\mod 2^{i+1}$ で考えれば良い。 $2^{i+1}$ 個ごとの $0/1$ の出現順は、最初に $0$ が $2^i$ 個続き、そのあと $1$ が $2^i$ 個続くから、 $1$ の数は、$\\max(0, ((B+1) \\mod 2^{i+1}) - 2^i)$。 この数が偶数なら $0$, 奇数なら $1$ のビットが立っている。\n(実装は結構手間取りました) https://atcoder.jp/contests/abc121/submissions/32474342\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc121-d/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 121 D - XOR World"
+  },
+  {
     "contents": "https://atcoder.jp/contests/abc147/tasks/abc147_d\nもちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。\n$z_i = 1 \\ll i$ とおくと、任意の $x$ に対して $x = \\sum_i x \\\u0026amp; z_i$ であり、 $(x \\oplus y) \\\u0026amp; z_i = (x \\\u0026amp; z_i )\\oplus (y \\\u0026amp; z_i)$ である。\n$\\sum_{i=1}^{N-1} \\sum_{j=i+1}^N (A_i \\oplus A_j) = \\sum_k \\sum_{i=1}^{N-1} \\sum_{j=i+1}^N ((A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k))$ であり、右のように変形すると、$A_i \\\u0026amp; z_k = 0$ または $z_k$ であるので計算が簡単にできる。\n$B_k = \\#\\{ i \\mid A_i \\\u0026amp; z_k = 0 \\}, C_k = \\#\\{ i \\mid A_i \\\u0026amp; z_k = z_k \\}$ とおくと、 $(A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k)$ は\n $0 \\oplus 0 = 0$ $0 \\oplus z_k = z_k$ $z_k \\oplus 0 = z_k$ $z_k \\oplus z_k = 0$  の4通りなので、 $\\sum_{i=1}^{N-1} \\sum_{j=i+1}^N ((A_i \\\u0026amp; z_k) \\oplus (A_j \\\u0026amp; z_k)) = B_k * C_k * z_k$ である。 あとはこれを $k$ について足し合わせる。\nhttps://atcoder.jp/contests/abc147/submissions/32456970\n",
     "permalink": "https://matsueushi.github.io/atcoder/abc147-d/",
     "tags": [
