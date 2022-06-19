@@ -7,10 +7,67 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Tue, 14 Jun 2022 22:55:50 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jun 2022 21:07:30 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tenka1 Programmer Contest C - Align</title>
+      <link>https://matsueushi.github.io/atcoder/tenka1-2018-c/</link>
+      <pubDate>Sun, 19 Jun 2022 21:07:30 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/tenka1-2018-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c&#34;&gt;https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;正の整数からなる数列 $\{A_i\}_i$ が与えられた時に、
+数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。&lt;/p&gt;
+&lt;p&gt;大小関係がジグザグにすれば良い、ということはなんとなくわかったが、
+解説を読んでもピンと来なかったので整理しておく。&lt;/p&gt;
+&lt;p&gt;まず、$A_i$ はソートされていると考えて良いだろう。すると、次のような問題を考えれば良いことになる。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/tenka1-2018-fig1.svg&#34; alt=&#34;fig1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数直線の上に $\{A_i\}_i$ が並んでいる。始点と終点を異なるように選び、全ての点を一回ずつ通って進む。移動距離の最大値を求めよ。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$A_i$ と $A_{i+1}$ が作る区間を $I_i$ とし、その長さを $B_i = A_{i+1}-A_i$ とおく。
+上の図だと、$A_1$ から $A_5$ まで点があり、区間が $I_1$ から $I_4$ まである。&lt;/p&gt;
+&lt;h3 id=&#34;始点終点の場合を考えてみる&#34;&gt;始点=終点の場合を考えてみる&lt;/h3&gt;
+&lt;p&gt;脱線するが、最初に始点 = 終点 となる場合の変種を考える。&lt;/p&gt;
+&lt;p&gt;それぞれの区間を通過する最大回数を考える。
+$I_1$ から順番に考えていくと、$I_1$ を通過するのは $A_1$ から出ていく時か、$A_1$ に入る時の高々2回しかない。
+$I_2$ を考えると、 $I_1$ で考えた $A_1$ から出ていく矢印、 $A_1$ に戻る矢印がそのまま2を通過する場合と、
+新たに $A_2$ に出入りする矢印がある場合の高々4通りである。&lt;/p&gt;
+&lt;p&gt;このように考え、さらに左右の対称性も考慮すると、区間 $I_i$ を通過する回数は、最大 $2\min (i, n-i)$ 回であることがわかる。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/tenka1-2018-fig2.svg&#34; alt=&#34;fig2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;また、この最大値をとるような動き方は、上の図のようにジグザグに移動することで必ず達成でき、
+$2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であることがわかる。&lt;/p&gt;
+&lt;h3 id=&#34;始点と終点が異なる場合&#34;&gt;始点と終点が異なる場合&lt;/h3&gt;
+&lt;p&gt;始点と終点が異なる場合、移動距離 $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ は達成できない。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/tenka1-2018-fig3.svg&#34; alt=&#34;fig3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;しかし、上のようにジグザグに動くことを考えると、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_{m-1}$ や $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$&lt;/li&gt;
+&lt;li&gt;$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;は達成できることがわかる。それぞれ始点、終点の位置の集合は&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$n = 2m-1$, 奇数の場合 : $\{A_{m-1},A_m\}$ または $\{A_m,A_{m+1}\}$&lt;/li&gt;
+&lt;li&gt;$n = 2m$, 偶数の場合 : $\{A_m,A_{m+1}\}$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;と中央の位置にある場合になる。始点と終点が一致する時の通過回数の最大回数に比べ、通過回数の差は&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$n = 2m-1$, 奇数の場合 : $I_{m-1}$ または $I_m$ が1回少なく通過&lt;/li&gt;
+&lt;li&gt;$n = 2m$, 偶数の場合 :  $I_m$ が1回少なく通く&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;区間を通過する回数を始点=終点の時と同様に考えると、それ以外の位置に始点、終点がある場合通過区間の通過した回数が少なくなることがわかる。(最適な始点・終点の位置より外側に配置すると通過できない回数が増え、上に挙げたいずれかの場合よりも距離が短くなる)&lt;/p&gt;
+&lt;p&gt;結局、ジグザグに動く時が最適になり、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - \min (B_{m-1},B_m)$&lt;/li&gt;
+&lt;li&gt;$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;が答えになることがわかる。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/tenka1-2018/submissions/32590060&#34;&gt;https://atcoder.jp/contests/tenka1-2018/submissions/32590060&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>全国統一プログラミング王決定戦予選 C - Different Strokes</title>

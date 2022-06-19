@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoderメモ書き</title>
+	<title>matsueushi  | Tenka1 Programmer Contest C - Align</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoderメモ書き</h1>
+<h1 class="pt-2">Tenka1 Programmer Contest C - Align</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="0001-01-01T00:00:00Z">0001-1-1 00:00</time>
+		datetime="2022-06-19T21:07:30&#43;09:00">2022-6-19 21:07</time>
 </div>
 
 <hr />
@@ -128,139 +128,54 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>自分用</p>
-<h2 id="dfs">DFS</h2>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c">https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c</a></p>
+<p>正の整数からなる数列 $\{A_i\}_i$ が与えられた時に、
+数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。</p>
+<p>大小関係がジグザグにすれば良い、ということはなんとなくわかったが、
+解説を読んでもピンと来なかったので整理しておく。</p>
+<p>まず、$A_i$ はソートされていると考えて良いだろう。すると、次のような問題を考えれば良いことになる。</p>
+<p><img src="/images/atcoder/tenka1-2018-fig1.svg" alt="fig1"></p>
 <ul>
-<li><a href="https://atcoder.jp/contests/abc138/tasks/abc138_d">ABC 138 D - Ki</a></li>
+<li>数直線の上に $\{A_i\}_i$ が並んでいる。始点と終点を異なるように選び、全ての点を一回ずつ通って進む。移動距離の最大値を求めよ。</li>
 </ul>
-<p>木を辿る</p>
+<p>$A_i$ と $A_{i+1}$ が作る区間を $I_i$ とし、その長さを $B_i = A_{i+1}-A_i$ とおく。
+上の図だと、$A_1$ から $A_5$ まで点があり、区間が $I_1$ から $I_4$ まである。</p>
+<h3 id="始点終点の場合を考えてみる">始点=終点の場合を考えてみる</h3>
+<p>脱線するが、最初に始点 = 終点 となる場合の変種を考える。</p>
+<p>それぞれの区間を通過する最大回数を考える。
+$I_1$ から順番に考えていくと、$I_1$ を通過するのは $A_1$ から出ていく時か、$A_1$ に入る時の高々2回しかない。
+$I_2$ を考えると、 $I_1$ で考えた $A_1$ から出ていく矢印、 $A_1$ に戻る矢印がそのまま2を通過する場合と、
+新たに $A_2$ に出入りする矢印がある場合の高々4通りである。</p>
+<p>このように考え、さらに左右の対称性も考慮すると、区間 $I_i$ を通過する回数は、最大 $2\min (i, n-i)$ 回であることがわかる。</p>
+<p><img src="/images/atcoder/tenka1-2018-fig2.svg" alt="fig2"></p>
+<p>また、この最大値をとるような動き方は、上の図のようにジグザグに移動することで必ず達成でき、
+$2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であることがわかる。</p>
+<h3 id="始点と終点が異なる場合">始点と終点が異なる場合</h3>
+<p>始点と終点が異なる場合、移動距離 $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ は達成できない。</p>
+<p><img src="/images/atcoder/tenka1-2018-fig3.svg" alt="fig3"></p>
+<p>しかし、上のようにジグザグに動くことを考えると、</p>
 <ul>
-<li><a href="https://atcoder.jp/contests/abc220/tasks/abc220_f">ABC 220 F - Distance Sums 2</a></li>
+<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_{m-1}$ や $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
+<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
 </ul>
-<h2 id="bfs">BFS</h2>
+<p>は達成できることがわかる。それぞれ始点、終点の位置の集合は</p>
 <ul>
-<li><a href="https://atcoder.jp/contests/abc151/tasks/abc151_d">ABC 151 D - Maze Master</a></li>
-<li><a href="https://atcoder.jp/contests/abc088/tasks/abc088_d">ABC 088 D - Grid Repainting</a></li>
+<li>$n = 2m-1$, 奇数の場合 : $\{A_{m-1},A_m\}$ または $\{A_m,A_{m+1}\}$</li>
+<li>$n = 2m$, 偶数の場合 : $\{A_m,A_{m+1}\}$</li>
 </ul>
-<h2 id="bit全探索">Bit全探索</h2>
+<p>と中央の位置にある場合になる。始点と終点が一致する時の通過回数の最大回数に比べ、通過回数の差は</p>
 <ul>
-<li><a href="https://atcoder.jp/contests/abc147/tasks/abc147_c">ABC 147 C - HonestOrUnkind2</a></li>
+<li>$n = 2m-1$, 奇数の場合 : $I_{m-1}$ または $I_m$ が1回少なく通過</li>
+<li>$n = 2m$, 偶数の場合 :  $I_m$ が1回少なく通く</li>
 </ul>
-<h2 id="区間スケジュール問題">区間スケジュール問題</h2>
-<p><a href="https://atcoder.jp/contests/keyence2020/tasks/keyence2020_b">キーエンス2020 B Robot Arms</a></p>
-<h2 id="dp">DP</h2>
+<p>区間を通過する回数を始点=終点の時と同様に考えると、それ以外の位置に始点、終点がある場合通過区間の通過した回数が少なくなることがわかる。(最適な始点・終点の位置より外側に配置すると通過できない回数が増え、上に挙げたいずれかの場合よりも距離が短くなる)</p>
+<p>結局、ジグザグに動く時が最適になり、</p>
 <ul>
-<li><a href="">ABC 154 E Almost Everywhere Zero</a></li>
+<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - \min (B_{m-1},B_m)$</li>
+<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
 </ul>
-<p>1次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">AGC 034 A - Kenken Race</a></li>
-</ul>
-<p>2次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc183/tasks/abc183_e">ABC 183 E - Queen on Grid</a></li>
-<li><a href="https://atcoder.jp/contests/agc043/tasks/agc043_a">AGC 043 A - Range Flip Find Route</a></li>
-</ul>
-<h2 id="ナップザック問題">ナップザック問題</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc153/tasks/abc153_e">ABC 153 E - Crested Ibis vs Monster</a></li>
-</ul>
-<h2 id="数列">数列</h2>
-<p>数列の連続する項目が離れている条件-&gt;累積和</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_e">ABC 253 E Distance Sequence</a></li>
-</ul>
-<h2 id="ダイクストラ">ダイクストラ</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc252/tasks/abc252_e">ABC 252 E Road Reduction</a></li>
-</ul>
-<h2 id="ワーシャルフロイド">ワーシャルフロイド</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc079/tasks/abc079_d">ABC 079 D - Wall</a></li>
-</ul>
-<h2 id="橋">橋</h2>
-<ul>
-<li><a href="https://nupioca.hatenadiary.jp/entry/2013/11/03/200006">橋（bridge）検出アルゴリズム - nupiocaの日記</a></li>
-<li><a href="https://atcoder.jp/contests/abc075/tasks/abc075_c">ABC 075 C - Bridge</a></li>
-</ul>
-<h2 id="fenwick-tree">Fenwick Tree</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_f">ABC 254 F - Operations on a Matrix</a></li>
-</ul>
-<h2 id="括弧">括弧</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc064/tasks/abc064_d">ABC 064 D - Insertion</a></li>
-</ul>
-<h2 id="約数">約数</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc134/tasks/abc134_d">ABC 134 D - Preparing Boxes</a></li>
-</ul>
-<h2 id="素数">素数</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc084/tasks/abc084_d">ABC 084 D - 2017-like Number</a></li>
-</ul>
-<h2 id="三角形">三角形</h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc143/tasks/abc143_d">ABC 143 D - Triangles</a></li>
-</ul>
-<h2 id="lca">LCA</h2>
-<p>蟻本 pp.292</p>
-<p>\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)</p>
-<ul>
-<li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
-</ul>
-<h2 id="チェスのナイト">チェスのナイト</h2>
-<p>斜めに動くとわかりづらいので、座標変換を行う。
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right) =
-\left(
-\begin{matrix}
-1 &amp; 2 \\
-2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right)
-\end{aligned}
-$$
-だから、逆変換
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right) =
-\cfrac{1}{3}
-\left(
-\begin{matrix}
-1 &amp; -2 \\
--2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right)
-\end{aligned}
-$$
-を考えることにより縦横の単純な移動に変換する。</p>
-<ul>
-<li>蟻本 pp.353 Endless Knight</li>
-</ul>
+<p>が答えになることがわかる。</p>
+<p><a href="https://atcoder.jp/contests/tenka1-2018/submissions/32590060">https://atcoder.jp/contests/tenka1-2018/submissions/32590060</a></p>
 </div>
 	</section>
 
@@ -367,7 +282,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 401 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1024 words in this page.
 	</div>
 </div>
 
@@ -378,9 +293,17 @@ $$
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
+    <a class="flex-grow-0" href="/atcoder/nikkei2019-qual-c/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        全国統一プログラミング王決定戦予選 C - Different Strokes
+    </a>
     
-    <a class="flex-grow-0" href="/posts/cymbals-entertainment/">
-        Cymbals - That&#39;s Entertainment (2000)
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -394,8 +317,6 @@ $$
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
-		
-			<a href="/atcoder/tenka1-2018-c/">Tenka1 Programmer Contest C - Align</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/nikkei2019-qual-c/">全国統一プログラミング王決定戦予選 C - Different Strokes</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -423,7 +344,9 @@ $$
 		
 			<a href="/atcoder/abc161-d/">AtCoder ABC 161 D - Lunlun Number</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/code-festival-2017-qualc-d/">AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</a>
+			<a href="/atcoder/code-festival-2017-qualc-d/">AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/agc034-a/">AtCoder ABC 034 A - Kenken Race</a>
 		
 </span>
 </div>
