@@ -299,7 +299,7 @@
     "title": "AtCoder ABC 250 E - Prefix Equality"
   },
   {
-    "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] ",
+    "contents": "Dockerでコンテナ作成\ndocker run -p 8888:8888 --name [名前] -it -v $(pwd):/home/jovyan/work [イメージ名] Rust の競技プログラミング環境作成\nコンテナは rust イメージから作る\ndocker run -p 8888:8888 --name rust -it -v $(pwd):/home/jovyan/work rust vscode 内\napt-get update apt-get install git rustup install 1.42.0 rustup component add --toolchain 1.42.0 rls rust-analysis rust-src cargo install cargo-generate cargo install cargo-compete vscode内でrust-analyzer をインストール\n",
     "permalink": "https://matsueushi.github.io/other/matsueushi-memo/",
     "tags": null,
     "title": "自分用メモ"

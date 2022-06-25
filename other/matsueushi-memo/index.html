@@ -119,7 +119,18 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>Dockerでコンテナ作成</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -p 8888:8888 --name <span style="color:#f92672">[</span>名前<span style="color:#f92672">]</span> -it -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/home/jovyan/work <span style="color:#f92672">[</span>イメージ名<span style="color:#f92672">]</span>
-</span></span></code></pre></div></div>
+</span></span></code></pre></div><p>Rust の競技プログラミング環境作成</p>
+<p>コンテナは rust イメージから作る</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -p 8888:8888 --name rust -it -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/home/jovyan/work rust
+</span></span></code></pre></div><p>vscode 内</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt-get update
+</span></span><span style="display:flex;"><span>apt-get install git
+</span></span><span style="display:flex;"><span>rustup install 1.42.0
+</span></span><span style="display:flex;"><span>rustup component add --toolchain 1.42.0 rls rust-analysis rust-src
+</span></span><span style="display:flex;"><span>cargo install cargo-generate
+</span></span><span style="display:flex;"><span>cargo install cargo-compete
+</span></span></code></pre></div><p>vscode内でrust-analyzer をインストール</p>
+</div>
 	</section>
 
 
@@ -225,7 +236,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 32 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 123 words in this page.
 	</div>
 </div>
 
