@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | Tenka1 Programmer Contest C - Align</title>
+	<title>matsueushi  | BPM15Q / BPM15Q ALL SONGS (2016)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">Tenka1 Programmer Contest C - Align</h1>
+<h1 class="pt-2">BPM15Q / BPM15Q ALL SONGS (2016)</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -107,15 +107,15 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+		href='/tags/music'>Music</a>&nbsp;&#47;
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+		href='/tags/jpop'>Jpop</a>
 	
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-06-19T21:07:30&#43;09:00">2022-6-19 21:07</time>
+		datetime="2022-06-30T21:45:02&#43;09:00">2022-6-30 21:45</time>
 </div>
 
 <hr />
@@ -128,54 +128,19 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c">https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c</a></p>
-<p>正の整数からなる数列 $\{A_i\}_i$ が与えられた時に、
-数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。</p>
-<p>大小関係がジグザグにすれば良い、ということはなんとなくわかったが、
-解説を読んでもピンと来なかったので整理しておく。</p>
-<p>まず、$A_i$ はソートされていると考えて良いだろう。すると、次のような問題を考えれば良いことになる。</p>
-<p><img src="/images/atcoder/tenka1-2018-fig1.svg" alt="fig1"></p>
-<ul>
-<li>数直線の上に $\{A_i\}_i$ が並んでいる。始点と終点を異なるように選び、全ての点を一回ずつ通って進む。移動距離の最大値を求めよ。</li>
-</ul>
-<p>$A_i$ と $A_{i+1}$ が作る区間を $I_i$ とし、その長さを $B_i = A_{i+1}-A_i$ とおく。
-上の図だと、$A_1$ から $A_5$ まで点があり、区間が $I_1$ から $I_4$ まである。</p>
-<h3 id="始点終点の場合を考えてみる">始点=終点の場合を考えてみる</h3>
-<p>脱線するが、最初に始点 = 終点 となる場合の変種を考える。</p>
-<p>それぞれの区間を通過する最大回数を考える。
-$I_1$ から順番に考えていくと、$I_1$ を通過するのは $A_1$ から出ていく時か、$A_1$ に入る時の高々2回しかない。
-$I_2$ を考えると、 $I_1$ で考えた $A_1$ から出ていく矢印、 $A_1$ に戻る矢印がそのまま2を通過する場合と、
-新たに $A_2$ に出入りする矢印がある場合の高々4通りである。</p>
-<p>このように考え、さらに左右の対称性も考慮すると、区間 $I_i$ を通過する回数は、最大 $2\min (i, n-i)$ 回であることがわかる。</p>
-<p><img src="/images/atcoder/tenka1-2018-fig2.svg" alt="fig2"></p>
-<p>また、この最大値をとるような動き方は、上の図のようにジグザグに移動することで必ず達成でき、
-$2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であることがわかる。</p>
-<h3 id="始点と終点が異なる場合">始点と終点が異なる場合</h3>
-<p>始点と終点が異なる場合、移動距離 $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ は達成できない。</p>
-<p><img src="/images/atcoder/tenka1-2018-fig3.svg" alt="fig3"></p>
-<p>しかし、上のようにジグザグに動くことを考えると、</p>
-<ul>
-<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_{m-1}$ や $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
-<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
-</ul>
-<p>は達成できることがわかる。それぞれ始点、終点の位置の集合は</p>
-<ul>
-<li>$n = 2m-1$, 奇数の場合 : $\{A_{m-1},A_m\}$ または $\{A_m,A_{m+1}\}$</li>
-<li>$n = 2m$, 偶数の場合 : $\{A_m,A_{m+1}\}$</li>
-</ul>
-<p>と中央の位置にある場合になる。始点と終点が一致する時の通過回数の最大回数に比べ、通過回数の差は</p>
-<ul>
-<li>$n = 2m-1$, 奇数の場合 : $I_{m-1}$ または $I_m$ が1回少なく通過</li>
-<li>$n = 2m$, 偶数の場合 :  $I_m$ が1回少なく通く</li>
-</ul>
-<p>区間を通過する回数を始点=終点の時と同様に考えると、それ以外の位置に始点、終点がある場合通過区間の通過した回数が少なくなることがわかる。(最適な始点・終点の位置より外側に配置すると通過できない回数が増え、上に挙げたいずれかの場合よりも距離が短くなる)</p>
-<p>結局、ジグザグに動く時が最適になり、</p>
-<ul>
-<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - \min (B_{m-1},B_m)$</li>
-<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
-</ul>
-<p>が答えになることがわかる。</p>
-<p><a href="https://atcoder.jp/contests/tenka1-2018/submissions/32590060">https://atcoder.jp/contests/tenka1-2018/submissions/32590060</a></p>
+		<div class="c-rich-text"><p>2021年に解散したアイドルグループCY8ERの前身であるBPM15Qが唯一世に送り出したアルバムである。私はこのアルバムはアイドルという枠を超えた普遍的な名盤だと思う。criminally underrated album と言いたい。</p>
+<blockquote>
+<p>元BiS、元アキシブprojectメンバーの”苺りなはむ”と、クラブシーンでも活躍する”にかもきゅ”の二人により2015年5月31日に結成された、ニューエイジボカールDJユニット”BPM15Q(ビーピーエムイチゴーキュー)”待望のファースト・アルバムがリリース!ファンから音源化の要望も多かった、プティパ-petit pas!-とのコラボ曲も収録。</p>
+</blockquote>
+<p>ファーストアルバムと書かれているが実質的には (BPM15Qとしては) ラストアルバム、ベストアルベムである。アルバムにつけられた品番が &ldquo;BPM15-9&rdquo; であることもBPM15Q自体の活動の集大成をこの一枚に凝縮したという意思が伝わる。</p>
+<p>ジャンルといえばElectro Pop, (Kawaii) Future Bassといったところか。
+「BPM15Q!」で始まり「GOOD LUCK」で締められる。可愛いピコピコサウンドなのだが、アルバムを通して聞いた後には
+目眩く楽しい夢のような時間が気づくと終わっているような、そんな寂寥感をどこか感じさせる。</p>
+<p>BPM15Qから体制が変わり(改名という立て付けだったが実質的には別物だと思う)CY8ERになった後のアルバムも聞いたが、この「BPM15Q ALL SONGS」のアルバムとしての完成度は頭一つ抜けている。
+CY8ERになってからこのアルバムに収録されている曲は再録されているが、うまく言葉で言い表せないが「BPM15Q ALL SONGS」に収録されているものとは自分の中では別物のように感じられる。</p>
+<p>参考だが、CDとストリーミングでは収録曲が少し異なっている。ストリーミングではコラボ曲「ごーしゅー」が削除され、最終曲は、「GOOD LUCK」の後の再会を予期させるような、Lolica Tonicaのヒイラギペイジによる「ゆびきり」に差し替えられている。アルバムとしての曲の並びの完成度という意味ではCDよりストリーミングの方が上だろう。</p>
+<p>CDは残念ながらプレミア価格となり高騰してしまっているが、幸いなことにサブスクで配信されているので聴くのは容易。是非聴いてみてほしい。</p>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/6c0LbqeSKtQxwkhqOB7ZWS?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
 	</section>
 
@@ -200,14 +165,14 @@ $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であること
 	</li>
 	
 	<li class="px-1 md:px-0">
-		<a href="/posts/" title="Blog page" >
+		<a href="/posts/" title="Blog page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
 			Blog
 		</a>
 	</li>
 	
 	<li class="px-1 md:px-0">
-		<a href="/atcoder/" title="AtCoder page" 
-			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+		<a href="/atcoder/" title="AtCoder page" >
 			AtCoder
 		</a>
 	</li>
@@ -282,7 +247,7 @@ $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であること
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1024 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 946 words in this page.
 	</div>
 </div>
 
@@ -293,17 +258,17 @@ $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であること
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/atcoder/nikkei2019-qual-c/">
+    <a class="flex-grow-0" href="/atcoder/tenka1-2018-c/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        全国統一プログラミング王決定戦予選 C - Different Strokes
+        Tenka1 Programmer Contest C - Align
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/bpm15q-all-songs/">
-        BPM15Q / BPM15Q ALL SONGS (2016)
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -318,35 +283,35 @@ $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であること
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
 		
-			<a href="/atcoder/nikkei2019-qual-c/">全国統一プログラミング王決定戦予選 C - Different Strokes</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/sacoyans-yomosue/">SACOYANS - Yomosue (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc121-d/">AtCoder ABC 121 D - XOR World</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/discogs-money-laundering/">Discogsの高額CD, レコードの謎</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc147-d/">AtCoder ABC 147 D - Xor Sum 4</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20210228/">最近聞いた曲(2021/3/1)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/agc023-a/">AtCoder AGC 023 A - Zero-Sum Ranges</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/how-to-digitize-vinyl-2/">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc255-c/">AtCoder ABC 255 C - ±1 Operation 1 </a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/nanoray/">Nanoray - Gacha (2019)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc255-d/">AtCoder ABC 255 D - ±1 Operation 2</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc255-e/">AtCoder ABC 255 E - Lucky Numbers</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/mochitsuki-net-new-resources/">Mochitsuki - Net New Resources (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/diverta2019-d/">AtCoder diverta 2019 Programming Contest D - DivRem Number</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200801/">最近聞いた曲(2020/8/1)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/apc001-b/">AtCoder APC 001 B - Two Arrays</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200714/">最近聞いた曲(2020/7/14) </a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc198-d/">AtCoder ABC 198 D - Send More Money</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200709/">最近聞いた曲(2020/7/8)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc129-d/">AtCoder ABC 129 D - Lamp</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200703/">最近聞いた曲(2020/7/3)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc153-e/">AtCoder ABC 153 E - Crested Ibis vs Monster</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200626/">最近聞いた曲(2020/6/26)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc161-d/">AtCoder ABC 161 D - Lunlun Number</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/playlist/20200404/">最近聞いた曲(2020/4/4)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/code-festival-2017-qualc-d/">AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</a>&nbsp;&nbsp;&#47;&nbsp;
+			<a href="/posts/sweettrip-velocity-design-comfort/">Sweet Trip - velocity:design:comfort. (2003)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/agc034-a/">AtCoder ABC 034 A - Kenken Race</a>
+			<a href="/posts/softman-500ms/">Softman - 500ms (2018)</a>
 		
 </span>
 </div>
