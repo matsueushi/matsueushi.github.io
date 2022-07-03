@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 21:45:02 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jul 2022 20:57:40 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -935,6 +935,55 @@
 &lt;li&gt;&lt;a href=&#34;http://web.archive.org/web/20020126201019/http://www2.justnet.ne.jp/~ichiro/oto-crazy-boat.htm&#34;&gt;サークルサウンズの輪 - boat&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは&lt;/a&gt; (&lt;a href=&#34;https://archive.is/WipIb#selection-581.2-613.68&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>セグメント木</title>
+      <link>https://matsueushi.github.io/other/segtree/</link>
+      <pubDate>Sun, 03 Jul 2022 20:57:40 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/other/segtree/</guid>
+      <description>&lt;p&gt;自分用メモ&lt;/p&gt;
+&lt;h3 id=&#34;セグメント木&#34;&gt;セグメント木&lt;/h3&gt;
+&lt;h4 id=&#34;できること&#34;&gt;できること&lt;/h4&gt;
+&lt;p&gt;完全二分木で区間を表現することで、一点更新・区間取得のクエリが処理できる。&lt;/p&gt;
+&lt;p&gt;モノイド $S = (S, \cdot, e)$ が定義されているとき、数列 $\{s_i\}_{i=1}^n$ に対して、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;代入操作: $s_i := s \in S$&lt;/li&gt;
+&lt;li&gt;区間取得操作: 区間 $[i, j)$ に対して $s_i \cdot s_{i+1} \cdots s_{j-1}$ を計算&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;を $O(\log n)$ で処理する&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\mathbb{Z}&amp;rsquo;$ を上限と下限がある整数全体の集合とした時、
+$S=(\mathbb{Z}&amp;rsquo;, \max(S), \min)$ とおけば Range Minimum Query。&lt;/li&gt;
+&lt;li&gt;Fenwick Tree は、$(\mathbb{Z}, 0, +)$ に対応。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;遅延セグメント木&#34;&gt;遅延セグメント木&lt;/h3&gt;
+&lt;h4 id=&#34;モチベーション&#34;&gt;モチベーション&lt;/h4&gt;
+&lt;p&gt;通常のセグメント木だと一点更新するだけで点を含む全ての区間の値を更新するので、区間更新の計算量が多くなってしまう。
+そのためもう一つ二分木を使って区間取得操作や二度目の更新操作の時まで値の更新を遅らせたい。&lt;/p&gt;
+&lt;h4 id=&#34;できること-1&#34;&gt;できること&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;モノイド $S = (S, \cdot, e_S)$ (セグメント木上に乗せるデータ)&lt;/li&gt;
+&lt;li&gt;モノイド $X = (X, \cdot, e_X)$ (遅延伝播させるデータ)&lt;/li&gt;
+&lt;li&gt;$X$ の $S$ に対する 右作用 $* : S \times X \rightarrow S$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;が与えられた時、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;区間適用操作: 区間 $[i, j)$ に対して $x \in X$ を適用する。 $s_k := x \cdot s_k$&lt;/li&gt;
+&lt;li&gt;区間取得操作: 区間 $[i, j)$ に対して $s_i \cdot s_{i+1} \cdots s_{j-1}$ を計算&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;を $O(\log n)$ で処理する&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$S$ をモノイド、 $X$ を $id_S$ と $x_t: S \rightarrow S, s \mapsto t, t\in S$ からなる集合とすると、$S$ は写像の合成に関して $id_S$ を単位元とするモノイドとなる。$X$ は代入操作に対応した作用。$S=(\mathbb{Z}&amp;rsquo;, \max(S), \min)$ とすると区間代入・区間取得の Range Minimum QUery&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://algo-logic.info/segment-tree/&#34;&gt;セグメント木を徹底解説！0から遅延評価やモノイドまで&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html&#34;&gt;AC Library - Lazy Segtree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree&#34;&gt;いかたこのたこつぼ セグメント木&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

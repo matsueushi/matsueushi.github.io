@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2022-06-30T21:45:02+09:00</lastmod>
+    <lastmod>2022-07-03T20:57:40+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/</loc>
     <lastmod>2022-06-30T21:45:02+09:00</lastmod>
@@ -12,7 +12,7 @@
     <lastmod>2022-06-19T21:07:30+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/other/</loc>
-    <lastmod>2022-04-23T07:11:38+09:00</lastmod>
+    <lastmod>2022-07-03T20:57:40+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/playlist/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
@@ -24,6 +24,9 @@
     <loc>https://matsueushi.github.io/other/boat/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
+  </url><url>
+    <loc>https://matsueushi.github.io/other/segtree/</loc>
+    <lastmod>2022-07-03T20:57:40+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/bpm15q-all-songs/</loc>
     <lastmod>2022-06-30T21:45:02+09:00</lastmod>
