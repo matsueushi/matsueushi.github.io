@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 21:45:02 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jul 2022 14:15:19 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Julia</title>
+      <link>https://matsueushi.github.io/tags/julia/</link>
+      <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/julia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://matsueushi.github.io/tags/rust/</link>
+      <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Jpop</title>
@@ -72,15 +90,6 @@
       <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/record/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Julia</title>
-      <link>https://matsueushi.github.io/tags/julia/</link>
-      <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/julia/</guid>
       <description></description>
     </item>
     

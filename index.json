@@ -20,6 +20,21 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "Julia では argmin とか argmax などの関数が用意されていたのですが、 Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。\nもっと簡単な書き方があれば教えてください。\nfindmin(itr) fn main() { let v = vec![1, 7, 7, 6]; let x = v.iter().enumerate().min_by_key(|\u0026amp;(_, x)| x); println!(\u0026#34;{:?}\u0026#34;, x); } Some((0, 1)) (index, x) の順になる。min_by_key は最小値を達成するインデックスが複数ある場合、最初のインデックスを返すところは findmin と同じですね。\nfindmax(itr) max_by_key を使って書くと\nfn main() { let v = vec![1, 7, 7, 6]; let x = v.iter().enumerate().max_by_key(|\u0026amp;(_, x)| x); println!(\u0026#34;{:?}\u0026#34;, x); } Some((2, 7)) (index, x) の順になる。max_by_keyは最大値が達成するインデックスが複数ある時、最後のインデックスが帰ってくるので、 最初のインデックスを返す findmax とは挙動が異なる。\nuse core::cmp::Reverse; fn main() { let v = vec![1, 7, 7, 6]; let x = v.iter().enumerate().min_by_key(|\u0026amp;(_, x)| Reverse(x)); println!(\u0026#34;{:?}\u0026#34;, x); } とすれば最初のインデックスを返せる。\nSome((1, 7)) argmin(itr) findmin とほぼ同じ。\nfn main() { let v = vec![1, 7, 7, 6]; let x = v.iter().enumerate().min_by_key(|\u0026amp;(_, x)| x).map(|x| x.0); println!(\u0026#34;{:?}\u0026#34;, x); } Some(0) argmax(itr) findmax とほぼ同じ。最大値を取る添字が複数ある場合に最後のインデックスを返したければ、\nfn main() { let v = vec![1, 7, 7, 6]; let x = v.iter().enumerate().max_by_key(|\u0026amp;(_, x)| x).map(|x| x.0); println!(\u0026#34;{:?}\u0026#34;, x); } Some(2) 最初としたければ、\nuse core::cmp::Reverse; fn main() { let v = vec![1, 7, 7, 6]; let x = v .iter() .enumerate() .min_by_key(|\u0026amp;(_, x)| Reverse(x)) .map(|x| x.0); println!(\u0026#34;{:?}\u0026#34;, x); } Some(1) ",
+    "permalink": "https://matsueushi.github.io/posts/julia-rust/",
+    "tags": [
+      "Julia",
+      "Rust"
+    ],
+    "title": "Rustでargminやargmaxはどう書くのか"
+  },
+  {
+    "contents": "完全に自分用です。\n調べ物 国立国会図書館オンライン リサーチ・ナビ 図書館関連 図書館総合展 ししょまろはんラボ 図書館で著作権処理やってた人が没年調査ソン in福井 第2回に参加して考えたこと 音楽関連 90年代シティポップ記録簿(90\u0026rsquo;s City Pop Record Book) たまに振り返って読みたくなるもの 笑笑果茶、その半年間の軌跡 とうもろこし牛乳タピオカ再生プロジェクト ",
+    "permalink": "https://matsueushi.github.io/other/bookmark/",
+    "tags": null,
+    "title": "Bookmark"
+  },
+  {
     "contents": "自分用メモ\nセグメント木 できること 完全二分木で区間を表現することで、一点更新・区間取得のクエリが処理できる。\nモノイド $S = (S, \\cdot, e)$ が定義されているとき、数列 $\\{s_i\\}_{i=1}^n$ に対して、\n代入操作: $s_i := s \\in S$ 区間取得操作: 区間 $[i, j)$ に対して $s_i \\cdot s_{i+1} \\cdots s_{j-1}$ を計算 を $O(\\log n)$ で処理する\n$\\mathbb{Z}\u0026rsquo;$ を上限と下限がある整数全体の集合とした時、 $S=(\\mathbb{Z}\u0026rsquo;, \\max(S), \\min)$ とおけば Range Minimum Query。 Fenwick Tree は、$(\\mathbb{Z}, 0, +)$ に対応。 遅延セグメント木 モチベーション 通常のセグメント木だと一点更新するだけで点を含む全ての区間の値を更新するので、区間更新の計算量が多くなってしまう。 そのためもう一つ二分木を使って区間取得操作や二度目の更新操作の時まで値の更新を遅らせたい。\nできること モノイド $S = (S, \\cdot, e_S)$ (セグメント木上に乗せるデータ) モノイド $X = (X, \\cdot, e_X)$ (遅延伝播させるデータ) $X$ の $S$ に対する 右作用 $* : S \\times X \\rightarrow S$ が与えられた時、\n区間適用操作: 区間 $[i, j)$ に対して $x \\in X$ を適用する。 $s_k := x \\cdot s_k$ 区間取得操作: 区間 $[i, j)$ に対して $s_i \\cdot s_{i+1} \\cdots s_{j-1}$ を計算 を $O(\\log n)$ で処理する\n$S$ をモノイド、 $X$ を $id_S$ と $x_t: S \\rightarrow S, s \\mapsto t, t\\in S$ からなる集合とすると、$S$ は写像の合成に関して $id_S$ を単位元とするモノイドとなる。$X$ は代入操作に対応した作用。$S=(\\mathbb{Z}\u0026rsquo;, \\max(S), \\min)$ とすると区間代入・区間取得の Range Minimum QUery 参考 セグメント木を徹底解説！0から遅延評価やモノイドまで AC Library - Lazy Segtree いかたこのたこつぼ セグメント木 ",
     "permalink": "https://matsueushi.github.io/other/segtree/",
     "tags": null,
