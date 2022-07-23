@@ -134,7 +134,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <hr>
 <h3 id="findminitrhttpsdocsjulialangorgenv1basecollectionsbasefindmin"><a href="https://docs.julialang.org/en/v1/base/collections/#Base.findmin"><code>findmin(itr)</code></a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v.iter().enumerate().min_by_key(<span style="color:#f92672">|&amp;</span>(_, x)<span style="color:#f92672">|</span> x);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some((<span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>)));
@@ -144,7 +144,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <h3 id="findmaxitrhttpsdocsjulialangorgenv1basecollectionsbasefindmax"><a href="https://docs.julialang.org/en/v1/base/collections/#Base.findmax"><code>findmax(itr)</code></a></h3>
 <p><a href="https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.max_by_key"><code>max_by_key</code></a> を使って書くと</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v.iter().enumerate().max_by_key(<span style="color:#f92672">|&amp;</span>(_, x)<span style="color:#f92672">|</span> x);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some((<span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">7</span>)));
@@ -154,7 +154,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> core::cmp::Reverse;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v.iter().enumerate().min_by_key(<span style="color:#f92672">|&amp;</span>(_, x)<span style="color:#f92672">|</span> Reverse(x));
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some((<span style="color:#ae81ff">1</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">7</span>)));
@@ -164,7 +164,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <h3 id="argminitrhttpsdocsjulialangorgenv1basecollectionsbaseargmin"><a href="https://docs.julialang.org/en/v1/base/collections/#Base.argmin"><code>argmin(itr)</code></a></h3>
 <p><code>findmin</code> とほぼ同じ。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v.iter().enumerate().min_by_key(<span style="color:#f92672">|&amp;</span>(_, x)<span style="color:#f92672">|</span> x).map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x.<span style="color:#ae81ff">0</span>);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some(<span style="color:#ae81ff">0</span>));
@@ -173,7 +173,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <h3 id="argmaxitrhttpsdocsjulialangorgenv1basecollectionsbaseargmax"><a href="https://docs.julialang.org/en/v1/base/collections/#Base.argmax"><code>argmax(itr)</code></a></h3>
 <p><code>findmax</code> とほぼ同じ。最大値を取る添字が複数ある場合に最後のインデックスを返したければ、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v.iter().enumerate().max_by_key(<span style="color:#f92672">|&amp;</span>(_, x)<span style="color:#f92672">|</span> x).map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x.<span style="color:#ae81ff">0</span>);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some(<span style="color:#ae81ff">2</span>))
@@ -182,7 +182,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> core::cmp::Reverse;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> v
 </span></span><span style="display:flex;"><span>        .iter()
 </span></span><span style="display:flex;"><span>        .enumerate()
@@ -190,6 +190,164 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 </span></span><span style="display:flex;"><span>        .map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x.<span style="color:#ae81ff">0</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    assert_eq!(x, Some(<span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="cumsumitrhttpsdocsjulialangorgenv1basearraysbasecumsum"><a href="https://docs.julialang.org/en/v1/base/arrays/#Base.cumsum"><code>cumsum(itr)</code></a></h3>
+<p><code>itertools_num</code> を使ってよければ、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> itertools_num::ItertoolsNum;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> v.iter().cumsum().collect();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(x, vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最初に0を入れ込みたい場合は、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>v.len() {
+</span></span><span style="display:flex;"><span>        x.push(x[i] <span style="color:#f92672">+</span> v[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(x, vec![<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><a href="https://toslunar.hatenablog.com/entry/2022/01/20/213251">Rust の Iterator で cumsum をどう書くべきか、あるいは map の闇</a></li>
+</ul>
+<hr>
+<h3 id="cumproditrhttpsdocsjulialangorgenv1basearraysbasecumprod"><a href="https://docs.julialang.org/en/v1/base/arrays/#Base.cumprod"><code>cumprod(itr)</code></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>v.len() {
+</span></span><span style="display:flex;"><span>        x.push(x[i] <span style="color:#f92672">*</span> v[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(x, vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="sortpermhttpsdocsjulialangorgenv1basesortbasesortperm"><a href="https://docs.julialang.org/en/v1/base/sort/#Base.sortperm"><code>sortperm</code></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>v.len()).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    x.sort_by_key(<span style="color:#f92672">|&amp;</span>i<span style="color:#f92672">|</span> <span style="color:#f92672">&amp;</span>v[i]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(x, [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>sortがunstableでよければ、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>v.len()).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    x.sort_unstable_by_key(<span style="color:#f92672">|&amp;</span>i<span style="color:#f92672">|</span> <span style="color:#f92672">&amp;</span>v[i]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(x, [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="searchsortedfirsthttpsdocsjulialangorgenv1basesortbasesortsearchsortedfirst"><a href="https://docs.julialang.org/en/v1/base/sort/#Base.Sort.searchsortedfirst"><code>searchsortedfirst</code></a></h3>
+<p>1.52.0 以降だと <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.partition_point"><code>partition_point</code></a> が使える。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span>));
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>));
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>));
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">9</span>));
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>AtCoder で使える Rust 1.42.0 だと工夫して</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::cmp::Ordering::{Greater, Less};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span>) { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>) { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>) { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">9</span>) { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>) { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="searchsortedlasthttpsdocsjulialangorgenv1basesortbasesortsearchsortedlast"><a href="https://docs.julialang.org/en/v1/base/sort/#Base.Sort.searchsortedlast"><code>searchsortedlast</code></a></h3>
+<p>1.52.0 以降だと <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.partition_point"><code>partition_point</code></a> が使える。
+インデックスに注意。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">9</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v.partition_point(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::cmp::Ordering::{Greater, Less};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span> { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span> { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span> { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">9</span> { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>        .binary_search_by(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> { Less } <span style="color:#66d9ef">else</span> { Greater })
+</span></span><span style="display:flex;"><span>        .unwrap_or_else(<span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i);
+</span></span><span style="display:flex;"><span>    assert_eq!(i, <span style="color:#ae81ff">0</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 	</section>
@@ -297,7 +455,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 452 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1044 words in this page.
 	</div>
 </div>
 
