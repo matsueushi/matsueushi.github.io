@@ -132,7 +132,18 @@ onload='renderMathInElement(document.body);'></script>
 Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。</p>
 <p>もっと簡単な書き方があれば教えてください。</p>
 <hr>
-<h3 id="broadcast"><code>broadcast</code></h3>
+<h3 id="fld-cld"><code>fld</code>, <code>cld</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a: <span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>    assert_eq!(num::Integer::div_floor(<span style="color:#f92672">&amp;</span>a, <span style="color:#f92672">&amp;</span>b), <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a: <span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>    assert_eq!(num::Integer::div_ceil(<span style="color:#f92672">&amp;</span>a, <span style="color:#f92672">&amp;</span>b), <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="broadcast"><code>broadcast</code></h3>
 <p><code>map</code> を使えば良い。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
@@ -470,7 +481,7 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1100 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1132 words in this page.
 	</div>
 </div>
 
