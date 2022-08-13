@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 23 Jul 2022 14:15:19 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 13 Aug 2022 17:57:16 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
+      <link>https://matsueushi.github.io/posts/vscode-container-gpg/</link>
+      <pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/vscode-container-gpg/</guid>
+      <description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;
+&lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;
+&lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; git -c user.useConfigOnly&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;true commit --quiet --allow-empty-message --file - -S
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;error: gpg failed to sign the data
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fatal: failed to write commit object
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory&#34;&gt;https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory&lt;/a&gt;
+を参考にして、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git config --global gpg.program &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;which gpg&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;をコンテナ内で実行したら解決した。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Rustでargminやargmaxはどう書くのか</title>
