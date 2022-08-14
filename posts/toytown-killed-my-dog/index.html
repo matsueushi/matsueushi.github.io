@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
+	<title>matsueushi  | Toytown - Killed My Dog (2019)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</h1>
+<h1 class="pt-2">Toytown - Killed My Dog (2019)</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -107,15 +107,12 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/git'>Git</a>&nbsp;&#47;
-	
-	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/gpg'>GPG</a>
+		href='/tags/music'>Music</a>
 	
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-08-13T17:57:16&#43;09:00">2022-8-13 17:57</time>
+		datetime="2022-08-13T22:26:20&#43;09:00">2022-8-13 22:26</time>
 </div>
 
 <hr />
@@ -128,17 +125,19 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>vscodeでアタッチしたコンテナからコミットしようとすると、</p>
-<p>fatal: cannot run /usr/local/bin/gpg: No such file or directory</p>
-<p>というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git -c user.useConfigOnly<span style="color:#f92672">=</span>true commit --quiet --allow-empty-message --file - -S
-</span></span><span style="display:flex;"><span>fatal: cannot run /usr/local/bin/gpg: No such file or directory
-</span></span><span style="display:flex;"><span>error: gpg failed to sign the data
-</span></span><span style="display:flex;"><span>fatal: failed to write commit object
-</span></span></code></pre></div><p><a href="https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory">https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory</a>
-を参考にして、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global gpg.program <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>which gpg<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-</span></span></code></pre></div><p>をコンテナ内で実行したら解決した。</p>
+		<div class="c-rich-text"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/5CM0APYOX2xwhrSCT8Yn1c?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<p>オーストラリアのシンガーソングライターCeleb Toogoodによるソロプロジェクト（多分）Toytown。</p>
+<p>ゆるいベッドルーム・ポップだが曲がどれもいい。どこかふざけた感じというか捻った感じがあるのも自分にはストライク。
+マック・デマルコが好きな人なら刺さるのではないでしょうか。</p>
+<p>かなり推したいアルバム、アーティストなのだが、悲しいことに知名度が無に近く、詳しい情報も不明です。
+Spotifyの再生回数、YouTubeのMVの再生回数、Facebookのいいね数、軒並みどれも低く、謎です。</p>
+<p>アルバムを2019年に出して以降目立った活動が見られないですが、
+どうかこのままフェードアウトせずに次の作品を聞かせてほしいです。</p>
+<p><a href="https://toytown.bandcamp.com/">bamdcamp</a></p>
+<p><a href="https://www.youtube.com/user/muccadore">YouTube</a></p>
+<p><a href="https://www.facebook.com/toytowntunes">Facebook</a></p>
+<p><a href="https://www.instagram.com/_toytown_/">Instagram</a></p>
+<p><a href="https://soundcloud.com/toytowntunes">SoundCloud</a></p>
 </div>
 	</section>
 
@@ -245,7 +244,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 170 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 313 words in this page.
 	</div>
 </div>
 
@@ -256,17 +255,17 @@ onload='renderMathInElement(document.body);'></script>
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/posts/julia-rust/">
+    <a class="flex-grow-0" href="/posts/vscode-container-gpg/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        Rustでargminやargmaxはどう書くのか
+        Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/toytown-killed-my-dog/">
-        Toytown - Killed My Dog (2019)
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -276,6 +275,43 @@ onload='renderMathInElement(document.body);'></script>
 <div >
 
 
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/bpm15q-all-songs/">BPM15Q / BPM15Q ALL SONGS (2016)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/discogs-money-laundering/">Discogsの高額CD, レコードの謎</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20210228/">最近聞いた曲(2021/3/1)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/sacoyans-yomosue/">SACOYANS - Yomosue (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/how-to-digitize-vinyl-2/">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/nanoray/">Nanoray - Gacha (2019)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mochitsuki-net-new-resources/">Mochitsuki - Net New Resources (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200801/">最近聞いた曲(2020/8/1)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200714/">最近聞いた曲(2020/7/14) </a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200709/">最近聞いた曲(2020/7/8)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200703/">最近聞いた曲(2020/7/3)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200626/">最近聞いた曲(2020/6/26)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200404/">最近聞いた曲(2020/4/4)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/sweettrip-velocity-design-comfort/">Sweet Trip - velocity:design:comfort. (2003)</a>
+		
+</span>
+</div>
 
 </div>
 <hr />

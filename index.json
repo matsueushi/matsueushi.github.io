@@ -20,6 +20,14 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": " オーストラリアのシンガーソングライターCeleb Toogoodによるソロプロジェクト（多分）Toytown。\nゆるいベッドルーム・ポップだが曲がどれもいい。どこかふざけた感じというか捻った感じがあるのも自分にはストライク。 マック・デマルコが好きな人なら刺さるのではないでしょうか。\nかなり推したいアルバム、アーティストなのだが、悲しいことに知名度が無に近く、詳しい情報も不明です。 Spotifyの再生回数、YouTubeのMVの再生回数、Facebookのいいね数、軒並みどれも低く、謎です。\nアルバムを2019年に出して以降目立った活動が見られないですが、 どうかこのままフェードアウトせずに次の作品を聞かせてほしいです。\nbamdcamp\nYouTube\nFacebook\nInstagram\nSoundCloud\n",
+    "permalink": "https://matsueushi.github.io/posts/toytown-killed-my-dog/",
+    "tags": [
+      "Music"
+    ],
+    "title": "Toytown - Killed My Dog (2019)"
+  },
+  {
     "contents": "vscodeでアタッチしたコンテナからコミットしようとすると、\nfatal: cannot run /usr/local/bin/gpg: No such file or directory\nというメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。\n\u0026gt; git -c user.useConfigOnly=true commit --quiet --allow-empty-message --file - -S fatal: cannot run /usr/local/bin/gpg: No such file or directory error: gpg failed to sign the data fatal: failed to write commit object https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory を参考にして、\ngit config --global gpg.program \u0026#34;$(which gpg)\u0026#34; をコンテナ内で実行したら解決した。\n",
     "permalink": "https://matsueushi.github.io/posts/vscode-container-gpg/",
     "tags": [
