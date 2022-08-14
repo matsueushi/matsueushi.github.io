@@ -266,6 +266,11 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .unwrap_or_else(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; i);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    assert_eq!(i, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;code&gt;usize&lt;/code&gt; で 絶対値をを取るとき (abs_diffが入っていないバージョンの時)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;abs_diff&lt;/span&gt;(a: &lt;span style=&#34;color:#a6e22e&#34;&gt;I&lt;/span&gt;, b: &lt;span style=&#34;color:#a6e22e&#34;&gt;I&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;I&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b { a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; { b &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
