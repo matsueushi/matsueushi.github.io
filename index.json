@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "https://atcoder.jp/contests/abc181/tasks/abc181_f\n$r$ を動かした時に、動かす円の中心が存在できない範囲を考えてみる。 壁もしくは障害物から距離 $r$ 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。\n上の壁と下の壁が図で示した青色の領域を通じて繋がっていなければ円が通過でき、繋がっていれば円が通過できない。 繋がっているか繋がっていないかはUnionFindで判定できる。\n$y=100$ と 釘 $(x_i, y_i)$ が繋がっている \u0026lt;=\u0026gt; $y_i + 2 r \u0026gt; 100$ $y=-100$ と 釘 $(x_i, y_i)$ が繋がっている \u0026lt;=\u0026gt; $y_i - 2 r \u0026lt; 100$ 釘 $(x_i, y_i)$ と 釘 $(x_j, y_j)$ が繋がっている \u0026lt;=\u0026gt; $(x_i-x_j)^2 + (y_i-y_j)^2 \u0026lt; (2r)^2$ これで $r$ が与えられたときの判定方法がわかったので、あとは $r$ を二分探索する。\nhttps://atcoder.jp/contests/abc181/submissions/34127397 (Rust, 14ms)\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc181-f/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 181 F - Silver Woods"
+  },
+  {
     "contents": " オーストラリアのシンガーソングライターCeleb Toogoodによるソロプロジェクト（多分）Toytown。\nゆるいベッドルーム・ポップだが曲がどれもいい。どこかふざけた感じというか捻った感じがあるのも自分にはストライク。 マック・デマルコが好きな人なら刺さるのではないでしょうか。\nかなり推したいアルバム、アーティストなのだが、悲しいことに知名度が無に近く、詳しい情報も不明です。 Spotifyの再生回数、YouTubeのMVの再生回数、Facebookのいいね数、軒並みどれも低く、謎です。\nアルバムを2019年に出して以降目立った活動が見られないですが、 どうかこのままフェードアウトせずに次の作品を聞かせてほしいです。\nbamdcamp\nYouTube\nFacebook\nInstagram\nSoundCloud\n",
     "permalink": "https://matsueushi.github.io/posts/toytown-killed-my-dog/",
     "tags": [
@@ -1030,7 +1039,7 @@
     "title": "Cymbals - That's Entertainment (2000)"
   },
   {
-    "contents": "自分用のメモです。\nWAの時に確認すべきこと 問題文は正しく読めているか？ オーバーフローしていないか？ 998244353や10^9+7で割った余りを求めるタイプの場合、余りを取っているか？ 負の値を足している時、res = (res % P + P) % Pのようなケアをしているか？ 二分探索をしている時、最小値、最大値に到達できるか？ 区間和 俗にいう「いもす法」\nDFS ABC 138 D - Ki E - Ranges on Tree D - Takahashi Tour 木を辿る\nABC 220 F - Distance Sums 2 BFS ABC 151 D - Maze Master ABC 088 D - Grid Repainting Bit全探索 ABC 147 C - HonestOrUnkind2 区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero 1次元\nAGC 034 A - Kenken Race 2次元\nABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route ナップザック問題 ABC 153 E - Crested Ibis vs Monster 数列 数列の連続する項目が離れている条件-\u0026gt;累積和\nABC 253 E Distance Sequence ダイクストラ ABC 252 E Road Reduction ワーシャルフロイド ABC 079 D - Wall 橋 橋（bridge）検出アルゴリズム - nupiocaの日記 ABC 075 C - Bridge Fenwick Tree ABC 254 F - Operations on a Matrix 括弧 ABC 064 D - Insertion 約数 ABC 134 D - Preparing Boxes 素数 ABC 084 D - 2017-like Number 三角形 ABC 143 D - Triangles LCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n競プロ典型90問 35日目解説@e869120 チェスのナイト 斜めに動くとわかりづらいので、座標変換を行う。 $$ \\begin{aligned} \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) = \\left( \\begin{matrix} 1 \u0026amp; 2 \\\\ 2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) \\end{aligned} $$ だから、逆変換 $$ \\begin{aligned} \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) = \\cfrac{1}{3} \\left( \\begin{matrix} 1 \u0026amp; -2 \\\\ -2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) \\end{aligned} $$ を考えることにより縦横の単純な移動に変換する。\n蟻本 pp.353 Endless Knight ",
+    "contents": "自分用のメモです。\nWAの時に確認すべきこと 問題文は正しく読めているか？ オーバーフローしていないか？ 998244353や10^9+7で割った余りを求めるタイプの場合、余りを取っているか？ 負の値を足している時、res = (res % P + P) % Pのようなケアをしているか？ 二分探索をしている時、最小値、最大値に到達できるか？ 区間和 俗にいう「いもす法」\nDFS ABC 138 D - Ki E - Ranges on Tree D - Takahashi Tour 木を辿る\nABC 220 F - Distance Sums 2 BFS ABC 151 D - Maze Master ABC 088 D - Grid Repainting Bit全探索 ABC 147 C - HonestOrUnkind2 区間スケジュール問題 キーエンス2020 B Robot Arms\nDP ABC 154 E Almost Everywhere Zero 1次元\nAGC 034 A - Kenken Race 2次元\nABC 183 E - Queen on Grid AGC 043 A - Range Flip Find Route ナップザック問題 ABC 153 E - Crested Ibis vs Monster 数列 数列の連続する項目が離れている条件-\u0026gt;累積和\nABC 253 E Distance Sequence ダイクストラ ABC 252 E Road Reduction ワーシャルフロイド ABC 079 D - Wall 橋 橋（bridge）検出アルゴリズム - nupiocaの日記 ABC 075 C - Bridge Fenwick Tree ABC 254 F - Operations on a Matrix 括弧 ABC 064 D - Insertion 約数 ABC 134 D - Preparing Boxes 素数 ABC 084 D - 2017-like Number 三角形 ABC 143 D - Triangles LCA 蟻本 pp.292\n\\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\\)\n競プロ典型90問 35日目解説@e869120 マンハッタン距離 45度回転が有用。\nABC E - Dist Max チェスのナイト 斜めに動くとわかりづらいので、座標変換を行う。 $$ \\begin{aligned} \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) = \\left( \\begin{matrix} 1 \u0026amp; 2 \\\\ 2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) \\end{aligned} $$ だから、逆変換 $$ \\begin{aligned} \\left( \\begin{matrix} s \\\\ t \\end{matrix} \\right) = \\cfrac{1}{3} \\left( \\begin{matrix} 1 \u0026amp; -2 \\\\ -2 \u0026amp; 1 \\end{matrix} \\right) \\left( \\begin{matrix} x \\\\ y \\end{matrix} \\right) \\end{aligned} $$ を考えることにより縦横の単純な移動に変換する。\n蟻本 pp.353 Endless Knight ",
     "permalink": "https://matsueushi.github.io/atcoder/memo/",
     "tags": [
       "AtCoder",

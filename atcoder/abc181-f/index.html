@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoderメモ書き</title>
+	<title>matsueushi  | AtCoder ABC 181 F - Silver Woods</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoderメモ書き</h1>
+<h1 class="pt-2">AtCoder ABC 181 F - Silver Woods</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="0001-01-01T00:00:00Z">0001-1-1 00:00</time>
+		datetime="2022-08-20T11:55:41&#43;09:00">2022-8-20 11:55</time>
 </div>
 
 <hr />
@@ -128,157 +128,20 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>自分用のメモです。</p>
-<h3 id="waの時に確認すべきこと">WAの時に確認すべきこと</h3>
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc181/tasks/abc181_f">https://atcoder.jp/contests/abc181/tasks/abc181_f</a></p>
+<p>$r$ を動かした時に、動かす円の中心が存在できない範囲を考えてみる。
+壁もしくは障害物から距離 $r$ 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。</p>
+<p><img src="/images/atcoder/abc181-f-0.svg" alt="fig0"></p>
+<p><img src="/images/atcoder/abc181-f-1.svg" alt="fig1"></p>
+<p>上の壁と下の壁が図で示した青色の領域を通じて繋がっていなければ円が通過でき、繋がっていれば円が通過できない。
+繋がっているか繋がっていないかはUnionFindで判定できる。</p>
 <ul>
-<li>問題文は正しく読めているか？</li>
-<li>オーバーフローしていないか？</li>
-<li>998244353や10^9+7で割った余りを求めるタイプの場合、余りを取っているか？
-負の値を足している時、<code>res = (res % P + P) % P</code>のようなケアをしているか？</li>
-<li>二分探索をしている時、最小値、最大値に到達できるか？</li>
+<li>$y=100$ と 釘 $(x_i, y_i)$ が繋がっている &lt;=&gt; $y_i + 2 r &gt; 100$</li>
+<li>$y=-100$ と 釘 $(x_i, y_i)$ が繋がっている &lt;=&gt; $y_i - 2 r &lt; 100$</li>
+<li>釘 $(x_i, y_i)$ と 釘 $(x_j, y_j)$ が繋がっている &lt;=&gt; $(x_i-x_j)^2 + (y_i-y_j)^2 &lt; (2r)^2$</li>
 </ul>
-<hr>
-<h3 id="区間和">区間和</h3>
-<p>俗にいう「いもす法」</p>
-<h3 id="dfs">DFS</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc138/tasks/abc138_d">ABC 138 D - Ki</a></li>
-<li><a href="https://atcoder.jp/contests/abc240/tasks/abc240_e">E - Ranges on Tree</a></li>
-<li><a href="https://atcoder.jp/contests/abc213/tasks/abc213_d">D - Takahashi Tour</a></li>
-</ul>
-<p>木を辿る</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc220/tasks/abc220_f">ABC 220 F - Distance Sums 2</a></li>
-</ul>
-<h3 id="bfs">BFS</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc151/tasks/abc151_d">ABC 151 D - Maze Master</a></li>
-<li><a href="https://atcoder.jp/contests/abc088/tasks/abc088_d">ABC 088 D - Grid Repainting</a></li>
-</ul>
-<h3 id="bit全探索">Bit全探索</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc147/tasks/abc147_c">ABC 147 C - HonestOrUnkind2</a></li>
-</ul>
-<h3 id="区間スケジュール問題">区間スケジュール問題</h3>
-<p><a href="https://atcoder.jp/contests/keyence2020/tasks/keyence2020_b">キーエンス2020 B Robot Arms</a></p>
-<h3 id="dp">DP</h3>
-<ul>
-<li><a href="">ABC 154 E Almost Everywhere Zero</a></li>
-</ul>
-<p>1次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">AGC 034 A - Kenken Race</a></li>
-</ul>
-<p>2次元</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc183/tasks/abc183_e">ABC 183 E - Queen on Grid</a></li>
-<li><a href="https://atcoder.jp/contests/agc043/tasks/agc043_a">AGC 043 A - Range Flip Find Route</a></li>
-</ul>
-<h3 id="ナップザック問題">ナップザック問題</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc153/tasks/abc153_e">ABC 153 E - Crested Ibis vs Monster</a></li>
-</ul>
-<h3 id="数列">数列</h3>
-<p>数列の連続する項目が離れている条件-&gt;累積和</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_e">ABC 253 E Distance Sequence</a></li>
-</ul>
-<h3 id="ダイクストラ">ダイクストラ</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc252/tasks/abc252_e">ABC 252 E Road Reduction</a></li>
-</ul>
-<h3 id="ワーシャルフロイド">ワーシャルフロイド</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc079/tasks/abc079_d">ABC 079 D - Wall</a></li>
-</ul>
-<h3 id="橋">橋</h3>
-<ul>
-<li><a href="https://nupioca.hatenadiary.jp/entry/2013/11/03/200006">橋（bridge）検出アルゴリズム - nupiocaの日記</a></li>
-<li><a href="https://atcoder.jp/contests/abc075/tasks/abc075_c">ABC 075 C - Bridge</a></li>
-</ul>
-<h3 id="fenwick-tree">Fenwick Tree</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_f">ABC 254 F - Operations on a Matrix</a></li>
-</ul>
-<h3 id="括弧">括弧</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc064/tasks/abc064_d">ABC 064 D - Insertion</a></li>
-</ul>
-<h3 id="約数">約数</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc134/tasks/abc134_d">ABC 134 D - Preparing Boxes</a></li>
-</ul>
-<h3 id="素数">素数</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc084/tasks/abc084_d">ABC 084 D - 2017-like Number</a></li>
-</ul>
-<h3 id="三角形">三角形</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc143/tasks/abc143_d">ABC 143 D - Triangles</a></li>
-</ul>
-<h3 id="lca">LCA</h3>
-<p>蟻本 pp.292</p>
-<p>\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)</p>
-<ul>
-<li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
-</ul>
-<h3 id="マンハッタン距離">マンハッタン距離</h3>
-<p>45度回転が有用。</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc178/tasks/abc178_e">ABC E - Dist Max</a></li>
-</ul>
-<h3 id="チェスのナイト">チェスのナイト</h3>
-<p>斜めに動くとわかりづらいので、座標変換を行う。
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right) =
-\left(
-\begin{matrix}
-1 &amp; 2 \\
-2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right)
-\end{aligned}
-$$
-だから、逆変換
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right) =
-\cfrac{1}{3}
-\left(
-\begin{matrix}
-1 &amp; -2 \\
--2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right)
-\end{aligned}
-$$
-を考えることにより縦横の単純な移動に変換する。</p>
-<ul>
-<li>蟻本 pp.353 Endless Knight</li>
-</ul>
+<p>これで $r$ が与えられたときの判定方法がわかったので、あとは $r$ を二分探索する。</p>
+<p><a href="https://atcoder.jp/contests/abc181/submissions/34127397">https://atcoder.jp/contests/abc181/submissions/34127397</a> (Rust, 14ms)</p>
 </div>
 	</section>
 
@@ -385,7 +248,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 595 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 285 words in this page.
 	</div>
 </div>
 
@@ -396,9 +259,17 @@ $$
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
+    <a class="flex-grow-0" href="/posts/toytown-killed-my-dog/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        Toytown - Killed My Dog (2019)
+    </a>
     
-    <a class="flex-grow-0" href="/posts/cymbals-entertainment/">
-        Cymbals - That&#39;s Entertainment (2000)
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -412,8 +283,6 @@ $$
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
-		
-			<a href="/atcoder/abc181-f/">AtCoder ABC 181 F - Silver Woods</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/tenka1-2018-c/">Tenka1 Programmer Contest C - Align</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -441,7 +310,9 @@ $$
 		
 			<a href="/atcoder/abc153-e/">AtCoder ABC 153 E - Crested Ibis vs Monster</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc161-d/">AtCoder ABC 161 D - Lunlun Number</a>
+			<a href="/atcoder/abc161-d/">AtCoder ABC 161 D - Lunlun Number</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/code-festival-2017-qualc-d/">AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</a>
 		
 </span>
 </div>

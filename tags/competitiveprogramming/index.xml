@@ -7,10 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 19 Jun 2022 21:07:30 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 20 Aug 2022 11:55:41 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoder ABC 181 F - Silver Woods</title>
+      <link>https://matsueushi.github.io/atcoder/abc181-f/</link>
+      <pubDate>Sat, 20 Aug 2022 11:55:41 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/abc181-f/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc181/tasks/abc181_f&#34;&gt;https://atcoder.jp/contests/abc181/tasks/abc181_f&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$r$ を動かした時に、動かす円の中心が存在できない範囲を考えてみる。
+壁もしくは障害物から距離 $r$ 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/abc181-f-0.svg&#34; alt=&#34;fig0&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/abc181-f-1.svg&#34; alt=&#34;fig1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;上の壁と下の壁が図で示した青色の領域を通じて繋がっていなければ円が通過でき、繋がっていれば円が通過できない。
+繋がっているか繋がっていないかはUnionFindで判定できる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$y=100$ と 釘 $(x_i, y_i)$ が繋がっている &amp;lt;=&amp;gt; $y_i + 2 r &amp;gt; 100$&lt;/li&gt;
+&lt;li&gt;$y=-100$ と 釘 $(x_i, y_i)$ が繋がっている &amp;lt;=&amp;gt; $y_i - 2 r &amp;lt; 100$&lt;/li&gt;
+&lt;li&gt;釘 $(x_i, y_i)$ と 釘 $(x_j, y_j)$ が繋がっている &amp;lt;=&amp;gt; $(x_i-x_j)^2 + (y_i-y_j)^2 &amp;lt; (2r)^2$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;これで $r$ が与えられたときの判定方法がわかったので、あとは $r$ を二分探索する。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc181/submissions/34127397&#34;&gt;https://atcoder.jp/contests/abc181/submissions/34127397&lt;/a&gt; (Rust, 14ms)&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Tenka1 Programmer Contest C - Align</title>
@@ -878,6 +901,11 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;マンハッタン距離&#34;&gt;マンハッタン距離&lt;/h3&gt;
+&lt;p&gt;45度回転が有用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc178/tasks/abc178_e&#34;&gt;ABC E - Dist Max&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;チェスのナイト&#34;&gt;チェスのナイト&lt;/h3&gt;
 &lt;p&gt;斜めに動くとわかりづらいので、座標変換を行う。
