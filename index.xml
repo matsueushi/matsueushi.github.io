@@ -11521,9 +11521,9 @@ CD、Amazonにはなかったけどタワーレコードには置いてるので
 &lt;hr&gt;
 &lt;h3 id=&#34;区間和&#34;&gt;区間和&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;アルゴリズムと数学　演習問題集 041
-俗にいう「いもす法」&lt;/li&gt;
+&lt;li&gt;アルゴリズムと数学　演習問題集 041&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;俗にいう「いもす法」&lt;/p&gt;
 &lt;h3 id=&#34;dfs&#34;&gt;DFS&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc138/tasks/abc138_d&#34;&gt;ABC 138 D - Ki&lt;/a&gt;&lt;/li&gt;
@@ -11654,7 +11654,7 @@ s \\
 t
 \end{matrix}
 \right) =
-\cfrac{1}{3}
+-\frac{1}{3}
 \left(
 \begin{matrix}
 1 &amp;amp; -2 \\
@@ -11672,6 +11672,7 @@ $$
 を考えることにより縦横の単純な移動に変換する。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;蟻本 pp.353 Endless Knight&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/abc145_d&#34;&gt;アルゴリズムと数学　演習問題集 052 - Knight&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
