@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 20 Aug 2022 11:55:41 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Memo</title>
+      <link>https://matsueushi.github.io/tags/memo/</link>
+      <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/memo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://matsueushi.github.io/tags/rust/</link>
+      <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>AtCoder</title>
@@ -63,15 +81,6 @@
       <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/tags/julia/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://matsueushi.github.io/tags/rust/</link>
-      <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/tags/rust/</guid>
       <description></description>
     </item>
     

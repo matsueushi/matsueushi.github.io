@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 20 Aug 2022 11:55:41 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -936,6 +936,19 @@
 &lt;li&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは&lt;/a&gt; (&lt;a href=&#34;https://archive.is/WipIb#selection-581.2-613.68&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rustでcargo test中にprintlnする</title>
+      <link>https://matsueushi.github.io/posts/rust-test-nocapture/</link>
+      <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/rust-test-nocapture/</guid>
+      <description>&lt;p&gt;&lt;code&gt;cargo test&lt;/code&gt;でテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cargo test -- --nocapture
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;で出てくるようにできるようだ。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://jonalmeida.com/posts/2015/01/23/print-cargo/&#34;&gt;Enabling print statements in Cargo tests&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -11572,6 +11585,19 @@ CD、Amazonにはなかったけどタワーレコードには置いてるので
 &lt;p&gt;数列の連続する項目が離れている条件-&amp;gt;累積和&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc253/tasks/abc253_e&#34;&gt;ABC 253 E Distance Sequence&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;フィボナッチ数列漸化式&#34;&gt;フィボナッチ数列/漸化式&lt;/h3&gt;
+&lt;p&gt;行列演算&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_ap&#34;&gt;アルゴリズムと数学　演習問題集 049 Fibonacci Easy (mod 1000000007)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_at&#34;&gt;アルゴリズムと数学　演習問題集 054 - Fibonacci Hard (mod 1000000000)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_au&#34;&gt;アルゴリズムと数学　演習問題集 055 - Recurrence Formula 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_av&#34;&gt;アルゴリズムと数学　演習問題集 056 - Recurrence Formula 1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;二部グラフ判定&#34;&gt;二部グラフ判定&lt;/h3&gt;
+&lt;p&gt;DFS&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_ao&#34;&gt;アルゴリズムと数学　演習問題集 047 - Bipartite Graph&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;ダイクストラ&#34;&gt;ダイクストラ&lt;/h3&gt;
 &lt;ul&gt;

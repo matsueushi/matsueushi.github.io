@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sat, 13 Aug 2022 22:26:20 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rustでcargo test中にprintlnする</title>
+      <link>https://matsueushi.github.io/posts/rust-test-nocapture/</link>
+      <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/rust-test-nocapture/</guid>
+      <description>&lt;p&gt;&lt;code&gt;cargo test&lt;/code&gt;でテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cargo test -- --nocapture
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;で出てくるようにできるようだ。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://jonalmeida.com/posts/2015/01/23/print-cargo/&#34;&gt;Enabling print statements in Cargo tests&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Toytown - Killed My Dog (2019)</title>
