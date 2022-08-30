@@ -20,6 +20,14 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "$G=(V, E)$を単純連結グラフとすると、サイクルの数 $C$ が $|E|-|V|+1$ と等しくなる。\nここでサイクルはサイクルを成す辺以外で二頂点を結ぶ辺が存在しない コードレスサイクル を意味する。\n証明は $|E|$ に関する帰納法。\n$|E|=0$ の時、$G$ の連結性から $|V| = 1$ となり、サイクルは存在しないのでOK。\n$|E|=k$ の時成立していると仮定して $|E|=k+1$ のグラフを考える。$G$ がサイクルを持たず木であれば、$|E|=|V|-1$ となるのでOK。 $G$ にサイクルが存在すれば、サイクルをなす辺を一つ選んで取り除いたグラフ $G\u0026rsquo;=(V\u0026rsquo;,E\u0026rsquo;)$ を考えると、 $G\u0026rsquo;$ は単純連結グラフで $|V\u0026rsquo;| = |V|$ ($G$は単純で自己ループを持たないので、頂点は取り除かれない)、$|E\u0026rsquo;|=|E|-1$ である。 帰納法の仮定から $C-1=|E\u0026rsquo;|-|V\u0026rsquo;|+1$ より、整理して $C=|E|-|V|+1$ となる。\nということで良いのだろうか……\nhttps://en.wikipedia.org/wiki/Cycle_(graph_theory) . コードレスサイクルを列挙する線形時間アルゴリズム ",
+    "permalink": "https://matsueushi.github.io/posts/simple-connected-graph-cycles/",
+    "tags": [
+      "Graph"
+    ],
+    "title": "単純連結グラフのサイクル(コードレスサイクル？)の数"
+  },
+  {
     "contents": "cargo testでテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、\n$ cargo test -- --nocapture で出てくるようにできるようだ。\nEnabling print statements in Cargo tests\n",
     "permalink": "https://matsueushi.github.io/posts/rust-test-nocapture/",
     "tags": [
