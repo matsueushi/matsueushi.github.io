@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | セグメント木</title>
+	<title>matsueushi  | セグメント木が処理できるクエリ</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">セグメント木</h1>
+<h1 class="pt-2">セグメント木が処理できるクエリ</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -117,26 +117,40 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>自分用メモ</p>
-<h3 id="セグメント木">セグメント木</h3>
-<h4 id="できること">できること</h4>
-<p>完全二分木で区間を表現することで、一点更新・区間取得のクエリが処理できる。</p>
-<p>モノイド $S = (S, \cdot, e)$ が定義されているとき、数列 $\{s_i\}_{i=1}^n$ に対して、</p>
+		<div class="c-rich-text"><p>実装方法ではなく使い方のメモです。計算する区間の添字の流儀は <a href="https://atcoder.github.io/ac-library/production/document_ja/index.html">AtCoder Library</a> を参考にしています。</p>
+<h2 id="fenwick-treebit-indexed-tree">Fenwick Tree/Bit Indexed Tree</h2>
+<p><strong>一点加算更新・区間加算</strong> のクエリが処理できるデータ構造。</p>
+<p>できることは限られているが、同じ処理をセグメント木や遅延セグメント木で行うときよりも高速に動作し、実装も比較的シンプル。</p>
+<h3 id="処理できるクエリ">処理できるクエリ</h3>
+<p>$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $0$ の配列とする。</p>
 <ol>
-<li>代入操作: $s_i := s \in S$</li>
-<li>区間取得操作: 区間 $[i, j)$ に対して $s_i \cdot s_{i+1} \cdots s_{j-1}$ を計算</li>
+<li>(一点加算更新) インデックス $i$ と値 $x$ が与えられたとき、配列を $a_i \coloneqq a_i + x$ と更新する。計算量 $O(\log n)$</li>
+<li>(区間加算) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の和 $\sum_{i=l}^{r-1} a_i$ を計算する。計算量 $O(\log n)$</li>
 </ol>
-<p>を $O(\log n)$ で処理する</p>
+<h2 id="セグメント木">セグメント木</h2>
+<p><strong>一点更新・区間取得</strong> のクエリが処理できるデータ構造。</p>
+<h3 id="処理できるクエリ-1">処理できるクエリ</h3>
+<p>セグメント木で扱う値の集合は、<a href="https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89">モノイド</a>である必要がある。</p>
+<p>$S = (S, \cdot, e)$ をモノイド、
+$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列とする。</p>
+<ol>
+<li>(一点更新) インデックス $i$ と値 $x \in S$ が与えられたとき、配列を $a_i = x$ と更新する。計算量 $O(\log n)$</li>
+<li>(区間取得) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の(モノイドの)積 $\prod_{i=l}^{r-1} a_i$ を計算。計算量 $O(\log n)$</li>
+</ol>
+<h3 id="具体例">具体例</h3>
 <ul>
-<li>$\mathbb{Z}&rsquo;$ を上限と下限がある整数全体の集合とした時、
-$S=(\mathbb{Z}&rsquo;, \max(S), \min)$ とおけば Range Minimum Query。</li>
-<li>Fenwick Tree は、$(\mathbb{Z}, 0, +)$ に対応。</li>
+<li>(Fenwick Tree) モノイド $S$ の演算を加算 $+$ とすると、Fenwick Treeになる。$S = (\mathbb{Z}, 0, +)$ とすると、整数の配列のFenwickTree。一点更新/一点加算更新は適切に読み替える必要がある。</li>
+<li>(Range Minimum Query) $S=(\mathbb{Z} \cup \{\infty\}, \min, \infty)$ とおくと、区間取得として以下を実現する Range Minimum Query となる。
+<ul>
+<li>インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最小値 $\min_{i=l}^{r-1} \{a_i\}$ を計算する。</li>
 </ul>
-<h3 id="遅延セグメント木">遅延セグメント木</h3>
-<h4 id="モチベーション">モチベーション</h4>
+</li>
+</ul>
+<h2 id="遅延セグメント木">遅延セグメント木</h2>
+<h3 id="モチベーション">モチベーション</h3>
 <p>通常のセグメント木だと一点更新するだけで点を含む全ての区間の値を更新するので、区間更新の計算量が多くなってしまう。
 そのためもう一つ二分木を使って区間取得操作や二度目の更新操作の時まで値の更新を遅らせたい。</p>
-<h4 id="できること-1">できること</h4>
+<h3 id="できること">できること</h3>
 <ul>
 <li>モノイド $S = (S, \cdot, e_S)$ (セグメント木上に乗せるデータ)</li>
 <li>モノイド $X = (X, \cdot, e_X)$ (遅延伝播させるデータ)</li>
@@ -153,9 +167,11 @@ $S=(\mathbb{Z}&rsquo;, \max(S), \min)$ とおけば Range Minimum Query。</li>
 </ul>
 <h3 id="参考">参考</h3>
 <ul>
+<li>プログラミングコンテストチャレンジブック pp.153-172</li>
 <li><a href="https://algo-logic.info/segment-tree/">セグメント木を徹底解説！0から遅延評価やモノイドまで</a></li>
 <li><a href="https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html">AC Library - Lazy Segtree</a></li>
 <li><a href="https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree">いかたこのたこつぼ セグメント木</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89">モノイド - Wikipedia</a></li>
 </ul>
 </div>
 	</section>
@@ -263,7 +279,7 @@ $S=(\mathbb{Z}&rsquo;, \max(S), \min)$ とおけば Range Minimum Query。</li>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 600 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1084 words in this page.
 	</div>
 </div>
 

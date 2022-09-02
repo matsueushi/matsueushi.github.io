@@ -975,31 +975,45 @@
     </item>
     
     <item>
-      <title>セグメント木</title>
+      <title>セグメント木が処理できるクエリ</title>
       <link>https://matsueushi.github.io/other/segtree/</link>
       <pubDate>Sun, 03 Jul 2022 20:57:40 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/other/segtree/</guid>
-      <description>&lt;p&gt;自分用メモ&lt;/p&gt;
-&lt;h3 id=&#34;セグメント木&#34;&gt;セグメント木&lt;/h3&gt;
-&lt;h4 id=&#34;できること&#34;&gt;できること&lt;/h4&gt;
-&lt;p&gt;完全二分木で区間を表現することで、一点更新・区間取得のクエリが処理できる。&lt;/p&gt;
-&lt;p&gt;モノイド $S = (S, \cdot, e)$ が定義されているとき、数列 $\{s_i\}_{i=1}^n$ に対して、&lt;/p&gt;
+      <description>&lt;p&gt;実装方法ではなく使い方のメモです。計算する区間の添字の流儀は &lt;a href=&#34;https://atcoder.github.io/ac-library/production/document_ja/index.html&#34;&gt;AtCoder Library&lt;/a&gt; を参考にしています。&lt;/p&gt;
+&lt;h2 id=&#34;fenwick-treebit-indexed-tree&#34;&gt;Fenwick Tree/Bit Indexed Tree&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;一点加算更新・区間加算&lt;/strong&gt; のクエリが処理できるデータ構造。&lt;/p&gt;
+&lt;p&gt;できることは限られているが、同じ処理をセグメント木や遅延セグメント木で行うときよりも高速に動作し、実装も比較的シンプル。&lt;/p&gt;
+&lt;h3 id=&#34;処理できるクエリ&#34;&gt;処理できるクエリ&lt;/h3&gt;
+&lt;p&gt;$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $0$ の配列とする。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;代入操作: $s_i := s \in S$&lt;/li&gt;
-&lt;li&gt;区間取得操作: 区間 $[i, j)$ に対して $s_i \cdot s_{i+1} \cdots s_{j-1}$ を計算&lt;/li&gt;
+&lt;li&gt;(一点加算更新) インデックス $i$ と値 $x$ が与えられたとき、配列を $a_i \coloneqq a_i + x$ と更新する。計算量 $O(\log n)$&lt;/li&gt;
+&lt;li&gt;(区間加算) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の和 $\sum_{i=l}^{r-1} a_i$ を計算する。計算量 $O(\log n)$&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;を $O(\log n)$ で処理する&lt;/p&gt;
+&lt;h2 id=&#34;セグメント木&#34;&gt;セグメント木&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;一点更新・区間取得&lt;/strong&gt; のクエリが処理できるデータ構造。&lt;/p&gt;
+&lt;h3 id=&#34;処理できるクエリ-1&#34;&gt;処理できるクエリ&lt;/h3&gt;
+&lt;p&gt;セグメント木で扱う値の集合は、&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89&#34;&gt;モノイド&lt;/a&gt;である必要がある。&lt;/p&gt;
+&lt;p&gt;$S = (S, \cdot, e)$ をモノイド、
+$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列とする。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;(一点更新) インデックス $i$ と値 $x \in S$ が与えられたとき、配列を $a_i = x$ と更新する。計算量 $O(\log n)$&lt;/li&gt;
+&lt;li&gt;(区間取得) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の(モノイドの)積 $\prod_{i=l}^{r-1} a_i$ を計算。計算量 $O(\log n)$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;具体例&#34;&gt;具体例&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;$\mathbb{Z}&amp;rsquo;$ を上限と下限がある整数全体の集合とした時、
-$S=(\mathbb{Z}&amp;rsquo;, \max(S), \min)$ とおけば Range Minimum Query。&lt;/li&gt;
-&lt;li&gt;Fenwick Tree は、$(\mathbb{Z}, 0, +)$ に対応。&lt;/li&gt;
+&lt;li&gt;(Fenwick Tree) モノイド $S$ の演算を加算 $+$ とすると、Fenwick Treeになる。$S = (\mathbb{Z}, 0, +)$ とすると、整数の配列のFenwickTree。一点更新/一点加算更新は適切に読み替える必要がある。&lt;/li&gt;
+&lt;li&gt;(Range Minimum Query) $S=(\mathbb{Z} \cup \{\infty\}, \min, \infty)$ とおくと、区間取得として以下を実現する Range Minimum Query となる。
+&lt;ul&gt;
+&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最小値 $\min_{i=l}^{r-1} \{a_i\}$ を計算する。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;遅延セグメント木&#34;&gt;遅延セグメント木&lt;/h3&gt;
-&lt;h4 id=&#34;モチベーション&#34;&gt;モチベーション&lt;/h4&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;遅延セグメント木&#34;&gt;遅延セグメント木&lt;/h2&gt;
+&lt;h3 id=&#34;モチベーション&#34;&gt;モチベーション&lt;/h3&gt;
 &lt;p&gt;通常のセグメント木だと一点更新するだけで点を含む全ての区間の値を更新するので、区間更新の計算量が多くなってしまう。
 そのためもう一つ二分木を使って区間取得操作や二度目の更新操作の時まで値の更新を遅らせたい。&lt;/p&gt;
-&lt;h4 id=&#34;できること-1&#34;&gt;できること&lt;/h4&gt;
+&lt;h3 id=&#34;できること&#34;&gt;できること&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;モノイド $S = (S, \cdot, e_S)$ (セグメント木上に乗せるデータ)&lt;/li&gt;
 &lt;li&gt;モノイド $X = (X, \cdot, e_X)$ (遅延伝播させるデータ)&lt;/li&gt;
@@ -1016,9 +1030,11 @@ $S=(\mathbb{Z}&amp;rsquo;, \max(S), \min)$ とおけば Range Minimum Query。&l
 &lt;/ul&gt;
 &lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
 &lt;ul&gt;
+&lt;li&gt;プログラミングコンテストチャレンジブック pp.153-172&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://algo-logic.info/segment-tree/&#34;&gt;セグメント木を徹底解説！0から遅延評価やモノイドまで&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html&#34;&gt;AC Library - Lazy Segtree&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree&#34;&gt;いかたこのたこつぼ セグメント木&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89&#34;&gt;モノイド - Wikipedia&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
