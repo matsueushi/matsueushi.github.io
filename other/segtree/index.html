@@ -158,12 +158,19 @@ $a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列�
 </ul>
 </li>
 <li>
-<p>(Range Add Query) セグメント木を利用して、区間加算・一点取得のクエリを処理できる。</p>
+<p>(Xor) <a href="https://atcoder.jp/contests/abc185/tasks/abc185_f">AtCoder Beginner Contest 185</a>
+$S=(\mathbb{Z}, \veebar, 0)$ とすると XOR が処理できる。</p>
+</li>
+<li>
+<p>(Or) $S=(\mathbb{Z}, \lor, 0)$ とすると OR が処理できる。</p>
+</li>
+<li>
+<p>(区間加算・一点取得) セグメント木を利用して、区間加算・一点取得のクエリを処理できる。</p>
 <ol>
 <li>(区間加算) インデックスの組 $(l, r)$ と値 $x$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素に $x$ を加算する。つまり、$i \in [l, r)$ に対して $a_i = a_i + x$ と更新する。</li>
 <li>(一点取得) $a_i$ の値を取得する。</li>
 </ol>
-<p>これは、別の配列 $b_i$ に対してモノイド $S = (\mathbb{Z}, 0, +)$ を考慮したセグメント木を作成し、区間加算については $b_l = b_l + x, b_r = b_r - x$ と 一点取得・一点更新を2回実施し、一点取得に対しては、$\sum_{k=0}^{i}$ を求めるため、区間 $[0, i+1)$ の区間取得を実施すれば良い。(imos法の考え方と似ている)</p>
+<p>これは、別の配列 $b_i$ に対してモノイド $S = (\mathbb{Z}, 0, +)$ を考慮したセグメント木を作成し、区間加算については $b_l = b_l + x, b_r = b_r - x$ と 一点取得・一点更新を2回実施し、一点取得に対しては、$\sum_{k=0}^{i}b_k$ を求めるため、区間 $[0, i+1)$ の区間取得を実施すれば良い。(imos法の考え方と似ている)</p>
 </li>
 </ul>
 <h2 id="遅延セグメント木lazy-segment-tree">遅延セグメント木(Lazy Segment Tree)</h2>
@@ -207,6 +214,15 @@ $a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列�
 </li>
 </ul>
 <p>$b&rsquo; \times (b \times a + c) + c&rsquo; = bb&rsquo; \times a + (b&rsquo;c + c&rsquo;)$ だから、$X=(\mathbb{Z} \times \mathbb{Z}, \cdot, (1,0)), (b&rsquo;, c&rsquo;) \cdot (b, c) = (bb&rsquo;, b&rsquo;c + c&rsquo;)$ と定義することで表現できる。</p>
+<ul>
+<li>(区間最大値更新・区間取得) <a href="https://atcoder.jp/contests/typical90/tasks/typical90_ac">競プロ典型 90 問 029 - Long Bricks（★5）</a>
+更新操作は最大値を区間取得 -&gt; 区間代入操作の組み合わせで実現できる。$S = (\mathbb{Z}, \max, 0)$ で、$X$ はセグメント木の具体例で考えたものと同じ。
+<ol>
+<li>インデックスの組 $(l, r)$ と値 $b, c$ が与えられたとき、区間 $[l, r)$ に対応する配列を次のように更新する。$i \in [l, r)$ に対して $a_i = \max_{i=l}^{r-1} a_i + 1$ と更新する。</li>
+<li>インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最大値 $\max_{i=l}^{r-1} a_i$ を計算する。</li>
+</ol>
+</li>
+</ul>
 <h2 id="参考">参考</h2>
 <ul>
 <li>
@@ -235,6 +251,9 @@ $a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列�
 </li>
 <li>
 <p><a href="https://chuka231.blogspot.com/2021/05/segment-tree-problems-in-atcoder.html">chuka231&rsquo;s blog: Segment Tree problems in Atcoder</a></p>
+</li>
+<li>
+<p><a href="https://perogram.hateblo.jp/entry/2020/01/06/030505">セグメント木で使える演算子 segment tree, lazy 〃(自分用メモ) - perogram</a></p>
 </li>
 <li>
 <p><a href="https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89">モノイド - Wikipedia</a></p>
@@ -346,7 +365,7 @@ $a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2176 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2459 words in this page.
 	</div>
 </div>
 
