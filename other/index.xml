@@ -1093,6 +1093,14 @@ $S=(\mathbb{Z}, \veebar, 0)$ とすると XOR が処理できる。&lt;/p&gt;
 &lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最大値 $\max_{i=l}^{r-1} a_i$ を計算する。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
+&lt;li&gt;(区間更新・区間転倒数取得)
+&lt;a href=&#34;https://atcoder.jp/contests/practice2/tasks/practice2_l&#34;&gt;AtCoder Library Practice Contest L - Lazy Segment Tree&lt;/a&gt;
+0と1からなる数列 $A$ に対し、
+&lt;ol&gt;
+&lt;li&gt;インデックスの組 $(l, r)$ と値 $b, c$ が与えられたとき、区間 $[l, r)$ に対応する配列を次のように更新する。$i \in [l, r)$ に対して $a_i = 1 - a_i$ と更新する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の転倒数を計算する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
 &lt;li&gt;(並び替え)
 &lt;a href=&#34;https://atcoder.jp/contests/abc237/tasks/abc237_g&#34;&gt;AtCoder Beginner Contest 237 G - Range Sort Query&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
