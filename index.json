@@ -20,7 +20,16 @@
     "title": "BOaTまとめ"
   },
   {
-    "contents": "HexDという音楽のジャンルがある。\n2010年後半ぐらいからSoundCloudが発祥で発生したごく新しいジャンルで、 ハードコアやトランス、クラウドラップ、ブレイクコアなどのエレクトロニックミュージックを土台として、 音割れしたビットクラッシャーノイズが散りばめられているのが大きな特徴だ。 ジャケットやサンプリングでよくアニメやゲームの素材が使われている気がする。\nChocolate Hearts and Stag Beetles by AERO GROS M シューゲイザーがロックミュージックと楽器による轟音ノイズの融合だとすると、HexDはエレクトロミュージックとデジタルノイズの融合である。 一時期シューゲイザーにハマっていた私にとっては轟音ビットクラッシュノイズで埋め尽くされるような音像が描き出されるHexDは新鮮であると同時にどこか親しみを感じさせるものだ。\nHexDという名前は、SoundCloudのにアップロードされたRare RCB hexD.mp3という曲名から由来しているらしい。また、Surgeとも呼ばれることがあるようだ。\nHexDというジャンルの中ではFax Gangが最も正統派のアーティストであり、 シーンを方向づけるような役割を担っているような印象。 今回紹介したいAERO GROS Mのアルバム \u0026ldquo;Chocolate Hearts and Stag Beetles\u0026rdquo; はもっと実験的なアルバムである。 聴いているとエコーがかかったデジタルノイズとが刻まれたビートともに脳に流れ込み、 陶酔感を超えて酩酊した時のような混沌が脳の中に作り出される感じがしてとても良い。\n好きな曲: loveliescrushing, \u0026amp;, FL€€T FOXES\nRate Your Music - HexD ビットクラッシュの海で泳ぐ｜Fax Gangがデビューアルバム『Aethernet』をリリース ビットクラッシュの未来を想う｜Fax Gangが新作アルバム『Dataprism』を発表 ",
+    "contents": "https://atcoder.jp/contests/abc268/tasks/abc268_c\n人 $i$ の前に料理 $p_i$ が置かれている場合、その皿だけ考えると、mod Nで考えて、 $i-p_i-1, i-p_i, i-p_i+1$ だけ料理をずらした時に幸福値が1増えてそれ以外だと幸福値は増えない。\nxs[i] = (テーブルをiだけずらした時の幸福数)\nとしてxsを更新していけば良い。\nhttps://atcoder.jp/contests/abc268/submissions/34802426\n",
+    "permalink": "https://matsueushi.github.io/atcoder/abc268c/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "AtCoder ABC 268 C Chinese Restaurant"
+  },
+  {
+    "contents": "HexDという音楽のジャンルがある。\n2010年後半ぐらいからSoundCloudが発祥で発生したごく新しいジャンルで、 ハードコアやトランス、クラウドラップ、ブレイクコアなどのエレクトロニックミュージックを土台として、 音割れしたビットクラッシャーノイズが散りばめられているのが大きな特徴だ。 ジャケットやサンプリングでよくアニメやゲームの素材が使われている気がする。\nChocolate Hearts and Stag Beetles by AERO GROS M シューゲイザーがロックミュージックと楽器による轟音ノイズの融合だとすると、HexDはエレクトロミュージックとデジタルノイズの融合である。 一時期シューゲイザーにハマっていた私にとっては轟音ビットクラッシュノイズで埋め尽くされるような音像が描き出されるHexDは新鮮であると同時にどこか親しみを感じさせるものだ。\nHexDという名前は、SoundCloudのにアップロードされたRare RCB hexD.mp3という曲名から由来しているらしい。また、Surgeとも呼ばれることがあるようだ。\nHexDというジャンルの中ではFax Gangが最も正統派のアーティストであり、 シーンを方向づけるような役割を担っているような印象。 今回紹介したいAERO GROS Mのアルバム \u0026ldquo;Chocolate Hearts and Stag Beetles\u0026rdquo; はもっと実験的なアルバムである。\n聴いているとエコーがかかったデジタルノイズとが刻まれたビートに乗って脳に流れ込み、 陶酔感を超えて酩酊した時のような混沌が脳の中に作り出される感じがしてとても良い。\nアルバムの中でも、Cloud rapのスタイルで魔法少女まどか☆マギカの「コネクト」のサンプリングがノイズ、効果音と神々しく混じり合うloveliescrushingという曲は素晴らしい。 Spofityを見てもAERO GROS Mの中でも一番再生回数が多いようだ。\nYouTubeに本人？がアップロードした動画の説明に\nthis is a song about how much we hate you. if you think this isn\u0026rsquo;t about you, it probably is.\nなんて不穏なことが書いてありますね。\n好きな曲: loveliescrushing, \u0026amp;, FL€€T FOXES, In the Hull of a Dying Spaceship\nRate Your Music - HexD ビットクラッシュの海で泳ぐ｜Fax Gangがデビューアルバム『Aethernet』をリリース ビットクラッシュの未来を想う｜Fax Gangが新作アルバム『Dataprism』を発表 ",
     "permalink": "https://matsueushi.github.io/posts/aero-gros-m-chocolate-hearts-and-stag-beetles/",
     "tags": [
       "Music"
