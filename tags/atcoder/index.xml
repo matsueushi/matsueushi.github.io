@@ -7,10 +7,40 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 11 Sep 2022 22:55:10 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Sep 2022 09:48:50 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtCoderで水色になりました</title>
+      <link>https://matsueushi.github.io/atcoder/cyan/</link>
+      <pubDate>Sun, 18 Sep 2022 09:48:50 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/cyan/</guid>
+      <description>&lt;p&gt;UNICORNプログラミングコンテスト2022(AtCoder Beginner Contest 269)でAtCoder水色に上がりました。
+&lt;a href=&#34;https://atcoder.jp/users/matsueushi&#34;&gt;https://atcoder.jp/users/matsueushi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;緑に上がった後にJuliaではなくRustを使い始めたので最初のうちは言語の違いに苦戦していました。
+とはいえまだコレクションの扱いなどはいつもドキュメントや自分のメモを見返しながら実装しているので慣れたいですね。&lt;/p&gt;
+&lt;p&gt;バーチャルコンテストなどはやっておらずAtCoderProblemsで緑diffの問題を中心に解くというやり方でした。
+今後は水色維持・青色達成に向けてわからない問題の解説をしっかり読み込んでいこうと思います。&lt;/p&gt;
+&lt;h3 id=&#34;課題だと思っているもの&#34;&gt;課題だと思っているもの&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;水、青diffで解いている問題数が純粋に少ない&lt;/li&gt;
+&lt;li&gt;実装速度&lt;/li&gt;
+&lt;li&gt;インタラクティブ問題: Rustで解いたことがなかったので、ABC269のコンテストにJuliaで慌てて解くことになりました&lt;/li&gt;
+&lt;li&gt;mod計算のライブラリ&lt;/li&gt;
+&lt;li&gt;Mo&amp;rsquo;s algorithm&lt;/li&gt;
+&lt;li&gt;グラフアルゴリズム&lt;/li&gt;
+&lt;li&gt;FFT&lt;/li&gt;
+&lt;li&gt;ヒューリスティック: 全くやっていません。「&lt;a href=&#34;https://book.mynavi.jp/ec/products/detail/id=131288&#34;&gt;競技プログラミングの鉄則&lt;/a&gt;」を買ったので、挑戦してみたいです&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../green/&#34;&gt;AtCoderで緑色になりました&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoder ABC 268 C Chinese Restaurant</title>
