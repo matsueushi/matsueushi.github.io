@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ\nproconio クレートの [fastout] は使わないで下のようにすれば良い。\nuse std::io::BufReader; use proconio::{input, source::line::LineSource}; fn main() { let stdin = std::io::stdin(); let mut source = LineSource::new(BufReader::new(stdin)); input! { from \u0026amp;mut source, n: usize, } ...(省略)... } https://atcoder.jp/contests/abc269/submissions/34963751\n",
+    "permalink": "https://matsueushi.github.io/atcoder/rust-interactive/",
+    "tags": [
+      "AtCoder",
+      "CompetitiveProgramming"
+    ],
+    "title": "Rustでインタラクティブの問題を解く"
+  },
+  {
     "contents": "UNICORNプログラミングコンテスト2022(AtCoder Beginner Contest 269)でAtCoder水色に上がりました。 https://atcoder.jp/users/matsueushi\n緑に上がった後にJuliaではなくRustを使い始めたので最初のうちは言語の違いに苦戦していました。 とはいえまだコレクションの扱いなどはいつもドキュメントや自分のメモを見返しながら実装しているので慣れたいですね。\nバーチャルコンテストなどはやっておらずAtCoderProblemsで緑diffの問題を中心に解くというやり方でした。 今後は水色維持・青色達成に向けてわからない問題の解説をしっかり読み込んでいこうと思います。\n課題だと思っているもの 水、青diffで解いている問題数が純粋に少ない 実装速度 インタラクティブ問題: Rustで解いたことがなかったので、ABC269のコンテストにJuliaで慌てて解くことになりました mod計算のライブラリ Mo\u0026rsquo;s algorithm グラフアルゴリズム FFT ヒューリスティック: 全くやっていません。「競技プログラミングの鉄則」を買ったので、挑戦してみたいです AtCoderで緑色になりました ",
     "permalink": "https://matsueushi.github.io/atcoder/cyan/",
     "tags": [

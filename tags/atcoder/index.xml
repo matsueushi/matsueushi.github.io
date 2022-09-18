@@ -7,10 +7,36 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 18 Sep 2022 09:48:50 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Sep 2022 11:07:07 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rustでインタラクティブの問題を解く</title>
+      <link>https://matsueushi.github.io/atcoder/rust-interactive/</link>
+      <pubDate>Sun, 18 Sep 2022 11:07:07 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/rust-interactive/</guid>
+      <description>&lt;p&gt;RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ&lt;/p&gt;
+&lt;p&gt;proconio クレートの &lt;code&gt;[fastout]&lt;/code&gt; は使わないで下のようにすれば良い。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::io::BufReader;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; proconio::{input, source::line::LineSource};
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; stdin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::io::stdin();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; source &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LineSource::new(BufReader::new(stdin));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    input&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        from &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; source,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        n: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;.(&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;省略&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc269/submissions/34963751&#34;&gt;https://atcoder.jp/contests/abc269/submissions/34963751&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AtCoderで水色になりました</title>

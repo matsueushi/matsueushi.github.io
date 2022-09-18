@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | AtCoderメモ書き</title>
+	<title>matsueushi  | Rustでインタラクティブの問題を解く</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.101.0" />
 	
@@ -95,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">AtCoderメモ書き</h1>
+<h1 class="pt-2">Rustでインタラクティブの問題を解く</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -115,7 +115,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="0001-01-01T00:00:00Z">0001-1-1 00:00</time>
+		datetime="2022-09-18T11:07:07&#43;09:00">2022-9-18 11:07</time>
 </div>
 
 <hr />
@@ -128,217 +128,23 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>自分用のメモです。</p>
-<h3 id="waの時に確認すべきこと">WAの時に確認すべきこと</h3>
-<ul>
-<li>問題文は正しく読めているか？</li>
-<li>オーバーフローしていないか？</li>
-<li>998244353や10^9+7で割った余りを求めるタイプの場合、余りを取っているか？
-負の値を足している時、<code>res = (res % P + P) % P</code>のようなケアをしているか？</li>
-<li>二分探索をしている時、最小値、最大値に到達できるか？</li>
-</ul>
-<hr>
-<h2 id="探索">探索</h2>
-<h3 id="dfs">DFS</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc138/tasks/abc138_d">ABC 138 D - Ki</a></li>
-<li><a href="https://atcoder.jp/contests/abc240/tasks/abc240_e">E - Ranges on Tree</a></li>
-<li><a href="https://atcoder.jp/contests/abc213/tasks/abc213_d">D - Takahashi Tour</a></li>
-</ul>
-<p>木を辿る</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc220/tasks/abc220_f">ABC 220 F - Distance Sums 2</a></li>
-</ul>
-<h3 id="bfs">BFS</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc151/tasks/abc151_d">ABC 151 D - Maze Master</a></li>
-<li><a href="https://atcoder.jp/contests/abc088/tasks/abc088_d">ABC 088 D - Grid Repainting</a></li>
-</ul>
-<h3 id="bit全探索">Bit全探索</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc147/tasks/abc147_c">ABC 147 C - HonestOrUnkind2</a></li>
-</ul>
-<hr>
-<h2 id="dp">DP</h2>
-<h3 id="1次元">1次元</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">AGC 034 A - Kenken Race</a></li>
-</ul>
-<h3 id="2次元">2次元</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc183/tasks/abc183_e">ABC 183 E - Queen on Grid</a></li>
-<li><a href="https://atcoder.jp/contests/agc043/tasks/agc043_a">AGC 043 A - Range Flip Find Route</a></li>
-</ul>
-<h3 id="桁dp">桁DP</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc154/tasks/abc154_e">ABC 154 E Almost Everywhere Zero</a></li>
-</ul>
-<h3 id="タイリング敷き詰め">タイリング/敷き詰め</h3>
-<ul>
-<li>蟻本 p.p. 177 ドミノ敷き詰め</li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_aw">アルゴリズムと数学　演習問題集 057 - Domino Tiling</a> 紛らわしい例</li>
-</ul>
-<h3 id="ナップザック問題">ナップザック問題</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc153/tasks/abc153_e">ABC 153 E - Crested Ibis vs Monster</a></li>
-</ul>
-<h3 id="ぐるぐる遷移していくやつ">ぐるぐる遷移していくやつ</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/abc167_d">アルゴリズムと数学　演習問題集 062 - Teleporter</a></li>
-</ul>
-<h3 id="区間スケジュール問題">区間スケジュール問題</h3>
-<ul>
-<li><a href="https://algo-method.com/tasks/363/editorial">区間スケジューリング問題 | アルゴ式</a></li>
-<li><a href="https://atcoder.jp/contests/keyence2020/tasks/keyence2020_b">キーエンス2020 B Robot Arms</a></li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_bn">アルゴリズムと数学　演習問題集 082 - Interval Scheduling Problem</a></li>
-</ul>
-<hr>
-<h2 id="数列整数">数列/整数</h2>
-<h3 id="約数">約数</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc134/tasks/abc134_d">ABC 134 D - Preparing Boxes</a></li>
-</ul>
-<h3 id="素数">素数</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc084/tasks/abc084_d">ABC 084 D - 2017-like Number</a></li>
-</ul>
-<h3 id="フィボナッチ数列漸化式">フィボナッチ数列/漸化式</h3>
-<p>行列演算</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_ap">アルゴリズムと数学　演習問題集 049 Fibonacci Easy (mod 1000000007)</a></li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_at">アルゴリズムと数学　演習問題集 054 - Fibonacci Hard (mod 1000000000)</a></li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_au">アルゴリズムと数学　演習問題集 055 - Recurrence Formula 1</a></li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_av">アルゴリズムと数学　演習問題集 056 - Recurrence Formula 1</a></li>
-</ul>
-<h3 id="数列の連続する項目の差の絶対値に注目">数列の連続する項目の差の絶対値に注目</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_e">ABC 253 E Distance Sequence</a></li>
-</ul>
-<hr>
-<h2 id="幾何">幾何</h2>
-<h3 id="三角形">三角形</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc143/tasks/abc143_d">ABC 143 D - Triangles</a></li>
-</ul>
-<h3 id="円の交点">円の交点</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_ag">アルゴリズムと数学　演習問題集 035 - Two Circles</a></li>
-</ul>
-<h3 id="凸性">凸性</h3>
-<p>外積で判定できる</p>
-<ul>
-<li><a href="https://perogram.hateblo.jp/entry/2020/09/25/035159">外積で凸性判定 - perogram</a></li>
-<li><a href="https://atcoder.jp/contests/abc266/tasks/abc266_c">ABC266 C - Convex Quadrilateral</a></li>
-</ul>
-<hr>
-<h2 id="グラフ">グラフ</h2>
-<h3 id="二部グラフ判定">二部グラフ判定</h3>
-<p>DFS</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/math_and_algorithm_ao">アルゴリズムと数学　演習問題集 047 - Bipartite Graph</a></li>
-</ul>
-<h3 id="ダイクストラ">ダイクストラ</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc252/tasks/abc252_e">ABC 252 E Road Reduction</a></li>
-</ul>
-<h3 id="ワーシャルフロイド">ワーシャルフロイド</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc079/tasks/abc079_d">ABC 079 D - Wall</a></li>
-</ul>
-<h3 id="橋">橋</h3>
-<ul>
-<li><a href="https://nupioca.hatenadiary.jp/entry/2013/11/03/200006">橋（bridge）検出アルゴリズム - nupiocaの日記</a></li>
-<li><a href="https://atcoder.jp/contests/abc075/tasks/abc075_c">ABC 075 C - Bridge</a></li>
-</ul>
-<h3 id="閉路">閉路</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc266/tasks/abc266_f">ABC 266 F - Well-defined Path Queries on a Namori</a></li>
-</ul>
-<h3 id="lca">LCA</h3>
-<p>蟻本 pp.292</p>
-<p>\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)</p>
-<ul>
-<li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
-</ul>
-<hr>
-<h2 id="セグメント木">セグメント木</h2>
-<h3 id="fenwick-tree">Fenwick Tree</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc253/tasks/abc253_f">ABC 254 F - Operations on a Matrix</a></li>
-</ul>
-<h3 id="通常のセグメント木">通常のセグメント木</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc185/tasks/abc185_f">ABC 165 F - Range Xor Query</a> XOR</li>
-</ul>
-<h3 id="区間和">区間和</h3>
-<ul>
-<li><a href="https://imoz.jp/algorithms/imos_method.html">いもす法</a></li>
-<li>アルゴリズムと数学　演習問題集 041</li>
-</ul>
-<hr>
-<h2 id="その他">その他</h2>
-<h3 id="括弧">括弧</h3>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc064/tasks/abc064_d">ABC 064 D - Insertion</a></li>
-</ul>
-<h3 id="マンハッタン距離">マンハッタン距離</h3>
-<p>45度回転が有用。</p>
-<ul>
-<li><a href="https://atcoder.jp/contests/abc178/tasks/abc178_e">ABC E - Dist Max</a></li>
-</ul>
-<h3 id="チェスのナイト">チェスのナイト</h3>
-<p>斜めに動くとわかりづらいので、座標変換を行う。
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right) =
-\left(
-\begin{matrix}
-1 &amp; 2 \\
-2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right)
-\end{aligned}
-$$
-だから、逆変換
-$$
-\begin{aligned}
-\left(
-\begin{matrix}
-s \\
-t
-\end{matrix}
-\right) =
--\frac{1}{3}
-\left(
-\begin{matrix}
-1 &amp; -2 \\
--2 &amp; 1
-\end{matrix}
-\right)
-\left(
-\begin{matrix}
-x \\
-y
-\end{matrix}
-\right)
-\end{aligned}
-$$
-を考えることにより縦横の単純な移動に変換する。</p>
-<ul>
-<li>蟻本 pp.353 Endless Knight</li>
-<li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/abc145_d">アルゴリズムと数学　演習問題集 052 - Knight</a></li>
-</ul>
+		<div class="c-rich-text"><p>RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ</p>
+<p>proconio クレートの <code>[fastout]</code> は使わないで下のようにすれば良い。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::io::BufReader;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> proconio::{input, source::line::LineSource};
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> stdin <span style="color:#f92672">=</span> std::io::stdin();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> source <span style="color:#f92672">=</span> LineSource::new(BufReader::new(stdin));
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    input<span style="color:#f92672">!</span> {
+</span></span><span style="display:flex;"><span>        from <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> source,
+</span></span><span style="display:flex;"><span>        n: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">..</span>.(<span style="color:#960050;background-color:#1e0010">省略</span>)<span style="color:#f92672">..</span>.
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://atcoder.jp/contests/abc269/submissions/34963751">https://atcoder.jp/contests/abc269/submissions/34963751</a></p>
 </div>
 	</section>
 
@@ -445,7 +251,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2022
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 940 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 102 words in this page.
 	</div>
 </div>
 
@@ -456,9 +262,17 @@ $$
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
+    <a class="flex-grow-0" href="/atcoder/cyan/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        AtCoderで水色になりました
+    </a>
     
-    <a class="flex-grow-0" href="/posts/cymbals-entertainment/">
-        Cymbals - That&#39;s Entertainment (2000)
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -472,8 +286,6 @@ $$
 <div class="font-serif pb-2 flex align-start leading-loose">
 	<span class="heading pr-6 leading-loose">Related</span>
 	<span >
-		
-			<a href="/atcoder/rust-interactive/">Rustでインタラクティブの問題を解く</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/atcoder/cyan/">AtCoderで水色になりました</a>&nbsp;&nbsp;&#47;&nbsp;
 		
@@ -501,7 +313,9 @@ $$
 		
 			<a href="/atcoder/apc001-b/">AtCoder APC 001 B - Two Arrays</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/atcoder/abc198-d/">AtCoder ABC 198 D - Send More Money</a>
+			<a href="/atcoder/abc198-d/">AtCoder ABC 198 D - Send More Money</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc129-d/">AtCoder ABC 129 D - Lamp</a>
 		
 </span>
 </div>
