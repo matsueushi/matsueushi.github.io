@@ -20,6 +20,15 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、mlflow.lightgbm.autolog() や mlflow.xgboost.autolog() を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。\nclass CatBoostMlFlowCallback: def after_iteration(self, info): step = len(info.metrics[\u0026#34;learn\u0026#34;][\u0026#34;Logloss\u0026#34;]) mlflow.log_metric(\u0026#34;train-logloss\u0026#34;, info.metrics[\u0026#34;learn\u0026#34;][\u0026#34;Logloss\u0026#34;][-1], step) mlflow.log_metric(\u0026#34;valid-logloss\u0026#34;, info.metrics[\u0026#34;validation\u0026#34;][\u0026#34;Logloss\u0026#34;][-1], step) mlflow.log_metric(\u0026#34;valid-auc\u0026#34;, info.metrics[\u0026#34;validation\u0026#34;][\u0026#34;AUC\u0026#34;][-1], step) return True 上のようなコールバック関数を作って、モデルを fit するときにcallbacks=[CatBoostMlFlowCallback()]という形で設定すると、CatBoostの場合もメトリックが記録できる。\n",
+    "permalink": "https://matsueushi.github.io/posts/catboost-mlflow/",
+    "tags": [
+      "Mlflow",
+      "CatBoost"
+    ],
+    "title": "MlflowでCatBoostのメトリクスをロギングする"
+  },
+  {
     "contents": "RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ\nproconio クレートの [fastout] は使わないで下のようにすれば良い。\nuse std::io::BufReader; use proconio::{input, source::line::LineSource}; fn main() { let stdin = std::io::stdin(); let mut source = LineSource::new(BufReader::new(stdin)); input! { from \u0026amp;mut source, n: usize, } ...(省略)... } https://atcoder.jp/contests/abc269/submissions/34963751\n",
     "permalink": "https://matsueushi.github.io/atcoder/rust-interactive/",
     "tags": [

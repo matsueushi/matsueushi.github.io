@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2022</copyright>
-    <lastBuildDate>Sun, 18 Sep 2022 11:07:07 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 02 Feb 2023 22:52:35 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -937,6 +937,25 @@
 &lt;li&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは&lt;/a&gt; (&lt;a href=&#34;https://archive.is/WipIb#selection-581.2-613.68&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www10.plala.or.jp/puusan/review/al_dom/boat.htm&#34;&gt;アルバム全曲レビュースレ（in 2ch.邦楽板）勝手にまとめサイト：BOaT&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MlflowでCatBoostのメトリクスをロギングする</title>
+      <link>https://matsueushi.github.io/posts/catboost-mlflow/</link>
+      <pubDate>Thu, 02 Feb 2023 22:52:35 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/catboost-mlflow/</guid>
+      <description>&lt;p&gt;LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、&lt;code&gt;mlflow.lightgbm.autolog()&lt;/code&gt; や &lt;code&gt;mlflow.xgboost.autolog()&lt;/code&gt; を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CatBoostMlFlowCallback&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;after_iteration&lt;/span&gt;(self, info):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(info&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;learn&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Logloss&amp;#34;&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        mlflow&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_metric(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;train-logloss&amp;#34;&lt;/span&gt;, info&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;learn&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Logloss&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], step)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        mlflow&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_metric(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;valid-logloss&amp;#34;&lt;/span&gt;, info&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;validation&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Logloss&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], step)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        mlflow&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_metric(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;valid-auc&amp;#34;&lt;/span&gt;, info&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;validation&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;AUC&amp;#34;&lt;/span&gt;][&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], step)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上のようなコールバック関数を作って、モデルを &lt;code&gt;fit&lt;/code&gt; するときに&lt;code&gt;callbacks=[CatBoostMlFlowCallback()]&lt;/code&gt;という形で設定すると、CatBoostの場合もメトリックが記録できる。&lt;/p&gt;
 </description>
     </item>
     
