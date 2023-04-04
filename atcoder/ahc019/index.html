@@ -160,8 +160,8 @@ onload='renderMathInElement(document.body);'></script>
 <h4 id="回転">回転</h4>
 <p>ブロックの回転に対応するように、配置するセルを回転する方法を思い悩む。
 ビジュアライザに同梱されているツールでは得点計算の際にブロックが同型であるか判定していのでそれを参考にしようと思ったが</p>
-<p>(1) ブロックをx, y, zが0以上でかつ座標が一番小さくなるように並行移動する</p>
-<p>(2) 回転させて正規化することを繰り返して同じになるか見る</p>
+<p>(1) 片方のブロックをx, y, zが0以上でかつ座標が一番小さくなるように並行移動する正規化をする</p>
+<p>(2) もう一方のブロックを回転させて(1)の正規化を行う、という処理を24回繰り返し、同じになるかを判定</p>
 <p>ということをやっていて、ブロックを構築する際にいちいち同じことをやっていたら無駄に計算が走りそう。</p>
 <p>サイコロを考えて、6つのうちどの面を上面にするか、及び上面を固定して回転させる方法が4通りあると考えると、回転方法は全部で24通りになるはず。
 できれば回転の生成元をいくつか掛けるようなことをしないでダイレクトに移動先を求めたい。</p>
@@ -342,7 +342,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2023
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2492 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2524 words in this page.
 	</div>
 </div>
 
