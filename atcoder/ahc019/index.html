@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>matsueushi  | MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
+
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
+
+	
+
+	
+	
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+	
+
+	
+	
+	
+	
+	
+	
+
+
+
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/matsueushi.github.io\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	
+	
+</head>
+
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+	</h2>
+</div>
+<h1 class="pt-2">MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記</h1>
+
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/atcoder'>AtCoder</a>&nbsp;&#47;
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/competitiveprogramming'>CompetitiveProgramming</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2023-04-02T21:30:06&#43;09:00">2023-4-2 21:30</time>
+</div>
+
+<hr />
+
+
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/ahc019">MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）</a> の参加記です。</p>
+<p>下はseed=40の結果(score=165,708,812)。</p>
+<p><img src="/images/atcoder/ahc019-vis1.png" alt="vis1">
+<img src="/images/atcoder/ahc019-vis2.png" alt="vis2"></p>
+<h3 id="問題概略">問題（概略）</h3>
+<p>正面・右側から見た立体のシルエットの組が二つ与えられる。
+両方のシルエットが実現できるようなブロックのセットを作る。
+二つの立体を作るときに、できるだけブロックを共通して使うようにしたい。
+また、小さなブロックは飲み込みやすく危険なので可能な限りセットを構成するブロックは大きくしたい。</p>
+<h3 id="2023323">2023/3/23</h3>
+<p>同じ立体問題だった前回の<a href="https://atcoder.jp/contests/toyota-hc-2023spring">トヨタ自動車 実課題プログラミングコンテスト 2023 Spring</a> ではそもそもACすることに苦戦し、なんとかプレテストではACに漕ぎつけたものの、システムテストでWAとなってしまっていた。
+そのため、立体問題に苦手意識が生まれてしまい、AHCにとっては参加登録をしたものの数日取り組むことなく放置していた。</p>
+<p>問題を読んでみる。うーん、難しそうだ。全く解法が思いつかない。
+サンプルプログラムが付いていたのでこれをRustに移植して提出。全てをサイズ1のブロックで埋めている。
+20,662,000,000,000点を得てこの日は終了。</p>
+<h3 id="2023324">2023/3/24</h3>
+<p>ローカル版ビジュアライザのソースコードを参考にして、スコアを計算するコードを作る。</p>
+<h3 id="2023325">2023/3/25</h3>
+<p>次のような方針を思いつく。この後、最後まで大きな方針は変わらず。
+(1) 左のスペースから立方体を置ける座標$p_l$を選ぶ。</p>
+<p>(2) 右のスペースで原点とする座標を$p_r$選ぶ。</p>
+<p>(3) スタック$s$に左から選んだ座標を入れる。</p>
+<p>(4) 左で伸ばしていくブロックを管理するリスト$cs$を用意。最初は空とする。</p>
+<p>(5) スタックから座標$c$を取り出す。</p>
+<p>(6) 今まで伸ばしたブロック$cs$に$c$をくっつけて、原点を$p_l$から$p_r$に並行移動させ、24パターン回転させてシルエットに収まる配置であったら$cs$ に $c$ を加える。$c$ の近傍を $s$ に積む。</p>
+<p>(7) 可能な限り (5) に戻ってブロックを延長する</p>
+<p>(8) ブロックが延長できなくなったら、(2) に戻って右の原点を選び直す。</p>
+<p>(9) 一番多くのブロックを伸ばせたパターンを確定させる。</p>
+<p>533,534,221,417点を獲得。かなりスコアが改善した！</p>
+<h3 id="回転">回転</h3>
+<p>ブロックの回転に対応するように、配置するセルを回転する方法を思い悩む。
+ビジュアライザに同梱されているツールでは得点計算の際にブロックが同型であるか判定していのでそれを参考にしようと思ったが</p>
+<p>(1) ブロックをx, y, zが0以上でかつ座標が一番小さくなるように並行移動する</p>
+<p>(2) 回転させて正規化することを繰り返して同じになるか見る</p>
+<p>ということをやっていて、ブロックを構築する際にいちいち同じことをやっていたら無駄に計算が走りそう。</p>
+<p>サイコロを考えて、6つのうちどの面を上面にするか、及び上面を固定して回転させる方法が4通りあると考えると、回転方法は全部で24通りになるはず。
+できれば回転の生成元をいくつか掛けるようなことをしないでダイレクトに移動先を求めたい。</p>
+<p>調べると次のような回答が出てきたので、</p>
+<p><a href="https://stackoverflow.com/questions/16452383/how-to-get-all-24-rotations-of-a-3-dimensional-array">How to get all 24 rotations of a 3-dimensional array?</a></p>
+<p><a href="https://stackoverflow.com/questions/33190042/how-to-calculate-all-24-rotations-of-3d-array">How to calculate all 24 rotations of 3d array?</a></p>
+<p>一つめの下の回答を参考にして回転を全て列挙。 <a href="https://stackoverflow.com/a/70413438">https://stackoverflow.com/a/70413438</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Default, Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Coord</span>(<span style="color:#66d9ef">i64</span>, <span style="color:#66d9ef">i64</span>, <span style="color:#66d9ef">i64</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Coord {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rotate</span>(<span style="color:#f92672">&amp;</span>self, t: <span style="color:#66d9ef">usize</span>) -&gt; <span style="color:#a6e22e">Self</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> (x, y, z) <span style="color:#f92672">=</span> (self.<span style="color:#ae81ff">0</span>, self.<span style="color:#ae81ff">1</span>, self.<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">match</span> t {
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>x, <span style="color:#f92672">-</span>y, z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>x, y, <span style="color:#f92672">-</span>z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">2</span> <span style="color:#f92672">=&gt;</span> Self(x, <span style="color:#f92672">-</span>y, <span style="color:#f92672">-</span>z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">3</span> <span style="color:#f92672">=&gt;</span> Self(x, y, z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">4</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>x, <span style="color:#f92672">-</span>z, <span style="color:#f92672">-</span>y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">5</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>x, z, y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">6</span> <span style="color:#f92672">=&gt;</span> Self(x, <span style="color:#f92672">-</span>z, y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">7</span> <span style="color:#f92672">=&gt;</span> Self(x, z, <span style="color:#f92672">-</span>y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">8</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>y, <span style="color:#f92672">-</span>x, <span style="color:#f92672">-</span>z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">9</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>y, x, z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">10</span> <span style="color:#f92672">=&gt;</span> Self(y, <span style="color:#f92672">-</span>x, z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">11</span> <span style="color:#f92672">=&gt;</span> Self(y, x, <span style="color:#f92672">-</span>z),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">12</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>y, <span style="color:#f92672">-</span>z, x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">13</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>y, z, <span style="color:#f92672">-</span>x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">14</span> <span style="color:#f92672">=&gt;</span> Self(y, <span style="color:#f92672">-</span>z, <span style="color:#f92672">-</span>x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">15</span> <span style="color:#f92672">=&gt;</span> Self(y, z, x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">16</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>z, <span style="color:#f92672">-</span>x, y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">17</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>z, x, <span style="color:#f92672">-</span>y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">18</span> <span style="color:#f92672">=&gt;</span> Self(z, <span style="color:#f92672">-</span>x, <span style="color:#f92672">-</span>y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">19</span> <span style="color:#f92672">=&gt;</span> Self(z, x, y),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">20</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>z, <span style="color:#f92672">-</span>y, <span style="color:#f92672">-</span>x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">21</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>z, y, x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">22</span> <span style="color:#f92672">=&gt;</span> Self(z, <span style="color:#f92672">-</span>y, x),
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">23</span> <span style="color:#f92672">=&gt;</span> Self(z, y, <span style="color:#f92672">-</span>x),
+</span></span><span style="display:flex;"><span>            _ <span style="color:#f92672">=&gt;</span> unreachable!(),
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>その後、最初の左側の点を選ぶ順番を乱数を変えて10回試すようにすると、331,122,522,183点に改善。</p>
+<h3 id="2023327">2023/3/27</h3>
+<p>多次元配列を一次元に直し、時間いっぱいまで乱数で粘るように修正。
+123,723,204,167点とかなりの向上が見られた。</p>
+<h3 id="2023329">2023/3/29</h3>
+<p>大きいブロックとその他小さいブロック、のような組み合わせでスコアが伸びないように見えたので、
+5, 10, 25, 50, 100, std::usize::MAX から最大サイズを決めて探索。</p>
+<p>ブロックの最大サイズと得点の関係は下のようになっていて明確な関係性は見られなかったが、スコアは91,182,918,858点に改善。
+<img src="/images/atcoder/ahc019-maxsize-0000.png" alt="maxsize"></p>
+<p>今まで常に限界まで探索していたが、サイズを小さくすることで、探索ごとの計算量が削減できイテレーション数を増やすことができたようだ。</p>
+<h3 id="2023330">2023/3/30</h3>
+<p>最大サイズは効果がありそうだったので、さらに多様性を作ろうと思い、乱数で最大サイズを動かして探索。
+5〜(左と右で置ける場所の最大値)/2 から最大サイズをランダムに選ぶようにした。
+70,758,817,150点に改善。</p>
+<h3 id="202341">2023/4/1</h3>
+<p>空間上の座標に対し、周囲6マスで配置できる場所が何箇所あるかを最初に計算し、
+右のスペースで原点とする座標を周囲で配置できる場所から少ないものから優先して計算することにした。</p>
+<p>55,754,728,979点に改善。</p>
+<h3 id="202342">2023/4/2</h3>
+<p>伸び悩む。最大配置できる場所が大きい場合、イテレーション数が少なくなっていたため、適当に「置ける場所が100以上だった場合、最大捜索数の乱数の範囲を 5〜(左と右で置ける場所の最大値)/4 から選ぶように変更。</p>
+<p>シルエットで影で隠れている部分が大きいものに対しては少し効果あり。</p>
+<p>下のように、ブロックの数が多くなるほどスコアが悪化するため、なんとかブロックの数に制約がかけられないかと思ったが、上手い方法が思いつかない。
+<img src="/images/atcoder/ahc019-blocks-0000.png" alt="blocks"></p>
+<p>結局考察が伸ばせず、51,166,186,482点で終了。</p>
+<h3 id="結果">結果</h3>
+<p>プレテスト62位、システムテスト61位。トップ層の最終日の追い上げが凄まじく、一度は50位以内に入っていたもの最後の方は下がっていく順位を眺めていた。</p>
+<h3 id="感想">感想</h3>
+<p>焼きなましで解を磨きあげてスコアを伸ばしたかったが近傍の作り方がわからなかったのが反省点。
+ただスコアを見るだけでなく様々なデータを取って分析することが大事だと思った。
+あとは、今回思い出しながら参加記を書いたので、次からは参加しながらメモを取るようにしたい。</p>
+</div>
+	</section>
+
+
+</article>
+
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/" title="Home page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Home
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="Blog page" >
+			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/atcoder/" title="AtCoder page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			AtCoder
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/other/" title="Other page" >
+			Other
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/playlist/" title="Playlist page" >
+			Playlist
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/search" title="Search page" >
+			Search
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='http://github.com/matsueushi' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/matsue_ushi' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2019–2023
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2415 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/posts/catboost-mlflow/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        MlflowでCatBoostのメトリクスをロギングする
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/atcoder/rust-interactive/">Rustでインタラクティブの問題を解く</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/cyan/">AtCoderで水色になりました</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc268c/">AtCoder ABC 268 C Chinese Restaurant</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc181-f/">AtCoder ABC 181 F - Silver Woods</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/tenka1-2018-c/">Tenka1 Programmer Contest C - Align</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/nikkei2019-qual-c/">全国統一プログラミング王決定戦予選 C - Different Strokes</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc121-d/">AtCoder ABC 121 D - XOR World</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc147-d/">AtCoder ABC 147 D - Xor Sum 4</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/agc023-a/">AtCoder AGC 023 A - Zero-Sum Ranges</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc255-c/">AtCoder ABC 255 C - ±1 Operation 1 </a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc255-d/">AtCoder ABC 255 D - ±1 Operation 2</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc255-e/">AtCoder ABC 255 E - Lucky Numbers</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/diverta2019-d/">AtCoder diverta 2019 Programming Contest D - DivRem Number</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/apc001-b/">AtCoder APC 001 B - Two Arrays</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/atcoder/abc198-d/">AtCoder ABC 198 D - Send More Money</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
+
+
+	</div>
+</body>
+
+</html>

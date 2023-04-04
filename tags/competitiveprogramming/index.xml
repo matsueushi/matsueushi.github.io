@@ -7,10 +7,125 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2023</copyright>
-    <lastBuildDate>Sun, 18 Sep 2022 11:07:07 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 02 Apr 2023 21:30:06 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/competitiveprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記</title>
+      <link>https://matsueushi.github.io/atcoder/ahc019/</link>
+      <pubDate>Sun, 02 Apr 2023 21:30:06 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/ahc019/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/ahc019&#34;&gt;MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）&lt;/a&gt; の参加記です。&lt;/p&gt;
+&lt;p&gt;下はseed=40の結果(score=165,708,812)。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-vis1.png&#34; alt=&#34;vis1&#34;&gt;
+&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-vis2.png&#34; alt=&#34;vis2&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;問題概略&#34;&gt;問題（概略）&lt;/h3&gt;
+&lt;p&gt;正面・右側から見た立体のシルエットの組が二つ与えられる。
+両方のシルエットが実現できるようなブロックのセットを作る。
+二つの立体を作るときに、できるだけブロックを共通して使うようにしたい。
+また、小さなブロックは飲み込みやすく危険なので可能な限りセットを構成するブロックは大きくしたい。&lt;/p&gt;
+&lt;h3 id=&#34;2023323&#34;&gt;2023/3/23&lt;/h3&gt;
+&lt;p&gt;同じ立体問題だった前回の&lt;a href=&#34;https://atcoder.jp/contests/toyota-hc-2023spring&#34;&gt;トヨタ自動車 実課題プログラミングコンテスト 2023 Spring&lt;/a&gt; ではそもそもACすることに苦戦し、なんとかプレテストではACに漕ぎつけたものの、システムテストでWAとなってしまっていた。
+そのため、立体問題に苦手意識が生まれてしまい、AHCにとっては参加登録をしたものの数日取り組むことなく放置していた。&lt;/p&gt;
+&lt;p&gt;問題を読んでみる。うーん、難しそうだ。全く解法が思いつかない。
+サンプルプログラムが付いていたのでこれをRustに移植して提出。全てをサイズ1のブロックで埋めている。
+20,662,000,000,000点を得てこの日は終了。&lt;/p&gt;
+&lt;h3 id=&#34;2023324&#34;&gt;2023/3/24&lt;/h3&gt;
+&lt;p&gt;ローカル版ビジュアライザのソースコードを参考にして、スコアを計算するコードを作る。&lt;/p&gt;
+&lt;h3 id=&#34;2023325&#34;&gt;2023/3/25&lt;/h3&gt;
+&lt;p&gt;次のような方針を思いつく。この後、最後まで大きな方針は変わらず。
+(1) 左のスペースから立方体を置ける座標$p_l$を選ぶ。&lt;/p&gt;
+&lt;p&gt;(2) 右のスペースで原点とする座標を$p_r$選ぶ。&lt;/p&gt;
+&lt;p&gt;(3) スタック$s$に左から選んだ座標を入れる。&lt;/p&gt;
+&lt;p&gt;(4) 左で伸ばしていくブロックを管理するリスト$cs$を用意。最初は空とする。&lt;/p&gt;
+&lt;p&gt;(5) スタックから座標$c$を取り出す。&lt;/p&gt;
+&lt;p&gt;(6) 今まで伸ばしたブロック$cs$に$c$をくっつけて、原点を$p_l$から$p_r$に並行移動させ、24パターン回転させてシルエットに収まる配置であったら$cs$ に $c$ を加える。$c$ の近傍を $s$ に積む。&lt;/p&gt;
+&lt;p&gt;(7) 可能な限り (5) に戻ってブロックを延長する&lt;/p&gt;
+&lt;p&gt;(8) ブロックが延長できなくなったら、(2) に戻って右の原点を選び直す。&lt;/p&gt;
+&lt;p&gt;(9) 一番多くのブロックを伸ばせたパターンを確定させる。&lt;/p&gt;
+&lt;p&gt;533,534,221,417点を獲得。かなりスコアが改善した！&lt;/p&gt;
+&lt;h3 id=&#34;回転&#34;&gt;回転&lt;/h3&gt;
+&lt;p&gt;ブロックの回転に対応するように、配置するセルを回転する方法を思い悩む。
+ビジュアライザに同梱されているツールでは得点計算の際にブロックが同型であるか判定していのでそれを参考にしようと思ったが&lt;/p&gt;
+&lt;p&gt;(1) ブロックをx, y, zが0以上でかつ座標が一番小さくなるように並行移動する&lt;/p&gt;
+&lt;p&gt;(2) 回転させて正規化することを繰り返して同じになるか見る&lt;/p&gt;
+&lt;p&gt;ということをやっていて、ブロックを構築する際にいちいち同じことをやっていたら無駄に計算が走りそう。&lt;/p&gt;
+&lt;p&gt;サイコロを考えて、6つのうちどの面を上面にするか、及び上面を固定して回転させる方法が4通りあると考えると、回転方法は全部で24通りになるはず。
+できれば回転の生成元をいくつか掛けるようなことをしないでダイレクトに移動先を求めたい。&lt;/p&gt;
+&lt;p&gt;調べると次のような回答が出てきたので、&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/16452383/how-to-get-all-24-rotations-of-a-3-dimensional-array&#34;&gt;How to get all 24 rotations of a 3-dimensional array?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/33190042/how-to-calculate-all-24-rotations-of-3d-array&#34;&gt;How to calculate all 24 rotations of 3d array?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一つめの下の回答を参考にして回転を全て列挙。 &lt;a href=&#34;https://stackoverflow.com/a/70413438&#34;&gt;https://stackoverflow.com/a/70413438&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#[derive(Default, Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Coord&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Coord {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rotate&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, t: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (x, y, z) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (self.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, self.&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, self.&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; t {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(x, y, z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, z, y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(x, z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, x, z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(y, x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(y, z, x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;17&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;18&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;19&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(z, x, y),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;z, y, x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(z, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;y, x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; Self(z, y, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;x),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _ &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; unreachable!(),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;その後、最初の左側の点を選ぶ順番を乱数を変えて10回試すようにすると、331,122,522,183点に改善。&lt;/p&gt;
+&lt;h3 id=&#34;2023327&#34;&gt;2023/3/27&lt;/h3&gt;
+&lt;p&gt;多次元配列を一次元に直し、時間いっぱいまで乱数で粘るように修正。
+123,723,204,167点とかなりの向上が見られた。&lt;/p&gt;
+&lt;h3 id=&#34;2023329&#34;&gt;2023/3/29&lt;/h3&gt;
+&lt;p&gt;大きいブロックとその他小さいブロック、のような組み合わせでスコアが伸びないように見えたので、
+5, 10, 25, 50, 100, std::usize::MAX から最大サイズを決めて探索。&lt;/p&gt;
+&lt;p&gt;ブロックの最大サイズと得点の関係は下のようになっていて明確な関係性は見られなかったが、スコアは91,182,918,858点に改善。
+&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-maxsize-0000.png&#34; alt=&#34;maxsize&#34;&gt;&lt;/p&gt;
+&lt;p&gt;今まで常に限界まで探索していたが、サイズを小さくすることで、探索ごとの計算量が削減できイテレーション数を増やすことができたようだ。&lt;/p&gt;
+&lt;h3 id=&#34;2023330&#34;&gt;2023/3/30&lt;/h3&gt;
+&lt;p&gt;最大サイズは効果がありそうだったので、さらに多様性を作ろうと思い、乱数で最大サイズを動かして探索。
+5〜(左と右で置ける場所の最大値)/2 から最大サイズをランダムに選ぶようにした。
+70,758,817,150点に改善。&lt;/p&gt;
+&lt;h3 id=&#34;202341&#34;&gt;2023/4/1&lt;/h3&gt;
+&lt;p&gt;空間上の座標に対し、周囲6マスで配置できる場所が何箇所あるかを最初に計算し、
+右のスペースで原点とする座標を周囲で配置できる場所から少ないものから優先して計算することにした。&lt;/p&gt;
+&lt;p&gt;55,754,728,979点に改善。&lt;/p&gt;
+&lt;h3 id=&#34;202342&#34;&gt;2023/4/2&lt;/h3&gt;
+&lt;p&gt;伸び悩む。最大配置できる場所が大きい場合、イテレーション数が少なくなっていたため、適当に「置ける場所が100以上だった場合、最大捜索数の乱数の範囲を 5〜(左と右で置ける場所の最大値)/4 から選ぶように変更。&lt;/p&gt;
+&lt;p&gt;シルエットで影で隠れている部分が大きいものに対しては少し効果あり。&lt;/p&gt;
+&lt;p&gt;下のように、ブロックの数が多くなるほどスコアが悪化するため、なんとかブロックの数に制約がかけられないかと思ったが、上手い方法が思いつかない。
+&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-blocks-0000.png&#34; alt=&#34;blocks&#34;&gt;&lt;/p&gt;
+&lt;p&gt;結局考察が伸ばせず、51,166,186,482点で終了。&lt;/p&gt;
+&lt;h3 id=&#34;結果&#34;&gt;結果&lt;/h3&gt;
+&lt;p&gt;プレテスト62位、システムテスト61位。トップ層の最終日の追い上げが凄まじく、一度は50位以内に入っていたもの最後の方は下がっていく順位を眺めていた。&lt;/p&gt;
+&lt;h3 id=&#34;感想&#34;&gt;感想&lt;/h3&gt;
+&lt;p&gt;焼きなましで解を磨きあげてスコアを伸ばしたかったが近傍の作り方がわからなかったのが反省点。
+ただスコアを見るだけでなく様々なデータを取って分析することが大事だと思った。
+あとは、今回思い出しながら参加記を書いたので、次からは参加しながらメモを取るようにしたい。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Rustでインタラクティブの問題を解く</title>
