@@ -958,14 +958,14 @@
 &lt;h3 id=&#34;2023323&#34;&gt;2023/3/23&lt;/h3&gt;
 &lt;p&gt;同じ立体問題だった前回の&lt;a href=&#34;https://atcoder.jp/contests/toyota-hc-2023spring&#34;&gt;トヨタ自動車 実課題プログラミングコンテスト 2023 Spring&lt;/a&gt; ではそもそもACすることに苦戦し、なんとかプレテストではACに漕ぎつけたものの、システムテストでWAとなってしまっていた。
 そのため、立体問題に苦手意識が生まれてしまい、AHCにとっては参加登録をしたものの数日取り組むことなく放置していた。&lt;/p&gt;
-&lt;p&gt;問題を読んでみる。うーん、難しそうだ。全く解法が思いつかない。
-サンプルプログラムが付いていたのでこれをRustに移植して提出。全てをサイズ1のブロックで埋めている。
+&lt;p&gt;問題を読んでみる。うーん、難しそうだ。全く解法が思いつかない。&lt;/p&gt;
+&lt;p&gt;置ける場所を全てサイズ1のブロックで埋めるサンプルプログラムが付いていたのでこれをRustに移植して提出。
 20,662,000,000,000点を得てこの日は終了。&lt;/p&gt;
 &lt;h3 id=&#34;2023324&#34;&gt;2023/3/24&lt;/h3&gt;
 &lt;p&gt;ローカル版ビジュアライザのソースコードを参考にして、スコアを計算するコードを作る。&lt;/p&gt;
 &lt;h3 id=&#34;2023325&#34;&gt;2023/3/25&lt;/h3&gt;
 &lt;p&gt;次のような方針を思いつく。この後、最後まで大きな方針は変わらず。&lt;/p&gt;
-&lt;p&gt;(1) 左のスペースから立方体を置ける座標$p_l$を選ぶ。&lt;/p&gt;
+&lt;p&gt;(1) 左のスペースから立方体を置ける座標$p_l$を選ぶ。これを原点とする。&lt;/p&gt;
 &lt;p&gt;(2) 右のスペースで原点とする座標$p_r$を選ぶ。&lt;/p&gt;
 &lt;p&gt;(3) スタック$s$に左から選んだ座標を入れる。&lt;/p&gt;
 &lt;p&gt;(4) 左で伸ばしていくブロックを管理するリスト$cs$を用意。最初は空とする。&lt;/p&gt;
@@ -986,7 +986,7 @@
 &lt;p&gt;調べると次のような回答が出てきたので、&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/16452383/how-to-get-all-24-rotations-of-a-3-dimensional-array&#34;&gt;How to get all 24 rotations of a 3-dimensional array?&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/33190042/how-to-calculate-all-24-rotations-of-3d-array&#34;&gt;How to calculate all 24 rotations of 3d array?&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;一つめの下の回答を参考にして回転を全て列挙。 &lt;a href=&#34;https://stackoverflow.com/a/70413438&#34;&gt;https://stackoverflow.com/a/70413438&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一つめを参考にして回転を全て列挙。 &lt;a href=&#34;https://stackoverflow.com/a/70413438&#34;&gt;https://stackoverflow.com/a/70413438&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#[derive(Default, Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Coord&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i64&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -1028,7 +1028,7 @@
 &lt;p&gt;多次元配列を一次元に直し、時間いっぱいまで乱数で粘るように修正。
 123,723,204,167点とかなりの向上が見られた。&lt;/p&gt;
 &lt;h3 id=&#34;2023329&#34;&gt;2023/3/29&lt;/h3&gt;
-&lt;p&gt;大きいブロックとその他小さいブロック、のような組み合わせでスコアが伸びないように見えたので、
+&lt;p&gt;大きいブロックとその他小さいブロック多数の組み合わせでスコアが伸びないように見えたので、
 5, 10, 25, 50, 100, std::usize::MAX から最大サイズを決めて探索。&lt;/p&gt;
 &lt;p&gt;ブロックの最大サイズと得点の関係は下のようになっていて明確な関係性は見られなかったが、スコアは91,182,918,858点に改善。
 &lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-maxsize-0000.png&#34; alt=&#34;maxsize&#34;&gt;&lt;/p&gt;
