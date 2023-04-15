@@ -3805,17 +3805,18 @@ Tabキーで一つずつ進みながら消していくのが手っ取り早い�
 &lt;p&gt;Shazamを使ったことがある人ならわかると思うのですが、Shazamを使って曲名を認識させる際には、
 曲を全部聞かせる必要はなく、途中から一部分を聞かせるだけで十分です。&lt;/p&gt;
 &lt;p&gt;ハッシュが Hash:time = $[f_1:f_2:\Delta t]:t_1$ であることがキーポイントで、
-原曲と聞かせた曲の一部分では曲のスタート位置が当然違うわけですが、$[f_1:f_2:\Delta t]$
-はスタート位置とは関係ないので双方に出てくるので、それぞれ対応する時間を$t_1$と$t^\prime_1$として、
-時間のオフセット$t_1 - t^\prime_1$を計算すると、原曲と聞かせた曲のスタート位置の差である定数になるはずです。&lt;/p&gt;
-&lt;p&gt;ハッシュが一致した時に、原曲と聞かせた曲で見つかった時間のプロットを見たほうが早いと思います。&lt;/p&gt;
+原曲と聞かせた曲の一部分では曲のスタート位置が当然違いますが、時間差は曲のスタート位置に依存しないので、ハッシュのキー $[f_1:f_2:\Delta t]$
+は双方に出現します。
+それぞれ対応する時間を$t_1$と$t^\prime_1$として、時間のオフセット$t_1 - t^\prime_1$を計算すると、
+正しくマッチングできていれば原曲と聞かせた曲のスタート位置の差である定数になるはずです。&lt;/p&gt;
+&lt;p&gt;ハッシュが一致した時に、原曲と聞かせた曲で見つかった時間のプロットを確認してみましょう。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/audiofingerprinting_scatter.png&#34; alt=&#34;Scatter plot&#34;&gt;&lt;/p&gt;
 &lt;p&gt;曲が一致している場合は上のようにマッチしたハッシュが傾き1の直線の上に並びます。
 線から外れている点は、間違ってマッチングしてしまった点です。&lt;/p&gt;
 &lt;p&gt;逆に曲が一致していない場合であれば、間違ってハッシュがマッチングしてしまったとしても時間の差はランダムに分布することが予想されます。&lt;/p&gt;
 &lt;p&gt;あとで具体例を見せますが、時間のオフセットをヒストグラムにすると、マッチングしている場合は単一のピークが出現します。
-理屈としては単純ですが鮮やかな手法で、これを最初に考えた人は頭いいですね。&lt;/p&gt;
-&lt;p&gt;もっと詳しく知りたくなった方は原論文 &lt;a href=&#34;http://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf&#34;&gt;A.WangのAn Industrial-Strength Audio Search Algorithm&lt;/a&gt; を読んでください。&lt;/p&gt;
+理屈としては単純ですが鮮やかな手法で、最初に考えた人は頭いいですね。&lt;/p&gt;
+&lt;p&gt;更に詳しく知りたい方は原論文 &lt;a href=&#34;http://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf&#34;&gt;A.WangのAn Industrial-Strength Audio Search Algorithm&lt;/a&gt; を読んでください。&lt;/p&gt;
 &lt;h2 id=&#34;juliaで実装&#34;&gt;Juliaで実装&lt;/h2&gt;
 &lt;p&gt;本格的にShazamのようなマッチングを実現しようとすれば、
 大量の楽曲データをfingerprintして、ハッシュデータをデータベースに格納して、
