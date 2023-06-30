@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2023-04-02T21:30:06+09:00</lastmod>
+    <lastmod>2023-07-01T07:15:50+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/</loc>
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
@@ -11,11 +11,11 @@
     <loc>https://matsueushi.github.io/atcoder/</loc>
     <lastmod>2023-04-02T21:30:06+09:00</lastmod>
   </url><url>
+    <loc>https://matsueushi.github.io/playlist/</loc>
+    <lastmod>2023-07-01T07:15:50+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/other/</loc>
     <lastmod>2022-07-18T18:25:28+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/playlist/</loc>
-    <lastmod>2021-03-01T23:00:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/other/live/</loc>
   </url><url>
@@ -24,6 +24,9 @@
     <loc>https://matsueushi.github.io/other/boat/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
+  </url><url>
+    <loc>https://matsueushi.github.io/playlist/playlist/</loc>
+    <lastmod>2023-07-01T07:15:50+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/atcoder/</loc>
     <lastmod>2023-04-02T21:30:06+09:00</lastmod>
