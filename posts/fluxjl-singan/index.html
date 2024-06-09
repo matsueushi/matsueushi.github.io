@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Flux.jlでSinGANを実装する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.101.0" />
+	<meta name="generator" content="Hugo 0.127.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,6 +29,9 @@
 	
 	
 	
+  
+
+
 	
 	
 	
@@ -157,9 +160,9 @@ onload='renderMathInElement(document.body);'></script>
 <p>理論的な部分の詳細は、論文 <a href="https://arxiv.org/abs/1905.01164">SinGAN: Learning a Generative Model from a Single Natural Image</a> や <a href="https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1">解説記事</a> に詳しいのでそちらを見ていただきたいのですが、モデルの概要を簡単に説明しておきます。</p>
 <p>論文とは別に公開されている <a href="https://tomer.net.technion.ac.il/files/2019/09/SingleImageGan_SM.pdf">Supplementary Material</a> はハイパーパラメーターや画像のパディング、アニメーションのノイズマップの作り方などが掲載されていて参考になります。</p>
 <figure><img src="/images/posts/fluxjl-singan_pipeline.png"
-         alt="SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image"/><figcaption>
-            <p>SinGAN’s multi-scale pipeline, retrieved from <a href="https://arxiv.org/abs/1905.01164">SinGAN: Learning a Generative Model from a Single Natural Image</a></p>
-        </figcaption>
+    alt="SinGAN’s multi-scale pipeline, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image"><figcaption>
+      <p>SinGAN’s multi-scale pipeline, retrieved from <a href="https://arxiv.org/abs/1905.01164">SinGAN: Learning a Generative Model from a Single Natural Image</a></p>
+    </figcaption>
 </figure>
 
 <p>SinGANの学習は、ピラミッド型の構造になっていて、下のステージから順々に学習を行います。
@@ -170,9 +173,9 @@ Conv(3x3)-BatchNorm-LeakyLeRU(0.2) を5層重ねて最後の活性化関数を G
 Discriminator だったら <code>identity</code> に変えたConvolutional netがベースとなります。
 Discriminator はこれで完成で、Generator はもう一手間必要です。</p>
 <figure><img src="/images/posts/fluxjl-singan_single.png"
-         alt="Single Scale Generation, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image"/><figcaption>
-            <p>Single Scale Generation, retrieved from <a href="https://arxiv.org/abs/1905.01164">SinGAN: Learning a Generative Model from a Single Natural Image</a></p>
-        </figcaption>
+    alt="Single Scale Generation, retrieved from SinGAN: Learning a Generative Model from a Single Natural Image"><figcaption>
+      <p>Single Scale Generation, retrieved from <a href="https://arxiv.org/abs/1905.01164">SinGAN: Learning a Generative Model from a Single Natural Image</a></p>
+    </figcaption>
 </figure>
 
 <p>Generatorの場合、入力には下層のステップで生成された画像+ノイズを与え、
@@ -624,29 +627,29 @@ $$</p>
 </span></span></code></pre></div><h3 id="アニメーション結果">アニメーション結果</h3>
 <p>一応トレーニング関数まで到達したので、具体的な実行方法などは一番最後に載せたレポジトリを見てもらうこととして、とりあえずアニメーションの結果を見せたいと思います。
 公式実装のアニメーションで使われている画像を強引に 64x64 にリサイズしたものを使いました。
-<figure><img src="/images/posts/fluxjl-singan_lightning_original.png"/>
+<figure><img src="/images/posts/fluxjl-singan_lightning_original.png">
 </figure>
 </p>
 <p>無理やり 256x256 に引き伸ばすとこんな感じです。
-<figure><img src="/images/posts/fluxjl-singan_lightning_original.png" width="256"/>
+<figure><img src="/images/posts/fluxjl-singan_lightning_original.png" width="256">
 </figure>
 </p>
 <p>25x25 のサイズからスタートして、64x64 で終了させたのですが、GCP の n1-standard-8 + K80 で一時間弱で学習が終わりました。
 今回は Julia サイドで画像だけ吐き出して、アニメーション GIF は ImageMagick で作成しました。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ convert -delay <span style="color:#ae81ff">10</span> -loop <span style="color:#ae81ff">0</span> img*.png fluxjl-singan_lightning.gif
-</span></span></code></pre></div><figure><img src="/images/posts/fluxjl-singan_lightning.gif"/>
+</span></span></code></pre></div><figure><img src="/images/posts/fluxjl-singan_lightning.gif">
 </figure>
 
 <p>実際の画像はかなり小さいので、256x256 に拡大するとこんな感じです。
 もっと時間をかけて大きい画像まで学習すれば高精細な結果が得られると思います。
-<figure><img src="/images/posts/fluxjl-singan_lightning.gif" width="256"/>
+<figure><img src="/images/posts/fluxjl-singan_lightning.gif" width="256">
 </figure>
 </p>
 <p>アルバムのジャケットをアニメーションさせた結果です。</p>
-<figure><img src="/images/posts/fluxjl-singan_floral.gif" width="256"/>
+<figure><img src="/images/posts/fluxjl-singan_floral.gif" width="256">
 </figure>
 
-<figure><img src="/images/posts/fluxjl-singan_farside.gif" width="256"/>
+<figure><img src="/images/posts/fluxjl-singan_farside.gif" width="256">
 </figure>
 
 <p>まだまだ実装の改良の余地がありそうですが、一応一枚の画像だけを使ってアニメーション画像を作成するモデルを Flux.jl で実装できました。</p>
@@ -831,7 +834,7 @@ $$</p>
 <hr />
 <div class="pb-2">
     <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | スペクトログラムを作成する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.101.0" />
+	<meta name="generator" content="Hugo 0.127.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,6 +29,9 @@
 	
 	
 	
+  
+
+
 	
 	
 	
@@ -142,9 +145,12 @@ onload='renderMathInElement(document.body);'></script>
 <p>や<a href="https://www.youtube.com/watch?v=5ZT3gTu4Sjw">クリスカニンガムのPV</a>が有名ですが、2曲目に収録されている
 $\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]$ (通称 &ldquo;Formula&rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)</p>
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/M9xMuPWAZW8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
+
+    
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/M9xMuPWAZW8?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
+      ></iframe>
+    </div>
 
 <p>上の動画を見ればどんな画像が出てくるかわかるのですが、それでは面白くないので、今回は、CDからリッピングしたWAVファイルからJuliaを使って埋め込まれた顔を抽出してみたいと思います。</p>
 <p>Juliaを含めてサウンドデータを扱ったことがあまりなかったので、今回はその練習も兼ねています。</p>
@@ -593,7 +599,7 @@ $$
 <hr />
 <div class="pb-2">
     <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     

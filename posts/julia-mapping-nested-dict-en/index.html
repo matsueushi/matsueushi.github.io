@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
 	<title>matsueushi  | Translating nested dictionary to struct in Julia</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.74.3" />
+	<meta name="generator" content="Hugo 0.127.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,16 +29,8 @@
 	
 	
 	
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-141286537-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
 
 	
 	
@@ -46,13 +38,13 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
 
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src='http://localhost:1313/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 
 
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
 crossorigin="anonymous"
 onload='renderMathInElement(document.body);'></script>
 
@@ -84,7 +76,7 @@ onload='renderMathInElement(document.body);'></script>
 				});
 			}
 			s.parentNode.insertBefore(o, s);
-		})('https:\/\/matsueushi.github.io\/lib\/pangu.min.js', function () {
+		})('http:\/\/localhost:1313\/lib\/pangu.min.js', function () {
 			pangu.spacingPage();
 		});
 	</script>
@@ -103,7 +95,7 @@ onload='renderMathInElement(document.body);'></script>
 				
 <div>
 	<h2>
-		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+		<a href="http://localhost:1313/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
 <h1 class="pt-2">Translating nested dictionary to struct in Julia</h1>
@@ -134,6 +126,7 @@ onload='renderMathInElement(document.body);'></script>
 
 <hr />
 
+
 			</div>
 		</header>
 		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
@@ -150,177 +143,177 @@ onload='renderMathInElement(document.body);'></script>
 <p>今回はJuliaにおけるJSON(から得られる<code>Dict</code> )の<code>struct</code>へのマッピング方法について書いてみたいと思います。</p>
 <h2 id="mapping-with-parametersjlhttpsgithubcommauro3parametersjl">Mapping with <a href="https://github.com/mauro3/Parameters.jl">Parameters.jl</a></h2>
 <p>Juliaではネストしていない<code>Dict</code>であればマッピングは比較的容易です。例として次のようなJSONを考えます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;hello&#34;</span>,
-    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;main_window&#34;</span>,
-    <span style="color:#f92672">&#34;width&#34;</span>: <span style="color:#ae81ff">500</span>,
-    <span style="color:#f92672">&#34;height&#34;</span>: <span style="color:#ae81ff">400</span>,
-    <span style="color:#f92672">&#34;show&#34;</span>: <span style="color:#66d9ef">true</span>
-}
-</code></pre></div><p>まず<a href="https://github.com/JuliaIO/JSON.jl"><code>JSON.jl</code></a>で文字列から<code>Dict</code>に変換します。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">hello</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">name</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">main_window</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">width</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 500,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">height</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 400,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">show</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: true</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> println(s)
-{
-    <span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;hello&#34;</span>,
-    <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;main_window&#34;</span>,
-    <span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
-    <span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">400</span>,
-    <span style="color:#e6db74">&#34;show&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
-}
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> JSON
-
-julia<span style="color:#f92672">&gt;</span> j <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s)
-<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#e6db74">&#34;name&#34;</span>   <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;main_window&#34;</span>
-  <span style="color:#e6db74">&#34;height&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">400</span>
-  <span style="color:#e6db74">&#34;show&#34;</span>   <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>
-  <span style="color:#e6db74">&#34;title&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;hello&#34;</span>
-  <span style="color:#e6db74">&#34;width&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">500</span>
-</code></pre></div><p>ここまではいいと思います。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">struct</span> Window
-    name<span style="color:#f92672">::</span>String
-    title<span style="color:#f92672">::</span>String
-    show<span style="color:#f92672">::</span><span style="color:#66d9ef">Bool</span>
-    height<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
-    width<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>上のような<code>struct</code>にマッピングするのは<a href="https://github.com/mauro3/Parameters.jl"><code>Parameters.jl</code></a>を付けば比較的容易です。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;hello&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;main_window&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;width&#34;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;height&#34;</span>: <span style="color:#ae81ff">400</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;show&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>まず<a href="https://github.com/JuliaIO/JSON.jl"><code>JSON.jl</code></a>で文字列から<code>Dict</code>に変換します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">hello</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">name</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">main_window</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">width</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 500,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">height</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 400,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">show</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: true</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> println(s)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;hello&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;main_window&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">400</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;show&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> JSON
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> j <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;name&#34;</span>   <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;main_window&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;height&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">400</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;show&#34;</span>   <span style="color:#f92672">=&gt;</span> true
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;title&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;width&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">500</span>
+</span></span></code></pre></div><p>ここまではいいと思います。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">Window</span>
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>    title<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>    show<span style="color:#f92672">::</span><span style="color:#66d9ef">Bool</span>
+</span></span><span style="display:flex;"><span>    height<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
+</span></span><span style="display:flex;"><span>    width<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>上のような<code>struct</code>にマッピングするのは<a href="https://github.com/mauro3/Parameters.jl"><code>Parameters.jl</code></a>を付けば比較的容易です。
 まずキーを文字列からシンボルに変換する次のような関数を作っておきます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> keytosymbol(x) <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(<span style="color:#66d9ef">Symbol</span>(k) <span style="color:#f92672">=&gt;</span> v <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(x))
-
-julia<span style="color:#f92672">&gt;</span> keytosymbol(j)
-<span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#f92672">:</span>show   <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>
-  <span style="color:#f92672">:</span>name   <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;main_window&#34;</span>
-  <span style="color:#f92672">:</span>height <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">400</span>
-  <span style="color:#f92672">:</span>title  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;hello&#34;</span>
-  <span style="color:#f92672">:</span>width  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">500</span>
-</code></pre></div><p>Parameters.jlの<a href="https://mauro3.github.io/Parameters.jl/stable/api/#Parameters.@with_kw-Tuple%7BAny%7D"><code>@with_kw</code></a>マクロを使用すると
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> keytosymbol(x) <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(<span style="color:#66d9ef">Symbol</span>(k) <span style="color:#f92672">=&gt;</span> v <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> keytosymbol(j)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">:show</span>   <span style="color:#f92672">=&gt;</span> true
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">:</span>name   <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;main_window&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">:height</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">400</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">:title</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">:width</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">500</span>
+</span></span></code></pre></div><p>Parameters.jlの<a href="https://mauro3.github.io/Parameters.jl/stable/api/#Parameters.@with_kw-Tuple%7BAny%7D"><code>@with_kw</code></a>マクロを使用すると
 キーワードでコンストラクタが初期化できるようになります。（デフォルト値もサポートされています）</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> Window
-            name<span style="color:#f92672">::</span>String
-            title<span style="color:#f92672">::</span>String
-            show<span style="color:#f92672">::</span><span style="color:#66d9ef">Bool</span>
-            height<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
-            width<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
-        <span style="color:#66d9ef">end</span>
-</code></pre></div><p>Pythonで<code>dict</code>型のオブジェクトをキーワード引数としてアンパックして関数に渡すことができる( <code>f(**kwargs)</code> )ように、
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">Window</span>
+</span></span><span style="display:flex;"><span>            name<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>            title<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>            show<span style="color:#f92672">::</span><span style="color:#66d9ef">Bool</span>
+</span></span><span style="display:flex;"><span>            height<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
+</span></span><span style="display:flex;"><span>            width<span style="color:#f92672">::</span><span style="color:#66d9ef">UInt64</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Pythonで<code>dict</code>型のオブジェクトをキーワード引数としてアンパックして関数に渡すことができる( <code>f(**kwargs)</code> )ように、
 Pythonでもキーワード引数に<code>Dict{Symbol, T}</code>型のオブジェクトを<code>f(;kwargs...)</code>としてアンパックして渡すことができます。</p>
 <p>以上のことから、先ほどの関数を使って<code>Dict</code>のキーを<code>Symbol</code>に変換し、<code>splat</code> operator <code>...</code>でアンパックすれば、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Window(;keytosymbol(j)<span style="color:#f92672">...</span>)
-Window
-  name<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;main_window&#34;</span>
-  title<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;hello&#34;</span>
-  show<span style="color:#f92672">:</span> <span style="color:#66d9ef">Bool</span> <span style="color:#66d9ef">true</span>
-  height<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x0000000000000190</span>
-  width<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x00000000000001f4</span>
-</code></pre></div><p>と無事にマッピングできました。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Window(;keytosymbol(j)<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>Window
+</span></span><span style="display:flex;"><span>  name<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;main_window&#34;</span>
+</span></span><span style="display:flex;"><span>  title<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>  show<span style="color:#f92672">:</span> <span style="color:#66d9ef">Bool</span> true
+</span></span><span style="display:flex;"><span>  height<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x0000000000000190</span>
+</span></span><span style="display:flex;"><span>  width<span style="color:#f92672">:</span> <span style="color:#66d9ef">UInt64</span> <span style="color:#ae81ff">0x00000000000001f4</span>
+</span></span></code></pre></div><p>と無事にマッピングできました。</p>
 <h2 id="nested-case">Nested case</h2>
 <p>しかしながら、実際にレスポンスとして帰ってくるJSONはしばしばもっと複雑です。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;glossary&#34;</span>: {
-        <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;example glossary&#34;</span>,
-		<span style="color:#f92672">&#34;GlossDiv&#34;</span>: {
-            <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;S&#34;</span>,
-			<span style="color:#f92672">&#34;GlossList&#34;</span>: {
-                <span style="color:#f92672">&#34;GlossEntry&#34;</span>: {
-                    <span style="color:#f92672">&#34;ID&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
-					<span style="color:#f92672">&#34;SortAs&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
-					<span style="color:#f92672">&#34;GlossTerm&#34;</span>: <span style="color:#e6db74">&#34;Standard Generalized Markup Language&#34;</span>,
-					<span style="color:#f92672">&#34;Acronym&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
-					<span style="color:#f92672">&#34;Abbrev&#34;</span>: <span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>,
-					<span style="color:#f92672">&#34;GlossDef&#34;</span>: {
-                        <span style="color:#f92672">&#34;para&#34;</span>: <span style="color:#e6db74">&#34;A meta-markup language, used to create markup languages such as DocBook.&#34;</span>,
-						<span style="color:#f92672">&#34;GlossSeeAlso&#34;</span>: [<span style="color:#e6db74">&#34;GML&#34;</span>, <span style="color:#e6db74">&#34;XML&#34;</span>]
-                    },
-					<span style="color:#f92672">&#34;GlossSee&#34;</span>: <span style="color:#e6db74">&#34;markup&#34;</span>
-                }
-            }
-        }
-    }
-}
-</code></pre></div><p>上は<a href="https://json.org/example.html">JSON Example</a>から引用したJSONの例です。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Parameters
-
-<span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> GlossDef
-  para<span style="color:#f92672">::</span>String
-  glossseealso<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{String}
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> GlossEntry
-  id<span style="color:#f92672">::</span>String
-  sortas<span style="color:#f92672">::</span>String
-  glossterm<span style="color:#f92672">::</span>String
-  acronym<span style="color:#f92672">::</span>String
-  abbrev<span style="color:#f92672">::</span>String
-  glossdef<span style="color:#f92672">::</span>GlossDef
-  glosssee<span style="color:#f92672">::</span>String
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> GlossList
-  glossentry<span style="color:#f92672">::</span>GlossEntry
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> GlossDiv
-  title<span style="color:#f92672">::</span>String
-  glosslist<span style="color:#f92672">::</span>GlossList
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> Glossary
-  title<span style="color:#f92672">::</span>String
-  glossdiv<span style="color:#f92672">::</span>GlossDiv
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>上のように定義したstructにマッピングするにはどうしたらよいのでしょうか。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;glossary&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;example glossary&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&#34;GlossDiv&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;S&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&#34;GlossList&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;GlossEntry&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&#34;ID&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;SortAs&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;GlossTerm&#34;</span>: <span style="color:#e6db74">&#34;Standard Generalized Markup Language&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;Acronym&#34;</span>: <span style="color:#e6db74">&#34;SGML&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;Abbrev&#34;</span>: <span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;GlossDef&#34;</span>: {
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;para&#34;</span>: <span style="color:#e6db74">&#34;A meta-markup language, used to create markup languages such as DocBook.&#34;</span>,
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&#34;GlossSeeAlso&#34;</span>: [<span style="color:#e6db74">&#34;GML&#34;</span>, <span style="color:#e6db74">&#34;XML&#34;</span>]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&#34;GlossSee&#34;</span>: <span style="color:#e6db74">&#34;markup&#34;</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上は<a href="https://json.org/example.html">JSON Example</a>から引用したJSONの例です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Parameters
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">GlossDef</span>
+</span></span><span style="display:flex;"><span>  para<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  glossseealso<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">String</span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">GlossEntry</span>
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  sortas<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  glossterm<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  acronym<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  abbrev<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  glossdef<span style="color:#f92672">::</span><span style="color:#66d9ef">GlossDef</span>
+</span></span><span style="display:flex;"><span>  glosssee<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">GlossList</span>
+</span></span><span style="display:flex;"><span>  glossentry<span style="color:#f92672">::</span><span style="color:#66d9ef">GlossEntry</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">GlossDiv</span>
+</span></span><span style="display:flex;"><span>  title<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  glosslist<span style="color:#f92672">::</span><span style="color:#66d9ef">GlossList</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">Glossary</span>
+</span></span><span style="display:flex;"><span>  title<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>  glossdiv<span style="color:#f92672">::</span><span style="color:#66d9ef">GlossDiv</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>上のように定義したstructにマッピングするにはどうしたらよいのでしょうか。</p>
 <p>もちろん真面目に構成していけばできない事はないのですが、なるべくお手軽に変換したいものです。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">example glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\&#34;</span><span style="color:#e6db74">GlossDiv</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">S</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\&#34;</span><span style="color:#e6db74">GlossList</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GlossEntry</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ID</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">SortAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossTerm</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Standard Generalized Markup Language</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Acronym</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Abbrev</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ISO 8879:1986</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossDef</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">para</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">A meta-markup language, used to create markup languages such as DocBook.</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSeeAlso</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">XML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    },</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSee</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">markup</span><span style="color:#ae81ff">\&#34;\r\n</span><span style="color:#e6db74">                }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
-<span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">example glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\&#34;</span><span style="color:#e6db74">GlossDiv</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">S</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\&#34;</span><span style="color:#e6db74">GlossList</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GlossEntry</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ID</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">SortAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossTerm</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Standard Generalized Markup Language</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Acronym</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Abbrev</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ISO 8879:1986</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossDef</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">para</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">A meta-markup language, used to create markup languages such as DocBook.</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSeeAlso</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">XML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    },</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSee</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">markup</span><span style="color:#ae81ff">\&#34;\r\n</span><span style="color:#e6db74">                }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> j <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s)[<span style="color:#e6db74">&#34;glossary&#34;</span>]
-<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#e6db74">&#34;title&#34;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;example glossary&#34;</span>
-  <span style="color:#e6db74">&#34;GlossDiv&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;GlossList&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;GlossEntry&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;GlossSee&#34;</span>…
-</code></pre></div><h3 id="キーを小文字に変換">キーを小文字に変換</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">example glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\&#34;</span><span style="color:#e6db74">GlossDiv</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">S</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\&#34;</span><span style="color:#e6db74">GlossList</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GlossEntry</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ID</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">SortAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossTerm</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Standard Generalized Markup Language</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Acronym</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Abbrev</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ISO 8879:1986</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossDef</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">para</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">A meta-markup language, used to create markup languages such as DocBook.</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSeeAlso</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">XML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    },</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSee</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">markup</span><span style="color:#ae81ff">\&#34;\r\n</span><span style="color:#e6db74">                }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">example glossary</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\&#34;</span><span style="color:#e6db74">GlossDiv</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">title</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">S</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\&#34;</span><span style="color:#e6db74">GlossList</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GlossEntry</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ID</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">SortAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossTerm</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Standard Generalized Markup Language</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Acronym</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SGML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">Abbrev</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ISO 8879:1986</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossDef</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                        </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">para</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">A meta-markup language, used to create markup languages such as DocBook.</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSeeAlso</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">GML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">XML</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">                    },</span><span style="color:#ae81ff">\r\n\t\t\t\t\t\&#34;</span><span style="color:#e6db74">GlossSee</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">markup</span><span style="color:#ae81ff">\&#34;\r\n</span><span style="color:#e6db74">                }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">            }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    }</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> j <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s)[<span style="color:#e6db74">&#34;glossary&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;title&#34;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;example glossary&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;GlossDiv&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;GlossList&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;GlossEntry&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;GlossSee&#34;</span><span style="color:#e6db74">…</span>
+</span></span></code></pre></div><h3 id="キーを小文字に変換">キーを小文字に変換</h3>
 <p>まずJSONのキーを小文字にしましょう。再帰的に書くと次のようになります。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> lowercasekeys(x) <span style="color:#f92672">=</span> x
-
-julia<span style="color:#f92672">&gt;</span> lowercasekeys(x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(lowercase(k) <span style="color:#f92672">=&gt;</span> lowercasekeys(v) <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(x))
-
-julia<span style="color:#f92672">&gt;</span> j2 <span style="color:#f92672">=</span> lowercasekeys(j)
-<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#e6db74">&#34;glossdiv&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;glosslist&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}}(<span style="color:#e6db74">&#34;glossentry&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>(<span style="color:#e6db74">&#34;sortas&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;SGML&#34;</span>,<span style="color:#e6db74">&#34;abbrev&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span>…
-  <span style="color:#e6db74">&#34;title&#34;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;example glossary&#34;</span>
-</code></pre></div><p>以前と同じような方法では、<code>Dict</code>を<code>GlossDiv</code>に<code>convert</code>できないので失敗します。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Glossary(;keytosymbol(j2)<span style="color:#f92672">...</span>)
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> Cannot <span style="color:#e6db74">`convert`</span> an object of type <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} to an object of type GlossDiv
-Closest candidates are<span style="color:#f92672">:</span>
-  convert(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{T}, <span style="color:#f92672">::</span>T) where T at essentials<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">171</span>
-  GlossDiv(<span style="color:#f92672">::</span><span style="color:#66d9ef">Any</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">Any</span>) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">480</span>
-Stacktrace<span style="color:#f92672">:</span>
- [<span style="color:#ae81ff">1</span>] Glossary(<span style="color:#f92672">::</span>String, <span style="color:#f92672">::</span><span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">480</span>
- [<span style="color:#ae81ff">2</span>] Glossary(; title<span style="color:#f92672">::</span>String, glossdiv<span style="color:#f92672">::</span><span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">468</span>
- [<span style="color:#ae81ff">3</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">31</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</code></pre></div><h3 id="関数の形を考えてみる">関数の形を考えてみる</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> lowercasekeys(x) <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> lowercasekeys(x<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>(lowercase(k) <span style="color:#f92672">=&gt;</span> lowercasekeys(v) <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> j2 <span style="color:#f92672">=</span> lowercasekeys(j)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;glossdiv&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;glosslist&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}}(<span style="color:#e6db74">&#34;glossentry&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">Dict</span>(<span style="color:#e6db74">&#34;sortas&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;SGML&#34;</span>,<span style="color:#e6db74">&#34;abbrev&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#e6db74">…</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;title&#34;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;example glossary&#34;</span>
+</span></span></code></pre></div><p>以前と同じような方法では、<code>Dict</code>を<code>GlossDiv</code>に<code>convert</code>できないので失敗します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Glossary(;keytosymbol(j2)<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> Cannot <span style="color:#e6db74">`convert`</span> an object of type <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>} to an object of type GlossDiv
+</span></span><span style="display:flex;"><span>Closest candidates are<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  convert(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">T</span>}, <span style="color:#f92672">::</span><span style="color:#66d9ef">T</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> at essentials<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">171</span>
+</span></span><span style="display:flex;"><span>  GlossDiv(<span style="color:#f92672">::</span><span style="color:#66d9ef">Any</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">Any</span>) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">480</span>
+</span></span><span style="display:flex;"><span>Stacktrace<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">1</span>] Glossary(<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">480</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">2</span>] Glossary(; title<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>, glossdiv<span style="color:#f92672">::</span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}) at <span style="color:#f92672">/</span>root<span style="color:#f92672">/.</span>julia<span style="color:#f92672">/</span>packages<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">/</span>CVyBv<span style="color:#f92672">/</span>src<span style="color:#f92672">/</span>Parameters<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">468</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">3</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">31</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h3 id="関数の形を考えてみる">関数の形を考えてみる</h3>
 <p>変換する関数は大まかにこんな感じになるはずです。（適当）</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> convertdict(T<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>)
-    kwargs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}()
-    <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(d)
-        symk <span style="color:#f92672">=</span> <span style="color:#66d9ef">Symbol</span>(k)
-        kwargs[symk] <span style="color:#f92672">=</span> (変換が必要な時は変換する)
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> T(;kwargs<span style="color:#f92672">...</span>)
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>「変換が必要な時は変換する」という部分を考えましょう。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> convertdict(T<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>)
+</span></span><span style="display:flex;"><span>    kwargs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(d)
+</span></span><span style="display:flex;"><span>        symk <span style="color:#f92672">=</span> <span style="color:#66d9ef">Symbol</span>(k)
+</span></span><span style="display:flex;"><span>        kwargs[symk] <span style="color:#f92672">=</span> (変換が必要な時は変換する)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> T(;kwargs<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>「変換が必要な時は変換する」という部分を考えましょう。</p>
 <h3 id="変換先の型を判別">変換先の型を判別</h3>
 <p>変換がいつ必要になるかはメンバー変数の型を見て判別することにします。
 ちなみに、メンバー変数の型は<a href="https://docs.julialang.org/en/v1/base/base/#Core.fieldtype"><code>Core.fieldtype</code></a>で取得できます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="color:#f92672">:</span>para)
-String
-
-julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="color:#f92672">:</span>glossseealso)
-<span style="color:#66d9ef">Array</span>{String,<span style="color:#ae81ff">1</span>}
-</code></pre></div><p>Column: <code>fieldtype(T, k)</code>の型, Row: <code>v</code>の型 としたとき、下のようにディスパッチさせることにします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="color:#e6db74">:para</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="color:#e6db74">:glossseealso</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">String</span>,<span style="color:#ae81ff">1</span>}
+</span></span></code></pre></div><p>Column: <code>fieldtype(T, k)</code>の型, Row: <code>v</code>の型 としたとき、下のようにディスパッチさせることにします。</p>
 <table>
 <thead>
 <tr>
@@ -357,23 +350,23 @@ julia<span style="color:#f92672">&gt;</span> fieldtype(GlossDef, <span style="co
 </table>
 <h3 id="define-convertdict-function">Define <code>convertdict</code> function</h3>
 <p>あとは先ほどの表に合わせて関数を整えていきます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, x) <span style="color:#f92672">=</span> x
-convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{T, Nothing}}, x) where T <span style="color:#f92672">=</span> convertdict(T, x)
-convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{T, Nothing}}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) where T <span style="color:#f92672">=</span> convertdict(T, d)
-convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{T}, v<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>) where T <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractVector</span> <span style="color:#f92672">=</span> convertdict<span style="color:#f92672">.</span>(eltype(T), v)
-convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{T}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) where T <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractDict</span> <span style="color:#f92672">=</span> d
-
-<span style="color:#66d9ef">function</span> convertdict(T<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>)
-    kwargs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}()
-    <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(d)
-        symk <span style="color:#f92672">=</span> <span style="color:#66d9ef">Symbol</span>(k)
-        kwargs[symk] <span style="color:#f92672">=</span> convertdict(fieldtype(T, symk), v)
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> T(;kwargs<span style="color:#f92672">...</span>)
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>思ったよりシンプルですね。3行目の</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{T, Nothing}}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) where T <span style="color:#f92672">=</span> convertdict(T, d)
-</code></pre></div><p>は2行目に含まれているので必要ないように見えるかもしれませんが、これがないと
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, x) <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">T</span>, <span style="color:#66d9ef">Nothing</span>}}, x) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> <span style="color:#f92672">=</span> convertdict(T, x)
+</span></span><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">T</span>, <span style="color:#66d9ef">Nothing</span>}}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> <span style="color:#f92672">=</span> convertdict(T, d)
+</span></span><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">T</span>}, v<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractVector</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractVector</span> <span style="color:#f92672">=</span> convertdict<span style="color:#f92672">.</span>(eltype(T), v)
+</span></span><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">T</span>}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractDict</span> <span style="color:#f92672">=</span> d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> convertdict(T<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>)
+</span></span><span style="display:flex;"><span>    kwargs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (k, v) <span style="color:#66d9ef">in</span> pairs(d)
+</span></span><span style="display:flex;"><span>        symk <span style="color:#f92672">=</span> <span style="color:#66d9ef">Symbol</span>(k)
+</span></span><span style="display:flex;"><span>        kwargs[symk] <span style="color:#f92672">=</span> convertdict(fieldtype(T, symk), v)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> T(;kwargs<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>思ったよりシンプルですね。3行目の</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">T</span>, <span style="color:#66d9ef">Nothing</span>}}, d<span style="color:#f92672">::</span><span style="color:#66d9ef">AbstractDict</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">T</span> <span style="color:#f92672">=</span> convertdict(T, d)
+</span></span></code></pre></div><p>は2行目に含まれているので必要ないように見えるかもしれませんが、これがないと
 <code>convertdict(::Type{Union{T, Nothing}}, d::AbstractDict)</code>
 が
 <code>convertdict(::Type{Union{T, Nothing}}, x)</code>
@@ -381,190 +374,190 @@ convertdict(<span style="color:#f92672">::</span><span style="color:#66d9ef">Typ
 <code>convertdict(T::Type, d::AbstractDict)</code>
 のどちらにディスパッチしてよいか曖昧になってしまうので、必要な定義です。</p>
 <p>さてさて、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> glossary <span style="color:#f92672">=</span> convertdict(Glossary, j2)
-Glossary
-  title<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;example glossary&#34;</span>
-  glossdiv<span style="color:#f92672">:</span> GlossDiv
-
-julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv
-GlossDiv
-  title<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;S&#34;</span>
-  glosslist<span style="color:#f92672">:</span> GlossList
-
-julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist
-GlossList
-  glossentry<span style="color:#f92672">:</span> GlossEntry
-
-julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry
-GlossEntry
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;SGML&#34;</span>
-  sortas<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;SGML&#34;</span>
-  glossterm<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Standard Generalized Markup Language&#34;</span>
-  acronym<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;SGML&#34;</span>
-  abbrev<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>
-  glossdef<span style="color:#f92672">:</span> GlossDef
-  glosssee<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;markup&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry<span style="color:#f92672">.</span>glossdef
-GlossDef
-  para<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;A meta-markup language, used to create markup languages such as DocBook.&#34;</span>
-  glossseealso<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{String}((<span style="color:#ae81ff">2</span>,))
-
-julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry<span style="color:#f92672">.</span>glossdef<span style="color:#f92672">.</span>glossseealso
-<span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{String,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#e6db74">&#34;GML&#34;</span>
- <span style="color:#e6db74">&#34;XML&#34;</span>
-</code></pre></div><p>一発でマッピングできました。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary <span style="color:#f92672">=</span> convertdict(Glossary, j2)
+</span></span><span style="display:flex;"><span>Glossary
+</span></span><span style="display:flex;"><span>  title<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;example glossary&#34;</span>
+</span></span><span style="display:flex;"><span>  glossdiv<span style="color:#f92672">:</span> GlossDiv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv
+</span></span><span style="display:flex;"><span>GlossDiv
+</span></span><span style="display:flex;"><span>  title<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;S&#34;</span>
+</span></span><span style="display:flex;"><span>  glosslist<span style="color:#f92672">:</span> GlossList
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist
+</span></span><span style="display:flex;"><span>GlossList
+</span></span><span style="display:flex;"><span>  glossentry<span style="color:#f92672">:</span> GlossEntry
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry
+</span></span><span style="display:flex;"><span>GlossEntry
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;SGML&#34;</span>
+</span></span><span style="display:flex;"><span>  sortas<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;SGML&#34;</span>
+</span></span><span style="display:flex;"><span>  glossterm<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Standard Generalized Markup Language&#34;</span>
+</span></span><span style="display:flex;"><span>  acronym<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;SGML&#34;</span>
+</span></span><span style="display:flex;"><span>  abbrev<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;ISO 8879:1986&#34;</span>
+</span></span><span style="display:flex;"><span>  glossdef<span style="color:#f92672">:</span> GlossDef
+</span></span><span style="display:flex;"><span>  glosssee<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;markup&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry<span style="color:#f92672">.</span>glossdef
+</span></span><span style="display:flex;"><span>GlossDef
+</span></span><span style="display:flex;"><span>  para<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;A meta-markup language, used to create markup languages such as DocBook.&#34;</span>
+</span></span><span style="display:flex;"><span>  glossseealso<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">String</span>}((<span style="color:#ae81ff">2</span>,))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> glossary<span style="color:#f92672">.</span>glossdiv<span style="color:#f92672">.</span>glosslist<span style="color:#f92672">.</span>glossentry<span style="color:#f92672">.</span>glossdef<span style="color:#f92672">.</span>glossseealso
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">String</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;GML&#34;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;XML&#34;</span>
+</span></span></code></pre></div><p>一発でマッピングできました。</p>
 <p>もう一例やってみます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;menu&#34;</span>: {
-    <span style="color:#f92672">&#34;header&#34;</span>: <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>,
-    <span style="color:#f92672">&#34;items&#34;</span>: [
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Open&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;OpenNew&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Open New&#34;</span>},
-        <span style="color:#66d9ef">null</span>,
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ZoomIn&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Zoom In&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ZoomOut&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Zoom Out&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;OriginalView&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Original View&#34;</span>},
-        <span style="color:#66d9ef">null</span>,
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Quality&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Pause&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Mute&#34;</span>},
-        <span style="color:#66d9ef">null</span>,
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Find&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Find...&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;FindAgain&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Find Again&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Copy&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;CopyAgain&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Copy Again&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;CopySVG&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Copy SVG&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ViewSVG&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;View SVG&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ViewSource&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;View Source&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;SaveAs&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Save As&#34;</span>},
-        <span style="color:#66d9ef">null</span>,
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Help&#34;</span>},
-        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;About&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>}
-    ]
-}}
-</code></pre></div><p>まずは読み込んでみます。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">menu</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">header</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SVG Viewer</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">items</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Open</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">OpenNew</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Open New</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ZoomIn</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Zoom In</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ZoomOut</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Zoom Out</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">OriginalView</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Original View</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Quality</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Pause</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Mute</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find...</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">FindAgain</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find Again</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">CopyAgain</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy Again</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">CopySVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy SVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ViewSVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">View SVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ViewSource</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">View Source</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SaveAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Save As</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Help</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">About</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">About Adobe CVG Viewer...</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    ]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}}&#34;</span>
-
-julia<span style="color:#f92672">&gt;</span> println(s2)
-{<span style="color:#e6db74">&#34;menu&#34;</span><span style="color:#f92672">:</span> {
-    <span style="color:#e6db74">&#34;header&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>,
-    <span style="color:#e6db74">&#34;items&#34;</span><span style="color:#f92672">:</span> [
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Open&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;OpenNew&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Open New&#34;</span>},
-        null,
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ZoomIn&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Zoom In&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ZoomOut&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Zoom Out&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;OriginalView&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Original View&#34;</span>},
-        null,
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Quality&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Pause&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Mute&#34;</span>},
-        null,
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find...&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;FindAgain&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find Again&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;CopyAgain&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy Again&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;CopySVG&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy SVG&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ViewSVG&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;View SVG&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ViewSource&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;View Source&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;SaveAs&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Save As&#34;</span>},
-        null,
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Help&#34;</span>},
-        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;About&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>}
-    ]
-}}
-
-julia<span style="color:#f92672">&gt;</span> j3 <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s2)[<span style="color:#e6db74">&#34;menu&#34;</span>]
-<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
-  <span style="color:#e6db74">&#34;items&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Any</span>[<span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open&#34;</span>), <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open New&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;OpenNew&#34;</span>), nothing, <span style="color:#66d9ef">Dict</span>{String,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Zoom In&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=</span>…
-  <span style="color:#e6db74">&#34;header&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>
-</code></pre></div><p><code>null</code>は<code>nothing</code>にマッピングされています。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> Item
-         id<span style="color:#f92672">::</span>String
-         label<span style="color:#f92672">::</span><span style="color:#66d9ef">Union</span>{String, Nothing} <span style="color:#f92672">=</span> nothing
-       <span style="color:#66d9ef">end</span>
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> Menu
-         header<span style="color:#f92672">::</span>String
-         items<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Union</span>{Item, Nothing}}
-       <span style="color:#66d9ef">end</span>
-</code></pre></div><p>上のように定義した場合でも、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> menu <span style="color:#f92672">=</span> convertdict(Menu, j3)
-Menu
-  header<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>
-  items<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Union</span>{Nothing, Item}}((<span style="color:#ae81ff">22</span>,))
-
-julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</span>items
-<span style="color:#ae81ff">22</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Union</span>{Nothing, Item},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Open&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;OpenNew&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Open New&#34;</span>
-
- nothing
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;ZoomIn&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Zoom In&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;ZoomOut&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Zoom Out&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;OriginalView&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Original View&#34;</span>
-
- nothing
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Quality&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Pause&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Mute&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- ⋮
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Copy&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;CopyAgain&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Copy Again&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;CopySVG&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Copy SVG&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;ViewSVG&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;View SVG&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;ViewSource&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;View Source&#34;</span>
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;SaveAs&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Save As&#34;</span>
-
- nothing
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;Help&#34;</span>
-  label<span style="color:#f92672">:</span> Nothing nothing
-
- Item
-  id<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;About&#34;</span>
-  label<span style="color:#f92672">:</span> String <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>
-</code></pre></div><p>問題なく<code>nothing</code>や<code>Vector</code>と<code>Union</code>の組み合わせを処理できています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;menu&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;header&#34;</span>: <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Open&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;OpenNew&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Open New&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ZoomIn&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Zoom In&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ZoomOut&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Zoom Out&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;OriginalView&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Original View&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Quality&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Pause&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Mute&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Find&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Find...&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;FindAgain&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Find Again&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Copy&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;CopyAgain&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Copy Again&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;CopySVG&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Copy SVG&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ViewSVG&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;View SVG&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;ViewSource&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;View Source&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;SaveAs&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Save As&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;Help&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;About&#34;</span>, <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>}
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}}
+</span></span></code></pre></div><p>まずは読み込んでみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">menu</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">header</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SVG Viewer</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">items</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Open</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">OpenNew</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Open New</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ZoomIn</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Zoom In</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ZoomOut</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Zoom Out</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">OriginalView</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Original View</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Quality</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Pause</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Mute</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find...</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">FindAgain</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Find Again</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">CopyAgain</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy Again</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">CopySVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Copy SVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ViewSVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">View SVG</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ViewSource</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">View Source</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">SaveAs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Save As</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        null,</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Help</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">        {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">id</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">About</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">label</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">About Adobe CVG Viewer...</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">    ]</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> println(s2)
+</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#34;menu&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;header&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;items&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Open&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;OpenNew&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Open New&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ZoomIn&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Zoom In&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ZoomOut&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Zoom Out&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;OriginalView&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Original View&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Quality&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Pause&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Mute&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find...&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;FindAgain&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Find Again&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;CopyAgain&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy Again&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;CopySVG&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Copy SVG&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ViewSVG&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;View SVG&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ViewSource&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;View Source&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;SaveAs&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Save As&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Help&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;About&#34;</span>, <span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>}
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> j3 <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span>parse(s2)[<span style="color:#e6db74">&#34;menu&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">2</span> entries<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;items&#34;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Any</span>[<span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open&#34;</span>), <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Open New&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;OpenNew&#34;</span>), nothing, <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Any</span>}(<span style="color:#e6db74">&#34;label&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;Zoom In&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">=…</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;header&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>
+</span></span></code></pre></div><p><code>null</code>は<code>nothing</code>にマッピングされています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">Item</span>
+</span></span><span style="display:flex;"><span>         id<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>         label<span style="color:#f92672">::</span><span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Nothing</span>} <span style="color:#f92672">=</span> nothing
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@with_kw</span> <span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">Menu</span>
+</span></span><span style="display:flex;"><span>         header<span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>         items<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">Item</span>, <span style="color:#66d9ef">Nothing</span>}}
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>上のように定義した場合でも、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> menu <span style="color:#f92672">=</span> convertdict(Menu, j3)
+</span></span><span style="display:flex;"><span>Menu
+</span></span><span style="display:flex;"><span>  header<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;SVG Viewer&#34;</span>
+</span></span><span style="display:flex;"><span>  items<span style="color:#f92672">:</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">Nothing</span>, <span style="color:#66d9ef">Item</span>}}((<span style="color:#ae81ff">22</span>,))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</span>items
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Union</span>{<span style="color:#66d9ef">Nothing</span>, <span style="color:#66d9ef">Item</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Open&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;OpenNew&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Open New&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> nothing
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;ZoomIn&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Zoom In&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;ZoomOut&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Zoom Out&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;OriginalView&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Original View&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> nothing
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Quality&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Pause&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Mute&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">⋮</span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Copy&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;CopyAgain&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Copy Again&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;CopySVG&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Copy SVG&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;ViewSVG&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;View SVG&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;ViewSource&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;View Source&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;SaveAs&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Save As&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> nothing
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;Help&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">Nothing</span> nothing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Item
+</span></span><span style="display:flex;"><span>  id<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;About&#34;</span>
+</span></span><span style="display:flex;"><span>  label<span style="color:#f92672">:</span> <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;About Adobe CVG Viewer...&#34;</span>
+</span></span></code></pre></div><p>問題なく<code>nothing</code>や<code>Vector</code>と<code>Union</code>の組み合わせを処理できています。</p>
 <h2 id="パッケージ">パッケージ</h2>
 <p>パッケージとするほどのものでもないかもしれませんが、一応JuliaRegistries/Generalに登録してあります。
 <code>] add StructMapping</code> でお使いください。</p>
@@ -576,6 +569,7 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 </article>
 
 		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
 		<aside role="contentinfo"
 			class="w-full md:w-2/5 xl:w-1/4 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
 			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
@@ -595,6 +589,12 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 		<a href="/posts/" title="Blog page" 
 			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
 			Blog
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/atcoder/" title="AtCoder page" >
+			AtCoder
 		</a>
 	</li>
 	
@@ -666,9 +666,9 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 	
 </div>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
-		Copyright © 2019–2020
+		Copyright © 2019–2023
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2695 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2747 words in this page.
 	</div>
 </div>
 
@@ -688,8 +688,8 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
     </a>
     
     
-    <a class="flex-grow-0" href="/other/boat/">
-        BOaTまとめ
+    <a class="flex-grow-0" href="/posts/sacoyans-yomosue/">
+        SACOYANS - Yomosue (2020)
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -741,8 +741,8 @@ julia<span style="color:#f92672">&gt;</span> menu<span style="color:#f92672">.</
 <hr />
 <div class="pb-2">
     <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
