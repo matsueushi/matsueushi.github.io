@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | 単純連結グラフのサイクル(コードレスサイクル？)の数</title>
+	<title>matsueushi  | zzkillme - ( ^ω^ ) (2023)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.128.2">
 	
@@ -38,13 +38,13 @@
 
 
 
-<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
 
-<script defer src='http://localhost:1313/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 
 
-<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
 crossorigin="anonymous"
 onload='renderMathInElement(document.body);'></script>
 
@@ -76,7 +76,7 @@ onload='renderMathInElement(document.body);'></script>
 				});
 			}
 			s.parentNode.insertBefore(o, s);
-		})('http:\/\/localhost:1313\/lib\/pangu.min.js', function () {
+		})('https:\/\/matsueushi.github.io\/lib\/pangu.min.js', function () {
 			pangu.spacingPage();
 		});
 	</script>
@@ -95,10 +95,10 @@ onload='renderMathInElement(document.body);'></script>
 				
 <div>
 	<h2>
-		<a href="http://localhost:1313/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">単純連結グラフのサイクル(コードレスサイクル？)の数</h1>
+<h1 class="pt-2">zzkillme - ( ^ω^ ) (2023)</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -110,12 +110,12 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 	<a class="post-taxonomy-tag text-eucalyptus-500"
-		href='/tags/graph'>Graph</a>
+		href='/tags/music'>Music</a>
 	
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2022-08-30T20:42:28&#43;09:00">2022-8-30 20:42</time>
+		datetime="2024-07-14T18:44:50&#43;09:00">2024-7-14 18:44</time>
 </div>
 
 <hr />
@@ -128,23 +128,15 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>$G=(V, E)$を単純連結グラフとすると、サイクルの数 $C$ が $|E|-|V|+1$ と等しくなる。</p>
-<p>ここでサイクルはサイクルを成す辺以外で二頂点を結ぶ辺が存在しない <a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Chordless_cycle">コードレスサイクル</a> を意味する。</p>
-<p>証明は $|E|$ に関する帰納法。</p>
-<p>$|E|=0$ の時、$G$ の連結性から $|V| = 1$ となり、サイクルは存在しないのでOK。</p>
-<p>$|E|=k$ の時成立していると仮定して $|E|=k+1$ のグラフを考える。$G$ がサイクルを持たず木であれば、$|E|=|V|-1$ となるのでOK。
-$G$ にサイクルが存在すれば、サイクルをなす辺を一つ選んで取り除いたグラフ $G&rsquo;=(V&rsquo;,E&rsquo;)$ を考えると、
-$G&rsquo;$ は単純連結グラフで $|V&rsquo;| = |V|$ ($G$は単純で自己ループを持たないので、頂点は取り除かれない)、$|E&rsquo;|=|E|-1$ である。
-帰納法の仮定から $C-1=|E&rsquo;|-|V&rsquo;|+1$ より、整理して $C=|E|-|V|+1$ となる。</p>
-<hr>
-<p>ということで良いのだろうか……</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">https://en.wikipedia.org/wiki/Cycle_(graph_theory)</a> .</li>
-<li><a href="https://research.nii.ac.jp/~uno/papers/algo92.pdf">コードレスサイクルを列挙する線形時間アルゴリズム</a></li>
-</ul>
-<!-- グラフ $G$ に対する向き付けの方法の数を $N(G)$ と書くことにする。 
-連結成分ごとに向きつけが考えられることがわかるから、$G$ の連結成分を $G_i$ とすると、
-$N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解ける。 -->
+		<div class="c-rich-text"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7csA3oW2CJBlRAqrgaB1b9?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p>久しぶりに更新。</p>
+<p>技術的な内容で更新できるものがないので、最近YouTubeとSpotifyを巡回していたら見つけた気に入っているアルバムを紹介。</p>
+<p>NYベースで活動するzzkillmeの5thアルバム、( ^ω^ )。読み方はCatcoreのようだ。</p>
+<p>zzkillmeはWeatherguide Recordsの創設者ということだが情報が少なくそれ以上のことはよくわからない。<a href="https://unluckywind.net/">Unlucky Wind</a>からアルバムがリリースされているのでこの周辺での活動のあるようだがもう少し詳しく調べる必要がありそう。<a href="https://open.spotify.com/album/5DTOMHLAIhVKnWP59Tzt0N?si=ZRjVlyj-R3GnmX0mosPxxA">神秘_神秘</a>というVaporwaveのアルバムや<a href="https://open.spotify.com/album/5MCxD8sUJQccOOOTASDuNH?si=Q4lsrmoFRBmfwPiZKjy7Ew">Anbient Festival</a>というアルバムを出しているように作風はアルバムによって異なる。</p>
+<p><a href="https://www.yamlynn.com/music">yam lynn</a>の<a href="https://unluckywind.bandcamp.com/album/nya-nya-neko-nightmare">nya nya neko nightmare</a>にインスパイアされた猫をテーマとしたドラムンベースで構成された本アルバムは、超高速で叩き込まれるブレイクビートの中でドラムンベース、ブレイクコア、IDM, ビデオゲーム音楽(<a href="https://unluckywind.bandcamp.com/album/-">samples soundtrack from undertale, mariokart ds &amp; final fantasy 6</a>とのこと)、ラップ、アンビエント、HexDといった特徴が散りばめられており、また曲ごとにその特徴も大きく変化するため、<a href="https://www.instagram.com/schoolbook_depository">schoolbook_depository</a>の手による猫耳のアニメキャラやハローキティが混然と配置されたアートワークのように非常にカオスでありユニーク。アルバムのあちこちからはオマージュという形で2000年代への憧憬も感じられ、その一部を垣間見ただけの自分ですら聴くだけでなぜか懐かしい気持ちになる。</p>
+<p>最近は悲しいことに以前に比べて新しい音楽を聴く頻度も落ちてきており、ましてやフィジカルで音楽を買うことはかなり少なくなってしまっているのだが、このアルバムはデータでなく物理媒体で手元に置いておきたい。カセットやCDも<a href="https://unluckywind.bandcamp.com/album/-">販売されていた</a>ようだが確認した時にはすでに売り切れており非常に残念。とても欲しかった。</p>
+<p>好きな曲: :3, mariocart without the r, afex twin, miku, kittypasta ^_-</p>
+<p><a href="https://zzkillme.bandcamp.com/">https://zzkillme.bandcamp.com/</a></p>
 </div>
 	</section>
 
@@ -251,7 +243,7 @@ $N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2023
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 360 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 810 words in this page.
 	</div>
 </div>
 
@@ -262,17 +254,17 @@ $N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解�
 <hr class="double-line" />
 <div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
     
-    <a class="flex-grow-0" href="/posts/rust-test-nocapture/">
+    <a class="flex-grow-0" href="/playlist/playlist/">
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
-        Rustでcargo test中にprintlnする
+        Playlist
     </a>
     
     
-    <a class="flex-grow-0" href="/posts/aero-gros-m-chocolate-hearts-and-stag-beetles/">
-        AERO GROS M - Chocolate Hearts and Stag Beetles (2021)
+    <a class="flex-grow-0" href="/other/boat/">
+        BOaTまとめ
         <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
             height="24">
             <path fill="none" d="M0 0h24v24H0z" />
@@ -282,6 +274,43 @@ $N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解�
 <div >
 
 
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/posts/aero-gros-m-chocolate-hearts-and-stag-beetles/">AERO GROS M - Chocolate Hearts and Stag Beetles (2021)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/toytown-killed-my-dog/">Toytown - Killed My Dog (2019)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/bpm15q-all-songs/">BPM15Q / BPM15Q ALL SONGS (2016)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/discogs-money-laundering/">Discogsの高額CD, レコードの謎</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20210228/">最近聞いた曲(2021/3/1)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/sacoyans-yomosue/">SACOYANS - Yomosue (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/how-to-digitize-vinyl-2/">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/nanoray/">Nanoray - Gacha (2019)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/how-to-digitize-vinyl-1/">レコードをデジタル化する（前編）</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/mochitsuki-net-new-resources/">Mochitsuki - Net New Resources (2020)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200801/">最近聞いた曲(2020/8/1)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200714/">最近聞いた曲(2020/7/14) </a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200709/">最近聞いた曲(2020/7/8)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200703/">最近聞いた曲(2020/7/3)</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/playlist/20200626/">最近聞いた曲(2020/6/26)</a>
+		
+</span>
+</div>
 
 </div>
 <hr />
