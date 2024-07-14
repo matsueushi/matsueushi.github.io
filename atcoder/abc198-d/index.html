@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | AtCoder ABC 198 D - Send More Money</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.127.0">
+	<meta name="generator" content="Hugo 0.128.2">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -138,7 +138,7 @@ onload='renderMathInElement(document.body);'></script>
 <li><code>S_1, S_2, S_3</code> に出てくる文字の集合を作る。10種類以上出てきたら <code>UNSOLVABLE</code></li>
 <li>先ほど文字の集合に番号をつける。順番はどうでもいい。<code>['v', 'f', 'c']</code> だったら v = 1番目、f = 2番目、のような対応づけをする。</li>
 <li>これにより、<code>S_1, S_2, S_3</code> が <code>[3,5,1], [1,4,2], [2,2,2]</code> のような 1~10の整数の数列に変換できる。</li>
-<li>あとは 1~10番目の文字に対して 0~9 の数字をどのように当てはめるか全探索。
+<li>あとは 1<del>10番目の文字に対して 0</del>9 の数字をどのように当てはめるか全探索。
 全探索しても10!=3628800通りなので間に合う。
 Julia だと C++ における <a href="https://www.cplusplus.com/reference/algorithm/next_permutation/"><code>std::next_permutaiton</code></a> が標準ライブラリに無い(存在を知らない) ので自分で作る必要がありますね。</li>
 </ul>
@@ -249,7 +249,7 @@ Julia だと C++ における <a href="https://www.cplusplus.com/reference/algor
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2023
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 295 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 294 words in this page.
 	</div>
 </div>
 
