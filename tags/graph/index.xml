@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Graph on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/graph/</link>
+    <link>http://localhost:1313/tags/graph/</link>
     <description>Recent content in Graph on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2024</copyright>
     <lastBuildDate>Tue, 30 Aug 2022 20:42:28 +0900</lastBuildDate>
     
-	<atom:link href="https://matsueushi.github.io/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/tags/graph/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>単純連結グラフのサイクル(コードレスサイクル？)の数</title>
-      <link>https://matsueushi.github.io/posts/simple-connected-graph-cycles/</link>
+      <link>http://localhost:1313/posts/simple-connected-graph-cycles/</link>
       <pubDate>Tue, 30 Aug 2022 20:42:28 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/simple-connected-graph-cycles/</guid>
+      <guid>http://localhost:1313/posts/simple-connected-graph-cycles/</guid>
       <description>&lt;p&gt;$G=(V, E)$を単純連結グラフとすると、サイクルの数 $C$ が $|E|-|V|+1$ と等しくなる。&lt;/p&gt;
 &lt;p&gt;ここでサイクルはサイクルを成す辺以外で二頂点を結ぶ辺が存在しない &lt;a href=&#34;https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Chordless_cycle&#34;&gt;コードレスサイクル&lt;/a&gt; を意味する。&lt;/p&gt;
 &lt;p&gt;証明は $|E|$ に関する帰納法。&lt;/p&gt;
