@@ -301,5 +301,71 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
+    <item>
+      <title>RustでAtCoderに挑戦</title>
+      <link>https://matsueushi.github.io/atcoder/rust-atcoder/</link>
+      <pubDate>Sat, 16 Jul 2022 20:16:03 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/atcoder/rust-atcoder/</guid>
+      <description>&lt;p&gt;元々JuliaでAtCoderに挑戦していたのですが、違う言語も触ってみたいと思いRustで最近問題を解いています。
+ちょっと触った感じの感想として、Rustの良いところとしては、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;意図しないバグが混入しづらい&lt;/li&gt;
+&lt;li&gt;速い。&lt;/li&gt;
+&lt;li&gt;パッケージシステムが使いやすい&lt;/li&gt;
+&lt;li&gt;cargo-competeを使うとvscode上でテストや提出ができて楽&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;逆にちょっと使いづらいと思う点としては、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;抽象度が高く難しい(気がする)&lt;/li&gt;
+&lt;li&gt;Rustだとコードが長くなりやすい。Juliaの方が簡潔に書ける。&lt;/li&gt;
+&lt;li&gt;AtCoderのRustのバージョンだと使いたい関数が使えない場合がある。(partition_pointなど)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;もう少しRustで挑戦してみようと思います。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;追記(2022/10/2)
+環境の作り方を忘れるのでメモ&lt;/p&gt;
+&lt;h2 id=&#34;rustのdockerコンテナを用意する&#34;&gt;RustのDockerコンテナを用意する&lt;/h2&gt;
+&lt;p&gt;一応pullしてコンテナを作る&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% docker pull rust
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% docker run -p 8888:8888 --name &amp;lt;name&amp;gt; -it -v &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;:/home/jovyan/work rust
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;コンテナvscodeを整える&#34;&gt;コンテナ・VSCodeを整える&lt;/h2&gt;
+&lt;p&gt;いつものおまじない&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% apt-get install git tree
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;をやっておく。
+VSCodeでアタッチして、コンテナの中に入ってフォルダを開く。VSCodeにはrust-analyzerをインストールする。&lt;/p&gt;
+&lt;h2 id=&#34;rustのバージョンを設定する&#34;&gt;Rustのバージョンを設定する&lt;/h2&gt;
+&lt;p&gt;現在使用中のRustのバージョンを確認すると、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% rustc -V
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rustc 1.64.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;a55dd71d5 2022-09-19&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2022年9月現在AtCoderで使えるRustは1.42.0である。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% rustup default 1.42.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% rustc -V
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rustc 1.42.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;b8cedc004 2020-03-09&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これでバージョンを1.42.0にできた。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;% cargo run
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Compiling yakumo v0.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;/home/jovyan/work&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Finished dev &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;unoptimized + debuginfo&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; target&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;s&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; in 2.25s
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     Running &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;target/debug/yakumo&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello, world!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;フォーマッターをインストールする。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rustup component add rustfmt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rusty.pages.dev/rust-1.42.0-for-atcoder/&#34;&gt;【AtCoder用】Rust 1.42.0 のインストール＆設定方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;rust-analyzer-を直す&#34;&gt;rust-analyzer を直す&lt;/h2&gt;
+&lt;p&gt;VSCodeのシェルのOUTPUT-&amp;gt;Rust Analyzer Language Serverを見ると&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ERROR rust_analyzer::lsp_utils&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; rust-analyzer failed to load workspace: Failed to find sysroot &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Cargo.toml file /home/jovyan/work/Cargo.toml. Is rust-src installed?: can&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;t load standard library from sysroot
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/local/rustup/toolchains/1.42.0-x86_64-unknown-linux-gnu
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;discovered via &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;rustc --print sysroot&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;try installing the Rust source the same way you installed rustc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;のようなエラーになっている。https://github.com/rust-lang/rust-analyzer/pull/10457#issuecomment-947915233 を参考にして&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ln -s &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;rustc --print sysroot&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/lib/rustlib/src/rust/src &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;rustc --print sysroot&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/lib/rustlib/src/rust/library
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とやると動くようになる。（自己責任）&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
