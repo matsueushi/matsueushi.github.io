@@ -1668,6 +1668,8 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 &lt;li&gt;&lt;a href=&#34;https://qiita.com/drken/items/4a7869c5e304883f539b&#34;&gt;DFS (深さ優先探索) 超入門！ 〜 グラフ・アルゴリズムの世界への入口 〜【前編】&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://threecourse.hatenablog.com/entry/2020/10/03/141731&#34;&gt;Rustでヒューリスティックコンテストを解いてみる&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://threecourse.hatenablog.com/entry/2021/05/11/010353&#34;&gt;フロントエンド何もわからない（その６）〜 Introduction To Heuristic Contestのビジュアライザを作った&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scmopt.github.io/opt100/&#34;&gt;Python言語による実務で使える100+の最適化問題&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://snuke.hatenablog.com/entry/2021/02/22/102734&#34;&gt;ダイクストラ法のよくあるミスと落し方&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;db&#34;&gt;DB&lt;/h4&gt;
 &lt;ul&gt;
@@ -1677,11 +1679,13 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.shenmacro.com/&#34;&gt;炭鉱のカナリア、炭鉱の龍&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://saferich.biz/&#34;&gt;金融の未来を考えるブログ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.shouken-toukei.jp/index.php&#34;&gt;証券統計ポータルサイト&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;統計&#34;&gt;統計&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://elsur.jpn.org/202004MMM/&#34;&gt;マーケティング・ミックス・モデリング&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://theaisummer.com/diffusion-models/&#34;&gt;How diffusion models work: the math from scratch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ocwx.ocw.u-tokyo.ac.jp/course_11416/&#34;&gt;数理手法Ⅶ&amp;lt;時系列&amp;gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;科学&#34;&gt;科学&lt;/h4&gt;
 &lt;ul&gt;
