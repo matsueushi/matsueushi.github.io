@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Translating nested dictionary to struct in Julia</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.129.0">
+	<meta name="generator" content="Hugo 0.135.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -30,9 +30,6 @@
 	
 	
 	
-  
-
-
 	
 	
 	
@@ -318,38 +315,38 @@ Pythonでもキーワード引数に<code>Dict{Symbol, T}</code>型のオブジ�
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">String</span>,<span style="color:#ae81ff">1</span>}
 </span></span></code></pre></div><p>Column: <code>fieldtype(T, k)</code>の型, Row: <code>v</code>の型 としたとき、下のようにディスパッチさせることにします。</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th><code>Union{S, Nothing}</code></th>
-<th><code>Vector{S}</code></th>
-<th><code>Dict</code></th>
-<th>それ以外</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Vector</code></td>
-<td><code>convertdict(S, v)</code></td>
-<td><code>convertdict.(S, v)</code></td>
-<td>&mdash;</td>
-<td>&mdash;</td>
-</tr>
-<tr>
-<td><code>Dict</code></td>
-<td><code>convertdict(S, v)</code></td>
-<td>&mdash;</td>
-<td><code>v</code></td>
-<td>マッピングを実施</td>
-</tr>
-<tr>
-<td>それ以外</td>
-<td><code>convertdict(S, v)</code></td>
-<td>&mdash;</td>
-<td>&mdash;</td>
-<td><code>v</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left"></th>
+          <th style="text-align: left"><code>Union{S, Nothing}</code></th>
+          <th style="text-align: left"><code>Vector{S}</code></th>
+          <th style="text-align: left"><code>Dict</code></th>
+          <th style="text-align: left">それ以外</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>Vector</code></td>
+          <td style="text-align: left"><code>convertdict(S, v)</code></td>
+          <td style="text-align: left"><code>convertdict.(S, v)</code></td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left">&mdash;</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>Dict</code></td>
+          <td style="text-align: left"><code>convertdict(S, v)</code></td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left"><code>v</code></td>
+          <td style="text-align: left">マッピングを実施</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">それ以外</td>
+          <td style="text-align: left"><code>convertdict(S, v)</code></td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left"><code>v</code></td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="define-convertdict-function">Define <code>convertdict</code> function</h3>
 <p>あとは先ほどの表に合わせて関数を整えていきます。</p>
