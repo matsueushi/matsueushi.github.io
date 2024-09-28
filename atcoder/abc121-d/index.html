@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | AtCoder ABC 121 D - XOR World</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.129.0">
+	<meta name="generator" content="Hugo 0.135.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -30,9 +30,6 @@
 	
 	
 	
-  
-
-
 	
 	
 	
@@ -140,34 +137,34 @@ onload='renderMathInElement(document.body);'></script>
 <p>だから、$A=0$ の場合に帰着される。</p>
 <p>それぞれの桁毎に、$0~B$ に出てくる $1$ の数が偶数個か奇数個か数えれば、$f(1,B)$ の各ビットがわかる。 $A=0$ の $1,2,3,&hellip;$ のビット表示を確認すると、</p>
 <table>
-<thead>
-<tr>
-<th>10進数</th>
-<th>2進数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>00000000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>00000001</td>
-</tr>
-<tr>
-<td>2</td>
-<td>00000010</td>
-</tr>
-<tr>
-<td>3</td>
-<td>00000011</td>
-</tr>
-<tr>
-<td>4</td>
-<td>00000100</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">10進数</th>
+          <th style="text-align: left">2進数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">00000000</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">00000001</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">00000010</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">3</td>
+          <td style="text-align: left">00000011</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">00000100</td>
+      </tr>
+  </tbody>
 </table>
 <p>$1$ の位は $0 \rightarrow 1 \rightarrow 0  \rightarrow 1 \rightarrow \cdots$ と1つごとに切り替わり、 $2$ の位は $0 \rightarrow 0 \rightarrow 1 \rightarrow 1 \rightarrow \cdots$ と2つ毎に切り替わり、と規則的になっている。</p>
 <p>$2^i$ 桁目のビットを考えよう。$i=0$ の時は $B \equiv 1 \mod 4$ なら $1$, それ以外なら $0$ が立っている。</p>
