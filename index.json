@@ -20,6 +20,14 @@
     "title": "BOaTまとめ"
   },
   {
+    "contents": "自分用メモ。 An unknown error occurred (-54) が出た時は、\nシステム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする\nと直る。\n-　【解決策追記】Macのミュージックで「不明なエラーが発生しました(-54)」エラー。CDを取り込めないぞ\nミュージックでCDを取り込む時にエラーが発生します。 ",
+    "permalink": "https://matsueushi.github.io/posts/mac-cd-54/",
+    "tags": [
+      "Memo"
+    ],
+    "title": "MacでCDドライブで曲が取り込めない(-54)-\u003e直った"
+  },
+  {
     "contents": "SpotifyのBOaTのアーティストページに\u0026quot;Lurk\u0026quot;という曲が登録(2024/5/23)されており、一部でBOaTの新曲か？と色めき立っていたようです。\n知らん間にBOATの新曲がサブスク解禁されてる。\nしかもエレクトロニクスて。\nどういう意図なんやろ。 https://t.co/lAVvZK2Rh3\n\u0026mdash; ハラダ@繊細な方 (@pobity) June 26, 2024 これはなにどういうこと\nhttps://t.co/wUrxpEcaM7\n\u0026mdash; aterazawa (@panicattheJUSCO) May 21, 2024 これなんす#BOAT #Lurk pic.twitter.com/dQbjJes12i\n\u0026mdash; 名前 (@daremobakajanai) August 25, 2024 突然申し訳ないのですが、Boatのspotifyにでているlurkなる曲について何か知っていますでしょうか、、？ pic.twitter.com/wKEV9bJZmN\n\u0026mdash; しゃしゃしゃ (@2xKAgOHIaZ52347) June 30, 2024 予想 同名のアーティストがパブリッシュした曲が同じページにまとめられているだけで、AxSxEを始めとするBOaTのメンバーが作った曲ではないと予想します。\n理由 確実に違うと断言できるような証拠はないですが、以下のような間接的な証拠は存在します。\n作風 まず、作風が今までのBOaT, Natsumen, AxSxE提供曲とあまりにも違っており、AxSxEさんっぽさが感じられません。\nJASRACに登録されていない AxSxEさんが楽曲提供した曲、BOaT, Natsumenの曲はほぼJASRACに登録されています。JASRACに登録されている楽曲は、J-WIDで検索することができます。著作権者名が\u0026quot;Ａ×Ｓ×Ｅ\u0026quot;, \u0026ldquo;阿瀬　研一\u0026rdquo;, \u0026ldquo;Ａ．Ｓ．Ｅ．\u0026ldquo;で検索すると私が知っているAxSxE関連曲の全てが出てきますが\u0026quot;Lurk\u0026quot;はこちらに含まれていません。\n新曲に関する記事が出てこない 2022年にROROがサブスク解禁された際には、ナタリー で記事になっていましたし、新曲が出たら記事になってもおかしくないのではないかと思いました。\n以前も同名アーティストがまとめられていることがあった 以前Apple Musicで同名のバンドとページが一括りになってしまっていることがありました。\n",
     "permalink": "https://matsueushi.github.io/posts/boat-lurk/",
     "tags": [

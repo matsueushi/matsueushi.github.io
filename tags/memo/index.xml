@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2024</copyright>
-    <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2024 12:04:33 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/memo/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
+      <link>https://matsueushi.github.io/posts/mac-cd-54/</link>
+      <pubDate>Mon, 14 Oct 2024 12:04:33 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/mac-cd-54/</guid>
+      <description>&lt;p&gt;自分用メモ。
+An unknown error occurred (-54) が出た時は、&lt;/p&gt;
+&lt;p&gt;システム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする&lt;/p&gt;
+&lt;p&gt;と直る。&lt;/p&gt;
+&lt;p&gt;-　&lt;a href=&#34;https://minkymoon.jp/2024/02/05/apple-mac-music-app-error-54/&#34;&gt;【解決策追記】Macのミュージックで「不明なエラーが発生しました(-54)」エラー。CDを取り込めないぞ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://discussionsjapan.apple.com/thread/255440659?answerId=260186085122&amp;amp;sortBy=rank#260186085122&#34;&gt;ミュージックでCDを取り込む時にエラーが発生します。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Rustでcargo test中にprintlnする</title>
