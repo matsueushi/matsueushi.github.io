@@ -1036,18 +1036,6 @@
       
       <guid>https://matsueushi.github.io/other/bookmark/</guid>
       <description>&lt;p&gt;完全に自分用です。&lt;/p&gt;
-&lt;h4 id=&#34;調べ物&#34;&gt;調べ物&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://ndlonline.ndl.go.jp&#34;&gt;国立国会図書館オンライン&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rnavi.ndl.go.jp/jp/index.html&#34;&gt;リサーチ・ナビ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.jinbun-db.com/&#34;&gt;人文系データベース協議会&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;図書館関連&#34;&gt;図書館関連&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.libraryfair.jp/&#34;&gt;図書館総合展&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://libmaro.kyoto.jp/&#34;&gt;ししょまろはんラボ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://asoblib.blogspot.com/2019/01/in-2.html&#34;&gt;図書館で著作権処理やってた人が没年調査ソン in福井 第2回に参加して考えたこと&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h4 id=&#34;音楽関連&#34;&gt;音楽関連&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.whosampled.com/&#34;&gt;who sampled&lt;/a&gt;&lt;/li&gt;
@@ -1059,6 +1047,10 @@
 &lt;li&gt;&lt;a href=&#34;https://psffreaks.hatenablog.com/&#34;&gt;P.S.F. Records Modern Music 研究室&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://lightmellowbu.blog.fc2.com/&#34;&gt;ディスクレビュー(disk review)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://hackazine-tw.com/&#34;&gt;黑卡雜誌&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.niji.or.jp/home/myasuda/indies_top.html&#34;&gt;リットーミュージック　Indies magazine　付録CD　収録曲リスト&lt;/a&gt; &lt;a href=&#34;https://web.archive.org/web/20021124082001/https://www.niji.or.jp/home/myasuda/indies_top.html&#34;&gt;Archive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://magazine.tunecore.co.jp/&#34;&gt;THE MAGAZINE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://musicnightwhisper.blog.fc2.com/&#34;&gt;縞梟の音楽夜噺&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://web.archive.org/web/20131020223637/http://home.att.ne.jp/surf/laura/roj/&#34;&gt;ROCKIN&amp;rsquo;ON JAPAN. INDEX&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;プログラミング関連&#34;&gt;プログラミング関連&lt;/h4&gt;
 &lt;ul&gt;
@@ -1086,10 +1078,29 @@
 &lt;li&gt;&lt;a href=&#34;http://elsur.jpn.org/202004MMM/&#34;&gt;マーケティング・ミックス・モデリング&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://theaisummer.com/diffusion-models/&#34;&gt;How diffusion models work: the math from scratch&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://ocwx.ocw.u-tokyo.ac.jp/course_11416/&#34;&gt;数理手法Ⅶ&amp;lt;時系列&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://aotamasaki.hatenablog.com/entry/2019/01/05/195813&#34;&gt;ランダムフォレストと検定を用いた特徴量選択手法 Boruta&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scmopt.github.io/opt100/index.html&#34;&gt;Python言語による実務で使える100+の最適化問題&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;科学&#34;&gt;科学&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://retractionwatch.com/&#34;&gt;Retraction watch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;調べ物&#34;&gt;調べ物&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://ndlonline.ndl.go.jp&#34;&gt;国立国会図書館オンライン&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rnavi.ndl.go.jp/jp/index.html&#34;&gt;リサーチ・ナビ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.jinbun-db.com/&#34;&gt;人文系データベース協議会&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jahis.law.nagoya-u.ac.jp/who/search&#34;&gt;『人事興信録』データベース&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;図書館関連&#34;&gt;図書館関連&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.libraryfair.jp/&#34;&gt;図書館総合展&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://libmaro.kyoto.jp/&#34;&gt;ししょまろはんラボ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://asoblib.blogspot.com/2019/01/in-2.html&#34;&gt;図書館で著作権処理やってた人が没年調査ソン in福井 第2回に参加して考えたこと&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;ゲーム&#34;&gt;ゲーム&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wikiwiki.jp/slaythespire/&#34;&gt;Slay the Spire攻略 Wiki*&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;たまに振り返って読みたくなるもの&#34;&gt;たまに振り返って読みたくなるもの&lt;/h4&gt;
 &lt;ul&gt;
@@ -1101,6 +1112,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://radiology-history.online/index.html&#34;&gt;放射線医学の歴史&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://trade-adviser.jimdofree.com/&#34;&gt;海外販路開拓 - 海外営業と貿易実務&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mmsrv.ninjal.ac.jp/hogendanwa_siryo/&#34;&gt;『方言談話資料』データ&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
