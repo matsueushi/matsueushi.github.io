@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Translating nested dictionary to struct in Julia</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.135.0">
+	<meta name="generator" content="Hugo 0.140.2">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -317,34 +317,34 @@ Pythonでもキーワード引数に<code>Dict{Symbol, T}</code>型のオブジ�
 <table>
   <thead>
       <tr>
-          <th style="text-align: left"></th>
-          <th style="text-align: left"><code>Union{S, Nothing}</code></th>
-          <th style="text-align: left"><code>Vector{S}</code></th>
-          <th style="text-align: left"><code>Dict</code></th>
-          <th style="text-align: left">それ以外</th>
+          <th></th>
+          <th><code>Union{S, Nothing}</code></th>
+          <th><code>Vector{S}</code></th>
+          <th><code>Dict</code></th>
+          <th>それ以外</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><code>Vector</code></td>
-          <td style="text-align: left"><code>convertdict(S, v)</code></td>
-          <td style="text-align: left"><code>convertdict.(S, v)</code></td>
-          <td style="text-align: left">&mdash;</td>
-          <td style="text-align: left">&mdash;</td>
+          <td><code>Vector</code></td>
+          <td><code>convertdict(S, v)</code></td>
+          <td><code>convertdict.(S, v)</code></td>
+          <td>&mdash;</td>
+          <td>&mdash;</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>Dict</code></td>
-          <td style="text-align: left"><code>convertdict(S, v)</code></td>
-          <td style="text-align: left">&mdash;</td>
-          <td style="text-align: left"><code>v</code></td>
-          <td style="text-align: left">マッピングを実施</td>
+          <td><code>Dict</code></td>
+          <td><code>convertdict(S, v)</code></td>
+          <td>&mdash;</td>
+          <td><code>v</code></td>
+          <td>マッピングを実施</td>
       </tr>
       <tr>
-          <td style="text-align: left">それ以外</td>
-          <td style="text-align: left"><code>convertdict(S, v)</code></td>
-          <td style="text-align: left">&mdash;</td>
-          <td style="text-align: left">&mdash;</td>
-          <td style="text-align: left"><code>v</code></td>
+          <td>それ以外</td>
+          <td><code>convertdict(S, v)</code></td>
+          <td>&mdash;</td>
+          <td>&mdash;</td>
+          <td><code>v</code></td>
       </tr>
   </tbody>
 </table>
