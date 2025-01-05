@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.135.0">
+	<meta name="generator" content="Hugo 0.140.2">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -257,34 +257,34 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Rounding</th>
-          <th style="text-align: left">\((+0)+(+0)\)</th>
-          <th style="text-align: left">\((-0)+(+0)\)</th>
-          <th style="text-align: left">\((+0)+(-0)\)</th>
-          <th style="text-align: left">\((-0)+(-0)\)</th>
+          <th>Rounding</th>
+          <th>\((+0)+(+0)\)</th>
+          <th>\((-0)+(+0)\)</th>
+          <th>\((+0)+(-0)\)</th>
+          <th>\((-0)+(-0)\)</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">roundTiesToEven (<code>RoundNearest</code>)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(-0\)</td>
+          <td>roundTiesToEven (<code>RoundNearest</code>)</td>
+          <td>\(+0\)</td>
+          <td>\(+0\)</td>
+          <td>\(+0\)</td>
+          <td>\(-0\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">roundTowardPositive (<code>RoundUp</code>)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(-0\)</td>
+          <td>roundTowardPositive (<code>RoundUp</code>)</td>
+          <td>\(+0\)</td>
+          <td>\(+0\)</td>
+          <td>\(+0\)</td>
+          <td>\(-0\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">roundTowardNegative (<code>RoundDown</code>)</td>
-          <td style="text-align: left">\(+0\)</td>
-          <td style="text-align: left">\(-0\)</td>
-          <td style="text-align: left">\(-0\)</td>
-          <td style="text-align: left">\(-0\)</td>
+          <td>roundTowardNegative (<code>RoundDown</code>)</td>
+          <td>\(+0\)</td>
+          <td>\(-0\)</td>
+          <td>\(-0\)</td>
+          <td>\(-0\)</td>
       </tr>
   </tbody>
 </table>
