@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2024</copyright>
-    <lastBuildDate>Mon, 14 Oct 2024 12:04:33 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 31 Dec 2024 14:19:13 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -653,27 +653,317 @@
     </item>
     
     <item>
-      <title>BOaTまとめ</title>
-      <link>https://matsueushi.github.io/other/boat/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>BOaTとは...</title>
+      <link>https://matsueushi.github.io/boat/profile/</link>
+      <pubDate>Tue, 31 Dec 2024 14:19:13 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/other/boat/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;../../posts/boat-roro/&#34;&gt;アルバムの紹介&lt;/a&gt;にも書いたバンド&lt;a href=&#34;https://ja.wikipedia.org/wiki/BOAT&#34;&gt;BOaT&lt;/a&gt;の情報がインターネット上で見つかりづらいので、
-関連する情報をこのページにまとめていきたいと思います。&lt;/p&gt;
-&lt;p&gt;当初はBOaT関連の情報だけまとめようと思っていたのですが、NATSUMEN関連の情報や、自分がメモしておきたい情報も混ざってきています。&lt;/p&gt;
-&lt;p&gt;耳寄りな情報があればコメント欄などで教えていただけるとありがたいです。&lt;/p&gt;
-&lt;h2 id=&#34;書いた記事&#34;&gt;書いた記事&lt;/h2&gt;
+      <guid>https://matsueushi.github.io/boat/profile/</guid>
+      <description>&lt;p&gt;Wikipediaのページ &lt;a href=&#34;https://ja.wikipedia.org/wiki/BOAT&#34;&gt;BOAT - Wikipedia&lt;/a&gt; はあるものの、
+詳しいことを調べようとするとなかなか情報が見つからないBOaTについてまとめているページです。
+ここに載っていない情報、間違いの指摘などお待ちしております。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;BOaT (BOAT, boat, ボートとも書かれる) は、日本のロックバンドである。1996年に結成し、2001年に事実上解散。&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+当初は「東京ヲ拠点ニする男２女３の、原宿ＰＯＰ＆中華ＳＰＯＲＴＳバンド。」を自称していた。 &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;商業的な成功には恵まれなかったが、ラストアルバム「RORO」はジャパニーズ・ポストロックの名盤として評価が高い。&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h3 id=&#34;メンバー&#34;&gt;メンバー&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;A.S.E: Guitar, Vocals&lt;/strong&gt;
+別名: ASE &lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;、∀.S.E &lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;アイン: Miming, Vocals&lt;/strong&gt;
+別名: AINE &lt;sup id=&#34;fnref1:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;しおり: Bass, Vocals&lt;/strong&gt;
+別名: SHIORI &lt;sup id=&#34;fnref2:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;マユコ: Drums, Chorus&lt;/strong&gt;
+別名: MAYUKO BOAT &lt;sup id=&#34;fnref3:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;坂井キヨオシ: Keyboards, Chorus&lt;/strong&gt;
+別名: KIYOSICK &lt;sup id=&#34;fnref4:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h3 id=&#34;来歴&#34;&gt;来歴&lt;/h3&gt;
+&lt;p&gt;1996年、慶應義塾大学の音楽サークルで知り合ったA.S.Eと坂井、しおり、マユコの4人で結成。当初はジミヘンのコピーバンドで、録音やテープ作りばかりでライブは行っていなかった。 &lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;1997年に電車で知り合ったアインがバンドに加入。この頃からライブ活動を開始する。&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;1998年、7月にバッド・ニュースからデモ音源を収録したファーストアルバム「フルーツ☆リー」をリリース。
+11月にはニューヨークで行われたCMJ Music Marathonに参加。&lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;1999年、下北沢シェルター、十三ファンダンゴで初のワンマンライブを開催。 &lt;sup id=&#34;fnref1:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;
+下北沢シェルター(十三ファンタンゴも？)のワンマンライブは、店頭でのチケット販売はなく、「BOAT THE VIDEO KILL KILL TICKET～ボート先生」というビデオを購入し、会場にビデオを持参した人のみ入場できた。&lt;sup id=&#34;fnref:10&#34;&gt;&lt;a href=&#34;#fn:10&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;10&lt;/a&gt;&lt;/sup&gt;
+3月にバッド・ニュースからセカンドアルバム「SOUL, THRASH, TRAIN」をリリース。&lt;/p&gt;
+&lt;p&gt;2000年、6月にeast west japanより、マキシ・シングル「狂言メッセージ」をリリースしてメジャー・デビュー。 &lt;sup id=&#34;fnref:11&#34;&gt;&lt;a href=&#34;#fn:11&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;11&lt;/a&gt;&lt;/sup&gt;
+eastwestから會田茂一プロデュースのサードアルバム「Listening Suicidal」および限定アナログ盤「Listening Extra」を同時リリース。&lt;/p&gt;
+&lt;p&gt;2001年、4月にラストアルバムとなる「RORO」をリリース。前作までとは大きく路線を変更し、ポストロック・プログレッシブポップ色の強いアルバムとなった。
+9月28日にCLUB Queで行われたライブで、坂井、しおり、マユコが&amp;quot;卒業&amp;quot;し、事実上の解散となる。 &lt;sup id=&#34;fnref:12&#34;&gt;&lt;a href=&#34;#fn:12&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;12&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:13&#34;&gt;&lt;a href=&#34;#fn:13&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;13&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:14&#34;&gt;&lt;a href=&#34;#fn:14&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;14&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:15&#34;&gt;&lt;a href=&#34;#fn:15&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;15&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h3 id=&#34;discography&#34;&gt;Discography&lt;/h3&gt;
+&lt;p&gt;A.S.Eによる紹介は &lt;a href=&#34;https://web.archive.org/web/20031005212412/http://boat.d4k.net/boat2.html&#34;&gt;こちら&lt;/a&gt; で読むことができる。&lt;/p&gt;
+&lt;p&gt;east west japan時代の音源はサブスク解禁されておらず、特にROROはプレミア価格で中古を購入する以外に正規の試聴方法が無かった &lt;sup id=&#34;fnref:16&#34;&gt;&lt;a href=&#34;#fn:16&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;16&lt;/a&gt;&lt;/sup&gt; が、2022年8月にワーナーミュージック・ジャパン時代の音源がサブスク解禁された。&lt;sup id=&#34;fnref:17&#34;&gt;&lt;a href=&#34;#fn:17&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;17&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;コンピレーションアルバムへの参加も含め、私が把握しているものは &lt;a href=&#34;https://rateyourmusic.com/artist/boat-2&#34;&gt;Rate Your Music の BOaT&lt;/a&gt; のページに登録しています。&lt;/p&gt;
+&lt;h4 id=&#34;album&#34;&gt;Album&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;../../posts/boat-roro/&#34;&gt;BOaT - RORO (2001)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../../posts/boat-lurk/&#34;&gt;BOaT の新曲 (?)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../axsxe/&#34;&gt;AxSxE まとめ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;フルーツ☆リー
+&lt;ul&gt;
+&lt;li&gt;バッド・ニュース / BN-108 / 1998-07-25 発売&lt;sup id=&#34;fnref:18&#34;&gt;&lt;a href=&#34;#fn:18&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;18&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;バッド・ニュース / (再発) BNCL-4 / 2000-01-21 発売 &lt;sup id=&#34;fnref:19&#34;&gt;&lt;a href=&#34;#fn:19&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;19&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;バッド・ニュースによる雑誌広告の宣伝文句は「梅雨明け宣言！夏だ、プールを占拠しろ！」。&lt;sup id=&#34;fnref:20&#34;&gt;&lt;a href=&#34;#fn:20&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;20&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;滝本竜彦によるライトノベル「ネガティブハッピー・チェーンソーエッヂ」のタイトルの由来は、滝本が「Thank You &amp;amp; Good-Bye」の歌詞を聞き間違えたことによるもの。「ネガティブハッピー・チェーンソーエッヂ」のラジオドラマのED曲では「夕日」が使用されている。&lt;sup id=&#34;fnref:21&#34;&gt;&lt;a href=&#34;#fn:21&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;21&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;2001年のラストライブで最後に演奏された曲は「Thank You &amp;amp; Good-Bye」だった。&lt;sup id=&#34;fnref1:15&#34;&gt;&lt;a href=&#34;#fn:15&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;15&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:22&#34;&gt;&lt;a href=&#34;#fn:22&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;22&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ソウル、スラッシュ、トレイン
+&lt;ul&gt;
+&lt;li&gt;バッド・ニュース / BN-111 / 1999-03-26 発売&lt;sup id=&#34;fnref:23&#34;&gt;&lt;a href=&#34;#fn:23&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;23&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;バッド・ニュース / (再発) BNCL-5 / 2000-01-21 発売&lt;sup id=&#34;fnref:24&#34;&gt;&lt;a href=&#34;#fn:24&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;24&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;「KILL / KILL」はテレビ朝日の深夜番組「MEW」のオープニングテーマに採用された。&lt;sup id=&#34;fnref:25&#34;&gt;&lt;a href=&#34;#fn:25&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;25&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:26&#34;&gt;&lt;a href=&#34;#fn:26&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;26&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;沖縄でもレコーディングが行われた。&lt;sup id=&#34;fnref:27&#34;&gt;&lt;a href=&#34;#fn:27&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;27&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;LISTENING SUICIDAL
+&lt;ul&gt;
+&lt;li&gt;イーストウェスト / AMCN-4501 / 2000-08-23 発売&lt;sup id=&#34;fnref:28&#34;&gt;&lt;a href=&#34;#fn:28&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;28&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;會田茂一(アイゴン)によるプロデュース。レコーディングは新大久保のフリーダムで、2000年の2月の終わりから5月頭に行われた。&lt;sup id=&#34;fnref:29&#34;&gt;&lt;a href=&#34;#fn:29&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;29&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;格段に録音の質が向上しており、ハイテンションなミクスチャーロックアルバム。今までの作風を踏襲しつつ、10分を超えるプログレッシブ・ポップ「グッバイ・マイ・ストレンジ・ナンバー28」や、初回限定8cmCDに収録された「RORO」の「Rummy Night」のプロトタイプ版である「NIGHT HAWK NIGHT」など、「RORO」への進化を想起される曲が含まれている。&lt;/li&gt;
+&lt;li&gt;「DONT&amp;rsquo; YOU」ではテクマ！がダンサーとして出演している。&lt;sup id=&#34;fnref:30&#34;&gt;&lt;a href=&#34;#fn:30&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;30&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;RORO
+&lt;ul&gt;
+&lt;li&gt;イーストウェスト / AMCN-4527 / 2001-04-11 発売&lt;sup id=&#34;fnref:31&#34;&gt;&lt;a href=&#34;#fn:31&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;31&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;A.S.Eによるセルフプロデュース。ラストアルバムであり、BOaTの最高傑作との呼び声が高い。&lt;/li&gt;
+&lt;li&gt;アルバムの録音は自由が丘のスタジオ「Circle Sounds」で行われ、A.S.Eはスタジオに寝泊まりして何週間も家に帰らないような状態になっていた。&lt;sup id=&#34;fnref:32&#34;&gt;&lt;a href=&#34;#fn:32&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;32&lt;/a&gt;&lt;/sup&gt; アルバムの最後の曲名は「CIRCLE SOUND」となっている。&lt;sup id=&#34;fnref:33&#34;&gt;&lt;a href=&#34;#fn:33&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;33&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;帯の謳い文句は、「流れる切なさ、遠のく知覚。全てを抱えメロディーは響く」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;single&#34;&gt;Single&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;ウォティパティ（パ’２８）/ Usunoro Pork Face&lt;/li&gt;
+&lt;li&gt;狂言メッセージ / DON&amp;rsquo;T YOU
+&lt;ul&gt;
+&lt;li&gt;住所不定無職の「JAKAJAAAAAN!!!!!」には、「狂言メッセージ」のカバーが収録されている。&lt;sup id=&#34;fnref:34&#34;&gt;&lt;a href=&#34;#fn:34&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;34&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ライブ&#34;&gt;ライブ&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20031217164240/http://boat.d4k.net/live.html&#34;&gt;公式サイトのこのページ&lt;/a&gt; に詳しい。
+セットリストや追加情報があるものだけを下に記載しておきます。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;日付&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;場所&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;名前&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;セットリスト&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2001-09-28 &lt;sup id=&#34;fnref1:22&#34;&gt;&lt;a href=&#34;#fn:22&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;22&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;下北沢Club Que&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;THE 7 WONDERS OF Que&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1.ALL&lt;br&gt;2.PLANET FOXY&lt;br&gt;3.PILLS TO KILL MA AUGUST&lt;br&gt;4.プールジャック&lt;br&gt;5.ウォティパティ&lt;br&gt;6.スマートボール&lt;br&gt;7.雲番人Bと釣人A&lt;br&gt;8.夕日&lt;br&gt;9.MARCH OF BOOAT&lt;br&gt;10.Mr.グリーン&lt;br&gt;11.(JAZZ)&lt;br&gt;12.THE WORD IN THE SEASON&lt;br&gt;13.AKIRAMUJINA&lt;br&gt;(アンコール)&lt;br&gt;1.蛍の光&lt;br&gt;2.Listening13 (Flush fast)&lt;br&gt;3.Thank You &amp;amp; Good-Bye&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2001-09-22 &lt;sup id=&#34;fnref:35&#34;&gt;&lt;a href=&#34;#fn:35&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;35&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&#34;fnref:36&#34;&gt;&lt;a href=&#34;#fn:36&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;36&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;渋谷クラブクアトロ&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;w/ DATE COURSE PENTAGON ROYAL GARDEN, PANICSMILE&lt;br&gt;DJ: CAPTAIN FUNK&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1.RUMMY NIGHT&lt;br&gt;2.雲番人Bと釣人A&lt;br&gt;3.ALL&lt;br&gt;4.PILLS TO KILL MA AUGUST&lt;br&gt;5.AKIRAMUJINA&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2001-05-07 &lt;sup id=&#34;fnref:37&#34;&gt;&lt;a href=&#34;#fn:37&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;37&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;豊橋LAHAINA&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;w/ DOMINO&#39;88, TROPHY&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1.ALL&lt;br&gt;2.RUMMY NIGHT&lt;br&gt;3.PLANET FOXY&lt;br&gt;4.雲番人Bと釣人A&lt;br&gt;5.ウォティパティ&lt;br&gt;6.AKIRAMUJINA&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2001-01-31 &lt;sup id=&#34;fnref:38&#34;&gt;&lt;a href=&#34;#fn:38&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;38&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;IMS HALL&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;IMS プレミアムLIVE VOL.41 2001スタートライヴ&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1.学生&lt;br&gt;2.PLANET FOXY&lt;br&gt;3.雲番人Bと釣人A &lt;br&gt;4.狂言メッセージ&lt;br&gt;5.ジャヅ&lt;br&gt;6.ウォティパティ&lt;br&gt;7.AKIRAMUJINA&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1999-03-13 &lt;sup id=&#34;fnref:39&#34;&gt;&lt;a href=&#34;#fn:39&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;39&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;お台場フジテレビV4スタジオ&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;FACTORY収録&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1.プールジャック&lt;br&gt;2.ウォティパティ&lt;br&gt;3.KILL/KILL&lt;br&gt;4.Mr.グリーン&lt;br&gt;5.Mo&amp;rsquo;el Gakusei&lt;br&gt;6.スマートボール&lt;br&gt;7.夕日&lt;br&gt;8.１２回&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;出演&#34;&gt;出演&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;1998-12-25 FM OSAKA EZM&lt;sup id=&#34;fnref1:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;外部リンク&#34;&gt;外部リンク&lt;/h3&gt;
+&lt;h4 id=&#34;公式&#34;&gt;公式&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wmg.jp/boat/&#34;&gt;BOAT / ボート | Warner Music Japan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://warnermusicjapan.lnk.to/boat&#34;&gt;BOAT (音楽配信サイトへのリンク)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;初代ウェブサイト &lt;a href=&#34;https://web.archive.org/web/20000306162422/http://www.bekkoame.ne.jp:80/~ketsu/boat/index.html&#34;&gt;Rock the boat : Welcome to boat&amp;rsquo;s home page&lt;/a&gt; (Internet Archive, 2000-03-06時点のアーカイブ)&lt;/li&gt;
+&lt;li&gt;2代目ウェブサイト &lt;a href=&#34;https://web.archive.org/web/20011222013618/http://boat.d4k.net:80/index.html&#34;&gt;Rock the boat : Welcome to boat&amp;rsquo;s home page&lt;/a&gt; (Internet Archive, 2001-12-22時点のアーカイブ)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;メンバーsns&#34;&gt;メンバーSNS&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.threads.net/@kiyooshi&#34;&gt;坂井キヨオシ(@kiyooshi) • Threadsでもっと語ろう&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.instagram.com/kiyooshi/&#34;&gt;坂井キヨオシ(@kiyooshi) • Instagram写真と動画&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;コミュニティ&#34;&gt;コミュニティ&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.discogs.com/artist/1401530-Boat-2&#34;&gt;Discogs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rateyourmusic.com/artist/boat_f1&#34;&gt;Rate Your Music&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.last.fm/music/Boat&#34;&gt;last.fm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://musicbrainz.org/artist/1a503a83-426b-43f8-97b5-463468f92b18&#34;&gt;MusicBrainz&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mixi.jp/view_community.pl?id=457650&#34;&gt;mixiコミュニティ BOaT（BOAT） ～2001&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2ch5ch過去ログ&#34;&gt;2ch/5ch過去ログ&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://piza.5ch.net/test/read.cgi/musicj/986373365&#34;&gt;BOAT&lt;/a&gt; (2001-04-04 - 2001-04-15)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cheese.5ch.net/test/read.cgi/music/987668377/&#34;&gt;「ｂｏａｔ」&lt;/a&gt; (2001-04-19 - 2001-05-14)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://music.5ch.net/test/read.cgi/musicj/1004181561/&#34;&gt;今度こそ浮沈ＢＯＡＴにするスレだ！！！&lt;/a&gt; (2001-10-27 - 2002-01-11)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://music2.5ch.net/test/read.cgi/minor/1054659746/&#34;&gt;○BOAT / NATSUMEN○&lt;/a&gt; (2003-06-04 - 2004-02-16)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://music4.5ch.net/test/read.cgi/minor/1096422448/&#34;&gt;○NATSUMEN / BOAT○ part.xxx&lt;/a&gt; (2004-09-29 - 2005-03-05)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://music6.5ch.net/test/read.cgi/legend/1112098129/&#34;&gt;◆BOaT◆&lt;/a&gt; (2005-03-29 - 2007-03-03)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://yomogi.5ch.net/test/read.cgi/legend/1173109472/&#34;&gt;【ついに】BOaT【復活？】&lt;/a&gt; (2007-03-06 - )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;2001-09-28のライブで3人が&amp;quot;卒業&amp;quot;した以降も、A.S.Eとアインによるデュオとして散発的な活動 (例:
+&lt;a href=&#34;https://clubque.net/livereport/02report/021130.html&#34;&gt;NEVER WEAR OUT YOUR SUMMER!!!｜2002｜LIVE REPORT｜CLUB Que WEBSITE&lt;/a&gt; や 2004年のGUT 1+1への曲提供)
+があったため、Rate Your Musicでは2004年が解散とされている
+(&lt;a href=&#34;https://rateyourmusic.com/artist/profile_details?id=1707248&#34;&gt;Artist Profile Submission #1707248 - Rate Your Music&lt;/a&gt;) が、
+2001-09-28の&amp;quot;卒業&amp;quot;を以てBOaTが(実質的に)解散したと見做している取り扱いが多いため、ここでも同様に扱う&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20000306162422/http://www.bekkoame.ne.jp:80/~ketsu/boat/index.html&#34;&gt;Rock the boat : Welcome to boat&amp;rsquo;s home page&lt;/a&gt; (Internet Archive, 2000-03-06時点のアーカイブ)&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://kai-you.net/article/76132&#34;&gt;「Sai no Kawara」の音楽的達成　crystal-zの半生とヒップホップである理由 - KAI-YOU&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;&amp;ldquo;INDIES ATTACK! ACT.4&amp;rdquo;. B-PASS. 1999年8月号&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref2:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref3:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref4:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;&amp;ldquo;BOaTマユコ&amp;rdquo;. &lt;a href=&#34;https://www.rittor-music.co.jp/backnumber/dm/dm200009.html&#34;&gt;リズム＆ドラム・マガジン 2000年09月号&lt;/a&gt;. p.p. 44-45&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.roy.hi-ho.ne.jp/mask/ezm/on-air/guest06.htm#981225&#34;&gt;EZM 4 LIFE [過去のインタビュー内容]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.fujitv.co.jp/FACTORY/CX0006/0001pro.html&#34;&gt;FACTORY8 #0006 boat PROFILE&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:8&#34;&gt;
+&lt;p&gt;CMJ Music Marathonの広告にバンド名が掲載されている. CMJ New Music Report. &lt;a href=&#34;https://www.worldradiohistory.com/Archive-All-Music/CMJ/1998/CMJ-1998-11-02.pdf&#34;&gt;November 2, 1998, Issue 594, Vol.56 No.7&lt;/a&gt;. p.p.17&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:9&#34;&gt;
+&lt;p&gt;Bad Newsの広告ページ &amp;ldquo;BOATってこんな奴! 連載第一回 ASE（ギター＆ボーカル 担当）&amp;rdquo;. ROCKIN’ON JAPAN 1999年4月号 vol.166&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:10&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.loft-prj.co.jp/loftarchives/shelter/1999/01/&#34;&gt;1999年1月-下北沢シェルター – ロフトアーカイブス&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:10&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:11&#34;&gt;
+&lt;p&gt;So-net内のインタビューページ &lt;a href=&#34;https://web.archive.org/web/20010305063408/https://www.so-net.ne.jp/mc/brandnew/00/0622/boat1.html&#34;&gt;music club on line&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:11&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:12&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20011222013618/http://boat.d4k.net:80/index.html&#34;&gt;Rock the boat : Welcome to boat&amp;rsquo;s home page&lt;/a&gt; (Internet Archive, 2001-12-22時点のアーカイブ)&amp;#160;&lt;a href=&#34;#fnref:12&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:13&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://clubque.net/livereport/01report/010928.html&#34;&gt;Clingon vs BOAT｜2001｜LIVE REPORT｜CLUB Que WEBSITE&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:13&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:14&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.shimokitazawa.info/news/2015/07/powann_po/&#34;&gt;第3-1回『ぽわん』 ～ コラム：下北沢は通過点でかまわない - 下北沢情報サイト【しもブロ】&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:14&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:15&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://note.com/ymkx/n/nf72b1408ec1d&#34;&gt;［4本目］下北沢に居着いた決定的な出来事は、BOaTというバンドとの出会い&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:15&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:15&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:16&#34;&gt;
+&lt;p&gt;SHIBUYA TSUTAYA、神保町のジャニスなど、レンタルできる店舗は存在していた。現在は両店舗ともCDレンタルの営業を終了している&amp;#160;&lt;a href=&#34;#fnref:16&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:17&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://natalie.mu/music/news/489185&#34;&gt;BOaT「RORO」など3作をワーナーミュージックがサブスク解禁&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:17&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:18&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/fruits-lee/3198080995&#34;&gt;ボート / フルーツ☆リー - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:18&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:19&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/fruits-lee/3199120009&#34;&gt;ボート / フルーツ☆リー [再発] - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:19&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:20&#34;&gt;
+&lt;p&gt;バッド・ニュースの広告. ROCKIN&amp;rsquo;ON JAPAN 1998年8月号. p.p. 169&amp;#160;&lt;a href=&#34;#fnref:20&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:21&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://nuryouguda.hatenablog.com/entry/20080128/1201507337&#34;&gt;ネガティブハッピー・チェーンソーエッヂのタイトルの由来&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:21&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:22&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://pulsemod.hatenablog.com/entry/2001/09/28/146/&#34;&gt;&amp;ldquo;THE 7 WONDERS OF Que &amp;ldquo;vs 8&amp;quot;&amp;rdquo; @下北沢Club Que - pulse modulation&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:22&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:22&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:23&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/soul-thrash-train/3199031049&#34;&gt;ボート / ソウル、スラッシュ、トレイン - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:23&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:24&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/soul-thrash-train/3199120010&#34;&gt;ボート / ソウル、スラッシュ・トレイン [再発] - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:24&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:25&#34;&gt;
+&lt;p&gt;Bad Newsの広告ページ &amp;ldquo;BOATってこんな奴! 連載第四回 サカイ（キーボード＆コーラス 担当）&amp;rdquo;. ROCKIN’ON JAPAN 1999年7月号 vol.169&amp;#160;&lt;a href=&#34;#fnref:25&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:26&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.fujitv.co.jp/FACTORY/CX0006/0001res.html&#34;&gt;FACTORY8 #0006 boat RESPONSE&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:26&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:27&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20031005212412/http://boat.d4k.net/boat2.html&#34;&gt;BOATY MUSIK&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:27&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:28&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/listening-suicidal/3200070011&#34;&gt;BOaT / LISTENING SUICIDAL [2CD] [廃盤] - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:28&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:29&#34;&gt;
+&lt;p&gt;&amp;ldquo;BOAT ファースト・テイクには何かがある その精神をアイゴンに注入されました&amp;rdquo;. Sound &amp;amp; Recording magazine 2000年 10月号. p.p. 212&amp;#160;&lt;a href=&#34;#fnref:29&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:30&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20010330193120/http://www.tcup5.com:80/508/boat.html&#34;&gt;Rock the boat BBS&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:30&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:31&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://artist.cdjournal.com/d/roro/3201020430&#34;&gt;BOAT / RORO [廃盤] - CDJournal&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:31&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:32&#34;&gt;
+&lt;p&gt;&amp;ldquo;坂井キヨオシインタビュー「同じフレーズを繰り返すことで、陶酔感みたいな効果を出したかったんです」&amp;rdquo;. Keyboard Magazine 2001年5月号. p.p. 26-27&amp;#160;&lt;a href=&#34;#fnref:32&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:33&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://uroros.net/interview/circlesounds/&#34;&gt;CIRCLE SOUNDS インタビュー | 30周年を迎えたリハーサルスタジオが見てきた景色とは | UROROS&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:33&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:34&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://natalie.mu/music/news/41118&#34;&gt;住所不定無職、新作でBOaT名曲カバーwithマーヤ&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:34&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:35&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20021126033415fw_/http://www.smash-jpn.com/mag/tour/01tr/010922date.html&#34;&gt;Smashing Mag/Date Cource Pentagon Royal Garden at 渋谷クアトロ（2001年9月22日）&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:35&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:36&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20011006034427/http://www.tcup5.com:80/508/boat.html&#34;&gt;Rock the boat BBS&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:36&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:37&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://pulsemod.hatenablog.com/entry/2001/05/07/160/&#34;&gt;BOAT, DOMINO&#39;88 @豊橋LAHAINA - pulse modulation&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:37&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:38&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20080725105719/http://www.bea-net.com/beavoice/issue263/imspremium.html&#34;&gt;263号　IMSプレミアムLIVE VOL.41&lt;/a&gt; (Internet Archive)&amp;#160;&lt;a href=&#34;#fnref:38&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:39&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.fujitv.co.jp/FACTORY/CX0006/index.html&#34;&gt;FACTORY8 #0006 MENU&lt;/a&gt; フライヤーは&lt;a href=&#34;https://www.fujitv.co.jp/FACTORY/FLIER/flier721-0030.html&#34;&gt;こちら&lt;/a&gt;で見れる&amp;#160;&lt;a href=&#34;#fnref:39&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>BOaT 整理中メモ</title>
+      <link>https://matsueushi.github.io/boat/memo/</link>
+      <pubDate>Tue, 31 Dec 2024 14:19:12 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/boat/memo/</guid>
+      <description>&lt;p&gt;メモの残骸が残っています。&lt;a href=&#34;../profile/&#34;&gt;こちら&lt;/a&gt; にどうぞ&lt;/p&gt;
 &lt;h2 id=&#34;公式サイト&#34;&gt;公式サイト&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;http://web.archive.org/web/20010926093602/http://boat.d4k.net:80/&#34;&gt;BOaT &lt;em&gt;(Internet Archive)&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;アーティスト紹介&#34;&gt;アーティスト紹介&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.fujitv.co.jp/FACTORY/CX0006/0001pro.html&#34;&gt;FACTORY8&lt;/a&gt; (&lt;a href=&#34;https://archive.is/6k2jm&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wmg.jp/boat/&#34;&gt;ワーナーミュージック&lt;/a&gt; (&lt;a href=&#34;https://archive.vn/Nkxe2&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;discography&#34;&gt;Discography&lt;/h2&gt;
 &lt;ul&gt;
@@ -916,17 +1206,6 @@
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&#34;sns-配信&#34;&gt;SNS, 配信&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Boat_(band)&#34;&gt;アメリカの同名バンド&lt;/a&gt;と一緒のページにまとめられている場合がある。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.last.fm/music/Boat&#34;&gt;last.fm&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rateyourmusic.com/artist/boat_f1&#34;&gt;Rate Your Music&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://musicbrainz.org/artist/1a503a83-426b-43f8-97b5-463468f92b18&#34;&gt;MusicBrainz&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://mixi.jp/view_community.pl?id=457650&#34;&gt;mixiコミュニティ BOaT（BOAT） ～2001&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://music.apple.com/us/artist/boat/1534705456&#34;&gt;Apple Music&lt;/a&gt;
-「フルーツ☆リー」「SOUL.THRASH.TRAIN」が配信されている。-&amp;gt;ROROやListening Suicidalも配信されました&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/artist/3HlXFEii3WxgUGM58fslGX?si=LGWtSzQjRnmSvWXdntwwBA&#34;&gt;Spotify&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h2 id=&#34;ライブ映像-pvなど&#34;&gt;ライブ映像, PVなど&lt;/h2&gt;
 
 
@@ -984,16 +1263,6 @@
       &gt;&lt;/iframe&gt;
     &lt;/div&gt;
 
-&lt;h2 id=&#34;2ch5ch過去ログ&#34;&gt;2ch/5ch過去ログ&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://piza.5ch.net/test/read.cgi/musicj/986373365&#34;&gt;BOAT&lt;/a&gt; (2001/4/4 - 2001/4/15)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://cheese.5ch.net/test/read.cgi/music/987668377/&#34;&gt;「ｂｏａｔ」&lt;/a&gt; (2001/04/19 - 2001/05/14)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://music.5ch.net/test/read.cgi/musicj/1004181561/&#34;&gt;今度こそ浮沈ＢＯＡＴにするスレだ！！！&lt;/a&gt; (2001/10/27 - 2002/01/11)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://music2.5ch.net/test/read.cgi/minor/1054659746/&#34;&gt;○BOAT / NATSUMEN○&lt;/a&gt; (2003/06/04 - 2004/02/16)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://music4.5ch.net/test/read.cgi/minor/1096422448/&#34;&gt;○NATSUMEN / BOAT○ part.xxx&lt;/a&gt; (2004/09/29 - 2005/03/05)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://music6.5ch.net/test/read.cgi/legend/1112098129/&#34;&gt;◆BOaT◆&lt;/a&gt; (2005/03/29 - 2007/03/03)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://yomogi.5ch.net/test/read.cgi/legend/1173109472/&#34;&gt;【ついに】BOaT【復活？】&lt;/a&gt; (2007/03/06 - )&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;(参考) NATSUMENスレ&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://music4.5ch.net/test/read.cgi/minor/1109943989/&#34;&gt;xxx　NATSUMEN　xxx&lt;/a&gt; (2005/03/04 - 2005/07/20)&lt;/li&gt;
@@ -1014,7 +1283,6 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;ライブ情報ライブレポ感想など&#34;&gt;ライブ情報、ライブレポ、感想など&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://web.archive.org/web/20011025042518/http://boat.d4k.net/concerts.html&#34;&gt;公式サイトのライブのお知らせ &lt;em&gt;(Internet Archive)&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://rooftop.cc/loftarchives/shelter/1999/01/&#34;&gt;下北沢シェルター 1999.1.21&lt;/a&gt; (&lt;a href=&#34;https://archive.is/4CaVc&#34;&gt;アーカイブ&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://web.archive.org/web/20080725105719/http://www.bea-net.com/beavoice/issue263/imspremium.html&#34;&gt;WEB BEA VOICE Vol.263 &lt;em&gt;(Internet Archive)&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;happy voice vol 02 side a, happy voice night 004&lt;/li&gt;
@@ -12363,7 +12631,7 @@ New York, NY 10012&lt;/p&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;2020/08/30追記:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://matsueushi.github.io/other/boat/&#34;&gt;BOaT まとめ&lt;/a&gt; を作りました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://matsueushi.github.io/boat/&#34;&gt;BOaT まとめ&lt;/a&gt; を作りました。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;2022/07/18追記：&lt;/p&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;BOATのROROがリリースされて本日で丸20年。ROROが成人(人じゃないけど)とAxSxEさんに連絡したら興奮気味の返事来たる。部屋にROROのアナログ盤を20年も飾り続けている事になるのだな。NATSUMENのライヴが観たいですと伝えました。またブッキングしたい。 &lt;a href=&#34;https://t.co/LT9e3Myk9Q&#34;&gt;pic.twitter.com/LT9e3Myk9Q&lt;/a&gt;&lt;/p&gt;&amp;mdash; 佐藤則之 (@rideononon) &lt;a href=&#34;https://twitter.com/rideononon/status/1380909845721673729?ref_src=twsrc%5Etfw&#34;&gt;April 10, 2021&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt; 
