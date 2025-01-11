@@ -32,6 +32,9 @@
     <loc>https://matsueushi.github.io/boat/profile/</loc>
     <lastmod>2024-12-31T14:19:13+09:00</lastmod>
   </url><url>
+    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <lastmod>2024-12-31T14:19:13+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/tags/</loc>
     <lastmod>2024-12-31T14:19:13+09:00</lastmod>
   </url><url>
@@ -47,10 +50,7 @@
     <loc>https://matsueushi.github.io/tags/memo/</loc>
     <lastmod>2024-10-14T12:04:33+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/boat-lurk/</loc>
-    <lastmod>2024-10-12T11:38:47+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/music/</loc>
+    <loc>https://matsueushi.github.io/boat/lurk/</loc>
     <lastmod>2024-10-12T11:38:47+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/hal-blue/</loc>
@@ -599,7 +599,7 @@
     <loc>https://matsueushi.github.io/tags/blackdogproductions/</loc>
     <lastmod>2016-10-19T00:25:56-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/boat-roro/</loc>
+    <loc>https://matsueushi.github.io/boat/roro/</loc>
     <lastmod>2016-08-10T00:21:13-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/zaningen/</loc>
