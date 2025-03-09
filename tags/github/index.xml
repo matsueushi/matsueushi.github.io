@@ -18,7 +18,17 @@
       <pubDate>Sat, 08 Mar 2025 23:52:35 +0900</pubDate>
       
       <guid>http://localhost:1313/posts/transfer-github-repository/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;./posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 &lt;a href=&#34;http://localhost:1313/posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt; を書きました。&lt;/p&gt;
+&lt;p&gt;そこで RoundingEmulator.jl という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ IntervalArithmetic.jl に プルリクエスト &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt; を送って丸めモードを指定した計算に使われるようになりました。&lt;/p&gt;
+&lt;p&gt;月日が経つのは早いもので……&lt;/p&gt;
+&lt;p&gt;最近ではどちらかというと Python や Rust を使う機会が多くなり、Julia から遠ざかっていてこのパッケージのメンテナンスは行っておらず事実上放置状態となっておりました。頻繁に更新が必要な類のパッケージではないのでまあ良いだろうと思いそのまま放っておいたのですが、プルリクエストが来ていることに気づきました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/20&#34;&gt;fix tests on 1.12 by KristofferC · Pull Request #20 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるという結果に。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/actions/runs/13569170305&#34;&gt;fix tests on 1.12 · matsueushi/RoundingEmulator.jl@726d314&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ひとまず、直すことにしました。ChatGPT の力を借りて、&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/21&#34;&gt;Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/23&#34;&gt;Update ci by matsueushi · Pull Request #23 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;なんとかテストは通るようになりました。Documenter.jl によるドキュメント生成も落ちているのですが一旦諦めることに。&lt;/p&gt;
 </description>
     </item>
     
