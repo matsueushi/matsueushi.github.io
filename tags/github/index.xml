@@ -29,6 +29,19 @@
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/21&#34;&gt;Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/23&#34;&gt;Update ci by matsueushi · Pull Request #23 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;なんとかテストは通るようになりました。Documenter.jl によるドキュメント生成も落ちているのですが一旦諦めることに。&lt;/p&gt;
+&lt;p&gt;Hello &lt;code&gt;IntervalArithmetic.jl&lt;/code&gt; maintainers,&lt;/p&gt;
+&lt;p&gt;I am the original author of &lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl&#34;&gt;&lt;code&gt;RoundingEmulator.jl&lt;/code&gt;&lt;/a&gt;, which is a dependency of &lt;code&gt;IntervalArithmetic.jl&lt;/code&gt;. Since I am no longer actively using Julia, I would like to transfer the maintenance of &lt;code&gt;RoundingEmulator.jl&lt;/code&gt; to the &lt;a href=&#34;https://github.com/JuliaIntervals&#34;&gt;JuliaIntervals&lt;/a&gt; organization. Transferring it will ensure better long-term support.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;If the JuliaIntervals maintainers agree, I will transfer the repository to &lt;code&gt;JuliaIntervals&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;After the transfer, I will update the repository URL in the &lt;a href=&#34;https://github.com/JuliaRegistries/General&#34;&gt;General registry&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;I will update the README and LICENSE files accordingly to reflect the new ownership.&lt;/li&gt;
+&lt;li&gt;I can provide support during the transition period if needed.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Would JuliaIntervals be interested in taking over maintenance of this package?
+Please let me know your thoughts. I appreciate your time and consideration!&lt;/p&gt;
+&lt;p&gt;Best regards,
+&lt;strong&gt;&lt;a href=&#34;https://github.com/matsueushi&#34;&gt;@matsueushi&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/700&#34;&gt;Proposal to transfer RoundingEmulator.jl to JuliaIntervals · Issue #700 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

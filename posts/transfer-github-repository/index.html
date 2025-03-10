@@ -148,14 +148,34 @@ onload='renderMathInElement(document.body);'></script>
 		<div class="c-rich-text"><p>5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 <a href="/posts/rounding-emulator">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)</a> を書きました。</p>
 <p>そこで RoundingEmulator.jl という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ IntervalArithmetic.jl に プルリクエスト <a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370">Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl</a> を送って丸めモードを指定した計算に使われるようになりました。</p>
 <p>月日が経つのは早いもので……</p>
+<h3 id="放置しているレポジトリにプルリクエストが来た">放置しているレポジトリにプルリクエストが来た</h3>
 <p>最近ではどちらかというと Python や Rust を使う機会が多くなり、Julia から遠ざかっていてこのパッケージのメンテナンスは行っておらず事実上放置状態となっておりました。頻繁に更新が必要な類のパッケージではないのでまあ良いだろうと思いそのまま放っておいたのですが、プルリクエストが来ていることに気づきました。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/20">fix tests on 1.12 by KristofferC · Pull Request #20 · matsueushi/RoundingEmulator.jl</a></p>
 <p>テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるという結果に。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/actions/runs/13569170305">fix tests on 1.12 · matsueushi/RoundingEmulator.jl@726d314</a></p>
-<p>ひとまず、直すことにしました。ChatGPT の力を借りて、</p>
+<p><img src="/images/posts/transfer-github-repository-ci-falling.png" alt="ci falling"></p>
+<h3 id="プルリクエストに対処する">プルリクエストに対処する</h3>
+<p>GitHub Actions が古くなっていることが原因のようだったので、ひとまず、生成 AI の力を借りて修正し、なんとかテストが通るようになりました。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/21">Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl</a></p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/23">Update ci by matsueushi · Pull Request #23 · matsueushi/RoundingEmulator.jl</a></p>
-<p>なんとかテストは通るようになりました。Documenter.jl によるドキュメント生成も落ちているのですが一旦諦めることに。</p>
+<p>master ブランチにマージすると、Documenter.jl によるドキュメントのデプロイの Action が落ちているという結果に。
+多分もう少し頑張れば直るはずですが、一旦諦めて、頂いたプルリクエストをマージしました。</p>
+<h3 id="メンテできないレポジトリをどうするか">メンテできないレポジトリをどうするか</h3>
+<hr>
+<p>Hello <code>IntervalArithmetic.jl</code> maintainers,</p>
+<p>I am the original author of <a href="https://github.com/matsueushi/RoundingEmulator.jl"><code>RoundingEmulator.jl</code></a>, which is a dependency of <code>IntervalArithmetic.jl</code>. Since I am no longer actively using Julia, I would like to transfer the maintenance of <code>RoundingEmulator.jl</code> to the <a href="https://github.com/JuliaIntervals">JuliaIntervals</a> organization. Transferring it will ensure better long-term support.</p>
+<ol>
+<li>If the JuliaIntervals maintainers agree, I will transfer the repository to <code>JuliaIntervals</code>.</li>
+<li>After the transfer, I will update the repository URL in the <a href="https://github.com/JuliaRegistries/General">General registry</a>.</li>
+<li>I will update the README and LICENSE files accordingly to reflect the new ownership.</li>
+<li>I can provide support during the transition period if needed.</li>
+</ol>
+<p>Would JuliaIntervals be interested in taking over maintenance of this package?
+Please let me know your thoughts. I appreciate your time and consideration!</p>
+<p>Best regards,
+<strong><a href="https://github.com/matsueushi">@matsueushi</a></strong></p>
+<hr>
+<p><a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/700">Proposal to transfer RoundingEmulator.jl to JuliaIntervals · Issue #700 · JuliaIntervals/IntervalArithmetic.jl</a></p>
 </div>
 	</section>
 
@@ -280,7 +300,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 534 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 784 words in this page.
 	</div>
 </div>
 
