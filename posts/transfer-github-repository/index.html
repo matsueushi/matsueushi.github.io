@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>matsueushi  | GitHubのレポジトリを移管する</title>
+	<title>matsueushi  | JuliaのパッケージをOrganizationに移譲する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
 	<meta name="generator" content="Hugo 0.140.2">
 	
@@ -22,7 +22,7 @@
 
 	
 	
-<link rel="shortcut icon" href="http://localhost:1313/favicon.ico" type="image/png" />
+<link rel="shortcut icon" href="https://matsueushi.github.io/favicon.ico" type="image/png" />
 
 
 	
@@ -50,13 +50,13 @@
 
 
 
-<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' crossorigin="anonymous">
+<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
 
 
-<script defer src='http://localhost:1313/lib/katex.min.js' crossorigin="anonymous"></script>
+<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
 
 
-<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js'
+<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
 crossorigin="anonymous"
 onload='renderMathInElement(document.body);'></script>
 
@@ -88,7 +88,7 @@ onload='renderMathInElement(document.body);'></script>
 				});
 			}
 			s.parentNode.insertBefore(o, s);
-		})('http:\/\/localhost:1313\/lib\/pangu.min.js', function () {
+		})('https:\/\/matsueushi.github.io\/lib\/pangu.min.js', function () {
 			pangu.spacingPage();
 		});
 	</script>
@@ -109,10 +109,10 @@ onload='renderMathInElement(document.body);'></script>
 				
 <div>
 	<h2>
-		<a href="http://localhost:1313/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
+		<a href="https://matsueushi.github.io/" title="matsueushi" class="heading font-cursive icon">matsueushi</a>
 	</h2>
 </div>
-<h1 class="pt-2">GitHubのレポジトリを移管する</h1>
+<h1 class="pt-2">JuliaのパッケージをOrganizationに移譲する</h1>
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
@@ -132,7 +132,7 @@ onload='renderMathInElement(document.body);'></script>
 	
 	
 </div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
-		datetime="2025-03-08T23:52:35&#43;09:00">2025-3-8 23:52</time>
+		datetime="2025-03-15T17:20:45&#43;09:00">2025-3-15 17:20</time>
 </div>
 
 <hr />
@@ -146,36 +146,68 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 <a href="/posts/rounding-emulator">デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)</a> を書きました。</p>
-<p>そこで RoundingEmulator.jl という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ IntervalArithmetic.jl に プルリクエスト <a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370">Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl</a> を送って丸めモードを指定した計算に使われるようになりました。</p>
+<p>そこで <a href="https://github.com/JuliaIntervals/RoundingEmulator.jl">RoundingEmulator.jl</a> という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ <a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl">IntervalArithmetic.jl</a> に プルリクエスト <a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370">Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl</a> を送って丸めモードを指定した計算に使われるようになりました。</p>
 <p>月日が経つのは早いもので……</p>
 <h3 id="放置しているレポジトリにプルリクエストが来た">放置しているレポジトリにプルリクエストが来た</h3>
-<p>最近ではどちらかというと Python や Rust を使う機会が多くなり、Julia から遠ざかっていてこのパッケージのメンテナンスは行っておらず事実上放置状態となっておりました。頻繁に更新が必要な類のパッケージではないのでまあ良いだろうと思いそのまま放っておいたのですが、プルリクエストが来ていることに気づきました。</p>
+<p>最近ではどちらかというと Python や Rust を使う機会が多くなり、Julia から遠ざかっていてこのパッケージのメンテナンスは行っておらず事実上放置状態となっておりました。</p>
+<p>頻繁に更新が必要な類のパッケージではないのでまあ良いだろうと思いそのまま放っておいたのですが、とある日、プルリクエストが来ていることに気づきました。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/20">fix tests on 1.12 by KristofferC · Pull Request #20 · matsueushi/RoundingEmulator.jl</a></p>
-<p>テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるという結果に。</p>
+<p>テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるため動作が確認できないという結果に。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/actions/runs/13569170305">fix tests on 1.12 · matsueushi/RoundingEmulator.jl@726d314</a></p>
 <p><img src="/images/posts/transfer-github-repository-ci-falling.png" alt="ci falling"></p>
-<h3 id="プルリクエストに対処する">プルリクエストに対処する</h3>
+<h3 id="まずはプルリクエストに対処する">まずはプルリクエストに対処する</h3>
 <p>GitHub Actions が古くなっていることが原因のようだったので、ひとまず、生成 AI の力を借りて修正し、なんとかテストが通るようになりました。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/21">Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl</a></p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/23">Update ci by matsueushi · Pull Request #23 · matsueushi/RoundingEmulator.jl</a></p>
 <p>master ブランチにマージすると、Documenter.jl によるドキュメントのデプロイの Action が落ちているという結果に。
 多分もう少し頑張れば直るはずですが、一旦諦めて、頂いたプルリクエストをマージしました。</p>
-<h3 id="メンテできないレポジトリをどうするか">メンテできないレポジトリをどうするか</h3>
-<hr>
+<h3 id="維持するのが難しいレポジトリをどうするか">維持するのが難しいレポジトリをどうするか</h3>
+<p>冒頭述べた通り、最近は Julia を使っていないため、このままにすると将来同じことが起きる可能性があります。IntervalArithmetic.jl の機能は RoundingEmulator.jl に依存しているため、Julia のバージョンアップなどで動かなくなった時には Issue や Pull Request が来そうです。</p>
+<p>そこで、IntervalArithmeic.jl を管理する Github Organization の JuliaIntervals にレポジトリを移譲できないか、問い合わせてみることに。</p>
+<p><a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/700">Proposal to transfer RoundingEmulator.jl to JuliaIntervals · Issue #700 · JuliaIntervals/IntervalArithmetic.jl</a></p>
+<blockquote>
 <p>Hello <code>IntervalArithmetic.jl</code> maintainers,</p>
+</blockquote>
+<blockquote>
 <p>I am the original author of <a href="https://github.com/matsueushi/RoundingEmulator.jl"><code>RoundingEmulator.jl</code></a>, which is a dependency of <code>IntervalArithmetic.jl</code>. Since I am no longer actively using Julia, I would like to transfer the maintenance of <code>RoundingEmulator.jl</code> to the <a href="https://github.com/JuliaIntervals">JuliaIntervals</a> organization. Transferring it will ensure better long-term support.</p>
+</blockquote>
+<blockquote>
 <ol>
 <li>If the JuliaIntervals maintainers agree, I will transfer the repository to <code>JuliaIntervals</code>.</li>
 <li>After the transfer, I will update the repository URL in the <a href="https://github.com/JuliaRegistries/General">General registry</a>.</li>
 <li>I will update the README and LICENSE files accordingly to reflect the new ownership.</li>
 <li>I can provide support during the transition period if needed.</li>
 </ol>
+</blockquote>
+<blockquote>
 <p>Would JuliaIntervals be interested in taking over maintenance of this package?
 Please let me know your thoughts. I appreciate your time and consideration!</p>
+</blockquote>
+<blockquote>
 <p>Best regards,
 <strong><a href="https://github.com/matsueushi">@matsueushi</a></strong></p>
-<hr>
-<p><a href="https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/700">Proposal to transfer RoundingEmulator.jl to JuliaIntervals · Issue #700 · JuliaIntervals/IntervalArithmetic.jl</a></p>
+</blockquote>
+<p>数日経つと返信がありました。</p>
+<blockquote>
+<p>Dear @matsueushi, we discussed this in our IntervalArithmetic meeting and everyone agrees with your proposal.
+Let me know if you need any help with the process 🙂 !</p>
+</blockquote>
+<p>とあり、移管先として受け入れていただけることになりました！</p>
+<h3 id="レポジトリの移譲手続きを行う">レポジトリの移譲手続きを行う</h3>
+<p>許可を頂いたところで、早速レポジトリの移譲手続きを行っていきます。</p>
+<p>結論から言うと、移譲先の Organization に加えて頂いて、移譲先にレポジトリを作る権限を頂くのが一番早いです。今回はそのような形で移譲手続きをしました。</p>
+<p>まず、何もしていない状態で、GitHub の Settings -&gt; Collaborators から移譲手続きをすると権限がないと言われて移譲できません。</p>
+<p><img src="/images/posts/transfer-github-repository-no-permission.jpeg" alt="権限がない"></p>
+<p><a href="https://docs.github.com/ja/repositories/creating-and-managing-repositories/transferring-a-repository">リポジトリを移譲する - GitHub Docs</a> を読むと、</p>
+<p><code>自分が所有しているリポジトリを組織に移譲するには、対象の組織のリポジトリを作成する権限が必要です。</code></p>
+<p>とあります。
+最初、自分のレポジトリの Collaboratior に相手方のアカウントを追加してレポジトリの移譲をお願いしたところ、どうやらパーソナルアカウントだと Collaborator には Push 権限しかつかず、Admin 権限はつけられないことが発覚してこの方法は失敗に終わりました。</p>
+<p>結局、Organization へのインビテーションを送っていただき、早速 OK して、再度レポジトリの転送を試みると、今度はうまくいきました。</p>
+<p>（スクリーンショットを撮ったのですが消えてしまいました）</p>
+<p>忘れずに、Julia のパッケージ登録用レポジトリ <a href="https://github.com/JuliaIntervals/RoundingEmulator.jl">General</a> にも PR を送っておきます。</p>
+<p><a href="https://github.com/JuliaRegistries/General/pull/126706">[RoundingEmulator] Update URL after transfer to JuliaIntervals by matsueushi · Pull Request #126706 · JuliaRegistries/General</a></p>
+<p>あとは、README などの修正が必要ですが、移譲手続きについてはこれで完了したかと思います。</p>
+<p>JuliaIntervals の皆様、ありがとうございました！</p>
 </div>
 	</section>
 
@@ -300,7 +332,7 @@ Please let me know your thoughts. I appreciate your time and consideration!</p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 784 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1621 words in this page.
 	</div>
 </div>
 
@@ -340,8 +372,6 @@ Please let me know your thoughts. I appreciate your time and consideration!</p>
 		
 			<a href="/atcoder/julia-atcoder/">JuliaでAtCoderに挑戦</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/julia-mapping-nested-dict-en/">Translating nested dictionary to struct in Julia</a>&nbsp;&nbsp;&#47;&nbsp;
-		
 			<a href="/posts/julia-mapping-nested-dict/">JuliaでネストしているDictをstructにマッピングする</a>&nbsp;&nbsp;&#47;&nbsp;
 		
 			<a href="/posts/how-to-digitize-vinyl-2/">レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</a>&nbsp;&nbsp;&#47;&nbsp;
@@ -364,7 +394,9 @@ Please let me know your thoughts. I appreciate your time and consideration!</p>
 		
 			<a href="/posts/fluxjl-dcgan/">Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/julia-identity/">Juliaの単位行列</a>
+			<a href="/posts/julia-identity/">Juliaの単位行列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/clustering-kmean/">K-平均アルゴリズム</a>
 		
 </span>
 </div>
