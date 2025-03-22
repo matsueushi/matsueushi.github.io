@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graph on matsueushi</title>
+    <link>http://localhost:1313/tags/graph/</link>
+    <description>Recent content in Graph on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2025</copyright>
+    <lastBuildDate>Tue, 30 Aug 2022 20:42:28 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>単純連結グラフのサイクル(コードレスサイクル？)の数</title>
+      <link>http://localhost:1313/posts/simple-connected-graph-cycles/</link>
+      <pubDate>Tue, 30 Aug 2022 20:42:28 +0900</pubDate>
+      
+      <guid>http://localhost:1313/posts/simple-connected-graph-cycles/</guid>
+      <description>&lt;p&gt;\(G=(V, E)\)を単純連結グラフとすると、サイクルの数 \(C\) が \(|E|-|V|+1\) と等しくなる。&lt;/p&gt;
+&lt;p&gt;ここでサイクルはサイクルを成す辺以外で二頂点を結ぶ辺が存在しない &lt;a href=&#34;https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Chordless_cycle&#34;&gt;コードレスサイクル&lt;/a&gt; を意味する。&lt;/p&gt;
+&lt;p&gt;証明は \(|E|\) に関する帰納法。&lt;/p&gt;
+&lt;p&gt;\(|E|=0\) の時、\(G\) の連結性から \(|V| = 1\) となり、サイクルは存在しないのでOK。&lt;/p&gt;
+&lt;p&gt;\(|E|=k\) の時成立していると仮定して \(|E|=k+1\) のグラフを考える。\(G\) がサイクルを持たず木であれば、\(|E|=|V|-1\) となるのでOK。
+\(G\) にサイクルが存在すれば、サイクルをなす辺を一つ選んで取り除いたグラフ \(G&amp;rsquo;=(V&amp;rsquo;,E&amp;rsquo;)\) を考えると、
+\(G&amp;rsquo;\) は単純連結グラフで \(|V&amp;rsquo;| = |V|\) (\(G\)は単純で自己ループを持たないので、頂点は取り除かれない)、\(|E&amp;rsquo;|=|E|-1\) である。
+帰納法の仮定から \(C-1=|E&amp;rsquo;|-|V&amp;rsquo;|+1\) より、整理して \(C=|E|-|V|+1\) となる。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ということで良いのだろうか……&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Cycle_(graph_theory)&#34;&gt;https://en.wikipedia.org/wiki/Cycle_(graph_theory)&lt;/a&gt; .&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://research.nii.ac.jp/~uno/papers/algo92.pdf&#34;&gt;コードレスサイクルを列挙する線形時間アルゴリズム&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- グラフ \\(G\\) に対する向き付けの方法の数を \\(N(G)\\) と書くことにする。 
+連結成分ごとに向きつけが考えられることがわかるから、\\(G\\) の連結成分を \\(G_i\\) とすると、
+\\(N(G) = \prod N(G_i)\\) となる。よって連結なグラフを考えれば解ける。 --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
