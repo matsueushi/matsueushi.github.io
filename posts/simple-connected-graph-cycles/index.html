@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='http://localhost:1313/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -138,23 +133,23 @@ onload='renderMathInElement(document.body);'></script>
 
 <article>
 	<section class="mx-auto content">
-		<div class="c-rich-text"><p>$G=(V, E)$を単純連結グラフとすると、サイクルの数 $C$ が $|E|-|V|+1$ と等しくなる。</p>
+		<div class="c-rich-text"><p>\(G=(V, E)\)を単純連結グラフとすると、サイクルの数 \(C\) が \(|E|-|V|+1\) と等しくなる。</p>
 <p>ここでサイクルはサイクルを成す辺以外で二頂点を結ぶ辺が存在しない <a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Chordless_cycle">コードレスサイクル</a> を意味する。</p>
-<p>証明は $|E|$ に関する帰納法。</p>
-<p>$|E|=0$ の時、$G$ の連結性から $|V| = 1$ となり、サイクルは存在しないのでOK。</p>
-<p>$|E|=k$ の時成立していると仮定して $|E|=k+1$ のグラフを考える。$G$ がサイクルを持たず木であれば、$|E|=|V|-1$ となるのでOK。
-$G$ にサイクルが存在すれば、サイクルをなす辺を一つ選んで取り除いたグラフ $G&rsquo;=(V&rsquo;,E&rsquo;)$ を考えると、
-$G&rsquo;$ は単純連結グラフで $|V&rsquo;| = |V|$ ($G$は単純で自己ループを持たないので、頂点は取り除かれない)、$|E&rsquo;|=|E|-1$ である。
-帰納法の仮定から $C-1=|E&rsquo;|-|V&rsquo;|+1$ より、整理して $C=|E|-|V|+1$ となる。</p>
+<p>証明は \(|E|\) に関する帰納法。</p>
+<p>\(|E|=0\) の時、\(G\) の連結性から \(|V| = 1\) となり、サイクルは存在しないのでOK。</p>
+<p>\(|E|=k\) の時成立していると仮定して \(|E|=k+1\) のグラフを考える。\(G\) がサイクルを持たず木であれば、\(|E|=|V|-1\) となるのでOK。
+\(G\) にサイクルが存在すれば、サイクルをなす辺を一つ選んで取り除いたグラフ \(G&rsquo;=(V&rsquo;,E&rsquo;)\) を考えると、
+\(G&rsquo;\) は単純連結グラフで \(|V&rsquo;| = |V|\) (\(G\)は単純で自己ループを持たないので、頂点は取り除かれない)、\(|E&rsquo;|=|E|-1\) である。
+帰納法の仮定から \(C-1=|E&rsquo;|-|V&rsquo;|+1\) より、整理して \(C=|E|-|V|+1\) となる。</p>
 <hr>
 <p>ということで良いのだろうか……</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">https://en.wikipedia.org/wiki/Cycle_(graph_theory)</a> .</li>
 <li><a href="https://research.nii.ac.jp/~uno/papers/algo92.pdf">コードレスサイクルを列挙する線形時間アルゴリズム</a></li>
 </ul>
-<!-- グラフ $G$ に対する向き付けの方法の数を $N(G)$ と書くことにする。 
-連結成分ごとに向きつけが考えられることがわかるから、$G$ の連結成分を $G_i$ とすると、
-$N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解ける。 -->
+<!-- グラフ \\(G\\) に対する向き付けの方法の数を \\(N(G)\\) と書くことにする。 
+連結成分ごとに向きつけが考えられることがわかるから、\\(G\\) の連結成分を \\(G_i\\) とすると、
+\\(N(G) = \prod N(G_i)\\) となる。よって連結なグラフを考えれば解ける。 -->
 </div>
 	</section>
 
@@ -279,7 +274,7 @@ $N(G) = \prod N(G_i)$ となる。よって連結なグラフを考えれば解�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 360 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 371 words in this page.
 	</div>
 </div>
 

@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -152,18 +147,15 @@ Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。</p>
 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、
 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。</p>
 <p>全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。</p>
-<p>ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では
 $$
 k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right)
-$$</p>
-<p>となっているが、GaussianProcesses.jlでこれに対応するのは [<code>GaussianProcesses.SEIso</code>]
+$$<p>となっているが、GaussianProcesses.jlでこれに対応するのは [<code>GaussianProcesses.SEIso</code>]
 (<a href="http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso">http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso</a>) である。
 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 <code>SEIso(ll::T, lσ::T)</code> は、
 \(\sigma = \log (\) <code>lσ</code> \()\), \(l = \log (\) <code>ll</code> \()\) とした時に</p>
-<p>$$
+$$
 k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$</p>
-<p>だから、\(
+$$<p>だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>rbf <span style="color:#f92672">=</span> SEIso(log(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>sqrt(<span style="color:#ae81ff">2</span>)), <span style="color:#ae81ff">0.0</span>)
@@ -1536,7 +1528,7 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1479 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1452 words in this page.
 	</div>
 </div>
 

@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='http://localhost:1313/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -144,7 +139,7 @@ onload='renderMathInElement(document.body);'></script>
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc208/tasks/abc208_d">https://atcoder.jp/contests/abc208/tasks/abc208_d</a></p>
 <p>制約をつけた任意の2頂点間の最短距離を求める問題なので、ワーシャル・フロイド法が使えそうだ。</p>
 <p>s,t および番号が k 以下の都市のみを利用し、都市 s を出発して都市 t に到着するまでの最短時間
-$f(s,t,k)$ を $k$ が小さい順に求めていくやり方がまさにワーシャル・フロイド法。</p>
+\(f(s,t,k)\) を \(k\) が小さい順に求めていくやり方がまさにワーシャル・フロイド法。</p>
 <p>最短距離を更新していく際に最短距離を答えに足し上げていけば良い。</p>
 <p><a href="https://atcoder.jp/contests/abc208/submissions/32676847">https://atcoder.jp/contests/abc208/submissions/32676847</a></p>
 </div>

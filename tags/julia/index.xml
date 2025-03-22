@@ -1208,17 +1208,17 @@ CDとLPの収録曲の違いや、初回限定版や再発のボーナストラ�
 &lt;img src=&#34;https://matsueushi.github.io/images/posts/audiofingerprinting_peaks.png&#34; alt=&#34;Peaks&#34;&gt;&lt;br&gt;
 3. スペクトログラムのピークからペアを作る。と言っても全ての組み合わせのペアを考えるのではなく、二点が近いペアのみを考えます。
 &lt;img src=&#34;https://matsueushi.github.io/images/posts/audiofingerprinting_pairs.png&#34; alt=&#34;Pairs&#34;&gt;&lt;br&gt;
-4. ペアからハッシュを生成する。ピークを(時間, 周波数)のペアで表した時に、前項で見つけたペアが $((t_1, f_1), (t_2, f_2)), t_1 &amp;lt; t_2$ であるとします。
-この時、ハッシュテーブルに登録するキーと値はそれぞれ $[f_1:f_2:\Delta t]$ と $t_1$ になります。ここで、$\Delta t = t_2 - t_1$です。&lt;/p&gt;
+4. ペアからハッシュを生成する。ピークを(時間, 周波数)のペアで表した時に、前項で見つけたペアが \(((t_1, f_1), (t_2, f_2)), t_1 &amp;lt; t_2\) であるとします。
+この時、ハッシュテーブルに登録するキーと値はそれぞれ \([f_1:f_2:\Delta t]\) と \(t_1\) になります。ここで、\(\Delta t = t_2 - t_1\)です。&lt;/p&gt;
 &lt;p&gt;という方法で曲から特徴量を抽出して曲のフィンガープリンティングを行います。&lt;/p&gt;
 &lt;p&gt;曲データにノイズが加わっていたとしても（全く同じではないですが、一致していることが確認するには十分に）似たようなハッシュデータが得られるようになっているのがポイントです。&lt;/p&gt;
 &lt;h2 id=&#34;マッチングの方法&#34;&gt;マッチングの方法&lt;/h2&gt;
 &lt;p&gt;Shazamを使ったことがある人ならわかると思うのですが、Shazamを使って曲名を認識させる際には、
 曲を全部聞かせる必要はなく、途中から一部分を聞かせるだけで十分です。&lt;/p&gt;
-&lt;p&gt;ハッシュが Hash:time = $[f_1:f_2:\Delta t]:t_1$ であることがキーポイントで、
-原曲と聞かせた曲の一部分では曲のスタート位置が当然違いますが、時間差は曲のスタート位置に依存しないので、ハッシュのキー $[f_1:f_2:\Delta t]$
+&lt;p&gt;ハッシュが Hash:time = \([f_1:f_2:\Delta t]:t_1\) であることがキーポイントで、
+原曲と聞かせた曲の一部分では曲のスタート位置が当然違いますが、時間差は曲のスタート位置に依存しないので、ハッシュのキー \([f_1:f_2:\Delta t]\)
 は双方に出現します。
-それぞれ対応する時間を$t_1$と$t^\prime_1$として、時間のオフセット$t_1 - t^\prime_1$を計算すると、
+それぞれ対応する時間を\(t_1\)と\(t^\prime_1\)として、時間のオフセット\(t_1 - t^\prime_1\)を計算すると、
 正しくマッチングできていれば原曲と聞かせた曲のスタート位置の差である定数になるはずです。&lt;/p&gt;
 &lt;p&gt;ハッシュが一致した時に、原曲と聞かせた曲で見つかった時間のプロットを確認してみましょう。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/audiofingerprinting_scatter.png&#34; alt=&#34;Scatter plot&#34;&gt;&lt;/p&gt;
@@ -1642,7 +1642,7 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
       <description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;
 &lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている
-$\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]$ (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;
+\(\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]\) (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;
 
     &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
       &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/M9xMuPWAZW8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
@@ -1743,15 +1743,14 @@ $\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in
 &lt;p&gt;サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。&lt;/p&gt;
 &lt;h2 id=&#34;離散フーリエ変換&#34;&gt;離散フーリエ変換&lt;/h2&gt;
-&lt;p&gt;離散フーリエ変換は標本点$\{ x = 0, \ldots, N-1 \}$に対し、関数$f(x)$を
 $$
-\begin{aligned}
-F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
-\end{aligned}
-$$
+    \begin{aligned}
+      F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
+    \end{aligned} 
+$$&lt;p&gt;
 に写す変換です。&lt;/p&gt;
 &lt;p&gt;まず&lt;a href=&#34;https://github.com/JuliaMath/FFTW.jl&#34;&gt;FFTW.jl&lt;/a&gt;を利用して
-$f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
+\(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。&lt;a href=&#34;https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&#34;&gt;scipy.fftのFourier Transformsのチュートリアル&lt;/a&gt;を参考にしています。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Fourier transform&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&lt;/span&gt;
@@ -1779,7 +1778,7 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/spectrogram_twosines_fft.png&#34; alt=&#34;FFT&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/spectrogram_twosines_rfft.png&#34; alt=&#34;RFFT&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;fft&lt;/code&gt;と&lt;code&gt;rfft&lt;/code&gt;の違いですが、実数関数の高速フーリエ変換を行う場合は、得られる結果は複素共役になっているので
-&lt;code&gt;fft&lt;/code&gt;の最初の$N/2+1$個の要素だけ取り出したのが&lt;code&gt;rfft&lt;/code&gt;です。今後は&lt;code&gt;rfft&lt;/code&gt;を使っていきます。&lt;/p&gt;
+&lt;code&gt;fft&lt;/code&gt;の最初の\(N/2+1\)個の要素だけ取り出したのが&lt;code&gt;rfft&lt;/code&gt;です。今後は&lt;code&gt;rfft&lt;/code&gt;を使っていきます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; fft(ys)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1025&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Complex&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;},&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.021546067690054016&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;im
@@ -1823,13 +1822,11 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 &lt;p&gt;スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。&lt;/p&gt;
 &lt;p&gt;この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。&lt;/p&gt;
-&lt;p&gt;今回はハン関数(&lt;a href=&#34;https://en.wikipedia.org/wiki/Hann_function&#34;&gt;Hann function&lt;/a&gt;)を使うことにします。
-サンプル数が $N + 1$ のとき、ハン関数は
 $$
-\begin{aligned}
-w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
-\end{aligned}
-$$
+    \begin{aligned} 
+    w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
+    \end{aligned}
+$$&lt;p&gt;
 で与えられます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -2249,30 +2246,25 @@ Julia における丸めの制御について調べた内容を書いておき�
 &lt;p&gt;一つ目の条件は \( \mathbb{F}^* \) でもともと表せる数に関しては余計な操作を行わないことを意味し、
 二つ目の条件は近似した時に大小関係が入れかわらないことを保証するもので、どちらも非常に自然な要請です。&lt;/p&gt;
 &lt;p&gt;丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
-\end{aligned}
 $$
+    \begin{aligned}
+        \triangledown (x) = \max \\\{ y \in \mathbb{F}^* \mid y \le x \\\},
+    \end{aligned}
+$$$$
+    \begin{aligned}
+        \triangle (x) = \min \\\{ y \in \mathbb{F}^* \mid y \ge x \\\}
+    \end{aligned}
+$$&lt;p&gt;
 はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。&lt;/p&gt;
-&lt;p&gt;これらは勿論先ほどの丸めの定義を満たし、
 $$
-\begin{aligned}
-\triangledown (x) \le x \le \triangle (x)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して
-$$
-\begin{aligned}
-\triangledown (x) \le \bigcirc (x) \le \triangle (x)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
+    \begin{aligned} 
+    \triangledown (x) \le x \le \triangle (x)
+    \end{aligned} 
+$$$$
+    \begin{aligned}
+    \triangledown (x) \le \bigcirc (x) \le \triangle (x)
+    \end{aligned}
+$$&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
 \( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
 \( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) &amp;lt; x &amp;lt; \triangle (x) \) が成り立つとともに
 \( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
@@ -2314,19 +2306,16 @@ Juliaの &lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-fl
 &lt;p&gt;書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート &lt;a href=&#34;https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF&#34;&gt;Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic&lt;/a&gt;
 を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
 別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。&lt;/p&gt;
-&lt;p&gt;よって、
 $$
-\begin{aligned}
-x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;の時に&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-x \circledast y = \square (x * y)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;ということになります。&lt;/p&gt;
+    \begin{aligned}
+         x, y \in \mathbb{F}^*, * \in \\{  +, -, \times, /, \sqrt{} \\}
+    \end{aligned}
+$$&lt;p&gt;の時に&lt;/p&gt;
+$$
+    \begin{aligned}
+        x \circledast y = \square (x * y)
+    \end{aligned}
+$$&lt;p&gt;ということになります。&lt;/p&gt;
 &lt;p&gt;長々と書いてしまいましたが、&lt;code&gt;0.1 * 3.0&lt;/code&gt;
 \( = \square(\square(0.1) \times \square(3.0)) \),
 &lt;code&gt;0.3&lt;/code&gt; \( = \square(0.3) \) なので、&lt;code&gt;0.1 * 3.0&lt;/code&gt; と &lt;code&gt;0.3&lt;/code&gt; は近い値にはなるものの、\(\square(0.1) \times \square(3.0) \neq 0.3\) でそれぞれ別の数に丸められてしまうということでした。&lt;/p&gt;
@@ -2358,18 +2347,16 @@ $$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
 得られる区間は &lt;code&gt;[1.0, 1.0]&lt;/code&gt; となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。&lt;/p&gt;
 &lt;p&gt;つまり、今までに定義した記号を使って表すと、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [x \oplus x&amp;rsquo;, y \oplus y&amp;rsquo;]
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [\triangledown (x + x&amp;rsquo;), \triangle (y + y&amp;rsquo;)]
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
+$$
+    \begin{aligned}
+        [x, y] + [x&#39;, y&#39;] = [x \oplus x&#39;, y \oplus y&#39;]
+    \end{aligned}
+$$&lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
+$$
+    \begin{aligned}
+        [x, y] + [x&#39;, y&#39;] = [\triangledown (x + x&#39;), \triangle (y + y&#39;)]
+    \end{aligned}
+$$&lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
 &lt;p&gt;非常に長くなってしまいましたが、この計算をやりたいがために丸めモードを変えたいわけです。&lt;/p&gt;
 &lt;h3 id=&#34;julia-における方向丸め付き演算のサポート&#34;&gt;Julia における方向丸め付き演算のサポート&lt;/h3&gt;
 &lt;p&gt;「さあ、いよいよ Julia で方向丸め付き演算をやっていくか、C++だと&lt;a href=&#34;http://verifiedby.me/kv/rounding/index.html&#34;&gt;丸めモードの変更は面倒な感じがする&lt;/a&gt; が、
@@ -2396,12 +2383,12 @@ FastRounding.jl は、&lt;a href=&#34;https://github.com/JeffreySarnoff/Errorfre
 ここでは簡単に加算に関して FastRounding.jl が行っているエラーフリー変換とエミュレートについて説明してみたいと思います。&lt;/p&gt;
 &lt;p&gt;加算のエラーフリー変換は、別名 &lt;code&gt;twosum&lt;/code&gt; とも呼ばれるアルゴリズムで、\(a, b \in \mathbb{F}\) に対して,
 ペア \( (x, y) = \text{twosum}(a, b) \) を返し、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-x &amp;amp;= a \oplus b, \\
-a + b &amp;amp;= x + y
-\end{aligned}
 $$
+    \begin{aligned}
+        x &amp;= a \oplus b, \\\ 
+        a + b &amp;= x + y
+    \end{aligned}
+$$&lt;p&gt;
 が厳密に成立するとされるものです。&lt;/p&gt;
 &lt;p&gt;Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; twosum(a, b)
@@ -2656,40 +2643,32 @@ Discriminator はこれで完成で、Generator はもう一手間必要です�
 Convolutional net で生成された結果にもう一度下層の生成画像を加えて出力とします。&lt;/p&gt;
 &lt;p&gt;論文では Generator \( G_n \) は \(z_n \) をノイズ、\(\tilde{x}_n\) を第 \(n\) 段階の出力画像,
 \( \uparrow^r\) をスケール \(r\) 倍の画像拡大とした時に、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\tilde{x}_N &amp;amp;= G_N(z_N), \\
-\tilde{x}_n &amp;amp;= G_n(z_n, (\tilde{x}_{n+1})\uparrow^r), n &amp;lt; N
-\end{aligned}
 $$
+    \begin{aligned} 
+        \tilde{x}_N &amp;= G_N(z_N), \\\ 
+        \tilde{x}_n &amp;= G_n(z_n, (\tilde{x}\_{n+1})\uparrow^r), n &lt; N
+    \end{aligned} 
+$$&lt;p&gt;
 で、Fully convolutional net を \(\psi\) とした時に、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と言っています。実際は一段階前の画像に0パディングを行う(こともある)のでもう少し複雑になりますがあとで説明します。&lt;/p&gt;
-&lt;p&gt;損失関数ですが、各ステージで
 $$
-\begin{aligned}
-\min_{G_n} \min_{D_n} ( \mathcal{L}&lt;em&gt;{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}&lt;/em&gt;{\text{rec}}(G_n) )
-\end{aligned}
+    \begin{aligned} 
+        G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
+    \end{aligned} 
+$$&lt;p&gt;と言っています。実際は一段階前の画像に0パディングを行う(こともある)のでもう少し複雑になりますがあとで説明します。&lt;/p&gt;
 $$
-を考えるのですが、\(\mathcal{L}&lt;em&gt;{\text{adv}}\) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
-計算するときは全てのステージでノイズを加えながら生成します。
-\(\mathcal{L}&lt;/em&gt;{\text{rec}}\) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ
-$$
-\begin{aligned}
-z^{\text{rec}} = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} = \{z^&lt;em&gt;, 0, \ldots, 0 \}
-\end{aligned}
-$$
-を一つ学習を通して固定し、縮小した元画像との二乗誤差
-$$
-\begin{aligned}
-\mathcal{L}_{\text{rec}, N} &amp;amp;= || G_N(z^&lt;/em&gt;) - x_N ||^2, \\
-\mathcal{L}&lt;em&gt;{\text{rec}, n} &amp;amp;= || G_n(0, (\tilde{x}&lt;/em&gt;{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&amp;lt;N
-\end{aligned}
-$$
+    \begin{aligned} 
+        \min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
+    \end{aligned} 
+$$$$
+    \begin{aligned}
+        z^{\text{rec}} = \\\{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\\\} = \\\{z^*, 0, \ldots, 0 \\\}
+    \end{aligned} 
+$$$$
+    \begin{aligned}
+        \mathcal{L}_{\text{rec}, N} &amp;= || G_N(z^*) - x_N ||^2, \\\ 
+        \mathcal{L}_{\text{rec}, n} &amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&lt;N
+    \end{aligned} 
+$$&lt;p&gt;
 を損失関数とするものです。&lt;/p&gt;
 &lt;p&gt;読んでいて一つ疑問に思ったのが出力データの値域です。
 モデルでは、画像データを各数値が \( [-1,1] \) の範囲に収まる &lt;code&gt;Array&lt;/code&gt; として表現しているのですが、
@@ -2745,20 +2724,19 @@ Juliaだと関数は型安定である方がいいと言われているので、
 &lt;p&gt;Supplimental Material の &amp;ldquo;Boundary conditions and the effect of padding&amp;rdquo; を見ると
 Conv 層における0埋めにより画像の四隅の多様性が失われるが、Generator に入力するノイズの周辺をノイズでパディングする
 (つまり、ノイズ画像の方を大きくする)と軽減されるということなので、今回アニメーションをさせることを考えて0埋めをすることにしました。&lt;/p&gt;
-&lt;p&gt;そのため
 $$
-\begin{aligned}
-G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
-\end{aligned}
-$$
+    \begin{aligned} 
+        G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
+    \end{aligned} 
+$$&lt;p&gt;
 は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
 \(\langle \rangle_d\) を幅 \(d\) の0パディング,  \(\rangle \langle_d\) を幅 \(d\) のトリミングとすると、実際にやることは&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-G(x, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\
-\bar{x} &amp;amp;= \langle(x)\uparrow^r\rangle_d
-\end{aligned}
 $$
+    \begin{aligned} 
+        G(x, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
+        \bar{x} &amp;= \langle(x)\uparrow^r\rangle_d
+    \end{aligned} 
+$$&lt;p&gt;
 です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
@@ -2855,20 +2833,16 @@ $$
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    join(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ノイズ画像を足してレイヤーに通し、出力結果にオリジナルの画像を加えて周囲をトリミングする &lt;code&gt;NoiseConnection&lt;/code&gt; (名前は適当)を作ります。
-$$
-\begin{aligned}
-G(x, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\
-\bar{x} &amp;amp;= \langle(x)\uparrow^r\rangle_d
-\end{aligned}
-$$
-上の式で言えば
-$$
-\begin{aligned}
-N(\bar{x}, z) &amp;amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;を計算するレイヤーです。&lt;code&gt;pad&lt;/code&gt; は周囲でノイズパディングを行うサイズ \(d\) です。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;$$
+    \begin{aligned} 
+        G(x, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
+        \bar{x} &amp;= \langle(x)\uparrow^r\rangle_d
+    \end{aligned} 
+$$$$
+    \begin{aligned} 
+        N(\bar{x}, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d 
+    \end{aligned} 
+$$&lt;p&gt;を計算するレイヤーです。&lt;code&gt;pad&lt;/code&gt; は周囲でノイズパディングを行うサイズ \(d\) です。
 &lt;code&gt;basic.jl&lt;/code&gt; の &lt;code&gt;SkipConnection&lt;/code&gt; の実装を参考にしました。
 &lt;a href=&#34;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&#34;&gt;https://github.com/FluxML/Flux.jl/blob/e92da0cf850a982c425b83c92d6274174e52b02c/src/layers/basic.jl#L197&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
@@ -3588,25 +3562,21 @@ dim: 2
 &lt;hr&gt;
 &lt;p&gt;データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、
 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。&lt;/p&gt;
-&lt;p&gt;各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、
-\( K \)-平均法では、
-各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、
 $$
 z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2
-$$
+$$&lt;p&gt;
 となる。&lt;/p&gt;
 &lt;p&gt;アルゴリズムは、目的関数&lt;/p&gt;
-&lt;p&gt;$$
-f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2
-$$&lt;/p&gt;
-&lt;p&gt;が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。&lt;/p&gt;
+$$
+f((z_i)\_{i=1}^n, (\boldsymbol{\mu}_k)\_{k=1}^K) = \sum\_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}\_{z_i} ||^2 
+$$&lt;p&gt;が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。&lt;/p&gt;
 &lt;h3 id=&#34;アルゴリズム&#34;&gt;アルゴリズム&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
 \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する&lt;/li&gt;
 &lt;li&gt;$$
-\boldsymbol{\mu}_k = \frac{1}{\sharp \{i \mid z_i = k \}} \sum_{i, z_i=k} \mathbf{x}_i
-$$
+  \boldsymbol{\mu}_k = \frac{1}{\sharp \\{i \mid z_i = k \\}} \sum\_{i, z\_i=k} \mathbf{x}_i
+  $$
 と代表点の更新を行う&lt;/li&gt;
 &lt;li&gt;以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す
 &lt;ol&gt;
@@ -3916,16 +3886,11 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p
  Output observations = [0.7, 1.8, 1.7, 2.3, 1.0]
  Variance of observation noise = 0.08198471101193598
  Marginal Log-Likelihood = -5.464
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;「ガウス過程と機械学習」では、カーネルは
-$$
+&lt;/code&gt;&lt;/pre&gt;$$
 k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
-$$
-となっていて、推定結果は \((\theta_1, \theta_2, \theta_3)=(1.596,6.560,0.082)\) とされている。
-\(\theta_3\)は&lt;code&gt;Variance of observation noise&lt;/code&gt;の&lt;code&gt;0.08198471101193598&lt;/code&gt;とそのまま一致。
-&lt;code&gt;SEIso&lt;/code&gt;のカーネル関数は
-$$
+$$$$
 k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$
+$$&lt;p&gt;
 で、パラメーターは \(l\) と \(\sigma\) の対数をとった &lt;code&gt;ll&lt;/code&gt; と &lt;code&gt;lσ&lt;/code&gt; だから
 \(\theta_1 = \exp(2 * l\sigma), \theta_2=2 * \exp(2 * ll)\) という変換で対応できる。
 &lt;code&gt;SEIso&lt;/code&gt; のメンバー変数 &lt;code&gt;σ2&lt;/code&gt; と &lt;code&gt;ℓ2&lt;/code&gt; を使って確認すると、&lt;/p&gt;
@@ -4348,18 +4313,15 @@ Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。&lt;/p&gt;
 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、
 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。&lt;/p&gt;
 &lt;p&gt;全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。&lt;/p&gt;
-&lt;p&gt;ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では
 $$
 k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right)
-$$&lt;/p&gt;
-&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応するのは [&lt;code&gt;GaussianProcesses.SEIso&lt;/code&gt;]
+$$&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応するのは [&lt;code&gt;GaussianProcesses.SEIso&lt;/code&gt;]
 (&lt;a href=&#34;http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso&#34;&gt;http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso&lt;/a&gt;) である。
 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 &lt;code&gt;SEIso(ll::T, lσ::T)&lt;/code&gt; は、
 \(\sigma = \log (\) &lt;code&gt;lσ&lt;/code&gt; \()\), \(l = \log (\) &lt;code&gt;ll&lt;/code&gt; \()\) とした時に&lt;/p&gt;
-&lt;p&gt;$$
+$$
 k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$&lt;/p&gt;
-&lt;p&gt;だから、\(
+$$&lt;p&gt;だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rbf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SEIso(log(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;)
@@ -5643,10 +5605,7 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
 をカーネル関数と呼んでいるのであった。&lt;/p&gt;
 &lt;p&gt;今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。&lt;/p&gt;
 &lt;h2 id=&#34;ガウスカーネルの定義&#34;&gt;ガウスカーネルの定義&lt;/h2&gt;
-&lt;p&gt;もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$
-本文では
-$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;
 この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
@@ -5876,15 +5835,11 @@ Stacktrace:
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_regression_1.png&#34; alt=&#34;回帰結果&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;微分を定義する&#34;&gt;微分を定義する&lt;/h2&gt;
 &lt;p&gt;学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_\boldsymbol{\theta} \) とした時に、対数尤度関数&lt;/p&gt;
-&lt;p&gt;$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y} $$&lt;/p&gt;
-&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
-&lt;p&gt;$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;/p&gt;
-&lt;p&gt;だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta &amp;gt; 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は
-$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$
+$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y} $$&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
+$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$&lt;p&gt;
 である。同様に \( \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} = \theta \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \)
 だから、\( \theta \) の代わりに \( \tau \) を考えて&lt;/p&gt;
-&lt;p&gt;$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;/p&gt;
-&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
+$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
 &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; はパラメーターを持たないので、空のリストを返しておく。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; logderiv(k&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GaussianKernel&lt;/span&gt;, x1, x2)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    [ker(k, x1, x2) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; k&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;theta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; sum((x1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; x2)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)]
@@ -5990,8 +5945,7 @@ $$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;log(det(k)) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ys&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; k_inv &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;まずは図3.16のデータでハイパーパラメーターを推定しよう。推定したいハイパーパラメータの形は
-$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$&lt;p&gt;
 だから、パラメーターを仮置きして下のようにガウス過程を定義する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianProcess(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; GaussianKernel(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optim.jlの&lt;a href=&#34;https://julianlsolvers.github.io/Optim.jl/stable/#algo/gradientdescent/&#34;&gt;&lt;code&gt;GradientDescent&lt;/code&gt;&lt;/a&gt; を使ってパラメーターを推定する。実際のハイパーパラメーターに戻すために、最後に &lt;code&gt;exp&lt;/code&gt; を取っている。&lt;/p&gt;

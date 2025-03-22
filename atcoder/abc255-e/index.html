@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,17 +137,17 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc255/tasks/abc255_e">https://atcoder.jp/contests/abc255/tasks/abc255_e</a></p>
-<p>$A_1 = \alpha$ とおくと、</p>
+<p>\(A_1 = \alpha\) とおくと、</p>
 <ul>
-<li>$A_2 = S_1 - A_1 = S_1 - \alpha$</li>
-<li>$A_3 = S_2 - A_2 = S_2 - S_1 + \alpha$
+<li>\(A_2 = S_1 - A_1 = S_1 - \alpha\)</li>
+<li>\(A_3 = S_2 - A_2 = S_2 - S_1 + \alpha\)
 &hellip;
 となることがわかる。</li>
 </ul>
-<p>$T_1 = 0, T_k = \sum_{i=1}^{k-1} (-1)^{i+k+1}S_k$ とおくと、どんな $A$ に対しても、 ある $\alpha$ が存在して $A_k = T_k + (-1)^{k+1} \alpha$ が全ての $k$ に対して成り立つことがわかる。</p>
-<p>$F(i,\alpha) = |\{ k \mid  T_k + (-1)^{k+1} \alpha = X_i \} |$ とする。
-これは、 $i, \alpha$ に対して、$X_i = T_k + (-1)^{k+1} \alpha$ となる $k$ を数えていることになる。$T, X$ の条件から $F(i,\alpha) \neq 0$ となる $\alpha$ は絞り込むことができる。</p>
-<p>あとは、$i$ を動かして $\sum_i F(i,\alpha)$ の最大値を取れば良い。</p>
+<p>\(T_1 = 0, T_k = \sum_{i=1}^{k-1} (-1)^{i+k+1}S_k\) とおくと、どんな \(A\) に対しても、 ある \(\alpha\) が存在して \(A_k = T_k + (-1)^{k+1} \alpha\) が全ての \(k\) に対して成り立つことがわかる。</p>
+<p>\(F(i,\alpha) = |\{ k \mid  T_k + (-1)^{k+1} \alpha = X_i \} |\) とする。
+これは、 \(i, \alpha\) に対して、\(X_i = T_k + (-1)^{k+1} \alpha\) となる \(k\) を数えていることになる。\(T, X\) の条件から \(F(i,\alpha) \neq 0\) となる \(\alpha\) は絞り込むことができる。</p>
+<p>あとは、\(i\) を動かして \(\sum_i F(i,\alpha)\) の最大値を取れば良い。</p>
 <p><a href="https://atcoder.jp/contests/abc255/submissions/32403143">https://atcoder.jp/contests/abc255/submissions/32403143</a></p>
 </div>
 	</section>
@@ -278,7 +273,7 @@ onload='renderMathInElement(document.body);'></script>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 203 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 207 words in this page.
 	</div>
 </div>
 

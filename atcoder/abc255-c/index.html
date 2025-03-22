@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,9 +137,9 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc255/tasks/abc255_c">https://atcoder.jp/contests/abc255/tasks/abc255_c</a></p>
-<p>$\min_{i=0,\ldots,n-1}|A+Di-X|$ を求めれば良い。$y=A+Dx$ と $y=X$ の交点を求め、
-$x &lt; 0, 1 \le x \le n-1 ,x &gt; n-1$ の場合に応じて計算すれば良い。</p>
-<p>$|A+Di-X|$ が最も小さくなるのは、$x$ に最も近い $0\le i \le n-1$ を選んだ時である。</p>
+<p>\(\min_{i=0,\ldots,n-1}|A+Di-X|\) を求めれば良い。\(y=A+Dx\) と \(y=X\) の交点を求め、
+\(x &lt; 0, 1 \le x \le n-1 ,x &gt; n-1\) の場合に応じて計算すれば良い。</p>
+<p>\(|A+Di-X|\) が最も小さくなるのは、\(x\) に最も近い \(0\le i \le n-1\) を選んだ時である。</p>
 <p><a href="https://atcoder.jp/contests/abc255/submissions/32387318">https://atcoder.jp/contests/abc255/submissions/32387318</a></p>
 </div>
 	</section>
@@ -270,7 +265,7 @@ $x &lt; 0, 1 \le x \le n-1 ,x &gt; n-1$ の場合に応じて計算すれば良�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 87 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 91 words in this page.
 	</div>
 </div>
 

@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,30 +137,30 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/apc001/tasks/apc001_b">https://atcoder.jp/contests/apc001/tasks/apc001_b</a></p>
-<p>$c_i = a_i - b_i$ とする。</p>
+<p>\(c_i = a_i - b_i\) とする。</p>
 <pre tabindex="0"><code>3
 1 2 3
 5 2 2
-</code></pre><p>であれば $c = [-4,0,1]$ となる。 目的は、全ての $i$ に対して $c_i = 0$ とすること。</p>
-<p>$a_i$ に $2$ を足し、$b_i$ に $1$ を足す操作は、$i=j$ であれば $c_i$ に $1$ を足し(操作1とする）、
-$i \neq j$ ならば $c_i$ に $2$ を足し、$c_j$ から $1$ を引く操作(操作2とする)に対応する。
+</code></pre><p>であれば \(c = [-4,0,1]\) となる。 目的は、全ての \(i\) に対して \(c_i = 0\) とすること。</p>
+<p>\(a_i\) に \(2\) を足し、\(b_i\) に \(1\) を足す操作は、\(i=j\) であれば \(c_i\) に \(1\) を足し(操作1とする）、
+\(i \neq j\) ならば \(c_i\) に \(2\) を足し、\(c_j\) から \(1\) を引く操作(操作2とする)に対応する。
 数字を減らすのは操作2でしか行えないことに注意。</p>
-<p>$c_i$ を非負の部分と負の部分に分け、
-$I_+ = \{ i \mid c_i ≥ 0\}, I_- = \{ i \mid c_i &lt; 0 \}$,
-$S = \sum_{i \in I+} c_i, V = \sum_{i \in I-}\lfloor |c_i|/2 \rfloor$ とおく。</p>
-<p>$S$ は、操作2を行わなくてはいけない最低回数、$V$ は $0$ を超えないようにマイナスになっている $c_i$ に $2$ を足すことのできる最大回数とも考えられる。</p>
-<p>操作1で任意の場所の数字を任意の数だけ増やせるので、$I_+ = \empty$ つまり $S=0$ の状態にできれば良い。</p>
-<p>操作1 または 操作2 で $S$ を減らすことを考える。</p>
-<p>操作2で、$c_i \le -2, c_j &gt; 0$ となっている $i,j$ を選んで $c_i$ に $+2$, $c_j$ に $-1$ すること(操作☆と呼ぶ)でしか $S$ は減らせないことがわかる。
-この時、$S、V$ がともに1減少する。</p>
+<p>\(c_i\) を非負の部分と負の部分に分け、
+\(I_+ = \{ i \mid c_i ≥ 0\}, I_- = \{ i \mid c_i &lt; 0 \}\),
+\(S = \sum_{i \in I+} c_i, V = \sum_{i \in I-}\lfloor |c_i|/2 \rfloor\) とおく。</p>
+<p>\(S\) は、操作2を行わなくてはいけない最低回数、\(V\) は \(0\) を超えないようにマイナスになっている \(c_i\) に \(2\) を足すことのできる最大回数とも考えられる。</p>
+<p>操作1で任意の場所の数字を任意の数だけ増やせるので、\(I_+ = \empty\) つまり \(S=0\) の状態にできれば良い。</p>
+<p>操作1 または 操作2 で \(S\) を減らすことを考える。</p>
+<p>操作2で、\(c_i \le -2, c_j &gt; 0\) となっている \(i,j\) を選んで \(c_i\) に \(+2\), \(c_j\) に \(-1\) すること(操作☆と呼ぶ)でしか \(S\) は減らせないことがわかる。
+この時、\(S、V\) がともに1減少する。</p>
 <p>それ以外のパターンを考えると、</p>
 <ul>
-<li>操作1 -&gt; $c_i \ge 0$ なら $S$ が1増加、それ以外なら $V$ が0または1減少</li>
-<li>操作2 -&gt; $+2$ する操作により、 $S$ が 1以上増加するか $V$ が1減少する。$c_j \le 0$ の時、$-1$ する操作では $V$ を高々1しか増やせない。</li>
+<li>操作1 -&gt; \(c_i \ge 0\) なら \(S\) が1増加、それ以外なら \(V\) が0または1減少</li>
+<li>操作2 -&gt; \(+2\) する操作により、 \(S\) が 1以上増加するか \(V\) が1減少する。\(c_j \le 0\) の時、\(-1\) する操作では \(V\) を高々1しか増やせない。</li>
 </ul>
-<p>上により、どう頑張っても $V$ を増やすことはできないことがわかる。</p>
-<p>$S ≤ V$ ならば、$c_i \le -2, c_j &gt; 0$ となっている $i,j$ を選んで操作☆を続けることで $S=0$ とできる。
-それ以外ならどう頑張っても $S$ 回上のような操作ができないので、目的が達成できない。</p>
+<p>上により、どう頑張っても \(V\) を増やすことはできないことがわかる。</p>
+<p>\(S ≤ V\) ならば、\(c_i \le -2, c_j &gt; 0\) となっている \(i,j\) を選んで操作☆を続けることで \(S=0\) とできる。
+それ以外ならどう頑張っても \(S\) 回上のような操作ができないので、目的が達成できない。</p>
 <p><a href="https://atcoder.jp/contests/apc001/submissions/32369370">https://atcoder.jp/contests/apc001/submissions/32369370</a></p>
 </div>
 	</section>
@@ -291,7 +286,7 @@ $S = \sum_{i \in I+} c_i, V = \sum_{i \in I-}\lfloor |c_i|/2 \rfloor$ とおく�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 648 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 664 words in this page.
 	</div>
 </div>
 

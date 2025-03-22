@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -179,7 +174,7 @@ Bandcamp経由でレコード買うとデジタルライブラリーにも追加
 </span></span></code></pre></div><p>と打ち込んでAudacityを起動すると無事に音が再生できるようになりました。</p>
 <h2 id="録音">録音</h2>
 <p>録音自体はそれほど大変ではなく、通常の再生時と同じように右上の<code>Click to Start Monitoring</code>を押して赤色の丸の録音ボタンを押すだけです。</p>
-<p>$n$倍速 $(n &gt; 1)$で読み込むことができるCDとは違い等速の録音になりますが、ゆっくり曲を聴きながら待ちましょう。</p>
+<p>\(n\)倍速 \((n &gt; 1)\)で読み込むことができるCDとは違い等速の録音になりますが、ゆっくり曲を聴きながら待ちましょう。</p>
 <p><img src="/images/posts/how-to-digitize-vinyl-audacity-1.png" alt="録音終了後"></p>
 <h2 id="ノイズの除去">ノイズの除去</h2>
 <p>録音した楽曲データにはレコードの傷、ホコリや汚れによりノイズが含まれています。
@@ -329,7 +324,7 @@ Tabキーで一つずつ進みながら消していくのが手っ取り早い�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2017 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2020 words in this page.
 	</div>
 </div>
 

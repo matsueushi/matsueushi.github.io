@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='http://localhost:1313/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='http://localhost:1313/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='http://localhost:1313/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -132,15 +127,15 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><h1 id="確率と確率変数">確率と確率変数</h1>
 <h3 id="概収束">概収束</h3>
-<p>$Pr(\lim_{n\rightarrow \infty}X_n = X) = 1$</p>
+<p>\(Pr(\lim_{n\rightarrow \infty}X_n = X) = 1\)</p>
 <h3 id="確率収束">確率収束</h3>
 <h1 id="種々の確率分布">種々の確率分布</h1>
 <h1 id="統計的推測推定">統計的推測(推定)</h1>
 <h2 id="統計量">統計量</h2>
 <h3 id="十分統計量">十分統計量</h3>
-<p>$P(X=x\mid T(X)=t, \theta) = P(X=x\mid T(X)=t)$</p>
+<p>\(P(X=x\mid T(X)=t, \theta) = P(X=x\mid T(X)=t)\)</p>
 <h3 id="フィッシャーネイマンの分解定理">フィッシャーネイマンの分解定理</h3>
-<p>$T(X)$ が $\theta$ の十分統計量</p>
+<p>\(T(X)\) が \(\theta\) の十分統計量</p>
 <h1 id="統計的推測検定">統計的推測(検定)</h1>
 <h1 id="マルコフ連鎖と確率過程の基礎">マルコフ連鎖と確率過程の基礎</h1>
 <h1 id="回帰分析">回帰分析</h1>

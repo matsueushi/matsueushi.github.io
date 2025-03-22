@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,50 +137,50 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c">https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c</a></p>
-<p>正の整数からなる数列 $\{A_i\}_i$ が与えられた時に、
+<p>正の整数からなる数列 \(\{A_i\}_i\) が与えられた時に、
 数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。</p>
 <p>大小関係がジグザグにすれば良い、ということはなんとなくわかったが、
 解説を読んでもピンと来なかったので整理しておく。</p>
-<p>まず、$A_i$ はソートされていると考えて良いだろう。すると、次のような問題を考えれば良いことになる。</p>
+<p>まず、\(A_i\) はソートされていると考えて良いだろう。すると、次のような問題を考えれば良いことになる。</p>
 <p><img src="/images/atcoder/tenka1-2018-fig1.svg" alt="fig1"></p>
 <ul>
-<li>数直線の上に $\{A_i\}_i$ が並んでいる。始点と終点を異なるように選び、全ての点を一回ずつ通って進む。移動距離の最大値を求めよ。</li>
+<li>数直線の上に \(\{A_i\}_i\) が並んでいる。始点と終点を異なるように選び、全ての点を一回ずつ通って進む。移動距離の最大値を求めよ。</li>
 </ul>
-<p>$A_i$ と $A_{i+1}$ が作る区間を $I_i$ とし、その長さを $B_i = A_{i+1}-A_i$ とおく。
-上の図だと、$A_1$ から $A_5$ まで点があり、区間が $I_1$ から $I_4$ まである。</p>
+<p>\(A_i\) と \(A_{i+1}\) が作る区間を \(I_i\) とし、その長さを \(B_i = A_{i+1}-A_i\) とおく。
+上の図だと、\(A_1\) から \(A_5\) まで点があり、区間が \(I_1\) から \(I_4\) まである。</p>
 <h3 id="始点終点の場合を考えてみる">始点=終点の場合を考えてみる</h3>
 <p>脱線するが、最初に始点 = 終点 となる場合の変種を考える。</p>
 <p>それぞれの区間を通過する最大回数を考える。
-$I_1$ から順番に考えていくと、$I_1$ を通過するのは $A_1$ から出ていく時か、$A_1$ に入る時の高々2回しかない。
-$I_2$ を考えると、 $I_1$ で考えた $A_1$ から出ていく矢印、 $A_1$ に戻る矢印がそのまま2を通過する場合と、
-新たに $A_2$ に出入りする矢印がある場合の高々4通りである。</p>
-<p>このように考え、さらに左右の対称性も考慮すると、区間 $I_i$ を通過する回数は、最大 $2\min (i, n-i)$ 回であることがわかる。</p>
+\(I_1\) から順番に考えていくと、\(I_1\) を通過するのは \(A_1\) から出ていく時か、\(A_1\) に入る時の高々2回しかない。
+\(I_2\) を考えると、 \(I_1\) で考えた \(A_1\) から出ていく矢印、 \(A_1\) に戻る矢印がそのまま2を通過する場合と、
+新たに \(A_2\) に出入りする矢印がある場合の高々4通りである。</p>
+<p>このように考え、さらに左右の対称性も考慮すると、区間 \(I_i\) を通過する回数は、最大 \(2\min (i, n-i)\) 回であることがわかる。</p>
 <p><img src="/images/atcoder/tenka1-2018-fig2.svg" alt="fig2"></p>
 <p>また、この最大値をとるような動き方は、上の図のようにジグザグに移動することで必ず達成でき、
-$2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であることがわかる。</p>
+\(2\sum_{i=1}^{n-1} \min (i, n-i) B_i\) が移動距離の最大値であることがわかる。</p>
 <h3 id="始点と終点が異なる場合">始点と終点が異なる場合</h3>
-<p>始点と終点が異なる場合、移動距離 $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ は達成できない。</p>
+<p>始点と終点が異なる場合、移動距離 \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i\) は達成できない。</p>
 <p><img src="/images/atcoder/tenka1-2018-fig3.svg" alt="fig3"></p>
 <p>しかし、上のようにジグザグに動くことを考えると、</p>
 <ul>
-<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_{m-1}$ や $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
-<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
+<li>\(n = 2m-1\), 奇数の場合 : \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_{m-1}\) や \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m\)</li>
+<li>\(n = 2m\), 偶数の場合 : \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m\)</li>
 </ul>
 <p>は達成できることがわかる。それぞれ始点、終点の位置の集合は</p>
 <ul>
-<li>$n = 2m-1$, 奇数の場合 : $\{A_{m-1},A_m\}$ または $\{A_m,A_{m+1}\}$</li>
-<li>$n = 2m$, 偶数の場合 : $\{A_m,A_{m+1}\}$</li>
+<li>\(n = 2m-1\), 奇数の場合 : \(\{A_{m-1},A_m\}\) または \(\{A_m,A_{m+1}\}\)</li>
+<li>\(n = 2m\), 偶数の場合 : \(\{A_m,A_{m+1}\}\)</li>
 </ul>
 <p>と中央の位置にある場合になる。始点と終点が一致する時の通過回数の最大回数に比べ、通過回数の差は</p>
 <ul>
-<li>$n = 2m-1$, 奇数の場合 : $I_{m-1}$ または $I_m$ が1回少なく通過</li>
-<li>$n = 2m$, 偶数の場合 :  $I_m$ が1回少なく通く</li>
+<li>\(n = 2m-1\), 奇数の場合 : \(I_{m-1}\) または \(I_m\) が1回少なく通過</li>
+<li>\(n = 2m\), 偶数の場合 :  \(I_m\) が1回少なく通く</li>
 </ul>
 <p>区間を通過する回数を始点=終点の時と同様に考えると、それ以外の位置に始点、終点がある場合通過区間の通過した回数が少なくなることがわかる。(最適な始点・終点の位置より外側に配置すると通過できない回数が増え、上に挙げたいずれかの場合よりも距離が短くなる)</p>
 <p>結局、ジグザグに動く時が最適になり、</p>
 <ul>
-<li>$n = 2m-1$, 奇数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - \min (B_{m-1},B_m)$</li>
-<li>$n = 2m$, 偶数の場合 : $2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m$</li>
+<li>\(n = 2m-1\), 奇数の場合 : \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i - \min (B_{m-1},B_m)\)</li>
+<li>\(n = 2m\), 偶数の場合 : \(2\sum_{i=1}^{n-1} \min (i, n-i) B_i - B_m\)</li>
 </ul>
 <p>が答えになることがわかる。</p>
 <p><a href="https://atcoder.jp/contests/tenka1-2018/submissions/32590060">https://atcoder.jp/contests/tenka1-2018/submissions/32590060</a></p>
@@ -313,7 +308,7 @@ $2\sum_{i=1}^{n-1} \min (i, n-i) B_i$ が移動距離の最大値であること
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1024 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1032 words in this page.
 	</div>
 </div>
 

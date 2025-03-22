@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -143,9 +138,11 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc121/tasks/abc121_d">https://atcoder.jp/contests/abc121/tasks/abc121_d</a></p>
 <p>ビットごとの排他的論理和は二回繰り返すと元に戻り、可換で結合法則を満たすことから、</p>
-<p>$f(A,B)=A \veebar A+1 \veebar \cdots \veebar B = (0 \veebar 2 \veebar \cdots \veebar A-1) \veebar (0 \veebar 2 \veebar \cdots \veebar B) = f(1,A-1) \veebar f(1,B)$</p>
-<p>だから、$A=0$ の場合に帰着される。</p>
-<p>それぞれの桁毎に、$0~B$ に出てくる $1$ の数が偶数個か奇数個か数えれば、$f(1,B)$ の各ビットがわかる。 $A=0$ の $1,2,3,&hellip;$ のビット表示を確認すると、</p>
+<p>\(f(A,B)=A \veebar A+1 \veebar \cdots \veebar B\)</p>
+<p>\(= (0 \veebar 2 \veebar \cdots \veebar A-1) \veebar (0 \veebar 2 \veebar \cdots \veebar B)\)</p>
+<p>\(= f(1,A-1) \veebar f(1,B)\)</p>
+<p>だから、\(A=0\) の場合に帰着される。</p>
+<p>それぞれの桁毎に、\(0~B\) に出てくる \(1\) の数が偶数個か奇数個か数えれば、\(f(1,B)\) の各ビットがわかる。 \(A=0\) の \(1,2,3,&hellip;\) のビット表示を確認すると、</p>
 <table>
   <thead>
       <tr>
@@ -176,11 +173,11 @@ onload='renderMathInElement(document.body);'></script>
       </tr>
   </tbody>
 </table>
-<p>$1$ の位は $0 \rightarrow 1 \rightarrow 0  \rightarrow 1 \rightarrow \cdots$ と1つごとに切り替わり、 $2$ の位は $0 \rightarrow 0 \rightarrow 1 \rightarrow 1 \rightarrow \cdots$ と2つ毎に切り替わり、と規則的になっている。</p>
-<p>$2^i$ 桁目のビットを考えよう。$i=0$ の時は $B \equiv 1 \mod 4$ なら $1$, それ以外なら $0$ が立っている。</p>
-<p>$i \ge 1$ であれば、$2^{i+1}$ 毎に $1$ が $2^i$ 個(偶数個)出てくるから、$1$ の出現数の偶奇は $(B+1) \mod 2^{i+1}$ で考えれば良い。
-$2^{i+1}$ 個ごとの $0/1$ の出現順は、最初に $0$ が $2^i$ 個続き、そのあと $1$ が $2^i$ 個続くから、 $1$ の数は、$\max(0, ((B+1) \mod 2^{i+1}) - 2^i)$。
-この数が偶数なら $0$, 奇数なら $1$ のビットが立っている。</p>
+<p>\(1\) の位は \(0 \rightarrow 1 \rightarrow 0  \rightarrow 1 \rightarrow \cdots\) と1つごとに切り替わり、 \(2\) の位は \(0 \rightarrow 0 \rightarrow 1 \rightarrow 1 \rightarrow \cdots\) と2つ毎に切り替わり、と規則的になっている。</p>
+<p>\(2^i\) 桁目のビットを考えよう。\(i=0\) の時は \(B \equiv 1 \mod 4\) なら \(1\), それ以外なら \(0\) が立っている。</p>
+<p>\(i \ge 1\) であれば、\(2^{i+1}\) 毎に \(1\) が \(2^i\) 個(偶数個)出てくるから、\(1\) の出現数の偶奇は \((B+1) \mod 2^{i+1}\) で考えれば良い。
+\(2^{i+1}\) 個ごとの \(0/1\) の出現順は、最初に \(0\) が \(2^i\) 個続き、そのあと \(1\) が \(2^i\) 個続くから、 \(1\) の数は、\(\max(0, ((B+1) \mod 2^{i+1}) - 2^i)\)。
+この数が偶数なら \(0\), 奇数なら \(1\) のビットが立っている。</p>
 <p>(実装は結構手間取りました)
 <a href="https://atcoder.jp/contests/abc121/submissions/32474342">https://atcoder.jp/contests/abc121/submissions/32474342</a></p>
 </div>
@@ -307,7 +304,7 @@ $2^{i+1}$ 個ごとの $0/1$ の出現順は、最初に $0$ が $2^i$ 個続き
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 433 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 447 words in this page.
 	</div>
 </div>
 

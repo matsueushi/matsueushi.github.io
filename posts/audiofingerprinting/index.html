@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -171,17 +166,17 @@ onload='renderMathInElement(document.body);'></script>
 <img src="/images/posts/audiofingerprinting_peaks.png" alt="Peaks"><br>
 3. スペクトログラムのピークからペアを作る。と言っても全ての組み合わせのペアを考えるのではなく、二点が近いペアのみを考えます。
 <img src="/images/posts/audiofingerprinting_pairs.png" alt="Pairs"><br>
-4. ペアからハッシュを生成する。ピークを(時間, 周波数)のペアで表した時に、前項で見つけたペアが $((t_1, f_1), (t_2, f_2)), t_1 &lt; t_2$ であるとします。
-この時、ハッシュテーブルに登録するキーと値はそれぞれ $[f_1:f_2:\Delta t]$ と $t_1$ になります。ここで、$\Delta t = t_2 - t_1$です。</p>
+4. ペアからハッシュを生成する。ピークを(時間, 周波数)のペアで表した時に、前項で見つけたペアが \(((t_1, f_1), (t_2, f_2)), t_1 &lt; t_2\) であるとします。
+この時、ハッシュテーブルに登録するキーと値はそれぞれ \([f_1:f_2:\Delta t]\) と \(t_1\) になります。ここで、\(\Delta t = t_2 - t_1\)です。</p>
 <p>という方法で曲から特徴量を抽出して曲のフィンガープリンティングを行います。</p>
 <p>曲データにノイズが加わっていたとしても（全く同じではないですが、一致していることが確認するには十分に）似たようなハッシュデータが得られるようになっているのがポイントです。</p>
 <h2 id="マッチングの方法">マッチングの方法</h2>
 <p>Shazamを使ったことがある人ならわかると思うのですが、Shazamを使って曲名を認識させる際には、
 曲を全部聞かせる必要はなく、途中から一部分を聞かせるだけで十分です。</p>
-<p>ハッシュが Hash:time = $[f_1:f_2:\Delta t]:t_1$ であることがキーポイントで、
-原曲と聞かせた曲の一部分では曲のスタート位置が当然違いますが、時間差は曲のスタート位置に依存しないので、ハッシュのキー $[f_1:f_2:\Delta t]$
+<p>ハッシュが Hash:time = \([f_1:f_2:\Delta t]:t_1\) であることがキーポイントで、
+原曲と聞かせた曲の一部分では曲のスタート位置が当然違いますが、時間差は曲のスタート位置に依存しないので、ハッシュのキー \([f_1:f_2:\Delta t]\)
 は双方に出現します。
-それぞれ対応する時間を$t_1$と$t^\prime_1$として、時間のオフセット$t_1 - t^\prime_1$を計算すると、
+それぞれ対応する時間を\(t_1\)と\(t^\prime_1\)として、時間のオフセット\(t_1 - t^\prime_1\)を計算すると、
 正しくマッチングできていれば原曲と聞かせた曲のスタート位置の差である定数になるはずです。</p>
 <p>ハッシュが一致した時に、原曲と聞かせた曲で見つかった時間のプロットを確認してみましょう。</p>
 <p><img src="/images/posts/audiofingerprinting_scatter.png" alt="Scatter plot"></p>
@@ -665,7 +660,7 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5202 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5210 words in this page.
 	</div>
 </div>
 

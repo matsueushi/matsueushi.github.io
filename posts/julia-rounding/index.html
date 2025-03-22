@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -206,30 +201,25 @@ Julia における丸めの制御について調べた内容を書いておき�
 <p>一つ目の条件は \( \mathbb{F}^* \) でもともと表せる数に関しては余計な操作を行わないことを意味し、
 二つ目の条件は近似した時に大小関係が入れかわらないことを保証するもので、どちらも非常に自然な要請です。</p>
 <p>丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。</p>
-<p>$$
-\begin{aligned}
-\triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
-\end{aligned}
-$$</p>
-<p>$$
-\begin{aligned}
-\triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
-\end{aligned}
 $$
+    \begin{aligned}
+        \triangledown (x) = \max \\\{ y \in \mathbb{F}^* \mid y \le x \\\},
+    \end{aligned}
+$$$$
+    \begin{aligned}
+        \triangle (x) = \min \\\{ y \in \mathbb{F}^* \mid y \ge x \\\}
+    \end{aligned}
+$$<p>
 はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。</p>
-<p>これらは勿論先ほどの丸めの定義を満たし、
 $$
-\begin{aligned}
-\triangledown (x) \le x \le \triangle (x)
-\end{aligned}
-$$</p>
-<p>が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して
-$$
-\begin{aligned}
-\triangledown (x) \le \bigcirc (x) \le \triangle (x)
-\end{aligned}
-$$</p>
-<p>が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
+    \begin{aligned} 
+    \triangledown (x) \le x \le \triangle (x)
+    \end{aligned} 
+$$$$
+    \begin{aligned}
+    \triangledown (x) \le \bigcirc (x) \le \triangle (x)
+    \end{aligned}
+$$<p>が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
 \( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
 \( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) &lt; x &lt; \triangle (x) \) が成り立つとともに
 \( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
@@ -271,19 +261,16 @@ Juliaの <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-
 <p>書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート <a href="https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF">Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic</a>
 を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
 別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。</p>
-<p>よって、
 $$
-\begin{aligned}
-x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
-\end{aligned}
-$$</p>
-<p>の時に</p>
-<p>$$
-\begin{aligned}
-x \circledast y = \square (x * y)
-\end{aligned}
-$$</p>
-<p>ということになります。</p>
+    \begin{aligned}
+         x, y \in \mathbb{F}^*, * \in \\{  +, -, \times, /, \sqrt{} \\}
+    \end{aligned}
+$$<p>の時に</p>
+$$
+    \begin{aligned}
+        x \circledast y = \square (x * y)
+    \end{aligned}
+$$<p>ということになります。</p>
 <p>長々と書いてしまいましたが、<code>0.1 * 3.0</code>
 \( = \square(\square(0.1) \times \square(3.0)) \),
 <code>0.3</code> \( = \square(0.3) \) なので、<code>0.1 * 3.0</code> と <code>0.3</code> は近い値にはなるものの、\(\square(0.1) \times \square(3.0) \neq 0.3\) でそれぞれ別の数に丸められてしまうということでした。</p>
@@ -315,18 +302,16 @@ $$</p>
 </span></span></code></pre></div><p>と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
 得られる区間は <code>[1.0, 1.0]</code> となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。</p>
 <p>つまり、今までに定義した記号を使って表すと、</p>
-<p>$$
-\begin{aligned}
-[x, y] + [x&rsquo;, y&rsquo;] = [x \oplus x&rsquo;, y \oplus y&rsquo;]
-\end{aligned}
-$$</p>
-<p>と定義してしまってはダメで、</p>
-<p>$$
-\begin{aligned}
-[x, y] + [x&rsquo;, y&rsquo;] = [\triangledown (x + x&rsquo;), \triangle (y + y&rsquo;)]
-\end{aligned}
-$$</p>
-<p>と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。</p>
+$$
+    \begin{aligned}
+        [x, y] + [x', y'] = [x \oplus x', y \oplus y']
+    \end{aligned}
+$$<p>と定義してしまってはダメで、</p>
+$$
+    \begin{aligned}
+        [x, y] + [x', y'] = [\triangledown (x + x'), \triangle (y + y')]
+    \end{aligned}
+$$<p>と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。</p>
 <p>非常に長くなってしまいましたが、この計算をやりたいがために丸めモードを変えたいわけです。</p>
 <h3 id="julia-における方向丸め付き演算のサポート">Julia における方向丸め付き演算のサポート</h3>
 <p>「さあ、いよいよ Julia で方向丸め付き演算をやっていくか、C++だと<a href="http://verifiedby.me/kv/rounding/index.html">丸めモードの変更は面倒な感じがする</a> が、
@@ -353,12 +338,12 @@ FastRounding.jl は、<a href="https://github.com/JeffreySarnoff/ErrorfreeArithm
 ここでは簡単に加算に関して FastRounding.jl が行っているエラーフリー変換とエミュレートについて説明してみたいと思います。</p>
 <p>加算のエラーフリー変換は、別名 <code>twosum</code> とも呼ばれるアルゴリズムで、\(a, b \in \mathbb{F}\) に対して,
 ペア \( (x, y) = \text{twosum}(a, b) \) を返し、</p>
-<p>$$
-\begin{aligned}
-x &amp;= a \oplus b, \\
-a + b &amp;= x + y
-\end{aligned}
 $$
+    \begin{aligned}
+        x &= a \oplus b, \\\ 
+        a + b &= x + y
+    \end{aligned}
+$$<p>
 が厳密に成立するとされるものです。</p>
 <p>Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> twosum(a, b)
@@ -686,7 +671,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 6162 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 6098 words in this page.
 	</div>
 </div>
 

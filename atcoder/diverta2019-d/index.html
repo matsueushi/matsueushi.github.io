@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,9 +137,9 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d">https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d</a></p>
-<p>$t = \lfloor n/m\rfloor = n \mod m$ とおくと $0 \le t &lt; m$であり、$n=\alpha m + t$ とおける。
-$t$ の条件から $\alpha = \lfloor n/m\rfloor = t$ だから結局 $n = t(m+1)$ とかける。</p>
-<p>$n = t(m+1) \ge t^2$ より、$t \le \sqrt{n}$ を探索すれば良い。</p>
+<p>\(t = \lfloor n/m\rfloor = n \mod m\) とおくと \(0 \le t &lt; m\)であり、\(n=\alpha m + t\) とおける。
+\(t\) の条件から \(\alpha = \lfloor n/m\rfloor = t\) だから結局 \(n = t(m+1)\) とかける。</p>
+<p>\(n = t(m+1) \ge t^2\) より、\(t \le \sqrt{n}\) を探索すれば良い。</p>
 <p><a href="https://atcoder.jp/contests/diverta2019/submissions/32371542">https://atcoder.jp/contests/diverta2019/submissions/32371542</a></p>
 </div>
 	</section>
@@ -270,7 +265,7 @@ $t$ の条件から $\alpha = \lfloor n/m\rfloor = t$ だから結局 $n = t(m+1
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 87 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 90 words in this page.
 	</div>
 </div>
 

@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,18 +137,18 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc181/tasks/abc181_f">https://atcoder.jp/contests/abc181/tasks/abc181_f</a></p>
-<p>$r$ を動かした時に、動かす円の中心が存在できない範囲を考えてみる。
-壁もしくは障害物から距離 $r$ 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。</p>
+<p>\(r\) を動かした時に、動かす円の中心が存在できない範囲を考えてみる。
+壁もしくは障害物から距離 \(r\) 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。</p>
 <p><img src="/images/atcoder/abc181-f-0.svg" alt="fig0"></p>
 <p><img src="/images/atcoder/abc181-f-1.svg" alt="fig1"></p>
 <p>上の壁と下の壁が図で示した青色の領域を通じて繋がっていなければ円が通過でき、繋がっていれば円が通過できない。
 繋がっているか繋がっていないかはUnionFindで判定できる。</p>
 <ul>
-<li>$y=100$ と 釘 $(x_i, y_i)$ が繋がっている &lt;=&gt; $y_i + 2 r &gt; 100$</li>
-<li>$y=-100$ と 釘 $(x_i, y_i)$ が繋がっている &lt;=&gt; $y_i - 2 r &lt; 100$</li>
-<li>釘 $(x_i, y_i)$ と 釘 $(x_j, y_j)$ が繋がっている &lt;=&gt; $(x_i-x_j)^2 + (y_i-y_j)^2 &lt; (2r)^2$</li>
+<li>\(y=100\) と 釘 \((x_i, y_i)\) が繋がっている &lt;=&gt; \(y_i + 2 r &gt; 100\)</li>
+<li>\(y=-100\) と 釘 \((x_i, y_i)\) が繋がっている &lt;=&gt; \(y_i - 2 r &lt; 100\)</li>
+<li>釘 \((x_i, y_i)\) と 釘 \((x_j, y_j)\) が繋がっている &lt;=&gt; \((x_i-x_j)^2 + (y_i-y_j)^2 &lt; (2r)^2\)</li>
 </ul>
-<p>これで $r$ が与えられたときの判定方法がわかったので、あとは $r$ を二分探索する。</p>
+<p>これで \(r\) が与えられたときの判定方法がわかったので、あとは \(r\) を二分探索する。</p>
 <p><a href="https://atcoder.jp/contests/abc181/submissions/34127397">https://atcoder.jp/contests/abc181/submissions/34127397</a> (Rust, 14ms)</p>
 </div>
 	</section>

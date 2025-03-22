@@ -21,7 +21,7 @@
       <description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;
 &lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている
-$\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]$ (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;
+\(\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]\) (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;
 
     &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
       &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/M9xMuPWAZW8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
@@ -122,15 +122,14 @@ $\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in
 &lt;p&gt;サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。&lt;/p&gt;
 &lt;h2 id=&#34;離散フーリエ変換&#34;&gt;離散フーリエ変換&lt;/h2&gt;
-&lt;p&gt;離散フーリエ変換は標本点$\{ x = 0, \ldots, N-1 \}$に対し、関数$f(x)$を
 $$
-\begin{aligned}
-F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
-\end{aligned}
-$$
+    \begin{aligned}
+      F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
+    \end{aligned} 
+$$&lt;p&gt;
 に写す変換です。&lt;/p&gt;
 &lt;p&gt;まず&lt;a href=&#34;https://github.com/JuliaMath/FFTW.jl&#34;&gt;FFTW.jl&lt;/a&gt;を利用して
-$f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
+\(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。&lt;a href=&#34;https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&#34;&gt;scipy.fftのFourier Transformsのチュートリアル&lt;/a&gt;を参考にしています。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Fourier transform&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&lt;/span&gt;
@@ -158,7 +157,7 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/spectrogram_twosines_fft.png&#34; alt=&#34;FFT&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/spectrogram_twosines_rfft.png&#34; alt=&#34;RFFT&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;fft&lt;/code&gt;と&lt;code&gt;rfft&lt;/code&gt;の違いですが、実数関数の高速フーリエ変換を行う場合は、得られる結果は複素共役になっているので
-&lt;code&gt;fft&lt;/code&gt;の最初の$N/2+1$個の要素だけ取り出したのが&lt;code&gt;rfft&lt;/code&gt;です。今後は&lt;code&gt;rfft&lt;/code&gt;を使っていきます。&lt;/p&gt;
+&lt;code&gt;fft&lt;/code&gt;の最初の\(N/2+1\)個の要素だけ取り出したのが&lt;code&gt;rfft&lt;/code&gt;です。今後は&lt;code&gt;rfft&lt;/code&gt;を使っていきます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; fft(ys)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1025&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Complex&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float64&lt;/span&gt;},&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.021546067690054016&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;im
@@ -202,13 +201,11 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 &lt;p&gt;スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。&lt;/p&gt;
 &lt;p&gt;この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。&lt;/p&gt;
-&lt;p&gt;今回はハン関数(&lt;a href=&#34;https://en.wikipedia.org/wiki/Hann_function&#34;&gt;Hann function&lt;/a&gt;)を使うことにします。
-サンプル数が $N + 1$ のとき、ハン関数は
 $$
-\begin{aligned}
-w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
-\end{aligned}
-$$
+    \begin{aligned} 
+    w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
+    \end{aligned}
+$$&lt;p&gt;
 で与えられます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;

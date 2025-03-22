@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -173,10 +168,7 @@ onload='renderMathInElement(document.body);'></script>
 をカーネル関数と呼んでいるのであった。</p>
 <p>今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。</p>
 <h2 id="ガウスカーネルの定義">ガウスカーネルの定義</h2>
-<p>もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$
-本文では
-$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$<p>
 この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。</p>
@@ -406,15 +398,11 @@ Stacktrace:
 <p><img src="/images/posts/gp-parameter-estimation_regression_1.png" alt="回帰結果"></p>
 <h2 id="微分を定義する">微分を定義する</h2>
 <p>学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_\boldsymbol{\theta} \) とした時に、対数尤度関数</p>
-<p>$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y} $$</p>
-<p>を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、</p>
-<p>$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$</p>
-<p>だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta &gt; 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は
-$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$
+$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y} $$<p>を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、</p>
+$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$<p>
 である。同様に \( \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} = \theta \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \)
 だから、\( \theta \) の代わりに \( \tau \) を考えて</p>
-<p>$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$</p>
-<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKernel</code>, <code>LinearKernel</code> の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
+$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKernel</code>, <code>LinearKernel</code> の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
 <code>ConstantKernel</code>, <code>LinearKernel</code> はパラメーターを持たないので、空のリストを返しておく。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logderiv(k<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianKernel</span>, x1, x2)
 </span></span><span style="display:flex;"><span>    [ker(k, x1, x2) <span style="color:#f92672">/</span> k<span style="color:#f92672">.</span>theta <span style="color:#f92672">*</span> sum((x1 <span style="color:#f92672">-</span> x2)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)]
@@ -520,8 +508,7 @@ $$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>(<span style="color:#f92672">-</span>log(det(k)) <span style="color:#f92672">-</span> ys<span style="color:#f92672">&#39;</span> <span style="color:#f92672">*</span> k_inv <span style="color:#f92672">*</span> ys)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>まずは図3.16のデータでハイパーパラメーターを推定しよう。推定したいハイパーパラメータの形は
-$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$
+</span></span></code></pre></div>$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$<p>
 だから、パラメーターを仮置きして下のようにガウス過程を定義する。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">1.0</span>), <span style="color:#ae81ff">1.0</span>)
 </span></span></code></pre></div><p>Optim.jlの<a href="https://julianlsolvers.github.io/Optim.jl/stable/#algo/gradientdescent/"><code>GradientDescent</code></a> を使ってパラメーターを推定する。実際のハイパーパラメーターに戻すために、最後に <code>exp</code> を取っている。</p>
@@ -847,7 +834,7 @@ logp:19.709131389510937
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4384 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4211 words in this page.
 	</div>
 </div>
 

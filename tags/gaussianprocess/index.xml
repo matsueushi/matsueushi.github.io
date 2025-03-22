@@ -189,16 +189,11 @@
  Output observations = [0.7, 1.8, 1.7, 2.3, 1.0]
  Variance of observation noise = 0.08198471101193598
  Marginal Log-Likelihood = -5.464
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;「ガウス過程と機械学習」では、カーネルは
-$$
+&lt;/code&gt;&lt;/pre&gt;$$
 k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
-$$
-となっていて、推定結果は \((\theta_1, \theta_2, \theta_3)=(1.596,6.560,0.082)\) とされている。
-\(\theta_3\)は&lt;code&gt;Variance of observation noise&lt;/code&gt;の&lt;code&gt;0.08198471101193598&lt;/code&gt;とそのまま一致。
-&lt;code&gt;SEIso&lt;/code&gt;のカーネル関数は
-$$
+$$$$
 k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$
+$$&lt;p&gt;
 で、パラメーターは \(l\) と \(\sigma\) の対数をとった &lt;code&gt;ll&lt;/code&gt; と &lt;code&gt;lσ&lt;/code&gt; だから
 \(\theta_1 = \exp(2 * l\sigma), \theta_2=2 * \exp(2 * ll)\) という変換で対応できる。
 &lt;code&gt;SEIso&lt;/code&gt; のメンバー変数 &lt;code&gt;σ2&lt;/code&gt; と &lt;code&gt;ℓ2&lt;/code&gt; を使って確認すると、&lt;/p&gt;
@@ -621,18 +616,15 @@ Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。&lt;/p&gt;
 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、
 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。&lt;/p&gt;
 &lt;p&gt;全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。&lt;/p&gt;
-&lt;p&gt;ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では
 $$
 k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right)
-$$&lt;/p&gt;
-&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応するのは [&lt;code&gt;GaussianProcesses.SEIso&lt;/code&gt;]
+$$&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応するのは [&lt;code&gt;GaussianProcesses.SEIso&lt;/code&gt;]
 (&lt;a href=&#34;http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso&#34;&gt;http://stor-i.github.io/GaussianProcesses.jl/latest/kernels.html#GaussianProcesses.SEIso&lt;/a&gt;) である。
 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 &lt;code&gt;SEIso(ll::T, lσ::T)&lt;/code&gt; は、
 \(\sigma = \log (\) &lt;code&gt;lσ&lt;/code&gt; \()\), \(l = \log (\) &lt;code&gt;ll&lt;/code&gt; \()\) とした時に&lt;/p&gt;
-&lt;p&gt;$$
+$$
 k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$&lt;/p&gt;
-&lt;p&gt;だから、\(
+$$&lt;p&gt;だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rbf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SEIso(log(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;sqrt(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)), &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;)
@@ -1927,11 +1919,10 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;eta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gp&#34;&gt;GP&lt;/h3&gt;
 &lt;p&gt;まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、&lt;/p&gt;
-&lt;p&gt;$$
-p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}_{\mathbf{f}, *})
-$$&lt;/p&gt;
-&lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
+$$
+    p(\mathbf{f}\_\* | \mathbf{y}) = \mathcal{N}(\mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+    \mathbf{K}\_{\*, \*} - \mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}\_{\mathbf{f}, *})
+$$&lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
 &lt;p&gt;1点の予測分布を計算する関数を実装しよう。自分の実装では、&lt;code&gt;cov&lt;/code&gt; は行列を返すため、1x1の行列を &lt;code&gt;first&lt;/code&gt; を使ってスカラーにしている。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;length(xs)
@@ -2024,18 +2015,15 @@ $$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sod.png&#34; alt=&#34;SoD&#34;&gt;&lt;/p&gt;
 &lt;p&gt;左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-regressors-sor&#34;&gt;The Subset of Regressors (SoR)&lt;/h3&gt;
-&lt;p&gt;前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が
 $$
-\begin{aligned}
-\Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}
-\end{aligned}
-$$
-を用いて
-$$
-\begin{aligned}
-\mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
-\end{aligned}
-$$
+    \begin{aligned}
+        \Sigma = (\sigma^{-2} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}
+    \end{aligned}
+$$$$
+    \begin{aligned}
+        \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \end{aligned}
+$$&lt;p&gt;
 と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
@@ -2072,15 +2060,13 @@ $$
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sor.png&#34; alt=&#34;SoR&#34;&gt;&lt;/p&gt;
 &lt;p&gt;式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。&lt;/p&gt;
 &lt;h3 id=&#34;the-deterministic-training-conditional-dtc&#34;&gt;The Deterministic Training Conditional (DTC)&lt;/h3&gt;
-&lt;p&gt;DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。
 $$
-\begin{aligned}
-q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
-= \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
+    \begin{aligned} 
+        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{y}) 
+        = \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \end{aligned} 
+$$&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
@@ -2104,20 +2090,17 @@ $$&lt;/p&gt;
 そうなるとFITCを使うまでもないということにもなりかねないが……&lt;/p&gt;
 &lt;h3 id=&#34;the-fully-independent-training-conditional-fitc&#34;&gt;The Fully Independent Training Conditional (FITC)&lt;/h3&gt;
 &lt;p&gt;最後にFITC。&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
-\end{aligned}
 $$
-を使って
-$$
-\begin{aligned}
-q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
-= \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;だったから同様に&lt;/p&gt;
+    \begin{aligned}
+ \Sigma = (\mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+    \end{aligned} 
+$$$$
+    \begin{aligned} 
+        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{y}) 
+        = \mathcal{N} (\mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \),
+    \end{aligned} 
+$$&lt;p&gt;だったから同様に&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kfu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Kuf&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;
@@ -2168,238 +2151,212 @@ $$&lt;/p&gt;
 &lt;p&gt;そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &lt;a href=&#34;http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf&#34;&gt;&amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo;&lt;/a&gt; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。&lt;/p&gt;
 &lt;p&gt;\( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、
 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて&lt;/p&gt;
-&lt;p&gt;$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$
-$$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$&lt;/p&gt;
-&lt;p&gt;と結びつく観測モデルを考える。\( \mathbf{f}=(f_1, \ldots, f_N)^\top, f_n=f(\mathbf{x}_n) \) は学習データの出力値である。
-上の観測モデルは、
-$$
+$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$$$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$$$
 p(\mathbf{y} | \mathbf{f}) = \mathcal{N}(\mathbf{f}, \sigma^2\mathbf{I})
-$$
+$$&lt;p&gt;
 と書き直せる。&lt;/p&gt;
 &lt;p&gt;取り組みたい問題は、ガウス過程回帰に基づいた回帰モデル。&lt;/p&gt;
 &lt;p&gt;予測したい点を \( \mathbf{X}_*=(\mathbf{x}_{*1}, \ldots, \mathbf{x}_{*M} ) \) ,
 出力値を \( \mathbf{f}_* \) , 観測値を \( \mathbf{y}_* \) とする。&lt;/p&gt;
 &lt;p&gt;\( \mathbf{f}, \mathbf{f}_* \) の条件付き同時確率分布はベイズルールから&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-p(\mathbf{f}, \mathbf{f}_* | \mathbf{y}) = \frac{p(\mathbf{f}, \mathbf{f}_*)p(\mathbf{f} | \mathbf{y})}{p(\mathbf{y})},
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;同時事前確率は、ガウス過程の定義より、カーネル関数が定める共分散行列 \( \mathbf{K}=(k(\mathbf{x}_i, \mathbf{x}_j))_{i, j} \) を用いて&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-p(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
-\left(
-\begin{matrix}
-\mathbf{K}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{K}_{*, \mathbf{f}} \\
-\mathbf{K}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
-\end{matrix}
-\right)
-\right),
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;となる。学習データ \( \mathbf{X} \) が大きくなると \( \mathbf{K}_{\mathbf{f}, \mathbf{f}} \) の計算量が大きくなるので、この部分の計算量を減らすような近似を行いたいわけである。&lt;/p&gt;
+$$ 
+    \begin{aligned} 
+        p(\mathbf{f}, \mathbf{f}_* | \mathbf{y}) = \frac{p(\mathbf{f}, \mathbf{f}\_*)p(\mathbf{f} | \mathbf{y})}{p(\mathbf{y})}, 
+    \end{aligned}
+$$&lt;p&gt;同時事前確率は、ガウス過程の定義より、カーネル関数が定める共分散行列 \( \mathbf{K}=(k(\mathbf{x}_i, \mathbf{x}_j))_{i, j} \) を用いて&lt;/p&gt;
+$$ 
+    \begin{aligned} 
+        p(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+        \left(
+        \begin{matrix}
+            \mathbf{K}\_{\mathbf{f}, \mathbf{f}} &amp; \mathbf{K}\_{\*, \mathbf{f}} \\\ 
+            \mathbf{K}\_{\mathbf{f}, *} &amp; \mathbf{K}\_{\*, \*}
+        \end{matrix}
+        \right)
+        \right),
+    \end{aligned}
+$$&lt;p&gt;となる。学習データ \( \mathbf{X} \) が大きくなると \( \mathbf{K}_{\mathbf{f}, \mathbf{f}} \) の計算量が大きくなるので、この部分の計算量を減らすような近似を行いたいわけである。&lt;/p&gt;
 &lt;p&gt;ガウス過程の予測分布 \( p(\mathbf{f}_* | \mathbf{y} ) \) は、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-p(\mathbf{f}_* | \mathbf{y}) &amp;amp;= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\
-&amp;amp;= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\
-&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1}\mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}}\widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1} \mathbf{K}_{\mathbf{f}, *}),
-\end{aligned}
 $$
+    \begin{aligned} 
+        p(\mathbf{f}\_\* | \mathbf{y}) &amp;= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\\ 
+        &amp;= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}\_*)d\mathbf{f} \\\ 
+        &amp;= \mathcal{N}(\mathbf{K}\_{\*, \mathbf{f}} \widetilde{\mathbf{K}}\_{\mathbf{f}, \mathbf{f}}^{-1}\mathbf{y},
+        \mathbf{K}\_{\*, \*} - \mathbf{K}\_{\*, \mathbf{f}}\widetilde{\mathbf{K}}\_{\mathbf{f}, \mathbf{f}}^{-1} \mathbf{K}\_{\mathbf{f}, *}),
+    \end{aligned}
+$$&lt;p&gt;
 ここで \( \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}} = \mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I} \) である。
 この式は「ガウス過程と機械学習」の公式3.8に対応し、こちらではノイズ項目 \( \sigma^2 \mathbf{I} \) もカーネルに含めているので、notationが少し違っている。&lt;/p&gt;
 &lt;p&gt;いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-p(\mathbf{f}_*, \mathbf{f}) &amp;amp;= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\
-&amp;amp;= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;$$
+$$
+    \begin{aligned} 
+        p(\mathbf{f}\_\*, \mathbf{f}) &amp;= \int p(\mathbf{f}\_\*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
+        &amp;= \int p(\mathbf{f}\_\*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+    \end{aligned} 
+$$$$
 p(\mathbf{u}) = \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{u}, \mathbf{u}}),
-$$&lt;/p&gt;
-&lt;p&gt;$$
-p(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
-$$&lt;/p&gt;
-&lt;p&gt;$$
-p(\mathbf{f}_* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
-$$&lt;/p&gt;
-&lt;p&gt;と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}} := \mathbf{K}_{\mathbf{a}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{b}} \) である。&lt;/p&gt;
+$$$$
+p(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}}),
+$$$$
+p(\mathbf{f}\_\* | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*})
+$$&lt;p&gt;と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}} := \mathbf{K}_{\mathbf{a}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{b}} \) である。&lt;/p&gt;
 &lt;p&gt;補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-p(\mathbf{f}_*, \mathbf{f}) &amp;amp;\simeq q(\mathbf{f}_*, \mathbf{f}) \\
-&amp;amp;= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。&lt;/p&gt;
+$$
+    \begin{aligned} 
+        p(\mathbf{f}\_\*, \mathbf{f}) &amp;\simeq q(\mathbf{f}\_\*, \mathbf{f}) \\\ 
+        &amp;= \int q(\mathbf{f}\_\* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+    \end{aligned} 
+$$&lt;p&gt;という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-data-sod-approximation&#34;&gt;The Subset of Data (SoD) Approximation&lt;/h3&gt;
 &lt;p&gt;部分データ法は元々の入力点の中から代表となる点を抜き出し、抜き出した点を新たな入力点としてガウス回帰を行うやり方。細かい説明は省略。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-regressors-sor-approximation&#34;&gt;The Subset of Regressors (SoR) Approximation&lt;/h3&gt;
 &lt;p&gt;The Subset of Regressors Approximation (部分回帰法?, 以下SoR) は \( \mathbf{f}, \mathbf{f}_* \)の同時分布を&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
-\left(
-\begin{matrix}
-\mathbf{Q}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
-\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{Q}_{*, *}
-\end{matrix}
-\right)
-\right)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と近似するもので、後に出てくるDTC, FITCの基礎となる考え方である。
+$$ 
+    \begin{aligned} 
+        q\_{\text{SoR}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+        \left(
+        \begin{matrix}
+            \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} &amp; \mathbf{Q}\_{\*, \mathbf{f}} \\\ 
+            \mathbf{Q}\_{\mathbf{f}, *} &amp; \mathbf{Q}\_{\*, \*}
+        \end{matrix}
+        \right)
+        \right)
+    \end{aligned}
+$$&lt;p&gt;と近似するもので、後に出てくるDTC, FITCの基礎となる考え方である。
 心持ちとしては、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{SoR}}(\mathbf{f} | \mathbf{u})
-&amp;amp;= \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
-&amp;amp;\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) \\
-&amp;amp;= p(\mathbf{f} | \mathbf{u}),
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\
-&amp;amp;\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *}) \\
-&amp;amp;= p(\mathbf{f}_* | \mathbf{u})
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と、\( p(\mathbf{f} | \mathbf{u}), p(\mathbf{f}_* | \mathbf{u}) \) の分散を \( 0 \) と近似して、\( \mathbf{f}, \mathbf{f}_* \) と \( \mathbf{u} \) の関係がdeterministicと仮定するものである。(deterministicの場合はもはや \( \mathbf{f} | \mathbf{u}\) は正規分布ではないので、この書き方は微妙な感じかもしれないが、論文のnotationに従った)&lt;/p&gt;
+$$
+    \begin{aligned} 
+        q\_{\text{SoR}}(\mathbf{f} | \mathbf{u}) 
+        &amp;= \mathcal{N}(\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\\ 
+        &amp;\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}}) \\\ 
+        &amp;= p(\mathbf{f} | \mathbf{u}), 
+    \end{aligned} 
+$$$$
+    \begin{aligned} 
+        q\_{\text{SoR}}(\mathbf{f}\_\* | \mathbf{u}) &amp;= \mathcal{N}(\mathbf{K}\_{\*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\\ 
+        &amp;\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*}) \\\ 
+        &amp;= p(\mathbf{f}\_\* | \mathbf{u}) 
+    \end{aligned} 
+$$&lt;p&gt;と、\( p(\mathbf{f} | \mathbf{u}), p(\mathbf{f}_* | \mathbf{u}) \) の分散を \( 0 \) と近似して、\( \mathbf{f}, \mathbf{f}_* \) と \( \mathbf{u} \) の関係がdeterministicと仮定するものである。(deterministicの場合はもはや \( \mathbf{f} | \mathbf{u}\) は正規分布ではないので、この書き方は微妙な感じかもしれないが、論文のnotationに従った)&lt;/p&gt;
 &lt;p&gt;仮定から \( q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_* ) \) の導出は、 同時分布が正規分布になることと、多変数正規分布の線形変換の性質から、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\mathbf{f} &amp;amp;= \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\
-&amp;amp; \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\
-&amp;amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}) \\
-&amp;amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-covariance_matrix&#34;&gt;相互共分散行列&lt;/a&gt;の線型性から、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\text{cov}(\mathbf{f}, \mathbf{f}_*) &amp;amp;= \text{cov}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} ) \\
-&amp;amp; = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{u}) (\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top \\
-&amp;amp; = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\
-&amp;amp; = \mathbf{Q}_{\mathbf{f}, *},
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;\( \text{cov}(\mathbf{f}_*, \mathbf{f}) = \mathbf{Q}_{*, \mathbf{f}} \) であることから従う。&lt;/p&gt;
+$$
+    \begin{aligned} 
+        \mathbf{f} &amp;= \mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\\ 
+        &amp; \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}\_{\mathbf{u}, \mathbf{u}} (\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\\ 
+        &amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{f}}) \\\ 
+        &amp; \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}\_{\mathbf{f}, \mathbf{f}}),
+    \end{aligned} 
+$$&lt;p&gt;であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-covariance_matrix&#34;&gt;相互共分散行列&lt;/a&gt;の線型性から、&lt;/p&gt;
+$$
+    \begin{aligned} 
+        \text{cov}(\mathbf{f}, \mathbf{f}\_\*) &amp;= \text{cov}(\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} ) \\\ 
+        &amp; = \mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{u}) (\mathbf{K}\_{\*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1})^\top \\\ 
+        &amp; = \mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^\{-1} \mathbf{K}\_{\mathbf{u}, *} \\\ 
+        &amp; = \mathbf{Q}\_{\mathbf{f}, *},
+    \end{aligned}
+$$&lt;p&gt;\( \text{cov}(\mathbf{f}_*, \mathbf{f}) = \mathbf{Q}_{*, \mathbf{f}} \) であることから従う。&lt;/p&gt;
 &lt;p&gt;予測分布は、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y})
-&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-\mathbf{Q}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *})
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;で与えられる。これが \( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ) \) と等しくなることを示そう。 初見でなぜこうなるか不明だった……&lt;/p&gt;
+$$
+    \begin{aligned} 
+        q\_{\text{SoR}}(\mathbf{f}\_\* | \mathbf{y}) 
+        &amp; = \mathcal{N}(\mathbf{Q}\_{*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+        \mathbf{Q}\_{\*, \*} - \mathbf{Q}\_{\*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}\_{\mathbf{f}, *})
+    \end{aligned} 
+$$&lt;p&gt;で与えられる。これが \( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ) \) と等しくなることを示そう。 初見でなぜこうなるか不明だった……&lt;/p&gt;
 &lt;p&gt;まず、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}
-&amp;amp; = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \sigma^2 \mathbf{K}_{\mathbf{u}, \mathbf{u}}) \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \\
-&amp;amp; = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} + \sigma^2 \mathbf{I}) \\
-&amp;amp; = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;であるから、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1}
-&amp;amp; = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma
-(\sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}})
-(\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \\
-&amp;amp; = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}}
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;を得る。分散の方の等号も、この式を使えば最終的に \( \Sigma (\mathbf{K}_{\mathbf{u}, \mathbf{u}} + \sigma^{-2}\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}}) = \mathbf{I} \) に帰着させて示すことができる。&lt;/p&gt;
+$$
+    \begin{aligned} 
+        \sigma^2 \Sigma^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} 
+        &amp; = (\mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \sigma^2 \mathbf{K}\_{\mathbf{u}, \mathbf{u}}) \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \\\ 
+        &amp; = \mathbf{K}\_{\mathbf{u}, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} + \sigma^2 \mathbf{I}) \\\ 
+        &amp; = \mathbf{K}\_{\mathbf{u}, \mathbf{f}} (\mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+    \end{aligned} 
+$$&lt;p&gt;であるから、&lt;/p&gt;
+$$
+    \begin{aligned} 
+        \mathbf{Q}\_{*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1}
+        &amp; = \sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma 
+        (\sigma^2 \Sigma^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \mathbf{f}})
+        (\mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \\\ 
+        &amp; = \sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}}
+    \end{aligned} 
+$$&lt;p&gt;を得る。分散の方の等号も、この式を使えば最終的に \( \Sigma (\mathbf{K}_{\mathbf{u}, \mathbf{u}} + \sigma^{-2}\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}}) = \mathbf{I} \) に帰着させて示すことができる。&lt;/p&gt;
 &lt;h3 id=&#34;the-deterministic-training-conditional-dtc-approximation&#34;&gt;The Deterministic Training Conditional (DTC) Approximation&lt;/h3&gt;
 &lt;p&gt;DTCはSoRと似ていて、&lt;/p&gt;
-&lt;p&gt;$$
-q_{\text{DTC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0})
-$$&lt;/p&gt;
-&lt;p&gt;と \( \mathbf{f} \) が deterministic に \( \mathbf{u} \) によって定まると仮定する。一方、出力値の方は&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= p(\mathbf{f}_* | \mathbf{u}) \\
-&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と近似を行わない。&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\text{cov}(\mathbf{f}, \mathbf{f}_*) &amp;amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*) \\
-&amp;amp;= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\
-&amp;amp;= \mathbf{Q}_{\mathbf{f}, *}
-\end{aligned}
 $$
+q\_{\text{DTC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) 
+$$&lt;p&gt;と \( \mathbf{f} \) が deterministic に \( \mathbf{u} \) によって定まると仮定する。一方、出力値の方は&lt;/p&gt;
+$$
+    \begin{aligned} 
+        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{u}) &amp;= p(\mathbf{f}\_\* | \mathbf{u}) \\\ 
+        &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*})
+    \end{aligned} 
+$$&lt;p&gt;と近似を行わない。&lt;/p&gt;
+$$
+    \begin{aligned} 
+        \text{cov}(\mathbf{f}, \mathbf{f}\_\*) &amp;= \mathbf{K}\_{\*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}\_\*) \\\ 
+        &amp;= \mathbf{K}\_{\*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}\_{\mathbf{u}, \*} \\\ 
+        &amp;= \mathbf{Q}\_{\mathbf{f}, \*}
+    \end{aligned} 
+$$&lt;p&gt;
 などから、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{DTC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
-\left(
-\begin{matrix}
-\mathbf{Q}_{\mathbf{f}, \mathbf{f}} &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
-\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
-\end{matrix}
-\right)
-\right)
-\end{aligned}
-$$
+$$ 
+    \begin{aligned} 
+        q\_{\text{DTC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+        \left(
+        \begin{matrix}
+            \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} &amp; \mathbf{Q}\_{\*, \mathbf{f}} \\\ 
+            \mathbf{Q}\_{\mathbf{f}, *} &amp; \mathbf{K}\_{\*, \*}
+        \end{matrix}
+        \right)
+        \right)
+    \end{aligned}
+$$&lt;p&gt;
 となる。SoRの時とほとんど同じ。入力値の近似で計算量が十分削減できる場合は、出力値のカーネルの部分で正確な値を使いたいということだろう。&lt;/p&gt;
 &lt;p&gt;予測分布は、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y})
-&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
-&amp;amp; = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;となる。これはSoRの時の結果からすぐに従う。&lt;/p&gt;
+$$
+    \begin{aligned} 
+        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{y}) 
+        &amp; = \mathcal{N}(\mathbf{Q}\_{*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}\_{\mathbf{f}, *}) \\\ 
+        &amp; = \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \end{aligned} 
+$$&lt;p&gt;となる。これはSoRの時の結果からすぐに従う。&lt;/p&gt;
 &lt;h3 id=&#34;the-fully-independent-training-conditional-fitc-approximation&#34;&gt;The Fully Independent Training Conditional (FITC) Approximation&lt;/h3&gt;
 &lt;p&gt;いよいよ、当初の目的だったFITCまでたどり着いた。FITCは、DTCとほぼ同じだが、
 DTCでは切り捨てていた \( q(\mathbf{f} | \mathbf{u}) \) の分散を考慮する。&lt;/p&gt;
 &lt;p&gt;ただ、分散共分散行列をフルで計算したくない (フルで計算すると近似を行わない通常のガウス回帰である) ので、
 出力値の間の相関を無視して、対角線の部分だけを計算する。つまり、&lt;/p&gt;
-&lt;p&gt;$$
-q_{\text{FITC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}))
-$$&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) &amp;amp;= p(\mathbf{f}_* | \mathbf{u}) \\
-&amp;amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;となる。今までと同じように計算して、同時分布&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{FITC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
-\left(
-\begin{matrix}
-\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) &amp;amp; \mathbf{Q}_{*, \mathbf{f}} \\
-\mathbf{Q}_{\mathbf{f}, *} &amp;amp; \mathbf{K}_{*, *}
-\end{matrix}
-\right)
-\right)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と予測分布&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y})
-&amp;amp; = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\
-&amp;amp; = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y},
-\mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;を得る。ここで、 \( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) である。&lt;/p&gt;
+$$
+q\_{\text{FITC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}\_{\mathbf{f}, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}}))
+$$$$
+    \begin{aligned} 
+        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{u}) &amp;= p(\mathbf{f}\_\* | \mathbf{u}) \\\ 
+        &amp;= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}\_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*})
+    \end{aligned} 
+$$&lt;p&gt;となる。今までと同じように計算して、同時分布&lt;/p&gt;
+$$ 
+    \begin{aligned} 
+        q\_{\text{FITC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
+        \left(
+        \begin{matrix}
+            \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}}) &amp; \mathbf{Q}\_{\*, \mathbf{f}} \\\ 
+            \mathbf{Q}\_{\mathbf{f}, *} &amp; \mathbf{K}\_{\*, \*}
+        \end{matrix}
+        \right)
+        \right)
+    \end{aligned}
+$$&lt;p&gt;と予測分布&lt;/p&gt;
+$$
+    \begin{aligned} 
+        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{y}) 
+        &amp; = \mathcal{N}(\mathbf{Q}\_{*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{y},
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \mathbf{f}}(\mathbf{Q}\_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}\_{\mathbf{f}, *}) \\\ 
+        &amp; = \mathcal{N} (\mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
+        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \end{aligned} 
+$$&lt;p&gt;を得る。ここで、 \( \Sigma = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I}) \) である。&lt;/p&gt;
 &lt;h3 id=&#34;最後に&#34;&gt;最後に&lt;/h3&gt;
 &lt;p&gt;統一的な枠組みで SoD, SoR, DTC, FITC と順に読んでいくことで補助変数法を一望することができて面白かった。&lt;/p&gt;
 &lt;p&gt;本文では、一部の相関を無視しないで考える The Partially Independent Training Conditional (PITC) や Inducing Variables の選び方についても触れられているようだ。&lt;/p&gt;
@@ -2441,10 +2398,7 @@ $$&lt;/p&gt;
 をカーネル関数と呼んでいるのであった。&lt;/p&gt;
 &lt;p&gt;今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。&lt;/p&gt;
 &lt;h2 id=&#34;ガウスカーネルの定義&#34;&gt;ガウスカーネルの定義&lt;/h2&gt;
-&lt;p&gt;もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$
-本文では
-$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;
 この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
@@ -2674,15 +2628,11 @@ Stacktrace:
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_regression_1.png&#34; alt=&#34;回帰結果&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;微分を定義する&#34;&gt;微分を定義する&lt;/h2&gt;
 &lt;p&gt;学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_\boldsymbol{\theta} \) とした時に、対数尤度関数&lt;/p&gt;
-&lt;p&gt;$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y} $$&lt;/p&gt;
-&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
-&lt;p&gt;$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;/p&gt;
-&lt;p&gt;だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta &amp;gt; 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は
-$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$
+$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y} $$&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
+$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$&lt;p&gt;
 である。同様に \( \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} = \theta \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \)
 だから、\( \theta \) の代わりに \( \tau \) を考えて&lt;/p&gt;
-&lt;p&gt;$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;/p&gt;
-&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
+$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
 &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; はパラメーターを持たないので、空のリストを返しておく。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; logderiv(k&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GaussianKernel&lt;/span&gt;, x1, x2)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    [ker(k, x1, x2) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; k&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;theta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; sum((x1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; x2)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)]
@@ -2788,8 +2738,7 @@ $$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;log(det(k)) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ys&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; k_inv &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;まずは図3.16のデータでハイパーパラメーターを推定しよう。推定したいハイパーパラメータの形は
-$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$&lt;p&gt;
 だから、パラメーターを仮置きして下のようにガウス過程を定義する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianProcess(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; GaussianKernel(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optim.jlの&lt;a href=&#34;https://julianlsolvers.github.io/Optim.jl/stable/#algo/gradientdescent/&#34;&gt;&lt;code&gt;GradientDescent&lt;/code&gt;&lt;/a&gt; を使ってパラメーターを推定する。実際のハイパーパラメーターに戻すために、最後に &lt;code&gt;exp&lt;/code&gt; を取っている。&lt;/p&gt;

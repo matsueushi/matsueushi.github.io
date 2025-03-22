@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -153,7 +148,7 @@ onload='renderMathInElement(document.body);'></script>
 		<div class="c-rich-text"><p><a href="https://aphextwin.warp.net/">Aphex Twin</a> のシングル <a href="https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker">Windowlicker</a> は印象的なジャケット</p>
 <iframe src="https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 <p>や<a href="https://www.youtube.com/watch?v=5ZT3gTu4Sjw">クリスカニンガムのPV</a>が有名ですが、2曲目に収録されている
-$\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]$ (通称 &ldquo;Formula&rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)</p>
+\(\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]\) (通称 &ldquo;Formula&rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)</p>
 
     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
       <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/M9xMuPWAZW8?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
@@ -254,15 +249,14 @@ $\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in
 <p>サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。</p>
 <h2 id="離散フーリエ変換">離散フーリエ変換</h2>
-<p>離散フーリエ変換は標本点$\{ x = 0, \ldots, N-1 \}$に対し、関数$f(x)$を
 $$
-\begin{aligned}
-F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
-\end{aligned}
-$$
+    \begin{aligned}
+      F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
+    \end{aligned} 
+$$<p>
 に写す変換です。</p>
 <p>まず<a href="https://github.com/JuliaMath/FFTW.jl">FFTW.jl</a>を利用して
-$f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
+\(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。<a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html">scipy.fftのFourier Transformsのチュートリアル</a>を参考にしています。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># Fourier transform</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html</span>
@@ -290,7 +284,7 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 <p><img src="/images/posts/spectrogram_twosines_fft.png" alt="FFT"></p>
 <p><img src="/images/posts/spectrogram_twosines_rfft.png" alt="RFFT"></p>
 <p><code>fft</code>と<code>rfft</code>の違いですが、実数関数の高速フーリエ変換を行う場合は、得られる結果は複素共役になっているので
-<code>fft</code>の最初の$N/2+1$個の要素だけ取り出したのが<code>rfft</code>です。今後は<code>rfft</code>を使っていきます。</p>
+<code>fft</code>の最初の\(N/2+1\)個の要素だけ取り出したのが<code>rfft</code>です。今後は<code>rfft</code>を使っていきます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> fft(ys)
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">1025</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Float64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.021546067690054016</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0</span>im
@@ -334,13 +328,11 @@ $f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)$
 <p>スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。</p>
 <p>この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。</p>
-<p>今回はハン関数(<a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a>)を使うことにします。
-サンプル数が $N + 1$ のとき、ハン関数は
 $$
-\begin{aligned}
-w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
-\end{aligned}
-$$
+    \begin{aligned} 
+    w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
+    \end{aligned}
+$$<p>
 で与えられます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Statistics
 </span></span><span style="display:flex;"><span>
@@ -551,7 +543,7 @@ $$
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2483 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2400 words in this page.
 	</div>
 </div>
 

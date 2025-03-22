@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -143,21 +138,21 @@ onload='renderMathInElement(document.body);'></script>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc147/tasks/abc147_d">https://atcoder.jp/contests/abc147/tasks/abc147_d</a></p>
 <p>もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。</p>
-<p>$z_i = 1 \ll i$ とおくと、任意の $x$ に対して $x = \sum_i x \&amp; z_i$ であり、
-$(x \oplus y) \&amp; z_i = (x \&amp; z_i )\oplus (y \&amp; z_i)$ である。</p>
-<p>$\sum_{i=1}^{N-1} \sum_{j=i+1}^N (A_i \oplus A_j) = \sum_k \sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k))$
-であり、右のように変形すると、$A_i \&amp; z_k = 0$ または $z_k$ であるので計算が簡単にできる。</p>
-<p>$B_k = \#\{ i \mid A_i \&amp; z_k = 0 \}, C_k = \#\{ i \mid A_i \&amp; z_k = z_k \}$ とおくと、
-$(A_i \&amp; z_k) \oplus (A_j \&amp; z_k)$ は</p>
+<p>\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \&amp; z_i\) であり、
+\((x \oplus y) \&amp; z_i = (x \&amp; z_i )\oplus (y \&amp; z_i)\) である。</p>
+<p>\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N (A_i \oplus A_j) = \sum_k \sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k))\)
+であり、右のように変形すると、\(A_i \&amp; z_k = 0\) または \(z_k\) であるので計算が簡単にできる。</p>
+<p>\(B_k = \#\{ i \mid A_i \&amp; z_k = 0 \}, C_k = \#\{ i \mid A_i \&amp; z_k = z_k \}\) とおくと、
+\((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)\) は</p>
 <ul>
-<li>$0 \oplus 0 = 0$</li>
-<li>$0 \oplus z_k = z_k$</li>
-<li>$z_k \oplus 0 = z_k$</li>
-<li>$z_k \oplus z_k = 0$</li>
+<li>\(0 \oplus 0 = 0\)</li>
+<li>\(0 \oplus z_k = z_k\)</li>
+<li>\(z_k \oplus 0 = z_k\)</li>
+<li>\(z_k \oplus z_k = 0\)</li>
 </ul>
 <p>の4通りなので、
-$\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)) = B_k * C_k * z_k$ である。
-あとはこれを $k$ について足し合わせる。</p>
+\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)) = B_k * C_k * z_k\) である。
+あとはこれを \(k\) について足し合わせる。</p>
 <p><a href="https://atcoder.jp/contests/abc147/submissions/32456970">https://atcoder.jp/contests/abc147/submissions/32456970</a></p>
 </div>
 	</section>
@@ -283,7 +278,7 @@ $\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)) = B_
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 239 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 240 words in this page.
 	</div>
 </div>
 

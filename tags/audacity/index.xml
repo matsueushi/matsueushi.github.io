@@ -185,7 +185,7 @@ Bandcamp経由でレコード買うとデジタルライブラリーにも追加
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と打ち込んでAudacityを起動すると無事に音が再生できるようになりました。&lt;/p&gt;
 &lt;h2 id=&#34;録音&#34;&gt;録音&lt;/h2&gt;
 &lt;p&gt;録音自体はそれほど大変ではなく、通常の再生時と同じように右上の&lt;code&gt;Click to Start Monitoring&lt;/code&gt;を押して赤色の丸の録音ボタンを押すだけです。&lt;/p&gt;
-&lt;p&gt;$n$倍速 $(n &amp;gt; 1)$で読み込むことができるCDとは違い等速の録音になりますが、ゆっくり曲を聴きながら待ちましょう。&lt;/p&gt;
+&lt;p&gt;\(n\)倍速 \((n &amp;gt; 1)\)で読み込むことができるCDとは違い等速の録音になりますが、ゆっくり曲を聴きながら待ちましょう。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/how-to-digitize-vinyl-audacity-1.png&#34; alt=&#34;録音終了後&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;ノイズの除去&#34;&gt;ノイズの除去&lt;/h2&gt;
 &lt;p&gt;録音した楽曲データにはレコードの傷、ホコリや汚れによりノイズが含まれています。

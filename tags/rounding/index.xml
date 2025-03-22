@@ -342,30 +342,25 @@ Julia における丸めの制御について調べた内容を書いておき�
 &lt;p&gt;一つ目の条件は \( \mathbb{F}^* \) でもともと表せる数に関しては余計な操作を行わないことを意味し、
 二つ目の条件は近似した時に大小関係が入れかわらないことを保証するもので、どちらも非常に自然な要請です。&lt;/p&gt;
 &lt;p&gt;丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-\triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
-\end{aligned}
 $$
+    \begin{aligned}
+        \triangledown (x) = \max \\\{ y \in \mathbb{F}^* \mid y \le x \\\},
+    \end{aligned}
+$$$$
+    \begin{aligned}
+        \triangle (x) = \min \\\{ y \in \mathbb{F}^* \mid y \ge x \\\}
+    \end{aligned}
+$$&lt;p&gt;
 はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。&lt;/p&gt;
-&lt;p&gt;これらは勿論先ほどの丸めの定義を満たし、
 $$
-\begin{aligned}
-\triangledown (x) \le x \le \triangle (x)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して
-$$
-\begin{aligned}
-\triangledown (x) \le \bigcirc (x) \le \triangle (x)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
+    \begin{aligned} 
+    \triangledown (x) \le x \le \triangle (x)
+    \end{aligned} 
+$$$$
+    \begin{aligned}
+    \triangledown (x) \le \bigcirc (x) \le \triangle (x)
+    \end{aligned}
+$$&lt;p&gt;が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
 \( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
 \( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) &amp;lt; x &amp;lt; \triangle (x) \) が成り立つとともに
 \( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
@@ -407,19 +402,16 @@ Juliaの &lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-fl
 &lt;p&gt;書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート &lt;a href=&#34;https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF&#34;&gt;Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic&lt;/a&gt;
 を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
 別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。&lt;/p&gt;
-&lt;p&gt;よって、
 $$
-\begin{aligned}
-x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;の時に&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-x \circledast y = \square (x * y)
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;ということになります。&lt;/p&gt;
+    \begin{aligned}
+         x, y \in \mathbb{F}^*, * \in \\{  +, -, \times, /, \sqrt{} \\}
+    \end{aligned}
+$$&lt;p&gt;の時に&lt;/p&gt;
+$$
+    \begin{aligned}
+        x \circledast y = \square (x * y)
+    \end{aligned}
+$$&lt;p&gt;ということになります。&lt;/p&gt;
 &lt;p&gt;長々と書いてしまいましたが、&lt;code&gt;0.1 * 3.0&lt;/code&gt;
 \( = \square(\square(0.1) \times \square(3.0)) \),
 &lt;code&gt;0.3&lt;/code&gt; \( = \square(0.3) \) なので、&lt;code&gt;0.1 * 3.0&lt;/code&gt; と &lt;code&gt;0.3&lt;/code&gt; は近い値にはなるものの、\(\square(0.1) \times \square(3.0) \neq 0.3\) でそれぞれ別の数に丸められてしまうということでした。&lt;/p&gt;
@@ -451,18 +443,16 @@ $$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;と \( 2^{-54} \) が \( 1 \) に対して小さすぎて桁落ちが発生し、
 得られる区間は &lt;code&gt;[1.0, 1.0]&lt;/code&gt; となってしまい正しい答えである \( 1.0 + 2^{-54} \) は含まれません。&lt;/p&gt;
 &lt;p&gt;つまり、今までに定義した記号を使って表すと、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [x \oplus x&amp;rsquo;, y \oplus y&amp;rsquo;]
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-[x, y] + [x&amp;rsquo;, y&amp;rsquo;] = [\triangledown (x + x&amp;rsquo;), \triangle (y + y&amp;rsquo;)]
-\end{aligned}
-$$&lt;/p&gt;
-&lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
+$$
+    \begin{aligned}
+        [x, y] + [x&#39;, y&#39;] = [x \oplus x&#39;, y \oplus y&#39;]
+    \end{aligned}
+$$&lt;p&gt;と定義してしまってはダメで、&lt;/p&gt;
+$$
+    \begin{aligned}
+        [x, y] + [x&#39;, y&#39;] = [\triangledown (x + x&#39;), \triangle (y + y&#39;)]
+    \end{aligned}
+$$&lt;p&gt;と計算して答えが確実に含まれるようにする必要があります。ここで必要となるのは、デフォルトの丸めモードとは異なる丸めモードを用いた加算です。&lt;/p&gt;
 &lt;p&gt;非常に長くなってしまいましたが、この計算をやりたいがために丸めモードを変えたいわけです。&lt;/p&gt;
 &lt;h3 id=&#34;julia-における方向丸め付き演算のサポート&#34;&gt;Julia における方向丸め付き演算のサポート&lt;/h3&gt;
 &lt;p&gt;「さあ、いよいよ Julia で方向丸め付き演算をやっていくか、C++だと&lt;a href=&#34;http://verifiedby.me/kv/rounding/index.html&#34;&gt;丸めモードの変更は面倒な感じがする&lt;/a&gt; が、
@@ -489,12 +479,12 @@ FastRounding.jl は、&lt;a href=&#34;https://github.com/JeffreySarnoff/Errorfre
 ここでは簡単に加算に関して FastRounding.jl が行っているエラーフリー変換とエミュレートについて説明してみたいと思います。&lt;/p&gt;
 &lt;p&gt;加算のエラーフリー変換は、別名 &lt;code&gt;twosum&lt;/code&gt; とも呼ばれるアルゴリズムで、\(a, b \in \mathbb{F}\) に対して,
 ペア \( (x, y) = \text{twosum}(a, b) \) を返し、&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-x &amp;amp;= a \oplus b, \\
-a + b &amp;amp;= x + y
-\end{aligned}
 $$
+    \begin{aligned}
+        x &amp;= a \oplus b, \\\ 
+        a + b &amp;= x + y
+    \end{aligned}
+$$&lt;p&gt;
 が厳密に成立するとされるものです。&lt;/p&gt;
 &lt;p&gt;Juliaで書くとほぼ「最近点丸めによる方向付き丸めのエミュレート」に書かれている Python のコードと変わらず、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; twosum(a, b)

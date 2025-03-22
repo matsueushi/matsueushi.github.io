@@ -2543,10 +2543,10 @@ https://x.com/TSacoyan/status/1417790582718550019 --&gt;
 &lt;p&gt;&lt;strong&gt;一点加算更新・区間加算&lt;/strong&gt; のクエリが処理できるデータ構造。&lt;/p&gt;
 &lt;p&gt;できることは限られているが、同じ処理をセグメント木や遅延セグメント木で行うときよりも高速に動作し、実装も比較的シンプル。&lt;/p&gt;
 &lt;h3 id=&#34;処理できるクエリ&#34;&gt;処理できるクエリ&lt;/h3&gt;
-&lt;p&gt;$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $0$ の配列とする。&lt;/p&gt;
+&lt;p&gt;\(a = \{a_i\}_{i=0}^{n-1}\) を長さが \(n\) で初期値が全て \(0\) の配列とする。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;(一点加算更新) インデックス $i$ と値 $x$ が与えられたとき、配列を $a_i \coloneqq a_i + x$ と更新する。計算量 $O(\log n)$&lt;/li&gt;
-&lt;li&gt;(区間加算) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の和 $\sum_{i=l}^{r-1} a_i$ を計算する。計算量 $O(\log n)$&lt;/li&gt;
+&lt;li&gt;(一点加算更新) インデックス \(i\) と値 \(x\) が与えられたとき、配列を \(a_i \coloneqq a_i + x\) と更新する。計算量 \(O(\log n)\)&lt;/li&gt;
+&lt;li&gt;(区間加算) インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の和 \(\sum_{i=l}^{r-1} a_i\) を計算する。計算量 \(O(\log n)\)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;具体例例題&#34;&gt;具体例・例題&lt;/h3&gt;
 &lt;ul&gt;
@@ -2556,41 +2556,41 @@ https://x.com/TSacoyan/status/1417790582718550019 --&gt;
 &lt;p&gt;&lt;strong&gt;一点更新・区間取得&lt;/strong&gt; のクエリが処理できるデータ構造。&lt;/p&gt;
 &lt;h3 id=&#34;処理できるクエリ-1&#34;&gt;処理できるクエリ&lt;/h3&gt;
 &lt;p&gt;セグメント木で扱う値の集合は、&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89&#34;&gt;モノイド&lt;/a&gt;である必要がある。
-$S = (S, \cdot, e)$ をモノイド、
-$a = \{a_i\}_{i=0}^{n-1}$ を長さが $n$ で初期値が全て $e$ の配列とする。&lt;/p&gt;
+\(S = (S, \cdot, e)\) をモノイド、
+\(a = \{a_i\}_{i=0}^{n-1}\) を長さが \(n\) で初期値が全て \(e\) の配列とする。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;(一点更新) インデックス $i$ と値 $x \in S$ が与えられたとき、配列を $a_i = x$ と更新する。計算量 $O(\log n)$&lt;/li&gt;
-&lt;li&gt;(区間取得) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の(モノイドの)積 $\prod_{i=l}^{r-1} a_i$ を計算する。計算量 $O(\log n)$&lt;/li&gt;
+&lt;li&gt;(一点更新) インデックス \(i\) と値 \(x \in S\) が与えられたとき、配列を \(a_i = x\) と更新する。計算量 \(O(\log n)\)&lt;/li&gt;
+&lt;li&gt;(区間取得) インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の(モノイドの)積 \(\prod_{i=l}^{r-1} a_i\) を計算する。計算量 \(O(\log n)\)&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;また、$O(1)$ で $a_i$ の値を一点取得できる。&lt;/p&gt;
+&lt;p&gt;また、\(O(1)\) で \(a_i\) の値を一点取得できる。&lt;/p&gt;
 &lt;h3 id=&#34;具体例例題-1&#34;&gt;具体例・例題&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/practice2/tasks/practice2_j&#34;&gt;AtCoder Library Practice Contest J - Segment Tree&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;(Fenwick Tree) モノイド $S$ の演算を加算 $+$ とすると、Fenwick Treeになる。$S = (\mathbb{Z}, 0, +)$ とすると、整数の配列のFenwickTree。一点更新/一点加算更新は適切に読み替える必要がある。&lt;/p&gt;
+&lt;p&gt;(Fenwick Tree) モノイド \(S\) の演算を加算 \(+\) とすると、Fenwick Treeになる。\(S = (\mathbb{Z}, 0, +)\) とすると、整数の配列のFenwickTree。一点更新/一点加算更新は適切に読み替える必要がある。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;(Range Minimum Query) $S=(\mathbb{Z} \cup \{\infty\}, \min, \infty)$ とおくと、区間取得として以下を実現する Range Minimum Query となる。&lt;/p&gt;
+&lt;p&gt;(Range Minimum Query) \(S=(\mathbb{Z} \cup \{\infty\}, \min, \infty)\) とおくと、区間取得として以下を実現する Range Minimum Query となる。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最小値 $\min_{i=l}^{r-1} \{a_i\}$ を計算する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の最小値 \(\min_{i=l}^{r-1} \{a_i\}\) を計算する。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;(BitXor) &lt;a href=&#34;https://atcoder.jp/contests/abc185/tasks/abc185_f&#34;&gt;AtCoder Beginner Contest 185 F - Range Xor Query&lt;/a&gt;
-$S=(\mathbb{Z}, \veebar, 0)$ とすると XOR が処理できる。&lt;/p&gt;
+\(S=(\mathbb{Z}, \veebar, 0)\) とすると XOR が処理できる。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;(BitOr) $S=(\mathbb{Z}, \lor, 0)$ とすると OR が処理できる。&lt;/p&gt;
+&lt;p&gt;(BitOr) \(S=(\mathbb{Z}, \lor, 0)\) とすると OR が処理できる。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;(区間加算・一点取得) セグメント木を利用して、区間加算・一点取得のクエリを処理できる。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;(区間加算) インデックスの組 $(l, r)$ と値 $x$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素に $x$ を加算する。つまり、$i \in [l, r)$ に対して $a_i = a_i + x$ と更新する。&lt;/li&gt;
-&lt;li&gt;(一点取得) $a_i$ の値を取得する。&lt;/li&gt;
+&lt;li&gt;(区間加算) インデックスの組 \((l, r)\) と値 \(x\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素に \(x\) を加算する。つまり、\(i \in [l, r)\) に対して \(a_i = a_i + x\) と更新する。&lt;/li&gt;
+&lt;li&gt;(一点取得) \(a_i\) の値を取得する。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;これは、前項との差分の数列 $b_i$ に対してモノイド $S = (\mathbb{Z}, 0, +)$ を考慮したセグメント木を作成して管理する、という考え方になる。区間加算については $b_l = b_l + x, b_r = b_r - x$ と 一点取得・一点更新を2回実施し、一点取得に対しては、$\sum_{k=0}^{i}b_k$ を求めるため、区間 $[0, i+1)$ の区間取得を実施すれば良い。(imos法の考え方と似ている)&lt;/p&gt;
+&lt;p&gt;これは、前項との差分の数列 \(b_i\) に対してモノイド \(S = (\mathbb{Z}, 0, +)\) を考慮したセグメント木を作成して管理する、という考え方になる。区間加算については \(b_l = b_l + x, b_r = b_r - x\) と 一点取得・一点更新を2回実施し、一点取得に対しては、\(\sum_{k=0}^{i}b_k\) を求めるため、区間 \([0, i+1)\) の区間取得を実施すれば良い。(imos法の考え方と似ている)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;遅延セグメント木lazy-segment-tree&#34;&gt;遅延セグメント木(Lazy Segment Tree)&lt;/h2&gt;
@@ -2602,53 +2602,53 @@ $S=(\mathbb{Z}, \veebar, 0)$ とすると XOR が処理できる。&lt;/p&gt;
 さらに遅延セグメント木では、値の更新処理のクエリも二分木を使って蓄積管理していく対象でもある。
 よって、二種類のモノイド構造を考えることになる。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;(セグメント木上に乗せるデータ) モノイド $S = (S, \cdot_S, e_S)$&lt;/li&gt;
-&lt;li&gt;(遅延伝播させるデータ) モノイド $X = (X, \cdot_X, e_X)$&lt;/li&gt;
+&lt;li&gt;(セグメント木上に乗せるデータ) モノイド \(S = (S, \cdot_S, e_S)\)&lt;/li&gt;
+&lt;li&gt;(遅延伝播させるデータ) モノイド \(X = (X, \cdot_X, e_X)\)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;さらに、更新処理を行うモノイド $X$ が 更新される側のモノイド $S$ との関係を考えるために、&lt;/p&gt;
+&lt;p&gt;さらに、更新処理を行うモノイド \(X\) が 更新される側のモノイド \(S\) との関係を考えるために、&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;モノイド $X$ の モノイド $S$ に対する &lt;a href=&#34;https://ja.wikipedia.org/wiki/%E4%BD%9C%E7%94%A8_(%E6%95%B0%E5%AD%A6)&#34;&gt;右作用&lt;/a&gt; $* : S \times X \rightarrow S$&lt;/li&gt;
+&lt;li&gt;モノイド \(X\) の モノイド \(S\) に対する &lt;a href=&#34;https://ja.wikipedia.org/wiki/%E4%BD%9C%E7%94%A8_(%E6%95%B0%E5%AD%A6)&#34;&gt;右作用&lt;/a&gt; \(* : S \times X \rightarrow S\)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;が定義されているとする。このとき、&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;(区間更新) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素に $x$ を作用させる。つまり、$i \in [l, r)$ に対して $a_i = a_i * x$ と更新する。計算量 $O(\log n)$&lt;/li&gt;
-&lt;li&gt;(区間取得) インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の(モノイドSに定義された)積 $\prod_{i=l}^{r-1} a_i$ を計算する。計算量 $O(\log n)$&lt;/li&gt;
+&lt;li&gt;(区間更新) インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素に \(x\) を作用させる。つまり、\(i \in [l, r)\) に対して \(a_i = a_i * x\) と更新する。計算量 \(O(\log n)\)&lt;/li&gt;
+&lt;li&gt;(区間取得) インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の(モノイドSに定義された)積 \(\prod_{i=l}^{r-1} a_i\) を計算する。計算量 \(O(\log n)\)&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;の二つのクエリが処理できる。$a_i$ の値を一点取得する場合はセグメント木とは違い $O(\log n)$ かかる。&lt;/p&gt;
+&lt;p&gt;の二つのクエリが処理できる。\(a_i\) の値を一点取得する場合はセグメント木とは違い \(O(\log n)\) かかる。&lt;/p&gt;
 &lt;h3 id=&#34;具体例例題-2&#34;&gt;具体例・例題&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;(セグメント木) セグメント木は遅延セグメント木で次のように表現できる。
 &lt;ul&gt;
-&lt;li&gt;$S = (S, \cdot_S, e_S)$ をセグメント木で用いているモノイドとする。&lt;/li&gt;
-&lt;li&gt;$X = \{id_S\} \cup \{f_t: S \rightarrow S, s \mapsto t, t\in S\}$ という $S$ から $S$ への写像からなる集合を考え、$\cdot_X$ は写像の合成、 $e_X = id_S$ とすると、$(X, \cdot_X, e_X)$ はセグメント木の代入に対応するモノイドとなる。&lt;/li&gt;
+&lt;li&gt;\(S = (S, \cdot_S, e_S)\) をセグメント木で用いているモノイドとする。&lt;/li&gt;
+&lt;li&gt;\(X = \{id_S\} \cup \{f_t: S \rightarrow S, s \mapsto t, t\in S\}\) という \(S\) から \(S\) への写像からなる集合を考え、\(\cdot_X\) は写像の合成、 \(e_X = id_S\) とすると、\((X, \cdot_X, e_X)\) はセグメント木の代入に対応するモノイドとなる。&lt;/li&gt;
 &lt;li&gt;セグメント木では一点更新・区間取得であったが、遅延セグメント木に上の構造を入れると区間更新・区間取得ができるようになる。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;(区間アフィン更新・区間取得)
 &lt;a href=&#34;https://atcoder.jp/contests/practice2/tasks/practice2_k&#34;&gt;AtCoder Library Practice Contest K - Range Affine Range Sum&lt;/a&gt;&lt;br&gt;
-計算対象は整数列。(正確には $p=998244353$ とした時の $(\mathbb{Z}/p\mathbb{Z}, +, 0)$ を考えている)
+計算対象は整数列。(正確には \(p=998244353\) とした時の \((\mathbb{Z}/p\mathbb{Z}, +, 0)\) を考えている)
 &lt;ol&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ と値 $b, c$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素をアフィン変換する。つまり、 $i \in [l, r)$ に対して $a_i = b \times a_i + c$ と更新する。&lt;/li&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の和 $\sum_{i=1}^{r-1}a_i$ を計算する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) と値 \(b, c\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素をアフィン変換する。つまり、 \(i \in [l, r)\) に対して \(a_i = b \times a_i + c\) と更新する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の和 \(\sum_{i=1}^{r-1}a_i\) を計算する。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;$b&amp;rsquo; \times (b \times a + c) + c&amp;rsquo; = bb&amp;rsquo; \times a + (b&amp;rsquo;c + c&amp;rsquo;)$ だから、$X=(\mathbb{Z} \times \mathbb{Z}, \cdot, (1,0)), (b&amp;rsquo;, c&amp;rsquo;) \cdot (b, c) = (bb&amp;rsquo;, b&amp;rsquo;c + c&amp;rsquo;)$ と定義することで表現できる。&lt;/p&gt;
+&lt;p&gt;\(b&amp;rsquo; \times (b \times a + c) + c&amp;rsquo; = bb&amp;rsquo; \times a + (b&amp;rsquo;c + c&amp;rsquo;)\) だから、\(X=(\mathbb{Z} \times \mathbb{Z}, \cdot, (1,0)), (b&amp;rsquo;, c&amp;rsquo;) \cdot (b, c) = (bb&amp;rsquo;, b&amp;rsquo;c + c&amp;rsquo;)\) と定義することで表現できる。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;(区間最大値更新・区間取得)
 &lt;a href=&#34;https://atcoder.jp/contests/typical90/tasks/typical90_ac&#34;&gt;競プロ典型 90 問 029 - Long Bricks（★5）&lt;/a&gt;&lt;br&gt;
-更新操作は最大値を区間取得 -&amp;gt; 区間代入操作の組み合わせで実現できる。$S = (\mathbb{N}, \max, 0)$ で、$X$ はセグメント木の具体例で考えたものと同じ。
+更新操作は最大値を区間取得 -&amp;gt; 区間代入操作の組み合わせで実現できる。\(S = (\mathbb{N}, \max, 0)\) で、\(X\) はセグメント木の具体例で考えたものと同じ。
 &lt;ol&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ と値 $b, c$ が与えられたとき、区間 $[l, r)$ に対応する配列を次のように更新する。$i \in [l, r)$ に対して $a_i = \max_{i=l}^{r-1} a_i + 1$ と更新する。&lt;/li&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の最大値 $\max_{i=l}^{r-1} a_i$ を計算する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) と値 \(b, c\) が与えられたとき、区間 \([l, r)\) に対応する配列を次のように更新する。\(i \in [l, r)\) に対して \(a_i = \max_{i=l}^{r-1} a_i + 1\) と更新する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の最大値 \(\max_{i=l}^{r-1} a_i\) を計算する。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;(区間更新・区間転倒数取得)
 &lt;a href=&#34;https://atcoder.jp/contests/practice2/tasks/practice2_l&#34;&gt;AtCoder Library Practice Contest L - Lazy Segment Tree&lt;/a&gt;
-0と1からなる数列 $A$ に対し、
+0と1からなる数列 \(A\) に対し、
 &lt;ol&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ と値 $b, c$ が与えられたとき、区間 $[l, r)$ に対応する配列を次のように更新する。$i \in [l, r)$ に対して $a_i = 1 - a_i$ と更新する。&lt;/li&gt;
-&lt;li&gt;インデックスの組 $(l, r)$ が与えられたとき、区間 $[l, r)$ に対応する配列の要素の転倒数を計算する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) と値 \(b, c\) が与えられたとき、区間 \([l, r)\) に対応する配列を次のように更新する。\(i \in [l, r)\) に対して \(a_i = 1 - a_i\) と更新する。&lt;/li&gt;
+&lt;li&gt;インデックスの組 \((l, r)\) が与えられたとき、区間 \([l, r)\) に対応する配列の要素の転倒数を計算する。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;(並び替え)

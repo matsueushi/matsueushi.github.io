@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,17 +137,17 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c">https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c</a></p>
-<p>2人が最適な戦略を取るとき、残っている料理のうち $A_i+B_i$ が最大となるものを交互に選んでいくことになることを示す。</p>
+<p>2人が最適な戦略を取るとき、残っている料理のうち \(A_i+B_i\) が最大となるものを交互に選んでいくことになることを示す。</p>
 <pre tabindex="0"><code>3
 20 10
 20 20
 20 30
 </code></pre><p>この入力の場合を考える。</p>
 <p>Aの立場で考えてみよう。
-全部相手に料理を食べられてしまった時の自分から見た幸福度の差は、$-B_1-B_2-B_3$ である。料理 $i$ を食べると、この値が $A_i+B_i$ 改善することがわかる。そのため、Aの立場で考えると $A_i+B_i$ が大きいものを優先して食べたいことがわかる。</p>
-<p>次にBの立場で考えてみると、同じように $A_i+B_i$ が大きいものを優先するのが最適解であることが同様の議論でわかる。
-A も B も料理 $i$ を食べるとそれぞれの立場で見た幸福度の差が $A_i+B_i$ 改善するため、$A_i+B_i$ と書かれた $N$ 個の料理を合計の数値が最大となるよう二人で交互に取り合っているのと同値な状況とみなせる。</p>
-<p>$A_i+B_i$ を降順にソートし、奇数番目を高橋くん、偶数番目を青木さんが選んだとして幸福度の差を計算すればOK。</p>
+全部相手に料理を食べられてしまった時の自分から見た幸福度の差は、\(-B_1-B_2-B_3\) である。料理 \(i\) を食べると、この値が \(A_i+B_i\) 改善することがわかる。そのため、Aの立場で考えると \(A_i+B_i\) が大きいものを優先して食べたいことがわかる。</p>
+<p>次にBの立場で考えてみると、同じように \(A_i+B_i\) が大きいものを優先するのが最適解であることが同様の議論でわかる。
+A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度の差が \(A_i+B_i\) 改善するため、\(A_i+B_i\) と書かれた \(N\) 個の料理を合計の数値が最大となるよう二人で交互に取り合っているのと同値な状況とみなせる。</p>
+<p>\(A_i+B_i\) を降順にソートし、奇数番目を高橋くん、偶数番目を青木さんが選んだとして幸福度の差を計算すればOK。</p>
 <p><a href="https://atcoder.jp/contests/nikkei2019-qual/submissions/32474436">https://atcoder.jp/contests/nikkei2019-qual/submissions/32474436</a></p>
 </div>
 	</section>
@@ -278,7 +273,7 @@ A も B も料理 $i$ を食べるとそれぞれの立場で見た幸福度の�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 395 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 399 words in this page.
 	</div>
 </div>
 

@@ -46,32 +46,27 @@
       </script>
 	
 	
-	
-
-
-
-<link rel="stylesheet" href='https://matsueushi.github.io/lib/katex.min.css' crossorigin="anonymous">
-
-
-<script defer src='https://matsueushi.github.io/lib/katex.min.js' crossorigin="anonymous"></script>
-
-
-<script defer src='https://matsueushi.github.io/lib/contrib/auto-render.min.js'
-crossorigin="anonymous"
-onload='renderMathInElement(document.body);'></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false}
-            ]
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
         });
     });
 </script>
-
 	
 	
 	
@@ -142,14 +137,14 @@ onload='renderMathInElement(document.body);'></script>
 <article>
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p><a href="https://atcoder.jp/contests/abc255/tasks/abc255_d">https://atcoder.jp/contests/abc255/tasks/abc255_d</a></p>
-<p>$i$ を一つ固定した時、操作の最低回数は $\sum_{j=1}^N |A_j-X_i|$ である。</p>
-<p>$A_k$ の順番は関係ないので、 $A_k$ は昇順にソートしているとして良い。$A_k$ をソートするのは最初に一回だけやれば良い。</p>
-<p>累積和 $C_k = \sum_{j=1}^k A_j$ を使って  $S = \sum_{j=1}^N |A_j-X|$ を次のように求める。
-$l = \max \{ j \mid A_j \le X\}$ とすると $S = (lX - C_l) + ((C_N-C_l) - (N-l)X)$ となる。</p>
-<p>$A = [1,2,4,5], X=3$ の時、求めたいのは下の赤と青の面積で、</p>
+<p>\(i\) を一つ固定した時、操作の最低回数は \(\sum_{j=1}^N |A_j-X_i|\) である。</p>
+<p>\(A_k\) の順番は関係ないので、 \(A_k\) は昇順にソートしているとして良い。\(A_k\) をソートするのは最初に一回だけやれば良い。</p>
+<p>累積和 \(C_k = \sum_{j=1}^k A_j\) を使って  \(S = \sum_{j=1}^N |A_j-X|\) を次のように求める。
+\(l = \max \{ j \mid A_j \le X\}\) とすると \(S = (lX - C_l) + ((C_N-C_l) - (N-l)X)\) となる。</p>
+<p>\(A = [1,2,4,5], X=3\) の時、求めたいのは下の赤と青の面積で、</p>
 <p><img src="/images/atcoder/abc255-d.svg" alt="hist"></p>
-<p>$l = 2$ で赤色の部分が $lX - C_l$, 青色の部分が $(C_N-C_l) - (N-l)X$ に対応。</p>
-<p>各クエリに対して2分探索するところで $O(\log N)$ 時間かかるので、$O(Q\log N)$ で全てのクエリを処理できる。</p>
+<p>\(l = 2\) で赤色の部分が \(lX - C_l\), 青色の部分が \((C_N-C_l) - (N-l)X\) に対応。</p>
+<p>各クエリに対して2分探索するところで \(O(\log N)\) 時間かかるので、\(O(Q\log N)\) で全てのクエリを処理できる。</p>
 <p><a href="https://atcoder.jp/contests/abc255/submissions/32393722">https://atcoder.jp/contests/abc255/submissions/32393722</a></p>
 </div>
 	</section>
@@ -275,7 +270,7 @@ $l = \max \{ j \mid A_j \le X\}$ とすると $S = (lX - C_l) + ((C_N-C_l) - (N-
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 233 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 236 words in this page.
 	</div>
 </div>
 
