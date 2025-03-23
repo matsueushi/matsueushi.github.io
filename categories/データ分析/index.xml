@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>データ分析 on matsueushi</title>
+    <link>https://matsueushi.github.io/categories/%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90/</link>
+    <description>Recent content in データ分析 on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2025</copyright>
+    <lastBuildDate>Fri, 01 Mar 2019 22:52:53 -0400</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/categories/%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jupyter Notebookのkernelの位置を調べる</title>
+      <link>https://matsueushi.github.io/posts/jupyter-kernel-location/</link>
+      <pubDate>Fri, 01 Mar 2019 22:52:53 -0400</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/jupyter-kernel-location/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ jupyter kernelspec list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Available kernels:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  julia-1.1    /home/matsueushi/.local/share/jupyter/kernels/julia-1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  python3      /home/matsueushi/.local/share/jupyter/kernels/python3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;How do I add python3 kernel to jupyter (IPython)
+&lt;a href=&#34;https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803&#34;&gt;https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
