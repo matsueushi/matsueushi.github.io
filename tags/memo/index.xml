@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memo on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/memo/</link>
+    <link>http://localhost:1313/tags/memo/</link>
     <description>Recent content in Memo on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2025</copyright>
     <lastBuildDate>Mon, 14 Oct 2024 12:04:33 +0900</lastBuildDate>
     
-	<atom:link href="https://matsueushi.github.io/tags/memo/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/tags/memo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
-      <link>https://matsueushi.github.io/posts/mac-cd-54/</link>
+      <link>http://localhost:1313/posts/mac-cd-54/</link>
       <pubDate>Mon, 14 Oct 2024 12:04:33 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mac-cd-54/</guid>
+      <guid>http://localhost:1313/posts/mac-cd-54/</guid>
       <description>&lt;p&gt;自分用メモ。
 An unknown error occurred (-54) が出た時は、&lt;/p&gt;
 &lt;p&gt;システム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする&lt;/p&gt;
@@ -31,10 +31,10 @@ An unknown error occurred (-54) が出た時は、&lt;/p&gt;
     
     <item>
       <title>Rustでcargo test中にprintlnする</title>
-      <link>https://matsueushi.github.io/posts/rust-test-nocapture/</link>
+      <link>http://localhost:1313/posts/rust-test-nocapture/</link>
       <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/rust-test-nocapture/</guid>
+      <guid>http://localhost:1313/posts/rust-test-nocapture/</guid>
       <description>&lt;p&gt;&lt;code&gt;cargo test&lt;/code&gt;でテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cargo test -- --nocapture
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;で出てくるようにできるようだ。&lt;/p&gt;

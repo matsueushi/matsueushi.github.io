@@ -14585,8 +14585,8 @@ $$&lt;p&gt;
 &lt;p&gt;いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。&lt;/p&gt;
 $$
     \begin{aligned} 
-        p(\mathbf{f}_*, \mathbf{f}) &amp;= \int p(\mathbf{f}\_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
-        &amp;= \int p(\mathbf{f}\_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+        p(\mathbf{f}_*, \mathbf{f}) &amp;= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
+        &amp;= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
     \end{aligned} 
 $$$$
 p(\mathbf{u}) = \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{u}, \mathbf{u}}),
@@ -14598,8 +14598,8 @@ $$&lt;p&gt;と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}}
 &lt;p&gt;補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、&lt;/p&gt;
 $$
     \begin{aligned} 
-        p(\mathbf{f}\_*, \mathbf{f}) &amp;\simeq q(\mathbf{f}\_*, \mathbf{f}) \\\ 
-        &amp;= \int q(\mathbf{f}\_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+        p(\mathbf{f}_*, \mathbf{f}) &amp;\simeq q(\mathbf{f}_*, \mathbf{f}) \\\ 
+        &amp;= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
     \end{aligned} 
 $$&lt;p&gt;という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-data-sod-approximation&#34;&gt;The Subset of Data (SoD) Approximation&lt;/h3&gt;
@@ -15052,12 +15052,23 @@ Stacktrace:
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;すると、次のような結果が得られる。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_regression_1.png&#34; alt=&#34;回帰結果&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;微分を定義する&#34;&gt;微分を定義する&lt;/h2&gt;
-&lt;p&gt;学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_\boldsymbol{\theta} \) とした時に、対数尤度関数&lt;/p&gt;
-$$ L := -\log | \mathbf{K}_\boldsymbol{\theta} | - \mathbf{y}^T \mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y} $$&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
-$$ \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$$$ \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}$$&lt;p&gt;
-である。同様に \( \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \tau} = \theta \frac{\partial \mathbf{K}_\boldsymbol{\theta}}{\partial \theta} \)
-だから、\( \theta \) の代わりに \( \tau \) を考えて&lt;/p&gt;
-$$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\theta}}^{-1} \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} \right) + (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \tau} (\mathbf{K}\_\boldsymbol{\theta}^{-1} \mathbf{y})$$&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
+&lt;p&gt;学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_{\boldsymbol{\theta}} \) とした時に、対数尤度関数&lt;/p&gt;
+$$
+    L := -\log | \mathbf{K}_{\boldsymbol{\theta}} | - \mathbf{y}^T \mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y}
+$$&lt;p&gt;を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、&lt;/p&gt;
+$$
+    \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_{\boldsymbol{\theta}}^{-1} \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \theta} \right) + (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \theta} (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})
+$$&lt;p&gt;だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta &amp;gt; 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は&lt;/p&gt;
+$$  
+    \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}
+$$&lt;p&gt;である。&lt;/p&gt;
+&lt;p&gt;同様に&lt;/p&gt;
+$$
+    \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} = \theta \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta}
+$$&lt;p&gt;だから、\( \theta \) の代わりに \( \tau \) を考えて&lt;/p&gt;
+$$
+    \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_{\boldsymbol{\theta}}^{-1} \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} \right) + (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})
+$$&lt;p&gt;を計算する。まずは &lt;code&gt;GaussianKernel&lt;/code&gt;, &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
 &lt;code&gt;ConstantKernel&lt;/code&gt;, &lt;code&gt;LinearKernel&lt;/code&gt; はパラメーターを持たないので、空のリストを返しておく。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; logderiv(k&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;GaussianKernel&lt;/span&gt;, x1, x2)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    [ker(k, x1, x2) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; k&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;theta &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; sum((x1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; x2)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)]
@@ -15163,8 +15174,10 @@ $$ \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_\boldsymbol{{\
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;log(det(k)) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ys&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; k_inv &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ys)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;$$ k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) $$&lt;p&gt;
-だから、パラメーターを仮置きして下のようにガウス過程を定義する。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;まずは図3.16のデータでハイパーパラメーターを推定しよう。推定したいハイパーパラメータの形は&lt;/p&gt;
+$$
+    k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) 
+$$&lt;p&gt;だから、パラメーターを仮置きして下のようにガウス過程を定義する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianProcess(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; GaussianKernel(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optim.jlの&lt;a href=&#34;https://julianlsolvers.github.io/Optim.jl/stable/#algo/gradientdescent/&#34;&gt;&lt;code&gt;GradientDescent&lt;/code&gt;&lt;/a&gt; を使ってパラメーターを推定する。実際のハイパーパラメーターに戻すために、最後に &lt;code&gt;exp&lt;/code&gt; を取っている。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Optim

@@ -107,7 +107,17 @@
 
 <div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
 	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E7%B5%B1%E8%A8%88'>統計</a>
+	
+	
+	
 
+	
+	&nbsp;&nbsp;
 	
 
 	
@@ -196,8 +206,8 @@ $$<p>
 <p>いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。</p>
 $$
     \begin{aligned} 
-        p(\mathbf{f}_*, \mathbf{f}) &= \int p(\mathbf{f}\_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
-        &= \int p(\mathbf{f}\_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+        p(\mathbf{f}_*, \mathbf{f}) &= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
+        &= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
     \end{aligned} 
 $$$$
 p(\mathbf{u}) = \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{u}, \mathbf{u}}),
@@ -209,8 +219,8 @@ $$<p>と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}} := \m
 <p>補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、</p>
 $$
     \begin{aligned} 
-        p(\mathbf{f}\_*, \mathbf{f}) &\simeq q(\mathbf{f}\_*, \mathbf{f}) \\\ 
-        &= \int q(\mathbf{f}\_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+        p(\mathbf{f}_*, \mathbf{f}) &\simeq q(\mathbf{f}_*, \mathbf{f}) \\\ 
+        &= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
     \end{aligned} 
 $$<p>という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。</p>
 <h3 id="the-subset-of-data-sod-approximation">The Subset of Data (SoD) Approximation</h3>
@@ -545,7 +555,9 @@ $$<p>である。</p>
 		
 			<a href="/posts/gp-nlp-2/">ガウス過程と機械学習: 3.5まで</a>&nbsp;&nbsp;&#47;&nbsp;
 		
-			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習」を読み始めた</a>
+			<a href="/posts/gp-nlp-1/">「ガウス過程と機械学習」を読み始めた</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/posts/intrinsic-gaussian-car/">Intrinsic Gaussian CARモデルをMambaで実装</a>
 		
 </span>
 </div>

@@ -44,6 +44,9 @@
     <loc>https://matsueushi.github.io/tags/</loc>
     <lastmod>2025-03-15T17:20:45+09:00</lastmod>
   </url><url>
+    <loc>https://matsueushi.github.io/categories/%E9%96%8B%E7%99%BA/</loc>
+    <lastmod>2025-03-15T17:20:45+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/tags/sacoyans/</loc>
     <lastmod>2025-02-23T21:42:18+09:00</lastmod>
   </url><url>
@@ -131,7 +134,7 @@
     <loc>https://matsueushi.github.io/posts/mac-cd-54/</loc>
     <lastmod>2024-10-14T12:04:33+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/tags/memo/</loc>
+    <loc>https://matsueushi.github.io/categories/%E6%97%A5%E8%A8%98/</loc>
     <lastmod>2024-10-14T12:04:33+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/boat/lurk/</loc>
@@ -176,6 +179,9 @@
     <loc>https://matsueushi.github.io/posts/catboost-mlflow/</loc>
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
+    <loc>https://matsueushi.github.io/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/</loc>
+    <lastmod>2023-02-02T22:52:35+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/atcoder/rust-interactive/</loc>
     <lastmod>2022-09-18T11:07:07+09:00</lastmod>
   </url><url>
@@ -188,7 +194,7 @@
     <loc>https://matsueushi.github.io/posts/aero-gros-m-chocolate-hearts-and-stag-beetles/</loc>
     <lastmod>2022-08-31T18:27:44+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/tags/rust/</loc>
+    <loc>https://matsueushi.github.io/categories/rust/</loc>
     <lastmod>2022-08-28T13:42:37+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/rust-test-nocapture/</loc>
@@ -209,14 +215,14 @@
     <loc>https://matsueushi.github.io/tags/gpg/</loc>
     <lastmod>2022-08-13T17:57:16+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/tags/julia/</loc>
-    <lastmod>2022-07-23T14:15:19+09:00</lastmod>
-  </url><url>
     <loc>https://matsueushi.github.io/posts/julia-rust/</loc>
     <lastmod>2022-07-23T14:15:19+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/other/bookmark/</loc>
     <lastmod>2022-07-18T18:25:28+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/rust/</loc>
+    <lastmod>2022-07-16T20:16:03+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/atcoder/rust-atcoder/</loc>
     <lastmod>2022-07-16T20:16:03+09:00</lastmod>
@@ -344,9 +350,6 @@
     <loc>https://matsueushi.github.io/posts/2021/</loc>
     <lastmod>2021-12-31T21:05:26+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/categories/%E6%97%A5%E8%A8%98/</loc>
-    <lastmod>2021-12-31T21:05:26+09:00</lastmod>
-  </url><url>
     <loc>https://matsueushi.github.io/playlist/20210228/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
   </url><url>
@@ -402,6 +405,9 @@
     <lastmod>2020-08-23T21:25:36+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/hugo-search/</loc>
+    <lastmod>2020-08-23T21:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/categories/%E3%82%B5%E3%82%A4%E3%83%88/</loc>
     <lastmod>2020-08-23T21:25:36+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/audiofingerprinting/</loc>
@@ -500,6 +506,9 @@
     <loc>https://matsueushi.github.io/tags/kmean/</loc>
     <lastmod>2019-08-22T00:04:58-04:00</lastmod>
   </url><url>
+    <loc>https://matsueushi.github.io/categories/%E7%B5%B1%E8%A8%88/</loc>
+    <lastmod>2019-08-22T00:04:58-04:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
     <lastmod>2019-08-04T11:04:13-04:00</lastmod>
   </url><url>
@@ -549,9 +558,6 @@
     <lastmod>2019-06-16T16:20:34-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/posts/gp-parameter-estimation/</loc>
-    <lastmod>2019-06-08T20:08:12-04:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/ml/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/optim/</loc>

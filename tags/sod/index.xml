@@ -326,8 +326,8 @@ $$&lt;p&gt;
 &lt;p&gt;いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。&lt;/p&gt;
 $$
     \begin{aligned} 
-        p(\mathbf{f}_*, \mathbf{f}) &amp;= \int p(\mathbf{f}\_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
-        &amp;= \int p(\mathbf{f}\_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
+        p(\mathbf{f}_*, \mathbf{f}) &amp;= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
+        &amp;= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
     \end{aligned} 
 $$$$
 p(\mathbf{u}) = \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{u}, \mathbf{u}}),
@@ -339,8 +339,8 @@ $$&lt;p&gt;と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}}
 &lt;p&gt;補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、&lt;/p&gt;
 $$
     \begin{aligned} 
-        p(\mathbf{f}\_*, \mathbf{f}) &amp;\simeq q(\mathbf{f}\_*, \mathbf{f}) \\\ 
-        &amp;= \int q(\mathbf{f}\_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
+        p(\mathbf{f}_*, \mathbf{f}) &amp;\simeq q(\mathbf{f}_*, \mathbf{f}) \\\ 
+        &amp;= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
     \end{aligned} 
 $$&lt;p&gt;という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-data-sod-approximation&#34;&gt;The Subset of Data (SoD) Approximation&lt;/h3&gt;

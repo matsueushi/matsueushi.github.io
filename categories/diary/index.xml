@@ -7,18 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2025</copyright>
-    <lastBuildDate>Fri, 31 Dec 2021 21:05:26 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2024 12:04:33 +0900</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/categories/diary/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>2021年</title>
-      <link>http://localhost:1313/posts/2021/</link>
-      <pubDate>Fri, 31 Dec 2021 21:05:26 +0900</pubDate>
+      <title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
+      <link>http://localhost:1313/posts/mac-cd-54/</link>
+      <pubDate>Mon, 14 Oct 2024 12:04:33 +0900</pubDate>
       
-      <guid>http://localhost:1313/posts/2021/</guid>
-      <description>&lt;p&gt;2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。&lt;/p&gt;
+      <guid>http://localhost:1313/posts/mac-cd-54/</guid>
+      <description>&lt;p&gt;自分用メモ。
+An unknown error occurred (-54) が出た時は、&lt;/p&gt;
+&lt;p&gt;システム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする&lt;/p&gt;
+&lt;p&gt;と直る。&lt;/p&gt;
+&lt;p&gt;-　&lt;a href=&#34;https://minkymoon.jp/2024/02/05/apple-mac-music-app-error-54/&#34;&gt;【解決策追記】Macのミュージックで「不明なエラーが発生しました(-54)」エラー。CDを取り込めないぞ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://discussionsjapan.apple.com/thread/255440659?answerId=260186085122&amp;amp;sortBy=rank#260186085122&#34;&gt;ミュージックでCDを取り込む時にエラーが発生します。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>開発 on matsueushi</title>
+    <link>https://matsueushi.github.io/categories/%E9%96%8B%E7%99%BA/</link>
+    <description>Recent content in 開発 on matsueushi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2025</copyright>
+    <lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
+    
+	<atom:link href="https://matsueushi.github.io/categories/%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JuliaのパッケージをOrganizationに移譲する</title>
+      <link>https://matsueushi.github.io/posts/transfer-github-repository/</link>
+      <pubDate>Sat, 15 Mar 2025 17:20:45 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/transfer-github-repository/</guid>
+      <description>&lt;p&gt;5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 &lt;a href=&#34;https://matsueushi.github.io/posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt; を書きました。&lt;/p&gt;
+&lt;p&gt;そこで &lt;a href=&#34;https://github.com/JuliaIntervals/RoundingEmulator.jl&#34;&gt;RoundingEmulator.jl&lt;/a&gt; という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;IntervalArithmetic.jl&lt;/a&gt; に プルリクエスト &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt; を送って丸めモードを指定した計算に使われるようになりました。&lt;/p&gt;
+&lt;p&gt;月日が経つのは早いもので……&lt;/p&gt;
+&lt;h3 id=&#34;放置しているレポジトリにプルリクエストが来た&#34;&gt;放置しているレポジトリにプルリクエストが来た&lt;/h3&gt;
+&lt;p&gt;最近ではどちらかというと Python や Rust を使う機会が多くなり、Julia から遠ざかっていてこのパッケージのメンテナンスは行っておらず事実上放置状態となっておりました。&lt;/p&gt;
+&lt;p&gt;頻繁に更新が必要な類のパッケージではないのでまあ良いだろうと思いそのまま放っておいたのですが、とある日、プルリクエストが来ていることに気づきました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/20&#34;&gt;fix tests on 1.12 by KristofferC · Pull Request #20 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるため動作が確認できないという結果に。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/actions/runs/13569170305&#34;&gt;fix tests on 1.12 · matsueushi/RoundingEmulator.jl@726d314&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/transfer-github-repository-ci-falling.png&#34; alt=&#34;ci falling&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;まずはプルリクエストに対処する&#34;&gt;まずはプルリクエストに対処する&lt;/h3&gt;
+&lt;p&gt;GitHub Actions が古くなっていることが原因のようだったので、ひとまず、生成 AI の力を借りて修正し、なんとかテストが通るようになりました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/21&#34;&gt;Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl/pull/23&#34;&gt;Update ci by matsueushi · Pull Request #23 · matsueushi/RoundingEmulator.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;master ブランチにマージすると、Documenter.jl によるドキュメントのデプロイの Action が落ちているという結果に。
+多分もう少し頑張れば直るはずですが、一旦諦めて、頂いたプルリクエストをマージしました。&lt;/p&gt;
+&lt;h3 id=&#34;維持するのが難しいレポジトリをどうするか&#34;&gt;維持するのが難しいレポジトリをどうするか&lt;/h3&gt;
+&lt;p&gt;冒頭述べた通り、最近は Julia を使っていないため、このままにすると将来同じことが起きる可能性があります。IntervalArithmetic.jl の機能は RoundingEmulator.jl に依存しているため、Julia のバージョンアップなどで動かなくなった時には Issue や Pull Request が来そうです。&lt;/p&gt;
+&lt;p&gt;そこで、IntervalArithmeic.jl を管理する Github Organization の JuliaIntervals にレポジトリを移譲できないか、問い合わせてみることに。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/issues/700&#34;&gt;Proposal to transfer RoundingEmulator.jl to JuliaIntervals · Issue #700 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Hello &lt;code&gt;IntervalArithmetic.jl&lt;/code&gt; maintainers,&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I am the original author of &lt;a href=&#34;https://github.com/matsueushi/RoundingEmulator.jl&#34;&gt;&lt;code&gt;RoundingEmulator.jl&lt;/code&gt;&lt;/a&gt;, which is a dependency of &lt;code&gt;IntervalArithmetic.jl&lt;/code&gt;. Since I am no longer actively using Julia, I would like to transfer the maintenance of &lt;code&gt;RoundingEmulator.jl&lt;/code&gt; to the &lt;a href=&#34;https://github.com/JuliaIntervals&#34;&gt;JuliaIntervals&lt;/a&gt; organization. Transferring it will ensure better long-term support.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;If the JuliaIntervals maintainers agree, I will transfer the repository to &lt;code&gt;JuliaIntervals&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;After the transfer, I will update the repository URL in the &lt;a href=&#34;https://github.com/JuliaRegistries/General&#34;&gt;General registry&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;I will update the README and LICENSE files accordingly to reflect the new ownership.&lt;/li&gt;
+&lt;li&gt;I can provide support during the transition period if needed.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Would JuliaIntervals be interested in taking over maintenance of this package?
+Please let me know your thoughts. I appreciate your time and consideration!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Best regards,
+&lt;strong&gt;&lt;a href=&#34;https://github.com/matsueushi&#34;&gt;@matsueushi&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;数日経つと返信がありました。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Dear @matsueushi, we discussed this in our IntervalArithmetic meeting and everyone agrees with your proposal.
+Let me know if you need any help with the process 🙂 !&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;とあり、移管先として受け入れていただけることになりました！&lt;/p&gt;
+&lt;h3 id=&#34;レポジトリの移譲手続きを行う&#34;&gt;レポジトリの移譲手続きを行う&lt;/h3&gt;
+&lt;p&gt;許可を頂いたところで、早速レポジトリの移譲手続きを行っていきます。&lt;/p&gt;
+&lt;p&gt;結論から言うと、移譲先の Organization に加えて頂いて、移譲先にレポジトリを作る権限を頂くのが一番早いです。今回はそのような形で移譲手続きをしました。&lt;/p&gt;
+&lt;p&gt;まず、何もしていない状態で、GitHub の Settings -&amp;gt; Collaborators から移譲手続きをすると権限がないと言われて移譲できません。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/transfer-github-repository-no-permission.jpeg&#34; alt=&#34;権限がない&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.github.com/ja/repositories/creating-and-managing-repositories/transferring-a-repository&#34;&gt;リポジトリを移譲する - GitHub Docs&lt;/a&gt; を読むと、&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;自分が所有しているリポジトリを組織に移譲するには、対象の組織のリポジトリを作成する権限が必要です。&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;とあります。
+最初、自分のレポジトリの Collaboratior に相手方のアカウントを追加してレポジトリの移譲をお願いしたところ、どうやらパーソナルアカウントだと Collaborator には Push 権限しかつかず、Admin 権限はつけられないことが発覚してこの方法は失敗に終わりました。&lt;/p&gt;
+&lt;p&gt;結局、Organization へのインビテーションを送っていただき、早速 OK して、再度レポジトリの転送を試みると、今度はうまくいきました。&lt;/p&gt;
+&lt;p&gt;（スクリーンショットを撮ったのですが消えてしまいました）&lt;/p&gt;
+&lt;p&gt;忘れずに、Julia のパッケージ登録用レポジトリ &lt;a href=&#34;https://github.com/JuliaIntervals/RoundingEmulator.jl&#34;&gt;General&lt;/a&gt; にも PR を送っておきます。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/JuliaRegistries/General/pull/126706&#34;&gt;[RoundingEmulator] Update URL after transfer to JuliaIntervals by matsueushi · Pull Request #126706 · JuliaRegistries/General&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;あとは、README などの修正が必要ですが、移譲手続きについてはこれで完了したかと思います。&lt;/p&gt;
+&lt;p&gt;JuliaIntervals の皆様、ありがとうございました！&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
+      <link>https://matsueushi.github.io/posts/vscode-container-gpg/</link>
+      <pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/posts/vscode-container-gpg/</guid>
+      <description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;
+&lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;
+&lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; git -c user.useConfigOnly&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;true commit --quiet --allow-empty-message --file - -S
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;error: gpg failed to sign the data
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fatal: failed to write commit object
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory&#34;&gt;https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory&lt;/a&gt;
+を参考にして、&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git config --global gpg.program &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;which gpg&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;をコンテナ内で実行したら解決した。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
