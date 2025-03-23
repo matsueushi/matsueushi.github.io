@@ -2648,28 +2648,32 @@ $$
         \tilde{x}_N &amp;= G_N(z_N), \\\ 
         \tilde{x}_n &amp;= G_n(z_n, (\tilde{x}\_{n+1})\uparrow^r), n &lt; N
     \end{aligned} 
-$$&lt;p&gt;
-で、Fully convolutional net を \(\psi\) とした時に、&lt;/p&gt;
+$$&lt;p&gt;で、Fully convolutional net を \(\psi\) とした時に、&lt;/p&gt;
 $$
     \begin{aligned} 
         G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
     \end{aligned} 
 $$&lt;p&gt;と言っています。実際は一段階前の画像に0パディングを行う(こともある)のでもう少し複雑になりますがあとで説明します。&lt;/p&gt;
+&lt;p&gt;損失関数ですが、各ステージで&lt;/p&gt;
 $$
     \begin{aligned} 
         \min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
     \end{aligned} 
-$$$$
+$$&lt;p&gt;を考えるのですが、\( \mathcal{L}_{\text{adv}} \) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+計算するときは全てのステージでノイズを加えながら生成します。
+\( \mathcal{L}_{\text{rec}} \) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ&lt;/p&gt;
+$$
     \begin{aligned}
-        z^{\text{rec}} = \\\{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\\\} = \\\{z^*, 0, \ldots, 0 \\\}
+        z^{\text{rec}} &amp; = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} \\\
+         &amp; = \{z^*, 0, \ldots, 0 \}
     \end{aligned} 
-$$$$
+$$&lt;p&gt;を一つ学習を通して固定し、縮小した元画像との二乗誤差&lt;/p&gt;
+$$
     \begin{aligned}
-        \mathcal{L}_{\text{rec}, N} &amp;= || G_N(z^*) - x_N ||^2, \\\ 
-        \mathcal{L}_{\text{rec}, n} &amp;= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n&lt;N
-    \end{aligned} 
-$$&lt;p&gt;
-を損失関数とするものです。&lt;/p&gt;
+        \mathcal{L}_{\text{rec}, N} &amp; = || G_N(z^*) - x_N ||^2, \\\
+        \mathcal{L}_{\text{rec}, n} &amp; = || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n &lt; N
+    \end{aligned}
+$$&lt;p&gt;を損失関数とするものです。&lt;/p&gt;
 &lt;p&gt;読んでいて一つ疑問に思ったのが出力データの値域です。
 モデルでは、画像データを各数値が \( [-1,1] \) の範囲に収まる &lt;code&gt;Array&lt;/code&gt; として表現しているのですが、
 Convolutional Netで &lt;code&gt;tanh&lt;/code&gt; を適用した段階では \( [-1,1] \) の範囲に収まるものの、
@@ -2724,20 +2728,19 @@ Juliaだと関数は型安定である方がいいと言われているので、
 &lt;p&gt;Supplimental Material の &amp;ldquo;Boundary conditions and the effect of padding&amp;rdquo; を見ると
 Conv 層における0埋めにより画像の四隅の多様性が失われるが、Generator に入力するノイズの周辺をノイズでパディングする
 (つまり、ノイズ画像の方を大きくする)と軽減されるということなので、今回アニメーションをさせることを考えて0埋めをすることにしました。&lt;/p&gt;
+&lt;p&gt;そのため&lt;/p&gt;
 $$
     \begin{aligned} 
         G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
     \end{aligned} 
-$$&lt;p&gt;
-は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
+$$&lt;p&gt;は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
 \(\langle \rangle_d\) を幅 \(d\) の0パディング,  \(\rangle \langle_d\) を幅 \(d\) のトリミングとすると、実際にやることは&lt;/p&gt;
 $$
     \begin{aligned} 
         G(x, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
         \bar{x} &amp;= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
-$$&lt;p&gt;
-です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。&lt;/p&gt;
+$$&lt;p&gt;です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; resize_and_padding(x&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Float32&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;}, 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            image_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;}, padded_shape&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Tuple&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;})
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# println(size(x), image_shape, padded_shape)&lt;/span&gt;
@@ -2833,12 +2836,14 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    join(io, d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chains, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print(io, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;$$
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ノイズ画像を足してレイヤーに通し、出力結果にオリジナルの画像を加えて周囲をトリミングする &lt;code&gt;NoiseConnection&lt;/code&gt; (名前は適当)を作ります。&lt;/p&gt;
+$$
     \begin{aligned} 
         G(x, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
         \bar{x} &amp;= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
-$$$$
+$$&lt;p&gt;上の式で言えば&lt;/p&gt;
+$$
     \begin{aligned} 
         N(\bar{x}, z) &amp;= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d 
     \end{aligned} 

@@ -199,28 +199,32 @@ $$
         \tilde{x}_N &= G_N(z_N), \\\ 
         \tilde{x}_n &= G_n(z_n, (\tilde{x}\_{n+1})\uparrow^r), n < N
     \end{aligned} 
-$$<p>
-で、Fully convolutional net を \(\psi\) とした時に、</p>
+$$<p>で、Fully convolutional net を \(\psi\) とした時に、</p>
 $$
     \begin{aligned} 
         G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
     \end{aligned} 
 $$<p>と言っています。実際は一段階前の画像に0パディングを行う(こともある)のでもう少し複雑になりますがあとで説明します。</p>
+<p>損失関数ですが、各ステージで</p>
 $$
     \begin{aligned} 
         \min_{G_n} \min_{D_n} ( \mathcal{L}_{\text{adv}}(G_n, D_n) + \alpha \mathcal{L}_{\text{rec}}(G_n) )
     \end{aligned} 
-$$$$
+$$<p>を考えるのですが、\( \mathcal{L}_{\text{adv}} \) が Adversarial loss と呼ばれている通常の GAN の損失関数で、
+計算するときは全てのステージでノイズを加えながら生成します。
+\( \mathcal{L}_{\text{rec}} \) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ</p>
+$$
     \begin{aligned}
-        z^{\text{rec}} = \\\{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\\\} = \\\{z^*, 0, \ldots, 0 \\\}
+        z^{\text{rec}} & = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} \\\
+         & = \{z^*, 0, \ldots, 0 \}
     \end{aligned} 
-$$$$
+$$<p>を一つ学習を通して固定し、縮小した元画像との二乗誤差</p>
+$$
     \begin{aligned}
-        \mathcal{L}_{\text{rec}, N} &= || G_N(z^*) - x_N ||^2, \\\ 
-        \mathcal{L}_{\text{rec}, n} &= || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n<N
-    \end{aligned} 
-$$<p>
-を損失関数とするものです。</p>
+        \mathcal{L}_{\text{rec}, N} & = || G_N(z^*) - x_N ||^2, \\\
+        \mathcal{L}_{\text{rec}, n} & = || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n < N
+    \end{aligned}
+$$<p>を損失関数とするものです。</p>
 <p>読んでいて一つ疑問に思ったのが出力データの値域です。
 モデルでは、画像データを各数値が \( [-1,1] \) の範囲に収まる <code>Array</code> として表現しているのですが、
 Convolutional Netで <code>tanh</code> を適用した段階では \( [-1,1] \) の範囲に収まるものの、
@@ -275,20 +279,19 @@ Juliaだと関数は型安定である方がいいと言われているので、
 <p>Supplimental Material の &ldquo;Boundary conditions and the effect of padding&rdquo; を見ると
 Conv 層における0埋めにより画像の四隅の多様性が失われるが、Generator に入力するノイズの周辺をノイズでパディングする
 (つまり、ノイズ画像の方を大きくする)と軽減されるということなので、今回アニメーションをさせることを考えて0埋めをすることにしました。</p>
+<p>そのため</p>
 $$
     \begin{aligned} 
         G(x, z) = (x)\uparrow^r + \psi(z + (x)\uparrow^r)
     \end{aligned} 
-$$<p>
-は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
+$$<p>は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よりも 四方が幅 \(d\) だけ大きいように毎回取るようにして、
 \(\langle \rangle_d\) を幅 \(d\) の0パディング,  \(\rangle \langle_d\) を幅 \(d\) のトリミングとすると、実際にやることは</p>
 $$
     \begin{aligned} 
         G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
         \bar{x} &= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
-$$<p>
-です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。</p>
+$$<p>です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> resize_and_padding(x<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float32</span>,<span style="color:#ae81ff">4</span>}, 
 </span></span><span style="display:flex;"><span>            image_shape<span style="color:#f92672">::</span><span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>}, padded_shape<span style="color:#f92672">::</span><span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>})
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># println(size(x), image_shape, padded_shape)</span>
@@ -384,12 +387,14 @@ $$<p>
 </span></span><span style="display:flex;"><span>    join(io, d<span style="color:#f92672">.</span>chains, <span style="color:#e6db74">&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>    print(io, <span style="color:#e6db74">&#34;)&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div>$$
+</span></span></code></pre></div><p>ノイズ画像を足してレイヤーに通し、出力結果にオリジナルの画像を加えて周囲をトリミングする <code>NoiseConnection</code> (名前は適当)を作ります。</p>
+$$
     \begin{aligned} 
         G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
         \bar{x} &= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
-$$$$
+$$<p>上の式で言えば</p>
+$$
     \begin{aligned} 
         N(\bar{x}, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d 
     \end{aligned} 
@@ -784,7 +789,7 @@ $$<p>を計算するレイヤーです。<code>pad</code> は周囲でノイズ�
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1439 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 5779 words in this page.
 	</div>
 </div>
 
