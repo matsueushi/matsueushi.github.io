@@ -271,8 +271,9 @@
 </ul>
 <h3 id="lca">LCA</h3>
 <p>蟻本 pp.292</p>
-<p>\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)</p>
-<ul>
+$$
+    d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))
+$$<ul>
 <li><a href="https://twitter.com/e869120/status/1391218516129312768">競プロ典型90問 35日目解説@e869120</a></li>
 </ul>
 <hr>
@@ -307,6 +308,7 @@
 <li><a href="https://atcoder.jp/contests/abc178/tasks/abc178_e">ABC E - Dist Max</a></li>
 </ul>
 <h3 id="チェスのナイト">チェスのナイト</h3>
+<p>斜めに動くとわかりづらいので、座標変換を行う。</p>
 $$ 
     \begin{aligned}
         \left(
@@ -328,7 +330,8 @@ $$
         \end{matrix}
         \right)
     \end{aligned}
-$$$$ 
+$$<p>だから、逆変換</p>
+$$ 
     \begin{aligned}
         \left(
         \begin{matrix}
@@ -350,8 +353,7 @@ $$$$
         \end{matrix}
         \right) 
     \end{aligned}
-$$<p>
-を考えることにより縦横の単純な移動に変換する。</p>
+$$<p>を考えることにより縦横の単純な移動に変換する。</p>
 <ul>
 <li>蟻本 pp.353 Endless Knight</li>
 <li><a href="https://atcoder.jp/contests/math-and-algorithm/tasks/abc145_d">アルゴリズムと数学　演習問題集 052 - Knight</a></li>
@@ -486,7 +488,7 @@ $$<p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 936 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 971 words in this page.
 	</div>
 </div>
 

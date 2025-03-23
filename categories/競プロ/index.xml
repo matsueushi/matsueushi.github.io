@@ -552,7 +552,7 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
 &lt;p&gt;\(= (0 \veebar 2 \veebar \cdots \veebar A-1) \veebar (0 \veebar 2 \veebar \cdots \veebar B)\)&lt;/p&gt;
 &lt;p&gt;\(= f(1,A-1) \veebar f(1,B)\)&lt;/p&gt;
 &lt;p&gt;だから、\(A=0\) の場合に帰着される。&lt;/p&gt;
-&lt;p&gt;それぞれの桁毎に、\(0~B\) に出てくる \(1\) の数が偶数個か奇数個か数えれば、\(f(1,B)\) の各ビットがわかる。 \(A=0\) の \(1,2,3,&amp;hellip;\) のビット表示を確認すると、&lt;/p&gt;
+&lt;p&gt;それぞれの桁毎に、\(0 \sim B\) に出てくる \(1\) の数が偶数個か奇数個か数えれば、\(f(1,B)\) の各ビットがわかる。 \(A=0\) の \(1,2,3,...\) のビット表示を確認すると、&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -1364,8 +1364,9 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;/ul&gt;
 &lt;h3 id=&#34;lca&#34;&gt;LCA&lt;/h3&gt;
 &lt;p&gt;蟻本 pp.292&lt;/p&gt;
-&lt;p&gt;\(d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))\)&lt;/p&gt;
-&lt;ul&gt;
+$$
+    d(u,v)=depth(u)+depth(v)-2depth(lca(u,v))
+$$&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://twitter.com/e869120/status/1391218516129312768&#34;&gt;競プロ典型90問 35日目解説@e869120&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
@@ -1400,6 +1401,7 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc178/tasks/abc178_e&#34;&gt;ABC E - Dist Max&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;チェスのナイト&#34;&gt;チェスのナイト&lt;/h3&gt;
+&lt;p&gt;斜めに動くとわかりづらいので、座標変換を行う。&lt;/p&gt;
 $$ 
     \begin{aligned}
         \left(
@@ -1421,7 +1423,8 @@ $$
         \end{matrix}
         \right)
     \end{aligned}
-$$$$ 
+$$&lt;p&gt;だから、逆変換&lt;/p&gt;
+$$ 
     \begin{aligned}
         \left(
         \begin{matrix}
@@ -1443,8 +1446,7 @@ $$$$
         \end{matrix}
         \right) 
     \end{aligned}
-$$&lt;p&gt;
-を考えることにより縦横の単純な移動に変換する。&lt;/p&gt;
+$$&lt;p&gt;を考えることにより縦横の単純な移動に変換する。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;蟻本 pp.353 Endless Knight&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://atcoder.jp/contests/math-and-algorithm/tasks/abc145_d&#34;&gt;アルゴリズムと数学　演習問題集 052 - Knight&lt;/a&gt;&lt;/li&gt;

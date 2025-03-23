@@ -25,19 +25,24 @@
 &lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_100m_gaussian.png&#34; alt=&#34;ガウスカーネルによる回帰&#34;&gt;&lt;/p&gt;
 &lt;p&gt;ガウスカーネル＋線形カーネルによる回帰:
 &lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_linear_gaussian.png&#34; alt=&#34;ガウスカーネル＋線形カーネルによる回帰&#34;&gt;&lt;/p&gt;
-&lt;p&gt;任意の有限の入力
-\( x_1, \ldots , x_n \)
-を与えたときに、出力
-\( (f(x_1), \ldots , f(x_n)) \)
-が平均
-\( (\mu(x_1), \ldots , \mu(x_n)) \)
-分散
-\( (k(x_n, x_{nm} )) \)
-のガウス分布に従う時、
+&lt;p&gt;任意の有限の入力&lt;/p&gt;
+$$
+    (x_1, \ldots , x_n)
+$$&lt;p&gt;を与えたときに、出力&lt;/p&gt;
+$$
+    (f(x_1), \ldots , f(x_n))
+$$&lt;p&gt;が平均&lt;/p&gt;
+$$
+    (\mu(x_1), \ldots , \mu(x_n))
+$$&lt;p&gt;分散&lt;/p&gt;
+$$
+    (k(x_n, x_{nm} ))
+$$&lt;p&gt;のガウス分布に従う時、
 \( f \)
-をガウス過程と呼び、
-\( f \sim \text{GP} (\mu(x), k(x, x^\prime)) \)
-と書く。そして
+をガウス過程と呼び、&lt;/p&gt;
+$$
+    f \sim \text{GP} (\mu(x), k(x, x^\prime))
+$$&lt;p&gt;と書く。そして
 \( \mu \)
 を平均関数、
 \( k \)
@@ -45,8 +50,12 @@
 &lt;p&gt;今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。&lt;/p&gt;
 &lt;h2 id=&#34;ガウスカーネルの定義&#34;&gt;ガウスカーネルの定義&lt;/h2&gt;
 &lt;p&gt;もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。&lt;/p&gt;
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$&lt;p&gt;本文では&lt;/p&gt;
-$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
+$$
+    k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right)
+$$&lt;p&gt;本文では&lt;/p&gt;
+$$
+    k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right)
+$$&lt;p&gt;この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;abstract type&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Kernel&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
@@ -150,7 +159,7 @@ Stacktrace:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, xlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt;, ylabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    linewidth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_gaussian_3.png&#34; alt=&#34;ガウス過程からのサンプリング&#34;&gt;)&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_gaussian_3.png&#34; alt=&#34;ガウス過程からのサンプリング&#34;&gt;&lt;/p&gt;
 &lt;p&gt;ノイズ項を入れるとこんな感じ&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; GaussianProcess(GaussianKernel(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
@@ -177,7 +186,7 @@ Stacktrace:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; ker(k&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;LinearKernel&lt;/span&gt;, x1, x2)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; dot(x1, x2)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;LinearKernelのカーネルの実装では、定数項を考慮するために1を加えている。サンプルをプロットするとそれぞれ下のようになる（コードは略）&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;LinearKernel&lt;/code&gt;のカーネルの実装では、定数項を考慮するために1を加えている。サンプルをプロットするとそれぞれ下のようになる（コードは略）&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_constant.png&#34; alt=&#34;定数カーネル&#34;&gt;
 &lt;img src=&#34;https://matsueushi.github.io/images/posts/gp-parameter-estimation_linear.png&#34; alt=&#34;線形カーネル&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;カーネルの定数倍和&#34;&gt;カーネルの定数倍、和&lt;/h2&gt;

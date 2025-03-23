@@ -156,19 +156,24 @@
 <img src="/images/posts/gp-parameter-estimation_100m_gaussian.png" alt="ガウスカーネルによる回帰"></p>
 <p>ガウスカーネル＋線形カーネルによる回帰:
 <img src="/images/posts/gp-parameter-estimation_linear_gaussian.png" alt="ガウスカーネル＋線形カーネルによる回帰"></p>
-<p>任意の有限の入力
-\( x_1, \ldots , x_n \)
-を与えたときに、出力
-\( (f(x_1), \ldots , f(x_n)) \)
-が平均
-\( (\mu(x_1), \ldots , \mu(x_n)) \)
-分散
-\( (k(x_n, x_{nm} )) \)
-のガウス分布に従う時、
+<p>任意の有限の入力</p>
+$$
+    (x_1, \ldots , x_n)
+$$<p>を与えたときに、出力</p>
+$$
+    (f(x_1), \ldots , f(x_n))
+$$<p>が平均</p>
+$$
+    (\mu(x_1), \ldots , \mu(x_n))
+$$<p>分散</p>
+$$
+    (k(x_n, x_{nm} ))
+$$<p>のガウス分布に従う時、
 \( f \)
-をガウス過程と呼び、
-\( f \sim \text{GP} (\mu(x), k(x, x^\prime)) \)
-と書く。そして
+をガウス過程と呼び、</p>
+$$
+    f \sim \text{GP} (\mu(x), k(x, x^\prime))
+$$<p>と書く。そして
 \( \mu \)
 を平均関数、
 \( k \)
@@ -176,8 +181,12 @@
 <p>今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。</p>
 <h2 id="ガウスカーネルの定義">ガウスカーネルの定義</h2>
 <p>もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。</p>
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$<p>本文では</p>
-$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$<p>この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
+$$
+    k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right)
+$$<p>本文では</p>
+$$
+    k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right)
+$$<p>この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">abstract type</span> <span style="color:#66d9ef">Kernel</span> <span style="color:#66d9ef">end</span>
@@ -281,7 +290,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
 </span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_3.png" alt="ガウス過程からのサンプリング">)</p>
+</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_3.png" alt="ガウス過程からのサンプリング"></p>
 <p>ノイズ項を入れるとこんな感じ</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(GaussianKernel(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">0.01</span>)
 </span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
@@ -308,7 +317,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ker(k<span style="color:#f92672">::</span><span style="color:#66d9ef">LinearKernel</span>, x1, x2)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> dot(x1, x2)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>LinearKernelのカーネルの実装では、定数項を考慮するために1を加えている。サンプルをプロットするとそれぞれ下のようになる（コードは略）</p>
+</span></span></code></pre></div><p><code>LinearKernel</code>のカーネルの実装では、定数項を考慮するために1を加えている。サンプルをプロットするとそれぞれ下のようになる（コードは略）</p>
 <p><img src="/images/posts/gp-parameter-estimation_constant.png" alt="定数カーネル">
 <img src="/images/posts/gp-parameter-estimation_linear.png" alt="線形カーネル"></p>
 <h2 id="カーネルの定数倍和">カーネルの定数倍、和</h2>
@@ -861,7 +870,7 @@ logp:19.709131389510937
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4395 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4399 words in this page.
 	</div>
 </div>
 
