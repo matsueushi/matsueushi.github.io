@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Diary on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/diary/</link>
+    <link>http://localhost:1313/tags/diary/</link>
     <description>Recent content in Diary on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2025</copyright>
     <lastBuildDate>Fri, 31 Dec 2021 21:05:26 +0900</lastBuildDate>
     
-	<atom:link href="https://matsueushi.github.io/tags/diary/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/tags/diary/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2021年</title>
-      <link>https://matsueushi.github.io/posts/2021/</link>
+      <link>http://localhost:1313/posts/2021/</link>
       <pubDate>Fri, 31 Dec 2021 21:05:26 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/2021/</guid>
+      <guid>http://localhost:1313/posts/2021/</guid>
       <description>&lt;p&gt;2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。&lt;/p&gt;
 </description>
     </item>
