@@ -1743,12 +1743,12 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
 &lt;p&gt;サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。&lt;/p&gt;
 &lt;h2 id=&#34;離散フーリエ変換&#34;&gt;離散フーリエ変換&lt;/h2&gt;
+&lt;p&gt;離散フーリエ変換は標本点\(\{ x = 0, \ldots, N-1 \}\)に対し、関数\(f(x)\)を&lt;/p&gt;
 $$
     \begin{aligned}
       F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
     \end{aligned} 
-$$&lt;p&gt;
-に写す変換です。&lt;/p&gt;
+$$&lt;p&gt;に写す変換です。&lt;/p&gt;
 &lt;p&gt;まず&lt;a href=&#34;https://github.com/JuliaMath/FFTW.jl&#34;&gt;FFTW.jl&lt;/a&gt;を利用して
 \(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。&lt;a href=&#34;https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&#34;&gt;scipy.fftのFourier Transformsのチュートリアル&lt;/a&gt;を参考にしています。&lt;/p&gt;
@@ -1822,12 +1822,13 @@ $$&lt;p&gt;
 &lt;p&gt;スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。&lt;/p&gt;
 &lt;p&gt;この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。&lt;/p&gt;
+&lt;p&gt;今回はハン関数(&lt;a href=&#34;https://en.wikipedia.org/wiki/Hann_function&#34;&gt;Hann function&lt;/a&gt;)を使うことにします。
+サンプル数が \(N + 1\) のとき、ハン関数は&lt;/p&gt;
 $$
     \begin{aligned} 
     w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
     \end{aligned}
-$$&lt;p&gt;
-で与えられます。&lt;/p&gt;
+$$&lt;p&gt;で与えられます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Hann function&lt;/span&gt;
@@ -2248,19 +2249,21 @@ Julia における丸めの制御について調べた内容を書いておき�
 &lt;p&gt;丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。&lt;/p&gt;
 $$
     \begin{aligned}
-        \triangledown (x) = \max \\\{ y \in \mathbb{F}^* \mid y \le x \\\},
+        \triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
     \end{aligned}
 $$$$
     \begin{aligned}
-        \triangle (x) = \min \\\{ y \in \mathbb{F}^* \mid y \ge x \\\}
+        \triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
     \end{aligned}
 $$&lt;p&gt;
 はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。&lt;/p&gt;
+&lt;p&gt;これらは勿論先ほどの丸めの定義を満たし、&lt;/p&gt;
 $$
     \begin{aligned} 
     \triangledown (x) \le x \le \triangle (x)
     \end{aligned} 
-$$$$
+$$&lt;p&gt;が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して&lt;/p&gt;
+$$
     \begin{aligned}
     \triangledown (x) \le \bigcirc (x) \le \triangle (x)
     \end{aligned}
@@ -2306,9 +2309,10 @@ Juliaの &lt;a href=&#34;https://docs.julialang.org/en/v1/manual/integers-and-fl
 &lt;p&gt;書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート &lt;a href=&#34;https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF&#34;&gt;Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic&lt;/a&gt;
 を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
 別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。&lt;/p&gt;
+&lt;p&gt;よって、&lt;/p&gt;
 $$
     \begin{aligned}
-         x, y \in \mathbb{F}^*, * \in \\{  +, -, \times, /, \sqrt{} \\}
+         x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
     \end{aligned}
 $$&lt;p&gt;の時に&lt;/p&gt;
 $$
@@ -3567,20 +3571,22 @@ dim: 2
 &lt;hr&gt;
 &lt;p&gt;データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、
 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。&lt;/p&gt;
+&lt;p&gt;各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、
+\( K \)-平均法では、
+各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、&lt;/p&gt;
 $$
 z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2
-$$&lt;p&gt;
-となる。&lt;/p&gt;
+$$&lt;p&gt;となる。&lt;/p&gt;
 &lt;p&gt;アルゴリズムは、目的関数&lt;/p&gt;
 $$
-f((z_i)\_{i=1}^n, (\boldsymbol{\mu}_k)\_{k=1}^K) = \sum\_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}\_{z_i} ||^2 
+    f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 
 $$&lt;p&gt;が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。&lt;/p&gt;
 &lt;h3 id=&#34;アルゴリズム&#34;&gt;アルゴリズム&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
 \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する&lt;/li&gt;
 &lt;li&gt;$$
-  \boldsymbol{\mu}_k = \frac{1}{\sharp \\{i \mid z_i = k \\}} \sum\_{i, z\_i=k} \mathbf{x}_i
+  \boldsymbol{\mu}_k = \frac{1}{\sharp \\\{i \mid z_i = k \\\}} \sum_{i, z_i=k} \mathbf{x}_i
   $$
 と代表点の更新を行う&lt;/li&gt;
 &lt;li&gt;以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す
@@ -3891,12 +3897,15 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p
  Output observations = [0.7, 1.8, 1.7, 2.3, 1.0]
  Variance of observation noise = 0.08198471101193598
  Marginal Log-Likelihood = -5.464
-&lt;/code&gt;&lt;/pre&gt;$$
-k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
-$$$$
-k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$&lt;p&gt;
-で、パラメーターは \(l\) と \(\sigma\) の対数をとった &lt;code&gt;ll&lt;/code&gt; と &lt;code&gt;lσ&lt;/code&gt; だから
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;「ガウス過程と機械学習」では、カーネルは&lt;/p&gt;
+$$
+  k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
+$$&lt;p&gt;となっていて、推定結果は \((\theta_1, \theta_2, \theta_3)=(1.596,6.560,0.082)\) とされている。
+\(\theta_3\)は&lt;code&gt;Variance of observation noise&lt;/code&gt;の&lt;code&gt;0.08198471101193598&lt;/code&gt;とそのまま一致。
+&lt;code&gt;SEIso&lt;/code&gt;のカーネル関数は&lt;/p&gt;
+$$
+k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime)}{2l^2}\right)
+$$&lt;p&gt;で、パラメーターは \(l\) と \(\sigma\) の対数をとった &lt;code&gt;ll&lt;/code&gt; と &lt;code&gt;lσ&lt;/code&gt; だから
 \(\theta_1 = \exp(2 * l\sigma), \theta_2=2 * \exp(2 * ll)\) という変換で対応できる。
 &lt;code&gt;SEIso&lt;/code&gt; のメンバー変数 &lt;code&gt;σ2&lt;/code&gt; と &lt;code&gt;ℓ2&lt;/code&gt; を使って確認すると、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;theta1: &amp;#34;&lt;/span&gt;, gp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;kernel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;σ2)
@@ -4318,6 +4327,7 @@ Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。&lt;/p&gt;
 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、
 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。&lt;/p&gt;
 &lt;p&gt;全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。&lt;/p&gt;
+&lt;p&gt;ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では&lt;/p&gt;
 $$
 k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right)
 $$&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応するのは [&lt;code&gt;GaussianProcesses.SEIso&lt;/code&gt;]
@@ -4325,7 +4335,7 @@ $$&lt;p&gt;となっているが、GaussianProcesses.jlでこれに対応する�
 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 &lt;code&gt;SEIso(ll::T, lσ::T)&lt;/code&gt; は、
 \(\sigma = \log (\) &lt;code&gt;lσ&lt;/code&gt; \()\), \(l = \log (\) &lt;code&gt;ll&lt;/code&gt; \()\) とした時に&lt;/p&gt;
 $$
-k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
+k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime)}{2l^2}\right)
 $$&lt;p&gt;だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は&lt;/p&gt;
@@ -5622,8 +5632,8 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gp&#34;&gt;GP&lt;/h3&gt;
 &lt;p&gt;まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、&lt;/p&gt;
 $$
-    p(\mathbf{f}\_\* | \mathbf{y}) = \mathcal{N}(\mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-    \mathbf{K}\_{\*, \*} - \mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}\_{\mathbf{f}, *})
+    p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+    \mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}_{\mathbf{f}, *})
 $$&lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
 &lt;p&gt;1点の予測分布を計算する関数を実装しよう。自分の実装では、&lt;code&gt;cov&lt;/code&gt; は行列を返すため、1x1の行列を &lt;code&gt;first&lt;/code&gt; を使ってスカラーにしている。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
@@ -5717,16 +5727,17 @@ $$&lt;p&gt;であった。今回は、複数点の同時予測分布からサン
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sod.png&#34; alt=&#34;SoD&#34;&gt;&lt;/p&gt;
 &lt;p&gt;左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-regressors-sor&#34;&gt;The Subset of Regressors (SoR)&lt;/h3&gt;
+&lt;p&gt;前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が&lt;/p&gt;
 $$
     \begin{aligned}
-        \Sigma = (\sigma^{-2} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}
+        \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}
     \end{aligned}
-$$$$
+$$&lt;p&gt;を用いて&lt;/p&gt;
+$$
     \begin{aligned}
-        \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+        \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *})
     \end{aligned}
-$$&lt;p&gt;
-と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
+$$&lt;p&gt;と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
@@ -5762,11 +5773,12 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sor.png&#34; alt=&#34;SoR&#34;&gt;&lt;/p&gt;
 &lt;p&gt;式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。&lt;/p&gt;
 &lt;h3 id=&#34;the-deterministic-training-conditional-dtc&#34;&gt;The Deterministic Training Conditional (DTC)&lt;/h3&gt;
+&lt;p&gt;DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。&lt;/p&gt;
 $$
-    \begin{aligned} 
-        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \begin{aligned}
+        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
     \end{aligned} 
 $$&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
@@ -5794,13 +5806,15 @@ $$&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
 &lt;p&gt;最後にFITC。&lt;/p&gt;
 $$
     \begin{aligned}
- \Sigma = (\mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+        \Sigma &amp; = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \\\
+        \Lambda &amp; = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
     \end{aligned} 
-$$$$
+$$&lt;p&gt;を使って&lt;/p&gt;
+$$
     \begin{aligned} 
-        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \),
+        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
     \end{aligned} 
 $$&lt;p&gt;だったから同様に&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
@@ -5873,8 +5887,9 @@ $$&lt;p&gt;だったから同様に&lt;/p&gt;
 をカーネル関数と呼んでいるのであった。&lt;/p&gt;
 &lt;p&gt;今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。&lt;/p&gt;
 &lt;h2 id=&#34;ガウスカーネルの定義&#34;&gt;ガウスカーネルの定義&lt;/h2&gt;
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;
-この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
+&lt;p&gt;もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。&lt;/p&gt;
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$&lt;p&gt;本文では&lt;/p&gt;
+$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;abstract type&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Kernel&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;

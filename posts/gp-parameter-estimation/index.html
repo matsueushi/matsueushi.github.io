@@ -175,8 +175,9 @@
 をカーネル関数と呼んでいるのであった。</p>
 <p>今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。</p>
 <h2 id="ガウスカーネルの定義">ガウスカーネルの定義</h2>
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$<p>
-この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
+<p>もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。</p>
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$<p>本文では</p>
+$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$<p>この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">abstract type</span> <span style="color:#66d9ef">Kernel</span> <span style="color:#66d9ef">end</span>
@@ -860,7 +861,7 @@ logp:19.709131389510937
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4326 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 4395 words in this page.
 	</div>
 </div>
 

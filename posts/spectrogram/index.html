@@ -256,12 +256,12 @@
 <p>サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。</p>
 <h2 id="離散フーリエ変換">離散フーリエ変換</h2>
+<p>離散フーリエ変換は標本点\(\{ x = 0, \ldots, N-1 \}\)に対し、関数\(f(x)\)を</p>
 $$
     \begin{aligned}
       F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
     \end{aligned} 
-$$<p>
-に写す変換です。</p>
+$$<p>に写す変換です。</p>
 <p>まず<a href="https://github.com/JuliaMath/FFTW.jl">FFTW.jl</a>を利用して
 \(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。<a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html">scipy.fftのFourier Transformsのチュートリアル</a>を参考にしています。</p>
@@ -335,12 +335,13 @@ $$<p>
 <p>スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。</p>
 <p>この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。</p>
+<p>今回はハン関数(<a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a>)を使うことにします。
+サンプル数が \(N + 1\) のとき、ハン関数は</p>
 $$
     \begin{aligned} 
     w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
     \end{aligned}
-$$<p>
-で与えられます。</p>
+$$<p>で与えられます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Statistics
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Hann function</span>
@@ -556,7 +557,7 @@ $$<p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2400 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2491 words in this page.
 	</div>
 </div>
 

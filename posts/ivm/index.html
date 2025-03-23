@@ -202,8 +202,8 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 </span></span></code></pre></div><h3 id="gp">GP</h3>
 <p>まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、</p>
 $$
-    p(\mathbf{f}\_\* | \mathbf{y}) = \mathcal{N}(\mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-    \mathbf{K}\_{\*, \*} - \mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}\_{\mathbf{f}, *})
+    p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+    \mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}_{\mathbf{f}, *})
 $$<p>であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。</p>
 <p>1点の予測分布を計算する関数を実装しよう。自分の実装では、<code>cov</code> は行列を返すため、1x1の行列を <code>first</code> を使ってスカラーにしている。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kff <span style="color:#f92672">=</span> cov(gk, xs, xs)
@@ -297,16 +297,17 @@ $$<p>であった。今回は、複数点の同時予測分布からサンプル
 </span></span></code></pre></div><p><img src="/images/posts/ivm-sod.png" alt="SoD"></p>
 <p>左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。</p>
 <h3 id="the-subset-of-regressors-sor">The Subset of Regressors (SoR)</h3>
+<p>前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が</p>
 $$
     \begin{aligned}
-        \Sigma = (\sigma^{-2} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}
+        \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}
     \end{aligned}
-$$$$
+$$<p>を用いて</p>
+$$
     \begin{aligned}
-        \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+        \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *})
     \end{aligned}
-$$<p>
-と表されることを思い出すと、SoRは次のように実装できる。<code>us</code> の取り方が SoD と違っていることに注意。</p>
+$$<p>と表されることを思い出すと、SoRは次のように実装できる。<code>us</code> の取り方が SoD と違っていることに注意。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> sor_plot(us)
 </span></span><span style="display:flex;"><span>    Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
 </span></span><span style="display:flex;"><span>    Kuf <span style="color:#f92672">=</span> cov(gk, us, xs)
@@ -342,11 +343,12 @@ $$<p>
 </span></span></code></pre></div><p><img src="/images/posts/ivm-sor.png" alt="SoR"></p>
 <p>式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。</p>
 <h3 id="the-deterministic-training-conditional-dtc">The Deterministic Training Conditional (DTC)</h3>
+<p>DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。</p>
 $$
-    \begin{aligned} 
-        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \begin{aligned}
+        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
     \end{aligned} 
 $$<p>だったから、SoRの最初の計算部分を</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
@@ -374,13 +376,15 @@ $$<p>だったから、SoRの最初の計算部分を</p>
 <p>最後にFITC。</p>
 $$
     \begin{aligned}
- \Sigma = (\mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+        \Sigma & = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \\\
+        \Lambda & = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
     \end{aligned} 
-$$$$
+$$<p>を使って</p>
+$$
     \begin{aligned} 
-        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \),
+        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
     \end{aligned} 
 $$<p>だったから同様に</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Kuu <span style="color:#f92672">=</span> cov(gk, us, us)
@@ -548,7 +552,7 @@ $$<p>だったから同様に</p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2445 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2508 words in this page.
 	</div>
 </div>
 

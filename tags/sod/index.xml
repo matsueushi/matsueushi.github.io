@@ -56,8 +56,8 @@ Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gp&#34;&gt;GP&lt;/h3&gt;
 &lt;p&gt;まずは、通常のガウス回帰モデルの場合の予測を確認。予測分布は、&lt;/p&gt;
 $$
-    p(\mathbf{f}\_\* | \mathbf{y}) = \mathcal{N}(\mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-    \mathbf{K}\_{\*, \*} - \mathbf{K}\_{\*, \mathbf{f}} (\mathbf{K}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}\_{\mathbf{f}, *})
+    p(\mathbf{f}_* | \mathbf{y}) = \mathcal{N}(\mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
+    \mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{K}_{\mathbf{f}, *})
 $$&lt;p&gt;であった。今回は、複数点の同時予測分布からサンプルを発生させることは行わず、各点ごとに予測分布を求めて平均と2.5%, 97.5%点を計算する。&lt;/p&gt;
 &lt;p&gt;1点の予測分布を計算する関数を実装しよう。自分の実装では、&lt;code&gt;cov&lt;/code&gt; は行列を返すため、1x1の行列を &lt;code&gt;first&lt;/code&gt; を使ってスカラーにしている。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, xs, xs)
@@ -151,16 +151,17 @@ $$&lt;p&gt;であった。今回は、複数点の同時予測分布からサン
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sod.png&#34; alt=&#34;SoD&#34;&gt;&lt;/p&gt;
 &lt;p&gt;左上がGPで、補助入力点のx座標はグラフの下部に示している。データの左から順番で等間隔になるように補助入力点を選ぶと、データがスパースなところの情報が大きく切り捨てられてかなり近似が悪くなるということだろう。&lt;/p&gt;
 &lt;h3 id=&#34;the-subset-of-regressors-sor&#34;&gt;The Subset of Regressors (SoR)&lt;/h3&gt;
+&lt;p&gt;前回考えた、予測分布 \( q_{\text{SoR}}(\mathbf{f}_* | \mathbf{y}) \) が&lt;/p&gt;
 $$
     \begin{aligned}
-        \Sigma = (\sigma^{-2} \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}
+        \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}
     \end{aligned}
-$$$$
+$$&lt;p&gt;を用いて&lt;/p&gt;
+$$
     \begin{aligned}
-        \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+        \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *})
     \end{aligned}
-$$&lt;p&gt;
-と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
+$$&lt;p&gt;と表されることを思い出すと、SoRは次のように実装できる。&lt;code&gt;us&lt;/code&gt; の取り方が SoD と違っていることに注意。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; sor_plot(us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Kuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, xs)
@@ -196,11 +197,12 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/posts/ivm-sor.png&#34; alt=&#34;SoR&#34;&gt;&lt;/p&gt;
 &lt;p&gt;式を見て結構大胆な近似だと思っていたが、この例だと、5点の段階でも入力データが存在している範囲での予測はそう悪くない。&lt;/p&gt;
 &lt;h3 id=&#34;the-deterministic-training-conditional-dtc&#34;&gt;The Deterministic Training Conditional (DTC)&lt;/h3&gt;
+&lt;p&gt;DTC, FITCに関しては、SoRの共分散の計算がちょっと変わるだけ。&lt;/p&gt;
 $$
-    \begin{aligned} 
-        q\_{\text{DTC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\sigma^{-2} \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \)
+    \begin{aligned}
+        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} )
     \end{aligned} 
 $$&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)
@@ -228,13 +230,15 @@ $$&lt;p&gt;だったから、SoRの最初の計算部分を&lt;/p&gt;
 &lt;p&gt;最後にFITC。&lt;/p&gt;
 $$
     \begin{aligned}
- \Sigma = (\mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}\_{\mathbf{f}, \mathbf{u}} + \mathbf{K}\_{\mathbf{u}, \mathbf{u}})^{-1}, \Lambda = \text{diag}(\mathbf{K}\_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}\_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
+        \Sigma &amp; = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \\\
+        \Lambda &amp; = \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
     \end{aligned} 
-$$$$
+$$&lt;p&gt;を使って&lt;/p&gt;
+$$
     \begin{aligned} 
-        q\_{\text{FITC}}(\mathbf{f}\_\* | \mathbf{y}) 
-        = \mathcal{N} (\mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
-        \mathbf{K}\_{\*, \*} - \mathbf{Q}\_{\*, \*} + \mathbf{K}\_{\*, \mathbf{u}} \Sigma \mathbf{K}\_{\mathbf{u}, *} \),
+        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) 
+        = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ),
     \end{aligned} 
 $$&lt;p&gt;だったから同様に&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kuu &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cov(gk, us, us)

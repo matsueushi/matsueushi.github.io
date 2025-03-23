@@ -210,19 +210,21 @@ Julia における丸めの制御について調べた内容を書いておき�
 <p>丸めにはいくつか種類がありここでは全て紹介できませんが、いくつか基本的な丸めを挙げます。</p>
 $$
     \begin{aligned}
-        \triangledown (x) = \max \\\{ y \in \mathbb{F}^* \mid y \le x \\\},
+        \triangledown (x) = \max \{ y \in \mathbb{F}^* \mid y \le x \},
     \end{aligned}
 $$$$
     \begin{aligned}
-        \triangle (x) = \min \\\{ y \in \mathbb{F}^* \mid y \ge x \\\}
+        \triangle (x) = \min \{ y \in \mathbb{F}^* \mid y \ge x \}
     \end{aligned}
 $$<p>
 はそれぞれ下付き丸め (Rounded down), 上付き丸め (Rounded up) と呼ばれます。</p>
+<p>これらは勿論先ほどの丸めの定義を満たし、</p>
 $$
     \begin{aligned} 
     \triangledown (x) \le x \le \triangle (x)
     \end{aligned} 
-$$$$
+$$<p>が常に成立しています。これと条件 (R1), (R2) を組み合わせることにより、任意の丸め \( \bigcirc \) に対して</p>
+$$
     \begin{aligned}
     \triangledown (x) \le \bigcirc (x) \le \triangle (x)
     \end{aligned}
@@ -268,9 +270,10 @@ Juliaの <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-
 <p>書かれたのは1997年と古いようですが、IEEE 754の策定に携わったKahanのレクチャーノート <a href="https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF">Lecture Notes on the Status of IEEE Standard 754 for Binary Floating-Point Arithmetic</a>
 を読むと、四則演算や平方根丸め無しの場合に計算した結果を Nearest Even で丸めるという内容のことが書かれています。
 別の本「精度保証付き数値計算の基礎」（これも勢いで購入）にも同様のことが書いてあった (p.p. 17) ので、信じることにします。</p>
+<p>よって、</p>
 $$
     \begin{aligned}
-         x, y \in \mathbb{F}^*, * \in \\{  +, -, \times, /, \sqrt{} \\}
+         x, y \in \mathbb{F}^*, * \in \{  +, -, \times, /, \sqrt{} \}
     \end{aligned}
 $$<p>の時に</p>
 $$
@@ -684,7 +687,7 @@ $$<p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 6098 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 6167 words in this page.
 	</div>
 </div>
 

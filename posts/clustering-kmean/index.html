@@ -152,20 +152,22 @@
 <hr>
 <p>データ点を \( \mathbf{x}_i \in \R^d, i = 1, \ldots, n \), クラスタリングにより決定される、
 各クラスを代表する点を \(\boldsymbol{\mu}_k \in \R^d, k = 1, 2, \ldots, K \) とする。</p>
+<p>各データ点 \( x_i \) が属するクラスを \( z_i \in \{ 1, 2, \ldots, K \}\) とすると、
+\( K \)-平均法では、
+各データ点は \( (\boldsymbol{\mu}_k)_{k=1}^K \) のなかで一番(平方ユークリッド)距離が近い点が代表するクラスに分類されるので、</p>
 $$
 z_i = \argmin_k || \mathbf{x}_i - \boldsymbol{\mu}_k||^2
-$$<p>
-となる。</p>
+$$<p>となる。</p>
 <p>アルゴリズムは、目的関数</p>
 $$
-f((z_i)\_{i=1}^n, (\boldsymbol{\mu}_k)\_{k=1}^K) = \sum\_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}\_{z_i} ||^2 
+    f((z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K) = \sum_{i=1}^n || \mathbf{x}_i - \boldsymbol{\mu}_{z_i} ||^2 
 $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新していく。</p>
 <h3 id="アルゴリズム">アルゴリズム</h3>
 <ol>
 <li>\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
 \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する</li>
 <li>$$
-  \boldsymbol{\mu}_k = \frac{1}{\sharp \\{i \mid z_i = k \\}} \sum\_{i, z\_i=k} \mathbf{x}_i
+  \boldsymbol{\mu}_k = \frac{1}{\sharp \\\{i \mid z_i = k \\\}} \sum_{i, z_i=k} \mathbf{x}_i
   $$
 と代表点の更新を行う</li>
 <li>以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す
@@ -426,7 +428,7 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。</p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1495 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1585 words in this page.
 	</div>
 </div>
 

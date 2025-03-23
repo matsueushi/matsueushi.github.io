@@ -157,6 +157,7 @@ Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。</p>
 ガウスカーネル、線形カーネル、指数カーネル、周期カーネル、Matérnカーネルなど、
 「ガウス過程と機械学習」に出てきたカーネル関数はほぼカバーされているようだ。</p>
 <p>全て見ていくとキリがないのでいくつか基本的な部分だけ確認することにする。</p>
+<p>ガウスカーネルのカーネル関数は「ガウス過程と機械学習」では</p>
 $$
 k(\mathbf{x}, \mathbf{x}^\prime) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right)
 $$<p>となっているが、GaussianProcesses.jlでこれに対応するのは [<code>GaussianProcesses.SEIso</code>]
@@ -164,7 +165,7 @@ $$<p>となっているが、GaussianProcesses.jlでこれに対応するのは 
 関数のパラメトライズは対数スケールとなっているため十分注意する必要があり、カーネル関数 <code>SEIso(ll::T, lσ::T)</code> は、
 \(\sigma = \log (\) <code>lσ</code> \()\), \(l = \log (\) <code>ll</code> \()\) とした時に</p>
 $$
-k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
+k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime)}{2l^2}\right)
 $$<p>だから、\(
 k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime|^2\right)
 \) は</p>
@@ -1544,7 +1545,7 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1452 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1481 words in this page.
 	</div>
 </div>
 

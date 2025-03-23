@@ -44,8 +44,9 @@
 をカーネル関数と呼んでいるのであった。&lt;/p&gt;
 &lt;p&gt;今回は本と同様、簡単のために平均関数が恒等的に0となるものだけを考える。&lt;/p&gt;
 &lt;h2 id=&#34;ガウスカーネルの定義&#34;&gt;ガウスカーネルの定義&lt;/h2&gt;
-$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;
-この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
+&lt;p&gt;もっとも基本的なカーネルであるガウスカーネルを定義して、ガウス過程を構成する。ガウスカーネルのカーネル関数は次のものとする。&lt;/p&gt;
+$$ k(x, x^\prime ) = \exp \left( -\frac{|x-x^\prime|^2}{\theta}\right) $$&lt;p&gt;本文では&lt;/p&gt;
+$$ k(x, x^\prime ) = \theta_1 \exp \left( -\frac{|x-x^\prime|^2}{\theta_2}\right) $$&lt;p&gt;この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;abstract type&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;Kernel&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;

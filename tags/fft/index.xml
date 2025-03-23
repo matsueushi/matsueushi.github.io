@@ -122,12 +122,12 @@
 &lt;p&gt;サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。&lt;/p&gt;
 &lt;h2 id=&#34;離散フーリエ変換&#34;&gt;離散フーリエ変換&lt;/h2&gt;
+&lt;p&gt;離散フーリエ変換は標本点\(\{ x = 0, \ldots, N-1 \}\)に対し、関数\(f(x)\)を&lt;/p&gt;
 $$
     \begin{aligned}
       F(t) = \sum_{x=0}^{N-1} f(x) \exp \left(-i \frac{2\pi t x}{N} \right)
     \end{aligned} 
-$$&lt;p&gt;
-に写す変換です。&lt;/p&gt;
+$$&lt;p&gt;に写す変換です。&lt;/p&gt;
 &lt;p&gt;まず&lt;a href=&#34;https://github.com/JuliaMath/FFTW.jl&#34;&gt;FFTW.jl&lt;/a&gt;を利用して
 \(f(x) = \sin(50 \cdot 2\pi \cdot x) + 0.5 \sin(80 \cdot 2\pi \cdot x)\)
 の離散フーリエ変換を求めてみます。&lt;a href=&#34;https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html&#34;&gt;scipy.fftのFourier Transformsのチュートリアル&lt;/a&gt;を参考にしています。&lt;/p&gt;
@@ -201,12 +201,13 @@ $$&lt;p&gt;
 &lt;p&gt;スペクトログラムを作成する際には、短時間フーリエ変換を行います。
 楽曲の周波数の分析をする時には、楽曲データをオーバーラップさせながら一定の区間で区切り、取り出した区間をフーリエ変換します。&lt;/p&gt;
 &lt;p&gt;この際、区切った区間の値が周期的に繰り返されると仮定してフーリエ変換を行うのですが、勝手に選んだwindowの境界で繋がることは期待できないので、周囲で滑らかに0になるような関数をかけて境界で滑らかに繋がるようにします。&lt;/p&gt;
+&lt;p&gt;今回はハン関数(&lt;a href=&#34;https://en.wikipedia.org/wiki/Hann_function&#34;&gt;Hann function&lt;/a&gt;)を使うことにします。
+サンプル数が \(N + 1\) のとき、ハン関数は&lt;/p&gt;
 $$
     \begin{aligned} 
     w[n] = \frac{1}{2}\left[1 - \cos \left(\frac{2\pi n}{N}\right) \right]
     \end{aligned}
-$$&lt;p&gt;
-で与えられます。&lt;/p&gt;
+$$&lt;p&gt;で与えられます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Statistics
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Hann function&lt;/span&gt;

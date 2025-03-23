@@ -317,12 +317,15 @@
  Output observations = [0.7, 1.8, 1.7, 2.3, 1.0]
  Variance of observation noise = 0.08198471101193598
  Marginal Log-Likelihood = -5.464
-</code></pre>$$
-k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
-$$$$
-k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime))}{2l^2}\right)
-$$<p>
-で、パラメーターは \(l\) と \(\sigma\) の対数をとった <code>ll</code> と <code>lσ</code> だから
+</code></pre><p>「ガウス過程と機械学習」では、カーネルは</p>
+$$
+  k(\mathbf{x}, \mathbf{x}^\prime | \bm{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime|^2}{\theta_2}\right) + \theta_3 \delta(\mathbf{x}, \mathbf{x}^\prime)
+$$<p>となっていて、推定結果は \((\theta_1, \theta_2, \theta_3)=(1.596,6.560,0.082)\) とされている。
+\(\theta_3\)は<code>Variance of observation noise</code>の<code>0.08198471101193598</code>とそのまま一致。
+<code>SEIso</code>のカーネル関数は</p>
+$$
+k(\mathbf{x}, \mathbf{x}^\prime) = \sigma^2 \exp \left( - \frac{(\mathbf{x} - \mathbf{x}^\prime)^\top(\mathbf{x} - \mathbf{x}^\prime)}{2l^2}\right)
+$$<p>で、パラメーターは \(l\) と \(\sigma\) の対数をとった <code>ll</code> と <code>lσ</code> だから
 \(\theta_1 = \exp(2 * l\sigma), \theta_2=2 * \exp(2 * ll)\) という変換で対応できる。
 <code>SEIso</code> のメンバー変数 <code>σ2</code> と <code>ℓ2</code> を使って確認すると、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;theta1: &#34;</span>, gp<span style="color:#f92672">.</span>kernel<span style="color:#f92672">.</span>σ2)
@@ -854,7 +857,7 @@ theta2: 6.560299908989858
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 667 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 781 words in this page.
 	</div>
 </div>
 
