@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2025</copyright>
-    <lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 24 Apr 2025 23:37:56 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>音楽</title>
+      <link>https://matsueushi.github.io/categories/%E9%9F%B3%E6%A5%BD/</link>
+      <pubDate>Thu, 24 Apr 2025 23:37:56 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/categories/%E9%9F%B3%E6%A5%BD/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Julia</title>
@@ -27,15 +36,6 @@
       <pubDate>Sat, 15 Mar 2025 17:20:45 +0900</pubDate>
       
       <guid>https://matsueushi.github.io/categories/%E9%96%8B%E7%99%BA/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>音楽</title>
-      <link>https://matsueushi.github.io/categories/%E9%9F%B3%E6%A5%BD/</link>
-      <pubDate>Sun, 23 Feb 2025 21:42:18 +0900</pubDate>
-      
-      <guid>https://matsueushi.github.io/categories/%E9%9F%B3%E6%A5%BD/</guid>
       <description></description>
     </item>
     
