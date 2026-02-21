@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaでガウス過程を実装&amp;パラメーター推定</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -189,7 +189,7 @@ $$
 $$<p>この形で紹介されていたが、後々カーネルの線型結合を考えるのでここでは
 \( \exp \)
 の前に係数を付けない前者を採用する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">abstract type</span> <span style="color:#66d9ef">Kernel</span> <span style="color:#66d9ef">end</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">abstract type</span> <span style="color:#66d9ef">Kernel</span> <span style="color:#66d9ef">end</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> cov(k<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>, xs1, xs2)
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># covariance matrix</span>
@@ -219,7 +219,7 @@ $$<p>この形で紹介されていたが、後々カーネルの線型結合を
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>分散共分散行列を計算する <code>cov</code> 関数とガウスカーネルを定義した。
 <code>mutable</code> にしたのは、後々パラメーター推定をするときにパラメーターの更新をするため。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>gk <span style="color:#f92672">=</span> GaussianKernel(<span style="color:#ae81ff">1</span>)
@@ -233,7 +233,7 @@ $$<p>この形で紹介されていたが、後々カーネルの線型結合を
 <p><img src="/images/posts/gp-parameter-estimation_gaussian_1.png" alt="ガウス過程からのサンプル"></p>
 <h2 id="ガウス過程の定義">ガウス過程の定義</h2>
 <p>上でガウスカーネルを定義した方法には一つ問題があり、例えば点を0.1毎に取ると上手く動かない。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>gk_dist <span style="color:#f92672">=</span> MvNormal(zeros(Base<span style="color:#f92672">.</span>length(xs)), cov(gk, xs))
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(xs, rand(gk_dist, <span style="color:#ae81ff">5</span>), 
 </span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
@@ -253,7 +253,7 @@ Stacktrace:
  [9] top-level scope at In[18]:6
 </code></pre><p>問題が発生した原因は、 <code>cov</code> 関数により生成される分散共分散行列が正定値にならないことである。対策としては、分散共分散行列の対角成分に小さい数を加えて行列が正定値になるようにすれば良い。（1.4のリッジ回帰の説明を参照)</p>
 <p>各成分ごとにカーネル関数を計算した結果得られる分散共分散行列に、単位行列の定数倍を加えて最終的に使う分散共分散行列を作るというのは、観測ノイズを考慮した観測モデルを考えるときも同じなので、今回はガウス回帰モデルを次のように定義する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> LinearAlgebra
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> LinearAlgebra
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Gaussian Process
@@ -278,21 +278,21 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    MvNormal(zeros(l), k)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>ここでは、 <code>eta</code> が観測ノイズの項目に相当し、観測値にノイズがないものとして考える場合は分散共分散行列の正則化のため対角成分に1e-6を加えることにする。<code>xs</code> の刻みを細かくしてサンプリングできることを確認しよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(GaussianKernel(<span style="color:#ae81ff">1</span>))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(GaussianKernel(<span style="color:#ae81ff">1</span>))
 </span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(xs, rand(dist(gp, xs), <span style="color:#ae81ff">5</span>), 
 </span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
 </span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_2.png" alt="ガウス過程からのサンプリング"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(xs, rand(dist(gp, xs), <span style="color:#ae81ff">5</span>), 
 </span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
 </span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_3.png" alt="ガウス過程からのサンプリング"></p>
 <p>ノイズ項を入れるとこんな感じ</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(GaussianKernel(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">0.01</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(GaussianKernel(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">0.01</span>)
 </span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(xs, rand(dist(gp, xs), <span style="color:#ae81ff">5</span>), 
 </span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>,
@@ -300,7 +300,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_noise.png" alt="ガウス過程からのサンプリング(ノイズ項)"></p>
 <p>同様に定数カーネル、線形カーネルも定義しておこう。(その他のカーネルにも本文には出てくるが、ここでは省略)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Constant kernel
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#66d9ef">ConstantKernel</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Kernel</span> <span style="color:#66d9ef">end</span>
@@ -323,7 +323,7 @@ Stacktrace:
 <h2 id="カーネルの定数倍和">カーネルの定数倍、和</h2>
 <p>本文3.3.2にあるように、カーネルは組み合わせて使うことができ、カーネルの和・積もまたカーネル関数になる。</p>
 <p>今回、ガウスカーネル、ガウスカーネル＋線形カーネルを考えるにあたっては、カーネルの定数倍、カーネルの和が定義されていれば十分なので、その二つを定義しておこう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> Base<span style="color:#f92672">:</span> <span style="color:#f92672">+</span>, <span style="color:#f92672">*</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> Base<span style="color:#f92672">:</span> <span style="color:#f92672">+</span>, <span style="color:#f92672">*</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Scalar product
@@ -352,7 +352,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>(coef<span style="color:#f92672">::</span><span style="color:#66d9ef">Real</span>, k<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>) <span style="color:#f92672">=</span> KernelScalarProd(<span style="color:#66d9ef">Float64</span>(coef), k)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>(k1<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>, k2<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>) <span style="color:#f92672">=</span> KernelSum(k1, k2)
 </span></span></code></pre></div><p>こんな風にカーネルの線型結合からガウス過程が定義できるようになった。下は、線形カーネルとガウスカーネルの線型結合を考えた例。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> LinearKernel() 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> LinearKernel() 
 </span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.8</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">0.01</span>))
 </span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> collect(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(xs, rand(dist(gp, xs), <span style="color:#ae81ff">10</span>), 
@@ -363,7 +363,7 @@ Stacktrace:
 <h2 id="回帰">回帰</h2>
 <p>サンプリングができたので、次に回帰を行う。</p>
 <p>回帰を行おう。本文の後半には、ガウス過程回帰の計算方法を少なくする方法が書いてあるが、まだそこまで読んでいないのでここは素直な方法(本の公式3.8)でガウス過程回帰を定義する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> predict(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xtest, xtrain, ytrain)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> predict(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xtest, xtrain, ytrain)
 </span></span><span style="display:flex;"><span>    k_star <span style="color:#f92672">=</span> cov(gp<span style="color:#f92672">.</span>kernel, xtrain, xtest)
 </span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> cov(gp, xtest)
 </span></span><span style="display:flex;"><span>
@@ -374,7 +374,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    MvNormal(mu, sig)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>まず、パラメーターは既知のものとして、予測分布からのサンプリングと、誤差範囲を示してみよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1.4</span>, <span style="color:#ae81ff">3</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1.4</span>, <span style="color:#ae81ff">3</span>]
 </span></span><span style="display:flex;"><span>ys <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">1.8</span>, <span style="color:#ae81ff">1.7</span>, <span style="color:#ae81ff">2.3</span>, <span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.596</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">6.560</span>), <span style="color:#ae81ff">0.082</span>)
@@ -401,7 +401,7 @@ Stacktrace:
  [7] predict(::GaussianProcess{KernelScalarProd}, ::Array{Float64,1}, ::Array{Float64,1}, ::Array{Float64,1}) at ./In[24]:10
  [8] top-level scope at In[25]:7
 </code></pre><p>原因は、 <code>predict</code> の <code>sig</code> が計算誤差によりSymmetricになっていないのが原因なので、<code>predict</code> を次のように修正する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> predict(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xtest, xtrain, ytrain)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> predict(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xtest, xtrain, ytrain)
 </span></span><span style="display:flex;"><span>   k_star <span style="color:#f92672">=</span> cov(gp<span style="color:#f92672">.</span>kernel, xtrain, xtest)
 </span></span><span style="display:flex;"><span>   s <span style="color:#f92672">=</span> cov(gp, xtest)
 </span></span><span style="display:flex;"><span>
@@ -432,7 +432,7 @@ $$
     \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_{\boldsymbol{\theta}}^{-1} \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} \right) + (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})
 $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKernel</code>, <code>LinearKernel</code> の微分を定義する。パラメーターごとの偏微分したもののリストを返すことにする
 <code>ConstantKernel</code>, <code>LinearKernel</code> はパラメーターを持たないので、空のリストを返しておく。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logderiv(k<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianKernel</span>, x1, x2)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logderiv(k<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianKernel</span>, x1, x2)
 </span></span><span style="display:flex;"><span>    [ker(k, x1, x2) <span style="color:#f92672">/</span> k<span style="color:#f92672">.</span>theta <span style="color:#f92672">*</span> sum((x1 <span style="color:#f92672">-</span> x2)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)]
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span><span style="display:flex;"><span>
@@ -444,7 +444,7 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 </span></span><span style="display:flex;"><span>    []
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>カーネルの定数倍、和に対して、元のカーネルの微分を利用して微分を定義する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logderiv(k<span style="color:#f92672">::</span><span style="color:#66d9ef">KernelScalarProd</span>, x1, x2)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logderiv(k<span style="color:#f92672">::</span><span style="color:#66d9ef">KernelScalarProd</span>, x1, x2)
 </span></span><span style="display:flex;"><span>    [ker(k<span style="color:#f92672">.</span>kernel, x1, x2), 
 </span></span><span style="display:flex;"><span>     k<span style="color:#f92672">.</span>coef <span style="color:#f92672">*</span> logderiv(k<span style="color:#f92672">.</span>kernel, x1, x2)<span style="color:#f92672">...</span>]
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
@@ -456,7 +456,7 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 </span></span></code></pre></div><h2 id="optimjlによる最適化">Optim.jlによる最適化</h2>
 <p>微分を定義したので、<a href="https://julianlsolvers.github.io/Optim.jl/stable/">Optim.jl</a> で最適化しよう。</p>
 <p>まず、カーネルのパラメーターを更新する <code>update!</code> を定義。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update!(k<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianKernel</span>, theta)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update!(k<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianKernel</span>, theta)
 </span></span><span style="display:flex;"><span>    k<span style="color:#f92672">.</span>theta <span style="color:#f92672">=</span> <span style="color:#66d9ef">Float64</span>(theta)
 </span></span><span style="display:flex;"><span>    k
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
@@ -471,7 +471,7 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 </span></span><span style="display:flex;"><span>    gp
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>これを和と定数倍の場合にも延長する。和のカーネルを更新する時に、ぞれぞれのカーネルのパラメーターの数を知る必要がある。<code>Base.length</code> をカーネル、ガウス過程に対して拡張しよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Base<span style="color:#f92672">.</span>length(k<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>) <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(fieldnames(typeof(k)))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Base<span style="color:#f92672">.</span>length(k<span style="color:#f92672">::</span><span style="color:#66d9ef">Kernel</span>) <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(fieldnames(typeof(k)))
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Base<span style="color:#f92672">.</span>length(k<span style="color:#f92672">::</span><span style="color:#66d9ef">KernelScalarProd</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> Base<span style="color:#f92672">.</span>length(k<span style="color:#f92672">.</span>kernel)
 </span></span><span style="display:flex;"><span>
@@ -479,7 +479,7 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Base<span style="color:#f92672">.</span>length(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>) <span style="color:#f92672">=</span> Base<span style="color:#f92672">.</span>length(gp<span style="color:#f92672">.</span>kernel) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 </span></span></code></pre></div><p>これでようやく和と定数倍の場合の <code>update</code> が定義できる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update!(k<span style="color:#f92672">::</span><span style="color:#66d9ef">KernelScalarProd</span>, params<span style="color:#f92672">...</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> update!(k<span style="color:#f92672">::</span><span style="color:#66d9ef">KernelScalarProd</span>, params<span style="color:#f92672">...</span>)
 </span></span><span style="display:flex;"><span>    k<span style="color:#f92672">.</span>coef <span style="color:#f92672">=</span> params[<span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>    update!(k<span style="color:#f92672">.</span>kernel, params[<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>]<span style="color:#f92672">...</span>)
 </span></span><span style="display:flex;"><span>    k
@@ -497,7 +497,7 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 <a href="https://julianlsolvers.github.io/Optim.jl/stable/#user/tipsandtricks/#avoid-repeating-computations">https://julianlsolvers.github.io/Optim.jl/stable/#user/tipsandtricks/#avoid-repeating-computations</a></p>
 </blockquote>
 <p>を参考にして <code>fg!</code> を定義。Optim.jlは関数の最小化を行うため、<code>fg!</code> では \( -L \) の値と微分を計算している。(ついでに対数尤度も定義しておく)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logp(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xs, ys)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> logp(gp<span style="color:#f92672">::</span><span style="color:#66d9ef">GaussianProcess</span>, xs, ys)
 </span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> cov(gp, xs)
 </span></span><span style="display:flex;"><span>    k_inv <span style="color:#f92672">=</span> inv(k)
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">-</span>log(det(k)) <span style="color:#f92672">-</span> ys<span style="color:#f92672">&#39;</span> <span style="color:#f92672">*</span> k_inv <span style="color:#f92672">*</span> ys
@@ -540,9 +540,9 @@ $$<p>を計算する。まずは <code>GaussianKernel</code>, <code>ConstantKern
 $$
     k(\mathbf{x}, \mathbf{x}^\prime \mid \boldsymbol{\theta}) = \theta_1 \exp \left( - \frac{|\mathbf{x} - \mathbf{x}^\prime |^2}{\theta_2} \right) + \theta_3 \delta (\mathbf{x}, \mathbf{x}^\prime) 
 $$<p>だから、パラメーターを仮置きして下のようにガウス過程を定義する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">1.0</span>), <span style="color:#ae81ff">1.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">1.0</span>), <span style="color:#ae81ff">1.0</span>)
 </span></span></code></pre></div><p>Optim.jlの<a href="https://julianlsolvers.github.io/Optim.jl/stable/#algo/gradientdescent/"><code>GradientDescent</code></a> を使ってパラメーターを推定する。実際のハイパーパラメーターに戻すために、最後に <code>exp</code> を取っている。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Optim
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Optim
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>lower <span style="color:#f92672">=</span> fill(<span style="color:#f92672">-</span><span style="color:#ae81ff">30.0</span>, <span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span>upper <span style="color:#f92672">=</span> fill(<span style="color:#ae81ff">30.0</span>, <span style="color:#ae81ff">3</span>)
@@ -575,7 +575,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 [theta1, theta2, theta3] = [1.59643, 6.5603, 0.0819847]
 </code></pre><h2 id="男子100m走の世界記録のデータを使ったハイパーパラメーター推定">男子100m走の世界記録のデータを使ったハイパーパラメーター推定</h2>
 <p>長くなったが、最後に、本と同様、男子100m走の世界記録のデータを使ってハイパーパラメーターを推定してみよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> CSV
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> CSV
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Dates
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DataFrames
 </span></span><span style="display:flex;"><span>
@@ -607,7 +607,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 </span></span><span style="display:flex;"><span>scatter(df<span style="color:#f92672">.</span>Date, df<span style="color:#f92672">.</span>Time, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
 </span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_100m_data.png" alt="男子100mの世界記録"></p>
 <p>値を平均0, 分散1となるように正規化する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Dates
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Dates
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>xs_raw <span style="color:#f92672">=</span> Dates<span style="color:#f92672">.</span>value<span style="color:#f92672">.</span>(df<span style="color:#f92672">.</span>Date <span style="color:#f92672">.-</span> Date(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">./</span> <span style="color:#ae81ff">365</span>
 </span></span><span style="display:flex;"><span>xs_mean, xs_std <span style="color:#f92672">=</span> mean(xs_raw), std(xs_raw)
@@ -620,7 +620,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 </span></span><span style="display:flex;"><span>scatter(xs, ys, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
 </span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_100m_data_2.png" alt="正規化した男子100mの世界記録"></p>
 <p><a href="https://julianlsolvers.github.io/Optim.jl/stable/#algo/lbfgs/"><code>LBFGS</code></a> でハイパーパラメーターを推定する。<code>[0, 0, 0]</code> からスタートすると、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_gp_100m(gp, pars)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_gp_100m(gp, pars)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    update!(gp, exp<span style="color:#f92672">.</span>(pars)<span style="color:#f92672">...</span>)
 </span></span><span style="display:flex;"><span>    x_test <span style="color:#f92672">=</span> collect(range(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, stop<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, length<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>))
@@ -670,7 +670,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 logp:14.864131619224107
 </code></pre><p><img src="/images/posts/gp-parameter-estimation_100m_1.png" alt="[0,0,0]からスタートしたガウスカーネルによる回帰"></p>
 <p>となって本に載っているのとは別の局所解に収束してしまう。<code>[0, 0, -3]</code> からスタートすると、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>res <span style="color:#f92672">=</span> optimize(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>res <span style="color:#f92672">=</span> optimize(
 </span></span><span style="display:flex;"><span>    Optim<span style="color:#f92672">.</span>only_fg!((F, G, x) <span style="color:#f92672">-&gt;</span> fg!(gp, xs, ys, F, G, x)),
 </span></span><span style="display:flex;"><span>    fill(<span style="color:#f92672">-</span><span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">3</span>), fill(<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">3</span>), [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>], 
 </span></span><span style="display:flex;"><span>    Fminbox(LBFGS()))
@@ -703,7 +703,7 @@ logp:14.073964533876048
 </code></pre><p><img src="/images/posts/gp-parameter-estimation_100m_gaussian.png" alt="[0,0,-3]からスタートしたガウスカーネルによる回帰"></p>
 <p>と、本と同様の回帰結果が得られる。(パラメーターの値は本と違ってしまっているが&hellip;)</p>
 <p>最後に、ガウスカーネル + 線形カーネルによる回帰を行ってみよう。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp_2 <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> ConstantKernel() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> LinearKernel() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">1.0</span>), <span style="color:#ae81ff">1.0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp_2 <span style="color:#f92672">=</span> GaussianProcess(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> ConstantKernel() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> LinearKernel() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> GaussianKernel(<span style="color:#ae81ff">1.0</span>), <span style="color:#ae81ff">1.0</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> optimize(
 </span></span><span style="display:flex;"><span>    Optim<span style="color:#f92672">.</span>only_fg!((F, G, x) <span style="color:#f92672">-&gt;</span> fg!(gp_2, xs, ys, F, G, x)),

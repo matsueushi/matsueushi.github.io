@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -149,13 +149,13 @@
 		<div class="c-rich-text"><p>vscodeでアタッチしたコンテナからコミットしようとすると、</p>
 <p>fatal: cannot run /usr/local/bin/gpg: No such file or directory</p>
 <p>というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git -c user.useConfigOnly<span style="color:#f92672">=</span>true commit --quiet --allow-empty-message --file - -S
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git -c user.useConfigOnly<span style="color:#f92672">=</span>true commit --quiet --allow-empty-message --file - -S
 </span></span><span style="display:flex;"><span>fatal: cannot run /usr/local/bin/gpg: No such file or directory
 </span></span><span style="display:flex;"><span>error: gpg failed to sign the data
 </span></span><span style="display:flex;"><span>fatal: failed to write commit object
 </span></span></code></pre></div><p><a href="https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory">https://stackoverflow.com/questions/36941533/git-hub-desktop-on-mac-error-cannot-run-gpg-no-such-file-or-directory</a>
 を参考にして、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global gpg.program <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>which gpg<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global gpg.program <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>which gpg<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 </span></span></code></pre></div><p>をコンテナ内で実行したら解決した。</p>
 </div>
 	</section>

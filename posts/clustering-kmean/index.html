@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | K-平均アルゴリズム</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -166,7 +166,8 @@ $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K 
 <ol>
 <li>\( (z_i)_{i=1}^n \) を乱数を用いて初期化する。集合 \( \{ z_i \mid i = 1, \ldots, n  \} \) の個数が \( K \) ではない場合、個数が \( K \)になるまで
 \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する</li>
-<li>$$
+<li>
+$$
   \boldsymbol{\mu}_k = \frac{1}{\sharp \\\{i \mid z_i = k \\\}} \sum_{i, z_i=k} \mathbf{x}_i
   $$
 と代表点の更新を行う</li>
@@ -184,7 +185,7 @@ $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K 
 <p>使ったデータは <a href="https://github.com/cstjean/ScikitLearn.jl">ScikitLearn.jl</a> で作成。
 下の図のような三種類のパターン (<code>noisy_circles</code>, <code>noisy_moons</code>, <code>blobs</code>) を用意して、サンプル点は1500個。
 <a href="https://github.com/cstjean/ScikitLearn.jl/blob/master/examples/Clustering_Comparison.ipynb">このページ</a> が参考になる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> ScikitLearn
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> ScikitLearn
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Statistics
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Printf
@@ -209,7 +210,7 @@ $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K 
 </span></span><span style="display:flex;"><span>Plots<span style="color:#f92672">.</span>plot(plts<span style="color:#f92672">...</span>, layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>), size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">800</span>, <span style="color:#ae81ff">400</span>])
 </span></span></code></pre></div><p><img src="/images/posts/clustering-kmean_dataset.png" alt="Dataset"></p>
 <p>本体の実装はこんな感じで、<code>dist</code> で \( f \) の値、 <code>dist_change</code> で \( f \) の変化を保持。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">KMean</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">mutable struct</span> <span style="color:#66d9ef">KMean</span>
 </span></span><span style="display:flex;"><span>    points<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>}
 </span></span><span style="display:flex;"><span>    K<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>
 </span></span><span style="display:flex;"><span>    zs<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
@@ -264,7 +265,7 @@ $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>それぞれのサンプルデータに対し、\( f \) の減少幅が0.1以下になるまでイテレーションを行う(最高100回)様子をアニメーションして、gifファイルに出力させると下のようになる。
 Juliaはgifのアニメーションを作るのも楽でいいですね。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gifs <span style="color:#f92672">=</span> []
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gifs <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i, (data, K)) <span style="color:#66d9ef">in</span> enumerate(zip([noisy_circles, noisy_moons, blobs], [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]))
 </span></span><span style="display:flex;"><span>    points, label <span style="color:#f92672">=</span> data

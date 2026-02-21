@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | JuliaでArray of Arrayを1次元Vectorにする方法</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -135,7 +135,7 @@
 	<section class="mx-auto content">
 		<div class="c-rich-text"><p>よく忘れるのでメモ。</p>
 <p>結論から言うと <code>Base.Iterators.flatten</code> を適用して <code>collect</code> すれば良い。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">import</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> flatten
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">import</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> flatten
 </span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> xs <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]]
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
@@ -150,7 +150,7 @@
 </span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span>
 </span></span></code></pre></div><p>追記(2019/4/7):</p>
 <p> <code>vcat</code> を使った方が簡潔だった。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> vcat(xs<span style="color:#f92672">...</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> vcat(xs<span style="color:#f92672">...</span>)
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>

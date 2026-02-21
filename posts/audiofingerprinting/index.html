@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -155,7 +155,7 @@
 しかも多少雑音が混じってしまっていても大丈夫という非常に便利なアプリです。</p>
 <p>仕組みが気になったので、調べて一部をJuliaで実装してみました。</p>
 <p>Juliaのバージョンは1.5.0です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>               _
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>               _
 </span></span><span style="display:flex;"><span>   _       _ _<span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>_     |  Documentation: https://docs.julialang.org
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>     | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>    |
 </span></span><span style="display:flex;"><span>   _ _   _| |_  __ _   |  Type <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#66d9ef">for</span> help, <span style="color:#e6db74">&#34;]?&#34;</span> <span style="color:#66d9ef">for</span> Pkg help.
@@ -202,7 +202,7 @@
 <h3 id="wavファイル">WAVファイル</h3>
 <p>WAVファイルの読み込みは <a href="https://github.com/dancasimiro/WAV.jl">WAV.jl</a> を使います。
 詳細は<a href="../spectrogram/">ここ</a> を見てください。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> WAV
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> WAV
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> ys, fs, _, _ <span style="color:#f92672">=</span> wavread(<span style="color:#e6db74">&#34;test/data/original.wav&#34;</span>)
 </span></span><span style="display:flex;"><span>([<span style="color:#f92672">-</span><span style="color:#ae81ff">0.44181646168401134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.40189825128940704</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">0.43061616870632036</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.3761101107821894</span>; <span style="color:#f92672">…</span> ; <span style="color:#ae81ff">0.17578661458174383</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.04297006134220405</span>; <span style="color:#ae81ff">0.1151768547624134</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.1497848445081942</span>], <span style="color:#ae81ff">44100.0f0</span>, <span style="color:#ae81ff">0x0010</span>, WAVChunk[WAVChunk(<span style="color:#66d9ef">Symbol</span>(<span style="color:#e6db74">&#34;fmt &#34;</span>), <span style="color:#66d9ef">UInt8</span>[<span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0xac</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0xb1</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x00</span>])])
@@ -213,14 +213,14 @@
 <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.spectrogram.html">scipy.signal.spectrogram</a>
 も参照したりしていました。</p>
 <p><code>spectrogram</code> が返す <code>Spectrogram</code> オブジェクトからスペクトログラムの2次元配列を取得するには <code>.power</code> でアクセスすれば良いです。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DSP
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DSP
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> songspectrogram(samples, n, fs)
 </span></span><span style="display:flex;"><span>    spec <span style="color:#f92672">=</span> spectrogram(samples, n; fs <span style="color:#f92672">=</span> fs, window <span style="color:#f92672">=</span> DSP<span style="color:#f92672">.</span>Windows<span style="color:#f92672">.</span>hanning)<span style="color:#f92672">.</span>power
 </span></span><span style="display:flex;"><span>    normspec <span style="color:#f92672">=</span> log10<span style="color:#f92672">.</span>(spec)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> normspec
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">4096</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> songspectrogram(ys[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>], n, fs)
@@ -246,7 +246,7 @@
 </span></span></code></pre></div><h3 id="最大値フィルター">最大値フィルター</h3>
 <p>Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.maximum_filter.html"><code>scipy.ndimage.maximum_filter</code></a>
 に該当するフィルターが見つからなかったので、下のように最大値フィルターを構成します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> maxfilter(matrix, filtersize)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> maxfilter(matrix, filtersize)
 </span></span><span style="display:flex;"><span>    temp, result <span style="color:#f92672">=</span> zero(matrix), zero(matrix)
 </span></span><span style="display:flex;"><span>    n1, n2 <span style="color:#f92672">=</span> size(matrix)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n1
@@ -261,7 +261,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.94</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.67</span> <span style="color:#ae81ff">0.48</span> <span style="color:#ae81ff">0.10</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.94</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.67</span> <span style="color:#ae81ff">0.48</span> <span style="color:#ae81ff">0.10</span>;
 </span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.77</span> <span style="color:#ae81ff">0.98</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.63</span> <span style="color:#ae81ff">0.32</span>;
 </span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.83</span> <span style="color:#ae81ff">0.54</span> <span style="color:#ae81ff">0.57</span> <span style="color:#ae81ff">0.96</span> <span style="color:#ae81ff">0.50</span>;
 </span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.56</span> <span style="color:#ae81ff">0.40</span> <span style="color:#ae81ff">0.79</span> <span style="color:#ae81ff">0.69</span> <span style="color:#ae81ff">0.43</span>;
@@ -291,7 +291,7 @@
 </span></span></code></pre></div><h3 id="ピークを探す">ピークを探す</h3>
 <p>次に<code>maxfilter</code>をかけて得られた行列からピーク(実際には局所的なピークなわけですが)を取得します。
 ピークを求めるときに背景部分は排除しています。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> getmaskindex(mask)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> getmaskindex(mask)
 </span></span><span style="display:flex;"><span>    maskindex <span style="color:#f92672">=</span> getindex<span style="color:#f92672">.</span>(findall(mask), [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>])
 </span></span><span style="display:flex;"><span>    freqs <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>    times <span style="color:#f92672">=</span> maskindex[<span style="color:#f92672">:</span>, <span style="color:#ae81ff">2</span>]
@@ -304,7 +304,7 @@
 </span></span><span style="display:flex;"><span>    nobackground <span style="color:#f92672">=</span> matrix <span style="color:#f92672">.!=</span> minimum(matrix)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> getmaskindex(maxmask <span style="color:#f92672">.*</span> nobackground)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> findpeaks(x, <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> findpeaks(x, <span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>)
@@ -332,7 +332,7 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 全ての組み合わせてペアを作ると大変なので、各ピークに対して<code>fanvalue</code>個先までのピークをチェックし、
 時間、周波数の位置の差分がそれぞれ<code>timerange</code>, <code>freqrange</code>(これらは<code>Pair{Int64}</code>の元とします)に入っていたらペアリングすることにしましょう。</p>
 <p>ハッシュは標準ライブラリ<a href="https://docs.julialang.org/en/v1/stdlib/SHA/index.html"><code>SHA</code></a>で生成出来ます。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> SHA
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> SHA
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> paringpeaks(peaks, fanvalue, timerange, freqrange)
 </span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">NTuple</span>{<span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">Int64</span>}}()
@@ -365,7 +365,7 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hashdict
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> peaks <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> peaks <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), (<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>)]
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Tuple</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">Int64</span>},<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>)
 </span></span><span style="display:flex;"><span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
@@ -399,7 +399,7 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 今回は左右それぞれのチャンネルで独立にフィンガープリントして合体させています。
 フィンガープリントの結果を可視化したくなったので、<code>fingerprint_song</code>に関連するコードが入っています。
 長い時間の曲データのフィンガープリントの結果を可視化するのには時間がかかるのでご注意ください。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> fingerprint(samples, n, fs, filtersize, fanvalue, timerange, freqrange)
 </span></span><span style="display:flex;"><span>    spec <span style="color:#f92672">=</span> songspectrogram(samples, n, fs)
@@ -443,7 +443,7 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 <p>ノイズを加える際は、Amplitudeが0.4と普通に聞いてかなり邪魔に感じるレベルのノイズを加えました。
 <img src="/images/posts/audiofingerprinting_noise.png" alt="Noise"></p>
 <p>以下のコードで原曲とオリジナル曲のハッシュのマッチング結果の図示を行います。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Measures
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> plot_fingerprint(input, n, filtersize, fanvalue, timerange, freqrange)

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -158,15 +158,15 @@
 </ul>
 <p>カンニングが全くなければ、「カンニングした」という回答がある確率は 1/2 * 1/2 = 1/4, 全員カンニングしていれば 1/2 + 1/2 * 1/2 = 3/4 になる。</p>
 <p>まずはライブラリをインポート。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributed
 </span></span><span style="display:flex;"><span>addprocs(<span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Plots
 </span></span></code></pre></div><p>学生の数が100人、「カンニングした」という回答が35人とする。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
 </span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> <span style="color:#ae81ff">35</span>
 </span></span></code></pre></div><p>Mambaのモデルは次のようになる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Model(
 </span></span><span style="display:flex;"><span>    obs <span style="color:#f92672">=</span> Stochastic(
 </span></span><span style="display:flex;"><span>        (proportion, N) <span style="color:#f92672">-&gt;</span> Binomial(N, proportion),
 </span></span><span style="display:flex;"><span>        false
@@ -187,11 +187,11 @@
 </span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> Stochastic(() <span style="color:#f92672">-&gt;</span> Uniform()),
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p> <code>proportion</code>を計算するときの</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>observed <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>observed <span style="color:#f92672">=</span> <span style="color:#a6e22e">@.</span>(first_coin_flips <span style="color:#f92672">*</span> true_answers <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> first_coin_flips) <span style="color:#f92672">*</span> second_coin_flips)
 </span></span></code></pre></div><p>は@マクロを使った書き方で、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>observed <span style="color:#f92672">=</span> first_coin_flips <span style="color:#f92672">.*</span> true_answers <span style="color:#f92672">.+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">.-</span> first_coin_flips) <span style="color:#f92672">.*</span> second_coin_flips)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>observed <span style="color:#f92672">=</span> first_coin_flips <span style="color:#f92672">.*</span> true_answers <span style="color:#f92672">.+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">.-</span> first_coin_flips) <span style="color:#f92672">.*</span> second_coin_flips)
 </span></span></code></pre></div><p>と同じである。 <code>true_answers</code> , <code>first_coin_flips</code> , <code>second_coin_flips</code> は長さNの <code>Stochastic</code> ベクターだが、Nをモデルに与えなくても、<code>Stochastic</code> コンストラクタの第1引数を1(1次元)にして、初期値に長さNのベクターを与えれば大丈夫。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>data <span style="color:#f92672">=</span> <span style="color:#66d9ef">Dict</span>{<span style="color:#66d9ef">Symbol</span>, <span style="color:#66d9ef">Any</span>}(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:obs</span> <span style="color:#f92672">=&gt;</span> X,
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">:N</span> <span style="color:#f92672">=&gt;</span> N,
 </span></span><span style="display:flex;"><span>)
@@ -207,7 +207,7 @@
 </span></span><span style="display:flex;"><span>]
 </span></span></code></pre></div><p><code>true_answers</code> , <code>first_coin_flips</code> , <code>second_coin_flips</code> は \( \{0, 1\} \) からのサンプリングなので、Sampling Functionsを見ると <code>BHMC</code>, <code>BIA</code>, <code>BMC3</code>, <code>BMG</code>のどれかを使えば良いようである。<code>BIA</code>, <code>BMC3</code>, <code>BMG</code>を使って比較してみた。</p>
 <p> <code>BIA</code>のサンプリング設定は下の通り。<code>BMC3</code>, <code>BMG</code> も <code>scheme</code> だけ変えればよく同様である。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>samplings <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>samplings <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
 </span></span><span style="display:flex;"><span>burning <span style="color:#f92672">=</span> <span style="color:#ae81ff">20000</span>
 </span></span><span style="display:flex;"><span>scheme_bia <span style="color:#f92672">=</span> [NUTS(<span style="color:#e6db74">:p</span>), BIA([<span style="color:#e6db74">:true_answers</span>, <span style="color:#e6db74">:first_coin_flips</span>, <span style="color:#e6db74">:second_coin_flips</span>])]
 </span></span><span style="display:flex;"><span>setsamplers!(model, scheme_bia)
@@ -223,7 +223,7 @@
 <p>自己相関や確率密度を見ると <code>BIA</code>, <code>BMC3</code> が良さそう。</p>
 <h3 id="もう一つのモデル">もう一つのモデル</h3>
 <p>「カンニングしました」と答える確率は p/2 + 1/4 なので、<code>proportion</code> を計算する代わりにこれを直接使ってモデリングすることもできる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>another_model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>another_model <span style="color:#f92672">=</span> Model(
 </span></span><span style="display:flex;"><span>    obs <span style="color:#f92672">=</span> Stochastic(
 </span></span><span style="display:flex;"><span>        (p, N) <span style="color:#f92672">-&gt;</span> 
 </span></span><span style="display:flex;"><span>            (p_skewed <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> p <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.25</span>;

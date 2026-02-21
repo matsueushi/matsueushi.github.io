@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -167,7 +167,12 @@
 <p>そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の <a href="http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf">&ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&rdquo;</a> を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。</p>
 <p>\( \mathbf{X}=(\mathbf{x}_1, \ldots, \mathbf{x}_N) \) を学習データ、
 \( \mathbf{y}=(y_1, \ldots, y_N)^\top \) を観測値とする。学習データと観測値の関係は、ガウス過程から生成される関数 \( f \) と誤差 \( \epsilon_n \) を用いて</p>
-$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$$$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$$$
+$$ y_n = f(\mathbf{x_n}) + \epsilon_n,$$<p>
+</p>
+$$\epsilon_n \sim \mathcal{N}(0, \sigma^2)$$<p>と結びつく観測モデルを考える。\( \mathbf{f}=(f_1, \ldots, f_N)^\top, f_n=f(\mathbf{x}_n) \) は学習データの出力値である。
+上の観測モデルは、
+</p>
+$$
 p(\mathbf{y} | \mathbf{f}) = \mathcal{N}(\mathbf{f}, \sigma^2\mathbf{I})
 $$<p>
 と書き直せる。</p>
@@ -515,7 +520,7 @@ $$<p>である。</p>
 	<div class="text-sm text-gray-500 leading-tight a-gray">
 		Copyright © 2019–2025
 		<br />
-		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2546 words in this page.
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2603 words in this page.
 	</div>
 </div>
 

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -184,7 +184,7 @@
 <p><a href="https://stackoverflow.com/questions/16452383/how-to-get-all-24-rotations-of-a-3-dimensional-array">How to get all 24 rotations of a 3-dimensional array?</a></p>
 <p><a href="https://stackoverflow.com/questions/33190042/how-to-calculate-all-24-rotations-of-3d-array">How to calculate all 24 rotations of 3d array?</a></p>
 <p>一つめを参考にして回転を全て列挙。 <a href="https://stackoverflow.com/a/70413438">https://stackoverflow.com/a/70413438</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Default, Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Default, Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Coord</span>(<span style="color:#66d9ef">i64</span>, <span style="color:#66d9ef">i64</span>, <span style="color:#66d9ef">i64</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Coord {
@@ -215,7 +215,7 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">21</span> <span style="color:#f92672">=&gt;</span> Self(<span style="color:#f92672">-</span>z, y, x),
 </span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">22</span> <span style="color:#f92672">=&gt;</span> Self(z, <span style="color:#f92672">-</span>y, x),
 </span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">23</span> <span style="color:#f92672">=&gt;</span> Self(z, y, <span style="color:#f92672">-</span>x),
-</span></span><span style="display:flex;"><span>            _ <span style="color:#f92672">=&gt;</span> unreachable!(),
+</span></span><span style="display:flex;"><span>            _ <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">unreachable!</span>(),
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}

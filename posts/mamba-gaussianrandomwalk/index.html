@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | Mamba.jlでGaussianRandomWalkを作って使う</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -149,7 +149,7 @@
 		<div class="c-rich-text"><p>PyMC3にはTimeseriesとして <code>GaussianRandomWalk</code> などの時系列モデルが実装されている。</p>
 <p><a href="https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk">https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk</a></p>
 <p>だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように <code>cumsum</code> を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>local_level_model <span style="color:#f92672">=</span> Model(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>local_level_model <span style="color:#f92672">=</span> Model(
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    obs <span style="color:#f92672">=</span> Stochastic(<span style="color:#ae81ff">1</span>,
 </span></span><span style="display:flex;"><span>        (N, T, sigma_I) <span style="color:#f92672">-&gt;</span> MvNormal(T, sigma_I),
@@ -182,7 +182,7 @@ Y_{i+1} &amp;= Y_i + \mu_i + \epsilon_i, \\
 <p>というモデルに従っているとする。</p>
 <p>Mamba.jlでUser-Definedの多変量分布を使うためには, Distributionの全ての関数を定義する必要はなく、
 次元 <code>length</code>, 分布のサポート <code>insupport</code>, 確率密度関数の対数 <code>_logpdf</code> だけ定義すればサンプリングができる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributed
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> extensions <span style="color:#f92672">=</span> <span style="color:#66d9ef">quote</span>
 </span></span><span style="display:flex;"><span>
@@ -215,14 +215,14 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
 \)</p>
 <p>となるので <code>_logpdf</code> は上のような定義になっている。(本当はここの理由もちゃんと詰めて書いた方が良い気がする)</p>
 <p> <code>quote</code> の意味が最初わからなかったが、これで <code>quote</code> から <code>end</code> までのコード全体をオブジェクトとして <code>extensions</code> に代入して、下のように空のモジュールを作成して、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Testing <span style="color:#66d9ef">end</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Testing <span style="color:#66d9ef">end</span>
 </span></span></code></pre></div><p>下を実行すると</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Core<span style="color:#f92672">.</span>eval(Testing, extensions)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>Core<span style="color:#f92672">.</span>eval(Testing, extensions)
 </span></span></code></pre></div><p> <code>Testing</code> モジュール内で <code>quote</code> した <code>extension</code> の内容が読み込まれるということのようだ。</p>
 <p><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/index.html#Metaprogramming-1">https://docs.julialang.org/en/v1/manual/metaprogramming/index.html#Metaprogramming-1</a></p>
 <p>新しく作成した分布を用いてMambaのモデルを作成し、サンプリングをしてみよう。
 簡単のためにドリフトは無視して、分散 \( \sqrt{100} \) の正規分布の列からなる100次元の <code>GaussianRandomWalk</code> のサンプルを作成し、モデルを作成して分散を推定してみる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> <span style="color:#66d9ef">using</span> Mamba
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">@everywhere</span> eval(extensions)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Model(
@@ -259,7 +259,7 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
 </span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Mamba<span style="color:#f92672">.</span>plot(sim, legend <span style="color:#f92672">=</span> true)
 </span></span><span style="display:flex;"><span>Mamba<span style="color:#f92672">.</span>draw(p, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </span></span></code></pre></div><p>結果-&gt;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>MCMC Simulation of <span style="color:#ae81ff">21000</span> Iterations x <span style="color:#ae81ff">3</span> Chains...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>MCMC Simulation of <span style="color:#ae81ff">21000</span> Iterations x <span style="color:#ae81ff">3</span> Chains...
 </span></span><span style="display:flex;"><span>Chain 1:   0% <span style="color:#f92672">[</span>1:17:22 of 1:17:24 remaining<span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span>Chain 1:  10% <span style="color:#f92672">[</span>0:00:24 of 0:00:27 remaining<span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span>Chain 1:  20% <span style="color:#f92672">[</span>0:00:11 of 0:00:14 remaining<span style="color:#f92672">]</span>

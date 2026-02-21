@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | RustでAtCoderに挑戦</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -166,42 +166,42 @@
 環境の作り方を忘れるのでメモ</p>
 <h2 id="rustのdockerコンテナを用意する">RustのDockerコンテナを用意する</h2>
 <p>一応pullしてコンテナを作る</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% docker pull rust
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% docker pull rust
 </span></span><span style="display:flex;"><span>% docker run -p 8888:8888 --name &lt;name&gt; -it -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/home/jovyan/work rust
 </span></span></code></pre></div><h2 id="コンテナvscodeを整える">コンテナ・VSCodeを整える</h2>
 <p>いつものおまじない</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% apt-get update
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% apt-get update
 </span></span><span style="display:flex;"><span>% apt-get install git tree
 </span></span></code></pre></div><p>をやっておく。
 VSCodeでアタッチして、コンテナの中に入ってフォルダを開く。VSCodeにはrust-analyzerをインストールする。</p>
 <h2 id="rustのバージョンを設定する">Rustのバージョンを設定する</h2>
 <p>現在使用中のRustのバージョンを確認すると、</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% rustc -V
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% rustc -V
 </span></span><span style="display:flex;"><span>rustc 1.64.0 <span style="color:#f92672">(</span>a55dd71d5 2022-09-19<span style="color:#f92672">)</span>
 </span></span></code></pre></div><p>2022年9月現在AtCoderで使えるRustは1.42.0である。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% rustup default 1.42.0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% rustup default 1.42.0
 </span></span><span style="display:flex;"><span>% rustc -V
 </span></span><span style="display:flex;"><span>rustc 1.42.0 <span style="color:#f92672">(</span>b8cedc004 2020-03-09<span style="color:#f92672">)</span>
 </span></span></code></pre></div><p>これでバージョンを1.42.0にできた。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% cargo run
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% cargo run
 </span></span><span style="display:flex;"><span>   Compiling yakumo v0.1.0 <span style="color:#f92672">(</span>/home/jovyan/work<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>    Finished dev <span style="color:#f92672">[</span>unoptimized + debuginfo<span style="color:#f92672">]</span> target<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> in 2.25s
 </span></span><span style="display:flex;"><span>     Running <span style="color:#e6db74">`</span>target/debug/yakumo<span style="color:#e6db74">`</span>
 </span></span><span style="display:flex;"><span>Hello, world!
 </span></span></code></pre></div><p>フォーマッターをインストールする。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rustup component add rustfmt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rustup component add rustfmt
 </span></span></code></pre></div><p>参考</p>
 <ul>
 <li><a href="https://rusty.pages.dev/rust-1.42.0-for-atcoder/">【AtCoder用】Rust 1.42.0 のインストール＆設定方法</a></li>
 </ul>
 <h2 id="rust-analyzer-を直す">rust-analyzer を直す</h2>
 <p>VSCodeのシェルのOUTPUT-&gt;Rust Analyzer Language Serverを見ると</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR rust_analyzer::lsp_utils<span style="color:#f92672">]</span> rust-analyzer failed to load workspace: Failed to find sysroot <span style="color:#66d9ef">for</span> Cargo.toml file /home/jovyan/work/Cargo.toml. Is rust-src installed?: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t load standard library from sysroot
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR rust_analyzer::lsp_utils<span style="color:#f92672">]</span> rust-analyzer failed to load workspace: Failed to find sysroot <span style="color:#66d9ef">for</span> Cargo.toml file /home/jovyan/work/Cargo.toml. Is rust-src installed?: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t load standard library from sysroot
 </span></span><span style="display:flex;"><span>/usr/local/rustup/toolchains/1.42.0-x86_64-unknown-linux-gnu
 </span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>discovered via <span style="color:#e6db74">`</span>rustc --print sysroot<span style="color:#e6db74">`</span><span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>try installing the Rust source the same way you installed rustc
 </span></span></code></pre></div><p>のようなエラーになっている。https://github.com/rust-lang/rust-analyzer/pull/10457#issuecomment-947915233 を参考にして</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ln -s <span style="color:#66d9ef">$(</span>rustc --print sysroot<span style="color:#66d9ef">)</span>/lib/rustlib/src/rust/src <span style="color:#66d9ef">$(</span>rustc --print sysroot<span style="color:#66d9ef">)</span>/lib/rustlib/src/rust/library
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ln -s <span style="color:#66d9ef">$(</span>rustc --print sysroot<span style="color:#66d9ef">)</span>/lib/rustlib/src/rust/src <span style="color:#66d9ef">$(</span>rustc --print sysroot<span style="color:#66d9ef">)</span>/lib/rustlib/src/rust/library
 </span></span></code></pre></div><p>とやると動くようになる。（自己責任）</p>
 </div>
 	</section>

@@ -7,7 +7,7 @@
 	
 	<title>matsueushi  | JuliaでAtCoderに挑戦</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1">
-	<meta name="generator" content="Hugo 0.140.2">
+	<meta name="generator" content="Hugo 0.156.0">
 	
 	
 	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -33,7 +33,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -158,7 +158,7 @@
 <ul>
 <li>入力</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>parseint() <span style="color:#f92672">=</span> parse(<span style="color:#66d9ef">Int</span>, readline())
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>parseint() <span style="color:#f92672">=</span> parse(<span style="color:#66d9ef">Int</span>, readline())
 </span></span><span style="display:flex;"><span>parseints() <span style="color:#f92672">=</span> parse<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int</span>, split(readline()))
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> parsepoints(n<span style="color:#f92672">::</span><span style="color:#66d9ef">Int</span>)
 </span></span><span style="display:flex;"><span>    xs, ys <span style="color:#f92672">=</span> zeros(<span style="color:#66d9ef">Int</span>, n), zeros(<span style="color:#66d9ef">Int</span>, n)
@@ -180,21 +180,21 @@
 ローカルの実行環境をジャッジと合わせておかないと、予期しないエラーが起こる可能性あり。
 コードテストで</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Pkg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Pkg
 </span></span><span style="display:flex;"><span>println(Pkg<span style="color:#f92672">.</span>status())
 </span></span></code></pre></div><p>を実行すると使われているパッケージのバージョンが分かります。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Status <span style="color:#e6db74">`</span>~/.julia/environments/v1.4/Project.toml<span style="color:#e6db74">`</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Status <span style="color:#e6db74">`</span>~/.julia/environments/v1.4/Project.toml<span style="color:#e6db74">`</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>864edb3b<span style="color:#f92672">]</span> DataStructures v0.17.11
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>27ebfcd6<span style="color:#f92672">]</span> Primes v0.4.0
 </span></span><span style="display:flex;"><span>nothing
 </span></span></code></pre></div><ul>
 <li>StringからVector{Char}への変換</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>cs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}(s)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>cs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}(s)
 </span></span></code></pre></div><ul>
 <li>負の数の剰余</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> mod(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> mod(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
 </span></span></code></pre></div></div>
 	</section>
