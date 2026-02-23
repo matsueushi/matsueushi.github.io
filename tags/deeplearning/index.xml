@@ -6,7 +6,7 @@
     <description>Recent content in DeepLearning on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Flux.jlでSinGANを実装する</title>
-      <link>https://matsueushi.github.io/posts/fluxjl-singan/</link>
+      <link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
       <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
+      <guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
       <description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;
 &lt;p&gt;きっかけは、この紹介記事です。&lt;br&gt;
 &lt;a href=&#34;https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1&#34;&gt;【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に&lt;/a&gt;&lt;/p&gt;

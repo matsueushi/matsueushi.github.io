@@ -6,7 +6,7 @@
     <description>Recent content in Test on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 01 Jun 2019 21:05:25 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>KaTeX Test</title>
-      <link>https://matsueushi.github.io/posts/katex-test/</link>
+      <link>https://matsueushi.github.io/diary/katex-test/</link>
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/katex-test/</guid>
+      <guid>https://matsueushi.github.io/diary/katex-test/</guid>
       <description>&lt;p&gt;KaTeX Test&lt;/p&gt;
 &lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;
 &lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;

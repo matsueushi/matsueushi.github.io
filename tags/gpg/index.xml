@@ -6,7 +6,7 @@
     <description>Recent content in GPG on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 13 Aug 2022 17:57:16 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
-      <link>https://matsueushi.github.io/posts/vscode-container-gpg/</link>
+      <link>https://matsueushi.github.io/diary/vscode-container-gpg/</link>
       <pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/vscode-container-gpg/</guid>
+      <guid>https://matsueushi.github.io/diary/vscode-container-gpg/</guid>
       <description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;
 &lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;
 &lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;

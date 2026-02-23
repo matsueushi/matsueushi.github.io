@@ -6,7 +6,7 @@
     <description>Recent content in Rounding on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 28 Mar 2020 18:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/rounding/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
-      <link>https://matsueushi.github.io/posts/rounding-emulator/</link>
+      <link>https://matsueushi.github.io/programming/rounding-emulator/</link>
       <pubDate>Sat, 28 Mar 2020 18:00:00 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/rounding-emulator/</guid>
+      <guid>https://matsueushi.github.io/programming/rounding-emulator/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../julia-rounding&#34;&gt;Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)&lt;/a&gt; で色々とJuliaの丸めモードについて調べていましたが、今回はその続きです。&lt;/p&gt;
 &lt;p&gt;やはりどうしてもJuliaの &lt;code&gt;Float32&lt;/code&gt; や &lt;code&gt;Float64&lt;/code&gt; に対して上付き丸め、下付き丸めを可能な限り正確に安定して行いたくなったので、
 「最近点丸めによる方向付き丸めのエミュレート」を参考に、デフォルトの丸めモードのみを使って上付き丸め、下付き丸めをエミュレートするJuliaのパッケージを作成しました。&lt;/p&gt;
@@ -276,10 +276,10 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
     
     <item>
       <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
-      <link>https://matsueushi.github.io/posts/julia-rounding/</link>
+      <link>https://matsueushi.github.io/programming/julia-rounding/</link>
       <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-rounding/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-rounding/</guid>
       <description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。
 IntervalArithmetic.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で
 FastRounding.jl を利用しなくなった (v0.17.0以降) ので、

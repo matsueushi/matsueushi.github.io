@@ -6,7 +6,7 @@
     <description>Recent content in Mamba on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Wed, 17 Apr 2019 21:44:20 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mamba/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Juliaで体験するベイズ推論(7) - The Price Is Right</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</link>
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( &lt;code&gt;pm.potential&lt;/code&gt; が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。&lt;/p&gt;
 &lt;p&gt;問題を単純化すると、&lt;/p&gt;
 &lt;ol&gt;
@@ -101,10 +101,10 @@
     
     <item>
       <title>Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</link>
       <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</guid>
       <description>&lt;p&gt;最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。&lt;/p&gt;
 &lt;p&gt;今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。&lt;/p&gt;
 &lt;p&gt;まずはライブラリのインポート&lt;/p&gt;
@@ -234,10 +234,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Mamba.jlでGaussianRandomWalkを作って使う</title>
-      <link>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</link>
+      <link>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</link>
       <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</guid>
+      <guid>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</guid>
       <description>&lt;p&gt;PyMC3にはTimeseriesとして &lt;code&gt;GaussianRandomWalk&lt;/code&gt; などの時系列モデルが実装されている。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&#34;&gt;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように &lt;code&gt;cumsum&lt;/code&gt; を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。&lt;/p&gt;
@@ -405,10 +405,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Mamba.jl v0.12.0のStackOverflowError:</title>
-      <link>https://matsueushi.github.io/posts/mamba-v-0-12-0/</link>
+      <link>https://matsueushi.github.io/ds/mamba-v-0-12-0/</link>
       <pubDate>Sun, 31 Mar 2019 21:47:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mamba-v-0-12-0/</guid>
+      <guid>https://matsueushi.github.io/ds/mamba-v-0-12-0/</guid>
       <description>&lt;p&gt;GCPに環境を作っていて気づいたのだが、Distibution.jlのv0.17.0と関数が干渉していて &lt;code&gt;using Mamba&lt;/code&gt; すると下のようなワーニングが出て、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;WARNING: Method definition &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;::Type&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Distributions.DiscreteNonParametric&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Int64, P, Base.OneTo&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Int64&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;, Ps&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where Ps where P&lt;span style=&#34;color:#f92672&#34;&gt;})(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real, 1&lt;span style=&#34;color:#f92672&#34;&gt;})&lt;/span&gt; where &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/univariate/discrete/categorical.jl:40 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:7.
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;WARNING: Method definition &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;::Type&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Distributions.MvNormal&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T, Cov, Mean&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where Mean&amp;lt;:&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T, 1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where T&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where Cov&amp;lt;:&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;PDMats.AbstractPDMat&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;})(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real, 1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;, Real&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/multivariate/mvnormal.jl:200 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:35.
@@ -438,10 +438,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</link>
       <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</guid>
       <description>&lt;p&gt;「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。&lt;/p&gt;
 &lt;p&gt;学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。&lt;/p&gt;
 &lt;ul&gt;
@@ -540,10 +540,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</link>
       <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</guid>
       <description>&lt;p&gt;今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。&lt;/p&gt;
 &lt;h2 id=&#34;例題--ベイズ的-ab-テスト&#34;&gt;例題 : ベイズ的 A/B テスト&lt;/h2&gt;
 &lt;p&gt;A/Bテストの例題を解いてみよう。&lt;/p&gt;
@@ -672,10 +672,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</link>
       <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。&lt;/p&gt;
 &lt;h2 id=&#34;新しいデータセットの生成&#34;&gt;新しいデータセットの生成&lt;/h2&gt;
 &lt;p&gt;PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。&lt;/p&gt;
@@ -712,10 +712,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</link>
       <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;bayesian-method-julia-2.md&#34;&gt;前回&lt;/a&gt;に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。&lt;/p&gt;
 &lt;p&gt;変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;model2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
@@ -772,10 +772,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</link>
       <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</guid>
       <description>&lt;p&gt;久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(&lt;a href=&#34;https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers&#34;&gt;GitHubリポジトリ&lt;/a&gt;) をJuliaとMamba.jlでモデリングしていきたいと思う。&lt;/p&gt;
 &lt;p&gt;まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。&lt;/p&gt;
 &lt;p&gt;元のノートブックは&lt;a href=&#34;https://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb&#34;&gt;これ&lt;/a&gt;。&lt;/p&gt;
@@ -865,10 +865,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
+      <link>https://matsueushi.github.io/ds/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
+      <guid>https://matsueushi.github.io/ds/julia-kubo/</guid>
       <description>&lt;p&gt;最近、&lt;a href=&#34;https://www.iwanami.co.jp/book/b257893.html&#34;&gt;久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)&lt;/a&gt;を読んでいる。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;生態学のデータ解析 - 久保拓弥&lt;br&gt;

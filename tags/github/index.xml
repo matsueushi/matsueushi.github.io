@@ -6,7 +6,7 @@
     <description>Recent content in GitHub on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>JuliaのパッケージをOrganizationに移譲する</title>
-      <link>https://matsueushi.github.io/posts/transfer-github-repository/</link>
+      <link>https://matsueushi.github.io/programming/transfer-github-repository/</link>
       <pubDate>Sat, 15 Mar 2025 17:20:45 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/transfer-github-repository/</guid>
+      <guid>https://matsueushi.github.io/programming/transfer-github-repository/</guid>
       <description>&lt;p&gt;5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 &lt;a href=&#34;https://matsueushi.github.io/posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt; を書きました。&lt;/p&gt;
 &lt;p&gt;そこで &lt;a href=&#34;https://github.com/JuliaIntervals/RoundingEmulator.jl&#34;&gt;RoundingEmulator.jl&lt;/a&gt; という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;IntervalArithmetic.jl&lt;/a&gt; に プルリクエスト &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt; を送って丸めモードを指定した計算に使われるようになりました。&lt;/p&gt;
 &lt;p&gt;月日が経つのは早いもので……&lt;/p&gt;

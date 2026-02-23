@@ -6,7 +6,7 @@
     <description>Recent content in Mlflow on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 02 Feb 2023 22:52:35 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mlflow/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>MlflowでCatBoostのメトリクスをロギングする</title>
-      <link>https://matsueushi.github.io/posts/catboost-mlflow/</link>
+      <link>https://matsueushi.github.io/ds/catboost-mlflow/</link>
       <pubDate>Thu, 02 Feb 2023 22:52:35 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/catboost-mlflow/</guid>
+      <guid>https://matsueushi.github.io/ds/catboost-mlflow/</guid>
       <description>&lt;p&gt;LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、&lt;code&gt;mlflow.lightgbm.autolog()&lt;/code&gt; や &lt;code&gt;mlflow.xgboost.autolog()&lt;/code&gt; を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CatBoostMlFlowCallback&lt;/span&gt;:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    

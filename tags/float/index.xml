@@ -6,7 +6,7 @@
     <description>Recent content in Float on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/float/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
-      <link>https://matsueushi.github.io/posts/julia-rounding/</link>
+      <link>https://matsueushi.github.io/programming/julia-rounding/</link>
       <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-rounding/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-rounding/</guid>
       <description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。
 IntervalArithmetic.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で
 FastRounding.jl を利用しなくなった (v0.17.0以降) ので、

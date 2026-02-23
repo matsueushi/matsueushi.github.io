@@ -6,7 +6,7 @@
     <description>Recent content in KMean on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/kmean/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>K-平均アルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/clustering-kmean/</link>
+      <link>https://matsueushi.github.io/ds/clustering-kmean/</link>
       <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/clustering-kmean/</guid>
+      <guid>https://matsueushi.github.io/ds/clustering-kmean/</guid>
       <description>&lt;p&gt;最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「&lt;a href=&#34;http://bookclub.kodansha.co.jp/product?item=0000147666&#34;&gt;ノンパラメトリックベイズ 点過程と統計的機械学習の数理&lt;/a&gt;」に入門を開始した。&lt;/p&gt;
 &lt;p&gt;ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(&lt;a href=&#34;https://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95&#34;&gt;Wikipedia&lt;/a&gt;) を実装したので記録。使っているのはいつものようにJulia。&lt;/p&gt;
 &lt;p&gt;\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。&lt;/p&gt;

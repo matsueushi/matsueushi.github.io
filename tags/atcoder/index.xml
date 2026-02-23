@@ -6,7 +6,7 @@
     <description>Recent content in AtCoder on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 02 Apr 2023 21:30:06 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/atcoder/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記</title>
-      <link>https://matsueushi.github.io/atcoder/ahc019/</link>
+      <link>https://matsueushi.github.io/programming/ahc019/</link>
       <pubDate>Sun, 02 Apr 2023 21:30:06 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/ahc019/</guid>
+      <guid>https://matsueushi.github.io/programming/ahc019/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/ahc019&#34;&gt;MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）&lt;/a&gt; の参加記です。&lt;/p&gt;
 &lt;p&gt;下はseed=40の結果(score=165,708,812)。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://matsueushi.github.io/images/atcoder/ahc019-vis1.png&#34; alt=&#34;vis1&#34;&gt;
@@ -131,10 +131,10 @@
     
     <item>
       <title>Rustでインタラクティブの問題を解く</title>
-      <link>https://matsueushi.github.io/atcoder/rust-interactive/</link>
+      <link>https://matsueushi.github.io/programming/rust-interactive/</link>
       <pubDate>Sun, 18 Sep 2022 11:07:07 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/rust-interactive/</guid>
+      <guid>https://matsueushi.github.io/programming/rust-interactive/</guid>
       <description>&lt;p&gt;RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ&lt;/p&gt;
 &lt;p&gt;proconio クレートの &lt;code&gt;[fastout]&lt;/code&gt; は使わないで下のようにすれば良い。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::io::BufReader;
@@ -157,10 +157,10 @@
     
     <item>
       <title>AtCoderで水色になりました</title>
-      <link>https://matsueushi.github.io/atcoder/cyan/</link>
+      <link>https://matsueushi.github.io/programming/cyan/</link>
       <pubDate>Sun, 18 Sep 2022 09:48:50 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/cyan/</guid>
+      <guid>https://matsueushi.github.io/programming/cyan/</guid>
       <description>&lt;p&gt;UNICORNプログラミングコンテスト2022(AtCoder Beginner Contest 269)でAtCoder水色に上がりました。
 &lt;a href=&#34;https://atcoder.jp/users/matsueushi&#34;&gt;https://atcoder.jp/users/matsueushi&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;緑に上がった後にJuliaではなくRustを使い始めたので最初のうちは言語の違いに苦戦していました。
@@ -187,10 +187,10 @@
     
     <item>
       <title>AtCoder ABC 268 C Chinese Restaurant</title>
-      <link>https://matsueushi.github.io/atcoder/abc268c/</link>
+      <link>https://matsueushi.github.io/programming/abc268c/</link>
       <pubDate>Sun, 11 Sep 2022 22:55:10 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc268c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc268c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc268/tasks/abc268_c&#34;&gt;https://atcoder.jp/contests/abc268/tasks/abc268_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;人 \(i\) の前に料理 \(p_i\) が置かれている場合、その皿だけ考えると、mod Nで考えて、
 \(i-p_i-1, i-p_i, i-p_i+1\) だけ料理をずらした時に幸福値が1増えてそれ以外だと幸福値は増えない。&lt;/p&gt;
@@ -202,10 +202,10 @@
     
     <item>
       <title>AtCoder ABC 181 F - Silver Woods</title>
-      <link>https://matsueushi.github.io/atcoder/abc181-f/</link>
+      <link>https://matsueushi.github.io/programming/abc181-f/</link>
       <pubDate>Sat, 20 Aug 2022 11:55:41 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc181-f/</guid>
+      <guid>https://matsueushi.github.io/programming/abc181-f/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc181/tasks/abc181_f&#34;&gt;https://atcoder.jp/contests/abc181/tasks/abc181_f&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(r\) を動かした時に、動かす円の中心が存在できない範囲を考えてみる。
 壁もしくは障害物から距離 \(r\) 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。&lt;/p&gt;
@@ -225,10 +225,10 @@
     
     <item>
       <title>RustでAtCoderに挑戦</title>
-      <link>https://matsueushi.github.io/atcoder/rust-atcoder/</link>
+      <link>https://matsueushi.github.io/programming/rust-atcoder/</link>
       <pubDate>Sat, 16 Jul 2022 20:16:03 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/rust-atcoder/</guid>
+      <guid>https://matsueushi.github.io/programming/rust-atcoder/</guid>
       <description>&lt;p&gt;元々JuliaでAtCoderに挑戦していたのですが、違う言語も触ってみたいと思いRustで最近問題を解いています。
 ちょっと触った感じの感想として、Rustの良いところとしては、&lt;/p&gt;
 &lt;ul&gt;
@@ -291,10 +291,10 @@ VSCodeでアタッチして、コンテナの中に入ってフォルダを開�
     
     <item>
       <title>Tenka1 Programmer Contest C - Align</title>
-      <link>https://matsueushi.github.io/atcoder/tenka1-2018-c/</link>
+      <link>https://matsueushi.github.io/programming/tenka1-2018-c/</link>
       <pubDate>Sun, 19 Jun 2022 21:07:30 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/tenka1-2018-c/</guid>
+      <guid>https://matsueushi.github.io/programming/tenka1-2018-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c&#34;&gt;https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;正の整数からなる数列 \(\{A_i\}_i\) が与えられた時に、
 数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。&lt;/p&gt;
@@ -348,10 +348,10 @@ VSCodeでアタッチして、コンテナの中に入ってフォルダを開�
     
     <item>
       <title>全国統一プログラミング王決定戦予選 C - Different Strokes</title>
-      <link>https://matsueushi.github.io/atcoder/nikkei2019-qual-c/</link>
+      <link>https://matsueushi.github.io/programming/nikkei2019-qual-c/</link>
       <pubDate>Tue, 14 Jun 2022 22:55:50 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/nikkei2019-qual-c/</guid>
+      <guid>https://matsueushi.github.io/programming/nikkei2019-qual-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c&#34;&gt;https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2人が最適な戦略を取るとき、残っている料理のうち \(A_i+B_i\) が最大となるものを交互に選んでいくことになることを示す。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;3
@@ -370,10 +370,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 121 D - XOR World</title>
-      <link>https://matsueushi.github.io/atcoder/abc121-d/</link>
+      <link>https://matsueushi.github.io/programming/abc121-d/</link>
       <pubDate>Tue, 14 Jun 2022 21:31:14 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc121-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc121-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc121/tasks/abc121_d&#34;&gt;https://atcoder.jp/contests/abc121/tasks/abc121_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;ビットごとの排他的論理和は二回繰り返すと元に戻り、可換で結合法則を満たすことから、&lt;/p&gt;
 &lt;p&gt;\(f(A,B)=A \veebar A+1 \veebar \cdots \veebar B\)&lt;/p&gt;
@@ -423,10 +423,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 147 D - Xor Sum 4</title>
-      <link>https://matsueushi.github.io/atcoder/abc147-d/</link>
+      <link>https://matsueushi.github.io/programming/abc147-d/</link>
       <pubDate>Mon, 13 Jun 2022 21:39:24 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc147-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc147-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc147/tasks/abc147_d&#34;&gt;https://atcoder.jp/contests/abc147/tasks/abc147_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。&lt;/p&gt;
 &lt;p&gt;\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \&amp;amp; z_i\) であり、
@@ -450,10 +450,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder AGC 023 A - Zero-Sum Ranges</title>
-      <link>https://matsueushi.github.io/atcoder/agc023-a/</link>
+      <link>https://matsueushi.github.io/programming/agc023-a/</link>
       <pubDate>Mon, 13 Jun 2022 21:26:12 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/agc023-a/</guid>
+      <guid>https://matsueushi.github.io/programming/agc023-a/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc023/tasks/agc023_a&#34;&gt;https://atcoder.jp/contests/agc023/tasks/agc023_a&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(C_j = \sum_{k=1}^j A_k\) とおくと、 \(\sum_{k=i}^j A_k = 0 \Leftrightarrow C_j = C_{k-1}\) であるから、
 累積和を求めて \(C_0=0, C_j = \sum_{k=1}^j A_k\) とおき、 \(I_x = \{ i \mid C_i = x\}\) を計算して、\(\sum_x |I_x| (|I_x|-1)/2\) を求めれば良い。&lt;/p&gt;
@@ -463,10 +463,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 255 C - ±1 Operation 1 </title>
-      <link>https://matsueushi.github.io/atcoder/abc255-c/</link>
+      <link>https://matsueushi.github.io/programming/abc255-c/</link>
       <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc255-c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc255-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_c&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(\min_{i=0,\ldots,n-1}|A+Di-X|\) を求めれば良い。\(y=A+Dx\) と \(y=X\) の交点を求め、
 \(x &amp;lt; 0, 1 \le x \le n-1 ,x &amp;gt; n-1\) の場合に応じて計算すれば良い。&lt;/p&gt;
@@ -477,10 +477,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 255 D - ±1 Operation 2</title>
-      <link>https://matsueushi.github.io/atcoder/abc255-d/</link>
+      <link>https://matsueushi.github.io/programming/abc255-d/</link>
       <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc255-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc255-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_d&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(i\) を一つ固定した時、操作の最低回数は \(\sum_{j=1}^N |A_j-X_i|\) である。&lt;/p&gt;
 &lt;p&gt;\(A_k\) の順番は関係ないので、 \(A_k\) は昇順にソートしているとして良い。\(A_k\) をソートするのは最初に一回だけやれば良い。&lt;/p&gt;
@@ -496,10 +496,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 255 E - Lucky Numbers</title>
-      <link>https://matsueushi.github.io/atcoder/abc255-e/</link>
+      <link>https://matsueushi.github.io/programming/abc255-e/</link>
       <pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc255-e/</guid>
+      <guid>https://matsueushi.github.io/programming/abc255-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_e&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(A_1 = \alpha\) とおくと、&lt;/p&gt;
 &lt;ul&gt;
@@ -518,10 +518,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder diverta 2019 Programming Contest D - DivRem Number</title>
-      <link>https://matsueushi.github.io/atcoder/diverta2019-d/</link>
+      <link>https://matsueushi.github.io/programming/diverta2019-d/</link>
       <pubDate>Sat, 11 Jun 2022 19:45:34 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/diverta2019-d/</guid>
+      <guid>https://matsueushi.github.io/programming/diverta2019-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&#34;&gt;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(t = \lfloor n/m\rfloor = n \mod m\) とおくと \(0 \le t &amp;lt; m\)であり、\(n=\alpha m + t\) とおける。
 \(t\) の条件から \(\alpha = \lfloor n/m\rfloor = t\) だから結局 \(n = t(m+1)\) とかける。&lt;/p&gt;
@@ -532,10 +532,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder APC 001 B - Two Arrays</title>
-      <link>https://matsueushi.github.io/atcoder/apc001-b/</link>
+      <link>https://matsueushi.github.io/programming/apc001-b/</link>
       <pubDate>Fri, 10 Jun 2022 08:35:23 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/apc001-b/</guid>
+      <guid>https://matsueushi.github.io/programming/apc001-b/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/apc001/tasks/apc001_b&#34;&gt;https://atcoder.jp/contests/apc001/tasks/apc001_b&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(c_i = a_i - b_i\) とする。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;3
@@ -567,10 +567,10 @@ A も B も料理 \(i\) を食べるとそれぞれの立場で見た幸福度�
     
     <item>
       <title>AtCoder ABC 198 D - Send More Money</title>
-      <link>https://matsueushi.github.io/atcoder/abc198-d/</link>
+      <link>https://matsueushi.github.io/programming/abc198-d/</link>
       <pubDate>Tue, 07 Jun 2022 23:42:09 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc198-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc198-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc198/tasks/abc198_d&#34;&gt;https://atcoder.jp/contests/abc198/tasks/abc198_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;覆面算を解く問題。Send More Moneyって何？と思ったのですが &lt;code&gt;SEND + MORE = MONEY&lt;/code&gt; という覆面算が有名らしいです。&lt;/p&gt;
 &lt;p&gt;戦略としては、&lt;/p&gt;
@@ -588,10 +588,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder ABC 129 D - Lamp</title>
-      <link>https://matsueushi.github.io/atcoder/abc129-d/</link>
+      <link>https://matsueushi.github.io/programming/abc129-d/</link>
       <pubDate>Tue, 07 Jun 2022 22:27:13 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc129-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc129-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc129/tasks/abc129_d&#34;&gt;https://atcoder.jp/contests/abc129/tasks/abc129_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;水平方向、垂直方向にそれぞれ見て行った時に、&amp;rsquo;#&amp;rsquo;, &amp;lsquo;.&amp;lsquo;の連続数を並べた数列を作る。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#..#..
@@ -625,10 +625,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder ABC 153 E - Crested Ibis vs Monster</title>
-      <link>https://matsueushi.github.io/atcoder/abc153-e/</link>
+      <link>https://matsueushi.github.io/programming/abc153-e/</link>
       <pubDate>Mon, 06 Jun 2022 22:06:55 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc153-e/</guid>
+      <guid>https://matsueushi.github.io/programming/abc153-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc153/tasks/abc153_e&#34;&gt;https://atcoder.jp/contests/abc153/tasks/abc153_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(dp[i][k]\) = \(i\) 番目までの魔法からダメージが \(k\) 以上になるように選んだ時に消費するMPの最小値&lt;/p&gt;
 &lt;p&gt;とすると、個数制限なしナップザック問題（の類似）に帰着される。
@@ -642,10 +642,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder ABC 161 D - Lunlun Number</title>
-      <link>https://matsueushi.github.io/atcoder/abc161-d/</link>
+      <link>https://matsueushi.github.io/programming/abc161-d/</link>
       <pubDate>Sun, 05 Jun 2022 21:16:30 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc161-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc161-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc161/tasks/abc161_d&#34;&gt;https://atcoder.jp/contests/abc161/tasks/abc161_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;桁数の少ないルンルン数から順に作っていけば良い。&lt;/p&gt;
 &lt;p&gt;1桁のルンルン数 = 1,2,&amp;hellip;,9&lt;/p&gt;
@@ -658,10 +658,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder CODE FESTIVAL 2017 qualC C - Inserting &#39;x&#39;</title>
-      <link>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</link>
+      <link>https://matsueushi.github.io/programming/code-festival-2017-qualc-d/</link>
       <pubDate>Sun, 05 Jun 2022 18:08:29 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</guid>
+      <guid>https://matsueushi.github.io/programming/code-festival-2017-qualc-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c&#34;&gt;https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;目標が達成可能かどうかは、s から &amp;lsquo;x&amp;rsquo; を取り除いてできる文字列が回文であるかどうかで判定できる。
 以後、目標が達成可能な場合を考える。&lt;/p&gt;
@@ -677,10 +677,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder ABC 034 A - Kenken Race</title>
-      <link>https://matsueushi.github.io/atcoder/agc034-a/</link>
+      <link>https://matsueushi.github.io/programming/agc034-a/</link>
       <pubDate>Sat, 04 Jun 2022 18:32:50 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/agc034-a/</guid>
+      <guid>https://matsueushi.github.io/programming/agc034-a/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;https://atcoder.jp/contests/agc034/tasks/agc034_a&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。&lt;/p&gt;
 &lt;p&gt;2人いる場合を考えると、\(c&amp;lt;d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、
@@ -702,10 +702,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder AGC 011 B - Colorful Creatures</title>
-      <link>https://matsueushi.github.io/atcoder/agc011-b/</link>
+      <link>https://matsueushi.github.io/programming/agc011-b/</link>
       <pubDate>Thu, 02 Jun 2022 23:12:47 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/agc011-b/</guid>
+      <guid>https://matsueushi.github.io/programming/agc011-b/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc011/tasks/agc011_b&#34;&gt;https://atcoder.jp/contests/agc011/tasks/agc011_b&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(A_i\) を降順にソートしても一般性を失わない。&lt;/p&gt;
 &lt;p&gt;大きいものの方が吸収しづらいから、1番最後に\(1\), その前に \(2, \ldots, \)を吸収したとして良い。
@@ -720,10 +720,10 @@ Julia だと C++ における &lt;a href=&#34;https://www.cplusplus.com/referenc
     
     <item>
       <title>AtCoder ABC 134 D - Preparing Boxes</title>
-      <link>https://matsueushi.github.io/atcoder/abc134-d/</link>
+      <link>https://matsueushi.github.io/programming/abc134-d/</link>
       <pubDate>Wed, 01 Jun 2022 22:16:01 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc134-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc134-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc134/tasks/abc134_d&#34;&gt;https://atcoder.jp/contests/abc134/tasks/abc134_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;条件を満たすボールの入れ方は、一意に定まる。&lt;/p&gt;
 &lt;p&gt;n = 4 の場合、4 までに 3, 4 の倍数は一つしかないので、
@@ -737,10 +737,10 @@ a_3, a_4 の情報から i = 3,4 のボールの個数が確定する。&lt;/p&g
     
     <item>
       <title>AtCoder ABC 064 D - Insertion</title>
-      <link>https://matsueushi.github.io/atcoder/abc064-d/</link>
+      <link>https://matsueushi.github.io/programming/abc064-d/</link>
       <pubDate>Tue, 31 May 2022 22:18:08 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc064-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc064-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc064/tasks/abc064_d&#34;&gt;https://atcoder.jp/contests/abc064/tasks/abc064_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;先頭に&amp;quot;(&amp;quot;, 末尾に&amp;quot;)&amp;ldquo;を繋げて括弧列を作るのが辞書式最小となる。
 (そのような作り方をしないと、より左の位置に&amp;rdquo;)&amp;ldquo;が出現する)&lt;/p&gt;
@@ -752,10 +752,10 @@ c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である
     
     <item>
       <title>AtCoder ABC 133 D - Rain Flows into Dams</title>
-      <link>https://matsueushi.github.io/atcoder/abc133-d/</link>
+      <link>https://matsueushi.github.io/programming/abc133-d/</link>
       <pubDate>Tue, 31 May 2022 21:40:17 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc133-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc133-d/</guid>
       <description>&lt;p&gt;山 i に降った雨の量を \(2 * x_i\) とすると、\(\sum A_i = 2 \sum x_i\) だから、\(x_i\) の合計がわかる。&lt;/p&gt;
 &lt;p&gt;Nが奇数であることから \(A_i = x_i + x_{i+1}\) をうまく足して \(\sum_{i \neq j} x_i\) が作れ、合計から引くことで \(x_j\) が求められる。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc133/submissions/32131263&#34;&gt;https://atcoder.jp/contests/abc133/submissions/32131263&lt;/a&gt;&lt;/p&gt;
@@ -764,10 +764,10 @@ c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である
     
     <item>
       <title>AtCoder ABC 094 C - Many Medians</title>
-      <link>https://matsueushi.github.io/atcoder/abc094-c/</link>
+      <link>https://matsueushi.github.io/programming/abc094-c/</link>
       <pubDate>Mon, 30 May 2022 23:21:40 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc094-c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc094-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc094/tasks/arc095_a&#34;&gt;https://atcoder.jp/contests/abc094/tasks/arc095_a&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;まず、具体例で考えてみる。aがソートされている場合を考えよう。&lt;/p&gt;
 &lt;p&gt;1,2,3,4,5&lt;/p&gt;
@@ -800,10 +800,10 @@ c[i] ≥ 0 (1≤i≤n-1), c[n] = 0 が括弧列を成立させる条件である
     
     <item>
       <title>AtCoder ABC 183 E - Queen on Grid</title>
-      <link>https://matsueushi.github.io/atcoder/abc183-e/</link>
+      <link>https://matsueushi.github.io/programming/abc183-e/</link>
       <pubDate>Mon, 30 May 2022 23:05:11 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc183-e/</guid>
+      <guid>https://matsueushi.github.io/programming/abc183-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc183/tasks/abc183_e&#34;&gt;https://atcoder.jp/contests/abc183/tasks/abc183_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;まず1次元で右にしか進めない場合を考える。
 dp[i]=左からi番目に移動する方法
@@ -830,10 +830,10 @@ dp[1,1,1]=1,dp[1,1,k]=0 (k=1,2,3)で、&lt;/p&gt;
     
     <item>
       <title>AtCoder ABC 130 C - Rectangle Cutting</title>
-      <link>https://matsueushi.github.io/atcoder/abc130-c/</link>
+      <link>https://matsueushi.github.io/programming/abc130-c/</link>
       <pubDate>Mon, 30 May 2022 21:40:55 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc130-c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc130-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc130/tasks/abc130_c&#34;&gt;https://atcoder.jp/contests/abc130/tasks/abc130_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;長方形の対角線の交点をCとする。C=(x,y)ならどのように切っても長方形の面積を二等分できる。
 そうでない場合はCと(x,y)を結ぶと二等分できる。
@@ -844,10 +844,10 @@ dp[1,1,1]=1,dp[1,1,k]=0 (k=1,2,3)で、&lt;/p&gt;
     
     <item>
       <title>AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes</title>
-      <link>https://matsueushi.github.io/atcoder/ddcc2020-qual-c/</link>
+      <link>https://matsueushi.github.io/programming/ddcc2020-qual-c/</link>
       <pubDate>Sat, 28 May 2022 19:55:21 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/ddcc2020-qual-c/</guid>
+      <guid>https://matsueushi.github.io/programming/ddcc2020-qual-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c&#34;&gt;https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;各行に一つ以上イチゴが乗っている場合、行ごとに分割すれば目的が達成できる。
 ある行に注目したときに、&lt;/p&gt;
@@ -863,10 +863,10 @@ dp[1,1,1]=1,dp[1,1,k]=0 (k=1,2,3)で、&lt;/p&gt;
     
     <item>
       <title>AtCoder ABC 137 D - Summer Vacation</title>
-      <link>https://matsueushi.github.io/atcoder/abc137-d/</link>
+      <link>https://matsueushi.github.io/programming/abc137-d/</link>
       <pubDate>Thu, 26 May 2022 23:47:34 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc137-d/</guid>
+      <guid>https://matsueushi.github.io/programming/abc137-d/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc137/tasks/abc137_d&#34;&gt;https://atcoder.jp/contests/abc137/tasks/abc137_d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;後ろから貪欲法で解ける気がする。
 M-1日目を考えると、 残っている仕事のうち、
@@ -882,10 +882,10 @@ M-1日目と同様の考察により、それを除いた仕事のうち報酬�
     
     <item>
       <title>AtCoder ABC 117 C - Streamline</title>
-      <link>https://matsueushi.github.io/atcoder/abc117-c/</link>
+      <link>https://matsueushi.github.io/programming/abc117-c/</link>
       <pubDate>Wed, 25 May 2022 23:28:21 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc117-c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc117-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc117/tasks/abc117_c&#34;&gt;https://atcoder.jp/contests/abc117/tasks/abc117_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。&lt;/p&gt;
 &lt;p&gt;移動回数を最小化したいので、塗りつぶす面積を最小化することを考える。&lt;/p&gt;
@@ -901,10 +901,10 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     
     <item>
       <title>AtCoder みんなのプロコン2019 C - When I hit my pocket...</title>
-      <link>https://matsueushi.github.io/atcoder/yahoo-procon2019-c/</link>
+      <link>https://matsueushi.github.io/programming/yahoo-procon2019-c/</link>
       <pubDate>Wed, 25 May 2022 23:05:47 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/yahoo-procon2019-c/</guid>
+      <guid>https://matsueushi.github.io/programming/yahoo-procon2019-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c&#34;&gt;https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。&lt;/p&gt;
 &lt;p&gt;よって、Kアクション与えられた際、&lt;/p&gt;
@@ -925,10 +925,10 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     
     <item>
       <title>AtCoder ABC 154 E - Almost Everywhere Zero</title>
-      <link>https://matsueushi.github.io/atcoder/abc154-e/</link>
+      <link>https://matsueushi.github.io/programming/abc154-e/</link>
       <pubDate>Wed, 25 May 2022 21:30:34 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc154-e/</guid>
+      <guid>https://matsueushi.github.io/programming/abc154-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc154/tasks/abc154_e&#34;&gt;https://atcoder.jp/contests/abc154/tasks/abc154_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;\(N\) の上 \(i\) 桁をつなげた数を \(N(i)\) とする。
 \(N\) の上から \(i\) 桁目を \(N_i\) とする。\(N\) の桁数を \(l\) とする。&lt;/p&gt;
@@ -955,10 +955,10 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     
     <item>
       <title>AtCoder ABC 135 C - City Savers</title>
-      <link>https://matsueushi.github.io/atcoder/abc135-c/</link>
+      <link>https://matsueushi.github.io/programming/abc135-c/</link>
       <pubDate>Wed, 25 May 2022 21:19:09 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc135-c/</guid>
+      <guid>https://matsueushi.github.io/programming/abc135-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc135/tasks/abc135_c&#34;&gt;https://atcoder.jp/contests/abc135/tasks/abc135_c&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;勇者が倒せるモンスターの数を無駄にしたくないので、
 他の勇者が倒せるモンスターよりも自分しか倒せないモンスターを優先して倒すようにする。&lt;/p&gt;
@@ -972,10 +972,10 @@ N=2だったら一つの区間は塗りつぶさずにスキップできる。
     
     <item>
       <title>AtCoderで緑色になった</title>
-      <link>https://matsueushi.github.io/atcoder/green/</link>
+      <link>https://matsueushi.github.io/programming/green/</link>
       <pubDate>Sun, 15 May 2022 21:55:31 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/green/</guid>
+      <guid>https://matsueushi.github.io/programming/green/</guid>
       <description>&lt;p&gt;4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。
 &lt;a href=&#34;https://atcoder.jp/users/matsueushi&#34;&gt;https://atcoder.jp/users/matsueushi&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。
@@ -985,10 +985,10 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
     
     <item>
       <title>AtCoder ABC 250 E - Prefix Equality</title>
-      <link>https://matsueushi.github.io/atcoder/abc250-e/</link>
+      <link>https://matsueushi.github.io/programming/abc250-e/</link>
       <pubDate>Mon, 09 May 2022 21:47:26 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/abc250-e/</guid>
+      <guid>https://matsueushi.github.io/programming/abc250-e/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc250/tasks/abc250_e&#34;&gt;https://atcoder.jp/contests/abc250/tasks/abc250_e&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;コンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。&lt;/p&gt;
 &lt;p&gt;\(S_i= \{a_1, \ldots, a_i\}, T_i=\{b_i, \ldots, b_i \} \)とおくと、\( S_1 \subseteq S_2 \subseteq \cdots \subseteq S_n, T_1 \subseteq T_2 \subseteq \cdots \subseteq T_n\)となる。&lt;/p&gt;
@@ -1001,10 +1001,10 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
     
     <item>
       <title>JuliaでAtCoderに挑戦</title>
-      <link>https://matsueushi.github.io/atcoder/julia-atcoder/</link>
+      <link>https://matsueushi.github.io/programming/julia-atcoder/</link>
       <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/julia-atcoder/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-atcoder/</guid>
       <description>&lt;p&gt;去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。&lt;/p&gt;
 &lt;p&gt;ひとまず、AtCoderの&lt;a href=&#34;https://atcoder.jp/contests/typical90&#34;&gt;競プロ典型 90 問&lt;/a&gt;を解いて行く予定です。
 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。&lt;/p&gt;
@@ -1060,10 +1060,10 @@ D問題で時間がかかってしまうことが多いので、&lt;a href=&#34;
     
     <item>
       <title>AtCoderメモ書き</title>
-      <link>https://matsueushi.github.io/atcoder/memo/</link>
+      <link>https://matsueushi.github.io/programming/memo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/memo/</guid>
+      <guid>https://matsueushi.github.io/programming/memo/</guid>
       <description>&lt;p&gt;自分用のメモです。&lt;/p&gt;
 &lt;h3 id=&#34;waの時に確認すべきこと&#34;&gt;WAの時に確認すべきこと&lt;/h3&gt;
 &lt;ul&gt;

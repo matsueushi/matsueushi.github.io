@@ -6,7 +6,7 @@
     <description>Recent content in FFT on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 28 Jun 2020 23:35:43 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/fft/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>スペクトログラムを作成する</title>
-      <link>https://matsueushi.github.io/posts/spectrogram/</link>
+      <link>https://matsueushi.github.io/ds/spectrogram/</link>
       <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/spectrogram/</guid>
+      <guid>https://matsueushi.github.io/ds/spectrogram/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;
 &lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている

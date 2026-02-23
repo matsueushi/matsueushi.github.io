@@ -6,7 +6,7 @@
     <description>Recent content in AudioFingerprinting on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Tue, 11 Aug 2020 23:17:00 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/audiofingerprinting/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
-      <link>https://matsueushi.github.io/posts/audiofingerprinting/</link>
+      <link>https://matsueushi.github.io/ds/audiofingerprinting/</link>
       <pubDate>Tue, 11 Aug 2020 23:17:00 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/audiofingerprinting/</guid>
+      <guid>https://matsueushi.github.io/ds/audiofingerprinting/</guid>
       <description>&lt;p&gt;音楽が好きな人であれば&lt;a href=&#34;https://www.shazam.com/&#34;&gt;Shazam&lt;/a&gt;というアプリはご存知かと思います。&lt;/p&gt;
 &lt;p&gt;街中で気になった曲をスマートフォンに聞かせると、
 相当マイナーな曲でない限り大抵の場合10秒程度聞かせると曲名やアーティスト名を教えてくれて、

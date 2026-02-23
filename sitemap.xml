@@ -2,10 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2025-08-09T23:11:01+09:00</lastmod>
+    <loc>https://matsueushi.github.io/axsxe/profile/</loc>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/</loc>
+    <loc>https://matsueushi.github.io/about/</loc>
+  </url><url>
+    <loc>https://matsueushi.github.io/disc-review/</loc>
     <lastmod>2025-08-09T23:11:01+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/boat/</loc>
@@ -14,34 +15,38 @@
     <loc>https://matsueushi.github.io/natsumen/</loc>
     <lastmod>2025-01-12T11:07:07+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/other/live/</loc>
+    <loc>https://matsueushi.github.io/axsxe/</loc>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/</loc>
-    <lastmod>2023-07-01T07:15:50+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/other/</loc>
+    <loc>https://matsueushi.github.io/music/</loc>
     <lastmod>2025-02-23T21:42:18+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/other/axsxe/</loc>
+    <loc>https://matsueushi.github.io/ds/</loc>
+    <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/</loc>
-    <lastmod>2023-04-02T21:30:06+09:00</lastmod>
+    <loc>https://matsueushi.github.io/programming/</loc>
+    <lastmod>2025-03-15T17:20:45+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/about/</loc>
+    <loc>https://matsueushi.github.io/diary/</loc>
+    <lastmod>2024-10-14T12:04:33+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/memo/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/categories/</loc>
+    <lastmod>2025-08-09T23:11:01+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/</loc>
     <lastmod>2025-08-09T23:11:01+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E9%9F%B3%E6%A5%BD/</loc>
     <lastmod>2025-08-09T23:11:01+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/kouisha-yokuatsu/</loc>
+    <loc>https://matsueushi.github.io/disc-review/kouisha-yokuatsu/</loc>
     <lastmod>2025-08-09T23:11:01+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/24-hours-of-the-playgirl/</loc>
+    <loc>https://matsueushi.github.io/disc-review/24-hours-of-the-playgirl/</loc>
     <lastmod>2025-05-04T14:40:34+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/hokenshi-ga-ita/</loc>
+    <loc>https://matsueushi.github.io/disc-review/hokenshi-ga-ita/</loc>
     <lastmod>2025-04-24T23:37:56+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/github/</loc>
@@ -50,7 +55,7 @@
     <loc>https://matsueushi.github.io/categories/julia/</loc>
     <lastmod>2025-03-15T17:20:45+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/transfer-github-repository/</loc>
+    <loc>https://matsueushi.github.io/programming/transfer-github-repository/</loc>
     <lastmod>2025-03-15T17:20:45+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/</loc>
@@ -62,22 +67,22 @@
     <loc>https://matsueushi.github.io/tags/sacoyans/</loc>
     <lastmod>2025-02-23T21:42:18+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/other/sacoyans-live/</loc>
+    <loc>https://matsueushi.github.io/music/sacoyans-live/</loc>
     <lastmod>2025-02-23T21:42:18+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/other/sacoyans/</loc>
+    <loc>https://matsueushi.github.io/music/sacoyans-profile/</loc>
     <lastmod>2025-02-16T21:30:48+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/sacoyans-yanushi-20250209/</loc>
+    <loc>https://matsueushi.github.io/music/sacoyans-yanushi-20250209/</loc>
     <lastmod>2025-02-09T23:47:43+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/%E5%AE%B6%E4%B8%BB/</loc>
     <lastmod>2025-02-09T23:47:43+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/find-artist-info/</loc>
+    <loc>https://matsueushi.github.io/music/find-artist-info/</loc>
     <lastmod>2025-01-28T23:57:54+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/listening-number/</loc>
+    <loc>https://matsueushi.github.io/music/listening-number/</loc>
     <lastmod>2025-01-12T16:06:15+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/boat/</loc>
@@ -86,50 +91,8 @@
     <loc>https://matsueushi.github.io/tags/natsumen/</loc>
     <lastmod>2025-01-12T11:07:07+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live/</loc>
+    <loc>https://matsueushi.github.io/natsumen/reference/</loc>
     <lastmod>2025-01-12T11:07:07+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2016/</loc>
-    <lastmod>2025-01-12T00:09:52+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2015/</loc>
-    <lastmod>2025-01-12T00:09:51+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2014/</loc>
-    <lastmod>2025-01-12T00:09:50+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2013/</loc>
-    <lastmod>2025-01-12T00:09:49+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2012/</loc>
-    <lastmod>2025-01-12T00:09:48+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2011/</loc>
-    <lastmod>2025-01-12T00:09:47+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2010/</loc>
-    <lastmod>2025-01-12T00:09:46+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2009/</loc>
-    <lastmod>2025-01-12T00:09:45+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2008/</loc>
-    <lastmod>2025-01-12T00:09:44+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2006/</loc>
-    <lastmod>2025-01-12T00:09:43+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2005/</loc>
-    <lastmod>2025-01-12T00:09:42+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2004/</loc>
-    <lastmod>2025-01-12T00:09:41+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2003/</loc>
-    <lastmod>2025-01-12T00:09:40+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/live-2002/</loc>
-    <lastmod>2025-01-12T00:09:39+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/boat/profile/</loc>
     <lastmod>2024-12-31T23:59:59+09:00</lastmod>
@@ -140,7 +103,7 @@
     <loc>https://matsueushi.github.io/boat/live/</loc>
     <lastmod>2024-12-31T22:19:12+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/mac-cd-54/</loc>
+    <loc>https://matsueushi.github.io/diary/mac-cd-54/</loc>
     <lastmod>2024-10-14T12:04:33+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E6%97%A5%E8%A8%98/</loc>
@@ -149,31 +112,31 @@
     <loc>https://matsueushi.github.io/boat/lurk/</loc>
     <lastmod>2024-10-12T11:38:47+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/hal-blue/</loc>
+    <loc>https://matsueushi.github.io/disc-review/hal-blue/</loc>
     <lastmod>2024-10-12T10:58:58+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/5thwrld-refrectivedreamers/</loc>
+    <loc>https://matsueushi.github.io/disc-review/5thwrld-refrectivedreamers/</loc>
     <lastmod>2024-10-05T17:50:34+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/seria-hakuten/</loc>
+    <loc>https://matsueushi.github.io/disc-review/seria-hakuten/</loc>
     <lastmod>2024-10-02T22:55:32+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/mimippiii/</loc>
+    <loc>https://matsueushi.github.io/music/mimippiii/</loc>
     <lastmod>2024-09-28T18:02:59+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/metaroom-sweetgenesis/</loc>
+    <loc>https://matsueushi.github.io/disc-review/metaroom-sweetgenesis/</loc>
     <lastmod>2024-07-21T21:22:30+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/zzkillme-catcore/</loc>
+    <loc>https://matsueushi.github.io/disc-review/zzkillme-catcore/</loc>
     <lastmod>2024-07-14T18:44:50+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/playlist/</loc>
+    <loc>https://matsueushi.github.io/music/playlist/</loc>
     <lastmod>2023-07-01T07:15:50+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/atcoder/</loc>
     <lastmod>2023-04-02T21:30:06+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/ahc019/</loc>
+    <loc>https://matsueushi.github.io/programming/ahc019/</loc>
     <lastmod>2023-04-02T21:30:06+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E7%AB%B6%E3%83%97%E3%83%AD/</loc>
@@ -185,37 +148,37 @@
     <loc>https://matsueushi.github.io/tags/mlflow/</loc>
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/catboost-mlflow/</loc>
+    <loc>https://matsueushi.github.io/ds/catboost-mlflow/</loc>
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/</loc>
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/rust-interactive/</loc>
+    <loc>https://matsueushi.github.io/programming/rust-interactive/</loc>
     <lastmod>2022-09-18T11:07:07+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/cyan/</loc>
+    <loc>https://matsueushi.github.io/programming/cyan/</loc>
     <lastmod>2022-09-18T09:48:50+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc268c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc268c/</loc>
     <lastmod>2022-09-11T22:55:10+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/aero-gros-m-chocolate-hearts-and-stag-beetles/</loc>
+    <loc>https://matsueushi.github.io/disc-review/aero-gros-m-chocolate-hearts-and-stag-beetles/</loc>
     <lastmod>2022-08-31T18:27:44+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/rust/</loc>
     <lastmod>2022-08-28T13:42:37+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/rust-test-nocapture/</loc>
+    <loc>https://matsueushi.github.io/programming/rust-test-nocapture/</loc>
     <lastmod>2022-08-28T13:42:37+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc181-f/</loc>
+    <loc>https://matsueushi.github.io/programming/abc181-f/</loc>
     <lastmod>2022-08-20T11:55:41+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/toytown-killed-my-dog/</loc>
+    <loc>https://matsueushi.github.io/disc-review/toytown-killed-my-dog/</loc>
     <lastmod>2022-08-13T22:26:20+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/vscode-container-gpg/</loc>
+    <loc>https://matsueushi.github.io/diary/vscode-container-gpg/</loc>
     <lastmod>2022-08-13T17:57:16+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/git/</loc>
@@ -224,122 +187,116 @@
     <loc>https://matsueushi.github.io/tags/gpg/</loc>
     <lastmod>2022-08-13T17:57:16+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-rust/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-rust/</loc>
     <lastmod>2022-07-23T14:15:19+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/other/bookmark/</loc>
-    <lastmod>2022-07-18T18:25:28+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/rust/</loc>
     <lastmod>2022-07-16T20:16:03+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/rust-atcoder/</loc>
+    <loc>https://matsueushi.github.io/programming/rust-atcoder/</loc>
     <lastmod>2022-07-16T20:16:03+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/other/segtree/</loc>
+    <loc>https://matsueushi.github.io/programming/segtree/</loc>
     <lastmod>2022-07-03T20:57:40+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bpm15q-all-songs/</loc>
+    <loc>https://matsueushi.github.io/disc-review/bpm15q-all-songs/</loc>
     <lastmod>2022-06-30T21:45:02+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/jpop/</loc>
     <lastmod>2022-06-30T21:45:02+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/tenka1-2018-c/</loc>
+    <loc>https://matsueushi.github.io/programming/tenka1-2018-c/</loc>
     <lastmod>2022-06-19T21:07:30+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/nikkei2019-qual-c/</loc>
+    <loc>https://matsueushi.github.io/programming/nikkei2019-qual-c/</loc>
     <lastmod>2022-06-14T22:55:50+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc121-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc121-d/</loc>
     <lastmod>2022-06-14T21:31:14+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc147-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc147-d/</loc>
     <lastmod>2022-06-13T21:39:24+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/agc023-a/</loc>
+    <loc>https://matsueushi.github.io/programming/agc023-a/</loc>
     <lastmod>2022-06-13T21:26:12+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc255-c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc255-c/</loc>
     <lastmod>2022-06-12T21:11:31+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc255-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc255-d/</loc>
     <lastmod>2022-06-12T21:11:31+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc255-e/</loc>
+    <loc>https://matsueushi.github.io/programming/abc255-e/</loc>
     <lastmod>2022-06-12T21:11:31+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/diverta2019-d/</loc>
+    <loc>https://matsueushi.github.io/programming/diverta2019-d/</loc>
     <lastmod>2022-06-11T19:45:34+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/apc001-b/</loc>
+    <loc>https://matsueushi.github.io/programming/apc001-b/</loc>
     <lastmod>2022-06-10T08:35:23+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc198-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc198-d/</loc>
     <lastmod>2022-06-07T23:42:09+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc129-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc129-d/</loc>
     <lastmod>2022-06-07T22:27:13+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc153-e/</loc>
+    <loc>https://matsueushi.github.io/programming/abc153-e/</loc>
     <lastmod>2022-06-06T22:06:55+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc161-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc161-d/</loc>
     <lastmod>2022-06-05T21:16:30+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/code-festival-2017-qualc-d/</loc>
+    <loc>https://matsueushi.github.io/programming/code-festival-2017-qualc-d/</loc>
     <lastmod>2022-06-05T18:08:29+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/agc034-a/</loc>
+    <loc>https://matsueushi.github.io/programming/agc034-a/</loc>
     <lastmod>2022-06-04T18:32:50+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/agc011-b/</loc>
+    <loc>https://matsueushi.github.io/programming/agc011-b/</loc>
     <lastmod>2022-06-02T23:12:47+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc134-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc134-d/</loc>
     <lastmod>2022-06-01T22:16:01+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc064-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc064-d/</loc>
     <lastmod>2022-05-31T22:18:08+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc133-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc133-d/</loc>
     <lastmod>2022-05-31T21:40:17+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc094-c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc094-c/</loc>
     <lastmod>2022-05-30T23:21:40+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc183-e/</loc>
+    <loc>https://matsueushi.github.io/programming/abc183-e/</loc>
     <lastmod>2022-05-30T23:05:11+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc130-c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc130-c/</loc>
     <lastmod>2022-05-30T21:40:55+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/ddcc2020-qual-c/</loc>
+    <loc>https://matsueushi.github.io/programming/ddcc2020-qual-c/</loc>
     <lastmod>2022-05-28T19:55:21+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc137-d/</loc>
+    <loc>https://matsueushi.github.io/programming/abc137-d/</loc>
     <lastmod>2022-05-26T23:47:34+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc117-c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc117-c/</loc>
     <lastmod>2022-05-25T23:28:21+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/yahoo-procon2019-c/</loc>
+    <loc>https://matsueushi.github.io/programming/yahoo-procon2019-c/</loc>
     <lastmod>2022-05-25T23:05:47+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc154-e/</loc>
+    <loc>https://matsueushi.github.io/programming/abc154-e/</loc>
     <lastmod>2022-05-25T21:30:34+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc135-c/</loc>
+    <loc>https://matsueushi.github.io/programming/abc135-c/</loc>
     <lastmod>2022-05-25T21:19:09+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/green/</loc>
+    <loc>https://matsueushi.github.io/programming/green/</loc>
     <lastmod>2022-05-15T21:55:31+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/abc250-e/</loc>
+    <loc>https://matsueushi.github.io/programming/abc250-e/</loc>
     <lastmod>2022-05-09T21:47:26+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/other/matsueushi-memo/</loc>
-    <lastmod>2022-04-23T07:11:38+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/cd/</loc>
     <lastmod>2022-02-04T23:19:38+09:00</lastmod>
@@ -347,25 +304,25 @@
     <loc>https://matsueushi.github.io/tags/discogs/</loc>
     <lastmod>2022-02-04T23:19:38+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/discogs-money-laundering/</loc>
+    <loc>https://matsueushi.github.io/music/discogs-money-laundering/</loc>
     <lastmod>2022-02-04T23:19:38+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/record/</loc>
     <lastmod>2022-02-04T23:19:38+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/julia-atcoder/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-atcoder/</loc>
     <lastmod>2022-02-04T23:09:38+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/2021/</loc>
+    <loc>https://matsueushi.github.io/diary/2021/</loc>
     <lastmod>2021-12-31T21:05:26+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20210228/</loc>
+    <loc>https://matsueushi.github.io/music/20210228/</loc>
     <lastmod>2021-03-01T23:00:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/dreampop/</loc>
     <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/sacoyans-yomosue/</loc>
+    <loc>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</loc>
     <lastmod>2020-10-05T00:07:12+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/shoegaze/</loc>
@@ -374,7 +331,7 @@
     <loc>https://matsueushi.github.io/tags/json/</loc>
     <lastmod>2020-09-27T21:08:11+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-mapping-nested-dict/</loc>
     <lastmod>2020-09-27T21:08:11+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/struct/</loc>
@@ -389,31 +346,31 @@
     <loc>https://matsueushi.github.io/tags/vinyl/</loc>
     <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</loc>
+    <loc>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</loc>
     <lastmod>2020-09-10T09:10:30+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/nanoray-gacha/</loc>
+    <loc>https://matsueushi.github.io/disc-review/nanoray-gacha/</loc>
     <lastmod>2020-09-06T21:15:15+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-package-version/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-package-version/</loc>
     <lastmod>2020-09-03T23:27:01+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/how-to-digitize-vinyl-1/</loc>
+    <loc>https://matsueushi.github.io/music/how-to-digitize-vinyl-1/</loc>
     <lastmod>2020-08-31T20:37:55+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-python-cheatsheet/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-python-cheatsheet/</loc>
     <lastmod>2020-08-28T22:49:57+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/python/</loc>
     <lastmod>2020-08-28T22:49:57+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/mochitsuki-net-new-resources/</loc>
+    <loc>https://matsueushi.github.io/disc-review/mochitsuki-net-new-resources/</loc>
     <lastmod>2020-08-26T22:49:08+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/hugo/</loc>
     <lastmod>2020-08-23T21:25:36+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/hugo-search/</loc>
+    <loc>https://matsueushi.github.io/diary/hugo-search/</loc>
     <lastmod>2020-08-23T21:25:36+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E3%82%B5%E3%82%A4%E3%83%88/</loc>
@@ -422,7 +379,7 @@
     <loc>https://matsueushi.github.io/tags/audiofingerprinting/</loc>
     <lastmod>2020-08-11T23:17:00+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/audiofingerprinting/</loc>
+    <loc>https://matsueushi.github.io/ds/audiofingerprinting/</loc>
     <lastmod>2020-08-11T23:17:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/shazam/</loc>
@@ -431,19 +388,19 @@
     <loc>https://matsueushi.github.io/tags/spectrogram/</loc>
     <lastmod>2020-08-11T23:17:00+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200801/</loc>
+    <loc>https://matsueushi.github.io/music/20200801/</loc>
     <lastmod>2020-08-01T18:18:54+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/getindex/</loc>
+    <loc>https://matsueushi.github.io/programming/getindex/</loc>
     <lastmod>2020-07-24T21:42:14+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200714/</loc>
+    <loc>https://matsueushi.github.io/music/20200714/</loc>
     <lastmod>2020-07-14T23:53:47+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200709/</loc>
+    <loc>https://matsueushi.github.io/music/20200709/</loc>
     <lastmod>2020-07-08T23:06:44+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200703/</loc>
+    <loc>https://matsueushi.github.io/music/20200703/</loc>
     <lastmod>2020-07-03T23:06:44+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/aphextwin/</loc>
@@ -455,28 +412,28 @@
     <loc>https://matsueushi.github.io/tags/plots/</loc>
     <lastmod>2020-06-28T23:35:43+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/spectrogram/</loc>
+    <loc>https://matsueushi.github.io/ds/spectrogram/</loc>
     <lastmod>2020-06-28T23:35:43+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200626/</loc>
+    <loc>https://matsueushi.github.io/music/20200626/</loc>
     <lastmod>2020-06-26T22:14:55+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/tokiwa/</loc>
+    <loc>https://matsueushi.github.io/diary/tokiwa/</loc>
     <lastmod>2020-06-26T00:24:50+09:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/playlist/20200404/</loc>
+    <loc>https://matsueushi.github.io/music/20200404/</loc>
     <lastmod>2020-04-04T10:00:29-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/rounding/</loc>
     <lastmod>2020-03-28T18:00:00-05:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/rounding-emulator/</loc>
+    <loc>https://matsueushi.github.io/programming/rounding-emulator/</loc>
     <lastmod>2020-03-28T18:00:00-05:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/float/</loc>
     <lastmod>2020-03-07T20:17:26-05:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-rounding/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-rounding/</loc>
     <lastmod>2020-03-07T20:17:26-05:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/deeplearning/</loc>
@@ -485,7 +442,7 @@
     <loc>https://matsueushi.github.io/tags/flux/</loc>
     <lastmod>2020-01-12T01:00:00-05:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/fluxjl-singan/</loc>
+    <loc>https://matsueushi.github.io/ds/fluxjl-singan/</loc>
     <lastmod>2020-01-12T01:00:00-05:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/gan/</loc>
@@ -497,7 +454,7 @@
     <loc>https://matsueushi.github.io/tags/dcgan/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/fluxjl-dcgan/</loc>
+    <loc>https://matsueushi.github.io/ds/fluxjl-dcgan/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/mlp/</loc>
@@ -506,10 +463,10 @@
     <loc>https://matsueushi.github.io/tags/mnist/</loc>
     <lastmod>2019-12-01T18:07:13-05:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-identity/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-identity/</loc>
     <lastmod>2019-09-02T01:26:23-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/clustering-kmean/</loc>
+    <loc>https://matsueushi.github.io/ds/clustering-kmean/</loc>
     <lastmod>2019-08-22T00:04:58-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/kmean/</loc>
@@ -521,16 +478,16 @@
     <loc>https://matsueushi.github.io/tags/gaussianprocess/</loc>
     <lastmod>2019-08-04T11:04:13-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</loc>
+    <loc>https://matsueushi.github.io/ds/gaussianprocess-jl-2/</loc>
     <lastmod>2019-08-04T11:04:13-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gaussianprocess-jl/</loc>
+    <loc>https://matsueushi.github.io/ds/gaussianprocess-jl/</loc>
     <lastmod>2019-07-17T21:22:00-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/glitchpop/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/sweettrip-velocity-design-comfort/</loc>
+    <loc>https://matsueushi.github.io/disc-review/sweettrip-velocity-design-comfort/</loc>
     <lastmod>2019-07-16T21:00:12-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/sweettrip/</loc>
@@ -554,115 +511,115 @@
     <loc>https://matsueushi.github.io/tags/sparseapproximation/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/ivm/</loc>
+    <loc>https://matsueushi.github.io/ds/ivm/</loc>
     <lastmod>2019-07-04T10:10:28-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/sparse-approximate-gp/</loc>
+    <loc>https://matsueushi.github.io/ds/sparse-approximate-gp/</loc>
     <lastmod>2019-06-27T00:55:38-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/softman/</loc>
     <lastmod>2019-06-16T16:20:34-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/softman-500ms/</loc>
+    <loc>https://matsueushi.github.io/disc-review/softman-500ms/</loc>
     <lastmod>2019-06-16T16:20:34-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gp-parameter-estimation/</loc>
+    <loc>https://matsueushi.github.io/ds/gp-parameter-estimation/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/optim/</loc>
     <lastmod>2019-06-08T20:08:12-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/hugo/</loc>
+    <loc>https://matsueushi.github.io/diary/hugo/</loc>
     <lastmod>2019-06-06T22:48:39-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/katex/</loc>
     <lastmod>2019-06-05T22:19:14-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/katex-multiline/</loc>
+    <loc>https://matsueushi.github.io/diary/katex-multiline/</loc>
     <lastmod>2019-06-05T22:19:14-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/katex-test/</loc>
+    <loc>https://matsueushi.github.io/diary/katex-test/</loc>
     <lastmod>2019-06-01T21:05:25-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/test/</loc>
     <lastmod>2019-06-01T21:05:25-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gp-nlp-2/</loc>
+    <loc>https://matsueushi.github.io/ds/gp-nlp-2/</loc>
     <lastmod>2019-05-19T22:37:52-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gp-nlp-1/</loc>
+    <loc>https://matsueushi.github.io/ds/gp-nlp-1/</loc>
     <lastmod>2019-05-10T22:30:45-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/distribution/</loc>
     <lastmod>2019-04-30T21:58:27-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/shift-scale-distribution/</loc>
+    <loc>https://matsueushi.github.io/ds/shift-scale-distribution/</loc>
     <lastmod>2019-04-30T21:58:27-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/bayesian/</loc>
     <lastmod>2019-04-17T21:44:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</loc>
     <lastmod>2019-04-17T21:44:20-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/mamba/</loc>
     <lastmod>2019-04-17T21:44:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</loc>
     <lastmod>2019-04-10T00:24:53-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/rollingwindow/</loc>
+    <loc>https://matsueushi.github.io/programming/rollingwindow/</loc>
     <lastmod>2019-04-07T00:29:01-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-array-dim/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-array-dim/</loc>
     <lastmod>2019-04-05T00:20:33-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</loc>
+    <loc>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</loc>
     <lastmod>2019-04-03T21:52:38-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/randomwalk/</loc>
     <lastmod>2019-04-03T21:52:38-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/mamba-v-0-12-0/</loc>
+    <loc>https://matsueushi.github.io/ds/mamba-v-0-12-0/</loc>
     <lastmod>2019-03-31T21:47:30-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/gcp/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/gcp-julia/</loc>
+    <loc>https://matsueushi.github.io/programming/gcp-julia/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/jupyter/</loc>
     <lastmod>2019-03-30T21:37:57-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/plotly-scale/</loc>
+    <loc>https://matsueushi.github.io/ds/plotly-scale/</loc>
     <lastmod>2019-03-24T21:43:34-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-array-matrix/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-array-matrix/</loc>
     <lastmod>2019-03-23T21:36:07-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</loc>
     <lastmod>2019-03-22T21:22:17-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</loc>
     <lastmod>2019-03-21T21:05:35-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</loc>
     <lastmod>2019-03-20T20:58:08-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</loc>
     <lastmod>2019-03-20T20:45:02-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-array-of-array/</loc>
+    <loc>https://matsueushi.github.io/programming/julia-array-of-array/</loc>
     <lastmod>2019-03-20T00:33:19-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</loc>
+    <loc>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</loc>
     <lastmod>2019-03-19T23:30:41-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</loc>
+    <loc>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</loc>
     <lastmod>2019-03-10T23:14:30-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/julia-kubo/</loc>
+    <loc>https://matsueushi.github.io/ds/julia-kubo/</loc>
     <lastmod>2019-03-04T23:01:57-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/mcmc/</loc>
@@ -671,52 +628,52 @@
     <loc>https://matsueushi.github.io/tags/lolicatonica/</loc>
     <lastmod>2019-03-03T22:15:31-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/hiiragipage/</loc>
+    <loc>https://matsueushi.github.io/music/hiiragipage/</loc>
     <lastmod>2019-03-03T22:15:31-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/jupyter-kernel-location/</loc>
+    <loc>https://matsueushi.github.io/ds/jupyter-kernel-location/</loc>
     <lastmod>2019-03-01T22:52:53-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/categories/%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90/</loc>
     <lastmod>2019-03-01T22:52:53-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/yubikey/</loc>
+    <loc>https://matsueushi.github.io/diary/yubikey/</loc>
     <lastmod>2019-01-03T22:47:53-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/yubikey/</loc>
     <lastmod>2019-01-03T22:47:53-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/lolica-tonica/</loc>
+    <loc>https://matsueushi.github.io/music/lolica-tonica/</loc>
     <lastmod>2018-10-21T17:16:51-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/blooklyn-record-store/</loc>
+    <loc>https://matsueushi.github.io/music/blooklyn-record-store/</loc>
     <lastmod>2018-10-14T16:47:50-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/manhattan-record-store/</loc>
+    <loc>https://matsueushi.github.io/music/manhattan-record-store/</loc>
     <lastmod>2018-10-14T15:51:19-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/bdp-bytes/</loc>
+    <loc>https://matsueushi.github.io/disc-review/bdp-bytes/</loc>
     <lastmod>2016-10-19T00:25:56-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/blackdogproductions/</loc>
     <lastmod>2016-10-19T00:25:56-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/boat/roro/</loc>
+    <loc>https://matsueushi.github.io/disc-review/roro/</loc>
     <lastmod>2016-08-10T00:21:13-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/zaningen/</loc>
     <lastmod>2016-07-31T00:16:07-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/zaningen-teleport/</loc>
+    <loc>https://matsueushi.github.io/disc-review/zaningen-teleport/</loc>
     <lastmod>2016-07-31T00:16:07-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/girls/</loc>
     <lastmod>2016-06-26T00:04:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/girls-album/</loc>
+    <loc>https://matsueushi.github.io/disc-review/girls-album/</loc>
     <lastmod>2016-06-26T00:04:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/macdemarco-2/</loc>
+    <loc>https://matsueushi.github.io/disc-review/macdemarco-2/</loc>
     <lastmod>2016-05-31T23:51:30-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/macdemarco/</loc>
@@ -725,10 +682,10 @@
     <loc>https://matsueushi.github.io/tags/oval/</loc>
     <lastmod>2016-05-29T23:47:05-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/oval-94-diskont/</loc>
+    <loc>https://matsueushi.github.io/disc-review/oval-94-diskont/</loc>
     <lastmod>2016-05-29T23:47:05-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/new-order-coast/</loc>
+    <loc>https://matsueushi.github.io/music/new-order-coast/</loc>
     <lastmod>2016-05-28T23:39:58-04:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/neworder/</loc>
@@ -737,22 +694,394 @@
     <loc>https://matsueushi.github.io/tags/cymbals/</loc>
     <lastmod>2016-05-23T10:39:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/posts/cymbals-entertainment/</loc>
+    <loc>https://matsueushi.github.io/disc-review/cymbals-entertainment/</loc>
     <lastmod>2016-05-23T10:39:20-04:00</lastmod>
   </url><url>
-    <loc>https://matsueushi.github.io/atcoder/memo/</loc>
+    <loc>https://matsueushi.github.io/natsumen/live/2016-03-20/</loc>
+    <lastmod>2016-03-20T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2016-02-14/</loc>
+    <lastmod>2016-02-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2016-01-17/</loc>
+    <lastmod>2016-01-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-11-21/</loc>
+    <lastmod>2015-11-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-09-27/</loc>
+    <lastmod>2015-09-27T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-08-21/</loc>
+    <lastmod>2015-08-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-04-19/</loc>
+    <lastmod>2015-04-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-03-31/</loc>
+    <lastmod>2015-03-31T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2015-03-10/</loc>
+    <lastmod>2015-03-10T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2014-02-11/</loc>
+    <lastmod>2014-02-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-12-04/</loc>
+    <lastmod>2013-12-04T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-11-18/</loc>
+    <lastmod>2013-11-18T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-08-21/</loc>
+    <lastmod>2013-08-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-04-29/</loc>
+    <lastmod>2013-04-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-03-30/</loc>
+    <lastmod>2013-03-30T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2013-02-11/</loc>
+    <lastmod>2013-02-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-12-22/</loc>
+    <lastmod>2012-12-22T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-09-23/</loc>
+    <lastmod>2012-09-23T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-09-16/</loc>
+    <lastmod>2012-09-16T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-06-17/</loc>
+    <lastmod>2012-06-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-05-26/</loc>
+    <lastmod>2012-05-26T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-04-30/</loc>
+    <lastmod>2012-04-30T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-04-06/</loc>
+    <lastmod>2012-04-06T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-03-28/</loc>
+    <lastmod>2012-03-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-03-03/</loc>
+    <lastmod>2012-03-03T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-02-11/</loc>
+    <lastmod>2012-02-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2012-01-13/</loc>
+    <lastmod>2012-01-13T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-12-24/</loc>
+    <lastmod>2011-12-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-12-13/</loc>
+    <lastmod>2011-12-13T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-10-27/</loc>
+    <lastmod>2011-10-27T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-10-25/</loc>
+    <lastmod>2011-10-25T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-10-24/</loc>
+    <lastmod>2011-10-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-08-28/</loc>
+    <lastmod>2011-08-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-07-29/</loc>
+    <lastmod>2011-07-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-07-16/</loc>
+    <lastmod>2011-07-16T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-07-05/</loc>
+    <lastmod>2011-07-05T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-06-10/</loc>
+    <lastmod>2011-06-10T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-05-25/</loc>
+    <lastmod>2011-05-25T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2011-03-03/</loc>
+    <lastmod>2011-03-03T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-12-21/</loc>
+    <lastmod>2010-12-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-07-19/</loc>
+    <lastmod>2010-07-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-06-16/</loc>
+    <lastmod>2010-06-16T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-04-30/</loc>
+    <lastmod>2010-04-30T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-04-11/</loc>
+    <lastmod>2010-04-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2010-02-12/</loc>
+    <lastmod>2010-02-12T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-11-07/</loc>
+    <lastmod>2009-11-07T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-11-02/</loc>
+    <lastmod>2009-11-02T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-10-15/</loc>
+    <lastmod>2009-10-15T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-04-26/</loc>
+    <lastmod>2009-04-26T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-04-04/</loc>
+    <lastmod>2009-04-04T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2009-02-22/</loc>
+    <lastmod>2009-02-22T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2008-12-28/</loc>
+    <lastmod>2008-12-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2008-12-04/</loc>
+    <lastmod>2008-12-04T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2008-10-21/</loc>
+    <lastmod>2008-10-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-09-01/</loc>
+    <lastmod>2006-09-01T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-08-05/</loc>
+    <lastmod>2006-08-05T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-07-28/</loc>
+    <lastmod>2006-07-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-06-28/</loc>
+    <lastmod>2006-06-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-05-14/</loc>
+    <lastmod>2006-05-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-04-22/</loc>
+    <lastmod>2006-04-22T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-02-26/</loc>
+    <lastmod>2006-02-26T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2006-02-24/</loc>
+    <lastmod>2006-02-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-12-25/</loc>
+    <lastmod>2005-12-25T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-11-05/</loc>
+    <lastmod>2005-11-05T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-10-14/</loc>
+    <lastmod>2005-10-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-10-08/</loc>
+    <lastmod>2005-10-08T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-08-19/</loc>
+    <lastmod>2005-08-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-08-14/</loc>
+    <lastmod>2005-08-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-07-17/</loc>
+    <lastmod>2005-07-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-07-11/</loc>
+    <lastmod>2005-07-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-06-18/</loc>
+    <lastmod>2005-06-18T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-05-24/</loc>
+    <lastmod>2005-05-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-04-28/</loc>
+    <lastmod>2005-04-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-04-24/</loc>
+    <lastmod>2005-04-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-04-21/</loc>
+    <lastmod>2005-04-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-04-14/</loc>
+    <lastmod>2005-04-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-03-03/</loc>
+    <lastmod>2005-03-03T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2005-02-11/</loc>
+    <lastmod>2005-02-11T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-09-27/</loc>
+    <lastmod>2004-09-27T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-08-26/</loc>
+    <lastmod>2004-08-26T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-07-18/</loc>
+    <lastmod>2004-07-18T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-07-02/</loc>
+    <lastmod>2004-07-02T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-05-29/</loc>
+    <lastmod>2004-05-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-05-22/</loc>
+    <lastmod>2004-05-22T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-04-09/</loc>
+    <lastmod>2004-04-09T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-03-19/</loc>
+    <lastmod>2004-03-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-03-13/</loc>
+    <lastmod>2004-03-13T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-03-03/</loc>
+    <lastmod>2004-03-03T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-02-27/</loc>
+    <lastmod>2004-02-27T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2004-02-08/</loc>
+    <lastmod>2004-02-08T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-12-31/</loc>
+    <lastmod>2003-12-31T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-12-14/</loc>
+    <lastmod>2003-12-14T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-12-05/</loc>
+    <lastmod>2003-12-05T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-11-29/</loc>
+    <lastmod>2003-11-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-11-24/</loc>
+    <lastmod>2003-11-24T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-11-21/</loc>
+    <lastmod>2003-11-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-11-02/</loc>
+    <lastmod>2003-11-02T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-10-28/</loc>
+    <lastmod>2003-10-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-01-12/</loc>
+    <lastmod>2003-10-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-10-10/</loc>
+    <lastmod>2003-10-10T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-09-20/</loc>
+    <lastmod>2003-09-20T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-08-30/</loc>
+    <lastmod>2003-08-30T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-08-01/</loc>
+    <lastmod>2003-08-01T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-06-28/</loc>
+    <lastmod>2003-06-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-06-22/</loc>
+    <lastmod>2003-06-22T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-06-19/</loc>
+    <lastmod>2003-06-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-06-07/</loc>
+    <lastmod>2003-06-07T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-05-23/</loc>
+    <lastmod>2003-05-23T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-05-04/</loc>
+    <lastmod>2003-05-04T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-05-03/</loc>
+    <lastmod>2003-05-03T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-04-28/</loc>
+    <lastmod>2003-04-28T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-04-10/</loc>
+    <lastmod>2003-04-10T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-03-16/</loc>
+    <lastmod>2003-03-16T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-02-20/</loc>
+    <lastmod>2003-02-20T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2003-01-18/</loc>
+    <lastmod>2003-01-18T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-12-31/</loc>
+    <lastmod>2002-12-31T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-12-21/</loc>
+    <lastmod>2002-12-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-11-30/</loc>
+    <lastmod>2002-11-30T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-10-18/</loc>
+    <lastmod>2002-10-18T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-10-05/</loc>
+    <lastmod>2002-10-05T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-09-19/</loc>
+    <lastmod>2002-09-19T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-08-29/</loc>
+    <lastmod>2002-08-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-06-29/</loc>
+    <lastmod>2002-06-29T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/natsumen/live/2002-04-20/</loc>
+    <lastmod>2002-04-20T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/programming/memo/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/tags/axsxe/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/search/</loc>
-    <priority>0.1</priority>
   </url><url>
     <loc>https://matsueushi.github.io/series/</loc>
   </url><url>
+    <loc>https://matsueushi.github.io/memo/bookmark/</loc>
+  </url><url>
+    <loc>https://matsueushi.github.io/memo/live/</loc>
+  </url><url>
     <loc>https://matsueushi.github.io/boat/memo/</loc>
     <lastmod>0000-12-31T00:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/natsumen/memo/</loc>
-    <lastmod>0000-01-12T11:06:55+09:00</lastmod>
   </url>
 </urlset>

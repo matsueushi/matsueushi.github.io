@@ -6,7 +6,7 @@
     <description>Recent content in 統計 on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 22 Aug 2019 00:04:58 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/%E7%B5%B1%E8%A8%88/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>K-平均アルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/clustering-kmean/</link>
+      <link>https://matsueushi.github.io/ds/clustering-kmean/</link>
       <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/clustering-kmean/</guid>
+      <guid>https://matsueushi.github.io/ds/clustering-kmean/</guid>
       <description>&lt;p&gt;最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「&lt;a href=&#34;http://bookclub.kodansha.co.jp/product?item=0000147666&#34;&gt;ノンパラメトリックベイズ 点過程と統計的機械学習の数理&lt;/a&gt;」に入門を開始した。&lt;/p&gt;
 &lt;p&gt;ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(&lt;a href=&#34;https://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95&#34;&gt;Wikipedia&lt;/a&gt;) を実装したので記録。使っているのはいつものようにJulia。&lt;/p&gt;
 &lt;p&gt;\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。&lt;/p&gt;
@@ -176,10 +176,10 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p
     
     <item>
       <title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
-      <link>https://matsueushi.github.io/posts/ivm/</link>
+      <link>https://matsueushi.github.io/ds/ivm/</link>
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/ivm/</guid>
+      <guid>https://matsueushi.github.io/ds/ivm/</guid>
       <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。
@@ -443,10 +443,10 @@ $$&lt;p&gt;だったから同様に&lt;/p&gt;
     
     <item>
       <title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
-      <link>https://matsueushi.github.io/posts/sparse-approximate-gp/</link>
+      <link>https://matsueushi.github.io/ds/sparse-approximate-gp/</link>
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
+      <guid>https://matsueushi.github.io/ds/sparse-approximate-gp/</guid>
       <description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;
@@ -681,10 +681,10 @@ $$&lt;p&gt;である。&lt;/p&gt;
     
     <item>
       <title>Juliaで体験するベイズ推論(7) - The Price Is Right</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</link>
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( &lt;code&gt;pm.potential&lt;/code&gt; が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。&lt;/p&gt;
 &lt;p&gt;問題を単純化すると、&lt;/p&gt;
 &lt;ol&gt;
@@ -768,10 +768,10 @@ $$&lt;p&gt;である。&lt;/p&gt;
     
     <item>
       <title>Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</link>
       <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</guid>
       <description>&lt;p&gt;最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。&lt;/p&gt;
 &lt;p&gt;今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。&lt;/p&gt;
 &lt;p&gt;まずはライブラリのインポート&lt;/p&gt;
@@ -901,10 +901,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</link>
       <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</guid>
       <description>&lt;p&gt;「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。&lt;/p&gt;
 &lt;p&gt;学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。&lt;/p&gt;
 &lt;ul&gt;
@@ -1003,10 +1003,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</link>
       <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</guid>
       <description>&lt;p&gt;今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。&lt;/p&gt;
 &lt;h2 id=&#34;例題--ベイズ的-ab-テスト&#34;&gt;例題 : ベイズ的 A/B テスト&lt;/h2&gt;
 &lt;p&gt;A/Bテストの例題を解いてみよう。&lt;/p&gt;
@@ -1135,10 +1135,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</link>
       <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。&lt;/p&gt;
 &lt;h2 id=&#34;新しいデータセットの生成&#34;&gt;新しいデータセットの生成&lt;/h2&gt;
 &lt;p&gt;PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。&lt;/p&gt;
@@ -1175,10 +1175,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</link>
       <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;bayesian-method-julia-2.md&#34;&gt;前回&lt;/a&gt;に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。&lt;/p&gt;
 &lt;p&gt;変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;model2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
@@ -1235,10 +1235,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</link>
       <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</guid>
       <description>&lt;p&gt;久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(&lt;a href=&#34;https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers&#34;&gt;GitHubリポジトリ&lt;/a&gt;) をJuliaとMamba.jlでモデリングしていきたいと思う。&lt;/p&gt;
 &lt;p&gt;まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。&lt;/p&gt;
 &lt;p&gt;元のノートブックは&lt;a href=&#34;https://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb&#34;&gt;これ&lt;/a&gt;。&lt;/p&gt;
@@ -1328,10 +1328,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Intrinsic Gaussian CARモデルをMambaで実装</title>
-      <link>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</link>
+      <link>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</link>
       <pubDate>Sun, 10 Mar 2019 23:14:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</guid>
+      <guid>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</guid>
       <description>&lt;p&gt;「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3の&lt;a href=&#34;https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html&#34;&gt;Intrinsic Gaussian Model&lt;/a&gt;のサンプルをMambaで実装した。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/lip_stick_mamba&#34;&gt;https://github.com/matsueushi/lip_stick_mamba&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;参考にしたMatrix Multiplicationを用いたPyMC3の実装:&lt;/p&gt;
@@ -1403,10 +1403,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
+      <link>https://matsueushi.github.io/ds/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
+      <guid>https://matsueushi.github.io/ds/julia-kubo/</guid>
       <description>&lt;p&gt;最近、&lt;a href=&#34;https://www.iwanami.co.jp/book/b257893.html&#34;&gt;久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)&lt;/a&gt;を読んでいる。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;生態学のデータ解析 - 久保拓弥&lt;br&gt;

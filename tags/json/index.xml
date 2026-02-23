@@ -6,7 +6,7 @@
     <description>Recent content in JSON on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 27 Sep 2020 21:08:11 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/json/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>JuliaでネストしているDictをstructにマッピングする</title>
-      <link>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</link>
+      <link>https://matsueushi.github.io/programming/julia-mapping-nested-dict/</link>
       <pubDate>Sun, 27 Sep 2020 21:08:11 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-mapping-nested-dict/</guid>
       <description>&lt;p&gt;WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。
 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。&lt;/p&gt;
 &lt;p&gt;単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、

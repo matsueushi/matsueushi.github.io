@@ -6,7 +6,7 @@
     <description>Recent content in API on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 10 Sep 2020 09:10:30 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</title>
-      <link>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</link>
+      <link>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</link>
       <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</guid>
+      <guid>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../how-to-digitize-vinyl-1/&#34;&gt;レコードをデジタル化する（前編）&lt;/a&gt;の続きです。&lt;/p&gt;
 &lt;p&gt;今回は、レコードをデジタル化する際に障害となる楽曲メタデータの取得・入力にフォーカスしたいと思います。
 Audacityでは保存する際にタグを入力する画面が表示されますが、これを一枚一枚真心を込めて手入力していたら発狂してしまいます。&lt;/p&gt;

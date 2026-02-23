@@ -6,7 +6,7 @@
     <description>Recent content in YubiKey on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 03 Jan 2019 22:47:53 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/yubikey/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Yubikey</title>
-      <link>https://matsueushi.github.io/posts/yubikey/</link>
+      <link>https://matsueushi.github.io/diary/yubikey/</link>
       <pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/yubikey/</guid>
+      <guid>https://matsueushi.github.io/diary/yubikey/</guid>
       <description>&lt;p&gt;物理セキュリティーキーが欲しかったので買ってしまった。&lt;/p&gt;
 &lt;p&gt;公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。&lt;/p&gt;
 &lt;p&gt;良い点&lt;/p&gt;

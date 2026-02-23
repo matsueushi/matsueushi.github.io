@@ -6,7 +6,7 @@
     <description>Recent content in Rust on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Rustでcargo test中にprintlnする</title>
-      <link>https://matsueushi.github.io/posts/rust-test-nocapture/</link>
+      <link>https://matsueushi.github.io/programming/rust-test-nocapture/</link>
       <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/rust-test-nocapture/</guid>
+      <guid>https://matsueushi.github.io/programming/rust-test-nocapture/</guid>
       <description>&lt;p&gt;&lt;code&gt;cargo test&lt;/code&gt;でテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cargo test -- --nocapture
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;で出てくるようにできるようだ。&lt;/p&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>Rustでargminやargmaxはどう書くのか</title>
-      <link>https://matsueushi.github.io/posts/julia-rust/</link>
+      <link>https://matsueushi.github.io/programming/julia-rust/</link>
       <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-rust/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-rust/</guid>
       <description>&lt;p&gt;Julia では &lt;code&gt;argmin&lt;/code&gt; とか &lt;code&gt;argmax&lt;/code&gt; などの関数が用意されていたのですが、
 Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。&lt;/p&gt;
 &lt;p&gt;もっと簡単な書き方があれば教えてください。&lt;/p&gt;

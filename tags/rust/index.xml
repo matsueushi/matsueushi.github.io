@@ -6,7 +6,7 @@
     <description>Recent content in Rust on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 16 Jul 2022 20:16:03 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>RustでAtCoderに挑戦</title>
-      <link>https://matsueushi.github.io/atcoder/rust-atcoder/</link>
+      <link>https://matsueushi.github.io/programming/rust-atcoder/</link>
       <pubDate>Sat, 16 Jul 2022 20:16:03 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/rust-atcoder/</guid>
+      <guid>https://matsueushi.github.io/programming/rust-atcoder/</guid>
       <description>&lt;p&gt;元々JuliaでAtCoderに挑戦していたのですが、違う言語も触ってみたいと思いRustで最近問題を解いています。
 ちょっと触った感じの感想として、Rustの良いところとしては、&lt;/p&gt;
 &lt;ul&gt;

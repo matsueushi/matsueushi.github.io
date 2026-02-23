@@ -6,7 +6,7 @@
     <description>Recent content in サイト on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 23 Aug 2020 21:25:36 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/%E3%82%B5%E3%82%A4%E3%83%88/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Hugoのページを検索できるようにした</title>
-      <link>https://matsueushi.github.io/posts/hugo-search/</link>
+      <link>https://matsueushi.github.io/diary/hugo-search/</link>
       <pubDate>Sun, 23 Aug 2020 21:25:36 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/hugo-search/</guid>
+      <guid>https://matsueushi.github.io/diary/hugo-search/</guid>
       <description>&lt;p&gt;下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae&#34;&gt;Client side searching for Hugo.io with Fuse.js&lt;/a&gt;&lt;/li&gt;
@@ -31,10 +31,10 @@
     
     <item>
       <title>サイトのデザインを変えました</title>
-      <link>https://matsueushi.github.io/posts/tokiwa/</link>
+      <link>https://matsueushi.github.io/diary/tokiwa/</link>
       <pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/tokiwa/</guid>
+      <guid>https://matsueushi.github.io/diary/tokiwa/</guid>
       <description>&lt;p&gt;パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。&lt;/p&gt;
 &lt;p&gt;また更新を再開したいです。&lt;/p&gt;
 </description>
@@ -42,20 +42,20 @@
     
     <item>
       <title>GitHub Pagesに引っ越した</title>
-      <link>https://matsueushi.github.io/posts/hugo/</link>
+      <link>https://matsueushi.github.io/diary/hugo/</link>
       <pubDate>Thu, 06 Jun 2019 22:48:39 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/hugo/</guid>
+      <guid>https://matsueushi.github.io/diary/hugo/</guid>
       <description>&lt;p&gt;過去のポストをこっちのGitHub Pagesに移行させた。疲れた。&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>KaTeXで複数行の数式を入力</title>
-      <link>https://matsueushi.github.io/posts/katex-multiline/</link>
+      <link>https://matsueushi.github.io/diary/katex-multiline/</link>
       <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/katex-multiline/</guid>
+      <guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
       <description>&lt;p&gt;結構手間取った。&lt;br&gt;
 バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;(
@@ -81,10 +81,10 @@ x &amp;amp;= 1+1 \\
     
     <item>
       <title>KaTeX Test</title>
-      <link>https://matsueushi.github.io/posts/katex-test/</link>
+      <link>https://matsueushi.github.io/diary/katex-test/</link>
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/katex-test/</guid>
+      <guid>https://matsueushi.github.io/diary/katex-test/</guid>
       <description>&lt;p&gt;KaTeX Test&lt;/p&gt;
 &lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;
 &lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;

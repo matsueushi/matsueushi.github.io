@@ -6,7 +6,7 @@
     <description>Recent content in Optim on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 08 Jun 2019 20:08:12 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/optim/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
-      <link>https://matsueushi.github.io/posts/gp-parameter-estimation/</link>
+      <link>https://matsueushi.github.io/ds/gp-parameter-estimation/</link>
       <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-parameter-estimation/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-parameter-estimation/</guid>
       <description>&lt;p&gt;「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、
 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。
 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。&lt;/p&gt;

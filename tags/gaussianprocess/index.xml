@@ -6,7 +6,7 @@
     <description>Recent content in GaussianProcess on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sun, 04 Aug 2019 11:04:13 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/gaussianprocess/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>
-      <link>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</link>
+      <link>https://matsueushi.github.io/ds/gaussianprocess-jl-2/</link>
       <pubDate>Sun, 04 Aug 2019 11:04:13 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</guid>
+      <guid>https://matsueushi.github.io/ds/gaussianprocess-jl-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../gaussianprocess-jl/&#34;&gt;前回&lt;/a&gt; の続き。GaussianProcesses.jlを使ってガウス過程回帰のハイパーパラメータ推定を行ってみる。
 「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」の図3.20(a)を例とする。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xxs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
@@ -604,10 +604,10 @@ theta2: 6.560299908989858
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
-      <link>https://matsueushi.github.io/posts/gaussianprocess-jl/</link>
+      <link>https://matsueushi.github.io/ds/gaussianprocess-jl/</link>
       <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl/</guid>
+      <guid>https://matsueushi.github.io/ds/gaussianprocess-jl/</guid>
       <description>&lt;p&gt;Juliaのガウス過程ライブラリ &lt;a href=&#34;https://github.com/STOR-i/GaussianProcesses.jl&#34;&gt;GaussianProcesses.jl&lt;/a&gt; を触ってみる。
 チュートリアルはまだ未整備のようなので、&lt;a href=&#34;https://github.com/STOR-i/GaussianProcesses.jl/tree/master/notebooks&#34;&gt;サンプルノートブック&lt;/a&gt;と&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」などを参考にしながらやっていく。
 Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。&lt;/p&gt;
@@ -1882,10 +1882,10 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
     
     <item>
       <title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
-      <link>https://matsueushi.github.io/posts/ivm/</link>
+      <link>https://matsueushi.github.io/ds/ivm/</link>
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/ivm/</guid>
+      <guid>https://matsueushi.github.io/ds/ivm/</guid>
       <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。
@@ -2149,10 +2149,10 @@ $$&lt;p&gt;だったから同様に&lt;/p&gt;
     
     <item>
       <title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
-      <link>https://matsueushi.github.io/posts/sparse-approximate-gp/</link>
+      <link>https://matsueushi.github.io/ds/sparse-approximate-gp/</link>
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
+      <guid>https://matsueushi.github.io/ds/sparse-approximate-gp/</guid>
       <description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;
@@ -2387,10 +2387,10 @@ $$&lt;p&gt;である。&lt;/p&gt;
     
     <item>
       <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
-      <link>https://matsueushi.github.io/posts/gp-parameter-estimation/</link>
+      <link>https://matsueushi.github.io/ds/gp-parameter-estimation/</link>
       <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-parameter-estimation/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-parameter-estimation/</guid>
       <description>&lt;p&gt;「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、
 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。
 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。&lt;/p&gt;
@@ -2987,10 +2987,10 @@ logp:19.709131389510937
     
     <item>
       <title>ガウス過程と機械学習: 3.5まで</title>
-      <link>https://matsueushi.github.io/posts/gp-nlp-2/</link>
+      <link>https://matsueushi.github.io/ds/gp-nlp-2/</link>
       <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-nlp-2/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-nlp-2/</guid>
       <description>&lt;p&gt;引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。&lt;/p&gt;
 &lt;p&gt;ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの &lt;code&gt;optimize&lt;/code&gt; を使ってしまった)のところまで読み進めた。&lt;/p&gt;
 &lt;ul&gt;
@@ -3021,10 +3021,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>「ガウス過程と機械学習」を読み始めた</title>
-      <link>https://matsueushi.github.io/posts/gp-nlp-1/</link>
+      <link>https://matsueushi.github.io/ds/gp-nlp-1/</link>
       <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-nlp-1/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-nlp-1/</guid>
       <description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;
 &lt;p&gt;本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。&lt;/p&gt;
 &lt;p&gt;分散共分散行列の成分を作る時に使われるカーネル \( k(x,x^\prime) \) は \( x \) と \(x^\prime \) の「近さ」を表す関数とでも考えれば良いのだろうか。&lt;/p&gt;
@@ -3050,10 +3050,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>Intrinsic Gaussian CARモデルをMambaで実装</title>
-      <link>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</link>
+      <link>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</link>
       <pubDate>Sun, 10 Mar 2019 23:14:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</guid>
+      <guid>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</guid>
       <description>&lt;p&gt;「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3の&lt;a href=&#34;https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html&#34;&gt;Intrinsic Gaussian Model&lt;/a&gt;のサンプルをMambaで実装した。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/lip_stick_mamba&#34;&gt;https://github.com/matsueushi/lip_stick_mamba&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;参考にしたMatrix Multiplicationを用いたPyMC3の実装:&lt;/p&gt;

@@ -6,7 +6,7 @@
     <description>Recent content in MCMC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Mon, 04 Mar 2019 23:01:57 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
+      <link>https://matsueushi.github.io/ds/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
+      <guid>https://matsueushi.github.io/ds/julia-kubo/</guid>
       <description>&lt;p&gt;最近、&lt;a href=&#34;https://www.iwanami.co.jp/book/b257893.html&#34;&gt;久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)&lt;/a&gt;を読んでいる。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;生態学のデータ解析 - 久保拓弥&lt;br&gt;

@@ -6,7 +6,7 @@
     <description>Recent content in Julia on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/julia/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>JuliaのパッケージをOrganizationに移譲する</title>
-      <link>https://matsueushi.github.io/posts/transfer-github-repository/</link>
+      <link>https://matsueushi.github.io/programming/transfer-github-repository/</link>
       <pubDate>Sat, 15 Mar 2025 17:20:45 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/transfer-github-repository/</guid>
+      <guid>https://matsueushi.github.io/programming/transfer-github-repository/</guid>
       <description>&lt;p&gt;5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 &lt;a href=&#34;https://matsueushi.github.io/posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt; を書きました。&lt;/p&gt;
 &lt;p&gt;そこで &lt;a href=&#34;https://github.com/JuliaIntervals/RoundingEmulator.jl&#34;&gt;RoundingEmulator.jl&lt;/a&gt; という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;IntervalArithmetic.jl&lt;/a&gt; に プルリクエスト &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt; を送って丸めモードを指定した計算に使われるようになりました。&lt;/p&gt;
 &lt;p&gt;月日が経つのは早いもので……&lt;/p&gt;
@@ -86,10 +86,10 @@ Let me know if you need any help with the process 🙂 !&lt;/p&gt;
     
     <item>
       <title>Rustでargminやargmaxはどう書くのか</title>
-      <link>https://matsueushi.github.io/posts/julia-rust/</link>
+      <link>https://matsueushi.github.io/programming/julia-rust/</link>
       <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-rust/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-rust/</guid>
       <description>&lt;p&gt;Julia では &lt;code&gt;argmin&lt;/code&gt; とか &lt;code&gt;argmax&lt;/code&gt; などの関数が用意されていたのですが、
 Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。&lt;/p&gt;
 &lt;p&gt;もっと簡単な書き方があれば教えてください。&lt;/p&gt;
@@ -362,10 +362,10 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
     
     <item>
       <title>JuliaでAtCoderに挑戦</title>
-      <link>https://matsueushi.github.io/atcoder/julia-atcoder/</link>
+      <link>https://matsueushi.github.io/programming/julia-atcoder/</link>
       <pubDate>Fri, 04 Feb 2022 23:09:38 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/atcoder/julia-atcoder/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-atcoder/</guid>
       <description>&lt;p&gt;去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。&lt;/p&gt;
 &lt;p&gt;ひとまず、AtCoderの&lt;a href=&#34;https://atcoder.jp/contests/typical90&#34;&gt;競プロ典型 90 問&lt;/a&gt;を解いて行く予定です。
 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。&lt;/p&gt;
@@ -421,10 +421,10 @@ Rust で同様の処理をする方法がわからず毎回調べて時間を消
     
     <item>
       <title>JuliaでネストしているDictをstructにマッピングする</title>
-      <link>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</link>
+      <link>https://matsueushi.github.io/programming/julia-mapping-nested-dict/</link>
       <pubDate>Sun, 27 Sep 2020 21:08:11 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-mapping-nested-dict/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-mapping-nested-dict/</guid>
       <description>&lt;p&gt;WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。
 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。&lt;/p&gt;
 &lt;p&gt;単純なJSONの場合は辞書型のままで操作・抽出してもよいかもしれませんが、
@@ -856,10 +856,10 @@ Pythonでもキーワード引数に&lt;code&gt;Dict{Symbol, T}&lt;/code&gt;型�
     
     <item>
       <title>レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</title>
-      <link>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</link>
+      <link>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</link>
       <pubDate>Thu, 10 Sep 2020 09:10:30 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/how-to-digitize-vinyl-2/</guid>
+      <guid>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../how-to-digitize-vinyl-1/&#34;&gt;レコードをデジタル化する（前編）&lt;/a&gt;の続きです。&lt;/p&gt;
 &lt;p&gt;今回は、レコードをデジタル化する際に障害となる楽曲メタデータの取得・入力にフォーカスしたいと思います。
 Audacityでは保存する際にタグを入力する画面が表示されますが、これを一枚一枚真心を込めて手入力していたら発狂してしまいます。&lt;/p&gt;
@@ -988,10 +988,10 @@ CDとLPの収録曲の違いや、初回限定版や再発のボーナストラ�
     
     <item>
       <title>Juliaのパッケージ内から自分自身のバージョンを取得する</title>
-      <link>https://matsueushi.github.io/posts/julia-package-version/</link>
+      <link>https://matsueushi.github.io/programming/julia-package-version/</link>
       <pubDate>Thu, 03 Sep 2020 23:27:01 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-package-version/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-package-version/</guid>
       <description>&lt;p&gt;小ネタです。&lt;/p&gt;
 &lt;p&gt;自分で簡単なパッケージを作っている時に、Project.toml内の&lt;code&gt;version&lt;/code&gt;の情報を取りたくなったので。&lt;/p&gt;
 &lt;p&gt;プロジェクト情報は&lt;a href=&#34;https://julialang.github.io/Pkg.jl/v1/api/&#34;&gt;&lt;code&gt;Pkg.project()&lt;/code&gt;&lt;/a&gt;で取得できます。
@@ -1027,10 +1027,10 @@ CDとLPの収録曲の違いや、初回限定版や再発のボーナストラ�
     
     <item>
       <title>Julia vs Python Cheatsheet</title>
-      <link>https://matsueushi.github.io/posts/julia-python-cheatsheet/</link>
+      <link>https://matsueushi.github.io/programming/julia-python-cheatsheet/</link>
       <pubDate>Fri, 28 Aug 2020 22:49:57 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-python-cheatsheet/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-python-cheatsheet/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://cheatsheets.quantecon.org/&#34;&gt;MATLAB–Python–Julia cheatsheet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://juliadocs.github.io/Julia-Cheat-Sheet/&#34;&gt;The Fast Track to A quick and dirty overview of Julia 1.0&lt;/a&gt;&lt;/li&gt;
@@ -1180,10 +1180,10 @@ CDとLPの収録曲の違いや、初回限定版や再発のボーナストラ�
     
     <item>
       <title>JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
-      <link>https://matsueushi.github.io/posts/audiofingerprinting/</link>
+      <link>https://matsueushi.github.io/ds/audiofingerprinting/</link>
       <pubDate>Tue, 11 Aug 2020 23:17:00 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/audiofingerprinting/</guid>
+      <guid>https://matsueushi.github.io/ds/audiofingerprinting/</guid>
       <description>&lt;p&gt;音楽が好きな人であれば&lt;a href=&#34;https://www.shazam.com/&#34;&gt;Shazam&lt;/a&gt;というアプリはご存知かと思います。&lt;/p&gt;
 &lt;p&gt;街中で気になった曲をスマートフォンに聞かせると、
 相当マイナーな曲でない限り大抵の場合10秒程度聞かせると曲名やアーティスト名を教えてくれて、
@@ -1583,10 +1583,10 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
     
     <item>
       <title>numpy.whereのようなことをJuliaでやりたい</title>
-      <link>https://matsueushi.github.io/posts/getindex/</link>
+      <link>https://matsueushi.github.io/programming/getindex/</link>
       <pubDate>Fri, 24 Jul 2020 21:42:14 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/getindex/</guid>
+      <guid>https://matsueushi.github.io/programming/getindex/</guid>
       <description>&lt;p&gt;&lt;code&gt;Array&lt;/code&gt; から条件を満たすインデックスを取得する時は、&lt;code&gt;findall&lt;/code&gt; を使う。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; ar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
@@ -1635,10 +1635,10 @@ iPhoneのボイスメモで録音したサウンドのサンプリング周波�
     
     <item>
       <title>スペクトログラムを作成する</title>
-      <link>https://matsueushi.github.io/posts/spectrogram/</link>
+      <link>https://matsueushi.github.io/ds/spectrogram/</link>
       <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/spectrogram/</guid>
+      <guid>https://matsueushi.github.io/ds/spectrogram/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;
 &lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている
@@ -1918,10 +1918,10 @@ $$&lt;p&gt;で与えられます。&lt;/p&gt;
     
     <item>
       <title>デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)</title>
-      <link>https://matsueushi.github.io/posts/rounding-emulator/</link>
+      <link>https://matsueushi.github.io/programming/rounding-emulator/</link>
       <pubDate>Sat, 28 Mar 2020 18:00:00 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/rounding-emulator/</guid>
+      <guid>https://matsueushi.github.io/programming/rounding-emulator/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../julia-rounding&#34;&gt;Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)&lt;/a&gt; で色々とJuliaの丸めモードについて調べていましたが、今回はその続きです。&lt;/p&gt;
 &lt;p&gt;やはりどうしてもJuliaの &lt;code&gt;Float32&lt;/code&gt; や &lt;code&gt;Float64&lt;/code&gt; に対して上付き丸め、下付き丸めを可能な限り正確に安定して行いたくなったので、
 「最近点丸めによる方向付き丸めのエミュレート」を参考に、デフォルトの丸めモードのみを使って上付き丸め、下付き丸めをエミュレートするJuliaのパッケージを作成しました。&lt;/p&gt;
@@ -2180,10 +2180,10 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
     
     <item>
       <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
-      <link>https://matsueushi.github.io/posts/julia-rounding/</link>
+      <link>https://matsueushi.github.io/programming/julia-rounding/</link>
       <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-rounding/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-rounding/</guid>
       <description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。
 IntervalArithmetic.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で
 FastRounding.jl を利用しなくなった (v0.17.0以降) ので、
@@ -2600,10 +2600,10 @@ $$&lt;p&gt;
     
     <item>
       <title>Flux.jlでSinGANを実装する</title>
-      <link>https://matsueushi.github.io/posts/fluxjl-singan/</link>
+      <link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
       <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/fluxjl-singan/</guid>
+      <guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
       <description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;
 &lt;p&gt;きっかけは、この紹介記事です。&lt;br&gt;
 &lt;a href=&#34;https://qiita.com/kuto/items/ff2a30ca939ffdcd3cc1&#34;&gt;【SinGAN】たった１枚の画像から多様な画像生成タスクが可能に&lt;/a&gt;&lt;/p&gt;
@@ -3116,10 +3116,10 @@ $$&lt;p&gt;を計算するレイヤーです。&lt;code&gt;pad&lt;/code&gt; は�
     
     <item>
       <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
-      <link>https://matsueushi.github.io/posts/fluxjl-dcgan/</link>
+      <link>https://matsueushi.github.io/ds/fluxjl-dcgan/</link>
       <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/fluxjl-dcgan/</guid>
+      <guid>https://matsueushi.github.io/ds/fluxjl-dcgan/</guid>
       <description>&lt;p&gt;2020/3/8 追記: model-zoo(&lt;a href=&#34;https://github.com/FluxML/model-zoo&#34;&gt;https://github.com/FluxML/model-zoo&lt;/a&gt;) にDCGANのモデルが入りました。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;2019/11/29にJuliaの機械学習ライブラリ&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/&#34;&gt;Flux.jl&lt;/a&gt;の&lt;a href=&#34;https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0&#34;&gt;v0.10.0&lt;/a&gt;がリリースされた。
@@ -3525,10 +3525,10 @@ v0.9.0でこれに気づかず正しく学習が進まず苦戦したので、�
     
     <item>
       <title>Juliaの単位行列</title>
-      <link>https://matsueushi.github.io/posts/julia-identity/</link>
+      <link>https://matsueushi.github.io/programming/julia-identity/</link>
       <pubDate>Mon, 02 Sep 2019 01:26:23 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-identity/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-identity/</guid>
       <description>&lt;p&gt;何かと必要になる単位行列だが、Julia v1.0以降だと &lt;code&gt;LinearAlgebra&lt;/code&gt; をインポートして &lt;code&gt;Matrix&lt;/code&gt; と &lt;code&gt;I&lt;/code&gt; の組み合わせで作成するのが楽なようだ。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; LinearAlgebra
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
@@ -3560,10 +3560,10 @@ dim: 2
     
     <item>
       <title>K-平均アルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/clustering-kmean/</link>
+      <link>https://matsueushi.github.io/ds/clustering-kmean/</link>
       <pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/clustering-kmean/</guid>
+      <guid>https://matsueushi.github.io/ds/clustering-kmean/</guid>
       <description>&lt;p&gt;最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「&lt;a href=&#34;http://bookclub.kodansha.co.jp/product?item=0000147666&#34;&gt;ノンパラメトリックベイズ 点過程と統計的機械学習の数理&lt;/a&gt;」に入門を開始した。&lt;/p&gt;
 &lt;p&gt;ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(&lt;a href=&#34;https://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95&#34;&gt;Wikipedia&lt;/a&gt;) を実装したので記録。使っているのはいつものようにJulia。&lt;/p&gt;
 &lt;p&gt;\(K\)-平均アルゴリズムではすでにクラス数 \(K \) は given として計算を進めていく。実装したアルゴリズムは本を参考にして下のようにした。&lt;/p&gt;
@@ -3722,10 +3722,10 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。&lt;/p
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)</title>
-      <link>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</link>
+      <link>https://matsueushi.github.io/ds/gaussianprocess-jl-2/</link>
       <pubDate>Sun, 04 Aug 2019 11:04:13 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl-2/</guid>
+      <guid>https://matsueushi.github.io/ds/gaussianprocess-jl-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;../gaussianprocess-jl/&#34;&gt;前回&lt;/a&gt; の続き。GaussianProcesses.jlを使ってガウス過程回帰のハイパーパラメータ推定を行ってみる。
 「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」の図3.20(a)を例とする。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xxs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
@@ -4312,10 +4312,10 @@ theta2: 6.560299908989858
     
     <item>
       <title>Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)</title>
-      <link>https://matsueushi.github.io/posts/gaussianprocess-jl/</link>
+      <link>https://matsueushi.github.io/ds/gaussianprocess-jl/</link>
       <pubDate>Wed, 17 Jul 2019 21:22:00 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gaussianprocess-jl/</guid>
+      <guid>https://matsueushi.github.io/ds/gaussianprocess-jl/</guid>
       <description>&lt;p&gt;Juliaのガウス過程ライブラリ &lt;a href=&#34;https://github.com/STOR-i/GaussianProcesses.jl&#34;&gt;GaussianProcesses.jl&lt;/a&gt; を触ってみる。
 チュートリアルはまだ未整備のようなので、&lt;a href=&#34;https://github.com/STOR-i/GaussianProcesses.jl/tree/master/notebooks&#34;&gt;サンプルノートブック&lt;/a&gt;と&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」などを参考にしながらやっていく。
 Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。&lt;/p&gt;
@@ -5590,10 +5590,10 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \exp \left( - |\mathbf{x} - \mathbf{x}^\prime
     
     <item>
       <title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
-      <link>https://matsueushi.github.io/posts/ivm/</link>
+      <link>https://matsueushi.github.io/ds/ivm/</link>
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/ivm/</guid>
+      <guid>https://matsueushi.github.io/ds/ivm/</guid>
       <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。
@@ -5857,10 +5857,10 @@ $$&lt;p&gt;だったから同様に&lt;/p&gt;
     
     <item>
       <title>Juliaでガウス過程を実装&amp;パラメーター推定</title>
-      <link>https://matsueushi.github.io/posts/gp-parameter-estimation/</link>
+      <link>https://matsueushi.github.io/ds/gp-parameter-estimation/</link>
       <pubDate>Sat, 08 Jun 2019 20:08:12 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-parameter-estimation/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-parameter-estimation/</guid>
       <description>&lt;p&gt;「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、
 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。
 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。&lt;/p&gt;
@@ -6457,10 +6457,10 @@ logp:19.709131389510937
     
     <item>
       <title>ガウス過程と機械学習: 3.5まで</title>
-      <link>https://matsueushi.github.io/posts/gp-nlp-2/</link>
+      <link>https://matsueushi.github.io/ds/gp-nlp-2/</link>
       <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-nlp-2/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-nlp-2/</guid>
       <description>&lt;p&gt;引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。&lt;/p&gt;
 &lt;p&gt;ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの &lt;code&gt;optimize&lt;/code&gt; を使ってしまった)のところまで読み進めた。&lt;/p&gt;
 &lt;ul&gt;
@@ -6491,10 +6491,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>「ガウス過程と機械学習」を読み始めた</title>
-      <link>https://matsueushi.github.io/posts/gp-nlp-1/</link>
+      <link>https://matsueushi.github.io/ds/gp-nlp-1/</link>
       <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gp-nlp-1/</guid>
+      <guid>https://matsueushi.github.io/ds/gp-nlp-1/</guid>
       <description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;
 &lt;p&gt;本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。&lt;/p&gt;
 &lt;p&gt;分散共分散行列の成分を作る時に使われるカーネル \( k(x,x^\prime) \) は \( x \) と \(x^\prime \) の「近さ」を表す関数とでも考えれば良いのだろうか。&lt;/p&gt;
@@ -6520,10 +6520,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>Distribution.jlで分布をシフト・スケールさせる</title>
-      <link>https://matsueushi.github.io/posts/shift-scale-distribution/</link>
+      <link>https://matsueushi.github.io/ds/shift-scale-distribution/</link>
       <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/shift-scale-distribution/</guid>
+      <guid>https://matsueushi.github.io/ds/shift-scale-distribution/</guid>
       <description>&lt;p&gt;公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Distributions.jl/src/univariate/continuous/locationscale.jl
@@ -6559,10 +6559,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>Juliaで体験するベイズ推論(7) - The Price Is Right</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</link>
       <pubDate>Wed, 17 Apr 2019 21:44:20 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-7/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-7/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( &lt;code&gt;pm.potential&lt;/code&gt; が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。&lt;/p&gt;
 &lt;p&gt;問題を単純化すると、&lt;/p&gt;
 &lt;ol&gt;
@@ -6646,10 +6646,10 @@ k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
     
     <item>
       <title>Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</link>
       <pubDate>Wed, 10 Apr 2019 00:24:53 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-6/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-6/</guid>
       <description>&lt;p&gt;最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。&lt;/p&gt;
 &lt;p&gt;今回は「Pythonで体験するベイズ推論」の「2.2.27 例題 カンニングした学生の割合」をJuliaで実装した内容を紹介する。&lt;/p&gt;
 &lt;p&gt;まずはライブラリのインポート&lt;/p&gt;
@@ -6779,10 +6779,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>JuliaでRollingWindow</title>
-      <link>https://matsueushi.github.io/posts/rollingwindow/</link>
+      <link>https://matsueushi.github.io/programming/rollingwindow/</link>
       <pubDate>Sun, 07 Apr 2019 00:29:01 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/rollingwindow/</guid>
+      <guid>https://matsueushi.github.io/programming/rollingwindow/</guid>
       <description>&lt;p&gt;Pandasの &lt;a href=&#34;https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html&#34;&gt;&lt;code&gt;pd.rolling &lt;/code&gt;&lt;/a&gt; のようなことをJuliaで行うためのメモ&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html&#34;&gt;https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html&lt;/a&gt;&lt;/p&gt;
 &lt;script src=&#34;https://gist.github.com/matsueushi/658921bbeb21c47ebb6ed028041e7e41.js&#34;&gt;&lt;/script&gt;
@@ -6796,10 +6796,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする</title>
-      <link>https://matsueushi.github.io/posts/julia-array-dim/</link>
+      <link>https://matsueushi.github.io/programming/julia-array-dim/</link>
       <pubDate>Fri, 05 Apr 2019 00:20:33 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-array-dim/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-array-dim/</guid>
       <description>&lt;p&gt;やり方がよくわからなくなるので自分用メモを兼ねて。JuliaのVersion は1.1.0 (2019–01–21)。&lt;/p&gt;
 &lt;h2 id=&#34;2次元&#34;&gt;2次元&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
@@ -6881,10 +6881,10 @@ p(t) &amp;amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
     
     <item>
       <title>Mamba.jlでGaussianRandomWalkを作って使う</title>
-      <link>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</link>
+      <link>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</link>
       <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mamba-gaussianrandomwalk/</guid>
+      <guid>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</guid>
       <description>&lt;p&gt;PyMC3にはTimeseriesとして &lt;code&gt;GaussianRandomWalk&lt;/code&gt; などの時系列モデルが実装されている。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&#34;&gt;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように &lt;code&gt;cumsum&lt;/code&gt; を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。&lt;/p&gt;
@@ -7052,10 +7052,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Mamba.jl v0.12.0のStackOverflowError:</title>
-      <link>https://matsueushi.github.io/posts/mamba-v-0-12-0/</link>
+      <link>https://matsueushi.github.io/ds/mamba-v-0-12-0/</link>
       <pubDate>Sun, 31 Mar 2019 21:47:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/mamba-v-0-12-0/</guid>
+      <guid>https://matsueushi.github.io/ds/mamba-v-0-12-0/</guid>
       <description>&lt;p&gt;GCPに環境を作っていて気づいたのだが、Distibution.jlのv0.17.0と関数が干渉していて &lt;code&gt;using Mamba&lt;/code&gt; すると下のようなワーニングが出て、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;WARNING: Method definition &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;::Type&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Distributions.DiscreteNonParametric&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Int64, P, Base.OneTo&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Int64&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;, Ps&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where Ps where P&lt;span style=&#34;color:#f92672&#34;&gt;})(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real, 1&lt;span style=&#34;color:#f92672&#34;&gt;})&lt;/span&gt; where &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/univariate/discrete/categorical.jl:40 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:7.
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;WARNING: Method definition &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;::Type&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;Distributions.MvNormal&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T, Cov, Mean&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where Mean&amp;lt;:&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T, 1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where T&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where Cov&amp;lt;:&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;PDMats.AbstractPDMat&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; where T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;})(&lt;/span&gt;AbstractArray&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real, 1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;, Real&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; where &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;T&amp;lt;:Real&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; in module Distributions at /Users/apple/.julia/packages/Distributions/fMt8c/src/multivariate/mvnormal.jl:200 overwritten in module Mamba at /Users/apple/.julia/packages/Mamba/qNBKz/src/distributions/constructors.jl:35.
@@ -7085,10 +7085,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>GCPでJuliaのノートブックを実行</title>
-      <link>https://matsueushi.github.io/posts/gcp-julia/</link>
+      <link>https://matsueushi.github.io/programming/gcp-julia/</link>
       <pubDate>Sat, 30 Mar 2019 21:37:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/gcp-julia/</guid>
+      <guid>https://matsueushi.github.io/programming/gcp-julia/</guid>
       <description>&lt;p&gt;自分用メモ&lt;/p&gt;
 &lt;p&gt;ローカルの公開鍵をGCPのインスタンスに登録&lt;/p&gt;
 &lt;blockquote&gt;
@@ -7160,10 +7160,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Plots.jlでx軸、y軸のスケールを揃える</title>
-      <link>https://matsueushi.github.io/posts/plotly-scale/</link>
+      <link>https://matsueushi.github.io/ds/plotly-scale/</link>
       <pubDate>Sun, 24 Mar 2019 21:43:34 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/plotly-scale/</guid>
+      <guid>https://matsueushi.github.io/ds/plotly-scale/</guid>
       <description>&lt;p&gt; &lt;code&gt;aspece_ratio=1&lt;/code&gt; とすれば良いだけだった。簡単だった。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Distributions
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Plots
@@ -7180,10 +7180,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Arrayを横に並べてMatrixにする</title>
-      <link>https://matsueushi.github.io/posts/julia-array-matrix/</link>
+      <link>https://matsueushi.github.io/programming/julia-array-matrix/</link>
       <pubDate>Sat, 23 Mar 2019 21:36:07 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-array-matrix/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-array-matrix/</guid>
       <description>&lt;p&gt;自分用メモ。Juliaで &lt;code&gt;Array&lt;/code&gt; を横に並べて &lt;code&gt;Matrix&lt;/code&gt; にする方法は、&lt;code&gt;repeat&lt;/code&gt; で第1引数を1にして、第2引数を並べたい個数にすればいい。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; xs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;element &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;{&lt;span style=&#34;color:#66d9ef&#34;&gt;Int64&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
@@ -7204,10 +7204,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</link>
       <pubDate>Fri, 22 Mar 2019 21:22:17 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-5/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-5/</guid>
       <description>&lt;p&gt;「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。&lt;/p&gt;
 &lt;p&gt;学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。&lt;/p&gt;
 &lt;ul&gt;
@@ -7306,10 +7306,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(4) -ベイズ的 A/B</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</link>
       <pubDate>Thu, 21 Mar 2019 21:05:35 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-4/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-4/</guid>
       <description>&lt;p&gt;今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。&lt;/p&gt;
 &lt;h2 id=&#34;例題--ベイズ的-ab-テスト&#34;&gt;例題 : ベイズ的 A/B テスト&lt;/h2&gt;
 &lt;p&gt;A/Bテストの例題を解いてみよう。&lt;/p&gt;
@@ -7438,10 +7438,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(3) -新しいデータセットの生成</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</link>
       <pubDate>Wed, 20 Mar 2019 20:58:08 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-3/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-3/</guid>
       <description>&lt;p&gt;引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。&lt;/p&gt;
 &lt;h2 id=&#34;新しいデータセットの生成&#34;&gt;新しいデータセットの生成&lt;/h2&gt;
 &lt;p&gt;PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。&lt;/p&gt;
@@ -7478,10 +7478,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</link>
       <pubDate>Wed, 20 Mar 2019 20:45:02 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-2/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;bayesian-method-julia-2.md&#34;&gt;前回&lt;/a&gt;に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。&lt;/p&gt;
 &lt;p&gt;変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;model2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Model(
@@ -7538,10 +7538,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>JuliaでArray of Arrayを1次元Vectorにする方法</title>
-      <link>https://matsueushi.github.io/posts/julia-array-of-array/</link>
+      <link>https://matsueushi.github.io/programming/julia-array-of-array/</link>
       <pubDate>Wed, 20 Mar 2019 00:33:19 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-array-of-array/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-array-of-array/</guid>
       <description>&lt;p&gt;よく忘れるのでメモ。&lt;/p&gt;
 &lt;p&gt;結論から言うと &lt;code&gt;Base.Iterators.flatten&lt;/code&gt; を適用して &lt;code&gt;collect&lt;/code&gt; すれば良い。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;julia&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; Base&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Iterators&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; flatten
@@ -7572,10 +7572,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？</title>
-      <link>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</link>
+      <link>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</link>
       <pubDate>Tue, 19 Mar 2019 23:30:41 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/bayesian-methods-julia-1/</guid>
+      <guid>https://matsueushi.github.io/ds/bayesian-methods-julia-1/</guid>
       <description>&lt;p&gt;久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(&lt;a href=&#34;https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers&#34;&gt;GitHubリポジトリ&lt;/a&gt;) をJuliaとMamba.jlでモデリングしていきたいと思う。&lt;/p&gt;
 &lt;p&gt;まず例題1.4.1の「メッセージ数に変化はあるか？」をやってみる。&lt;/p&gt;
 &lt;p&gt;元のノートブックは&lt;a href=&#34;https://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb&#34;&gt;これ&lt;/a&gt;。&lt;/p&gt;
@@ -7665,10 +7665,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Intrinsic Gaussian CARモデルをMambaで実装</title>
-      <link>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</link>
+      <link>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</link>
       <pubDate>Sun, 10 Mar 2019 23:14:30 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/intrinsic-gaussian-car/</guid>
+      <guid>https://matsueushi.github.io/ds/intrinsic-gaussian-car/</guid>
       <description>&lt;p&gt;「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3の&lt;a href=&#34;https://docs.pymc.io/notebooks/PyMC3_tips_and_heuristic.html&#34;&gt;Intrinsic Gaussian Model&lt;/a&gt;のサンプルをMambaで実装した。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/matsueushi/lip_stick_mamba&#34;&gt;https://github.com/matsueushi/lip_stick_mamba&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;参考にしたMatrix Multiplicationを用いたPyMC3の実装:&lt;/p&gt;
@@ -7740,10 +7740,10 @@ f(x_0, \ldots, x_n) = f_D(x_0)\cdot f_{x_0+\mu_0, \sigma}(x_1)\cdots f_{x_{n-1}+
     
     <item>
       <title>Julia版「データ解析のための統計モデリング入門」読書ノート</title>
-      <link>https://matsueushi.github.io/posts/julia-kubo/</link>
+      <link>https://matsueushi.github.io/ds/julia-kubo/</link>
       <pubDate>Mon, 04 Mar 2019 23:01:57 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-kubo/</guid>
+      <guid>https://matsueushi.github.io/ds/julia-kubo/</guid>
       <description>&lt;p&gt;最近、&lt;a href=&#34;https://www.iwanami.co.jp/book/b257893.html&#34;&gt;久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)&lt;/a&gt;を読んでいる。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;生態学のデータ解析 - 久保拓弥&lt;br&gt;

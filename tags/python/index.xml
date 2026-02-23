@@ -6,7 +6,7 @@
     <description>Recent content in Python on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Fri, 28 Aug 2020 22:49:57 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Julia vs Python Cheatsheet</title>
-      <link>https://matsueushi.github.io/posts/julia-python-cheatsheet/</link>
+      <link>https://matsueushi.github.io/programming/julia-python-cheatsheet/</link>
       <pubDate>Fri, 28 Aug 2020 22:49:57 +0900</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/julia-python-cheatsheet/</guid>
+      <guid>https://matsueushi.github.io/programming/julia-python-cheatsheet/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://cheatsheets.quantecon.org/&#34;&gt;MATLAB–Python–Julia cheatsheet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://juliadocs.github.io/Julia-Cheat-Sheet/&#34;&gt;The Fast Track to A quick and dirty overview of Julia 1.0&lt;/a&gt;&lt;/li&gt;

@@ -6,7 +6,7 @@
     <description>Recent content in FITC on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/fitc/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
-      <link>https://matsueushi.github.io/posts/ivm/</link>
+      <link>https://matsueushi.github.io/ds/ivm/</link>
       <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/ivm/</guid>
+      <guid>https://matsueushi.github.io/ds/ivm/</guid>
       <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。
@@ -281,10 +281,10 @@ $$&lt;p&gt;だったから同様に&lt;/p&gt;
     
     <item>
       <title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
-      <link>https://matsueushi.github.io/posts/sparse-approximate-gp/</link>
+      <link>https://matsueushi.github.io/ds/sparse-approximate-gp/</link>
       <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/sparse-approximate-gp/</guid>
+      <guid>https://matsueushi.github.io/ds/sparse-approximate-gp/</guid>
       <description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;

@@ -6,7 +6,7 @@
     <description>Recent content in KaTeX on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Wed, 05 Jun 2019 22:19:14 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/katex/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>KaTeXで複数行の数式を入力</title>
-      <link>https://matsueushi.github.io/posts/katex-multiline/</link>
+      <link>https://matsueushi.github.io/diary/katex-multiline/</link>
       <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/katex-multiline/</guid>
+      <guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
       <description>&lt;p&gt;結構手間取った。&lt;br&gt;
 バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;(
@@ -43,10 +43,10 @@ x &amp;amp;= 1+1 \\
     
     <item>
       <title>KaTeX Test</title>
-      <link>https://matsueushi.github.io/posts/katex-test/</link>
+      <link>https://matsueushi.github.io/diary/katex-test/</link>
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/katex-test/</guid>
+      <guid>https://matsueushi.github.io/diary/katex-test/</guid>
       <description>&lt;p&gt;KaTeX Test&lt;/p&gt;
 &lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;
 &lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;

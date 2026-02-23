@@ -6,7 +6,7 @@
     <description>Recent content in Distribution on matsueushi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2025</copyright>
+    <copyright>Copyright © 2019–2026</copyright>
     <lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +14,10 @@
     
     <item>
       <title>Distribution.jlで分布をシフト・スケールさせる</title>
-      <link>https://matsueushi.github.io/posts/shift-scale-distribution/</link>
+      <link>https://matsueushi.github.io/ds/shift-scale-distribution/</link>
       <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
       
-      <guid>https://matsueushi.github.io/posts/shift-scale-distribution/</guid>
+      <guid>https://matsueushi.github.io/ds/shift-scale-distribution/</guid>
       <description>&lt;p&gt;公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Distributions.jl/src/univariate/continuous/locationscale.jl
