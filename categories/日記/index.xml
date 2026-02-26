@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2026</copyright>
-    <lastBuildDate>Mon, 14 Oct 2024 12:04:33 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 23:33:10 +0900</lastBuildDate>
     
 	<atom:link href="https://matsueushi.github.io/categories/%E6%97%A5%E8%A8%98/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>サイトの構成を更新</title>
+      <link>https://matsueushi.github.io/diary/20260226/</link>
+      <pubDate>Thu, 26 Feb 2026 23:33:10 +0900</pubDate>
+      
+      <guid>https://matsueushi.github.io/diary/20260226/</guid>
+      <description>&lt;p&gt;サイトの構成を更新しました。一部以前のページがリンク切れになっていますがご容赦ください。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
