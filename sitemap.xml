@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://matsueushi.github.io/</loc>
+    <lastmod>2026-02-26T23:33:10+09:00</lastmod>
+  </url><url>
     <loc>https://matsueushi.github.io/axsxe/profile/</loc>
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
@@ -30,9 +33,6 @@
     <lastmod>2026-02-26T23:33:10+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/memo/</loc>
-  </url><url>
-    <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2026-02-26T23:33:10+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/diary/20260226/</loc>
     <lastmod>2026-02-26T23:33:10+09:00</lastmod>
@@ -78,9 +78,6 @@
   </url><url>
     <loc>https://matsueushi.github.io/tags/boat/</loc>
     <lastmod>2025-01-12T16:06:15+09:00</lastmod>
-  </url><url>
-    <loc>https://matsueushi.github.io/tags/natsumen/</loc>
-    <lastmod>2025-01-12T11:07:07+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/natsumen/reference/</loc>
     <lastmod>2025-01-12T11:07:07+09:00</lastmod>
