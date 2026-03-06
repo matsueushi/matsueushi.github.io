@@ -4,12 +4,9 @@
     <title>About on matsueushi</title>
     <link>https://matsueushi.github.io/about/</link>
     <description>Recent content in About on matsueushi</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2026</copyright>
-    
-	<atom:link href="https://matsueushi.github.io/about/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>Copyright © 2019–2026 matsueushi</copyright>
+    <atom:link href="https://matsueushi.github.io/about/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

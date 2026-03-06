@@ -4,55 +4,24 @@
     <title>KaTeX on matsueushi</title>
     <link>https://matsueushi.github.io/tags/katex/</link>
     <description>Recent content in KaTeX on matsueushi</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <copyright>Copyright © 2019–2026</copyright>
+    <copyright>Copyright © 2019–2026 matsueushi</copyright>
     <lastBuildDate>Wed, 05 Jun 2019 22:19:14 -0400</lastBuildDate>
-    
-	<atom:link href="https://matsueushi.github.io/tags/katex/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="https://matsueushi.github.io/tags/katex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>KaTeXで複数行の数式を入力</title>
       <link>https://matsueushi.github.io/diary/katex-multiline/</link>
       <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
-      
       <guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
-      <description>&lt;p&gt;結構手間取った。&lt;br&gt;
-バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;(
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;\begin&lt;/span&gt;{aligned} 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &amp;amp;= 1+1 &lt;span style=&#34;color:#66d9ef&#34;&gt;\\\\&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;amp;= 2
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;\end&lt;/span&gt;{aligned}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;\\&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;
-&lt;p&gt;\(
-\begin{aligned}
-x &amp;amp;= 1+1 \\
-&amp;amp;= 2
-\end{aligned}
-\)&lt;/p&gt;
-&lt;p&gt;参考 :&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;
-&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+      <description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;(&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 1+1 &lt;span style=&#34;color:#cf222e&#34;&gt;\\\\&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;\begin{aligned}&#xA;x &amp;amp;= 1+1 \\&#xA;&amp;amp;= 2&#xA;\end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
     </item>
-    
     <item>
       <title>KaTeX Test</title>
       <link>https://matsueushi.github.io/diary/katex-test/</link>
       <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
-      
       <guid>https://matsueushi.github.io/diary/katex-test/</guid>
-      <description>&lt;p&gt;KaTeX Test&lt;/p&gt;
-&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;
-&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;
-&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;
-</description>
+      <description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
