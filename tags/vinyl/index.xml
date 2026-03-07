@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Thu, 10 Sep 2020 09:10:30 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 04 Feb 2022 23:19:38 +0900</lastBuildDate>
     <atom:link href="https://matsueushi.github.io/tags/vinyl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Discogsの高額CD, レコードの謎</title>
+      <link>https://matsueushi.github.io/music/discogs-money-laundering/</link>
+      <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
+      <guid>https://matsueushi.github.io/music/discogs-money-laundering/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.discogs.com&#34;&gt;Discogs&lt;/a&gt;というレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。&lt;/p&gt;&#xA;&lt;p&gt;音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、&#xA;そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>レコードをデジタル化する（後編）-Discogs APIを使ってメタデータを取得-</title>
       <link>https://matsueushi.github.io/music/how-to-digitize-vinyl-2/</link>
@@ -22,6 +29,20 @@
       <pubDate>Mon, 31 Aug 2020 20:37:55 +0900</pubDate>
       <guid>https://matsueushi.github.io/music/how-to-digitize-vinyl-1/</guid>
       <description>&lt;p&gt;今回はちょっといつもとは毛色は違いますがレコードのデジタル化について書きたいと思います。&lt;/p&gt;&#xA;&lt;h2 id=&#34;レコードプレイヤー&#34;&gt;レコードプレイヤー&lt;/h2&gt;&#xA;&lt;p&gt;私が持っているレコードプレイヤー(人生初)は、2年ほど前に買ったオーディオテクニカの&#xA;&lt;a href=&#34;https://www.audio-technica.com/en-us/at-lp60-usb&#34;&gt;AT-LP60-USB&lt;/a&gt;というモデルで、&#xA;正確な値段は覚えていないですが購入価格は大体15,000円だったと思います。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ブルックリンのレコードショップ</title>
+      <link>https://matsueushi.github.io/music/blooklyn-record-store/</link>
+      <pubDate>Sun, 14 Oct 2018 16:47:50 -0400</pubDate>
+      <guid>https://matsueushi.github.io/music/blooklyn-record-store/</guid>
+      <description>&lt;p&gt;前回の&lt;a href=&#34;../manhattan-record-store/&#34;&gt;マンハッタン編&lt;/a&gt;に引き続き、今回はブルックリン編。&lt;/p&gt;&#xA;&lt;p&gt;マンハッタンよりもブルックリンの方がCDが置いてある店が少なく、レコードメイン。&#xA;また、こっちの方が若者向けの店が多く活気がある印象で、ロックとかエレクトロニカなどが強い気がする。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>マンハッタンのレコードショップ</title>
+      <link>https://matsueushi.github.io/music/manhattan-record-store/</link>
+      <pubDate>Sun, 14 Oct 2018 15:51:19 -0400</pubDate>
+      <guid>https://matsueushi.github.io/music/manhattan-record-store/</guid>
+      <description>&lt;p&gt;今ニューヨークで暮らしていて、交友関係が皆無に近く旅行もそれほど好きではないのでレコードショップを巡っているので、&#xA;自分用まとめも兼ねて今まで行ったレコードショップをまとめたいと思う。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

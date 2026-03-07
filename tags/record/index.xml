@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Record on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/record/</link>
+    <link>http://localhost:1313/tags/record/</link>
     <description>Recent content in Record on matsueushi</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2026 matsueushi</copyright>
     <lastBuildDate>Fri, 04 Feb 2022 23:19:38 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/record/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/record/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Discogsの高額CD, レコードの謎</title>
-      <link>https://matsueushi.github.io/music/discogs-money-laundering/</link>
+      <link>http://localhost:1313/music/discogs-money-laundering/</link>
       <pubDate>Fri, 04 Feb 2022 23:19:38 +0900</pubDate>
-      <guid>https://matsueushi.github.io/music/discogs-money-laundering/</guid>
+      <guid>http://localhost:1313/music/discogs-money-laundering/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.discogs.com&#34;&gt;Discogs&lt;/a&gt;というレコードやCDなど音源のデータベースかつマーケットプレイスのサイトで以前から気になっていることです。&lt;/p&gt;&#xA;&lt;p&gt;音楽好きなら結構知っているサイトで、自分も所持している音源について調べるときなどに使うのですが、&#xA;そこのマーケットプレイスでは、普段数千〜数万円の価格しかついていないのに、突然相場の10-100倍近く(数十万)で売買取引が成立していることがあるのです。&lt;/p&gt;</description>
     </item>
     <item>
       <title>ブルックリンのレコードショップ</title>
-      <link>https://matsueushi.github.io/music/blooklyn-record-store/</link>
+      <link>http://localhost:1313/music/blooklyn-record-store/</link>
       <pubDate>Sun, 14 Oct 2018 16:47:50 -0400</pubDate>
-      <guid>https://matsueushi.github.io/music/blooklyn-record-store/</guid>
+      <guid>http://localhost:1313/music/blooklyn-record-store/</guid>
       <description>&lt;p&gt;前回の&lt;a href=&#34;../manhattan-record-store/&#34;&gt;マンハッタン編&lt;/a&gt;に引き続き、今回はブルックリン編。&lt;/p&gt;&#xA;&lt;p&gt;マンハッタンよりもブルックリンの方がCDが置いてある店が少なく、レコードメイン。&#xA;また、こっちの方が若者向けの店が多く活気がある印象で、ロックとかエレクトロニカなどが強い気がする。&lt;/p&gt;</description>
     </item>
     <item>
       <title>マンハッタンのレコードショップ</title>
-      <link>https://matsueushi.github.io/music/manhattan-record-store/</link>
+      <link>http://localhost:1313/music/manhattan-record-store/</link>
       <pubDate>Sun, 14 Oct 2018 15:51:19 -0400</pubDate>
-      <guid>https://matsueushi.github.io/music/manhattan-record-store/</guid>
+      <guid>http://localhost:1313/music/manhattan-record-store/</guid>
       <description>&lt;p&gt;今ニューヨークで暮らしていて、交友関係が皆無に近く旅行もそれほど好きではないのでレコードショップを巡っているので、&#xA;自分用まとめも兼ねて今まで行ったレコードショップをまとめたいと思う。&lt;/p&gt;</description>
     </item>
   </channel>
