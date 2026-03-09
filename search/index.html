@@ -93,7 +93,10 @@
 
       var metaEl = document.createElement("div");
       metaEl.className = "result-meta";
-      metaEl.textContent = item.date + (item.section ? " · " + item.section : "");
+      var parts = [];
+      if (item.date) parts.push(item.date);
+      if (item.section) parts.push(item.section);
+      metaEl.textContent = parts.join(" · ");
 
       li.appendChild(titleEl);
       li.appendChild(metaEl);
