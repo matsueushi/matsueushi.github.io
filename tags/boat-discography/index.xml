@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BOaT ディスコグラフィ on matsueushi</title>
-    <link>https://matsueushi.github.io/boat/discography/</link>
-    <description>Recent content in BOaT ディスコグラフィ on matsueushi</description>
+    <title>BOaT Discography on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/boat-discography/</link>
+    <description>Recent content in BOaT Discography on matsueushi</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <atom:link href="https://matsueushi.github.io/boat/discography/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://matsueushi.github.io/tags/boat-discography/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BOaT のアルバム</title>
       <link>https://matsueushi.github.io/boat/discography/album/</link>
