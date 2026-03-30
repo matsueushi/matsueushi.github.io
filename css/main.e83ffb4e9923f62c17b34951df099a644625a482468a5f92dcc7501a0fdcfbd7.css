@@ -1,0 +1,531 @@
+/* =============================================================================
+   main.css — hugo-theme-shizuka
+   モバイルファースト、1カラム、最大幅 720px
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   リセット & ベース
+   --------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Hiragino Sans,
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: #2d2d2d;
+  background: #fff;
+  line-height: 1.8;
+}
+
+/* ---------------------------------------------------------------------------
+   レイアウト
+   --------------------------------------------------------------------------- */
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ヘッダー
+   --------------------------------------------------------------------------- */
+.site-header {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0.75rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.site-title a {
+  color: #2d2d2d;
+  text-decoration: none;
+}
+
+.site-title a:hover {
+  color: #555;
+}
+
+/* ナビゲーション */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.site-nav a {
+  color: #555;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: #2d2d2d;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------------------
+   フッター
+   --------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid #e5e5e5;
+  padding: 1.25rem 0;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: center;
+}
+
+.site-footer a {
+  color: #888;
+}
+
+/* ---------------------------------------------------------------------------
+   見出し・本文
+   --------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: #3a6fb5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------------------
+   記事ヘッダー（single / list共通）
+   --------------------------------------------------------------------------- */
+.post-header {
+  margin-bottom: 1.5rem;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+h1.post-title {
+  font-size: 1.5rem;
+}
+
+.post-title a {
+  color: #2d2d2d;
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: #3a6fb5;
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  color: #888;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-meta time {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   タグ
+   --------------------------------------------------------------------------- */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-item a {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #555;
+  border-radius: 3px;
+  padding: 0.1em 0.5em;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.tag-item a:hover {
+  background: #e0e0e0;
+  color: #2d2d2d;
+}
+
+/* ---------------------------------------------------------------------------
+   記事一覧（list ページ）
+   --------------------------------------------------------------------------- */
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.post-list-item:first-child {
+  padding-top: 0;
+}
+
+.post-list-item:last-child {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------------------------------------
+   記事本文（single ページ）
+   --------------------------------------------------------------------------- */
+.post-content {
+  margin-top: 1.5rem;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.post-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid #ccc;
+  color: #666;
+}
+
+.post-content blockquote p {
+  margin: 0;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.post-content th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+.post-content hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 2rem 0;
+}
+
+/* コードブロック */
+.post-content pre {
+  background: #f6f6f6;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.post-content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875em;
+}
+
+.post-content p code,
+.post-content li code {
+  background: #f0f0f0;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* Chroma（Hugo 標準ハイライト）のコンテナ調整 */
+.post-content .highlight {
+  margin: 1.5rem 0;
+}
+
+.post-content .highlight pre {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ページタイトル（セクション・タクソノミー共通）
+   --------------------------------------------------------------------------- */
+.page-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e5e5;
+}
+
+/* ---------------------------------------------------------------------------
+   タクソノミー（タグ一覧ページ）
+   --------------------------------------------------------------------------- */
+.taxonomy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.taxonomy-list li a {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #555;
+  border-radius: 3px;
+  padding: 0.2em 0.75em;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.taxonomy-list li a:hover {
+  background: #e0e0e0;
+  color: #2d2d2d;
+}
+
+.taxonomy-count {
+  font-size: 0.75em;
+  color: #999;
+  margin-left: 0.25em;
+}
+
+/* ---------------------------------------------------------------------------
+   ページネーション
+   --------------------------------------------------------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 0.3em 0.75em;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  color: #555;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background: #f5f5f5;
+  color: #2d2d2d;
+}
+
+.pagination .active {
+  background: #3a6fb5;
+  border-color: #3a6fb5;
+  color: #fff;
+}
+
+.pagination .disabled {
+  color: #bbb;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   ホームページ
+   --------------------------------------------------------------------------- */
+.home-description {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.home-section {
+  margin-bottom: 2.5rem;
+}
+
+.home-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.home-section-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-section-title a:hover {
+  color: #555;
+}
+
+/* ---------------------------------------------------------------------------
+   検索
+   --------------------------------------------------------------------------- */
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #2d2d2d;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #3a6fb5;
+  box-shadow: 0 0 0 2px rgba(58, 111, 181, 0.15);
+}
+
+.search-button {
+  padding: 0.5rem 1rem;
+  background: #3a6fb5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: #2f5d99;
+}
+
+#search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#search-results li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+#search-results li:last-child {
+  border-bottom: none;
+}
+
+#search-results .result-title {
+  font-weight: 600;
+}
+
+#search-results .result-meta {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.15rem;
+}
+
+/* ---------------------------------------------------------------------------
+   動画埋め込み（YouTube 等）
+   --------------------------------------------------------------------------- */
+.video-embed {
+  margin: 1.5rem 0;
+}
+
+.video-embed__ratio {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-embed__ratio iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   レスポンシブ（タブレット以上）
+   --------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+  .site-header .container {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .site-title {
+    flex-shrink: 0;
+  }
+}
