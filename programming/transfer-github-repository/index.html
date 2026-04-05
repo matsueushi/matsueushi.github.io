@@ -78,7 +78,7 @@
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/20">fix tests on 1.12 by KristofferC · Pull Request #20 · matsueushi/RoundingEmulator.jl</a></p>
 <p>テストが Julia の最新版で壊れていたので直してくださったのですが、CI を更新していなかったため、GitHub Action のバージョンが古すぎて CI が全て落ちるため動作が確認できないという結果に。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/actions/runs/13569170305">fix tests on 1.12 · matsueushi/RoundingEmulator.jl@726d314</a></p>
-<p><img src="/images/posts/transfer-github-repository-ci-falling.png" alt="ci falling"></p>
+<p><img src="transfer-github-repository-ci-falling.png" alt="ci falling"></p>
 <h3 id="まずはプルリクエストに対処する">まずはプルリクエストに対処する</h3>
 <p>GitHub Actions が古くなっていることが原因のようだったので、ひとまず、生成 AI の力を借りて修正し、なんとかテストが通るようになりました。</p>
 <p><a href="https://github.com/matsueushi/RoundingEmulator.jl/pull/21">Update workflow by matsueushi · Pull Request #21 · matsueushi/RoundingEmulator.jl</a></p>
@@ -121,7 +121,7 @@ Let me know if you need any help with the process 🙂 !</p>
 <p>許可を頂いたところで、早速レポジトリの移譲手続きを行っていきます。</p>
 <p>結論から言うと、移譲先の Organization に加えて頂いて、移譲先にレポジトリを作る権限を頂くのが一番早いです。今回はそのような形で移譲手続きをしました。</p>
 <p>まず、何もしていない状態で、GitHub の Settings -&gt; Collaborators から移譲手続きをすると権限がないと言われて移譲できません。</p>
-<p><img src="/images/posts/transfer-github-repository-no-permission.jpeg" alt="権限がない"></p>
+<p><img src="transfer-github-repository-no-permission.jpeg" alt="権限がない"></p>
 <p><a href="https://docs.github.com/ja/repositories/creating-and-managing-repositories/transferring-a-repository">リポジトリを移譲する - GitHub Docs</a> を読むと、</p>
 <p><code>自分が所有しているリポジトリを組織に移譲するには、対象の組織のリポジトリを作成する権限が必要です。</code></p>
 <p>とあります。

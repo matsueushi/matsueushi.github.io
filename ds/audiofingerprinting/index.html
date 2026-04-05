@@ -90,11 +90,11 @@
 <p>曲を認識させるにあたり、原曲の曲データの特徴量を以下の方法でフィンガープリント
 (<a href="https://en.wikipedia.org/wiki/Acoustic_fingerprint">Audio fingerprint/Acoustic fingerprint</a>) します。</p>
 <p>1. 曲データのスペクトログラムを作成する (スペクトログラムに関しては、<a href="../spectrogram/">前</a> にやりましたのでそちらを参照してください)<br>
-<img src="/images/posts/audiofingerprinting_spectrogram.png" alt="Spectrogram"><br>
+<img src="audiofingerprinting_spectrogram.png" alt="Spectrogram"><br>
 2. スペクトログラムのピークを探す。これは、適当な大きさの最大値フィルターをかけて元の画像と一致したらピークとします。
-<img src="/images/posts/audiofingerprinting_peaks.png" alt="Peaks"><br>
+<img src="audiofingerprinting_peaks.png" alt="Peaks"><br>
 3. スペクトログラムのピークからペアを作る。と言っても全ての組み合わせのペアを考えるのではなく、二点が近いペアのみを考えます。
-<img src="/images/posts/audiofingerprinting_pairs.png" alt="Pairs"><br>
+<img src="audiofingerprinting_pairs.png" alt="Pairs"><br>
 4. ペアからハッシュを生成する。ピークを(時間, 周波数)のペアで表した時に、前項で見つけたペアが \(((t_1, f_1), (t_2, f_2)), t_1 &lt; t_2\) であるとします。
 この時、ハッシュテーブルに登録するキーと値はそれぞれ \([f_1:f_2:\Delta t]\) と \(t_1\) になります。ここで、\(\Delta t = t_2 - t_1\)です。</p>
 <p>という方法で曲から特徴量を抽出して曲のフィンガープリンティングを行います。</p>
@@ -108,7 +108,7 @@
 それぞれ対応する時間を\(t_1\)と\(t^\prime_1\)として、時間のオフセット\(t_1 - t^\prime_1\)を計算すると、
 正しくマッチングできていれば原曲と聞かせた曲のスタート位置の差である定数になるはずです。</p>
 <p>ハッシュが一致した時に、原曲と聞かせた曲で見つかった時間のプロットを確認してみましょう。</p>
-<p><img src="/images/posts/audiofingerprinting_scatter.png" alt="Scatter plot"></p>
+<p><img src="audiofingerprinting_scatter.png" alt="Scatter plot"></p>
 <p>曲が一致している場合は上のようにマッチしたハッシュが傾き1の直線の上に並びます。
 線から外れている点は、間違ってマッチングしてしまった点です。</p>
 <p>逆に曲が一致していない場合であれば、間違ってハッシュがマッチングしてしまったとしても時間の差はランダムに分布することが予想されます。</p>
@@ -363,7 +363,7 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 もう一つはより実践的なサンプルとして、原曲データをスピーカーで再生し、iPhoneのボイスメモ機能を使って録音し、
 コンピューターに転送してMP4からWAVファイルに変換したものです。時間は13秒程度です。</p>
 <p>ノイズを加える際は、Amplitudeが0.4と普通に聞いてかなり邪魔に感じるレベルのノイズを加えました。
-<img src="/images/posts/audiofingerprinting_noise.png" alt="Noise"></p>
+<img src="audiofingerprinting_noise.png" alt="Noise"></p>
 <p>以下のコードで原曲とオリジナル曲のハッシュのマッチング結果の図示を行います。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">using</span> Plots
 </span></span><span style="display:flex;"><span><span style="color:#cf222e">using</span> Measures
@@ -414,40 +414,40 @@ Scipyの<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndim
 </span></span><span style="display:flex;"><span>hashmatching<span style="color:#1f2328">(</span>hash1<span style="color:#1f2328">,</span> hash2<span style="color:#1f2328">)</span>
 </span></span></code></pre></div><p>まずはWAVファイルにノイズを加えたものの比較結果を見ましょう。横軸は原曲ファイルの時間、縦軸は比較対象ファイルの時間です。
 点を画面に納める都合上アスペクト比率は1ではないです。
-<img src="/images/posts/audiofingerprinting_scatter_noise.png" alt="Scatter"></p>
+<img src="audiofingerprinting_scatter_noise.png" alt="Scatter"></p>
 <p>時間のオフセットのヒストグラムも見てみましょう。
-<img src="/images/posts/audiofingerprinting_hist_noise.png" alt="Hisogram"></p>
+<img src="audiofingerprinting_hist_noise.png" alt="Hisogram"></p>
 <p>ノイズの影響は受けつつもヒストグラムに単一のピークが認められました。</p>
 <p>次にスピーカーから流した音をiPhoneで録音して試したところ、こちらはなぜかうまくいきませんでした。
-<img src="/images/posts/audiofingerprinting_scatter_recorded_48khz.png" alt="Scatter"></p>
-<p><img src="/images/posts/audiofingerprinting_hist_recorded_48khz.png" alt="Histogram"></p>
+<img src="audiofingerprinting_scatter_recorded_48khz.png" alt="Scatter"></p>
+<p><img src="audiofingerprinting_hist_recorded_48khz.png" alt="Histogram"></p>
 <p>何が原因なのか分からずかなり時間を使ってしまったのですが、ピークをプロットした点の画像を重ねてやっと原因がわかりました。</p>
 <p>原因はサンプリング周波数の差で、音楽CDのサンプリング周波数は44.1kHzであるため、
 CDからリッピングしたWAVファイルのサンプリング周波数も同じく44.1kHzになりますが、
 iPhoneのボイスメモで録音したサウンドのサンプリング周波数は48kHzだったのが原因でした。</p>
 <p>録音した音声ファイルを、<a href="http://audacity-mp3.xyz/sannpurinngure-to/">Audacityでサンプリング周波数を変えて</a>もう一度試してみます。</p>
-<p><img src="/images/posts/audiofingerprinting_scatter_recorded.png" alt="Scatter"></p>
-<p><img src="/images/posts/audiofingerprinting_hist_recorded.png" alt="Histogram"></p>
+<p><img src="audiofingerprinting_scatter_recorded.png" alt="Scatter"></p>
+<p><img src="audiofingerprinting_hist_recorded.png" alt="Histogram"></p>
 <p>今度は上手く出来ました。</p>
 <p>念のため全然関係ない曲だとマッチングできないことも確かめておきましょう。
 本当は大量の曲を予め解析しておいて、実際に検索できることを確かめる必要があると思いますので手抜きです。</p>
 <p>なお、曲は適当に15秒程度にトリミングしています。</p>
 <ul>
 <li>Blue Album一曲目のMy Name Is Jonas<br>
-<img src="/images/posts/audiofingerprinting_scatter_mynameisjonas.png" alt="Scatter"></li>
+<img src="audiofingerprinting_scatter_mynameisjonas.png" alt="Scatter"></li>
 </ul>
-<p><img src="/images/posts/audiofingerprinting_hist_mynameisjonas.png" alt="Histogram"></p>
+<p><img src="audiofingerprinting_hist_mynameisjonas.png" alt="Histogram"></p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Candy_Claws">Candy Claws</a>の<a href="https://www.youtube.com/watch?v=_kuydQO27TM">Pangaea Girls (Magic Feeling)</a><br>
-<img src="/images/posts/audiofingerprinting_scatter_pangeagirls.png" alt="Scatter"></li>
+<img src="audiofingerprinting_scatter_pangeagirls.png" alt="Scatter"></li>
 </ul>
-<p><img src="/images/posts/audiofingerprinting_hist_pangeagirls.png" alt="Histogram"></p>
+<p><img src="audiofingerprinting_hist_pangeagirls.png" alt="Histogram"></p>
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%A5%E3%82%AC%E3%83%BC%E3%83%BB%E3%83%99%E3%82%A4%E3%83%96">シュガー・ベイブ</a>の
 <a href="https://ja.wikipedia.org/wiki/DOWN_TOWN">DOWN TOWN</a><br>
-<img src="/images/posts/audiofingerprinting_scatter_downtown.png" alt="Scatter"></li>
+<img src="audiofingerprinting_scatter_downtown.png" alt="Scatter"></li>
 </ul>
-<p><img src="/images/posts/audiofingerprinting_hist_downtown.png" alt="Histogram"></p>
+<p><img src="audiofingerprinting_hist_downtown.png" alt="Histogram"></p>
 <p>誤ってマッチングしているハッシュが思いの外多いですが、ヒストグラムを見ると時間のオフセットはばらつきがあり特徴的な単一のピークはありません。</p>
 <p>ハイパーパラメーターを調整して無駄なマッチ数を減らす、バックグラウンドを上手に除去するなど、
 改良の余地はまだまだありそうですが、今回はここまでとします。</p>

@@ -131,7 +131,7 @@ $$
 </span></span><span style="display:flex;"><span><span style="color:#cf222e">end</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Plots<span style="color:#0550ae">.</span>plot<span style="color:#1f2328">(</span>plts<span style="color:#0550ae">...</span><span style="color:#1f2328">,</span> layout <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">3</span><span style="color:#1f2328">),</span> size <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">800</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">400</span><span style="color:#1f2328">])</span>
-</span></span></code></pre></div><p><img src="/images/posts/clustering-kmean_dataset.png" alt="Dataset"></p>
+</span></span></code></pre></div><p><img src="clustering-kmean_dataset.png" alt="Dataset"></p>
 <p>本体の実装はこんな感じで、<code>dist</code> で \( f \) の値、 <code>dist_change</code> で \( f \) の変化を保持。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">mutable struct</span> <span style="color:#cf222e">KMean</span>
 </span></span><span style="display:flex;"><span>    points<span style="color:#0550ae">::</span><span style="color:#cf222e">Array</span><span style="color:#1f2328">{</span><span style="color:#cf222e">Float64</span><span style="color:#1f2328">}</span>
@@ -213,12 +213,12 @@ Juliaはgifのアニメーションを作るのも楽でいいですね。</p>
 </span></span></code></pre></div><p>結果は下の通り。黄色の点が、\( (\boldsymbol{\mu}_k)_{k=1}^K \) に該当。</p>
 <p><code>noisy_circles</code> と <code>noisy_moons</code> では次のような結果で、
 代表点からの距離でクラスタリングするならばまあそうなるだろう、という結果。</p>
-<p><img src="/images/posts/clustering-kmean_circles.gif" alt="noisy circles"></p>
-<p><img src="/images/posts/clustering-kmean_moons.gif" alt="noisy moons"></p>
+<p><img src="clustering-kmean_circles.gif" alt="noisy circles"></p>
+<p><img src="clustering-kmean_moons.gif" alt="noisy moons"></p>
 <p><code>blobs</code> では一見うまくいくように見えるが、</p>
-<p><img src="/images/posts/clustering-kmean_blobs_1.gif" alt="blob 成功例"></p>
+<p><img src="clustering-kmean_blobs_1.gif" alt="blob 成功例"></p>
 <p>乱数による初期化次第で、下のように期待とは違う場所に収束することも起こり得る。</p>
-<p><img src="/images/posts/clustering-kmean_blobs_2.gif" alt="blob 失敗例"></p>
+<p><img src="clustering-kmean_blobs_2.gif" alt="blob 失敗例"></p>
 <p>次は混合ガウスモデルのギブスサンプリングかな。無限次元への扉は遠い&hellip;</p>
 <p>Jupyter Notebook (アニメーションは表示されない):<br>
 <a href="https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb">https://github.com/matsueushi/notebook_blog/blob/master/clustering.ipynb</a></p>

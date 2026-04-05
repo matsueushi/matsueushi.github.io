@@ -136,11 +136,11 @@
 </span></span><span style="display:flex;"><span>p_bia <span style="color:#0550ae">=</span> reshape<span style="color:#1f2328">(</span>Mamba<span style="color:#0550ae">.</span>plot<span style="color:#1f2328">(</span>sim_bia<span style="color:#1f2328">,</span> <span style="color:#1f2328">[</span><span style="color:#032f62">:trace</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:density</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:autocor</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:mean</span><span style="color:#1f2328">],</span> legend <span style="color:#0550ae">=</span> <span style="color:#6639ba">true</span><span style="color:#1f2328">),</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">2</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">))</span>
 </span></span><span style="display:flex;"><span>Mamba<span style="color:#0550ae">.</span>draw<span style="color:#1f2328">(</span>p_bia<span style="color:#1f2328">,</span> nrow <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span> ncol <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><h3 id="bia">BIA</h3>
-<p><img src="/images/posts/bayesian-methods-julia-5_bia.png" alt="BIA"></p>
+<p><img src="bayesian-methods-julia-5_bia.png" alt="BIA"></p>
 <h3 id="bmc3">BMC3</h3>
-<p><img src="/images/posts/bayesian-methods-julia-5_bmc3.png" alt="BMC3"></p>
+<p><img src="bayesian-methods-julia-5_bmc3.png" alt="BMC3"></p>
 <h3 id="bmg">BMG</h3>
-<p><img src="/images/posts/bayesian-methods-julia-5_bmg.png" alt="BMG"></p>
+<p><img src="bayesian-methods-julia-5_bmg.png" alt="BMG"></p>
 <p>自己相関や確率密度を見ると <code>BIA</code>, <code>BMC3</code> が良さそう。</p>
 <h3 id="もう一つのモデル">もう一つのモデル</h3>
 <p>「カンニングしました」と答える確率は p/2 + 1/4 なので、<code>proportion</code> を計算する代わりにこれを直接使ってモデリングすることもできる。</p>
@@ -159,7 +159,7 @@
 </span></span><span style="display:flex;"><span>another_sim <span style="color:#0550ae">=</span> mcmc<span style="color:#1f2328">(</span>another_model<span style="color:#1f2328">,</span> data<span style="color:#1f2328">,</span> inits<span style="color:#1f2328">,</span> samplings<span style="color:#1f2328">,</span> burnin <span style="color:#0550ae">=</span> burning<span style="color:#1f2328">,</span> thin <span style="color:#0550ae">=</span> <span style="color:#0550ae">10</span><span style="color:#1f2328">,</span> chains <span style="color:#0550ae">=</span> <span style="color:#0550ae">3</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>another_p <span style="color:#0550ae">=</span> reshape<span style="color:#1f2328">(</span>Mamba<span style="color:#0550ae">.</span>plot<span style="color:#1f2328">(</span>another_sim<span style="color:#1f2328">,</span> <span style="color:#1f2328">[</span><span style="color:#032f62">:trace</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:density</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:autocor</span><span style="color:#1f2328">,</span> <span style="color:#032f62">:mean</span><span style="color:#1f2328">],</span> legend <span style="color:#0550ae">=</span> <span style="color:#6639ba">true</span><span style="color:#1f2328">),</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">2</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">))</span>
 </span></span><span style="display:flex;"><span>Mamba<span style="color:#0550ae">.</span>draw<span style="color:#1f2328">(</span>another_p<span style="color:#1f2328">,</span> nrow <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span> ncol <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/bayesian-methods-julia-5_another.png" alt="もう一つのモデル"></p>
+</span></span></code></pre></div><p><img src="bayesian-methods-julia-5_another.png" alt="もう一つのモデル"></p>
 <p> <code>true_answers</code>, <code>first_coin_flips</code>, <code>second_coin_flips</code> をモデリングした場合に比べて、収束が大きく向上している。</p>
 <p>コード -&gt;
 <a href="https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_cheat.ipynb">https://nbviewer.jupyter.org/github/matsueushi/bayesian_methods_julia/blob/master/chapter2_cheat.ipynb</a></p>

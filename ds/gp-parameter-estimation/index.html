@@ -74,9 +74,9 @@
 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。
 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。</p>
 <p>ガウスカーネルによる回帰:
-<img src="/images/posts/gp-parameter-estimation_100m_gaussian.png" alt="ガウスカーネルによる回帰"></p>
+<img src="gp-parameter-estimation_100m_gaussian.png" alt="ガウスカーネルによる回帰"></p>
 <p>ガウスカーネル＋線形カーネルによる回帰:
-<img src="/images/posts/gp-parameter-estimation_linear_gaussian.png" alt="ガウスカーネル＋線形カーネルによる回帰"></p>
+<img src="gp-parameter-estimation_linear_gaussian.png" alt="ガウスカーネル＋線形カーネルによる回帰"></p>
 <p>任意の有限の入力</p>
 $$
     (x_1, \ldots , x_n)
@@ -151,7 +151,7 @@ $$<p>この形で紹介されていたが、後々カーネルの線型結合を
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    title <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><p>\( \theta=1 \)のガウスカーネルから生成されるガウス過程から、入力を-4から4まで0.5ごとに選んだ点とし、サンプルをいくつか取ってみる。</p>
-<p><img src="/images/posts/gp-parameter-estimation_gaussian_1.png" alt="ガウス過程からのサンプル"></p>
+<p><img src="gp-parameter-estimation_gaussian_1.png" alt="ガウス過程からのサンプル"></p>
 <h2 id="ガウス過程の定義">ガウス過程の定義</h2>
 <p>上でガウスカーネルを定義した方法には一つ問題があり、例えば点を0.1毎に取ると上手く動かない。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#0550ae">=</span> collect<span style="color:#1f2328">(</span><span style="color:#0550ae">1</span><span style="color:#0550ae">:</span><span style="color:#0550ae">0.1</span><span style="color:#0550ae">:</span><span style="color:#0550ae">4</span><span style="color:#1f2328">)</span>
@@ -205,13 +205,13 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    label <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">,</span> xlabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;x&#34;</span><span style="color:#1f2328">,</span> ylabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;f&#34;</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    title <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_2.png" alt="ガウス過程からのサンプリング"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_gaussian_2.png" alt="ガウス過程からのサンプリング"></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#0550ae">=</span> collect<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span><span style="color:#0550ae">4</span><span style="color:#0550ae">:</span><span style="color:#0550ae">0.01</span><span style="color:#0550ae">:</span><span style="color:#0550ae">4</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>Plots<span style="color:#0550ae">.</span>plot<span style="color:#1f2328">(</span>xs<span style="color:#1f2328">,</span> rand<span style="color:#1f2328">(</span>dist<span style="color:#1f2328">(</span>gp<span style="color:#1f2328">,</span> xs<span style="color:#1f2328">),</span> <span style="color:#0550ae">5</span><span style="color:#1f2328">),</span> 
 </span></span><span style="display:flex;"><span>    label <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">,</span> xlabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;x&#34;</span><span style="color:#1f2328">,</span> ylabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;f&#34;</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    title <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_3.png" alt="ガウス過程からのサンプリング"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_gaussian_3.png" alt="ガウス過程からのサンプリング"></p>
 <p>ノイズ項を入れるとこんな感じ</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp <span style="color:#0550ae">=</span> GaussianProcess<span style="color:#1f2328">(</span>GaussianKernel<span style="color:#1f2328">(</span><span style="color:#0550ae">1</span><span style="color:#1f2328">),</span> <span style="color:#0550ae">0.01</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>xs <span style="color:#0550ae">=</span> collect<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span><span style="color:#0550ae">4</span><span style="color:#0550ae">:</span><span style="color:#0550ae">0.01</span><span style="color:#0550ae">:</span><span style="color:#0550ae">4</span><span style="color:#1f2328">)</span>
@@ -219,7 +219,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    label <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">,</span> xlabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;x&#34;</span><span style="color:#1f2328">,</span> ylabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;f&#34;</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    title <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_gaussian_noise.png" alt="ガウス過程からのサンプリング(ノイズ項)"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_gaussian_noise.png" alt="ガウス過程からのサンプリング(ノイズ項)"></p>
 <p>同様に定数カーネル、線形カーネルも定義しておこう。(その他のカーネルにも本文には出てくるが、ここでは省略)</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#0a3069">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#0a3069">Constant kernel
@@ -239,8 +239,8 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> <span style="color:#0550ae">1.0</span> <span style="color:#0550ae">+</span> dot<span style="color:#1f2328">(</span>x1<span style="color:#1f2328">,</span> x2<span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#cf222e">end</span>
 </span></span></code></pre></div><p><code>LinearKernel</code>のカーネルの実装では、定数項を考慮するために1を加えている。サンプルをプロットするとそれぞれ下のようになる（コードは略）</p>
-<p><img src="/images/posts/gp-parameter-estimation_constant.png" alt="定数カーネル">
-<img src="/images/posts/gp-parameter-estimation_linear.png" alt="線形カーネル"></p>
+<p><img src="gp-parameter-estimation_constant.png" alt="定数カーネル">
+<img src="gp-parameter-estimation_linear.png" alt="線形カーネル"></p>
 <h2 id="カーネルの定数倍和">カーネルの定数倍、和</h2>
 <p>本文3.3.2にあるように、カーネルは組み合わせて使うことができ、カーネルの和・積もまたカーネル関数になる。</p>
 <p>今回、ガウスカーネル、ガウスカーネル＋線形カーネルを考えるにあたっては、カーネルの定数倍、カーネルの和が定義されていれば十分なので、その二つを定義しておこう。</p>
@@ -280,7 +280,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>    label <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">,</span> xlabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;x&#34;</span><span style="color:#1f2328">,</span> ylabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;f&#34;</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    linewidth <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    title <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_sum.png" alt="線型結合"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_sum.png" alt="線型結合"></p>
 <h2 id="回帰">回帰</h2>
 <p>サンプリングができたので、次に回帰を行う。</p>
 <p>回帰を行おう。本文の後半には、ガウス過程回帰の計算方法を少なくする方法が書いてあるが、まだそこまで読んでいないのでここは素直な方法(本の公式3.8)でガウス過程回帰を定義する。</p>
@@ -333,7 +333,7 @@ Stacktrace:
 </span></span><span style="display:flex;"><span>   MvNormal<span style="color:#1f2328">(</span>mu<span style="color:#1f2328">,</span> sig<span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#cf222e">end</span>
 </span></span></code></pre></div><p>すると、次のような結果が得られる。</p>
-<p><img src="/images/posts/gp-parameter-estimation_regression_1.png" alt="回帰結果"></p>
+<p><img src="gp-parameter-estimation_regression_1.png" alt="回帰結果"></p>
 <h2 id="微分を定義する">微分を定義する</h2>
 <p>学習データを \( \mathcal{D}=(\mathbf{X}, \mathbf{y}) \), ハイパーパラメーターを \( \boldsymbol{\theta} \), ハイパーパラメータから計算されるカーネル行列を \( \mathbf{K}_{\boldsymbol{\theta}} \) とした時に、対数尤度関数</p>
 $$
@@ -526,7 +526,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 </span></span></span><span style="display:flex;"><span><span style="color:#0a3069">2009/8/16,9.58&#34;</span><span style="color:#1f2328">);</span> dateformat<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;yyyy/mm/dd&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>disallowmissing!<span style="color:#1f2328">(</span>df<span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>scatter<span style="color:#1f2328">(</span>df<span style="color:#0550ae">.</span>Date<span style="color:#1f2328">,</span> df<span style="color:#0550ae">.</span>Time<span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_100m_data.png" alt="男子100mの世界記録"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_100m_data.png" alt="男子100mの世界記録"></p>
 <p>値を平均0, 分散1となるように正規化する。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">using</span> Dates
 </span></span><span style="display:flex;"><span>
@@ -539,7 +539,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
 </span></span><span style="display:flex;"><span>ys <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>ys_raw <span style="color:#0550ae">.-</span> ys_mean<span style="color:#1f2328">)</span> <span style="color:#0550ae">./</span> ys_std
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>scatter<span style="color:#1f2328">(</span>xs<span style="color:#1f2328">,</span> ys<span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/gp-parameter-estimation_100m_data_2.png" alt="正規化した男子100mの世界記録"></p>
+</span></span></code></pre></div><p><img src="gp-parameter-estimation_100m_data_2.png" alt="正規化した男子100mの世界記録"></p>
 <p><a href="https://julianlsolvers.github.io/Optim.jl/stable/#algo/lbfgs/"><code>LBFGS</code></a> でハイパーパラメーターを推定する。<code>[0, 0, 0]</code> からスタートすると、</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">function</span> plot_gp_100m<span style="color:#1f2328">(</span>gp<span style="color:#1f2328">,</span> pars<span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>
@@ -589,7 +589,7 @@ $$<p>だから、パラメーターを仮置きして下のようにガウス過
  * Gradient Calls: 7536
 [theta1, theta2, theta3] = [4.22277, 13.8668, 0.102625]
 logp:14.864131619224107
-</code></pre><p><img src="/images/posts/gp-parameter-estimation_100m_1.png" alt="[0,0,0]からスタートしたガウスカーネルによる回帰"></p>
+</code></pre><p><img src="gp-parameter-estimation_100m_1.png" alt="[0,0,0]からスタートしたガウスカーネルによる回帰"></p>
 <p>となって本に載っているのとは別の局所解に収束してしまう。<code>[0, 0, -3]</code> からスタートすると、</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>res <span style="color:#0550ae">=</span> optimize<span style="color:#1f2328">(</span>
 </span></span><span style="display:flex;"><span>    Optim<span style="color:#0550ae">.</span>only_fg!<span style="color:#1f2328">((</span>F<span style="color:#1f2328">,</span> G<span style="color:#1f2328">,</span> x<span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> fg!<span style="color:#1f2328">(</span>gp<span style="color:#1f2328">,</span> xs<span style="color:#1f2328">,</span> ys<span style="color:#1f2328">,</span> F<span style="color:#1f2328">,</span> G<span style="color:#1f2328">,</span> x<span style="color:#1f2328">)),</span>
@@ -621,7 +621,7 @@ logp:14.864131619224107
  * Gradient Calls: 331
 [theta1, theta2, theta3] = [1.55326, 0.228982, 0.0429989]
 logp:14.073964533876048
-</code></pre><p><img src="/images/posts/gp-parameter-estimation_100m_gaussian.png" alt="[0,0,-3]からスタートしたガウスカーネルによる回帰"></p>
+</code></pre><p><img src="gp-parameter-estimation_100m_gaussian.png" alt="[0,0,-3]からスタートしたガウスカーネルによる回帰"></p>
 <p>と、本と同様の回帰結果が得られる。(パラメーターの値は本と違ってしまっているが&hellip;)</p>
 <p>最後に、ガウスカーネル + 線形カーネルによる回帰を行ってみよう。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>gp_2 <span style="color:#0550ae">=</span> GaussianProcess<span style="color:#1f2328">(</span><span style="color:#0550ae">1.0</span> <span style="color:#0550ae">*</span> ConstantKernel<span style="color:#1f2328">()</span> <span style="color:#0550ae">+</span> <span style="color:#0550ae">1.0</span> <span style="color:#0550ae">*</span> LinearKernel<span style="color:#1f2328">()</span> <span style="color:#0550ae">+</span> <span style="color:#0550ae">1.0</span> <span style="color:#0550ae">*</span> GaussianKernel<span style="color:#1f2328">(</span><span style="color:#0550ae">1.0</span><span style="color:#1f2328">),</span> <span style="color:#0550ae">1.0</span><span style="color:#1f2328">)</span>
@@ -656,7 +656,7 @@ logp:14.073964533876048
  * Gradient Calls: 4960
 [theta1, theta2, theta3, theta4, theta5] = [0.0275659, 0.515051, 0.110337, 0.0252142, 0.0470559]
 logp:19.709131389510937
-</code></pre><p><img src="/images/posts/gp-parameter-estimation_linear_gaussian.png" alt="線形+ガウスカーネルによる回帰"></p>
+</code></pre><p><img src="gp-parameter-estimation_linear_gaussian.png" alt="線形+ガウスカーネルによる回帰"></p>
 <p>内容をまとめたJupyter Notebook -&gt;<br>
 <a href="https://nbviewer.jupyter.org/github/matsueushi/notebook_blog/blob/master/gp_blog.ipynb">https://nbviewer.jupyter.org/github/matsueushi/notebook_blog/blob/master/gp_blog.ipynb</a></p>
 <p>カーネル部分をjlファイルに分離し、指数カーネルや周期カーネルも定義したレポジトリはこちら -&gt;<br>

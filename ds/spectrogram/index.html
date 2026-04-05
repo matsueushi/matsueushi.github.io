@@ -108,7 +108,7 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#0550ae">[</span>91a5bcdd<span style="color:#0550ae">]</span> Plots v1.4.4
 </span></span><span style="display:flex;"><span>  <span style="color:#0550ae">[</span>8149f6b0<span style="color:#0550ae">]</span> WAV v1.0.3
 </span></span></code></pre></div><p>楽曲データは、所有しているCDをWAV形式でリッピングしたものを使います。</p>
-<p><img src="/images/posts/spectrogram_windowlicker_wav.png" alt="インポートした楽曲"></p>
+<p><img src="spectrogram_windowlicker_wav.png" alt="インポートした楽曲"></p>
 <h2 id="wavファイルの読み込み">WAVファイルの読み込み</h2>
 <p>まずはデータを読み込んでみます。WAV形式のファイルフォーマットは <a href="https://github.com/dancasimiro/WAV.jl">WAV.jl</a> で読み書きできます。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">using</span> WAV
@@ -166,8 +166,8 @@
 </span></span><span style="display:flex;"><span><span style="color:#57606a"># channel 2</span>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span>y<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#0550ae">:</span><span style="color:#0550ae">1000</span><span style="color:#0550ae">:</span><span style="color:#cf222e">end</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">],</span> title<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;ch2&#34;</span><span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;ch2.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_ch1.png" alt="Channel1"></p>
-<p><img src="/images/posts/spectrogram_ch2.png" alt="Channel2"></p>
+</span></span></code></pre></div><p><img src="spectrogram_ch1.png" alt="Channel1"></p>
+<p><img src="spectrogram_ch2.png" alt="Channel2"></p>
 <p>見ただけだと左右のチャンネルのズレはよくわからないですね。</p>
 <h2 id="縦波と横波">縦波と横波</h2>
 <p>そもそもこの波形が何を表しているか分からなくなってしまったのですが、色々調べて
@@ -176,7 +176,7 @@
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xs <span style="color:#0550ae">=</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">2</span><span style="color:#6639ba">π</span><span style="color:#0550ae">:</span><span style="color:#0550ae">0.2</span><span style="color:#0550ae">:</span><span style="color:#0550ae">2</span><span style="color:#6639ba">π</span>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span>xs<span style="color:#1f2328">,</span> sin<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>xs<span style="color:#1f2328">),</span> lw<span style="color:#0550ae">=</span><span style="color:#0550ae">2</span><span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;y = sinx(x)&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>plot!<span style="color:#1f2328">(</span>xs <span style="color:#0550ae">.+</span> sin<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>xs<span style="color:#1f2328">),</span> lw<span style="color:#0550ae">=</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> seriestype<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;vline&#34;</span><span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_sinwave.png" alt="Sin wave"></p>
+</span></span></code></pre></div><p><img src="spectrogram_sinwave.png" alt="Sin wave"></p>
 <p>サイン波の場合、縦波 (オレンジ) と横波 (青) の関係を表すと上のようになり、
 横波で値が0になっている点が縦波(疎密波)の疎と密になっている部分に対応しています。</p>
 <h2 id="離散フーリエ変換">離散フーリエ変換</h2>
@@ -211,9 +211,9 @@ $$<p>に写す変換です。</p>
 </span></span><span style="display:flex;"><span>xf <span style="color:#0550ae">=</span> range<span style="color:#1f2328">(</span><span style="color:#0550ae">0.0</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">1.0</span> <span style="color:#0550ae">/</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">2</span> <span style="color:#0550ae">*</span> spacing<span style="color:#1f2328">),</span> length<span style="color:#0550ae">=</span><span style="color:#1f2328">(</span>n_sample <span style="color:#0550ae">÷</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">))</span>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span>xf<span style="color:#1f2328">,</span> <span style="color:#0550ae">2.0</span> <span style="color:#0550ae">/</span> n_sample <span style="color:#0550ae">*</span> abs<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>yf<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#0550ae">:</span><span style="color:#cf222e">end</span><span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">]),</span> title<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;rfft&#34;</span><span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;twosines_rfft.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_twosines.png" alt="Two sines"></p>
-<p><img src="/images/posts/spectrogram_twosines_fft.png" alt="FFT"></p>
-<p><img src="/images/posts/spectrogram_twosines_rfft.png" alt="RFFT"></p>
+</span></span></code></pre></div><p><img src="spectrogram_twosines.png" alt="Two sines"></p>
+<p><img src="spectrogram_twosines_fft.png" alt="FFT"></p>
+<p><img src="spectrogram_twosines_rfft.png" alt="RFFT"></p>
 <p><code>fft</code>と<code>rfft</code>の違いですが、実数関数の高速フーリエ変換を行う場合は、得られる結果は複素共役になっているので
 <code>fft</code>の最初の\(N/2+1\)個の要素だけ取り出したのが<code>rfft</code>です。今後は<code>rfft</code>を使っていきます。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#0550ae">&gt;</span> fft<span style="color:#1f2328">(</span>ys<span style="color:#1f2328">)</span>
@@ -277,7 +277,7 @@ $$<p>で与えられます。</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span><span style="color:#0550ae">0</span><span style="color:#0550ae">:</span><span style="color:#0550ae">64</span><span style="color:#1f2328">,</span> hann<span style="color:#1f2328">(</span><span style="color:#0550ae">64</span><span style="color:#1f2328">),</span> title<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;Hann function (N=64)&#34;</span><span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;hann_function.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_hann_function.png" alt="Hann function"></p>
+</span></span></code></pre></div><p><img src="spectrogram_hann_function.png" alt="Hann function"></p>
 <p>切り出したサンプルに対して適用してみるとこんな感じです。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>window_size <span style="color:#0550ae">=</span> <span style="color:#0550ae">1024</span>
 </span></span><span style="display:flex;"><span>xs <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span><span style="color:#0550ae">:</span>window_size<span style="color:#0550ae">+</span><span style="color:#0550ae">1</span>
@@ -289,7 +289,7 @@ $$<p>で与えられます。</p>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span>xs<span style="color:#1f2328">,</span> ys<span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;Original&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>plot!<span style="color:#1f2328">(</span>xs<span style="color:#1f2328">,</span> ys_hann<span style="color:#1f2328">,</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;Filtered&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;filtered.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_filtered.png" alt="ハン関数を適用"></p>
+</span></span></code></pre></div><p><img src="spectrogram_filtered.png" alt="ハン関数を適用"></p>
 <p>適用する前と後で得られるスペクトラムを比較すると、</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>xf <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span><span style="color:#0550ae">:</span><span style="color:#1f2328">(</span>window_size <span style="color:#0550ae">÷</span> <span style="color:#0550ae">2</span> <span style="color:#0550ae">+</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>yf <span style="color:#0550ae">=</span> rfft<span style="color:#1f2328">(</span>ys<span style="color:#1f2328">)</span>
@@ -297,7 +297,7 @@ $$<p>で与えられます。</p>
 </span></span><span style="display:flex;"><span>plot<span style="color:#1f2328">(</span>xf<span style="color:#1f2328">,</span> <span style="color:#0550ae">2.0</span> <span style="color:#0550ae">/</span> window_size <span style="color:#0550ae">*</span> abs<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>yf<span style="color:#1f2328">),</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;Original&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>plot!<span style="color:#1f2328">(</span>xf<span style="color:#1f2328">,</span> <span style="color:#0550ae">2.0</span> <span style="color:#0550ae">/</span> window_size <span style="color:#0550ae">*</span> abs<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>yf_hann<span style="color:#1f2328">),</span> label<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;Filtered&#34;</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;rfft_hann.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_rfft_hann.png" alt="Spectrogramの比較"></p>
+</span></span></code></pre></div><p><img src="spectrogram_rfft_hann.png" alt="Spectrogramの比較"></p>
 <p>ハン関数を適用した方が全体的にノイズが低減されているように見えます。</p>
 <h2 id="いよいよスペクトログラムを描く">いよいよスペクトログラムを描く</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#57606a"># spectrogram</span>
@@ -322,11 +322,11 @@ $$<p>で与えられます。</p>
 </span></span><span style="display:flex;"><span>heatmap_data <span style="color:#0550ae">=</span> log<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>data<span style="color:#1f2328">[</span><span style="color:#0550ae">:</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">end</span><span style="color:#0550ae">-</span><span style="color:#0550ae">2000</span><span style="color:#0550ae">:</span><span style="color:#cf222e">end</span><span style="color:#0550ae">-</span><span style="color:#0550ae">800</span><span style="color:#1f2328">])</span>
 </span></span><span style="display:flex;"><span>heatmap<span style="color:#1f2328">(</span>heatmap_data<span style="color:#1f2328">,</span> margin<span style="color:#0550ae">=</span><span style="color:#0550ae">5</span>mm<span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;spectrogram_formula.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_formula.png" alt="Formulaのスペクトログラム"></p>
+</span></span></code></pre></div><p><img src="spectrogram_formula.png" alt="Formulaのスペクトログラム"></p>
 <p>うーん、なんか見た目が微妙ですね。y軸を対数軸にすると</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>heatmap<span style="color:#1f2328">(</span>heatmap_data<span style="color:#1f2328">,</span> margin<span style="color:#0550ae">=</span><span style="color:#0550ae">5</span>mm<span style="color:#1f2328">,</span> yaxis<span style="color:#0550ae">=</span><span style="color:#032f62">:log</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;spectrogram_formula_log.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_formula_log.png" alt="Formulaのスペクトログラム(log)"></p>
+</span></span></code></pre></div><p><img src="spectrogram_formula_log.png" alt="Formulaのスペクトログラム(log)"></p>
 <p>となりようやく「顔」に対面できました。</p>
 <p>ついでに1曲目のWindowlickerに隠されている螺旋模様も見ましょう。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#57606a"># windowlicker</span>
@@ -336,7 +336,7 @@ $$<p>で与えられます。</p>
 </span></span><span style="display:flex;"><span>heatmap_data <span style="color:#0550ae">=</span> log<span style="color:#0550ae">.</span><span style="color:#1f2328">(</span>data<span style="color:#1f2328">[</span><span style="color:#0550ae">:</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">end</span><span style="color:#0550ae">-</span><span style="color:#0550ae">900</span><span style="color:#0550ae">:</span><span style="color:#cf222e">end</span><span style="color:#0550ae">-</span><span style="color:#0550ae">200</span><span style="color:#1f2328">])</span>
 </span></span><span style="display:flex;"><span>heatmap<span style="color:#1f2328">(</span>heatmap_data<span style="color:#1f2328">,</span> margin<span style="color:#0550ae">=</span><span style="color:#0550ae">5</span>mm<span style="color:#1f2328">,</span> yaxis<span style="color:#0550ae">=</span><span style="color:#032f62">:log</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>savefig<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;windowlicker_log.png&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p><img src="/images/posts/spectrogram_windowlicker_log.png" alt="Spiral of Windowlicker"></p>
+</span></span></code></pre></div><p><img src="spectrogram_windowlicker_log.png" alt="Spiral of Windowlicker"></p>
 <p>今回は以上です。</p>
 <hr>
 <h3 id="参考">参考</h3>
