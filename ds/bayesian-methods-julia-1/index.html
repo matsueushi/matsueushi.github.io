@@ -12,6 +12,15 @@
 <meta property="og:site_name" content="matsueushi">
 <link rel="canonical" href="https://matsueushi.github.io/ds/bayesian-methods-julia-1/"><link rel="stylesheet" href="/css/main.a10ce7c1ce5a0cfbebf103d0a0d8fc5a31424091224ffddc4dd0baf4e3132415.css">
 <link rel="icon" href="https://matsueushi.github.io/favicon.ico">
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
       <script>
@@ -83,7 +92,7 @@
 </span></span><span style="display:flex;"><span>    linecolor <span style="color:#0550ae">=</span> <span style="color:#032f62">:transparent</span><span style="color:#1f2328">,</span>
 </span></span><span style="display:flex;"><span>    xlabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;Time (days)&#34;</span><span style="color:#1f2328">,</span> ylabel <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;Count of messages&#34;</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><p><img src="bayesian-methods-julia-1_1.png" alt="Count of messages"></p>
-<p>\( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \lambda \) で変わる日があるとする。\( \tau &lt; \lambda \) のとき \( \lambda = \lambda_1, \tau \ge \lambda \) の時 \( \lambda=\lambda_2 \)とする。</p>
+<p>\( i \) 日目のメッセージ数 \( C_i \) がポアソン分布 \( \text{Poisson}(\lambda) \) に従い、\( \lambda \) の値が突然ある日 \( \tau \) で変わる日があるとする。\( i &lt; \tau \) のとき \( \lambda = \lambda_1, i \ge \tau \) の時 \( \lambda=\lambda_2 \)とする。</p>
 <p>この \( \tau, \lambda_1, \lambda_2 \) 推定する。\( \lambda_1, \lambda_2 \) の事前分布は指数分布 \( \text{Exp}(\alpha) \) とする。ここでαは計数データの平均の逆数である。\( \tau \) の事前分布は一様分布とする。</p>
 <p>Mambaでモデリングするときに注意しないといけないのは、PyMCと分布のパラメトライズが一部異なるところである。</p>
 <blockquote>
