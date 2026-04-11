@@ -89,8 +89,8 @@
     "summary": "5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia) を書きました。\nそこで RoundingEmulator.jl という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ IntervalArithmetic.jl に プルリクエスト Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl を送って丸めモードを指定した計算に使われるようになりました。\n",
     "tags": [
       "GitHub",
-      "開発",
-      "Julia"
+      "Julia",
+      "RoundingEmulator"
     ],
     "title": "JuliaのパッケージをOrganizationに移譲する",
     "url": "/programming/transfer-github-repository/"
@@ -362,7 +362,7 @@
     "section": "diary",
     "summary": "vscodeでアタッチしたコンテナからコミットしようとすると、\nfatal: cannot run /usr/local/bin/gpg: No such file or directory\nというメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。\n",
     "tags": [
-      "開発",
+      "Docker",
       "Git",
       "GPG"
     ],
