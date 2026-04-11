@@ -6,7 +6,8 @@
     "section": "music",
     "summary": "\n2001年にワーナーミュージック・ジャパンから発売された「北青山的13曲1000円」 というコンピレーションアルバム。当時の千円札の肖像だった夏目漱石のジャケットが印象的で、タイトル通り1,000円で販売されていました。\n",
     "tags": [
-      "北青山的"
+      "北青山的",
+      "Hyperdrifting"
     ],
     "title": "「北青山的」とは何だったのか",
     "url": "/music/kita-aoyama-teki/"
@@ -17,7 +18,9 @@
     "permalink": "https://matsueushi.github.io/diary/hyperdrifting-en/",
     "section": "diary",
     "summary": "Disclaimer: This is an English translation of Hyperdrifting — インターネットの辺境を目的なく漂流する.\nOne of the main sections of this website is a collection of pages I\u0026rsquo;ve researched and organized about a band called BOaT. I no longer remember how I first came across them, but after listening obsessively to their recordings — including \u0026ldquo;RORO\u0026rdquo; — I found myself digging into information about the band, who were active from the late 1990s through around 2001.\n",
-    "tags": null,
+    "tags": [
+      "Hyperdrifting"
+    ],
     "title": "Hyperdrifting — Drifting Aimlessly Through the Edges of the Internet",
     "url": "/diary/hyperdrifting-en/"
   },
@@ -27,7 +30,9 @@
     "permalink": "https://matsueushi.github.io/diary/hyperdrifting/",
     "section": "diary",
     "summary": "このウェブサイトは、BOaTというバンドについて調べて整理したページがメインコンテンツの一つだ。今となってはバンドを知ったきっかけは忘れたが、\u0026ldquo;RORO\u0026rdquo; を始めとする音源を聴きまくっているうちに、1990年代後半から2001年ごろにかけて活動していた彼らについての情報を調べるようになっていた。\n",
-    "tags": null,
+    "tags": [
+      "Hyperdrifting"
+    ],
     "title": "Hyperdrifting — インターネットの辺境を目的なく漂流する",
     "url": "/diary/hyperdrifting/"
   },
@@ -149,7 +154,8 @@
     "section": "music",
     "summary": "BOaT には \u0026ldquo;LISTENING 11\u0026rdquo; や \u0026ldquo;Listening 40\u0026rdquo; など \u0026ldquo;Listening\u0026rdquo; がついた曲があります。 この \u0026ldquo;Listening\u0026rdquo; について調べてみました。\nLISTENING 事務局 「LISTENING という言葉からイメージ、発想された作品に、番号をつけてつながりを持たせる」 ことを目的とした LISTENING 事務局 が存在し 1、\n",
     "tags": [
-      "BOaT"
+      "BOaT",
+      "Hyperdrifting"
     ],
     "title": "2000年ごろに音楽作品に付けられていた\"LISTENING NUMBER\"について",
     "url": "/music/listening-number/"
