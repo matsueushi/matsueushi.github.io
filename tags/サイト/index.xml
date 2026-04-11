@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>サイト on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/%E3%82%B5%E3%82%A4%E3%83%88/</link>
+    <description>Recent content in サイト on matsueushi</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2026 matsueushi</copyright>
+    <lastBuildDate>Sun, 23 Aug 2020 21:25:36 +0900</lastBuildDate>
+    <atom:link href="https://matsueushi.github.io/tags/%E3%82%B5%E3%82%A4%E3%83%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugoのページを検索できるようにした</title>
+      <link>https://matsueushi.github.io/diary/hugo-search/</link>
+      <pubDate>Sun, 23 Aug 2020 21:25:36 +0900</pubDate>
+      <guid>https://matsueushi.github.io/diary/hugo-search/</guid>
+      <description>&lt;p&gt;下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae&#34;&gt;Client side searching for Hugo.io with Fuse.js&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.mamansoft.net/2019/11/11/add-search-page-in-blog-made-by-hugo/&#34;&gt;Hugo製ブログに検索ページを追加してみた&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.unigiri.net/article/hugo-lunr%E3%81%AB%E3%82%88%E3%82%8B%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2/&#34;&gt;Hugo + Lunrによる日本語全文検索&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;なんか微妙に検索結果がおかしい時もありますが、いったん置いておきます。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>サイトのデザインを変えました</title>
+      <link>https://matsueushi.github.io/diary/tokiwa/</link>
+      <pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
+      <guid>https://matsueushi.github.io/diary/tokiwa/</guid>
+      <description>&lt;p&gt;パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>GitHub Pagesに引っ越した</title>
+      <link>https://matsueushi.github.io/diary/hugo/</link>
+      <pubDate>Thu, 06 Jun 2019 22:48:39 -0400</pubDate>
+      <guid>https://matsueushi.github.io/diary/hugo/</guid>
+      <description>&lt;p&gt;過去のポストをこっちのGitHub Pagesに移行させた。疲れた。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KaTeXで複数行の数式を入力</title>
+      <link>https://matsueushi.github.io/diary/katex-multiline/</link>
+      <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
+      <guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
+      <description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;(&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 1+1 &lt;span style=&#34;color:#cf222e&#34;&gt;\\\\&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;\begin{aligned}&#xA;x &amp;amp;= 1+1 \\&#xA;&amp;amp;= 2&#xA;\end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>KaTeX Test</title>
+      <link>https://matsueushi.github.io/diary/katex-test/</link>
+      <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
+      <guid>https://matsueushi.github.io/diary/katex-test/</guid>
+      <description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

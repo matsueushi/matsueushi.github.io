@@ -88,7 +88,9 @@
     "section": "programming",
     "summary": "5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia) を書きました。\nそこで RoundingEmulator.jl という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ IntervalArithmetic.jl に プルリクエスト Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl を送って丸めモードを指定した計算に使われるようになりました。\n",
     "tags": [
-      "GitHub"
+      "GitHub",
+      "開発",
+      "Julia"
     ],
     "title": "JuliaのパッケージをOrganizationに移譲する",
     "url": "/programming/transfer-github-repository/"
@@ -249,7 +251,8 @@
     "section": "programming",
     "summary": "MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019） の参加記です。\n下はseed=40の結果(score=165,708,812)。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "MC Digital プログラミングコンテスト2023（AtCoder Heuristic Contest 019）参加記",
     "url": "/programming/ahc019/"
@@ -262,7 +265,8 @@
     "summary": "LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、mlflow.lightgbm.autolog() や mlflow.xgboost.autolog() を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。\n",
     "tags": [
       "Mlflow",
-      "CatBoost"
+      "CatBoost",
+      "機械学習"
     ],
     "title": "MlflowでCatBoostのメトリクスをロギングする",
     "url": "/ds/catboost-mlflow/"
@@ -274,7 +278,8 @@
     "section": "programming",
     "summary": "RustでAtCoderのインタラクティブ問題の入出力方法がわからなかったのでメモ\nproconio クレートの [fastout] は使わないで下のようにすれば良い。\nuse std::io::BufReader; use proconio::{input, source::line::LineSource}; fn main() { let stdin = std::io::stdin(); let mut source = LineSource::new(BufReader::new(stdin)); input! { from \u0026amp;mut source, n: usize, } ...(省略)... } https://atcoder.jp/contests/abc269/submissions/34963751\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "Rustでインタラクティブの問題を解く",
     "url": "/programming/rust-interactive/"
@@ -286,7 +291,8 @@
     "section": "programming",
     "summary": "UNICORNプログラミングコンテスト2022(AtCoder Beginner Contest 269)でAtCoder水色に上がりました。 https://atcoder.jp/users/matsueushi\n緑に上がった後にJuliaではなくRustを使い始めたので最初のうちは言語の違いに苦戦していました。 とはいえまだコレクションの扱いなどはいつもドキュメントや自分のメモを見返しながら実装しているので慣れたいですね。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoderで水色になりました",
     "url": "/programming/cyan/"
@@ -298,7 +304,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc268/tasks/abc268_c\n人 \\(i\\) の前に料理 \\(p_i\\) が置かれている場合、その皿だけ考えると、mod Nで考えて、 \\(i-p_i-1, i-p_i, i-p_i+1\\) だけ料理をずらした時に幸福値が1増えてそれ以外だと幸福値は増えない。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 268 C Chinese Restaurant",
     "url": "/programming/abc268c/"
@@ -319,7 +326,9 @@
     "permalink": "https://matsueushi.github.io/programming/rust-test-nocapture/",
     "section": "programming",
     "summary": "cargo testでテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、\n$ cargo test -- --nocapture で出てくるようにできるようだ。\nEnabling print statements in Cargo tests\n",
-    "tags": null,
+    "tags": [
+      "Rust"
+    ],
     "title": "Rustでcargo test中にprintlnする",
     "url": "/programming/rust-test-nocapture/"
   },
@@ -330,7 +339,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc181/tasks/abc181_f\n\\(r\\) を動かした時に、動かす円の中心が存在できない範囲を考えてみる。 壁もしくは障害物から距離 \\(r\\) 未満の位置に円の中心を配置することができないことを考えると、動かせない範囲は下の青色で示した領域の内部になる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 181 F - Silver Woods",
     "url": "/programming/abc181-f/"
@@ -352,6 +362,7 @@
     "section": "diary",
     "summary": "vscodeでアタッチしたコンテナからコミットしようとすると、\nfatal: cannot run /usr/local/bin/gpg: No such file or directory\nというメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。\n",
     "tags": [
+      "開発",
       "Git",
       "GPG"
     ],
@@ -364,7 +375,10 @@
     "permalink": "https://matsueushi.github.io/programming/julia-rust/",
     "section": "programming",
     "summary": "Julia では argmin とか argmax などの関数が用意されていたのですが、 Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。\n",
-    "tags": null,
+    "tags": [
+      "Julia",
+      "Rust"
+    ],
     "title": "Rustでargminやargmaxはどう書くのか",
     "url": "/programming/julia-rust/"
   },
@@ -376,7 +390,8 @@
     "summary": "元々JuliaでAtCoderに挑戦していたのですが、違う言語も触ってみたいと思いRustで最近問題を解いています。 ちょっと触った感じの感想として、Rustの良いところとしては、\n",
     "tags": [
       "Rust",
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "RustでAtCoderに挑戦",
     "url": "/programming/rust-atcoder/"
@@ -387,7 +402,9 @@
     "permalink": "https://matsueushi.github.io/programming/segtree/",
     "section": "programming",
     "summary": "実装方法ではなく使い方のメモです。 計算する区間の添字の流儀は AtCoder Library を参考にしています。\nまだ整理できていないもの\n双対セグメント木 2Dセグ木 永続セグメント木 imos法？ フェニック木(Fenwick Tree, Bit Indexed Tree) 一点加算更新・区間加算 のクエリが処理できるデータ構造。\n",
-    "tags": null,
+    "tags": [
+      "競プロ"
+    ],
     "title": "セグメント木でできることを整理する",
     "url": "/programming/segtree/"
   },
@@ -410,7 +427,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/tenka1-2018/tasks/tenka1_2018_c\n正の整数からなる数列 \\(\\{A_i\\}_i\\) が与えられた時に、 数列を自由に並び替えた時の隣り合う要素の差の合計の最大値を求めよ、という問題。\n大小関係がジグザグにすれば良い、ということはなんとなくわかったが、 解説を読んでもピンと来なかったので整理しておく。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "Tenka1 Programmer Contest C - Align",
     "url": "/programming/tenka1-2018-c/"
@@ -422,7 +440,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c\n2人が最適な戦略を取るとき、残っている料理のうち \\(A_i+B_i\\) が最大となるものを交互に選んでいくことになることを示す。\n3 20 10 20 20 20 30 この入力の場合を考える。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "全国統一プログラミング王決定戦予選 C - Different Strokes",
     "url": "/programming/nikkei2019-qual-c/"
@@ -434,7 +453,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc121/tasks/abc121_d\nビットごとの排他的論理和は二回繰り返すと元に戻り、可換で結合法則を満たすことから、\n\\(f(A,B)=A \\veebar A+1 \\veebar \\cdots \\veebar B\\)\n\\(= (0 \\veebar 2 \\veebar \\cdots \\veebar A-1) \\veebar (0 \\veebar 2 \\veebar \\cdots \\veebar B)\\)\n\\(= f(1,A-1) \\veebar f(1,B)\\)\nだから、\\(A=0\\) の場合に帰着される。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 121 D - XOR World",
     "url": "/programming/abc121-d/"
@@ -446,7 +466,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc147/tasks/abc147_d\nもちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。\n\\(z_i = 1 \\ll i\\) とおくと、任意の \\(x\\) に対して \\(x = \\sum_i x \\\u0026amp; z_i\\) であり、 \\((x \\oplus y) \\\u0026amp; z_i = (x \\\u0026amp; z_i )\\oplus (y \\\u0026amp; z_i)\\) である。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 147 D - Xor Sum 4",
     "url": "/programming/abc147-d/"
@@ -458,7 +479,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/agc023/tasks/agc023_a\n\\(C_j = \\sum_{k=1}^j A_k\\) とおくと、 \\(\\sum_{k=i}^j A_k = 0 \\Leftrightarrow C_j = C_{k-1}\\) であるから、 累積和を求めて \\(C_0=0, C_j = \\sum_{k=1}^j A_k\\) とおき、 \\(I_x = \\{ i \\mid C_i = x\\}\\) を計算して、\\(\\sum_x |I_x| (|I_x|-1)/2\\) を求めれば良い。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder AGC 023 A - Zero-Sum Ranges",
     "url": "/programming/agc023-a/"
@@ -470,7 +492,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc255/tasks/abc255_c\n\\(\\min_{i=0,\\ldots,n-1}|A+Di-X|\\) を求めれば良い。\\(y=A+Dx\\) と \\(y=X\\) の交点を求め、 \\(x \u0026lt; 0, 1 \\le x \\le n-1 ,x \u0026gt; n-1\\) の場合に応じて計算すれば良い。\n\\(|A+Di-X|\\) が最も小さくなるのは、\\(x\\) に最も近い \\(0\\le i \\le n-1\\) を選んだ時である。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 255 C - ±1 Operation 1 ",
     "url": "/programming/abc255-c/"
@@ -482,7 +505,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc255/tasks/abc255_d\n\\(i\\) を一つ固定した時、操作の最低回数は \\(\\sum_{j=1}^N |A_j-X_i|\\) である。\n\\(A_k\\) の順番は関係ないので、 \\(A_k\\) は昇順にソートしているとして良い。\\(A_k\\) をソートするのは最初に一回だけやれば良い。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 255 D - ±1 Operation 2",
     "url": "/programming/abc255-d/"
@@ -494,7 +518,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc255/tasks/abc255_e\n\\(A_1 = \\alpha\\) とおくと、\n\\(A_2 = S_1 - A_1 = S_1 - \\alpha\\) \\(A_3 = S_2 - A_2 = S_2 - S_1 + \\alpha\\) \u0026hellip; となることがわかる。 \\(T_1 = 0, T_k = \\sum_{i=1}^{k-1} (-1)^{i+k+1}S_k\\) とおくと、どんな \\(A\\) に対しても、 ある \\(\\alpha\\) が存在して \\(A_k = T_k + (-1)^{k+1} \\alpha\\) が全ての \\(k\\) に対して成り立つことがわかる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 255 E - Lucky Numbers",
     "url": "/programming/abc255-e/"
@@ -506,7 +531,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d\n\\(t = \\lfloor n/m\\rfloor = n \\mod m\\) とおくと \\(0 \\le t \u0026lt; m\\)であり、\\(n=\\alpha m + t\\) とおける。 \\(t\\) の条件から \\(\\alpha = \\lfloor n/m\\rfloor = t\\) だから結局 \\(n = t(m+1)\\) とかける。\n\\(n = t(m+1) \\ge t^2\\) より、\\(t \\le \\sqrt{n}\\) を探索すれば良い。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder diverta 2019 Programming Contest D - DivRem Number",
     "url": "/programming/diverta2019-d/"
@@ -518,7 +544,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/apc001/tasks/apc001_b\n\\(c_i = a_i - b_i\\) とする。\n3 1 2 3 5 2 2 であれば \\(c = [-4,0,1]\\) となる。 目的は、全ての \\(i\\) に対して \\(c_i = 0\\) とすること。\n\\(a_i\\) に \\(2\\) を足し、\\(b_i\\) に \\(1\\) を足す操作は、\\(i=j\\) であれば \\(c_i\\) に \\(1\\) を足し(操作1とする）、 \\(i \\neq j\\) ならば \\(c_i\\) に \\(2\\) を足し、\\(c_j\\) から \\(1\\) を引く操作(操作2とする)に対応する。 数字を減らすのは操作2でしか行えないことに注意。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder APC 001 B - Two Arrays",
     "url": "/programming/apc001-b/"
@@ -530,7 +557,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc198/tasks/abc198_d\n覆面算を解く問題。Send More Moneyって何？と思ったのですが SEND + MORE = MONEY という覆面算が有名らしいです。\n戦略としては、\nS_1, S_2, S_3 に出てくる文字の集合を作る。10種類以上出てきたら UNSOLVABLE 先ほど文字の集合に番号をつける。順番はどうでもいい。['v', 'f', 'c'] だったら v = 1番目、f = 2番目、のような対応づけをする。 これにより、S_1, S_2, S_3 が [3,5,1], [1,4,2], [2,2,2] のような 1~10の整数の数列に変換できる。 あとは 110番目の文字に対して 09 の数字をどのように当てはめるか全探索。 全探索しても10!=3628800通りなので間に合う。 Julia だと C++ における std::next_permutaiton が標準ライブラリに無い(存在を知らない) ので自分で作る必要がありますね。 https://atcoder.jp/contests/abc198/submissions/32308692\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 198 D - Send More Money",
     "url": "/programming/abc198-d/"
@@ -542,7 +570,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc129/tasks/abc129_d\n水平方向、垂直方向にそれぞれ見て行った時に、\u0026rsquo;#\u0026rsquo;, \u0026lsquo;.\u0026lsquo;の連続数を並べた数列を作る。\n#..#.. .....# ....#. #.#... であったら\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 129 D - Lamp",
     "url": "/programming/abc129-d/"
@@ -554,7 +583,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc153/tasks/abc153_e\n\\(dp[i][k]\\) = \\(i\\) 番目までの魔法からダメージが \\(k\\) 以上になるように選んだ時に消費するMPの最小値\nとすると、個数制限なしナップザック問題（の類似）に帰着される。 (参考:蟻本の2章 p.p.58 漸化式を工夫する)\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 153 E - Crested Ibis vs Monster",
     "url": "/programming/abc153-e/"
@@ -566,7 +596,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc161/tasks/abc161_d\n桁数の少ないルンルン数から順に作っていけば良い。\n1桁のルンルン数 = 1,2,\u0026hellip;,9\n2桁のルンルン数 = ([1 桁のルンルン数][最後の数字に-1,0,+1のどれかを足したもの]の順に繋げた数)\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 161 D - Lunlun Number",
     "url": "/programming/abc161-d/"
@@ -578,7 +609,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/code-festival-2017-qualc/tasks/code_festival_2017_qualc_c\n目標が達成可能かどうかは、s から \u0026lsquo;x\u0026rsquo; を取り除いてできる文字列が回文であるかどうかで判定できる。 以後、目標が達成可能な場合を考える。\ns の \u0026lsquo;x\u0026rsquo; でない文字列のうち左から i 番目の文字を \\(cs[i]\\) とする。(i = 1,\u0026hellip;,m とする)\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder CODE FESTIVAL 2017 qualC C - Inserting 'x'",
     "url": "/programming/code-festival-2017-qualc-d/"
@@ -590,7 +622,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/agc034/tasks/agc034_a\nすぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\\([a,c]\\)の間に連続する黒マスがないこと、である。\n2人いる場合を考えると、\\(c\u0026lt;d \\) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、 ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。 よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 034 A - Kenken Race",
     "url": "/programming/agc034-a/"
@@ -602,7 +635,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/agc011/tasks/agc011_b\n\\(A_i\\) を降順にソートしても一般性を失わない。\n大きいものの方が吸収しづらいから、1番最後に\\(1\\), その前に \\(2, \\ldots, \\)を吸収したとして良い。 \\(A_1, \\ldots, A_i\\) を吸収するのに必要な最小のとなる生き物の大きさの整数値を \\(B_i\\) とする。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder AGC 011 B - Colorful Creatures",
     "url": "/programming/agc011-b/"
@@ -614,7 +648,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc134/tasks/abc134_d\n条件を満たすボールの入れ方は、一意に定まる。\nn = 4 の場合、4 までに 3, 4 の倍数は一つしかないので、 | | |X|X| a_3, a_4 の情報から i = 3,4 のボールの個数が確定する。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 134 D - Preparing Boxes",
     "url": "/programming/abc134-d/"
@@ -626,7 +661,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc064/tasks/abc064_d\n先頭に\u0026quot;(\u0026quot;, 末尾に\u0026quot;)\u0026ldquo;を繋げて括弧列を作るのが辞書式最小となる。 (そのような作り方をしないと、より左の位置に\u0026rdquo;)\u0026ldquo;が出現する)\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 064 D - Insertion",
     "url": "/programming/abc064-d/"
@@ -638,7 +674,8 @@
     "section": "programming",
     "summary": "山 i に降った雨の量を \\(2 * x_i\\) とすると、\\(\\sum A_i = 2 \\sum x_i\\) だから、\\(x_i\\) の合計がわかる。\nNが奇数であることから \\(A_i = x_i + x_{i+1}\\) をうまく足して \\(\\sum_{i \\neq j} x_i\\) が作れ、合計から引くことで \\(x_j\\) が求められる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 133 D - Rain Flows into Dams",
     "url": "/programming/abc133-d/"
@@ -650,7 +687,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc094/tasks/arc095_a\nまず、具体例で考えてみる。aがソートされている場合を考えよう。\n1,2,3,4,5\nで左からi番目の数を取り除いた中央値を考えると\n3,3,2,2,2\nとなる。\n1,2,2,3\nであれば\n2,2,2\nである。\nよって、pos = floor((l+1)/2), 取り除かれた値をxとすると、\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 094 C - Many Medians",
     "url": "/programming/abc094-c/"
@@ -662,7 +700,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc183/tasks/abc183_e\nまず1次元で右にしか進めない場合を考える。 dp[i]=左からi番目に移動する方法 とする。\ndp[i]=2^(n-1)である。1,…,i-1それぞれで立ち止まるか通過するか選べると考えてもいいが、dp[1]=1であり、i番目にいる時、移動をそこでやめてそこで立ち止まってi+1に進むか、そのまま移動してi+1に行くかの2通りがあるので、dp[i+1]=2*dp[i]であると考えられる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 183 E - Queen on Grid",
     "url": "/programming/abc183-e/"
@@ -674,7 +713,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc130/tasks/abc130_c\n長方形の対角線の交点をCとする。C=(x,y)ならどのように切っても長方形の面積を二等分できる。 そうでない場合はCと(x,y)を結ぶと二等分できる。 よって最初の答えは(x,y)の位置に関係なく長方形の面積の半分。最適な切り方が複数あるかは、C=(x,y)であるかどうか。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 130 C - Rectangle Cutting",
     "url": "/programming/abc130-c/"
@@ -686,7 +726,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_c\n各行に一つ以上イチゴが乗っている場合、行ごとに分割すれば目的が達成できる。 ある行に注目したときに、\n|🍓|　|　|🍓|　|　|\nであれば\n|1|2|2|2|2|2|\nのような帯に切り分ける。これを繰り返していくとイチゴが乗っていない行以外は、 行だけで注目するとイチゴが一つだけ乗った長方形のケーキに分かれる。 後はイチゴが1つも乗っていない行の切り方をイチゴが乗っている上の行か下の行に合わせて長方形になるようにする。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder DISCO presents ディスカバリーチャンネル コードコンテスト2020 予選 C - Strawberry Cakes",
     "url": "/programming/ddcc2020-qual-c/"
@@ -698,7 +739,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc137/tasks/abc137_d\n後ろから貪欲法で解ける気がする。 M-1日目を考えると、 残っている仕事のうち、 Ai=1を満たす仕事で報酬Biが最大となるものを請けるとして良いことがわかる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 137 D - Summer Vacation",
     "url": "/programming/abc137-d/"
@@ -710,7 +752,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc117/tasks/abc117_c\n数直線上に地点X_iを配置して、コマが移動した位置を塗りつぶすことを考える。\n移動回数を最小化したいので、塗りつぶす面積を最小化することを考える。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 117 C - Streamline",
     "url": "/programming/abc117-c/"
@@ -722,7 +765,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c\n円は残しておいても最終的なビスケットの枚数の最大値には寄与しない。また、使い道はビスケットB枚に交換することのみ。\nよって、Kアクション与えられた際、\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder みんなのプロコン2019 C - When I hit my pocket...",
     "url": "/programming/yahoo-procon2019-c/"
@@ -734,7 +778,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc154/tasks/abc154_e\n\\(N\\) の上 \\(i\\) 桁をつなげた数を \\(N(i)\\) とする。 \\(N\\) の上から \\(i\\) 桁目を \\(N_i\\) とする。\\(N\\) の桁数を \\(l\\) とする。\n\\(dp[i,k,0] = \\{ n \\in \\mathbb{Z} \\mid n \u0026lt; N(i) ,n の 0 でない数字の数が k \\}\\) \\(dp[i,k,1] = \\{ n \\in \\mathbb{Z} \\mid n = N(i) ,n の 0 でない数字の数が k \\}\\) とすると、求めたいのは \\(dp[l,K,0] + dp[l,K,1]\\) である。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 154 E - Almost Everywhere Zero",
     "url": "/programming/abc154-e/"
@@ -746,7 +791,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc135/tasks/abc135_c\n勇者が倒せるモンスターの数を無駄にしたくないので、 他の勇者が倒せるモンスターよりも自分しか倒せないモンスターを優先して倒すようにする。\n1番目の街のモンスターは1番目の勇者しか倒せないので、1番目の勇者は優先的に1番目の街のモンスターを倒し、 余力があれば2番の街のモンスターを倒す。 2番目の勇者は残っている2番目の街ののモンスターから倒す…… と順々に考えれば良い\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 135 C - City Savers",
     "url": "/programming/abc135-c/"
@@ -758,7 +804,8 @@
     "section": "programming",
     "summary": "4月頭からAtCoder Beginner Contestに出ていたのですが、緑色になりました。 https://atcoder.jp/users/matsueushi\n蟻本を読みながら「競プロ典型90問」を9割ぐらい解答を見ながら解いて、その後はABCの過去問をA-D問題を中心に解いていました。 D問題で時間がかかってしまうことが多いので、AtCoder Problems の「Boot camp for Beginners」を解きまくろうと思います。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoderで緑色になった",
     "url": "/programming/green/"
@@ -770,7 +817,8 @@
     "section": "programming",
     "summary": "https://atcoder.jp/contests/abc250/tasks/abc250_e\nコンテスト中は解けそうで解けなかったが、シンプルな方法で解けることにあとから気づいて悔やまれた。\n\\(S_i= \\{a_1, \\ldots, a_i\\}, T_i=\\{b_i, \\ldots, b_i \\} \\)とおくと、\\( S_1 \\subseteq S_2 \\subseteq \\cdots \\subseteq S_n, T_1 \\subseteq T_2 \\subseteq \\cdots \\subseteq T_n\\)となる。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoder ABC 250 E - Prefix Equality",
     "url": "/programming/abc250-e/"
@@ -796,7 +844,9 @@
     "section": "programming",
     "summary": "去年は色々と忙しくじっくり勉強する時間がなかったので、リハビリを兼ねて競技プログラミングの問題をJuliaで挑戦してみることにします。\nひとまず、AtCoderの競プロ典型 90 問を解いて行く予定です。 ジャッジ時にJITコンパイルが走って200~300ms程度消費してしまいますが、幸い今のところTLEでどう頑張っても通せない問題はなかったです。\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ",
+      "Julia"
     ],
     "title": "JuliaでAtCoderに挑戦",
     "url": "/programming/julia-atcoder/"
@@ -844,7 +894,8 @@
     "summary": "WebAPIを叩くと、レスポンスがJSON形式の文字列で返ってくることがあります。 ほとんどの場合そのまま文字列で扱うよりも、ライブラリを使ってプログラミング言語がサポートする辞書型に変換するのではないかと思います。\n",
     "tags": [
       "JSON",
-      "Struct"
+      "Struct",
+      "Julia"
     ],
     "title": "JuliaでネストしているDictをstructにマッピングする",
     "url": "/programming/julia-mapping-nested-dict/"
@@ -881,7 +932,9 @@
     "permalink": "https://matsueushi.github.io/programming/julia-package-version/",
     "section": "programming",
     "summary": "小ネタです。\n自分で簡単なパッケージを作っている時に、Project.toml内のversionの情報を取りたくなったので。\nプロジェクト情報はPkg.project()で取得できます。 ドキュメントにはJulia 1.4以上が必要で、この機能はexperimentalとありました。\n",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "Juliaのパッケージ内から自分自身のバージョンを取得する",
     "url": "/programming/julia-package-version/"
   },
@@ -905,7 +958,8 @@
     "section": "programming",
     "summary": " MATLAB–Python–Julia cheatsheet The Fast Track to A quick and dirty overview of Julia 1.0 Julia % julia _ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type \u0026#34;?\u0026#34; for help, \u0026#34;]?\u0026#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.5.1 (2020-08-25) _/ |\\__\u0026#39;_|_|_|\\__\u0026#39;_| | Official https://julialang.org/ release |__/ | Python % python Python 3.8.5 (default, Aug 5 2020, 08:22:02) [GCC 8.3.0] on linux Type \u0026#34;help\u0026#34;, \u0026#34;copyright\u0026#34;, \u0026#34;credits\u0026#34; or \u0026#34;license\u0026#34; for more information. Get the list of all files Julia: Base.Filesystem.readdir julia\u0026gt; readdir() 20-element Array{String,1}: \u0026#34;.dockerenv\u0026#34; \u0026#34;bin\u0026#34; \u0026#34;boot\u0026#34; \u0026#34;dev\u0026#34; \u0026#34;etc\u0026#34; \u0026#34;home\u0026#34; \u0026#34;lib\u0026#34; \u0026#34;lib64\u0026#34; \u0026#34;media\u0026#34; ⋮ \u0026#34;root\u0026#34; \u0026#34;run\u0026#34; \u0026#34;sbin\u0026#34; \u0026#34;srv\u0026#34; \u0026#34;sys\u0026#34; \u0026#34;tmp\u0026#34; \u0026#34;usr\u0026#34; \u0026#34;var\u0026#34; Python: os.listdir \u0026gt;\u0026gt;\u0026gt; import os \u0026gt;\u0026gt;\u0026gt; os.listdir() [\u0026#39;lib\u0026#39;, \u0026#39;home\u0026#39;, \u0026#39;etc\u0026#39;, \u0026#39;media\u0026#39;, \u0026#39;var\u0026#39;, \u0026#39;srv\u0026#39;, \u0026#39;sys\u0026#39;, \u0026#39;bin\u0026#39;, \u0026#39;usr\u0026#39;, \u0026#39;root\u0026#39;, \u0026#39;boot\u0026#39;, \u0026#39;tmp\u0026#39;, \u0026#39;dev\u0026#39;, \u0026#39;opt\u0026#39;, \u0026#39;mnt\u0026#39;, \u0026#39;lib64\u0026#39;, \u0026#39;proc\u0026#39;, \u0026#39;run\u0026#39;, \u0026#39;sbin\u0026#39;, \u0026#39;.dockerenv\u0026#39;] Join path components Julia: Base.Filesystem.joinpath julia\u0026gt; joinpath(\u0026#34;/home\u0026#34;, \u0026#34;file.txt\u0026#34;) \u0026#34;/home/file.txt\u0026#34; Python: os.path.join \u0026gt;\u0026gt;\u0026gt; import os \u0026gt;\u0026gt;\u0026gt; os.path.join(\u0026#39;/home\u0026#39;, \u0026#39;file.txt\u0026#39;) \u0026#39;/home/file.txt\u0026#39; Get the current working directory Julia: Base.@__DIR__ julia\u0026gt; @__DIR__ \u0026#34;/\u0026#34; Python: os.getcwd \u0026gt;\u0026gt;\u0026gt; import os \u0026gt;\u0026gt;\u0026gt; os.getcwd() \u0026#39;/\u0026#39; Get the running file path Julia: Base.@__FILE__ Python: __path__ Return an array of zeros with the same shape Julia: Base.zero julia\u0026gt; x = 1:6 1:6 julia\u0026gt; x = reshape(x, 2, 3) 2×3 reshape(::UnitRange{Int64}, 2, 3) with eltype Int64: 1 3 5 2 4 6 julia\u0026gt; zero(x) 2×3 Array{Int64,2}: 0 0 0 0 0 0 Python: numpy.zeros_like \u0026gt;\u0026gt;\u0026gt; import numpy as np \u0026gt;\u0026gt;\u0026gt; x = np.arange(6) \u0026gt;\u0026gt;\u0026gt; x = x.reshape((2, 3)) \u0026gt;\u0026gt;\u0026gt; x array([[0, 1, 2], [3, 4, 5]]) \u0026gt;\u0026gt;\u0026gt; np.zeros_like(x) array([[0, 0, 0], [0, 0, 0]]) Return an array of ones with the same shape Julia: Base.fill! + Base.similar julia\u0026gt; x = 1:6 1:6 julia\u0026gt; x = reshape(x, 2, 3) 2×3 reshape(::UnitRange{Int64}, 2, 3) with eltype Int64: 1 3 5 2 4 6 julia\u0026gt; x = collect(x) 2×3 Array{Int64,2}: 1 3 5 2 4 6 julia\u0026gt; fill!(similar(x), 1) 2×3 Array{Int64,2}: 1 1 1 1 1 1 Python: numpy.ones_like \u0026gt;\u0026gt;\u0026gt; import numpy as np \u0026gt;\u0026gt;\u0026gt; x = np.arange(6) \u0026gt;\u0026gt;\u0026gt; x = x.reshape((2, 3)) \u0026gt;\u0026gt;\u0026gt; x array([[0, 1, 2], [3, 4, 5]]) \u0026gt;\u0026gt;\u0026gt; np.ones_like(x) array([[1, 1, 1], [1, 1, 1]]) Get the value for the given key if key is in dictionary, and return the default value if the key is not found Julia: Base.get julia\u0026gt; d = Dict(\u0026#34;a\u0026#34;=\u0026gt;1, \u0026#34;b\u0026#34;=\u0026gt;2) Dict{String,Int64} with 2 entries: \u0026#34;b\u0026#34; =\u0026gt; 2 \u0026#34;a\u0026#34; =\u0026gt; 1 julia\u0026gt; get(d, \u0026#34;a\u0026#34;, 0) 1 julia\u0026gt; get(d, \u0026#34;c\u0026#34;, 0) 0 Python: dict.get \u0026gt;\u0026gt;\u0026gt; d = {\u0026#39;a\u0026#39;: 1, \u0026#39;b\u0026#39;: 2} \u0026gt;\u0026gt;\u0026gt; d.get(\u0026#39;a\u0026#39;, 0) 1 \u0026gt;\u0026gt;\u0026gt; d.get(\u0026#39;c\u0026#39;, 0) 0 ",
     "tags": [
-      "Python"
+      "Python",
+      "Julia"
     ],
     "title": "Julia vs Python Cheatsheet",
     "url": "/programming/julia-python-cheatsheet/"
@@ -927,7 +981,8 @@
     "section": "diary",
     "summary": "下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。\nClient side searching for Hugo.io with Fuse.js Hugo製ブログに検索ページを追加してみた Hugo + Lunrによる日本語全文検索 なんか微妙に検索結果がおかしい時もありますが、いったん置いておきます。\n",
     "tags": [
-      "Hugo"
+      "Hugo",
+      "サイト"
     ],
     "title": "Hugoのページを検索できるようにした",
     "url": "/diary/hugo-search/"
@@ -941,7 +996,8 @@
     "tags": [
       "Shazam",
       "Spectrogram",
-      "AudioFingerprinting"
+      "AudioFingerprinting",
+      "Julia"
     ],
     "title": "JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する",
     "url": "/ds/audiofingerprinting/"
@@ -962,7 +1018,9 @@
     "permalink": "https://matsueushi.github.io/programming/getindex/",
     "section": "programming",
     "summary": "Array から条件を満たすインデックスを取得する時は、findall を使う。\njulia\u0026gt; ar = collect(1:10).^2 10-element Array{Int64,1}: 1 4 9 16 25 36 49 64 81 100 julia\u0026gt; findall(x -\u0026gt; x % 2 == 0, ar) 5-element Array{Int64,1}: 2 4 6 8 10 2次元の場合\njulia\u0026gt; ar = Bool[0 0 0 0 0; 0 1 0 0 0; 0 0 0 1 0; 0 0 0 0 0; 0 0 0 0 0] 5×5 Array{Bool,2}: 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 julia\u0026gt; findall(ar) 2-element Array{CartesianIndex{2},1}: CartesianIndex(2, 2) CartesianIndex(3, 4) getindex と組み合わせると良い。\n",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "numpy.whereのようなことをJuliaでやりたい",
     "url": "/programming/getindex/"
   },
@@ -1006,7 +1064,8 @@
       "Spectrogram",
       "FFT",
       "Plots",
-      "AphexTwin"
+      "AphexTwin",
+      "Julia"
     ],
     "title": "スペクトログラムを作成する",
     "url": "/ds/spectrogram/"
@@ -1028,7 +1087,8 @@
     "section": "diary",
     "summary": "パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。\n",
     "tags": [
-      "Hugo"
+      "Hugo",
+      "サイト"
     ],
     "title": "サイトのデザインを変えました",
     "url": "/diary/tokiwa/"
@@ -1050,7 +1110,8 @@
     "section": "programming",
     "summary": "Juliaで丸めモードを指定して浮動小数点数の計算をする(したい) で色々とJuliaの丸めモードについて調べていましたが、今回はその続きです。\nやはりどうしてもJuliaの Float32 や Float64 に対して上付き丸め、下付き丸めを可能な限り正確に安定して行いたくなったので、 「最近点丸めによる方向付き丸めのエミュレート」を参考に、デフォルトの丸めモードのみを使って上付き丸め、下付き丸めをエミュレートするJuliaのパッケージを作成しました。\n",
     "tags": [
-      "Rounding"
+      "Rounding",
+      "Julia"
     ],
     "title": "デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)",
     "url": "/programming/rounding-emulator/"
@@ -1063,7 +1124,8 @@
     "summary": "2020/4/14追記 丸めモードについては、デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia) も参照してください。 IntervalArithmetic.jl のデフォルト丸めモードは、#370 で FastRounding.jl を利用しなくなった (v0.17.0以降) ので、 IntervalArithmetic.jl に関して以下に書いてある情報は古いです。\n",
     "tags": [
       "Rounding",
-      "Float"
+      "Float",
+      "Julia"
     ],
     "title": "Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)",
     "url": "/programming/julia-rounding/"
@@ -1078,7 +1140,8 @@
       "DeepLearning",
       "Flux",
       "SinGAN",
-      "GAN"
+      "GAN",
+      "Julia"
     ],
     "title": "Flux.jlでSinGANを実装する",
     "url": "/ds/fluxjl-singan/"
@@ -1093,7 +1156,9 @@
       "Flux",
       "DCGAN",
       "MNIST",
-      "MLP"
+      "MLP",
+      "機械学習",
+      "Julia"
     ],
     "title": "Flux.jl v0.10.0でDCGANを動かす(CUDA環境)",
     "url": "/ds/fluxjl-dcgan/"
@@ -1104,7 +1169,9 @@
     "permalink": "https://matsueushi.github.io/programming/julia-identity/",
     "section": "programming",
     "summary": "何かと必要になる単位行列だが、Julia v1.0以降だと LinearAlgebra をインポートして Matrix と I の組み合わせで作成するのが楽なようだ。\nusing LinearAlgebra using Distributions Matrix(I, 2, 2) 2×2 Array{Bool,2}: true false false true Matrix{Int64}(I, 2, 2) 2×2 Array{Int64,2}: 1 0 0 1 Matrix{Float64}(I, 2, 2) 2×2 Array{Float64,2}: 1.0 0.0 0.0 1.0 MvNormal の分散を単位行列にしたいときは、 I だけで大丈夫。\n",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "Juliaの単位行列",
     "url": "/programming/julia-identity/"
   },
@@ -1115,7 +1182,9 @@
     "section": "ds",
     "summary": "最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「ノンパラメトリックベイズ 点過程と統計的機械学習の数理」に入門を開始した。\nノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\\(K\\)-平均アルゴリズム(Wikipedia) を実装したので記録。使っているのはいつものようにJulia。\n",
     "tags": [
-      "KMean"
+      "KMean",
+      "Julia",
+      "統計"
     ],
     "title": "K-平均アルゴリズム",
     "url": "/ds/clustering-kmean/"
@@ -1127,7 +1196,9 @@
     "section": "ds",
     "summary": "前回 の続き。GaussianProcesses.jlを使ってガウス過程回帰のハイパーパラメータ推定を行ってみる。 「ガウス過程と機械学習」の図3.20(a)を例とする。\nxxs = [-0.5, 0.5, 1, 1.4, 3] yys = [0.7, 1.8, 1.7, 2.3, 1] scatter(xxs, yys) 0 1 2 3 0.9 1.2 1.5 1.8 2.1 y1 平均0のガウスカーネルのガウス過程に(ノイズ項込みで)フィッティングさせるのは非常に簡単で、optimize! を呼べば良いだけ。\n",
     "tags": [
-      "GaussianProcess"
+      "GaussianProcess",
+      "Julia",
+      "機械学習"
     ],
     "title": "Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(ハイパーパラメーター推定)",
     "url": "/ds/gaussianprocess-jl-2/"
@@ -1139,7 +1210,9 @@
     "section": "ds",
     "summary": "Juliaのガウス過程ライブラリ GaussianProcesses.jl を触ってみる。 チュートリアルはまだ未整備のようなので、サンプルノートブックとガウス過程と機械学習」などを参考にしながらやっていく。 Juliaのはv1.1.0, GaussianProcesses.jlはv0.9.0を使っている。\n",
     "tags": [
-      "GaussianProcess"
+      "GaussianProcess",
+      "Julia",
+      "機械学習"
     ],
     "title": "Juliaのガウス過程ライブラリGaussianProcesses.jlを使う(基本編)",
     "url": "/ds/gaussianprocess-jl/"
@@ -1171,7 +1244,9 @@
       "SoD",
       "SoR",
       "DTC",
-      "FITC"
+      "FITC",
+      "統計",
+      "Julia"
     ],
     "title": "ガウス過程の補助変数法をJuliaで実装、回帰結果を比較",
     "url": "/ds/ivm/"
@@ -1189,7 +1264,8 @@
       "SoD",
       "SoR",
       "DTC",
-      "FITC"
+      "FITC",
+      "統計"
     ],
     "title": "ガウス過程の補助変数法 (Inducing variable method) を理解する",
     "url": "/ds/sparse-approximate-gp/"
@@ -1214,7 +1290,9 @@
     "summary": "「ガウス過程と機械学習」を3章まで読み終えたので、復習を兼ねてJulia(1.1.0)でガウス過程を実装し、 カーネルのハイパーパラメーターをOptim.jlで推定するところまでをまとめる。数学的に細かい内容は本を読んで欲しい。 図3.23の陸上男子100mの世界記録の回帰モデルを作成することを今回の目標とする。\n",
     "tags": [
       "GaussianProcess",
-      "Optim"
+      "Optim",
+      "機械学習",
+      "Julia"
     ],
     "title": "Juliaでガウス過程を実装\u0026パラメーター推定",
     "url": "/ds/gp-parameter-estimation/"
@@ -1225,7 +1303,9 @@
     "permalink": "https://matsueushi.github.io/diary/hugo/",
     "section": "diary",
     "summary": "過去のポストをこっちのGitHub Pagesに移行させた。疲れた。\n",
-    "tags": null,
+    "tags": [
+      "サイト"
+    ],
     "title": "GitHub Pagesに引っ越した",
     "url": "/diary/hugo/"
   },
@@ -1236,7 +1316,8 @@
     "section": "diary",
     "summary": "結構手間取った。\nバックスラッシュを4つ重ねた後スペースを置く \\\\\\\\ と改行できる。\n\\\\( \\begin{aligned} x \u0026amp;= 1+1 \\\\\\\\ \u0026amp;= 2 \\end{aligned} \\\\) 結果:\n\\( \\begin{aligned} x \u0026amp;= 1+1 \\\\ \u0026amp;= 2 \\end{aligned} \\)\n参考 :\nCannot achieve line break in multiline equation (LaTeX/Mathjax)\nhttps://github.com/gcushen/hugo-academic/wiki/FAQ\n",
     "tags": [
-      "KaTeX"
+      "KaTeX",
+      "サイト"
     ],
     "title": "KaTeXで複数行の数式を入力",
     "url": "/diary/katex-multiline/"
@@ -1248,6 +1329,7 @@
     "section": "diary",
     "summary": "KaTeX Test\n\\( \\lim \\sum \\int \\)\nKatexでは \\( \\varprojlim \\) はサポートされていない\n_ではなく\\_を使うと \\( x_{mn} \\)などの添字が出せる\n",
     "tags": [
+      "サイト",
       "test",
       "KaTeX"
     ],
@@ -1262,7 +1344,8 @@
     "summary": "引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。\nハイパーパラメーターの最適化(勾配を使わず、Optim.jlの optimize を使ってしまった)のところまで読み進めた。\n",
     "tags": [
       "GaussianProcess",
-      "MLP"
+      "MLP",
+      "Julia"
     ],
     "title": "ガウス過程と機械学習: 3.5まで",
     "url": "/ds/gp-nlp-2/"
@@ -1275,7 +1358,8 @@
     "summary": "持橋・大羽の「ガウス過程と機械学習」を読み始めた。Juliaでコードを書きながら内容を確かめている。\n本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。\n",
     "tags": [
       "GaussianProcess",
-      "MLP"
+      "MLP",
+      "Julia"
     ],
     "title": "「ガウス過程と機械学習」を読み始めた",
     "url": "/ds/gp-nlp-1/"
@@ -1287,7 +1371,8 @@
     "section": "ds",
     "summary": "公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。\nDistributions.jl/src/univariate/continuous/locationscale.jl https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl\n例えば、PyMC3の StudentT\npm.StudentT(\u0026#39;x\u0026#39;, nu=nu, mu=mu, lam=lam) に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの TDist のパラメトライズは nu だけで mu や lam は指定できないが、\n",
     "tags": [
-      "Distribution"
+      "Distribution",
+      "Julia"
     ],
     "title": "Distribution.jlで分布をシフト・スケールさせる",
     "url": "/ds/shift-scale-distribution/"
@@ -1300,7 +1385,9 @@
     "summary": "引き続き「Pythonで体験するベイズ推論」のJulia+Mambaによる実装に挑戦している。わざわざ特別Mediumに書くような題材は無いな、と思っていたのだが、第5章の「例題 : テレビ番組 “The Price Is Right”の最適化」のモデリング( pm.potential が出てくるところ)でちょっと詰まったので、Mambaでの実装について記しておく。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(7) - The Price Is Right",
     "url": "/ds/bayesian-methods-julia-7/"
@@ -1313,7 +1400,9 @@
     "summary": "最近はGaussianRandomWalkを使った時系列ベイズモデルの推定に挑戦していたが、あまりうまくいかなかったので一旦「Pythonで体験するベイズ推論」に戻ろうと思う。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(6) -スペースシャトル「チャレンジャー号」の悲劇",
     "url": "/ds/bayesian-methods-julia-6/"
@@ -1324,7 +1413,9 @@
     "permalink": "https://matsueushi.github.io/programming/rollingwindow/",
     "section": "programming",
     "summary": "Pandasの pd.rolling のようなことをJuliaで行うためのメモ\nhttps://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html\n複雑なことがやりたければこれを使えば良さそうだ。\nJeffreySarnoff/RollingFunctions.jl\nhttps://github.com/JeffreySarnoff/RollingFunctions.jl\n",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "JuliaでRollingWindow",
     "url": "/programming/rollingwindow/"
   },
@@ -1334,7 +1425,9 @@
     "permalink": "https://matsueushi.github.io/programming/julia-array-dim/",
     "section": "programming",
     "summary": "やり方がよくわからなくなるので自分用メモを兼ねて。JuliaのVersion は1.1.0 (2019–01–21)。\n2次元 julia\u0026gt; x = [1 2; 3 4] 2×2 Array{Int64,2}: 1 2 3 4 縦方向に拾っていきたいときは簡単で、 vec\n",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "Juliaの2次元のArrayを1次元にする / Juliaの3次元のArrayを2次元にする",
     "url": "/programming/julia-array-dim/"
   },
@@ -1346,7 +1439,8 @@
     "summary": "PyMC3にはTimeseriesとして GaussianRandomWalk などの時系列モデルが実装されている。\nhttps://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk\nだが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように cumsum を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。\n",
     "tags": [
       "Mamba",
-      "RandomWalk"
+      "RandomWalk",
+      "Julia"
     ],
     "title": "Mamba.jlでGaussianRandomWalkを作って使う",
     "url": "/ds/mamba-gaussianrandomwalk/"
@@ -1358,7 +1452,8 @@
     "section": "ds",
     "summary": "GCPに環境を作っていて気づいたのだが、Distibution.jlのv0.17.0と関数が干渉していて using Mamba すると下のようなワーニングが出て、\n",
     "tags": [
-      "Mamba"
+      "Mamba",
+      "Julia"
     ],
     "title": "Mamba.jl v0.12.0のStackOverflowError:",
     "url": "/ds/mamba-v-0-12-0/"
@@ -1371,7 +1466,8 @@
     "summary": "自分用メモ\nローカルの公開鍵をGCPのインスタンスに登録\n[秘密鍵/公開鍵]GCPにSSHで接続する方法\nhttps://sleepless-se.net/2018/09/15/gcp-ssh/\nJuliaのバイナリをダウンロード\ncurl -OL https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz 解凍\n$ sudo mkdir /bin/julia $ sudo tar xvzf julia-1.1.0-linux-x86_64.tar.gz -C /bin/julia $ /bin/julia/julia-1.1.0/bin/julia _ _ _ _(_)_ | Documentation: https://docs.julialang.org (_) | (_) (_) | _ _ _| |_ __ _ | Type \u0026#34;?\u0026#34; for help, \u0026#34;]?\u0026#34; for Pkg help. | | | | | | |/ _` | | | | |_| | | | (_| | | Version 1.1.0 (2019-01-21) _/ |\\__\u0026#39;_|_|_|\\__\u0026#39;_| | Official https://julialang.org/ release |__/ | julia\u0026gt; シンボリックリンクを作成\n",
     "tags": [
       "GCP",
-      "Jupyter"
+      "Jupyter",
+      "Julia"
     ],
     "title": "GCPでJuliaのノートブックを実行",
     "url": "/programming/gcp-julia/"
@@ -1383,7 +1479,8 @@
     "section": "ds",
     "summary": " aspece_ratio=1 とすれば良いだけだった。簡単だった。\nusing Distributions using Plots x = y = 0:0.5:5 exp_x = Exponential(3) exp_y = Exponential(10) z = Surface((s, t) -\u0026gt; pdf(exp_x, s) * pdf(exp_y, t), x, y) heatmap(x, y, z) heatmap(x, y, z, aspect_ratio = 1) ",
     "tags": [
-      "Plots"
+      "Plots",
+      "Julia"
     ],
     "title": "Plots.jlでx軸、y軸のスケールを揃える",
     "url": "/ds/plotly-scale/"
@@ -1394,7 +1491,9 @@
     "permalink": "https://matsueushi.github.io/programming/julia-array-matrix/",
     "section": "programming",
     "summary": "自分用メモ。Juliaで Array を横に並べて Matrix にする方法は、repeat で第1引数を1にして、第2引数を並べたい個数にすればいい。\njulia\u0026gt; xs = [1, 2, 3, 4, 5] 5-element Array{Int64,1}: 1 2 3 4 5 julia\u0026gt; repeat([1, 2, 3, 4, 5], 1, 4) 5×4 Array{Int64,2}: 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 ",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "Arrayを横に並べてMatrixにする",
     "url": "/programming/julia-array-matrix/"
   },
@@ -1406,7 +1505,9 @@
     "summary": "「Pythonで体験するベイズ推論」の「2.2.7 例題 カンニングした学生の割合」をやってみよう。\n学生が試験中にカンニングする頻度を求めたい。観測データは個人がカンニングしたかどうかは特定できない、以下のアルゴリズムを用いる。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(5) -嘘に対抗するアルゴリズム",
     "url": "/ds/bayesian-methods-julia-5/"
@@ -1419,7 +1520,9 @@
     "summary": "今回はMambaを使って、「Pythonで体験するベイズ推論」の「例題 : ベイズ的 A/B」 をモデリングする。\n例題 : ベイズ的 A/B テスト A/Bテストの例題を解いてみよう。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(4) -ベイズ的 A/B",
     "url": "/ds/bayesian-methods-julia-4/"
@@ -1432,7 +1535,9 @@
     "summary": "引き続き「Pythonで体験するベイズ推論」の第2章の新しいデータセットの作成をJuliaでやってみる。\n新しいデータセットの生成 PyMCについての説明はスキップして、シミュレーションによるメッセージ数のデータ生成から行う。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(3) -新しいデータセットの生成",
     "url": "/ds/bayesian-methods-julia-3/"
@@ -1445,7 +1550,9 @@
     "summary": "前回に引き続き、「Pythonで体験するベイズ推論」をJuliaでやってみる。本に従い、前回作成した「メッセージ数に変化はあるか？」を二つの変化点の場合に拡張する。\n変化点が二つの場合を考えてみる。モデルは変化点が一つの場合とほぼ同じで、\nmodel2 = Model( obs = Stochastic(1, (lambda, N) -\u0026gt; UnivariateDistribution[Poisson(lambda[i]) for i in 1:N], false ), lambda = Logical(1, (lambda1, lambda2, lambda3, tau1, tau2, N) -\u0026gt; (out = fill(lambda1, N); i1 = Int64(tau1.value) + 1; # Juliaは1-indexingのため i2 = Int64(tau2.value) + 1; out[i1:end] .= lambda2; out[i2:end] .= lambda3; out), false, ), lambda1 = Stochastic(theta -\u0026gt; Exponential(theta)), lambda2 = Stochastic(theta -\u0026gt; Exponential(theta)), lambda3 = Stochastic(theta -\u0026gt; Exponential(theta)), tau1 = Stochastic(N -\u0026gt; DiscreteUniform(0, N-1)), tau2 = Stochastic((tau1, N) -\u0026gt; DiscreteUniform(tau1, N)), ) 初期値とサンプリングスキームを同様に与えてサンプリングすると、\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(2) -メッセージ数に変化はあるか？",
     "url": "/ds/bayesian-methods-julia-2/"
@@ -1456,7 +1563,9 @@
     "permalink": "https://matsueushi.github.io/programming/julia-array-of-array/",
     "section": "programming",
     "summary": "よく忘れるのでメモ。\n結論から言うと Base.Iterators.flatten を適用して collect すれば良い。\njulia\u0026gt; import Base.Iterators: flatten julia\u0026gt; xs = [[1, 2, 3], [4, 5, 6]] 2-element Array{Array{Int64,1},1}: [1, 2, 3] [4, 5, 6] julia\u0026gt; collect(flatten(xs)) 6-element Array{Int64,1}: 1 2 3 4 5 6 追記(2019/4/7):\nvcat を使った方が簡潔だった。\njulia\u0026gt; vcat(xs...) 6-element Array{Int64,1}: 1 2 3 4 5 6 ",
-    "tags": null,
+    "tags": [
+      "Julia"
+    ],
     "title": "JuliaでArray of Arrayを1次元Vectorにする方法",
     "url": "/programming/julia-array-of-array/"
   },
@@ -1468,7 +1577,9 @@
     "summary": "久保拓弥「データ解析のための統計モデリング入門」を読み終えたので、次はCameron Davidson-Pilon著、玉木徹訳の「Pythonで体験するベイズ推論」(GitHubリポジトリ) をJuliaとMamba.jlでモデリングしていきたいと思う。\n",
     "tags": [
       "Bayesian",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Juliaで体験するベイズ推論(1) -メッセージ数に変化はあるか？",
     "url": "/ds/bayesian-methods-julia-1/"
@@ -1480,7 +1591,9 @@
     "section": "ds",
     "summary": "「データ解析のための統計モデリング入門」第11章の空間構造のある階層ベイズモデルに挑戦する前に、まずPyMC3のIntrinsic Gaussian ModelのサンプルをMambaで実装した。\n",
     "tags": [
-      "GaussianProcess"
+      "GaussianProcess",
+      "統計",
+      "Julia"
     ],
     "title": "Intrinsic Gaussian CARモデルをMambaで実装",
     "url": "/ds/intrinsic-gaussian-car/"
@@ -1493,7 +1606,9 @@
     "summary": "最近、久保拓弥「データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学)を読んでいる。\n生態学のデータ解析 - 久保拓弥\nhttp://hosho.ees.hokudai.ac.jp/~kubo/ce/KuboTakuya.html\n本ではR + WinBUGSを使っているが、今回はJulia(1.1.0) + Mambaを使って実装した(10章まで)。実装はGithubに載せてある。\n実装の中身は上のJupyter Notebookを見てもらうとして、それ以外に実装していて何点か躓いたことがあったので備忘のために記載しておく。\n",
     "tags": [
       "MCMC",
-      "Mamba"
+      "Mamba",
+      "Julia",
+      "統計"
     ],
     "title": "Julia版「データ解析のための統計モデリング入門」読書ノート",
     "url": "/ds/julia-kubo/"
@@ -1517,7 +1632,8 @@
     "section": "ds",
     "summary": "$ jupyter kernelspec list Available kernels: julia-1.1 /home/matsueushi/.local/share/jupyter/kernels/julia-1.1 python3 /home/matsueushi/.local/share/jupyter/kernels/python3 How do I add python3 kernel to jupyter (IPython) https://stackoverflow.com/questions/28831854/how-do-i-add-python3-kernel-to-jupyter-ipython/44072803#44072803\n",
     "tags": [
-      "Jupyter"
+      "Jupyter",
+      "データ分析"
     ],
     "title": "Jupyter Notebookのkernelの位置を調べる",
     "url": "/ds/jupyter-kernel-location/"
@@ -3699,7 +3815,8 @@
     "section": "programming",
     "summary": "自分用のメモです。\nWAの時に確認すべきこと 問題文は正しく読めているか？ オーバーフローしていないか？ 998244353や10^9+7で割った余りを求めるタイプの場合、余りを取っているか？ 負の値を足している時、res = (res % P + P) % Pのようなケアをしているか？ 二分探索をしている時、最小値、最大値に到達できるか？ 探索 DFS ABC 138 D - Ki E - Ranges on Tree D - Takahashi Tour 木を辿る\n",
     "tags": [
-      "AtCoder"
+      "AtCoder",
+      "競プロ"
     ],
     "title": "AtCoderメモ書き",
     "url": "/programming/memo/"

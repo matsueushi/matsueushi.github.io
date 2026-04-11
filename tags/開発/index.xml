@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>開発 on matsueushi</title>
+    <link>https://matsueushi.github.io/tags/%E9%96%8B%E7%99%BA/</link>
+    <description>Recent content in 開発 on matsueushi</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2026 matsueushi</copyright>
+    <lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
+    <atom:link href="https://matsueushi.github.io/tags/%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JuliaのパッケージをOrganizationに移譲する</title>
+      <link>https://matsueushi.github.io/programming/transfer-github-repository/</link>
+      <pubDate>Sat, 15 Mar 2025 17:20:45 +0900</pubDate>
+      <guid>https://matsueushi.github.io/programming/transfer-github-repository/</guid>
+      <description>&lt;p&gt;5 年ほど前に、Julia で浮動小数点数の上付き丸め、下付き丸めをエミュレーションする記事 &lt;a href=&#34;https://matsueushi.github.io/posts/rounding-emulator&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする (Julia)&lt;/a&gt; を書きました。&lt;/p&gt;&#xA;&lt;p&gt;そこで &lt;a href=&#34;https://github.com/JuliaIntervals/RoundingEmulator.jl&#34;&gt;RoundingEmulator.jl&lt;/a&gt; という Julia パッケージを作成し、精度保証計算を行う Julia パッケージ &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl&#34;&gt;IntervalArithmetic.jl&lt;/a&gt; に プルリクエスト &lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;Another rounding option by matsueushi · Pull Request #370 · JuliaIntervals/IntervalArithmetic.jl&lt;/a&gt; を送って丸めモードを指定した計算に使われるようになりました。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
+      <link>https://matsueushi.github.io/diary/vscode-container-gpg/</link>
+      <pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
+      <guid>https://matsueushi.github.io/diary/vscode-container-gpg/</guid>
+      <description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;&#xA;&lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;&#xA;&lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

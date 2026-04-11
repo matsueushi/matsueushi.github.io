@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>ja</language>
     <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sat, 16 Jul 2022 20:16:03 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Aug 2022 13:42:37 +0900</lastBuildDate>
     <atom:link href="https://matsueushi.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rustでcargo test中にprintlnする</title>
+      <link>https://matsueushi.github.io/programming/rust-test-nocapture/</link>
+      <pubDate>Sun, 28 Aug 2022 13:42:37 +0900</pubDate>
+      <guid>https://matsueushi.github.io/programming/rust-test-nocapture/</guid>
+      <description>&lt;p&gt;&lt;code&gt;cargo test&lt;/code&gt;でテストを実行しているとき、出力はキャプチャされてしまってテスト実行画面に出てこないが、&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cargo test -- --nocapture&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;で出てくるようにできるようだ。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://jonalmeida.com/posts/2015/01/23/print-cargo/&#34;&gt;Enabling print statements in Cargo tests&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rustでargminやargmaxはどう書くのか</title>
+      <link>https://matsueushi.github.io/programming/julia-rust/</link>
+      <pubDate>Sat, 23 Jul 2022 14:15:19 +0900</pubDate>
+      <guid>https://matsueushi.github.io/programming/julia-rust/</guid>
+      <description>&lt;p&gt;Julia では &lt;code&gt;argmin&lt;/code&gt; とか &lt;code&gt;argmax&lt;/code&gt; などの関数が用意されていたのですが、&#xA;Rust で同様の処理をする方法がわからず毎回調べて時間を消耗していたので、まとめておこうと思います。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>RustでAtCoderに挑戦</title>
       <link>https://matsueushi.github.io/programming/rust-atcoder/</link>
