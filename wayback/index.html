@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Wayback Machine CDX URLリスト取得 | matsueushi</title>
+<meta name="description" content="趣味のページです。音楽とプログラミングの話が主です。">
+<meta property="og:title" content="Wayback Machine CDX URLリスト取得 | matsueushi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://matsueushi.github.io/wayback/">
+<meta property="og:description" content="趣味のページです。音楽とプログラミングの話が主です。">
+<meta property="og:site_name" content="matsueushi">
+<link rel="canonical" href="https://matsueushi.github.io/wayback/">
+<link rel="alternate" type="application/rss+xml" title="matsueushi" href="https://matsueushi.github.io/wayback/index.xml"><link rel="stylesheet" href="/css/main.fefaa52db58645e0135fd5237ea60811c62d7bd2afeef987f0d2bf2743cb1f05.css">
+<link rel="icon" href="https://matsueushi.github.io/favicon.ico">
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-BS9L5R55NX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-BS9L5R55NX');
+        }
+      </script>
+</head>
+<body>
+<div class="site-wrapper">
+  <header class="site-header"><div class="container">
+  <div class="site-title">
+    <a href="https://matsueushi.github.io/">matsueushi</a>
+  </div>
+  <nav aria-label="メインナビゲーション">
+    <ul class="site-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/diary/">日記</a></li>
+      <li><a href="/music/">音楽</a></li>
+      <li><a href="/boat/">BOaT</a></li>
+      <li><a href="/natsumen/">NATSUMEN</a></li>
+      <li><a href="/axsxe/">AxSxE</a></li>
+      <li><a href="/disc-review/">ディスクレビュー</a></li>
+      <li><a href="/ds/">データサイエンス</a></li>
+      <li><a href="/programming/">プログラミング</a></li>
+      <li><a href="/memo/">メモ</a></li>
+      <li><a href="/tags/">タグ</a></li>
+      <li><a href="/search/">検索</a></li>
+    </ul>
+  </nav>
+</div>
+</header>
+
+  <main>
+    <div class="container">
+<style>
+.wbm-wrap { max-width: 780px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif; }
+.wbm-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; }
+.wbm-card h1 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.25rem; color: #111; }
+.wbm-field { margin-bottom: 1rem; }
+.wbm-field label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; }
+.wbm-field input, .wbm-field select {
+  width: 100%; padding: 8px 10px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 14px; color: #111;
+  background: #fff; box-sizing: border-box;
+}
+.wbm-field input:focus, .wbm-field select:focus { outline: none; border-color: #888; }
+.wbm-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wbm-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.wbm-hint { font-size: 12px; color: #999; margin-top: 4px; }
+.wbm-preview {
+  font-size: 11px; font-family: monospace; color: #555;
+  background: #f7f7f5; border: 1px solid #e5e5e5;
+  border-radius: 8px; padding: 8px 10px;
+  margin-top: 12px; word-break: break-all; line-height: 1.7;
+}
+.wbm-btn-row { display: flex; gap: 8px; margin-top: 1rem; }
+.wbm-btn-primary {
+  background: #111; color: #fff; border: none;
+  padding: 9px 22px; border-radius: 8px; font-size: 14px; cursor: pointer;
+}
+.wbm-btn-primary:hover { background: #333; }
+.wbm-btn-sec {
+  background: transparent; color: #555; border: 1px solid #ccc;
+  padding: 9px 16px; border-radius: 8px; font-size: 14px; cursor: pointer;
+}
+.wbm-btn-sec:hover { background: #f5f5f5; }
+.wbm-err { color: #c00; font-size: 13px; margin-top: 8px; display: none; }
+.wbm-result { margin-top: 1.5rem; display: none; }
+.wbm-result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.wbm-result-count { font-size: 13px; color: #666; }
+.wbm-result-actions { display: flex; gap: 6px; }
+.wbm-copy-btn {
+  font-size: 12px; color: #666; background: transparent;
+  border: 1px solid #ddd; border-radius: 6px; padding: 4px 10px; cursor: pointer;
+}
+.wbm-copy-btn:hover { background: #f5f5f5; }
+.wbm-list {
+  background: #f7f7f5; border: 1px solid #e5e5e5;
+  border-radius: 8px; padding: 10px 12px;
+  font-family: monospace; font-size: 12px;
+  max-height: 320px; overflow-y: auto; line-height: 2;
+}
+.wbm-list a { color: #185FA5; text-decoration: none; display: block; word-break: break-all; }
+.wbm-list a:hover { text-decoration: underline; }
+.wbm-list span { display: block; padding: 2px 0; border-bottom: 1px solid #e5e5e5; }
+@media (max-width: 600px) {
+  .wbm-row2, .wbm-row3 { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="wbm-wrap">
+  <div class="wbm-card">
+    <h1>Wayback Machine CDX URLリスト取得</h1>
+
+    <div class="wbm-field">
+      <label>対象 URL</label>
+      <input type="text" id="wbm-url" placeholder="例: example.com/blog/"
+             oninput="wbmUpdatePreview()">
+      <div class="wbm-hint">末尾に * を付けると配下もすべて対象になります（自動で付加されます）</div>
+    </div>
+
+    <div class="wbm-row3">
+      <div class="wbm-field">
+        <label>取得上限 (limit)</label>
+        <input type="number" id="wbm-limit" value="1000" min="1" max="100000"
+               oninput="wbmUpdatePreview()">
+      </div>
+      <div class="wbm-field">
+        <label>MIMEタイプ</label>
+        <select id="wbm-mime" onchange="wbmUpdatePreview()">
+          <option value="text/html">text/html</option>
+          <option value="application/pdf">application/pdf</option>
+          <option value="text/plain">text/plain</option>
+          <option value="">指定なし</option>
+        </select>
+      </div>
+      <div class="wbm-field">
+        <label>出力フィールド (fl)</label>
+        <select id="wbm-fl" onchange="wbmUpdatePreview()">
+          <option value="original">original（URLのみ）</option>
+          <option value="original,timestamp">original,timestamp</option>
+          <option value="original,statuscode,timestamp">original,statuscode,timestamp</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="wbm-row2">
+      <div class="wbm-field">
+        <label>除外拡張子</label>
+        <input type="text" id="wbm-exclude" value="jpg|jpeg|gif|png|css|js|ico"
+               oninput="wbmUpdatePreview()">
+        <div class="wbm-hint">| で区切って入力</div>
+      </div>
+      <div class="wbm-field">
+        <label>collapse（重複除去）</label>
+        <select id="wbm-collapse" onchange="wbmUpdatePreview()">
+          <option value="urlkey">urlkey（推奨）</option>
+          <option value="">なし</option>
+          <option value="digest">digest</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="wbm-preview" id="wbm-preview">URLを入力するとクエリが表示されます</div>
+
+    <div class="wbm-btn-row">
+      <button class="wbm-btn-primary" onclick="wbmFetch()">取得する</button>
+      <button class="wbm-btn-sec"     onclick="wbmCopyQuery()">クエリをコピー</button>
+    </div>
+    <div class="wbm-err" id="wbm-err"></div>
+  </div>
+
+  <div class="wbm-result" id="wbm-result">
+    <div class="wbm-result-header">
+      <span class="wbm-result-count" id="wbm-count"></span>
+      <div class="wbm-result-actions">
+        <button class="wbm-copy-btn" onclick="wbmCopyAll()">全URLをコピー</button>
+        <button class="wbm-copy-btn" onclick="wbmDownload()">ダウンロード (.txt)</button>
+      </div>
+    </div>
+    <div class="wbm-list" id="wbm-list"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var _results = [];
+
+  function buildQuery() {
+    var url     = document.getElementById('wbm-url').value.trim();
+    var limit   = document.getElementById('wbm-limit').value || '1000';
+    var mime    = document.getElementById('wbm-mime').value;
+    var fl      = document.getElementById('wbm-fl').value;
+    var excl    = document.getElementById('wbm-exclude').value.trim();
+    var collapse= document.getElementById('wbm-collapse').value;
+    if (!url) return null;
+    var q = 'https://web.archive.org/cdx/search/cdx?output=text';
+    q += '&fl='      + encodeURIComponent(fl);
+    if (collapse) q += '&collapse=' + collapse;
+    q += '&limit='   + limit;
+    if (mime) q += '&filter=mimetype:' + encodeURIComponent(mime);
+    if (excl) q += '&filter=!original:.*\\.(' + excl + ')$';
+    q += '&url='     + encodeURIComponent(url) + '*';
+    return q;
+  }
+
+  window.wbmUpdatePreview = function() {
+    var q = buildQuery();
+    document.getElementById('wbm-preview').textContent =
+      q || 'URLを入力するとクエリが表示されます';
+  };
+
+  window.wbmCopyQuery = function() {
+    var q = buildQuery();
+    if (q) navigator.clipboard.writeText(q);
+  };
+
+  window.wbmFetch = async function() {
+    var q = buildQuery();
+    var errEl  = document.getElementById('wbm-err');
+    var resBox = document.getElementById('wbm-result');
+    var listEl = document.getElementById('wbm-list');
+    var countEl= document.getElementById('wbm-count');
+    errEl.style.display = 'none';
+    if (!q) {
+      errEl.textContent = 'URLを入力してください';
+      errEl.style.display = 'block';
+      return;
+    }
+    resBox.style.display = 'block';
+    listEl.innerHTML = '<span style="color:#999">取得中...</span>';
+    countEl.textContent = '';
+    _results = [];
+    try {
+      var res = await fetch(q);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var text = await res.text();
+      var lines = text.trim().split('\n').filter(Boolean);
+      _results = lines;
+      countEl.textContent = lines.length.toLocaleString() + ' 件取得';
+      var fl = document.getElementById('wbm-fl').value;
+      var isUrl = (fl === 'original');
+      listEl.innerHTML = '';
+      if (!lines.length) {
+        var empty = document.createElement('span');
+        empty.style.color = '#999';
+        empty.textContent = '結果が見つかりませんでした';
+        listEl.appendChild(empty);
+      } else {
+        var frag = document.createDocumentFragment();
+        lines.forEach(function(l) {
+          if (isUrl) {
+            var a = document.createElement('a');
+            a.href = l;            
+            a.textContent = l;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+             
+            if (!/^https?:\/\//i.test(a.href)) return;
+            frag.appendChild(a);
+          } else {
+            var sp = document.createElement('span');
+            sp.textContent = l;    
+            frag.appendChild(sp);
+          }
+        });
+        listEl.appendChild(frag);
+      }
+    } catch(e) {
+      errEl.textContent = '取得に失敗しました: ' + e.message;
+      errEl.style.display = 'block';
+      resBox.style.display = 'none';
+    }
+  };
+
+  window.wbmCopyAll = function() {
+    if (_results.length) navigator.clipboard.writeText(_results.join('\n'));
+  };
+
+  window.wbmDownload = function() {
+    if (!_results.length) return;
+    var blob = new Blob([_results.join('\n')], { type: 'text/plain' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'wayback_urls.txt';
+    a.click();
+  };
+})();
+</script>
+
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+  <p>Copyright © 2019–2026 matsueushi</p>
+</div>
+</footer>
+</div>
+</body>
+</html>

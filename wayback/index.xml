@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wayback Machine CDX URLリスト取得 on matsueushi</title>
+    <link>https://matsueushi.github.io/wayback/</link>
+    <description>Recent content in Wayback Machine CDX URLリスト取得 on matsueushi</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <copyright>Copyright © 2019–2026 matsueushi</copyright>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="https://matsueushi.github.io/wayback/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
