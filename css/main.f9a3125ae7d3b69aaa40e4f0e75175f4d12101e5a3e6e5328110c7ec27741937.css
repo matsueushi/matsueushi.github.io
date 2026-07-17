@@ -1,0 +1,616 @@
+/* =============================================================================
+   main.css — hugo-theme-shizuka
+   モバイルファースト、1カラム、最大幅 720px
+   配色モチーフ: 2000年前後のフリーペーパー／チャート誌（SLATE, CMJ 的な世界観）
+   ============================================================================= */
+
+:root {
+  /* 紙・インク */
+  --paper:       #f6efdd;
+  --paper-alt:   #ece0c4;
+  --ink:         #23201a;
+  --ink-soft:    #5c5344;
+  --ink-faint:   #948a76;
+  --rule:        #d9cba9;
+  --rule-strong: #c9b98d;
+
+  /* アクセント（朱・からし） */
+  --accent:      #b5482f;
+  --accent-dark: #8f3a25;
+  --accent-2:    #b8862a;
+}
+
+/* ---------------------------------------------------------------------------
+   リセット & ベース
+   --------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Hiragino Sans,
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* ごく薄い紙の粒状ノイズ（外部リソースなしの inline SVG フィルタ） */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/></svg>");
+  line-height: 1.8;
+}
+
+/* ---------------------------------------------------------------------------
+   レイアウト
+   --------------------------------------------------------------------------- */
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ヘッダー
+   --------------------------------------------------------------------------- */
+.site-header {
+  border-bottom: 3px double var(--rule-strong);
+  padding: 0.75rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.site-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.site-title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-title a:hover {
+  color: var(--accent);
+}
+
+/* ナビゲーション */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------------------
+   フッター
+   --------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 3px double var(--rule-strong);
+  padding: 1.25rem 0;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--ink-faint);
+}
+
+/* ---------------------------------------------------------------------------
+   見出し・本文
+   --------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------------------
+   記事ヘッダー（single / list共通）
+   --------------------------------------------------------------------------- */
+.post-header {
+  margin-bottom: 1.5rem;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+h1.post-title {
+  font-size: 1.5rem;
+}
+
+.post-title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: var(--accent);
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.post-meta time {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   タグ（チケット半券風）
+   --------------------------------------------------------------------------- */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-item a {
+  display: inline-block;
+  background: var(--paper-alt);
+  color: var(--ink-soft);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 2px;
+  padding: 0.1em 0.55em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.tag-item a::before {
+  content: "#";
+  color: var(--ink-faint);
+}
+
+.tag-item a:hover {
+  background: var(--paper);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   記事一覧（list ページ）
+   --------------------------------------------------------------------------- */
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list-item {
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.post-list-item:first-child {
+  padding-top: 0;
+}
+
+.post-list-item:last-child {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------------------------------------
+   記事本文（single ページ）
+   --------------------------------------------------------------------------- */
+.post-content {
+  margin-top: 1.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.post-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid var(--rule-strong);
+  color: var(--ink-soft);
+}
+
+.post-content blockquote p {
+  margin: 0;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--rule);
+  text-align: left;
+}
+
+.post-content th {
+  background: var(--paper-alt);
+  font-weight: 700;
+}
+
+.post-content hr {
+  border: none;
+  border-top: 1px dashed var(--rule);
+  margin: 2rem 0;
+}
+
+/* コードブロック */
+.post-content pre {
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.post-content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875em;
+}
+
+.post-content p code,
+.post-content li code {
+  background: var(--paper-alt);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* Chroma（Hugo 標準ハイライト）のコンテナ調整 */
+.post-content .highlight {
+  margin: 1.5rem 0;
+}
+
+.post-content .highlight pre {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ページタイトル（セクション・タクソノミー共通）
+   --------------------------------------------------------------------------- */
+.page-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px double var(--rule-strong);
+}
+
+.page-title::before {
+  content: "■";
+  display: inline-block;
+  margin-right: 0.4em;
+  font-size: 0.7em;
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   タクソノミー（タグ一覧ページ）
+   --------------------------------------------------------------------------- */
+.taxonomy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.taxonomy-list li a {
+  display: inline-block;
+  background: var(--paper-alt);
+  color: var(--ink-soft);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 2px;
+  padding: 0.2em 0.75em;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.taxonomy-list li a:hover {
+  background: var(--paper);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.taxonomy-count {
+  font-size: 0.75em;
+  color: var(--ink-faint);
+  margin-left: 0.25em;
+}
+
+/* ---------------------------------------------------------------------------
+   ページネーション
+   --------------------------------------------------------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 0.3em 0.75em;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background: var(--paper-alt);
+  color: var(--ink);
+}
+
+.pagination .active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+.pagination .disabled {
+  color: var(--ink-faint);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   セクションバッジ（ジャンルラベル、スタンプ風）
+   --------------------------------------------------------------------------- */
+.section-badge {
+  display: inline-block;
+  padding: 0.1em 0.55em;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--paper-alt);
+  color: var(--ink-soft);
+}
+
+.section-badge:hover {
+  text-decoration: none;
+  filter: brightness(0.95);
+}
+
+/* セクションごとの色（従来のパステルトーンを維持） */
+.section-badge--diary       { background: #dbeafe; color: #1e40af; }
+.section-badge--music       { background: #fde68a; color: #92400e; }
+.section-badge--disc-review { background: #fce7f3; color: #9d174d; }
+.section-badge--ds          { background: #d1fae5; color: #065f46; }
+.section-badge--programming { background: #ede9fe; color: #5b21b6; }
+.section-badge--natsumen    { background: #ffedd5; color: #9a3412; }
+.section-badge--boat        { background: #e0f2fe; color: #075985; }
+
+/* ---------------------------------------------------------------------------
+   ホームページ
+   --------------------------------------------------------------------------- */
+.home-description {
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.home-section {
+  margin-bottom: 2.5rem;
+}
+
+.home-section-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px dashed var(--rule-strong);
+}
+
+.home-section-title::before {
+  content: "■";
+  display: inline-block;
+  margin-right: 0.4em;
+  font-size: 0.7em;
+  color: var(--accent);
+}
+
+.home-section-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-section-title a:hover {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   検索
+   --------------------------------------------------------------------------- */
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(181, 72, 47, 0.15);
+}
+
+.search-button {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: var(--accent-dark);
+}
+
+#search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#search-results li {
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+#search-results li:last-child {
+  border-bottom: none;
+}
+
+#search-results .result-title {
+  font-weight: 700;
+}
+
+#search-results .result-meta {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  margin-top: 0.15rem;
+}
+
+/* ---------------------------------------------------------------------------
+   動画埋め込み（YouTube 等）
+   --------------------------------------------------------------------------- */
+.video-embed {
+  margin: 1.5rem 0;
+}
+
+.video-embed__ratio {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+}
+
+.video-embed__ratio iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   レスポンシブ（タブレット以上）
+   --------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+  .site-header .container {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .site-title {
+    flex-shrink: 0;
+  }
+}
