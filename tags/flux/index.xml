@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Flux on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/flux/</link>
-    <description>Recent content in Flux on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/flux/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flux.jlでSinGANを実装する</title>
-      <link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
-      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
-      <guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
-      <description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
-      <link>https://matsueushi.github.io/ds/fluxjl-dcgan/</link>
-      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
-      <guid>https://matsueushi.github.io/ds/fluxjl-dcgan/</guid>
-      <description>&lt;p&gt;2020/3/8 追記: model-zoo(&lt;a href=&#34;https://github.com/FluxML/model-zoo&#34;&gt;https://github.com/FluxML/model-zoo&lt;/a&gt;) にDCGANのモデルが入りました。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;2019/11/29にJuliaの機械学習ライブラリ&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/&#34;&gt;Flux.jl&lt;/a&gt;の&lt;a href=&#34;https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0&#34;&gt;v0.10.0&lt;/a&gt;がリリースされた。&#xA;もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、&#xA;ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Flux on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/flux/</link>
+		<description>Recent content in Flux on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/flux/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Flux.jlでSinGANを実装する</title>
+				<link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
+				<pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+				<guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
+				<description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
+				<link>https://matsueushi.github.io/ds/fluxjl-dcgan/</link>
+				<pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
+				<guid>https://matsueushi.github.io/ds/fluxjl-dcgan/</guid>
+				<description>&lt;p&gt;2020/3/8 追記: model-zoo(&lt;a href=&#34;https://github.com/FluxML/model-zoo&#34;&gt;https://github.com/FluxML/model-zoo&lt;/a&gt;) にDCGANのモデルが入りました。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;2019/11/29にJuliaの機械学習ライブラリ&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/&#34;&gt;Flux.jl&lt;/a&gt;の&lt;a href=&#34;https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0&#34;&gt;v0.10.0&lt;/a&gt;がリリースされた。&#xA;もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、&#xA;ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

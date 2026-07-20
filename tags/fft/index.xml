@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>FFT on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/fft/</link>
-    <description>Recent content in FFT on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sun, 28 Jun 2020 23:35:43 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/fft/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>スペクトログラムを作成する</title>
-      <link>https://matsueushi.github.io/ds/spectrogram/</link>
-      <pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
-      <guid>https://matsueushi.github.io/ds/spectrogram/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;&#xA;&lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;&#xA;&lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている&#xA;\(\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]\) (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>FFT on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/fft/</link>
+		<description>Recent content in FFT on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sun, 28 Jun 2020 23:35:43 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/fft/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>スペクトログラムを作成する</title>
+				<link>https://matsueushi.github.io/ds/spectrogram/</link>
+				<pubDate>Sun, 28 Jun 2020 23:35:43 +0900</pubDate>
+				<guid>https://matsueushi.github.io/ds/spectrogram/</guid>
+				<description>&lt;p&gt;&lt;a href=&#34;https://aphextwin.warp.net/&#34;&gt;Aphex Twin&lt;/a&gt; のシングル &lt;a href=&#34;https://aphextwin.warp.net/release/68151-aphex-twin-windowlicker&#34;&gt;Windowlicker&lt;/a&gt; は印象的なジャケット&lt;/p&gt;&#xA;&lt;iframe src=&#34;https://open.spotify.com/embed/album/0rfpBkCuMMkUjKEstPoSTh&#34; width=&#34;300&#34; height=&#34;380&#34; frameborder=&#34;0&#34; allowtransparency=&#34;true&#34; allow=&#34;encrypted-media&#34;&gt;&lt;/iframe&gt;&#xA;&lt;p&gt;や&lt;a href=&#34;https://www.youtube.com/watch?v=5ZT3gTu4Sjw&#34;&gt;クリスカニンガムのPV&lt;/a&gt;が有名ですが、2曲目に収録されている&#xA;\(\Delta M_i^{-1} = - \alpha \sum_{n=1}^N D_i \left[ n \right] \left[ \sum_{j \in C \left[ i \right]}^{} F_{ji} \left[ n -1 \right] + Fext_i \left[ n^{-1} \right] \right]\) (通称 &amp;ldquo;Formula&amp;rdquo;) の楽曲データにRichard J James自身の顔が埋め込まれているということもよく知られた話だと思います。(顔が出てくるのは5:30~)&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

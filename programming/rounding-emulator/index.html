@@ -195,38 +195,38 @@ Issueやプルリクは大歓迎です。</p>
 IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zero sumは-0になると書いてあります。
 ただ、\(x + x\) の符号は \(x\) の符号と同じになると定められているので、表にすると、</p>
 <table>
-  <thead>
-      <tr>
-          <th>Rounding</th>
-          <th>\((+0)+(+0)\)</th>
-          <th>\((-0)+(+0)\)</th>
-          <th>\((+0)+(-0)\)</th>
-          <th>\((-0)+(-0)\)</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>roundTiesToEven (<code>RoundNearest</code>)</td>
-          <td>\(+0\)</td>
-          <td>\(+0\)</td>
-          <td>\(+0\)</td>
-          <td>\(-0\)</td>
-      </tr>
-      <tr>
-          <td>roundTowardPositive (<code>RoundUp</code>)</td>
-          <td>\(+0\)</td>
-          <td>\(+0\)</td>
-          <td>\(+0\)</td>
-          <td>\(-0\)</td>
-      </tr>
-      <tr>
-          <td>roundTowardNegative (<code>RoundDown</code>)</td>
-          <td>\(+0\)</td>
-          <td>\(-0\)</td>
-          <td>\(-0\)</td>
-          <td>\(-0\)</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Rounding</th>
+					<th>\((+0)+(+0)\)</th>
+					<th>\((-0)+(+0)\)</th>
+					<th>\((+0)+(-0)\)</th>
+					<th>\((-0)+(-0)\)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>roundTiesToEven (<code>RoundNearest</code>)</td>
+					<td>\(+0\)</td>
+					<td>\(+0\)</td>
+					<td>\(+0\)</td>
+					<td>\(-0\)</td>
+			</tr>
+			<tr>
+					<td>roundTowardPositive (<code>RoundUp</code>)</td>
+					<td>\(+0\)</td>
+					<td>\(+0\)</td>
+					<td>\(+0\)</td>
+					<td>\(-0\)</td>
+			</tr>
+			<tr>
+					<td>roundTowardNegative (<code>RoundDown</code>)</td>
+					<td>\(+0\)</td>
+					<td>\(-0\)</td>
+					<td>\(-0\)</td>
+					<td>\(-0\)</td>
+			</tr>
+	</tbody>
 </table>
 <p>このようになります。よって、下のように修正することでゼロの符号を調整しています。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#cf222e">function</span> add_down<span style="color:#1f2328">(</span>a<span style="color:#1f2328">,</span> b<span style="color:#1f2328">)</span>
@@ -346,8 +346,9 @@ IEEE 754の6.3章に下付き丸め(roundTowardNegative)の時のみ、exact zer
         (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	
 
     </div>
   </main>

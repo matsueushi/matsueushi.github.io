@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>YubiKey on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/yubikey/</link>
-    <description>Recent content in YubiKey on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Thu, 03 Jan 2019 22:47:53 -0400</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/yubikey/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Yubikey</title>
-      <link>https://matsueushi.github.io/diary/yubikey/</link>
-      <pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
-      <guid>https://matsueushi.github.io/diary/yubikey/</guid>
-      <description>&lt;p&gt;物理セキュリティーキーが欲しかったので買ってしまった。&lt;/p&gt;&#xA;&lt;p&gt;公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>YubiKey on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/yubikey/</link>
+		<description>Recent content in YubiKey on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Thu, 03 Jan 2019 22:47:53 -0400</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/yubikey/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Yubikey</title>
+				<link>https://matsueushi.github.io/diary/yubikey/</link>
+				<pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
+				<guid>https://matsueushi.github.io/diary/yubikey/</guid>
+				<description>&lt;p&gt;物理セキュリティーキーが欲しかったので買ってしまった。&lt;/p&gt;&#xA;&lt;p&gt;公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

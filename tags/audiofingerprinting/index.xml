@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>AudioFingerprinting on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/audiofingerprinting/</link>
-    <description>Recent content in AudioFingerprinting on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Tue, 11 Aug 2020 23:17:00 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/audiofingerprinting/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
-      <link>https://matsueushi.github.io/ds/audiofingerprinting/</link>
-      <pubDate>Tue, 11 Aug 2020 23:17:00 +0900</pubDate>
-      <guid>https://matsueushi.github.io/ds/audiofingerprinting/</guid>
-      <description>&lt;p&gt;音楽が好きな人であれば&lt;a href=&#34;https://www.shazam.com/&#34;&gt;Shazam&lt;/a&gt;というアプリはご存知かと思います。&lt;/p&gt;&#xA;&lt;p&gt;街中で気になった曲をスマートフォンに聞かせると、&#xA;相当マイナーな曲でない限り大抵の場合10秒程度聞かせると曲名やアーティスト名を教えてくれて、&#xA;しかも多少雑音が混じってしまっていても大丈夫という非常に便利なアプリです。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>AudioFingerprinting on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/audiofingerprinting/</link>
+		<description>Recent content in AudioFingerprinting on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Tue, 11 Aug 2020 23:17:00 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/audiofingerprinting/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>JuliaでAudio Fingerprintingを実装 - Shazamの仕組みを理解する</title>
+				<link>https://matsueushi.github.io/ds/audiofingerprinting/</link>
+				<pubDate>Tue, 11 Aug 2020 23:17:00 +0900</pubDate>
+				<guid>https://matsueushi.github.io/ds/audiofingerprinting/</guid>
+				<description>&lt;p&gt;音楽が好きな人であれば&lt;a href=&#34;https://www.shazam.com/&#34;&gt;Shazam&lt;/a&gt;というアプリはご存知かと思います。&lt;/p&gt;&#xA;&lt;p&gt;街中で気になった曲をスマートフォンに聞かせると、&#xA;相当マイナーな曲でない限り大抵の場合10秒程度聞かせると曲名やアーティスト名を教えてくれて、&#xA;しかも多少雑音が混じってしまっていても大丈夫という非常に便利なアプリです。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

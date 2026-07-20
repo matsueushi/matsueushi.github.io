@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SweetTrip on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/sweettrip/</link>
-    <description>Recent content in SweetTrip on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Tue, 16 Jul 2019 21:00:12 -0400</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/sweettrip/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Sweet Trip - velocity:design:comfort. (2003)</title>
-      <link>https://matsueushi.github.io/disc-review/sweettrip-velocity-design-comfort/</link>
-      <pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
-      <guid>https://matsueushi.github.io/disc-review/sweettrip-velocity-design-comfort/</guid>
-      <description>&lt;iframe style=&#34;border: 0; width: 350px; height: 470px;&#34; src=&#34;https://bandcamp.com/EmbeddedPlayer/album=3134024535/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/&#34; seamless&gt;&lt;a href=&#34;http://sweettrip.bandcamp.com/album/velocity-design-comfort&#34;&gt;Velocity:Design:Comfort. by Sweet Trip&lt;/a&gt;&lt;/iframe&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://rateyourmusic.com&#34;&gt;RateYourMusic&lt;/a&gt; を巡回していたら&lt;a href=&#34;https://rateyourmusic.com/charts/top/album/2003&#34;&gt;2003年の年間ランキング4位&lt;/a&gt;に挙げられていたこのアルバム。近未来感のある色とりどりのジャケットとvelocity:design:comfort.という抽象的なタイトルに妙に心惹かれたので聞いてみたところかなりハマってしまい、いつの間にかBandcampの購入ボタンをクリックしていた。&#xA;日本語で調べてもあまりこのアルバムについて書かれた情報は見つからなかったのが残念。&lt;/p&gt;&#xA;&lt;p&gt;サンフランシスコのSweet Tripと言うバンドの2枚目で、2009年の3rd以降新作は出ていないようである。&#xA;2013年にはSoundcloudに曲が&lt;a href=&#34;https://soundcloud.com/wotf/things-to-ponder-while-falling&#34;&gt;アップロード&lt;/a&gt;されていて、Probably &lt;em&gt;not&lt;/em&gt; the last Sweet Trip song ever. とあるので解散はしていないみたいだ。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>SweetTrip on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/sweettrip/</link>
+		<description>Recent content in SweetTrip on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Tue, 16 Jul 2019 21:00:12 -0400</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/sweettrip/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Sweet Trip - velocity:design:comfort. (2003)</title>
+				<link>https://matsueushi.github.io/disc-review/sweettrip-velocity-design-comfort/</link>
+				<pubDate>Tue, 16 Jul 2019 21:00:12 -0400</pubDate>
+				<guid>https://matsueushi.github.io/disc-review/sweettrip-velocity-design-comfort/</guid>
+				<description>&lt;iframe style=&#34;border: 0; width: 350px; height: 470px;&#34; src=&#34;https://bandcamp.com/EmbeddedPlayer/album=3134024535/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/&#34; seamless&gt;&lt;a href=&#34;http://sweettrip.bandcamp.com/album/velocity-design-comfort&#34;&gt;Velocity:Design:Comfort. by Sweet Trip&lt;/a&gt;&lt;/iframe&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://rateyourmusic.com&#34;&gt;RateYourMusic&lt;/a&gt; を巡回していたら&lt;a href=&#34;https://rateyourmusic.com/charts/top/album/2003&#34;&gt;2003年の年間ランキング4位&lt;/a&gt;に挙げられていたこのアルバム。近未来感のある色とりどりのジャケットとvelocity:design:comfort.という抽象的なタイトルに妙に心惹かれたので聞いてみたところかなりハマってしまい、いつの間にかBandcampの購入ボタンをクリックしていた。&#xA;日本語で調べてもあまりこのアルバムについて書かれた情報は見つからなかったのが残念。&lt;/p&gt;&#xA;&lt;p&gt;サンフランシスコのSweet Tripと言うバンドの2枚目で、2009年の3rd以降新作は出ていないようである。&#xA;2013年にはSoundcloudに曲が&lt;a href=&#34;https://soundcloud.com/wotf/things-to-ponder-while-falling&#34;&gt;アップロード&lt;/a&gt;されていて、Probably &lt;em&gt;not&lt;/em&gt; the last Sweet Trip song ever. とあるので解散はしていないみたいだ。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

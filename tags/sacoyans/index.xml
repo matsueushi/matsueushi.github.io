@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SACOYANS on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/sacoyans/</link>
-    <description>Recent content in SACOYANS on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sun, 23 Feb 2025 21:42:18 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/sacoyans/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SACOYANS -ライブの記録-</title>
-      <link>https://matsueushi.github.io/music/sacoyans-live/</link>
-      <pubDate>Sun, 23 Feb 2025 21:42:18 +0900</pubDate>
-      <guid>https://matsueushi.github.io/music/sacoyans-live/</guid>
-      <description>&lt;p&gt;SACOYANS については&lt;a href=&#34;../sacoyans-profile&#34;&gt;こちら&lt;/a&gt;。&#xA;表示ブレは許してください。&lt;/p&gt;&#xA;&lt;h4 id=&#34;2019-12-10-music-unfair--福岡-utero&#34;&gt;2019-12-10 &amp;ldquo;MUSIC UNFAIR&amp;rdquo; @ 福岡 UTERO&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;w/ z/nz, コーラスモーチヴ, the bellrins&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;SACOYANS としての記念すべき初ライブ。SACOYAN (バンドセット) としての出演。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>SACOYANS -プロフィール-</title>
-      <link>https://matsueushi.github.io/music/sacoyans-profile/</link>
-      <pubDate>Sun, 16 Feb 2025 21:30:48 +0900</pubDate>
-      <guid>https://matsueushi.github.io/music/sacoyans-profile/</guid>
-      <description>&lt;p&gt;福岡が生んだ 4 人組オルタナティブ・ノイズポップバンド SACOYANS について記録しているページです。&lt;/p&gt;&#xA;&lt;p&gt;まずはこのページを読むよりも実際に聞いてみればその素晴らしさがすぐに分かるでしょう。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>SACOYANS vs 家主 @ 新代田FEVER</title>
-      <link>https://matsueushi.github.io/music/sacoyans-yanushi-20250209/</link>
-      <pubDate>Sun, 09 Feb 2025 23:47:43 +0900</pubDate>
-      <guid>https://matsueushi.github.io/music/sacoyans-yanushi-20250209/</guid>
-      <description>&lt;p&gt;新代田 FEVER で行われた SACOYANS の 3rd Album &amp;ldquo;Sun&amp;rdquo; のリリースツアーに行ってきました。家主とのツーマンでした。&#xA;SACOYANS も家主も好きなので嬉しい。そして二組ともライブで見るのは初で否応なく期待が高まります。&#xA;久しぶりに FEVER に到着してみると想像以上に人が入っていました。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>SACOYANS - Yomosue (2020)</title>
-      <link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
-      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
-      <guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
-      <description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>SACOYANS on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/sacoyans/</link>
+		<description>Recent content in SACOYANS on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sun, 23 Feb 2025 21:42:18 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/sacoyans/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>SACOYANS -ライブの記録-</title>
+				<link>https://matsueushi.github.io/music/sacoyans-live/</link>
+				<pubDate>Sun, 23 Feb 2025 21:42:18 +0900</pubDate>
+				<guid>https://matsueushi.github.io/music/sacoyans-live/</guid>
+				<description>&lt;p&gt;SACOYANS については&lt;a href=&#34;../sacoyans-profile&#34;&gt;こちら&lt;/a&gt;。&#xA;表示ブレは許してください。&lt;/p&gt;&#xA;&lt;h4 id=&#34;2019-12-10-music-unfair--福岡-utero&#34;&gt;2019-12-10 &amp;ldquo;MUSIC UNFAIR&amp;rdquo; @ 福岡 UTERO&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;w/ z/nz, コーラスモーチヴ, the bellrins&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;SACOYANS としての記念すべき初ライブ。SACOYAN (バンドセット) としての出演。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SACOYANS -プロフィール-</title>
+				<link>https://matsueushi.github.io/music/sacoyans-profile/</link>
+				<pubDate>Sun, 16 Feb 2025 21:30:48 +0900</pubDate>
+				<guid>https://matsueushi.github.io/music/sacoyans-profile/</guid>
+				<description>&lt;p&gt;福岡が生んだ 4 人組オルタナティブ・ノイズポップバンド SACOYANS について記録しているページです。&lt;/p&gt;&#xA;&lt;p&gt;まずはこのページを読むよりも実際に聞いてみればその素晴らしさがすぐに分かるでしょう。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SACOYANS vs 家主 @ 新代田FEVER</title>
+				<link>https://matsueushi.github.io/music/sacoyans-yanushi-20250209/</link>
+				<pubDate>Sun, 09 Feb 2025 23:47:43 +0900</pubDate>
+				<guid>https://matsueushi.github.io/music/sacoyans-yanushi-20250209/</guid>
+				<description>&lt;p&gt;新代田 FEVER で行われた SACOYANS の 3rd Album &amp;ldquo;Sun&amp;rdquo; のリリースツアーに行ってきました。家主とのツーマンでした。&#xA;SACOYANS も家主も好きなので嬉しい。そして二組ともライブで見るのは初で否応なく期待が高まります。&#xA;久しぶりに FEVER に到着してみると想像以上に人が入っていました。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SACOYANS - Yomosue (2020)</title>
+				<link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
+				<pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+				<guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
+				<description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

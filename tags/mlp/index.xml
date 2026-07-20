@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>MLP on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/mlp/</link>
-    <description>Recent content in MLP on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/mlp/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
-      <link>https://matsueushi.github.io/ds/fluxjl-dcgan/</link>
-      <pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
-      <guid>https://matsueushi.github.io/ds/fluxjl-dcgan/</guid>
-      <description>&lt;p&gt;2020/3/8 追記: model-zoo(&lt;a href=&#34;https://github.com/FluxML/model-zoo&#34;&gt;https://github.com/FluxML/model-zoo&lt;/a&gt;) にDCGANのモデルが入りました。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;2019/11/29にJuliaの機械学習ライブラリ&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/&#34;&gt;Flux.jl&lt;/a&gt;の&lt;a href=&#34;https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0&#34;&gt;v0.10.0&lt;/a&gt;がリリースされた。&#xA;もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、&#xA;ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>ガウス過程と機械学習: 3.5まで</title>
-      <link>https://matsueushi.github.io/ds/gp-nlp-2/</link>
-      <pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/gp-nlp-2/</guid>
-      <description>&lt;p&gt;引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。&lt;/p&gt;&#xA;&lt;p&gt;ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの &lt;code&gt;optimize&lt;/code&gt; を使ってしまった)のところまで読み進めた。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>「ガウス過程と機械学習」を読み始めた</title>
-      <link>https://matsueushi.github.io/ds/gp-nlp-1/</link>
-      <pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/gp-nlp-1/</guid>
-      <description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;&#xA;&lt;p&gt;本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>MLP on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/mlp/</link>
+		<description>Recent content in MLP on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sun, 01 Dec 2019 18:07:13 -0500</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/mlp/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Flux.jl v0.10.0でDCGANを動かす(CUDA環境)</title>
+				<link>https://matsueushi.github.io/ds/fluxjl-dcgan/</link>
+				<pubDate>Sun, 01 Dec 2019 18:07:13 -0500</pubDate>
+				<guid>https://matsueushi.github.io/ds/fluxjl-dcgan/</guid>
+				<description>&lt;p&gt;2020/3/8 追記: model-zoo(&lt;a href=&#34;https://github.com/FluxML/model-zoo&#34;&gt;https://github.com/FluxML/model-zoo&lt;/a&gt;) にDCGANのモデルが入りました。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;2019/11/29にJuliaの機械学習ライブラリ&lt;a href=&#34;https://fluxml.ai/Flux.jl/stable/&#34;&gt;Flux.jl&lt;/a&gt;の&lt;a href=&#34;https://github.com/FluxML/Flux.jl/releases/tag/v0.10.0&#34;&gt;v0.10.0&lt;/a&gt;がリリースされた。&#xA;もともとv0.9.0でDCGANのMNISTデータセットから手書き文字画像生成モデルを作成して、今回の変更に合わせてv0.10.0で動かしたのだが、&#xA;ここに至るまで色々と苦戦したので、v0.10.0の主な変更点や、自分がつまづいた点を書いておく。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ガウス過程と機械学習: 3.5まで</title>
+				<link>https://matsueushi.github.io/ds/gp-nlp-2/</link>
+				<pubDate>Sun, 19 May 2019 22:37:52 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/gp-nlp-2/</guid>
+				<description>&lt;p&gt;引き続き「ガウス過程と機械学習(第二刷)」を読み進めJuliaで実装している。&lt;/p&gt;&#xA;&lt;p&gt;ハイパーパラメーターの最適化(勾配を使わず、Optim.jlの &lt;code&gt;optimize&lt;/code&gt; を使ってしまった)のところまで読み進めた。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>「ガウス過程と機械学習」を読み始めた</title>
+				<link>https://matsueushi.github.io/ds/gp-nlp-1/</link>
+				<pubDate>Fri, 10 May 2019 22:30:45 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/gp-nlp-1/</guid>
+				<description>&lt;p&gt;持橋・大羽の「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読み始めた。Juliaでコードを書きながら内容を確かめている。&lt;/p&gt;&#xA;&lt;p&gt;本を読むまで定義も理解していなかったレベルだったが、無限次元のガウス分布を考えるというモチベーションから「有限次元に制限すれば(通常の)ガウス分布になるもの」としてガウス過程の定義が出てくるのは非常に自然だと思った。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

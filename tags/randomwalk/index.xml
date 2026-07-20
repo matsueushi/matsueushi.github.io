@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>RandomWalk on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/randomwalk/</link>
-    <description>Recent content in RandomWalk on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Wed, 03 Apr 2019 21:52:38 -0400</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/randomwalk/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mamba.jlでGaussianRandomWalkを作って使う</title>
-      <link>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</link>
-      <pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</guid>
-      <description>&lt;p&gt;PyMC3にはTimeseriesとして &lt;code&gt;GaussianRandomWalk&lt;/code&gt; などの時系列モデルが実装されている。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&#34;&gt;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように &lt;code&gt;cumsum&lt;/code&gt; を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>RandomWalk on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/randomwalk/</link>
+		<description>Recent content in RandomWalk on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Wed, 03 Apr 2019 21:52:38 -0400</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/randomwalk/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Mamba.jlでGaussianRandomWalkを作って使う</title>
+				<link>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</link>
+				<pubDate>Wed, 03 Apr 2019 21:52:38 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/mamba-gaussianrandomwalk/</guid>
+				<description>&lt;p&gt;PyMC3にはTimeseriesとして &lt;code&gt;GaussianRandomWalk&lt;/code&gt; などの時系列モデルが実装されている。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&#34;&gt;https://docs.pymc.io/api/distributions/timeseries.html#pymc3.distributions.timeseries.GaussianRandomWalk&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;だが残念なことに私が使っているMamba.jl(0.12.1)には時系列モデルがない。下のように &lt;code&gt;cumsum&lt;/code&gt; を使ってモデルを作成することは可能ではあるが、面倒だし次元が大きくなってきたりモデルが複雑になってくると遅い。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SoD on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/sod/</link>
-    <description>Recent content in SoD on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/sod/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
-      <link>https://matsueushi.github.io/ds/ivm/</link>
-      <pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/ivm/</guid>
-      <description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。&#xA;Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
-      <link>https://matsueushi.github.io/ds/sparse-approximate-gp/</link>
-      <pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/sparse-approximate-gp/</guid>
-      <description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;&#xA;&lt;p&gt;そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &lt;a href=&#34;http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf&#34;&gt;&amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo;&lt;/a&gt; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>SoD on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/sod/</link>
+		<description>Recent content in SoD on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Thu, 04 Jul 2019 10:10:28 -0400</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/sod/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>ガウス過程の補助変数法をJuliaで実装、回帰結果を比較</title>
+				<link>https://matsueushi.github.io/ds/ivm/</link>
+				<pubDate>Thu, 04 Jul 2019 10:10:28 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/ivm/</guid>
+				<description>&lt;p&gt;7/5 追記 タイトルが「変数補助法」になっていたのを「補助変数法」に修正&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;前回書いた 「&lt;a href=&#34;../sparse-approximate-gp/&#34;&gt;ガウス過程の補助変数法 (Inducing variable method) を理解する&lt;/a&gt; 」の続き。&#xA;Julia (v1.0) を使って、前回調べた SoD, SoR, DTC, FITC による回帰の近似結果を実際に確認する。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ガウス過程の補助変数法 (Inducing variable method) を理解する</title>
+				<link>https://matsueushi.github.io/ds/sparse-approximate-gp/</link>
+				<pubDate>Thu, 27 Jun 2019 00:55:38 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/sparse-approximate-gp/</guid>
+				<description>&lt;p&gt;6/27 追記:  typo, \( p(\mathbf{y} | \mathbf{f}) \) の誤字を修正, \( q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) \) の二番目の等号を修正 (\( \sigma^{-2} \) を削除)&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;「&lt;a href=&#34;http://chasen.org/~daiti-m/gpbook/&#34;&gt;ガウス過程と機械学習&lt;/a&gt;」を読んでいるが、5.2補助変数法のところで、どの部分で近似が行われているのかよく分からなくなってしまった。&lt;/p&gt;&#xA;&lt;p&gt;そのため、今回は原論文であるQuinonero Candela, J. and Rasmussen, CE.の &lt;a href=&#34;http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf&#34;&gt;&amp;ldquo;A Unifying View of Sparse Approximate Gaussian Process Regression&amp;rdquo;&lt;/a&gt; を読んでスパース近似についてまとめて見ようと思う。ゴールは、The Fully Independent Training Conditional (FITC) の理解である。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

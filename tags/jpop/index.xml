@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Jpop on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/jpop/</link>
-    <description>Recent content in Jpop on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 21:45:02 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/jpop/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>BPM15Q - BPM15Q ALL SONGS (2016)</title>
-      <link>https://matsueushi.github.io/disc-review/bpm15q-all-songs/</link>
-      <pubDate>Thu, 30 Jun 2022 21:45:02 +0900</pubDate>
-      <guid>https://matsueushi.github.io/disc-review/bpm15q-all-songs/</guid>
-      <description>&lt;p&gt;2021年に解散したアイドルグループCY8ERの前身であるBPM15Qが唯一世に送り出したアルバムである。私はこのアルバムはアイドルという枠を超えた普遍的な名盤だと思う。criminally underrated album と言いたい。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>SACOYANS - Yomosue (2020)</title>
-      <link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
-      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
-      <guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
-      <description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Jpop on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/jpop/</link>
+		<description>Recent content in Jpop on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Thu, 30 Jun 2022 21:45:02 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/jpop/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>BPM15Q - BPM15Q ALL SONGS (2016)</title>
+				<link>https://matsueushi.github.io/disc-review/bpm15q-all-songs/</link>
+				<pubDate>Thu, 30 Jun 2022 21:45:02 +0900</pubDate>
+				<guid>https://matsueushi.github.io/disc-review/bpm15q-all-songs/</guid>
+				<description>&lt;p&gt;2021年に解散したアイドルグループCY8ERの前身であるBPM15Qが唯一世に送り出したアルバムである。私はこのアルバムはアイドルという枠を超えた普遍的な名盤だと思う。criminally underrated album と言いたい。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SACOYANS - Yomosue (2020)</title>
+				<link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
+				<pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+				<guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
+				<description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

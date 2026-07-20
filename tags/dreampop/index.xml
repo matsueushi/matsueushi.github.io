@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Dreampop on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/dreampop/</link>
-    <description>Recent content in Dreampop on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Mon, 05 Oct 2020 00:07:12 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/dreampop/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SACOYANS - Yomosue (2020)</title>
-      <link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
-      <pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
-      <guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
-      <description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Dreampop on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/dreampop/</link>
+		<description>Recent content in Dreampop on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Mon, 05 Oct 2020 00:07:12 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/dreampop/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>SACOYANS - Yomosue (2020)</title>
+				<link>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</link>
+				<pubDate>Mon, 05 Oct 2020 00:07:12 +0900</pubDate>
+				<guid>https://matsueushi.github.io/disc-review/sacoyans-yomosue/</guid>
+				<description>&lt;p&gt;Twitter で友人に勧められて聞いた福岡のバンド SACOYANS(サコヤンズ)のファーストアルバム&amp;quot;Yomosue&amp;quot;がかなり気に入ったので紹介したいと思います。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

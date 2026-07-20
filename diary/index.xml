@@ -1,97 +1,103 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>日記 on matsueushi</title>
-    <link>https://matsueushi.github.io/diary/</link>
-    <description>Recent content in 日記 on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Fri, 27 Mar 2026 10:00:00 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/diary/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Hyperdrifting — Drifting Aimlessly Through the Edges of the Internet</title>
-      <link>https://matsueushi.github.io/diary/hyperdrifting-en/</link>
-      <pubDate>Fri, 27 Mar 2026 10:00:00 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/hyperdrifting-en/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; This is an English translation of &lt;a href=&#34;https://matsueushi.github.io/diary/hyperdrifting/&#34;&gt;Hyperdrifting — インターネットの辺境を目的なく漂流する&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;One of the main sections of this website is a collection of pages I&amp;rsquo;ve researched and organized about a band called BOaT. I no longer remember how I first came across them, but after listening obsessively to their recordings — including &lt;a href=&#34;https://wmg.jp/boat/discography/117/&#34;&gt;&amp;ldquo;RORO&amp;rdquo;&lt;/a&gt; — I found myself digging into information about the band, who were active from the late 1990s through around 2001.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hyperdrifting — インターネットの辺境を目的なく漂流する</title>
-      <link>https://matsueushi.github.io/diary/hyperdrifting/</link>
-      <pubDate>Fri, 27 Mar 2026 09:00:00 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/hyperdrifting/</guid>
-      <description>&lt;p&gt;このウェブサイトは、BOaTというバンドについて調べて整理したページがメインコンテンツの一つだ。今となってはバンドを知ったきっかけは忘れたが、&lt;a href=&#34;https://wmg.jp/boat/discography/117/&#34;&gt;&amp;ldquo;RORO&amp;rdquo;&lt;/a&gt; を始めとする音源を聴きまくっているうちに、1990年代後半から2001年ごろにかけて活動していた彼らについての情報を調べるようになっていた。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>サイトの構成を更新</title>
-      <link>https://matsueushi.github.io/diary/20260226/</link>
-      <pubDate>Thu, 26 Feb 2026 23:33:10 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/20260226/</guid>
-      <description>&lt;p&gt;サイトの構成を更新しました。一部以前のページがリンク切れになっていますがご容赦ください。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
-      <link>https://matsueushi.github.io/diary/mac-cd-54/</link>
-      <pubDate>Mon, 14 Oct 2024 12:04:33 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/mac-cd-54/</guid>
-      <description>&lt;p&gt;自分用メモ。&#xA;An unknown error occurred (-54) が出た時は、&lt;/p&gt;&#xA;&lt;p&gt;システム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
-      <link>https://matsueushi.github.io/diary/vscode-container-gpg/</link>
-      <pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/vscode-container-gpg/</guid>
-      <description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;&#xA;&lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;&#xA;&lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>2021年</title>
-      <link>https://matsueushi.github.io/diary/2021/</link>
-      <pubDate>Fri, 31 Dec 2021 21:05:26 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/2021/</guid>
-      <description>&lt;p&gt;2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hugoのページを検索できるようにした</title>
-      <link>https://matsueushi.github.io/diary/hugo-search/</link>
-      <pubDate>Sun, 23 Aug 2020 21:25:36 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/hugo-search/</guid>
-      <description>&lt;p&gt;下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae&#34;&gt;Client side searching for Hugo.io with Fuse.js&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.mamansoft.net/2019/11/11/add-search-page-in-blog-made-by-hugo/&#34;&gt;Hugo製ブログに検索ページを追加してみた&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.unigiri.net/article/hugo-lunr%E3%81%AB%E3%82%88%E3%82%8B%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2/&#34;&gt;Hugo + Lunrによる日本語全文検索&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;なんか微妙に検索結果がおかしい時もありますが、いったん置いておきます。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>サイトのデザインを変えました</title>
-      <link>https://matsueushi.github.io/diary/tokiwa/</link>
-      <pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
-      <guid>https://matsueushi.github.io/diary/tokiwa/</guid>
-      <description>&lt;p&gt;パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>GitHub Pagesに引っ越した</title>
-      <link>https://matsueushi.github.io/diary/hugo/</link>
-      <pubDate>Thu, 06 Jun 2019 22:48:39 -0400</pubDate>
-      <guid>https://matsueushi.github.io/diary/hugo/</guid>
-      <description>&lt;p&gt;過去のポストをこっちのGitHub Pagesに移行させた。疲れた。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>KaTeXで複数行の数式を入力</title>
-      <link>https://matsueushi.github.io/diary/katex-multiline/</link>
-      <pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
-      <guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
-      <description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;(&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 1+1 &lt;span style=&#34;color:#cf222e&#34;&gt;\\\\&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;\begin{aligned}&#xA;x &amp;amp;= 1+1 \\&#xA;&amp;amp;= 2&#xA;\end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
-    </item>
-    <item>
-      <title>KaTeX Test</title>
-      <link>https://matsueushi.github.io/diary/katex-test/</link>
-      <pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
-      <guid>https://matsueushi.github.io/diary/katex-test/</guid>
-      <description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Yubikey</title>
-      <link>https://matsueushi.github.io/diary/yubikey/</link>
-      <pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
-      <guid>https://matsueushi.github.io/diary/yubikey/</guid>
-      <description>&lt;p&gt;物理セキュリティーキーが欲しかったので買ってしまった。&lt;/p&gt;&#xA;&lt;p&gt;公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>日記 on matsueushi</title>
+		<link>https://matsueushi.github.io/diary/</link>
+		<description>Recent content in 日記 on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Fri, 27 Mar 2026 10:00:00 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/diary/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Hyperdrifting — Drifting Aimlessly Through the Edges of the Internet</title>
+				<link>https://matsueushi.github.io/diary/hyperdrifting-en/</link>
+				<pubDate>Fri, 27 Mar 2026 10:00:00 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/hyperdrifting-en/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; This is an English translation of &lt;a href=&#34;https://matsueushi.github.io/diary/hyperdrifting/&#34;&gt;Hyperdrifting — インターネットの辺境を目的なく漂流する&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;One of the main sections of this website is a collection of pages I&amp;rsquo;ve researched and organized about a band called BOaT. I no longer remember how I first came across them, but after listening obsessively to their recordings — including &lt;a href=&#34;https://wmg.jp/boat/discography/117/&#34;&gt;&amp;ldquo;RORO&amp;rdquo;&lt;/a&gt; — I found myself digging into information about the band, who were active from the late 1990s through around 2001.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Hyperdrifting — インターネットの辺境を目的なく漂流する</title>
+				<link>https://matsueushi.github.io/diary/hyperdrifting/</link>
+				<pubDate>Fri, 27 Mar 2026 09:00:00 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/hyperdrifting/</guid>
+				<description>&lt;p&gt;このウェブサイトは、BOaTというバンドについて調べて整理したページがメインコンテンツの一つだ。今となってはバンドを知ったきっかけは忘れたが、&lt;a href=&#34;https://wmg.jp/boat/discography/117/&#34;&gt;&amp;ldquo;RORO&amp;rdquo;&lt;/a&gt; を始めとする音源を聴きまくっているうちに、1990年代後半から2001年ごろにかけて活動していた彼らについての情報を調べるようになっていた。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>サイトの構成を更新</title>
+				<link>https://matsueushi.github.io/diary/20260226/</link>
+				<pubDate>Thu, 26 Feb 2026 23:33:10 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/20260226/</guid>
+				<description>&lt;p&gt;サイトの構成を更新しました。一部以前のページがリンク切れになっていますがご容赦ください。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>MacでCDドライブで曲が取り込めない(-54)-&gt;直った</title>
+				<link>https://matsueushi.github.io/diary/mac-cd-54/</link>
+				<pubDate>Mon, 14 Oct 2024 12:04:33 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/mac-cd-54/</guid>
+				<description>&lt;p&gt;自分用メモ。&#xA;An unknown error occurred (-54) が出た時は、&lt;/p&gt;&#xA;&lt;p&gt;システム設定→プライバシーとセキュリテイ→ファイルとフォルダ→ミュージック→リムーバリムーバブルボリュームをONにする&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Dockerコンテナ上でコミットしようとしたらGPGのエラーが出てきた</title>
+				<link>https://matsueushi.github.io/diary/vscode-container-gpg/</link>
+				<pubDate>Sat, 13 Aug 2022 17:57:16 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/vscode-container-gpg/</guid>
+				<description>&lt;p&gt;vscodeでアタッチしたコンテナからコミットしようとすると、&lt;/p&gt;&#xA;&lt;p&gt;fatal: cannot run /usr/local/bin/gpg: No such file or directory&lt;/p&gt;&#xA;&lt;p&gt;というメッセージが出てコミットできない。ローカルではGPGの設定をしているのだが、コンテナ内では設定されていないので怒られている模様。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>2021年</title>
+				<link>https://matsueushi.github.io/diary/2021/</link>
+				<pubDate>Fri, 31 Dec 2021 21:05:26 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/2021/</guid>
+				<description>&lt;p&gt;2021年は記事を更新できませんでしたが無事に生きてます。来年からはぼちぼち記事の更新を再開したいと思います。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Hugoのページを検索できるようにした</title>
+				<link>https://matsueushi.github.io/diary/hugo-search/</link>
+				<pubDate>Sun, 23 Aug 2020 21:25:36 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/hugo-search/</guid>
+				<description>&lt;p&gt;下を参考にしてページを検索できるようにしました。左にSearch項目を追加しました。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae&#34;&gt;Client side searching for Hugo.io with Fuse.js&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.mamansoft.net/2019/11/11/add-search-page-in-blog-made-by-hugo/&#34;&gt;Hugo製ブログに検索ページを追加してみた&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://blog.unigiri.net/article/hugo-lunr%E3%81%AB%E3%82%88%E3%82%8B%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2/&#34;&gt;Hugo + Lunrによる日本語全文検索&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;なんか微妙に検索結果がおかしい時もありますが、いったん置いておきます。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>サイトのデザインを変えました</title>
+				<link>https://matsueushi.github.io/diary/tokiwa/</link>
+				<pubDate>Fri, 26 Jun 2020 00:24:50 +0900</pubDate>
+				<guid>https://matsueushi.github.io/diary/tokiwa/</guid>
+				<description>&lt;p&gt;パソコンを新調して、再度ウェブサイトを更新しようと思ったらhugoのテーマと新しいバージョンのhugoの相性が悪いのか、更新がうまくいかなくなってしまったのでテーマを変更しました。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>GitHub Pagesに引っ越した</title>
+				<link>https://matsueushi.github.io/diary/hugo/</link>
+				<pubDate>Thu, 06 Jun 2019 22:48:39 -0400</pubDate>
+				<guid>https://matsueushi.github.io/diary/hugo/</guid>
+				<description>&lt;p&gt;過去のポストをこっちのGitHub Pagesに移行させた。疲れた。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>KaTeXで複数行の数式を入力</title>
+				<link>https://matsueushi.github.io/diary/katex-multiline/</link>
+				<pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
+				<guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
+				<description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;(&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 1+1 &lt;span style=&#34;color:#cf222e&#34;&gt;\\\\&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;\begin{aligned}&#xA;x &amp;amp;= 1+1 \\&#xA;&amp;amp;= 2&#xA;\end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+			<item>
+				<title>KaTeX Test</title>
+				<link>https://matsueushi.github.io/diary/katex-test/</link>
+				<pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
+				<guid>https://matsueushi.github.io/diary/katex-test/</guid>
+				<description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Yubikey</title>
+				<link>https://matsueushi.github.io/diary/yubikey/</link>
+				<pubDate>Thu, 03 Jan 2019 22:47:53 -0400</pubDate>
+				<guid>https://matsueushi.github.io/diary/yubikey/</guid>
+				<description>&lt;p&gt;物理セキュリティーキーが欲しかったので買ってしまった。&lt;/p&gt;&#xA;&lt;p&gt;公式サイトから購入し、バックアップ用と合わせて2つで$90+Tax $7.99=$97.99だった。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

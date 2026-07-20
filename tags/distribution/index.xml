@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Distribution on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/distribution/</link>
-    <description>Recent content in Distribution on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Distribution.jlで分布をシフト・スケールさせる</title>
-      <link>https://matsueushi.github.io/ds/shift-scale-distribution/</link>
-      <pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
-      <guid>https://matsueushi.github.io/ds/shift-scale-distribution/</guid>
-      <description>&lt;p&gt;公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Distributions.jl/src/univariate/continuous/locationscale.jl&#xA;&lt;a href=&#34;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&#34;&gt;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;例えば、PyMC3の &lt;code&gt;StudentT&lt;/code&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pm&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;StudentT&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; nu&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;nu&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; mu&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;mu&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; lam&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;lam&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの &lt;code&gt;TDist&lt;/code&gt; のパラメトライズは &lt;code&gt;nu&lt;/code&gt; だけで &lt;code&gt;mu&lt;/code&gt; や &lt;code&gt;lam&lt;/code&gt; は指定できないが、&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Distribution on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/distribution/</link>
+		<description>Recent content in Distribution on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Tue, 30 Apr 2019 21:58:27 -0400</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Distribution.jlで分布をシフト・スケールさせる</title>
+				<link>https://matsueushi.github.io/ds/shift-scale-distribution/</link>
+				<pubDate>Tue, 30 Apr 2019 21:58:27 -0400</pubDate>
+				<guid>https://matsueushi.github.io/ds/shift-scale-distribution/</guid>
+				<description>&lt;p&gt;公式ドキュメントでは記述が見つけられなかったが、 LocationScale を使えば良いっぽい。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Distributions.jl/src/univariate/continuous/locationscale.jl&#xA;&lt;a href=&#34;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&#34;&gt;https://github.com/JuliaStats/Distributions.jl/blob/master/src/univariate/continuous/locationscale.jl&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;例えば、PyMC3の &lt;code&gt;StudentT&lt;/code&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-julia&#34; data-lang=&#34;julia&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pm&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;StudentT&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; nu&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;nu&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; mu&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;mu&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; lam&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;lam&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;に対応する分布をDistribution.jlで使いたいとき、Distribution.jlでの &lt;code&gt;TDist&lt;/code&gt; のパラメトライズは &lt;code&gt;nu&lt;/code&gt; だけで &lt;code&gt;mu&lt;/code&gt; や &lt;code&gt;lam&lt;/code&gt; は指定できないが、&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

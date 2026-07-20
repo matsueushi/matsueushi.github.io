@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>GAN on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/gan/</link>
-    <description>Recent content in GAN on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/gan/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flux.jlでSinGANを実装する</title>
-      <link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
-      <pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
-      <guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
-      <description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>GAN on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/gan/</link>
+		<description>Recent content in GAN on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sun, 12 Jan 2020 01:00:00 -0500</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/gan/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Flux.jlでSinGANを実装する</title>
+				<link>https://matsueushi.github.io/ds/fluxjl-singan/</link>
+				<pubDate>Sun, 12 Jan 2020 01:00:00 -0500</pubDate>
+				<guid>https://matsueushi.github.io/ds/fluxjl-singan/</guid>
+				<description>&lt;p&gt;今回は、Juliaの機械学習フレームワークFlux.jlでSinGAN(一部)を実装して、1枚のアルバムジャケット画像からアニメーションを作成します。結構長いです。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

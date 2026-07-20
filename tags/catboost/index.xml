@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>CatBoost on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/catboost/</link>
-    <description>Recent content in CatBoost on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Thu, 02 Feb 2023 22:52:35 +0900</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/catboost/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>MlflowでCatBoostのメトリクスをロギングする</title>
-      <link>https://matsueushi.github.io/ds/catboost-mlflow/</link>
-      <pubDate>Thu, 02 Feb 2023 22:52:35 +0900</pubDate>
-      <guid>https://matsueushi.github.io/ds/catboost-mlflow/</guid>
-      <description>&lt;p&gt;LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、&lt;code&gt;mlflow.lightgbm.autolog()&lt;/code&gt; や &lt;code&gt;mlflow.xgboost.autolog()&lt;/code&gt; を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>CatBoost on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/catboost/</link>
+		<description>Recent content in CatBoost on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Thu, 02 Feb 2023 22:52:35 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/catboost/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>MlflowでCatBoostのメトリクスをロギングする</title>
+				<link>https://matsueushi.github.io/ds/catboost-mlflow/</link>
+				<pubDate>Thu, 02 Feb 2023 22:52:35 +0900</pubDate>
+				<guid>https://matsueushi.github.io/ds/catboost-mlflow/</guid>
+				<description>&lt;p&gt;LightGBM, XGBoostであれば、途中の学習メトリクスをMlflowで記録するとき、&lt;code&gt;mlflow.lightgbm.autolog()&lt;/code&gt; や &lt;code&gt;mlflow.xgboost.autolog()&lt;/code&gt; を呼び出すだけで記録してくれるので非常に楽である。一方、CatBoost にはオートログの機能はない。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Float on matsueushi</title>
-    <link>https://matsueushi.github.io/tags/float/</link>
-    <description>Recent content in Float on matsueushi</description>
-    <generator>Hugo</generator>
-    <language>ja</language>
-    <copyright>Copyright © 2019–2026 matsueushi</copyright>
-    <lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
-    <atom:link href="https://matsueushi.github.io/tags/float/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
-      <link>https://matsueushi.github.io/programming/julia-rounding/</link>
-      <pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
-      <guid>https://matsueushi.github.io/programming/julia-rounding/</guid>
-      <description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。&#xA;IntervalArithmetic.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で&#xA;FastRounding.jl を利用しなくなった (v0.17.0以降) ので、&#xA;IntervalArithmetic.jl に関して以下に書いてある情報は古いです。&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Float on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/float/</link>
+		<description>Recent content in Float on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Sat, 07 Mar 2020 20:17:26 -0500</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/float/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Juliaで丸めモードを指定して浮動小数点数の計算をする(したい)</title>
+				<link>https://matsueushi.github.io/programming/julia-rounding/</link>
+				<pubDate>Sat, 07 Mar 2020 20:17:26 -0500</pubDate>
+				<guid>https://matsueushi.github.io/programming/julia-rounding/</guid>
+				<description>&lt;p&gt;2020/4/14追記 丸めモードについては、&lt;a href=&#34;../rounding-emulator/&#34;&gt;デフォルトの丸めモードで上付き丸め、下付き丸めをエミュレートする(Julia)&lt;/a&gt; も参照してください。&#xA;IntervalArithmetic.jl のデフォルト丸めモードは、&lt;a href=&#34;https://github.com/JuliaIntervals/IntervalArithmetic.jl/pull/370&#34;&gt;#370&lt;/a&gt; で&#xA;FastRounding.jl を利用しなくなった (v0.17.0以降) ので、&#xA;IntervalArithmetic.jl に関して以下に書いてある情報は古いです。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>
