@@ -3,9 +3,9 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>モナド | matsueushi</title>
+<title>Monad | matsueushi</title>
 <meta name="description" content="趣味のページです。音楽とプログラミングの話が主です。">
-<meta property="og:title" content="モナド | matsueushi">
+<meta property="og:title" content="Monad | matsueushi">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/programming/monad/">
 <meta property="og:description" content="趣味のページです。音楽とプログラミングの話が主です。">
@@ -52,18 +52,42 @@
     <div class="container">
 <article>
   <header class="post-header">
-    <h1 class="post-title">モナド</h1>
+    <h1 class="post-title">Monad</h1>
     <div class="post-meta">
-      <time datetime="2026-07-20">2026年07月20日</time>
+      <time datetime="2026-07-25">2026年07月25日</time>
       <a class="section-badge section-badge--programming" href="/programming/">プログラミング</a>
+      <ul class="tag-list">
+        <li class="tag-item"><a href="/tags/haskell/">Haskell</a></li>
+        <li class="tag-item"><a href="/tags/%E3%83%A2%E3%83%8A%E3%83%89/">モナド</a></li>
+        <li class="tag-item"><a href="/tags/%E5%9C%8F%E8%AB%96/">圏論</a></li>
+      </ul>
     </div>
   </header>
 
   <div class="post-content">
-    <blockquote>
-<p><strong>注意:</strong> 私は型システム・圏論の専門家ではありません。</p>
-</blockquote>
-<p>調べると多数の記事が出てくる</p>
+    <p>プログラミングにおけるモナドの理解を深めるためのメモ。少しずつ書き足していく予定。
+最終的には圏論的な定式化（モナドは自己関手の圏におけるモノイド対象である、という話）まで辿り着きたいが、
+まずは Haskell における具体的な定義から出発する。</p>
+<p>参考: <a href="https://wiki.haskell.org/Monad">https://wiki.haskell.org/Monad</a></p>
+<h2 id="haskell-における-monad-クラス">Haskell における Monad クラス</h2>
+<p>Haskell では、<code>Monad</code> は次のような型クラスとして定義される。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#cf222e">Monad</span> m <span style="color:#cf222e">where</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#1f2328">(</span><span style="color:#0550ae">&gt;&gt;=</span><span style="color:#1f2328">)</span>  <span style="color:#0550ae">::</span> m a <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span>a <span style="color:#0550ae">-&gt;</span> m b<span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> m b
+</span></span><span style="display:flex;"><span>  <span style="color:#1f2328">(</span><span style="color:#0550ae">&gt;&gt;</span><span style="color:#1f2328">)</span>   <span style="color:#0550ae">::</span> m a <span style="color:#0550ae">-&gt;</span> m b <span style="color:#0550ae">-&gt;</span> m b
+</span></span><span style="display:flex;"><span>  return <span style="color:#0550ae">::</span> a <span style="color:#0550ae">-&gt;</span> m a
+</span></span></code></pre></div><ul>
+<li><code>return :: a -&gt; m a</code> は、素の値 <code>a</code> を「モナド <code>m</code> の文脈に包む」操作。</li>
+<li><code>(&gt;&gt;=)</code> （bind）は <code>m a</code> の中身を取り出して <code>a -&gt; m b</code> を適用し、結果を <code>m b</code> として返す、モナド計算の合成演算子。</li>
+<li><code>(&gt;&gt;)</code> は <code>m a &gt;&gt; m b = m a &gt;&gt;= \_ -&gt; m b</code> と定義でき、<code>(&gt;&gt;=)</code> の結果を捨てる版（前の計算の値を使わない逐次実行）。</li>
+</ul>
+<p>したがって本質的なのは <code>return</code> と <code>(&gt;&gt;=)</code> の2つで、<code>(&gt;&gt;)</code> はそこから導出される。</p>
+<h2 id="モナド則">モナド則</h2>
+<p><code>Monad</code> のインスタンスは、型クラスの型として定義されるだけでなく、以下の3つの法則（モナド則）を満たす必要がある。ただし、これは Haskell の型システムによって強制されるものではなく、インスタンスを書く側が保証すべき性質。</p>
+<ol>
+<li>左単位元則: <code>return a &gt;&gt;= k = k a</code></li>
+<li>右単位元則: <code>m &gt;&gt;= return = m</code></li>
+<li>結合律: <code>m &gt;&gt;= (\x -&gt; k x &gt;&gt;= h) = (m &gt;&gt;= k) &gt;&gt;= h</code></li>
+</ol>
 
   </div>
 </article>
