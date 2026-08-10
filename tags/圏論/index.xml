@@ -20,7 +20,7 @@
 				<link>http://localhost:1313/programming/monad/</link>
 				<pubDate>Sat, 25 Jul 2026 22:59:15 +0900</pubDate>
 				<guid>http://localhost:1313/programming/monad/</guid>
-				<description>&lt;p&gt;プログラミングにおけるモナドの理解を深めるためのメモ。少しずつ書き足していく予定。&#xA;最終的には圏論的な定式化（モナドは自己関手の圏におけるモノイド対象である、という話）まで辿り着きたいが、&#xA;まずは Haskell における具体的な定義から出発する。&lt;/p&gt;</description>
+				<description></description>
 			</item>
 	</channel>
 </rss>

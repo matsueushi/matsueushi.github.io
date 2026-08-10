@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Wed, 05 Aug 2026 22:58:17 +0900</lastBuildDate>
+			<lastBuildDate>Tue, 11 Aug 2026 07:56:51 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>SoundTrack</title>
+				<link>https://matsueushi.github.io/tags/soundtrack/</link>
+				<pubDate>Tue, 11 Aug 2026 07:56:51 +0900</pubDate>
+				<guid>https://matsueushi.github.io/tags/soundtrack/</guid>
+				<description></description>
+			</item>
 			<item>
 				<title>Clingon</title>
 				<link>https://matsueushi.github.io/tags/clingon/</link>
