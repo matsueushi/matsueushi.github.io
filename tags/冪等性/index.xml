@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>冪等性 on matsueushi</title>
+		<link>https://matsueushi.github.io/tags/%E5%86%AA%E7%AD%89%E6%80%A7/</link>
+		<description>Recent content in 冪等性 on matsueushi</description>
+		<generator>Hugo</generator>
+		<language>ja</language>
+		
+		
+		
+			<copyright>Copyright © 2019–2026 matsueushi</copyright>
+		
+		
+			<lastBuildDate>Thu, 13 Aug 2026 23:23:57 +0900</lastBuildDate>
+		
+			<atom:link href="https://matsueushi.github.io/tags/%E5%86%AA%E7%AD%89%E6%80%A7/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>(クエリについての)冪等性について</title>
+				<link>https://matsueushi.github.io/programming/query-idempotent/</link>
+				<pubDate>Thu, 13 Aug 2026 23:23:57 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/query-idempotent/</guid>
+				<description>&lt;p&gt;WebサービスのAPIの冪等性についての説明を読み、分かったような分からないような気分になったので、自分の理解を整理する。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学的な意味での冪等性&#34;&gt;数学的な意味での冪等性&lt;/h2&gt;&#xA;&lt;p&gt;まず、前提知識。数学的な意味での関数における冪等性は明確。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

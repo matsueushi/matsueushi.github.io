@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Sat, 15 Mar 2025 17:20:45 +0900</lastBuildDate>
+			<lastBuildDate>Thu, 13 Aug 2026 23:23:57 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/programming/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>(クエリについての)冪等性について</title>
+				<link>https://matsueushi.github.io/programming/query-idempotent/</link>
+				<pubDate>Thu, 13 Aug 2026 23:23:57 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/query-idempotent/</guid>
+				<description>&lt;p&gt;WebサービスのAPIの冪等性についての説明を読み、分かったような分からないような気分になったので、自分の理解を整理する。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学的な意味での冪等性&#34;&gt;数学的な意味での冪等性&lt;/h2&gt;&#xA;&lt;p&gt;まず、前提知識。数学的な意味での関数における冪等性は明確。&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>JuliaのパッケージをOrganizationに移譲する</title>
 				<link>https://matsueushi.github.io/programming/transfer-github-repository/</link>

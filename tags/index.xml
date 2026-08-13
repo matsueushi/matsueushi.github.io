@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Tue, 11 Aug 2026 07:56:51 +0900</lastBuildDate>
+			<lastBuildDate>Thu, 13 Aug 2026 23:23:57 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>冪等性</title>
+				<link>https://matsueushi.github.io/tags/%E5%86%AA%E7%AD%89%E6%80%A7/</link>
+				<pubDate>Thu, 13 Aug 2026 23:23:57 +0900</pubDate>
+				<guid>https://matsueushi.github.io/tags/%E5%86%AA%E7%AD%89%E6%80%A7/</guid>
+				<description></description>
+			</item>
 			<item>
 				<title>SoundTrack</title>
 				<link>https://matsueushi.github.io/tags/soundtrack/</link>
