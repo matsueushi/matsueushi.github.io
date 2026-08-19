@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性 | matsueushi</title>
+<meta name="description" content="趣味のページです。音楽とプログラミングの話が主です。">
+<meta property="og:title" content="セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性 | matsueushi">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://matsueushi.github.io/programming/segtree-study-1/">
+<meta property="og:description" content="趣味のページです。音楽とプログラミングの話が主です。">
+<meta property="og:site_name" content="matsueushi">
+<link rel="canonical" href="https://matsueushi.github.io/programming/segtree-study-1/"><link rel="stylesheet" href="/css/main.f9a3125ae7d3b69aaa40e4f0e75175f4d12101e5a3e6e5328110c7ec27741937.css">
+<link rel="icon" href="https://matsueushi.github.io/favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css" integrity="sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.js" integrity="sha384-ykMNcWQhhTUb0YV9SPpPUFURHZ+tWmubkakGBP+OgNK/UXdO2gtzglWx0Rj9hnO3" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\[', right: '\\]', display: true},
+      {left: '$$', right: '$$', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
+  });"></script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "a80134605aad46229fa5da2ac9b548c1"}'></script>
+
+
+
+</head>
+<body>
+<div class="site-wrapper">
+  <header class="site-header"><div class="container">
+  <div class="site-title">
+    <a href="https://matsueushi.github.io/">matsueushi</a>
+  </div>
+  <nav aria-label="メインナビゲーション">
+    <ul class="site-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/diary/">日記</a></li>
+      <li><a href="/music/">音楽</a></li>
+      <li><a href="/boat/">BOaT</a></li>
+      <li><a href="/natsumen/">NATSUMEN</a></li>
+      <li><a href="/axsxe/">AxSxE</a></li>
+      <li><a href="/disc-review/">ディスクレビュー</a></li>
+      <li><a href="/ds/">データサイエンス</a></li>
+      <li><a href="/programming/">プログラミング</a></li>
+      <li><a href="/memo/">メモ</a></li>
+      <li><a href="/tags/">タグ</a></li>
+      <li><a href="/search/">検索</a></li>
+    </ul>
+  </nav>
+</div>
+</header>
+
+  <main>
+    <div class="container">
+<article>
+  <header class="post-header">
+    <h1 class="post-title">セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性</h1>
+    <div class="post-meta">
+      <time datetime="2026-08-19">2026年08月19日</time>
+      <a class="section-badge section-badge--programming" href="/programming/">プログラミング</a>
+      <ul class="tag-list">
+        <li class="tag-item"><a href="/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/">セグメント木</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>競技プログラミングの文脈で出てくるセグメント木について「どう使うか」ではなく、「なぜ使えるのか」を考察します。</p>
+<p>セグメント木の解説記事の多くは、配列を2べきの長さに区切って完全二分木に載せる様子や、任意の区間が高々 \(O(\log n)\) 個のノードに分解できる様子を図で示すことに重点が置かれています。</p>
+<p>図を見れば「なるほど、正しそうだ」という感覚は得られるのですが、その感覚がどこまで厳密な正しさの根拠になっているのか理解できていませんでした。</p>
+<p>この記事では、そうしたギャップを埋めることを目標に、セグメント木というデータ構造を天下り的に構成したあとで、それが期待通りに動作すること、そして期待通りの計算量で動作することを、モノイドの結合則だけを用いて証明します。</p>
+<h2 id="おことわり">おことわり</h2>
+<p>この記事は、セグメント木に一定の親しみがある私が、セグメント木の持つ優れた性質について証明を通して理解するために整理した内容です。</p>
+<p>そのため、セグメント木を1から学習しようとしている方、セグメント木の実装を知りたい方、具体例を通じてセグメント木の使い方を知り、競技プログラミングで出題される問題を解きたい方向けの内容ではないことをご了承ください。</p>
+<p>また、内容については確認したつもりではありますが、間違いを発見した方は教えて頂けると助かります。</p>
+<h2 id="前提">前提</h2>
+<ul>
+<li>セグメント木に関する基本的な知識を仮定します。</li>
+<li>モノイドなどの数学の概念を断りなく利用します。</li>
+<li>モノイドは可換性を仮定しません。</li>
+<li>コードを全て疑似コードで記述します。</li>
+<li>配列・区間のインデックスは 0-indexed とします。</li>
+<li>\([l:r]\) で離散化された区間 \([l, r] \cap \mathbb{Z}\) を表すことにします。</li>
+</ul>
+<h2 id="アプローチ">アプローチ</h2>
+<p>最初に木の構造そのものを定義し、次に具体的なデータ構造(セグメント木)を定義し、そのあとに構成したデータ構造がセグメント木として成り立って欲しい性質を満たすことを証明します。</p>
+<h2 id="木の構造">木の構造</h2>
+<p>セグメント木の議論を始める前に、土台となる木の構造だけを先に定義しておきます。ここで導入する概念(区間 \(\mathrm{seg}\)、高さ \(h\)、子ノードの記法、パス)はモノイドの値 \(v_\tau\) とは無関係で、純粋に組合せ論的な性質です。</p>
+<h3 id="定義">定義</h3>
+<ul>
+<li>管理する配列の長さを \(n = 2^d\) とします。一般の \(n\) は単位元でパディングしてこの形に帰着させます。</li>
+<li>深さ \(d\) の完全二分木 \(T\) を考え、各ノード \(\tau \in T\) に区間 \(\mathrm{seg}(\tau) \subseteq [0:n-1]\) を対応させます。</li>
+<li>根 \(\tau_0\) は \(\mathrm{seg}(\tau_0) = [0:n-1]\) とします。葉は単一のインデックス \(\mathrm{seg}(\tau) = {i}\)(\(0 \le i \le n-1\)) で表せるものです。</li>
+<li>非葉ノード \(\tau\) は必ず2つの子を持ちます。モノイドの非可換性のために子ノードの順序を明示する必要が頻繁に生じるので、左の子を \(\mathrm{lch}(\tau)\)、右の子を \(\mathrm{rch}(\tau)\) と書くことにします。子は親の区間を前半・後半に分割するもの、すなわち
+\[
+\mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))
+\]
+(インデックス順を保った非交和、すなわち \(\mathrm{seg}(\mathrm{lch}(\tau))\) の全要素は \(\mathrm{seg}(\mathrm{rch}(\tau))\) の全要素より小さい)として定義します。</li>
+<li>高さ \(h(\tau)\) を、葉について \(h(\tau) = 0\)、非葉ノード \(\tau\) について \(h(\tau) = h(\mathrm{lch}(\tau)) + 1 = h(\mathrm{rch}(\tau)) + 1\)（完全二分木なので両辺は一致し、これも定義の一部とします）として定義します。根の高さは \(d\) であり、\(|\mathrm{seg}(\tau)| = 2^{h(\tau)}\) が成り立ちます。特に、非葉ノード \(\tau\) について
+\[
+h(\mathrm{lch}(\tau)) = h(\mathrm{rch}(\tau)) = h(\tau) - 1
+\]
+が成り立ちます。</li>
+</ul>
+<p>以降、「非葉ノード \(\tau\) の子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする」という前提のもとで、上の2つの関係式を断りなく使います。</p>
+<h3 id="ノードから根へのパス">ノードから根へのパス</h3>
+<p>各インデックス \(i \in [0:n-1]\) に対して、\(i \in \mathrm{seg}(\tau)\) となるノード \(\tau\) 全体を \(P_i\) と書き、これを(葉 \({i}\) から根 \(\tau_0\) への)<strong>パス</strong>と呼びます。</p>
+<p><strong>補題1 (パスの一意性)</strong>. 任意の \(i \in [0:n-1]\) と高さ \(h \in {0,1,\ldots,d}\) に対して、\(P_i\) に属する高さ \(h\) のノードはちょうど1つ存在する。</p>
+<p><strong>証明</strong>. \(h\) に関する下降帰納法(\(d\) から \(0\) へ)で示す。\(h=d\) のときは根 \(\tau_0\) のみが高さ \(d\) であり、\(\mathrm{seg}(\tau_0)=[0:n-1]\) より任意の \(i\) について \(\tau_0 \in P_i\)。これが唯一の高さ \(d\) のノードなので成立。</p>
+<p>高さ \(h+1\) のノード \(\tau\) について \(\tau \in P_i\) であるものがちょうど1つ存在すると仮定する。\(\mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))\) は非交和なので、\(i \in \mathrm{seg}(\tau)\) ならば \(i \in \mathrm{seg}(\mathrm{lch}(\tau))\) と \(i \in \mathrm{seg}(\mathrm{rch}(\tau))\) のちょうど一方のみが成り立つ。すなわち \(\tau\) の子のうち \(P_i\) に属するものがちょうど1つ存在する。これが高さ \(h\) の唯一のノードであり(他の高さ \(h+1\) のノードの子は \(\mathrm{seg}\) が \(i\) を含まないので \(P_i\) に属さない)、主張が示された。■</p>
+<p>以降、この一意性のもとで、\(P_i\) の高さ \(h\) のノードを単に「\(P_i\) の高さ \(h\) のノード」と呼びます。</p>
+<h2 id="セグメント木の構成">セグメント木の構成</h2>
+<p>木の構造の上に、値としてモノイドを扱う、一点更新・区間取得ができるセグメント木を構成します。</p>
+<h3 id="設定">設定</h3>
+<ul>
+<li>\(M = (M, \cdot, e)\) をモノイドとします。</li>
+<li>管理するモノイドの配列を \(a = (a_0, \ldots, a_{n-1}) \in M^n\) とします。</li>
+<li>各ノード \(\tau\) に、モノイドの元 \(v_\tau \in M\) を保持します。</li>
+<li><strong>不変条件</strong>: 常に
+\[
+v_\tau = \prod_{i \in \mathrm{seg}(\tau)} a_i
+\]
+が成り立つようにします。\(\prod\) はモノイドの演算 \(\cdot \) に関する積をインデックス順に取ったもので、結合則から括弧の付け方に依存しません。</li>
+</ul>
+<h3 id="セグメント木の初期化">セグメント木の初期化</h3>
+<p>すべての \(i\) について \(a_i \leftarrow e\) とし、木の全ノードで \(v_\tau \leftarrow e\) と初期化します。単位元の積は単位元なので不変条件を満たします。</p>
+<h3 id="seti-c-一点更新"><code>Set(i, c)</code>: 一点更新</h3>
+<p>配列の単一要素の更新 \(a_i \leftarrow c\) に対応する操作 <code>Set(i, c)</code> を定義します。</p>
+<p>まず、 \(a_i \leftarrow c\) を行うためにノード \(\tau \) の値を更新する操作 <code>Set(i, c, τ)</code> を下のように定義します。</p>
+<pre tabindex="0"><code>Set(i, c, τ):
+  if seg(τ) = {i}:
+    v_τ ← c            # 葉なので直接書き換え
+    return
+  if i ∈ seg(lch(τ)):
+    Set(i, c, lch(τ))
+  else:
+    Set(i, c, rch(τ))
+  v_τ ← v_lch(τ) · v_rch(τ)     # 子の更新後に再計算
+</code></pre><p>そして、<code>Set(i, c)</code> を ルートに対する更新 <code>Set(i, c, τ0)</code> として定義します。</p>
+<h3 id="queryl-r-区間-lr-の総積"><code>Query(l, r)</code>: 区間 [l:r] の総積</h3>
+<p>区間に配置されたモノイドの元の積に対応する操作を同様に定義します。</p>
+<pre tabindex="0"><code>Query(l, r, τ):
+  if seg(τ) ∩ [l:r] = ∅:
+    return e             # 単位元(何も無ければ影響しない)
+  if seg(τ) ⊆ [l:r]:
+    return v_τ           # 部分木を丸ごと使える
+  return Query(l, r, lch(τ)) · Query(l, r, rch(τ))
+</code></pre><p>こちらも、<code>Query(l, r)</code> を <code>Query(l, r, τ0)</code> として定義します。</p>
+<h2 id="成り立って欲しい性質">成り立って欲しい性質</h2>
+<p>お待たせしました。天下り的に与えた <code>Set</code>, <code>Query</code> が期待する性質を持つことを確認しましょう。</p>
+<h3 id="補題2-set操作の不変条件保存">補題2 (Set操作の不変条件保存)</h3>
+<p>任意の木のノード \(\tau\) について、（初期状態を含む）任意の <code>Set</code> 呼び出し列の後で</p>
+<p>\[
+v_\tau = \prod_{i \in \mathrm{seg}(\tau)} a_i
+\]</p>
+<p>が成立する。</p>
+<p><strong>証明</strong>. 呼び出し列の長さに関する帰納法で示す。初期状態ではすべての \(a_i = e\) かつすべての \(v_\tau = e\) なので、空でない \(\mathrm{seg}(\tau)\) についても \(\prod_{i} e = e\) より成立する。</p>
+<p>呼び出し列の前まで不変条件が成立していると仮定し、次の呼び出し \(\mathrm{Set}(i,c)\) の後でも成立することを示す。以下、ノード \(\tau\) の高さ \(h(\tau)\) に関する帰納法で、「呼び出し \(\mathrm{Set}(i,c,\tau_0)\) の後、\(v_\tau = \prod_{j \in \mathrm{seg}(\tau)} a_j\)(新しい配列に対して)が成り立つ」ことを、すべてのノード \(\tau\) について示す。</p>
+<ul>
+<li>
+<p>\(h(\tau) = 0\)（\(\tau\) は葉、\(\mathrm{seg}(\tau) = {k}\) とする）:</p>
+<ul>
+<li>\(k = i\) の場合、アルゴリズムは \(v_\tau \leftarrow c\) と直接書き換える。新しい配列では \(a_i = c\) なので \(\prod_{j \in {i}} a_j = c = v_\tau\) より成立する。</li>
+<li>\(k \neq i\) の場合、\(i \notin \mathrm{seg}(\tau)\) なのでアルゴリズムはこのノードを訪問せず \(v_\tau\) を書き換えない。また \(a_k\)(\(k\neq i\))も変化しないので \(\prod_{j\in{k}} a_j\) の値も変わらない。呼び出し前に不変条件が成り立っていた（帰納法の仮定）ので、呼び出し後も \(v_\tau = \prod_{j\in\mathrm{seg}(\tau)} a_j\) が成立する。</li>
+</ul>
+</li>
+<li>
+<p>\(h(\tau) &gt; 0\)（子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする）: 高さに関する帰納法の仮定より、子については主張がすでに成立している、すなわち
+\[
+v_{\mathrm{lch}(\tau)} = \prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j, \qquad v_{\mathrm{rch}(\tau)} = \prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j
+\]
+が(新しい配列に対して)成り立つ。</p>
+<ul>
+<li>\(i \in \mathrm{seg}(\tau)\) の場合、アルゴリズムはこのノードを訪問し、\(v_\tau \leftarrow v_{\mathrm{lch}(\tau)}\cdot v_{\mathrm{rch}(\tau)}\) と計算する。\(\mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))\)(インデックス順を保った非交和)なので、モノイドの結合則により
+\[
+v_\tau = \Bigl(\prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j\Bigr)\cdot\Bigl(\prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j\Bigr) = \prod_{j \in \mathrm{seg}(\tau)} a_j.
+\]
+成立。</li>
+<li>\(i \notin \mathrm{seg}(\tau)\) の場合、アルゴリズムはこのノードを訪問せず \(v_\tau\) を書き換えない。\(i \notin \mathrm{seg}(\tau)\) なので \(a_i\) の変化は \(\prod_{j\in\mathrm{seg}(\tau)} a_j\) に影響しない。呼び出し前の不変条件（帰納法の仮定）より、呼び出し後も \(v_\tau = \prod_{j\in\mathrm{seg}(\tau)} a_j\) が成立する。</li>
+</ul>
+</li>
+</ul>
+<p>以上、高さに関する帰納法によりすべてのノード \(\tau\) で主張が示され、特に呼び出し列に関する外側の帰納法の帰納段も示された。■</p>
+<p>ここで使っているのは結合則(と単位元の存在、空積のため)のみで、可換性は不要です。</p>
+<h3 id="補題3-query操作の正当性">補題3 (Query操作の正当性)</h3>
+<p>補題2の不変条件が成り立っている状態で、任意のノード \(\tau\) について
+\[
+\mathrm{Query}(l,r,\tau) = \prod_{i \in \mathrm{seg}(\tau) \cap [l:r]} a_i.
+\]</p>
+<p><strong>証明</strong>. ノード \(\tau\) の高さ \(h(\tau)\) に関する帰納法で示す。</p>
+<ul>
+<li>
+<p>\(h(\tau) = 0\)（\(\tau\) は葉、\(\mathrm{seg}(\tau) = {k}\) とする）:</p>
+<ul>
+<li>\(k \notin [l:r]\) の場合、\(\mathrm{seg}(\tau)\cap[l:r] = \emptyset\) なのでアルゴリズムは \(e\) を返す。空積の約束により \(\prod_{i\in\emptyset} a_i = e\) より成立。</li>
+<li>\(k \in [l:r]\) の場合、\(\mathrm{seg}(\tau) = {k} \subseteq [l:r]\) なのでアルゴリズムは \(v_\tau\) を返す。補題2より \(v_\tau = \prod_{i\in{k}} a_i\)、かつ \(\mathrm{seg}(\tau)\cap[l:r] = {k}\) より成立。</li>
+</ul>
+<p>（葉では \(\mathrm{seg}(\tau)\cap[l:r]\) は \(\emptyset\) か \(\mathrm{seg}(\tau)\) 自身のいずれかであり、この2ケースで尽くされる。）</p>
+</li>
+<li>
+<p>\(h(\tau) &gt; 0\)（子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする）: 高さに関する帰納法の仮定より、子については主張がすでに成立している、すなわち
+\[
+\mathrm{Query}(l,r,\mathrm{lch}(\tau)) = \prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i, \qquad \mathrm{Query}(l,r,\mathrm{rch}(\tau)) = \prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i
+\]
+が成り立つ。</p>
+<ul>
+<li>\(\mathrm{seg}(\tau) \cap [l:r] = \emptyset\) の場合、アルゴリズムは \(e\) を返す。空積の約束により \(\prod_{i\in\emptyset} a_i = e\) より成立。</li>
+<li>\(\mathrm{seg}(\tau) \subseteq [l:r]\) の場合、アルゴリズムは \(v_\tau\) を返す。補題2より \(v_\tau = \prod_{i\in\mathrm{seg}(\tau)} a_i\)、かつ \(\mathrm{seg}(\tau)\subseteq[l:r]\) より \(\mathrm{seg}(\tau)\cap[l:r] = \mathrm{seg}(\tau)\) より成立。</li>
+<li>それ以外(\(\mathrm{seg}(\tau)\cap[l:r]\) が \(\mathrm{seg}(\tau)\) の空でない真部分集合)の場合、子を再帰的に呼び出し \(\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau))\) を返す。\(\mathrm{seg}(\tau)\cap[l:r] = (\mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]) \sqcup (\mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r])\)(順序を保った非交和)なので、帰納法の仮定とモノイドの結合則により
+\[
+\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau)) = \Bigl(\prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i\Bigr)\cdot\Bigl(\prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i\Bigr) = \prod_{i \in \mathrm{seg}(\tau)\cap[l:r]} a_i.
+\]
+より成立。</li>
+</ul>
+</li>
+</ul>
+<p>以上、高さに関する帰納法によりすべてのノード \(\tau\) で主張が示された。■</p>
+<p><strong>系</strong>. \(\mathrm{seg}(\tau_0) = [0:n-1] \supseteq [l:r]\) なので、\(\mathrm{Query}(l,r) = \mathrm{Query}(l,r,\tau_0) = \prod_{i \in [l:r]} a_i\)。これが求めたかった性質です。</p>
+<h2 id="計算量">計算量</h2>
+<p>次に、計算量です。</p>
+<p><code>Set</code>, <code>Query</code> はいずれも根から高々 \(d = \log_2 n\) 段の再帰で計算できます。ただし <code>Query</code> については、単純に「各ノードで定数回」という理由だけでは \(O(\log n)\) は言えません。訪問されるノードの総数自体を、木の幾何を使って各階層ごとに定数個に抑える必要があります。</p>
+<h3 id="補題4-setの計算量">補題4 (Setの計算量)</h3>
+<p>ノード \(\tau\) に対する呼び出し <code>Set(i, c, τ)</code> の実行にかかるモノイド演算(積 \(\cdot\) の呼び出し)の回数を \(T_{\mathrm{Set}}(\tau)\) とすると、\(T_{\mathrm{Set}}(\tau) \le h(\tau)\)。</p>
+<p><strong>証明</strong>. \(h(\tau)\) に関する帰納法。</p>
+<ul>
+<li>\(h(\tau) = 0\)(葉): \(v_\tau \leftarrow c\) の代入のみでモノイド演算は行われないので \(T_{\mathrm{Set}}(\tau) = 0 = h(\tau)\)。</li>
+<li>\(h(\tau) &gt; 0\)(子 \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) のうちいずれか一方だけを再帰的に呼ぶ): 呼ばれた子を \(\tau_k\) とすると、<code>Set</code> はまず <code>Set(i, c, τ\_k)</code> を呼び、その後 \(v_\tau \leftarrow v_{\mathrm{lch}(\tau)}\cdot v_{\mathrm{rch}(\tau)}\) で積を1回計算する。呼ばれなかった子は再帰されない。よって
+\[
+T_{\mathrm{Set}}(\tau) = T_{\mathrm{Set}}(\tau_k) + 1 \le h(\tau_k) + 1 = h(\tau)
+\]
+(最後の不等号は帰納法の仮定、最後の等号は \(h(\tau_k) = h(\tau)-1\) による)。■</li>
+</ul>
+<p>根 \(\tau_0\) の高さは \(d = \log_2 n\) なので、<code>Set(i, c)</code> のモノイド演算の回数は \(O(\log n)\) です。木を辿る際の分岐判定などの付随する処理も各段で定数回なので、全体でも \(O(\log n)\) となります。</p>
+<p>与えられた配列からのセグメント木の構築は <code>Set</code> を \(n\) 回呼び出すため \(O(n\log n)\) になります。</p>
+<hr>
+<p><code>Query</code> の計算量の証明をするために、補題を証明します。</p>
+<h3 id="補題5境界ノードの局在">補題5(境界ノードの局在)</h3>
+<p>ノード \(\tau\) が「境界ノード」、すなわち \(\mathrm{seg}(\tau)\cap[l:r] \neq \emptyset\) かつ \(\mathrm{seg}(\tau) \not\subseteq [l:r]\) であるとする。このとき \(l \in \mathrm{seg}(\tau)\) または \(r \in \mathrm{seg}(\tau)\) が成り立つ。</p>
+<p><strong>証明</strong>. \(\mathrm{seg}(\tau) = [x:y]\) と書く。\(\mathrm{seg}(\tau)\cap[l:r] \neq \emptyset\) より \(\max(x,l) \le \min(y,r)\)。\(\mathrm{seg}(\tau)\not\subseteq[l:r]\) より \(x&lt;l\) または \(y&gt;r\) の少なくとも一方が成り立つ。</p>
+<ul>
+<li>\(x&lt;l\) の場合: このとき \(\max(x,l)=l\) なので \(l \le \min(y,r) \le y\)、かつ \(x&lt;l\) より \(l\ge x\)。よって \(l\in[x:y]=\mathrm{seg}(\tau)\)。</li>
+<li>\(y&gt;r\) の場合: 同様に \(\min(y,r)=r\) なので \(\max(x,l)\le r\)、かつ \(x\le\max(x,l)\le r&lt;y\)、\(l\le\max(x,l)\le r\) より \(r\in[x:y]=\mathrm{seg}(\tau)\)。■</li>
+</ul>
+<p><strong>系 (境界ノード数の評価)</strong>. 境界ノードは補題4より \(l\in\mathrm{seg}(\tau)\) または \(r\in\mathrm{seg}(\tau)\) を満たす、すなわちパス \(P_l\) または \(P_r\) 上のノードに限られます。補題1(パスの一意性)より \(P_l, P_r\) はいずれも各高さ \(h \in {0,1,\ldots,d}\) にちょうど1つのノードを持つので、</p>
+<p>\[
+\begin{align*}
+&amp; \#({\text{高さ } h \text{ の境界ノード}}) \\
+&amp;\le \#(P_l \text{ の高さ } h \text{ のノード}) + \#(P_r \text{ の高さ } h \text{ のノード}) \\
+&amp;\le 2
+\end{align*}
+\]</p>
+<p>が任意の \(h\) について成り立ちます。</p>
+<h3 id="補題6queryの計算量">補題6(Queryの計算量)</h3>
+<p><code>Query(l, r)</code> の実行全体にかかるモノイド演算(積 \(\cdot\) の呼び出し)の回数は、高々 \(2(d+1) = O(\log n)\) である。</p>
+<p><strong>証明</strong>. <code>Query(l, r, τ)</code> の呼び出し全体で積が計算されるのは境界ノードにおいてであり、境界ノード1つにつき積はちょうど1回計算されます。境界ノードの高さは \(0\) から \(d\) までの \(d+1\) 通りで、補題5の系より各高さの境界ノード数は高々2個です。よって積の計算回数の総和は高々 \(2(d+1)\) です。■</p>
+<p>\(d = \log_2 n\) なので、<code>Query(l, r)</code> にかかるモノイド演算の回数は \(O(\log n)\) です。境界ノードでない訪問ノード(第1・第2分岐で即座に返るノード)も、境界ノードの子としてしか生成されないため、その総数も \(O(\log n)\) に抑えられ、条件判定などの付随する処理も含めて全体で \(O(\log n)\) となります。</p>
+<h2 id="おわりに">おわりに</h2>
+<p>いかがだったでしょうか。当たり前のように書いている性質をただ証明しただけではありますが、この記事がセグメント木によって目的の計算ができる仕組みを理解するのに役立てば幸いです。</p>
+<p>次回は、今回天下り的に与えた構成がなぜ「自然なもの」であるかについて考えてみたいと思います。お楽しみに。</p>
+<h2 id="参考文献">参考文献</h2>
+<h3 id="入門寄り">入門寄り</h3>
+<ul>
+<li>&ldquo;セグメント木を徹底解説！0から遅延評価やモノイドまで&rdquo;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>: セグメント木についての日本語の概要です。</li>
+<li>&ldquo;Segment Tree&rdquo;<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>: セグメント木の英語の概要です。具体的な利用方法について詳しく書かれています。</li>
+</ul>
+<h3 id="セグメント木の可視化">セグメント木の可視化</h3>
+<ul>
+<li>“Segment Tree のお勉強(1)”<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, “Segment Tree のお勉強(2)”<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>: 2べきでない場合、モノイドが可換でない場合も含め、セグメント木と遅延セグメント木で演算をしたときの様子が可視化されています。</li>
+</ul>
+<h3 id="データ構造と代数的構造の整合性">データ構造と代数的構造の整合性</h3>
+<ul>
+<li>&ldquo;Testing Calibration in Nearly-Linear Time&rdquo;<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>: この論文では双対セグメント木に対してデータ構造を具体的に構成した後、代数的構造との整合性を証明しています。この記事の議論の構成はこちらの記事から大きく影響を受けています。</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>アルゴリズムロジック, 2020, セグメント木を徹底解説！0から遅延評価やモノイドまで, Accessed 15 August 2026, <a href="https://algo-logic.info/segment-tree/">https://algo-logic.info/segment-tree/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>cp-algorithms contributors, 2026, Segment Tree, Accessed 15 August 2026, <a href="https://cp-algorithms.com/data_structures/segment_tree.html">https://cp-algorithms.com/data_structures/segment_tree.html</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>maspy, 2021, Segment Tree のお勉強(1), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B71">https://maspypy.com/segment-tree-のお勉強1</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>maspy, 2022, Segment Tree のお勉強(2), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B72">https://maspypy.com/segment-tree-のお勉強2</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>Lunjia Hu, Arun Jambulapati, Kevin Tian, and Chutong Yang, &ldquo;Testing Calibration in Nearly-Linear Time&rdquo;, <em>Advances in Neural Information Processing Systems</em>, vol. 37, pp. 116022–116059, Curran Associates, Inc., 2024, <a href="https://doi.org/10.52202/079017-3683">https://doi.org/10.52202/079017-3683</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+</article>
+
+<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "matsueushi-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	
+
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+  <p>Copyright © 2019–2026 matsueushi</p>
+</div>
+</footer>
+</div>
+</body>
+</html>
