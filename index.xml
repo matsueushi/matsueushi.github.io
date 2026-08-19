@@ -17,9 +17,9 @@
 			<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性</title>
-				<link>https://matsueushi.github.io/programming/segtree-study-1/</link>
+				<link>https://matsueushi.github.io/programming/segtree-monoid-proof/</link>
 				<pubDate>Wed, 19 Aug 2026 23:57:00 +0900</pubDate>
-				<guid>https://matsueushi.github.io/programming/segtree-study-1/</guid>
+				<guid>https://matsueushi.github.io/programming/segtree-monoid-proof/</guid>
 				<description>&lt;p&gt;競技プログラミングの文脈で出てくるセグメント木について「どう使うか」ではなく、「なぜ使えるのか」を考察します。&lt;/p&gt;&#xA;&lt;p&gt;セグメント木の解説記事の多くは、配列を2べきの長さに区切って完全二分木に載せる様子や、任意の区間が高々 \(O(\log n)\) 個のノードに分解できる様子を図で示すことに重点が置かれています。&lt;/p&gt;</description>
 			</item>
 			<item>
