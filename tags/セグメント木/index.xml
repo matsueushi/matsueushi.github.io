@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>セグメント木 on matsueushi</title>
-		<link>http://localhost:1313/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/</link>
+		<link>https://matsueushi.github.io/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/</link>
 		<description>Recent content in セグメント木 on matsueushi</description>
 		<generator>Hugo</generator>
 		<language>ja</language>
@@ -12,15 +12,15 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Sat, 15 Aug 2026 16:22:21 +0900</lastBuildDate>
+			<lastBuildDate>Wed, 19 Aug 2026 23:57:00 +0900</lastBuildDate>
 		
-			<atom:link href="http://localhost:1313/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://matsueushi.github.io/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/index.xml" rel="self" type="application/rss+xml" />
 			<item>
-				<title>セグメント木の理屈を調査</title>
-				<link>http://localhost:1313/programming/segtree-formalization/</link>
-				<pubDate>Sat, 15 Aug 2026 16:22:21 +0900</pubDate>
-				<guid>http://localhost:1313/programming/segtree-formalization/</guid>
-				<description>&lt;p&gt;競技プログラミングの文脈で出てくるセグメント木について「どう使うか」ではなく、「なぜ使えるのか」を考察します。&lt;/p&gt;&#xA;&lt;h2 id=&#34;お断り&#34;&gt;お断り&lt;/h2&gt;&#xA;&lt;h2 id=&#34;前提&#34;&gt;前提&lt;/h2&gt;&#xA;&lt;p&gt;セグメント木に関する基本的な知識を仮定します。また、モノイド、圏、関手と言った数学的な概念を断りなく利用し、圏はすべて small を仮定します。モノイドは可換性を仮定しません。&lt;/p&gt;</description>
+				<title>セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性</title>
+				<link>https://matsueushi.github.io/programming/segtree-formalization/</link>
+				<pubDate>Wed, 19 Aug 2026 23:57:00 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/segtree-formalization/</guid>
+				<description>&lt;p&gt;競技プログラミングの文脈で出てくるセグメント木について「どう使うか」ではなく、「なぜ使えるのか」を考察します。&lt;/p&gt;&#xA;&lt;p&gt;セグメント木の解説記事の多くは、配列を2べきの長さに区切って完全二分木に載せる様子や、任意の区間が高々 \(O(\log n)\) 個のノードに分解できる様子を図で示すことに重点が置かれています。&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>

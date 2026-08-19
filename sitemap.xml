@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://matsueushi.github.io/</loc>
-    <lastmod>2026-08-13T23:23:57+09:00</lastmod>
+    <lastmod>2026-08-19T23:57:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/about/</loc>
   </url><url>
@@ -33,14 +33,20 @@
     <lastmod>2023-02-02T22:52:35+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/programming/</loc>
-    <lastmod>2026-08-13T23:23:57+09:00</lastmod>
+    <lastmod>2026-08-19T23:57:00+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/memo/</loc>
   </url><url>
-    <loc>https://matsueushi.github.io/programming/query-idempotent/</loc>
-    <lastmod>2026-08-13T23:23:57+09:00</lastmod>
-  </url><url>
     <loc>https://matsueushi.github.io/tags/</loc>
+    <lastmod>2026-08-19T23:57:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/</loc>
+    <lastmod>2026-08-19T23:57:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/programming/segtree-formalization/</loc>
+    <lastmod>2026-08-19T23:57:00+09:00</lastmod>
+  </url><url>
+    <loc>https://matsueushi.github.io/programming/query-idempotent/</loc>
     <lastmod>2026-08-13T23:23:57+09:00</lastmod>
   </url><url>
     <loc>https://matsueushi.github.io/tags/%E5%86%AA%E7%AD%89%E6%80%A7/</loc>
