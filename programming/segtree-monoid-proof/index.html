@@ -102,7 +102,11 @@
 \mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))
 \]
 (インデックス順を保った非交和、すなわち \(\mathrm{seg}(\mathrm{lch}(\tau))\) の全要素は \(\mathrm{seg}(\mathrm{rch}(\tau))\) の全要素より小さい)として定義します。</li>
-<li>高さ \(h(\tau)\) を、葉について \(h(\tau) = 0\)、非葉ノード \(\tau\) について \(h(\tau) = h(\mathrm{lch}(\tau)) + 1 = h(\mathrm{rch}(\tau)) + 1\)（完全二分木なので両辺は一致し、これも定義の一部とします）として定義します。根の高さは \(d\) であり、\(|\mathrm{seg}(\tau)| = 2^{h(\tau)}\) が成り立ちます。特に、非葉ノード \(\tau\) について
+<li>高さ \(h(\tau)\) を、葉について \(h(\tau) = 0\)、非葉ノード \(\tau\) について
+\[
+h(\tau) = h(\mathrm{lch}(\tau)) + 1 = h(\mathrm{rch}(\tau)) + 1
+\]
+（完全二分木なので両辺は一致し、これも定義の一部とします）として定義します。根の高さは \(d\) であり、\(|\mathrm{seg}(\tau)| = 2^{h(\tau)}\) が成り立ちます。特に、非葉ノード \(\tau\) について
 \[
 h(\mathrm{lch}(\tau)) = h(\mathrm{rch}(\tau)) = h(\tau) - 1
 \]
@@ -212,22 +216,37 @@ v_\tau &amp;= \Bigl(\prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j\Bigr)\cdo
 <li>
 <p>\(h(\tau) &gt; 0\)（子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする）: 高さに関する帰納法の仮定より、子については主張がすでに成立している、すなわち
 \[
-\mathrm{Query}(l,r,\mathrm{lch}(\tau)) = \prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i, \qquad \mathrm{Query}(l,r,\mathrm{rch}(\tau)) = \prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i
+\begin{align*}
+\mathrm{Query}(l,r,\mathrm{lch}(\tau)) &amp;= \prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i, \\
+\mathrm{Query}(l,r,\mathrm{rch}(\tau)) &amp;= \prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i
+\end{align*}
 \]
 が成り立つ。</p>
 <ul>
 <li>\(\mathrm{seg}(\tau) \cap [l:r] = \emptyset\) の場合、アルゴリズムは \(e\) を返す。空積の約束により \(\prod_{i\in\emptyset} a_i = e\) より成立。</li>
 <li>\(\mathrm{seg}(\tau) \subseteq [l:r]\) の場合、アルゴリズムは \(v_\tau\) を返す。補題2より \(v_\tau = \prod_{i\in\mathrm{seg}(\tau)} a_i\)、かつ \(\mathrm{seg}(\tau)\subseteq[l:r]\) より \(\mathrm{seg}(\tau)\cap[l:r] = \mathrm{seg}(\tau)\) より成立。</li>
-<li>それ以外(\(\mathrm{seg}(\tau)\cap[l:r]\) が \(\mathrm{seg}(\tau)\) の空でない真部分集合)の場合、子を再帰的に呼び出し \(\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau))\) を返す。\(\mathrm{seg}(\tau)\cap[l:r] = (\mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]) \sqcup (\mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r])\)(順序を保った非交和)なので、帰納法の仮定とモノイドの結合則により
+<li>それ以外(\(\mathrm{seg}(\tau)\cap[l:r]\) が \(\mathrm{seg}(\tau)\) の空でない真部分集合)の場合、子を再帰的に呼び出し \(\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau))\) を返す。
 \[
-\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau)) = \Bigl(\prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i\Bigr)\cdot\Bigl(\prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i\Bigr) = \prod_{i \in \mathrm{seg}(\tau)\cap[l:r]} a_i.
+\mathrm{seg}(\tau)\cap[l:r] = (\mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]) \sqcup (\mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r])
+\]
+(順序を保った非交和)なので、帰納法の仮定とモノイドの結合則により
+\[
+\begin{align*}
+&amp;\mathrm{Query}(l,r,\mathrm{lch}(\tau))\cdot\mathrm{Query}(l,r,\mathrm{rch}(\tau)) \\
+= &amp;\Bigl(\prod_{i \in \mathrm{seg}(\mathrm{lch}(\tau))\cap[l:r]} a_i\Bigr)\cdot\Bigl(\prod_{i \in \mathrm{seg}(\mathrm{rch}(\tau))\cap[l:r]} a_i\Bigr) \\
+= &amp;\prod_{i \in \mathrm{seg}(\tau)\cap[l:r]} a_i.
+\end{align*}
 \]
 より成立。</li>
 </ul>
 </li>
 </ul>
 <p>以上、高さに関する帰納法によりすべてのノード \(\tau\) で主張が示された。■</p>
-<p><strong>系</strong>. \(\mathrm{seg}(\tau_0) = [0:n-1] \supseteq [l:r]\) なので、\(\mathrm{Query}(l,r) = \mathrm{Query}(l,r,\tau_0) = \prod_{i \in [l:r]} a_i\)。これが求めたかった性質です。</p>
+<p><strong>系</strong>. \(\mathrm{seg}(\tau_0) = [0:n-1] \supseteq [l:r]\) なので、</p>
+<p>\[
+\mathrm{Query}(l,r) = \mathrm{Query}(l,r,\tau_0) = \prod_{i \in [l:r]} a_i
+\]</p>
+<p>となります。これが求めたかった性質です。</p>
 <h2 id="計算量">計算量</h2>
 <p>次に、計算量です。</p>
 <p><code>Set</code>, <code>Query</code> はいずれも根から高々 \(d = \log_2 n\) 段の再帰で計算できます。ただし <code>Query</code> については、単純に「各ノードで定数回」という理由だけでは \(O(\log n)\) は言えません。訪問されるノードの総数自体を、木の幾何を使って各階層ごとに定数個に抑える必要があります。</p>
