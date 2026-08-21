@@ -171,15 +171,21 @@ v_\tau = \prod_{i \in \mathrm{seg}(\tau)} a_i
 </ul>
 </li>
 <li>
-<p>\(h(\tau) &gt; 0\)（子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする）: 高さに関する帰納法の仮定より、子については主張がすでに成立している、すなわち
+<p>\(h(\tau) &gt; 0\): 子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする。高さに関する帰納法の仮定より、子については主張がすでに成立している、すなわち
 \[
-v_{\mathrm{lch}(\tau)} = \prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j, \qquad v_{\mathrm{rch}(\tau)} = \prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j
+\begin{align*}
+v_{\mathrm{lch}(\tau)} &amp;= \prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j, \\
+v_{\mathrm{rch}(\tau)} &amp;= \prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j
+\end{align*}
 \]
 が(新しい配列に対して)成り立つ。</p>
 <ul>
 <li>\(i \in \mathrm{seg}(\tau)\) の場合、アルゴリズムはこのノードを訪問し、\(v_\tau \leftarrow v_{\mathrm{lch}(\tau)}\cdot v_{\mathrm{rch}(\tau)}\) と計算する。\(\mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))\)(インデックス順を保った非交和)なので、モノイドの結合則により
 \[
-v_\tau = \Bigl(\prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j\Bigr)\cdot\Bigl(\prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j\Bigr) = \prod_{j \in \mathrm{seg}(\tau)} a_j.
+\begin{align*}
+v_\tau &amp;= \Bigl(\prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j\Bigr)\cdot\Bigl(\prod_{j \in \mathrm{seg}(\mathrm{rch}(\tau))} a_j\Bigr) \\
+&amp;= \prod_{j \in \mathrm{seg}(\tau)} a_j.
+\end{align*}
 \]
 成立。</li>
 <li>\(i \notin \mathrm{seg}(\tau)\) の場合、アルゴリズムはこのノードを訪問せず \(v_\tau\) を書き換えない。\(i \notin \mathrm{seg}(\tau)\) なので \(a_i\) の変化は \(\prod_{j\in\mathrm{seg}(\tau)} a_j\) に影響しない。呼び出し前の不変条件（帰納法の仮定）より、呼び出し後も \(v_\tau = \prod_{j\in\mathrm{seg}(\tau)} a_j\) が成立する。</li>
@@ -230,9 +236,13 @@ v_\tau = \Bigl(\prod_{j \in \mathrm{seg}(\mathrm{lch}(\tau))} a_j\Bigr)\cdot\Big
 <p><strong>証明</strong>. \(h(\tau)\) に関する帰納法。</p>
 <ul>
 <li>\(h(\tau) = 0\)(葉): \(v_\tau \leftarrow c\) の代入のみでモノイド演算は行われないので \(T_{\mathrm{Set}}(\tau) = 0 = h(\tau)\)。</li>
-<li>\(h(\tau) &gt; 0\)(子 \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) のうちいずれか一方だけを再帰的に呼ぶ): 呼ばれた子を \(\tau_k\) とすると、<code>Set</code> はまず <code>Set(i, c, τ\_k)</code> を呼び、その後 \(v_\tau \leftarrow v_{\mathrm{lch}(\tau)}\cdot v_{\mathrm{rch}(\tau)}\) で積を1回計算する。呼ばれなかった子は再帰されない。よって
+<li>\(h(\tau) &gt; 0\): 子 \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) のうちいずれか一方だけが再帰的に呼ばれる。呼ばれた子を \(\tau_k\) とすると、<code>Set</code> はまず <code>Set(i, c, τ\_k)</code> を呼び、その後 \(v_\tau \leftarrow v_{\mathrm{lch}(\tau)}\cdot v_{\mathrm{rch}(\tau)}\) で積を1回計算する。呼ばれなかった子は再帰されない。よって
 \[
-T_{\mathrm{Set}}(\tau) = T_{\mathrm{Set}}(\tau_k) + 1 \le h(\tau_k) + 1 = h(\tau)
+\begin{align*}
+T_{\mathrm{Set}}(\tau) &amp;= T_{\mathrm{Set}}(\tau_k) + 1 \\
+&amp;\le h(\tau_k) + 1 \\
+&amp;= h(\tau)
+\end{align*}
 \]
 (最後の不等号は帰納法の仮定、最後の等号は \(h(\tau_k) = h(\tau)-1\) による)。■</li>
 </ul>
