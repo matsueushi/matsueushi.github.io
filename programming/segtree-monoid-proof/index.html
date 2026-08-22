@@ -113,9 +113,10 @@ h(\mathrm{lch}(\tau)) = h(\mathrm{rch}(\tau)) = h(\tau) - 1
 が成り立ちます。</li>
 </ul>
 <p>以降、「非葉ノード \(\tau\) の子を \(\mathrm{lch}(\tau), \mathrm{rch}(\tau)\) とする」という前提のもとで、上の2つの関係式を断りなく使います。</p>
-<h3 id="ノードから根へのパス">ノードから根へのパス</h3>
+<h2 id="ノードから根へのパス">ノードから根へのパス</h2>
 <p>各インデックス \(i \in [0:n-1]\) に対して、\(i \in \mathrm{seg}(\tau)\) となるノード \(\tau\) 全体を \(P_i\) と書き、これを(葉 \({i}\) から根 \(\tau_0\) への)<strong>パス</strong>と呼びます。</p>
-<p><strong>補題1 (パスの一意性)</strong>. 任意の \(i \in [0:n-1]\) と高さ \(h \in {0,1,\ldots,d}\) に対して、\(P_i\) に属する高さ \(h\) のノードはちょうど1つ存在する。</p>
+<h3 id="補題1-パスの一意性">補題1 (パスの一意性)</h3>
+<p>任意の \(i \in [0:n-1]\) と高さ \(h \in {0,1,\ldots,d}\) に対して、\(P_i\) に属する高さ \(h\) のノードはちょうど1つ存在する。</p>
 <p><strong>証明</strong>. \(h\) に関する下降帰納法(\(d\) から \(0\) へ)で示す。\(h=d\) のときは根 \(\tau_0\) のみが高さ \(d\) であり、\(\mathrm{seg}(\tau_0)=[0:n-1]\) より任意の \(i\) について \(\tau_0 \in P_i\)。これが唯一の高さ \(d\) のノードなので成立。</p>
 <p>高さ \(h+1\) のノード \(\tau\) について \(\tau \in P_i\) であるものがちょうど1つ存在すると仮定する。\(\mathrm{seg}(\tau) = \mathrm{seg}(\mathrm{lch}(\tau)) \sqcup \mathrm{seg}(\mathrm{rch}(\tau))\) は非交和なので、\(i \in \mathrm{seg}(\tau)\) ならば \(i \in \mathrm{seg}(\mathrm{lch}(\tau))\) と \(i \in \mathrm{seg}(\mathrm{rch}(\tau))\) のちょうど一方のみが成り立つ。すなわち \(\tau\) の子のうち \(P_i\) に属するものがちょうど1つ存在する。これが高さ \(h\) の唯一のノードであり(他の高さ \(h+1\) のノードの子は \(\mathrm{seg}\) が \(i\) を含まないので \(P_i\) に属さない)、主張が示された。■</p>
 <p>以降は、この一意性のもとで、パス \(P_i\) の高さ \(h\) のノードを単に「\(P_i\) の高さ \(h\) のノード」と呼び、\(N_h(P_i) \) で表します。</p>
@@ -279,7 +280,8 @@ T_{\mathrm{Set}}(\tau) &amp;= T_{\mathrm{Set}}(\tau_k) + 1 \\
 <li>\(x&lt;l\) の場合: このとき \(\max(x,l)=l\) なので \(l \le \min(y,r) \le y\)、かつ \(x&lt;l\) より \(l\ge x\)。よって \(l\in[x:y]=\mathrm{seg}(\tau)\)。</li>
 <li>\(y&gt;r\) の場合: 同様に \(\min(y,r)=r\) なので \(\max(x,l)\le r\)、かつ \(x\le\max(x,l)\le r&lt;y\)、\(l\le\max(x,l)\le r\) より \(r\in[x:y]=\mathrm{seg}(\tau)\)。■</li>
 </ul>
-<p><strong>系 (境界ノード数の評価)</strong>. 境界ノード \(\tau \) は補題5より \(l\in\mathrm{seg}(\tau)\) または \(r\in\mathrm{seg}(\tau)\) を満たす、すなわちパス \(P_l\) または \(P_r\) 上のノードに限られる。
+<h4 id="系-境界ノード数の評価">系 (境界ノード数の評価)</h4>
+<p>境界ノード \(\tau \) は補題5より \(l\in\mathrm{seg}(\tau)\) または \(r\in\mathrm{seg}(\tau)\) を満たす、すなわちパス \(P_l\) または \(P_r\) 上のノードに限られる。
 よって \(\tau \) の高さを \(h\) とすると、補題1(パスの一意性)よりそのようなノードはそれぞれ \(N_h(P_l), N_h(P_r)\) しかない。したがって
 \[
 B_h(l,r) \subseteq \{N_h(P_l),\ N_h(P_r)\}

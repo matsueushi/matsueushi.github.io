@@ -93,13 +93,16 @@
 <p>深さ \(d\) の完全二分木のノード集合を \(T_d\) と書きます。\(|T_d| = 2^{d+1}-1\) です。木の状態とは各ノードにモノイドの元を割り当てたもの、すなわち \(M^{T_d}\) の元ですが、前回の不変条件を満たすものだけがセグメント木として意味のある状態です。</p>
 <p>そこで、モノイド \(M\) 上の深さ \(d\) のセグメント木の状態空間 \(\mathrm{Seg}_d(M)\) を</p>
 <p>\[
-\mathrm{Seg}_d(M) = \left\{v \in M^{T_d} \mid v_\tau = v_{\text{lch}(\tau_1)}\cdot v_{\text{rch}(\tau_2)} \quad (\forall \tau: \text{内部ノード}) \right\}
+\mathrm{Seg}_d(M) = \left\{v \in M^{T_d} \mid v_\tau = v_{\text{lch}(\tau_1)}\cdot v_{\text{rch}(\tau_2)} \quad (\forall h(\tau) &gt; 0) \right\}
 \]</p>
-<p>と定義します。これは「親は子の積である」という<strong>局所的な</strong>条件だけを課した集合であることに注意してください。区間 \(\mathrm{seg}(\tau)\) も配列 \(a\) も、この定義には登場しません。</p>
+<p>と定義します。これは葉でないノードに対して、「親は子の積である」という<strong>局所的な</strong>条件だけを課した集合であることに注意してください。区間 \(\mathrm{seg}(\tau)\) も配列 \(a\) も、この定義には登場しません。</p>
 <p>\(2^d = n\) 個ある葉のうち、インデックス \(i\) に対応する葉を \(\mathrm{leaf}(i)\) と書きます。</p>
 <p><strong>葉への制限写像</strong></p>
 <p>\[
-\pi_d : \mathrm{Seg}_d(M) \longrightarrow M^{n}, \qquad v \longmapsto \bigl(v_{\mathrm{leaf}(0)}, \ldots, v_{\mathrm{leaf}(n-1)}\bigr)
+\begin{align*}
+\pi_d : \mathrm{Seg}_d(M) &amp;\longrightarrow M^{n}\\
+v &amp;\longmapsto \bigl(v_{\mathrm{leaf}(0)}, \ldots, v_{\mathrm{leaf}(n-1)}\bigr)
+\end{align*}
 \]</p>
 <p>が、これから主役になる写像です。管理したい配列 \(a\) は、木の葉に置かれた値そのものですから、\(\pi_d\) は「木の状態から、それが表している配列を読み出す写像」だと思えます。</p>
 <h2 id="補題2-の再解釈-pi_d-は全単射">補題2 の再解釈: \(\pi_d\) は全単射</h2>
@@ -144,7 +147,7 @@ M^{2^{d+1}} &amp; \xrightarrow{\ \sim\ } &amp; M^{2^d}\times M^{2^d}
 \]</p>
 <p>が定義でき、\(\sigma\) が \(\tau\) の子孫なら \(\mathrm{res}_\sigma = \mathrm{res}_\sigma \circ \mathrm{res}_\tau\) が成り立ちます。つまり \(\mathrm{Seg}\) はノードの祖先関係が定める半順序集合の上の前層になっています。</p>
 <p>前回、補題2 と補題3 をわざわざ「任意のノード \(\tau\) について」という形で述べたのは、この制限が効いているからです。再帰呼び出し <code>Set(i, c, τ)</code> や <code>Query(l, r, τ)</code> は、\(\mathrm{res}_\tau\) で移した先の、一回り小さいセグメント木に対する同じ操作に他なりません。「制限写像」という言葉遣いはむしろこちらが正確で、\(\pi_d\) は葉における制限をまとめたものだと見るのが自然です。</p>
-<h2 id="4-操作は一意に決まる">4. 操作は一意に決まる</h2>
+<h2 id="操作は一意に決まる">操作は一意に決まる</h2>
 <p>配列側で、私たちが本当に欲しかった操作は次の 2 つでした。</p>
 <p>\[
 \mathrm{set}_i : M \times M^n \to M^n, \qquad
@@ -187,7 +190,7 @@ M^n &amp; \xrightarrow[\ \mu_{[l:r]}\ ]{} &amp; M
 <li><strong>補題4・補題6 (計算量)</strong>: それが \(O(\log n)\) で計算できることの主張。</li>
 </ul>
 <p>存在と一意性は \(\pi_d\) が同型であることから自明でした。非自明なのは後者だけです。実際、\(\mathrm{Set}_i\) の定義をそのまま実装すれば、\(\pi_d\) で配列を読み出し、書き換え、\(\pi_d^{-1}\) で木を作り直すことになり、これは \(O(n)\) かかります。疑似コードがやっているのは、同じ写像を、変化しない部分を再計算せずに求めることです。</p>
-<h2 id="5-準同型との整合性">5. 準同型との整合性</h2>
+<h2 id="準同型との整合性">準同型との整合性</h2>
 <p>もう一つ、この定式化から自然に出てくる性質を見ます。</p>
 <h3 id="mathrmseg_d-は関手である">\(\mathrm{Seg}_d\) は関手である</h3>
 <p>モノイドの準同型 \(f : M \to N\) に対し、成分ごとの適用 \(f^{T_d} : M^{T_d}\to N^{T_d}\) を考えると、これは整合性条件を保ちます。実際 \(v_\tau = v_{\tau_1}\cdot v_{\tau_2}\) なら</p>
