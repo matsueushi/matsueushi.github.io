@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Wed, 19 Aug 2026 23:57:00 +0900</lastBuildDate>
+			<lastBuildDate>Sun, 23 Aug 2026 23:00:00 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す</title>
+				<link>https://matsueushi.github.io/programming/segtree-isom/</link>
+				<pubDate>Sun, 23 Aug 2026 23:00:00 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/segtree-isom/</guid>
+				<description>&lt;p&gt;&lt;a href=&#34;https://matsueushi.github.io/programming/segtree-monoid-proof/&#34;&gt;セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性&lt;/a&gt; の続きです。&lt;/p&gt;&#xA;&lt;p&gt;前回はセグメント木のデータ構造と操作を定義し、それが期待通りに動くことを証明しました。&lt;/p&gt;&#xA;&lt;p&gt;今回は、前回「天下り的に与えた」と書いた定義が、実はなるべくしてなった定義であることを見ていくとともに、木としての幾何的な構造が効いてくる場所を解き明かしていきます。&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性</title>
 				<link>https://matsueushi.github.io/programming/segtree-monoid-proof/</link>

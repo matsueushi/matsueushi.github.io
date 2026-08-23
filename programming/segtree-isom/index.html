@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す | matsueushi</title>
 <meta name="description" content="趣味のページです。音楽とプログラミングの話が主です。">
 <meta property="og:title" content="セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す | matsueushi">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/programming/segtree-isom/">
+<meta property="og:url" content="https://matsueushi.github.io/programming/segtree-isom/">
 <meta property="og:description" content="趣味のページです。音楽とプログラミングの話が主です。">
 <meta property="og:site_name" content="matsueushi">
-<link rel="canonical" href="http://localhost:1313/programming/segtree-isom/"><link rel="stylesheet" href="/css/main.3340303fc0819d8bbe6404804dd579aafb0c65a71a55c2a525365e3953cee43c.css">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="canonical" href="https://matsueushi.github.io/programming/segtree-isom/"><link rel="stylesheet" href="/css/main.3340303fc0819d8bbe6404804dd579aafb0c65a71a55c2a525365e3953cee43c.css">
+<link rel="icon" href="https://matsueushi.github.io/favicon.ico">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css" integrity="sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.js" integrity="sha384-ykMNcWQhhTUb0YV9SPpPUFURHZ+tWmubkakGBP+OgNK/UXdO2gtzglWx0Rj9hnO3" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"
@@ -22,12 +22,19 @@
       {left: '\\(', right: '\\)', display: false}
     ]
   });"></script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "a80134605aad46229fa5da2ac9b548c1"}'></script>
+
+
+
 </head>
 <body>
 <div class="site-wrapper">
   <header class="site-header"><div class="container">
   <div class="site-title">
-    <a href="http://localhost:1313/">matsueushi</a>
+    <a href="https://matsueushi.github.io/">matsueushi</a>
   </div>
   <nav aria-label="メインナビゲーション">
     <ul class="site-nav">
@@ -55,7 +62,7 @@
   <header class="post-header">
     <h1 class="post-title">セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す</h1>
     <div class="post-meta">
-      <time datetime="2026-08-22">2026年08月22日</time>
+      <time datetime="2026-08-23">2026年08月23日</time>
       <a class="section-badge section-badge--programming" href="/programming/">プログラミング</a>
       <ul class="tag-list">
         <li class="tag-item"><a href="/tags/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8/">セグメント木</a></li>
@@ -93,7 +100,7 @@
 <p>深さ \(d\) の完全二分木のノード集合を \(T_d\) と書きます。\(|T_d| = 2^{d+1}-1\) です。木の状態とは各ノードにモノイドの元を割り当てたもの、すなわち \(M^{T_d}\) の元ですが、前回の不変条件を満たすものだけがセグメント木として意味のある状態です。</p>
 <p>そこで、モノイド \(M\) 上の深さ \(d\) のセグメント木の状態空間 \(\mathrm{Seg}_d(M)\) を</p>
 $$
-  \mathrm{Seg}_d(M) = \{ v \in M^{T_d} \mid v_\tau = v_{\text{lch}(\tau_1)}\cdot v_{\text{rch}(\tau_2)} \quad (\forall h(\tau) > 0) \}
+  \mathrm{Seg}_d(M) = \{ v \in M^{T_d} \mid v_\tau = v_{\text{lch}(\tau)}\cdot v_{\text{rch}(\tau)} \quad (\forall h(\tau) > 0) \}
 $$<p>と定義します。これは葉でないノードに対して、「親は子の積である」という<strong>局所的な</strong>条件だけを課した集合であることに注意してください。区間 \(\mathrm{seg}(\tau)\) も配列 \(a\) も、この定義には登場しません。</p>
 <h2 id="葉への制限写像">葉への制限写像</h2>
 <p>\(2^d = n\) 個ある葉のうち、インデックス \(i\) に対応する葉を \(\mathrm{leaf}(i)\) と書きます。</p>
@@ -105,7 +112,7 @@ $$
   \end{align*}
 $$<p>が、これから主役になる写像です。管理したい配列 \(a\) は、木の葉に置かれた値そのものですから、\(\pi_d\) は「木の状態から、それが表している配列を読み出す写像」に相当します。</p>
 <h2 id="補題2-の再解釈--は全単射">補題2 の再解釈: \(\pi_d\) は全単射</h2>
-<p>前回、補題2で <code>Set</code> 操作により不変条件が保存されることを確認しました。先ほど定義した \(\mathrm{Seg}_d(M)\) が全単射であることを示し、不変条件を別の角度から捉えてみます。</p>
+<p>前回、補題2で <code>Set</code> 操作により不変条件が保存されることを確認しました。先ほど定義した \(\pi_d\) が全単射であることを示し、不変条件を別の角度から捉えてみます。</p>
 <h3 id="命題7">命題7</h3>
 <p>\(\pi_d\) は全単射である。さらにその逆写像は</p>
 $$
@@ -131,7 +138,7 @@ $$<p>を与える。</p>
 <p>\(d\) に関する帰納法で示す。</p>
 <p>\(d = 0\) のとき、木はノード 1 つ(根であり葉である)からなり、内部ノードが無いので条件は空、
 \(\mathrm{Seg}_0(M) = M^{T_0} = M\) であって \(\pi_0\) は恒等写像である。</p>
-<p>\(d\) で成立するとする。モノイドの列を前半と後半に分ける同型 \(M^{2^{d+1}} \cong M^{2^d}\times M^{2^d}\)のもとで、図式</p>
+<p>\(d\) で成立するとする。モノイドの列を前半と後半に分ける同型 \(M^{2^{d+1}} \cong M^{2^d} \times M^{2^d}\)のもとで、図式</p>
 $$
   \begin{CD}
   \mathrm{Seg}_{d+1}(M) @>{\rho}>> \mathrm{Seg}_{d}(M)\ \times \ \mathrm{Seg}_{d}(M) \\
@@ -140,6 +147,8 @@ $$
   \end{CD}
 $$<p>は可換である(深さ \(d+1\) の木の葉の前半は左部分木の葉、後半は右部分木の葉に他ならないため)。補題8 より \(\rho\) は全単射、帰納法の仮定より \(\pi_d\times\pi_d\) は全単射、下の横向きの写像は全単射なので、\(\pi_{d+1}\) も全単射である。</p>
 <p>逆写像の表示は、\((\pi_d^{-1}(a))_\tau := \prod_{i\in\mathrm{seg}(\tau)} a_i\) と定めたものが \(\mathrm{Seg}_d(M)\) に属し(結合則: 親の区間は子の区間の順序を保った非交和なので、親の積は子の積の積に等しい)、葉で \(a_i\) を与えることから従う。◼️</p>
+<p>一点注意を述べておきます。\(n\) が 2 冪でない場合、単位元でパディングして \(M^n \to M^{2^d}\) と埋め込んでいました。
+この写像は準同型と可換する自然な写像ですが、単射なだけで同型ではありません。そのため、2 冪でない場合にはそのまま同じ議論はできません。</p>
 <h2 id="操作は一意に決まる">操作は一意に決まる</h2>
 <p>配列側で、私たちが本当に欲しかった操作は</p>
 <p>\(i\) 番目を書き換える
@@ -189,7 +198,7 @@ $$<p>そして、前回の補題2・補題3 が主張していたのは、まさ
 </ul>
 <p>存在と一意性は \(\pi_d\) が同型であることから自明でした。非自明なのは後者だけです。</p>
 <p>実際、\(\mathrm{Set}_i\) の定義をそのまま実装すれば、\(\pi_d\) で配列を読み出し、書き換え、\(\pi_d^{-1}\) で木を作り直すことになり、これは \(O(n)\) かかります。</p>
-<p>疑似コードは、同じ写像を変化しない部分を再計算せずに工夫して求めているわけですね。</p>
+<p>疑似コードは、変化しない部分を再計算せずに工夫することで、同じ写像をより効率的に求めているわけですね。</p>
 <h2 id="準同型との整合性">準同型との整合性</h2>
 <p>もう一つ、この定式化から自然に出てくる性質を見ます。</p>
 <h3 id="は関手である">\(\mathrm{Seg}_d\) は関手である</h3>
@@ -215,56 +224,47 @@ $$
 \pi : \mathrm{Seg}_d \Longrightarrow (-)^{n}
 $$<p>は自然変換、しかも各成分が全単射なので自然同型です。</p>
 <h3 id="操作も準同型と可換する">操作も準同型と可換する</h3>
-<p>配列側で \(\mathrm{set}_i\) と \(\mu_{[l:r]}\) が \(f\) と可換することは直接確かめられます。\(\mathrm{set}_i\) は成分の入れ替えだけなので明らか、\(\mu_{[l:r]}\) については \(f\) が積を保つこと、そして空区間の場合のために \(f(e) = e\) を保つことが必要です。準同型の定義に単位元の保存が入っていたのはここで効きます。これを \(\pi\) の自然性と合わせると、木側でも</p>
+<p>\(\mathrm{Seg}_d\) が関手であるだけだと、<code>Set</code> とか <code>Query</code> といったセグメント木上で行う操作と整合的になっているか不安になって確かめたくなりますよね。</p>
+<p>配列側で \(\mathrm{set}_i\) と \(\mu_{[l:r]}\) が \(f\) と可換することは直接確かめられます。</p>
 $$
-  \begin{align*}
-\mathrm{Seg}_d(f)\bigl(\mathrm{Set}_i(c, v)\bigr) &= \mathrm{Set}_i\bigl(f(c), \mathrm{Seg}_d(f)(v)\bigr),
-\\\\
-f\bigl(\mathrm{Query}_{[l:r]}(v)\bigr) &= \mathrm{Query}_{[l:r]}\bigl(\mathrm{Seg}_d(f)(v)\bigr)
-  \end{align*}
+  \begin{CD} M\ \times\ M^n @>{f \times f^n}>> N\ \times\ N^n \\
+  @V{\mathrm{set}_i}VV @VV{\mathrm{set}_i}V \\
+  M^n @>{f^n}>> N^n \end{CD}
+$$<p>\(\mathrm{set}_i\) は成分の入れ替えだけなので上は可換ですし、\(f\) がモノイド準同型であることから</p>
+$$
+\begin{CD}
+M^n @>{f^n}>> N^n \\
+@V{\mu_{[l:r]}}VV @VV{\mu_{[l:r]}}V \\
+M @>{f}>> N
+\end{CD}
+$$<p>も可換です。</p>
+<p>これを \(\pi\) の自然性と合わせると、木側でも</p>
+$$
+  \begin{CD} M\ \times\ \mathrm{Seg}_d(M) @>{f \times \mathrm{Seg}_d(f)}>> N\ \times\ \mathrm{Seg}_d(N) \\
+  @V{\mathrm{Set}_i}VV @VV{\mathrm{Set}_i}V \\
+  \mathrm{Seg}_d(M) @>{\mathrm{Seg}_d(f)}>> \mathrm{Seg}_d(N) \end{CD}
+$$$$
+  \begin{CD} \mathrm{Seg}_d(M) @>{\mathrm{Seg}_d(f)}>> \mathrm{Seg}_d(N) \\
+  @V{\mathrm{Query}{[l:r]}}VV @VV{\mathrm{Query}{[l:r]}}V \\
+  M @>{f}>> N \end{CD}
 $$<p>が成り立ちます。</p>
-<p>競技プログラミング的に言えば、これは「\(\mathbb{Z}\) 上で計算してから最後に \(\bmod\ m\) を取っても、最初から \(\mathbb{Z}/m\) 上で計算しても答えは同じ」という、普段何気なく使っている事実です。準同型 \(\mathbb{Z}\to\mathbb{Z}/m\) が積と \(1\) を保つからそうなっている、というのがここでの説明になります。逆に言えば、値をどこかへ写してから計算してよいのは、その写像が<strong>準同型のときだけ</strong>です。</p>
-<h3 id="自由モノイドへの帰着">自由モノイドへの帰着</h3>
-<p>自然性のうれしい使い道として、前回書いた「可換性は不要」という注意に構造的な理由を与えることができます。</p>
-<p>\(n\) 文字の自由モノイド \(F_n = \langle x_0,\ldots,x_{n-1}\rangle\)(元は文字の有限列、積は連結、単位元は空列)を取ります。自由性より、任意の \(a \in M^n\) に対して \(x_i \mapsto a_i\) となる準同型 \(\varphi_a : F_n \to M\) がただ一つ存在します。ここで \(\mathbf{x} = (x_0,\ldots,x_{n-1}) \in F_n^{\,n}\) という「generic な配列」を考えると、\(\varphi_a\) の成分ごとの適用が \(a\) を与えるので、\(\pi\) の自然性から</p>
-$$
-\pi_d^{-1}(a) = \mathrm{Seg}_d(\varphi_a)\bigl(\pi_d^{-1}(\mathbf{x})\bigr)
-$$<p>が成り立ちます。<strong>任意のモノイド上の任意のセグメント木は、自由モノイド上の generic なセグメント木の像である</strong>ということです。</p>
-<p>さらに、疑似コード自体が準同型と可換することは、再帰の各ステップが「\(e\) を返す」「保持している値を返す/代入する」「積を1回計算する」のいずれかであることから、再帰に関する帰納法で直ちに従います(正当性を経由しないので循環していません)。したがって正当性の主張はすべて \(F_n\) の場合に帰着します。</p>
-<p>そして \(F_n\) では、\(\mu_{[l:r]}(\mathbf{x})\) は文字列 \(x_l x_{l+1}\cdots x_r\) そのものです。自由モノイドの元は「順序を保った文字の列」であって、\(x_0 x_1 \ne x_1 x_0\) という区別が最初から入っています。にもかかわらず正当性が成り立つ、というのが「可換性は不要」の中身でした。言い換えると、証明に使った等式はすべて自由モノイドで成り立つ等式、すなわち結合則と単位元則だけから従う等式だったということです。</p>
-<h3 id="実装との対応-記号のまま-build-する">実装との対応: 記号のまま build する</h3>
-<p>この帰着は、抽象論のためだけの道具ではありません。「配列の中身がまだ決まっていなくても、木は build できる」という、実装者にとっては馴染み深い事実の言い換えになっています。</p>
-<p>\(\pi_d^{-1}(\mathbf{x})\)(\(\mathbf{x} = (x_0,\ldots,x_{n-1})\) は生成元そのもの)を実際に計算すると、各ノードには \(x_i\) たちを \(\mathrm{seg}(\tau)\) の順序で連結した文字列が入ります。これは特定のモノイド \(M\) の元を一つも使わずに書き下せる式で、build の手続きが \(N\) や木の形だけから決まり、配列の値には依存しないことを示しています。そのあとで準同型 \(\varphi_a : F_n \to M, x_i \mapsto a_i\) を(成分ごとに)適用すれば、\(\pi_d^{-1}(a) = \mathrm{Seg}_d(\varphi_a)(\pi_d^{-1}(\mathbf{x}))\) より欲しかった木が手に入ります。</p>
-<p>maspy 氏の記事<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> にある、非再帰実装でのセグメント木の可視化はこれの具体例になっています。配列を 1-indexed で埋め込み、$N$ が 2 冪でなくても内部ノードを $x_i = x_{2i}x_{2i+1}$ で埋めていく様子が示されていますが、そこで書かれている各ノードの中身(生成元の積の式)は、まさに \(\pi_d^{-1}(\mathbf{x})\) を具体的な木の形の上で計算したものです。記事の結びにある「可換モノイドであれば最終的に正しい値になる」という指摘も、\(\varphi_a\) を非可換な \(F_n\) から可換なモノイドへ適用したときに、生成元の並び方の違いが結果に影響しなくなる、という言い方に翻訳できます。</p>
-<p>つまり実装者が「まず木の形だけ組んでおいて、後から値を流し込む」と考えるとき、それは暗黙に \(F_n\) 上で木を build してから \(\varphi_a\) を適用する、という手順を踏んでいることになります。</p>
+<p>競技プログラミング的に言えば、これはセグメント木を使う時であっても「\(\mathbb{Z}\) 上で計算してから最後に \(\bmod\ m\) を取っても、最初から \(\mathbb{Z}/m\) 上で計算しても答えは同じ」という、普段何気なく使っている事実です。準同型 \(\mathbb{Z}\to\mathbb{Z}/m\) が積と \(1\) を保つからそうなっている、というのがここでの説明になります。</p>
+<p>今までセグメント木を使う時はこのあたりは深く考えてなかったです。</p>
 <h3 id="余談--自身はモノイドか">余談: \(\mathrm{Seg}_d(M)\) 自身はモノイドか</h3>
 <p>\(M^{T_d}\) には成分ごとの積でモノイド構造が入ります。これは \(\mathrm{Seg}_d(M)\) に制限できるでしょうか。\(v, w \in \mathrm{Seg}_d(M)\) に対して条件を書くと</p>
 $$
-(vw)_\tau = v_\tau w_\tau = v_{\tau_1}v_{\tau_2}w_{\tau_1}w_{\tau_2},
-\qquad
+(vw)_\tau = v_\tau w_\tau = v_{\tau_1}v_{\tau_2}w_{\tau_1}w_{\tau_2},\\
 (vw)_{\tau_1}(vw)_{\tau_2} = v_{\tau_1}w_{\tau_1}v_{\tau_2}w_{\tau_2}
 $$<p>となり、両者が一致するには \(v_{\tau_2}w_{\tau_1} = w_{\tau_1}v_{\tau_2}\) が必要です。実際、\(M = \langle x, y\rangle\)(2文字の自由モノイド)、\(d = 1\) として葉の値が \((e, x)\) の状態と \((y, e)\) の状態を取ると、成分ごとの積の根の値は \(xy\) ですが、葉の成分ごとの積 \((y, x)\) から決まる根の値は \(yx\) であって、一致しません。</p>
 <p>つまり \(M\) が可換なときに限り、\(\pi_d\) は集合の同型ではなくモノイドの同型に持ち上がります。ここまで可換性は一度も要らなかったので、<strong>非可換性が本当に効く数少ない場所</strong>として面白いところです。</p>
-<h2 id="この枠組みが捉えないもの">この枠組みが捉えないもの</h2>
-<p>以上で「なぜあの疑似コードなのか」には答えが出ました。この記事の出発点にあったのは、セグメント木は追加の構造を課さないモノイドに対してあたかも配列のように振る舞い、しかも無駄がないはずだ、という素朴な直感でした。3節の命題A(\(\pi_d\) が全単射であること)は、その直感をそのまま定式化したものです。木は配列と情報として区別がつかず、\(2^d-1\) 個の内部ノードは新しい情報を一切持ち込んでいません。しかし同時に、この枠組みの限界もはっきりします。</p>
-<p><strong>\(\pi_d\) が同型だということは、集合の圏の中では木と配列が区別できないということです。</strong> 情報としてセグメント木は配列そのものであり、余分な \(2^d - 1\) 個の内部ノードはメモ化にすぎません。ところが、セグメント木を使う理由は速さです。したがって、</p>
-<blockquote>
-<p>代数的構造はセグメント木の<strong>正当性</strong>しか語らず、データ構造としての<strong>価値</strong>はこの枠組みの外にある</p>
-</blockquote>
-<p>ということになります。前回の補題4 と補題6、すなわち計算量の議論だけは、モノイドの性質を一切使わず、木の幾何(各高さの境界ノードが高々 2 個であること)だけから出ていました。振り返ってみると、あれはこの枠組みの外側の議論だったわけです。</p>
-<p>このことは、セグメント木を「作った」気になる際の落とし穴でもあります。\(\mathrm{Set}_i = \pi_d^{-1}\circ\mathrm{set}_i\circ(\mathrm{id}\times\pi_d)\) という定義は正しいけれども、そのまま実装すれば \(O(n)\) です。同型による移送は「何を計算すべきか」を完全に決めますが、「どう計算するか」については何も言いません。</p>
-<p>もう一点、細かいですが注意すべきところがあります。\(n\) が 2 冪でない場合、私たちは単位元でパディングして \(M^n \to M^{2^d}\) と埋め込みました。この写像は準同型と可換する自然な写像ですが、単射なだけで同型ではありません。したがって「\(\pi_d\) が同型」という話は 2 冪の場合の主張であって、\(d\) を跨ぐ関手性を主張するときには気をつける必要があります。</p>
 <h2 id="おわりに">おわりに</h2>
-<p>今回は、前回の不変条件が \(\pi_d : \mathrm{Seg}_d(M) \xrightarrow{\sim} M^n\) という同型であること、そこから <code>Set</code> と <code>Query</code> が一意に決まること、そしてこの見方が計算量を何も説明しないことを見ました。</p>
-<h2 id="参考文献">参考文献</h2>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>maspy, 2021, Segment Tree のお勉強(1), Accessed 19 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B71">https://maspypy.com/segment-tree-のお勉強1</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
+<ul>
+<li>セグメント木は追加の構造を課さないモノイドに対してあたかも配列のように振る舞い、しかも無駄がないはずだ、という素朴な直感が定式化できた</li>
+<li>\(\pi_d\) が同型だということは、集合の圏の中では木と配列が区別できない</li>
+<li>不変条件、<code>Set</code>, <code>Query</code> はこの同型を通してモノイドの操作から定まる自然なもの</li>
+<li>計算量の議論だけ（前回の補題4 と補題6）は、モノイドの性質を一切使わず、木の幾何(各高さの境界ノードが高々 2 個であること)だけから出ていて、\(\pi_d\) を通した同型からは出てこない</li>
+</ul>
+<p>次回は、セグメント木に載せる構造の一般化について考えてみたいと思います。</p>
 
   </div>
 </article>
