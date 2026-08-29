@@ -20,7 +20,7 @@
 				<link>https://matsueushi.github.io/ds/clustering-kmean/</link>
 				<pubDate>Thu, 22 Aug 2019 00:04:58 -0400</pubDate>
 				<guid>https://matsueushi.github.io/ds/clustering-kmean/</guid>
-				<description>&lt;p&gt;最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「&lt;a href=&#34;http://bookclub.kodansha.co.jp/product?item=0000147666&#34;&gt;ノンパラメトリックベイズ 点過程と統計的機械学習の数理&lt;/a&gt;」に入門を開始した。&lt;/p&gt;&#xA;&lt;p&gt;ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、\(K\)-平均アルゴリズム(&lt;a href=&#34;https://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95&#34;&gt;Wikipedia&lt;/a&gt;) を実装したので記録。使っているのはいつものようにJulia。&lt;/p&gt;</description>
+				<description>&lt;p&gt;最近なかなか統計モデルに取り組む時間が十分捻出できていないが、「&lt;a href=&#34;http://bookclub.kodansha.co.jp/product?item=0000147666&#34;&gt;ノンパラメトリックベイズ 点過程と統計的機械学習の数理&lt;/a&gt;」に入門を開始した。&lt;/p&gt;&#xA;&lt;p&gt;ノンパラベイズに到達する前のデータ点をクラスに分類するクラスタリングの段階で出てきた、&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;K&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;K&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.07153em;&#34;&gt;K&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;-平均アルゴリズム(&lt;a href=&#34;https://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95&#34;&gt;Wikipedia&lt;/a&gt;) を実装したので記録。使っているのはいつものようにJulia。&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>

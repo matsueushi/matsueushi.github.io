@@ -12,16 +12,7 @@
 <meta property="og:site_name" content="matsueushi">
 <link rel="canonical" href="https://matsueushi.github.io/programming/agc034-a/"><link rel="stylesheet" href="/css/main.3340303fc0819d8bbe6404804dd579aafb0c65a71a55c2a525365e3953cee43c.css">
 <link rel="icon" href="https://matsueushi.github.io/favicon.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css" integrity="sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.js" integrity="sha384-ykMNcWQhhTUb0YV9SPpPUFURHZ+tWmubkakGBP+OgNK/UXdO2gtzglWx0Rj9hnO3" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '\\[', right: '\\]', display: true},
-      {left: '$$', right: '$$', display: true},
-      {left: '\\(', right: '\\)', display: false}
-    ]
-  });"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
 
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -73,18 +64,18 @@
 
   <div class="post-content">
     <p><a href="https://atcoder.jp/contests/agc034/tasks/agc034_a">https://atcoder.jp/contests/agc034/tasks/agc034_a</a></p>
-<p>すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。</p>
-<p>2人いる場合を考えると、\(c<d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、
+<p>すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>a</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[a,c]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">c</span><span class="mclose">]</span></span></span></span>の間に連続する黒マスがないこと、である。</p>
+<p>2人いる場合を考えると、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&lt;d </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span> の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、
 ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。
 よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。</p>
-<p>\(c > d \) の場合、順序を入れ替える必要がある。順序が入れ替わるのは、</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c &gt; d </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span> の場合、順序を入れ替える必要がある。順序が入れ替わるのは、</p>
 <p>(す)(ふ)(空)</p>
 <p>という状態になっている時だから、ふぬけくんの現在いる位置、またはそれより右側で、前後が白マスになっているところを探す。
 つまり、三連続で白マスになっている場所を探す。</p>
 <p>この時、候補の中で1番左の位置にある三連続白マスを考えれば良い。(状態が実現できなければ、それより右の三連続白マスで実現することは不可能のため)</p>
 <p>後は、</p>
 <p>(す)(ふ)(空)</p>
-<p>の状態に到達できるか確認して、到達できれば、順番を入れ替える必要がない\(c < d \)の場合に帰着できる。
+<p>の状態に到達できるか確認して、到達できれば、順番を入れ替える必要がない<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c &lt; d </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span>の場合に帰着できる。
 この時、当初の目的地を飛び越えていないかもチェックする。
 到達できなければ、実現不可能。</p>
 <p><a href="https://atcoder.jp/contests/agc034/submissions/32194980">https://atcoder.jp/contests/agc034/submissions/32194980</a></p>

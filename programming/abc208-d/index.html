@@ -12,16 +12,7 @@
 <meta property="og:site_name" content="matsueushi">
 <link rel="canonical" href="http://localhost:1313/programming/abc208-d/"><link rel="stylesheet" href="/css/main.3340303fc0819d8bbe6404804dd579aafb0c65a71a55c2a525365e3953cee43c.css">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css" integrity="sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.js" integrity="sha384-ykMNcWQhhTUb0YV9SPpPUFURHZ+tWmubkakGBP+OgNK/UXdO2gtzglWx0Rj9hnO3" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '\\[', right: '\\]', display: true},
-      {left: '$$', right: '$$', display: true},
-      {left: '\\(', right: '\\)', display: false}
-    ]
-  });"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
 </head>
 <body>
 <div class="site-wrapper">
@@ -68,7 +59,7 @@
     <p><a href="https://atcoder.jp/contests/abc208/tasks/abc208_d">https://atcoder.jp/contests/abc208/tasks/abc208_d</a></p>
 <p>制約をつけた任意の2頂点間の最短距離を求める問題なので、ワーシャル・フロイド法が使えそうだ。</p>
 <p>s,t および番号が k 以下の都市のみを利用し、都市 s を出発して都市 t に到着するまでの最短時間
-\(f(s,t,k)\) を \(k\) が小さい順に求めていくやり方がまさにワーシャル・フロイド法。</p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>s</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(s,t,k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span> を <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> が小さい順に求めていくやり方がまさにワーシャル・フロイド法。</p>
 <p>最短距離を更新していく際に最短距離を答えに足し上げていけば良い。</p>
 <p><a href="https://atcoder.jp/contests/abc208/submissions/32676847">https://atcoder.jp/contests/abc208/submissions/32676847</a></p>
 
