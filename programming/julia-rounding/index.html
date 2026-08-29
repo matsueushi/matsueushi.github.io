@@ -157,7 +157,7 @@ $$
     \end{aligned}
 $$<p>が成立することがわかります。また、\( x \in \mathbb{F}^* \) であれば、
 \( \bigcirc (x) = x = \triangledown (x) = \triangle(x) \) ですし、
-\( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) &lt; x &lt; \triangle (x) \) が成り立つとともに
+\( x \notin \mathbb{F}^* \) であれば、\( \triangledown(x) < x < \triangle (x) \) が成り立つとともに
 \( \bigcirc (x) = \triangledown(x)\) または \( \bigcirc (x) = \triangle(x)\) となることも示せます。
 つまり、丸めとは、浮動小数点数で表せないそれぞれの数に対して切り上げるか切り下げるかを条件 (R2) を守るように定めることと同じです。</p>
 <p>浮動小数点数で表現できない数に対する Julia の<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/index.html#Rounding-modes-1">デフォルト丸めモード</a>は
@@ -277,7 +277,7 @@ FastRounding.jl は、<a href="https://github.com/JeffreySarnoff/ErrorfreeArithm
 ペア \( (x, y) = \text{twosum}(a, b) \) を返し、</p>
 $$
     \begin{aligned}
-        x &= a \oplus b, \\\ 
+        x &= a \oplus b, \\ 
         a + b &= x + y
     \end{aligned}
 $$<p>

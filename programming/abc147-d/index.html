@@ -74,12 +74,12 @@
   <div class="post-content">
     <p><a href="https://atcoder.jp/contests/abc147/tasks/abc147_d">https://atcoder.jp/contests/abc147/tasks/abc147_d</a></p>
 <p>もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。</p>
-<p>\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \&amp; z_i\) であり、
-\((x \oplus y) \&amp; z_i = (x \&amp; z_i )\oplus (y \&amp; z_i)\) である。</p>
-<p>\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N (A_i \oplus A_j) = \sum_k \sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k))\)
-であり、右のように変形すると、\(A_i \&amp; z_k = 0\) または \(z_k\) であるので計算が簡単にできる。</p>
-<p>\(B_k = \#\{ i \mid A_i \&amp; z_k = 0 \}, C_k = \#\{ i \mid A_i \&amp; z_k = z_k \}\) とおくと、
-\((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)\) は</p>
+<p>\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \& z_i\) であり、
+\((x \oplus y) \& z_i = (x \& z_i )\oplus (y \& z_i)\) である。</p>
+<p>\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N (A_i \oplus A_j) = \sum_k \sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \& z_k) \oplus (A_j \& z_k))\)
+であり、右のように変形すると、\(A_i \& z_k = 0\) または \(z_k\) であるので計算が簡単にできる。</p>
+<p>\(B_k = \#\{ i \mid A_i \& z_k = 0 \}, C_k = \#\{ i \mid A_i \& z_k = z_k \}\) とおくと、
+\((A_i \& z_k) \oplus (A_j \& z_k)\) は</p>
 <ul>
 <li>\(0 \oplus 0 = 0\)</li>
 <li>\(0 \oplus z_k = z_k\)</li>
@@ -87,7 +87,7 @@
 <li>\(z_k \oplus z_k = 0\)</li>
 </ul>
 <p>の4通りなので、
-\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \&amp; z_k) \oplus (A_j \&amp; z_k)) = B_k * C_k * z_k\) である。
+\(\sum_{i=1}^{N-1} \sum_{j=i+1}^N ((A_i \& z_k) \oplus (A_j \& z_k)) = B_k * C_k * z_k\) である。
 あとはこれを \(k\) について足し合わせる。</p>
 <p><a href="https://atcoder.jp/contests/abc147/submissions/32456970">https://atcoder.jp/contests/abc147/submissions/32456970</a></p>
 

@@ -83,13 +83,13 @@
 <img src="gp-parameter-estimation_linear_gaussian.png" alt="ガウスカーネル＋線形カーネルによる回帰"></p>
 <p>任意の有限の入力</p>
 $$
-    (x_1, \ldots , x_n)
+    (x_1, \ldots , x_n)
 $$<p>を与えたときに、出力</p>
 $$
-    (f(x_1), \ldots , f(x_n))
+    (f(x_1), \ldots , f(x_n))
 $$<p>が平均</p>
 $$
-    (\mu(x_1), \ldots , \mu(x_n))
+    (\mu(x_1), \ldots , \mu(x_n))
 $$<p>分散</p>
 $$
     (k(x_n, x_{nm} ))
@@ -345,13 +345,13 @@ $$
 $$<p>を最大化するハイパーパラメーターを勾配法で求めよう。\( L \) の偏微分は、</p>
 $$
     \frac{\partial L}{\partial \theta} = \text{tr} \left( \mathbf{K}_{\boldsymbol{\theta}}^{-1} \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \theta} \right) + (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \theta} (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})
-$$<p>だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta &gt; 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は</p>
+$$<p>だった。パラメータ \( \theta \in \boldsymbol{\theta} \) は \( \theta > 0 \) でなくてはならないので、\( \tau = \log \theta \) と変換して \( \tau \) を最適化する。つまり、実際に勾配法で使う偏微分は</p>
 $$  
     \frac{\partial L}{\partial \tau} = \frac{\partial L}{\partial \theta} \frac{\partial \theta}{\partial \tau} = \theta \frac{\partial L}{\partial \theta}
 $$<p>である。</p>
 <p>同様に</p>
 $$
-    \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} = \theta \frac{\partial \mathbf{K}\_\boldsymbol{\theta}}{\partial \theta}
+    \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} = \theta \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \theta}
 $$<p>だから、\( \theta \) の代わりに \( \tau \) を考えて</p>
 $$
     \frac{\partial L}{\partial \tau} = \text{tr} \left( \mathbf{K}_{\boldsymbol{\theta}}^{-1} \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} \right) + (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})^T \frac{\partial \mathbf{K}_{\boldsymbol{\theta}}}{\partial \tau} (\mathbf{K}_{\boldsymbol{\theta}}^{-1} \mathbf{y})

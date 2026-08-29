@@ -109,10 +109,10 @@
 </span></span></code></pre></div><p><img src="bayesian-methods-julia-6_data.png" alt="Oリングと破損の関係"></p>
 <p>破損発生の有無を表す確率変数 \( D_i \) は、ベルヌーイ分布とロジスティック関数を用いて</p>
 <p>\(
-\begin{aligned}
-D_i &amp;\sim \text{Bernoulli}(p(t_i)), \\
-p(t) &amp;= \frac{1}{1 +\exp(\beta t + \alpha)},
-\end{aligned}
+    \begin{aligned} 
+        D_i &\sim \text{Bernoulli}(p(t_i)), \\ 
+        p(t) &= \frac{1}{1 +\exp(\beta t + \alpha)},
+    \end{aligned}
 \)</p>
 <p>\( t \) : 温度
 とモデリングされる。今回は、あとでサンプルされた <code>p</code> の値を使ってデータのシミュレーションを行うために、下のように <code>p</code> に <code>Logical</code> ノードを割り当てたが、</p>

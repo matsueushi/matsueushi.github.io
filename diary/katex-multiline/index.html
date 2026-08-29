@@ -73,19 +73,19 @@
 
   <div class="post-content">
     <p>結構手間取った。<br>
-バックスラッシュを4つ重ねた後スペースを置く <code>\\\\</code> と改行できる。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span><span style="color:#cf222e">\\</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">\begin</span><span style="color:#6639ba">{</span>aligned<span style="color:#6639ba">}</span> 
-</span></span><span style="display:flex;"><span>    x <span style="color:#6639ba">&amp;</span>= 1+1 <span style="color:#cf222e">\\\\</span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#6639ba">&amp;</span>= 2
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">\end</span><span style="color:#6639ba">{</span>aligned<span style="color:#6639ba">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">\\</span>)
+<code>\begin{aligned}</code> の中で、バックスラッシュ2つ <code>\\</code> の後にスペースを置くと改行できる。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span><span style="color:#0a3069">\(</span><span style="color:#6639ba">
+</span></span></span><span style="display:flex;"><span><span style="color:#6639ba">    </span><span style="color:#953800">\begin</span><span style="color:#6639ba">{aligned} 
+</span></span></span><span style="display:flex;"><span><span style="color:#6639ba">    x &amp;</span><span style="color:#0550ae">=</span><span style="color:#6639ba"> </span><span style="color:#0550ae">1</span><span style="color:#0550ae">+</span><span style="color:#0550ae">1</span><span style="color:#6639ba"> </span><span style="color:#953800">\\</span><span style="color:#6639ba"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#6639ba">    &amp;</span><span style="color:#0550ae">=</span><span style="color:#6639ba"> </span><span style="color:#0550ae">2</span><span style="color:#6639ba">
+</span></span></span><span style="display:flex;"><span><span style="color:#6639ba">    </span><span style="color:#953800">\end</span><span style="color:#6639ba">{aligned}
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">\)</span>
 </span></span></code></pre></div><p>結果:</p>
 <p>\(
-\begin{aligned}
-x &amp;= 1+1 \\
-&amp;= 2
-\end{aligned}
+    \begin{aligned} 
+    x &= 1+1 \\ 
+    &= 2
+    \end{aligned}
 \)</p>
 <p>参考 :</p>
 <blockquote>

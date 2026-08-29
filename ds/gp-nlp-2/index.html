@@ -79,9 +79,9 @@
 <li>3.4.2のガウス過程回帰の計算を行う際、予測分布の分散共分散行列が計算誤差の影響で対称行列にならずエラーが発生することがあったので、場合によっては対称化が必要。</li>
 <li>図3.16のガウスカーネル<br>
 \(
-\begin{aligned}
-k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
-\end{aligned}
+    \begin{aligned} 
+    k(x, x^\prime) = \theta_1 \exp \left( - \frac{|x-x^\prime|^2}{\theta_2} \right)
+    \end{aligned} 
 \)
 のパラメーター推定で、\( (\theta_1, \theta_2, \theta_3)=(1, 0.4, 0.1) \) とすると下のようになり本と違ってしまった。</li>
 </ul>

@@ -100,11 +100,11 @@
 </span></span></code></pre></div><p>だからと言ってそのためにわざわざPython+PyMC3に移るのも癪だし、練習を兼ねてJulia+Mamba用の確率分布を試しに作ってみようと思ったのが今回の内容である。幸いなことに、Mamba.jlには作り方のガイドラインが書いてあるので、<a href="https://mambajl.readthedocs.io/en/latest/mcmc/distributions.html#user-defined-multivariate-distributions">多変量分布用のガイドライン</a>を参考にして作ることができた。</p>
 <p>今回は、<code>GaussianRandomWalk</code> は、初期値の分布 \( D \) とドリフト \( \mu_i \) , 分散 \( \sigma \) とした時に、</p>
 <p>\(
-\begin{aligned}
-Y_0 &amp;= D,  \\
-Y_{i+1} &amp;= Y_i + \mu_i + \epsilon_i, \\
-\epsilon_i &amp;\sim \text{Normal}(0, \sigma)
-\end{aligned}
+    \begin{aligned} 
+    Y_0 &= D,  \\ 
+    Y_{i+1} &= Y_i + \mu_i + \epsilon_i, \\ 
+    \epsilon_i &\sim \text{Normal}(0, \sigma)
+    \end{aligned}
 \)</p>
 <p>というモデルに従っているとする。</p>
 <p>Mamba.jlでUser-Definedの多変量分布を使うためには, Distributionの全ての関数を定義する必要はなく、

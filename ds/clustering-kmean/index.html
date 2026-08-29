@@ -95,7 +95,7 @@ $$<p>が最小となるように \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K 
 \( (z_i)_{i=1}^n \) を乱数を用いて再初期化する</li>
 <li>
 $$
-  \boldsymbol{\mu}_k = \frac{1}{\sharp \\\{i \mid z_i = k \\\}} \sum_{i, z_i=k} \mathbf{x}_i
+  \boldsymbol{\mu}_k = \frac{1}{\sharp \{i \mid z_i = k \}} \sum_{i, z_i=k} \mathbf{x}_i
   $$
 と代表点の更新を行う</li>
 <li>以下のアルゴリズムを、 \( (z_i)_{i=1}^n, (\boldsymbol{\mu}_k)_{k=1}^K \) を更新することによる目的関数 \( f \) の減少が閾値以下になるまで繰り返す

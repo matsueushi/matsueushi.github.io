@@ -119,8 +119,8 @@ Convolutional net で生成された結果にもう一度下層の生成画像�
 \( \uparrow^r\) をスケール \(r\) 倍の画像拡大とした時に、</p>
 $$
     \begin{aligned} 
-        \tilde{x}_N &= G_N(z_N), \\\ 
-        \tilde{x}_n &= G_n(z_n, (\tilde{x}\_{n+1})\uparrow^r), n < N
+        \tilde{x}_N &= G_N(z_N), \\ 
+        \tilde{x}_n &= G_n(z_n, (\tilde{x}_{n+1})\uparrow^r), n < N
     \end{aligned} 
 $$<p>で、Fully convolutional net を \(\psi\) とした時に、</p>
 $$
@@ -138,13 +138,13 @@ $$<p>を考えるのですが、\( \mathcal{L}_{\text{adv}} \) が Adversarial l
 \( \mathcal{L}_{\text{rec}} \) は Reconstruction loss で、最初以外は全てゼロとなる特定のノイズ</p>
 $$
     \begin{aligned}
-        z^{\text{rec}} & = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} \\\
+        z^{\text{rec}} & = \{z_N^{\text{rec}}, z_{N-1}^{\text{rec}}, \ldots, z_0^{\text{rec}}\} \\
          & = \{z^*, 0, \ldots, 0 \}
     \end{aligned} 
 $$<p>を一つ学習を通して固定し、縮小した元画像との二乗誤差</p>
 $$
     \begin{aligned}
-        \mathcal{L}_{\text{rec}, N} & = || G_N(z^*) - x_N ||^2, \\\
+        \mathcal{L}_{\text{rec}, N} & = || G_N(z^*) - x_N ||^2, \\
         \mathcal{L}_{\text{rec}, n} & = || G_n(0, (\tilde{x}_{n+1}^{\text{rec}})\uparrow^r) - x_n ||^2, n < N
     \end{aligned}
 $$<p>を損失関数とするものです。</p>
@@ -211,7 +211,7 @@ $$<p>は少し修正が必要になります。\(z\) は \((x)\uparrow^r\) よ�
 \(\langle \rangle_d\) を幅 \(d\) の0パディング,  \(\rangle \langle_d\) を幅 \(d\) のトリミングとすると、実際にやることは</p>
 $$
     \begin{aligned} 
-        G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
+        G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\ 
         \bar{x} &= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
 $$<p>です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分です。</p>
@@ -313,7 +313,7 @@ $$<p>です。定義するのは \(\langle(\cdot)\uparrow^r\rangle_d\) の部分
 </span></span></code></pre></div><p>ノイズ画像を足してレイヤーに通し、出力結果にオリジナルの画像を加えて周囲をトリミングする <code>NoiseConnection</code> (名前は適当)を作ります。</p>
 $$
     \begin{aligned} 
-        G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\\ 
+        G(x, z) &= \rangle(\bar{x} + \psi(z + \bar{x}))\langle_d, \\ 
         \bar{x} &= \langle(x)\uparrow^r\rangle_d
     \end{aligned} 
 $$<p>上の式で言えば</p>

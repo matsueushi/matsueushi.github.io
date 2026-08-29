@@ -356,7 +356,7 @@
 				<link>https://matsueushi.github.io/programming/abc147-d/</link>
 				<pubDate>Mon, 13 Jun 2022 21:39:24 +0900</pubDate>
 				<guid>https://matsueushi.github.io/programming/abc147-d/</guid>
-				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc147/tasks/abc147_d&#34;&gt;https://atcoder.jp/contests/abc147/tasks/abc147_d&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。&lt;/p&gt;&#xA;&lt;p&gt;\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \&amp;amp; z_i\) であり、&#xA;\((x \oplus y) \&amp;amp; z_i = (x \&amp;amp; z_i )\oplus (y \&amp;amp; z_i)\) である。&lt;/p&gt;</description>
+				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc147/tasks/abc147_d&#34;&gt;https://atcoder.jp/contests/abc147/tasks/abc147_d&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;もちろん素朴に計算していては間に合わないが、ビット毎に考えれば良い。&lt;/p&gt;&#xA;&lt;p&gt;\(z_i = 1 \ll i\) とおくと、任意の \(x\) に対して \(x = \sum_i x \&amp; z_i\) であり、&#xA;\((x \oplus y) \&amp; z_i = (x \&amp; z_i )\oplus (y \&amp; z_i)\) である。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>AtCoder AGC 023 A - Zero-Sum Ranges</title>
@@ -370,7 +370,7 @@
 				<link>https://matsueushi.github.io/programming/abc255-c/</link>
 				<pubDate>Sun, 12 Jun 2022 21:11:31 +0900</pubDate>
 				<guid>https://matsueushi.github.io/programming/abc255-c/</guid>
-				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_c&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_c&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(\min_{i=0,\ldots,n-1}|A+Di-X|\) を求めれば良い。\(y=A+Dx\) と \(y=X\) の交点を求め、&#xA;\(x &amp;lt; 0, 1 \le x \le n-1 ,x &amp;gt; n-1\) の場合に応じて計算すれば良い。&lt;/p&gt;&#xA;&lt;p&gt;\(|A+Di-X|\) が最も小さくなるのは、\(x\) に最も近い \(0\le i \le n-1\) を選んだ時である。&lt;/p&gt;</description>
+				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc255/tasks/abc255_c&#34;&gt;https://atcoder.jp/contests/abc255/tasks/abc255_c&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(\min_{i=0,\ldots,n-1}|A+Di-X|\) を求めれば良い。\(y=A+Dx\) と \(y=X\) の交点を求め、&#xA;\(x &lt; 0, 1 \le x \le n-1 ,x &gt; n-1\) の場合に応じて計算すれば良い。&lt;/p&gt;&#xA;&lt;p&gt;\(|A+Di-X|\) が最も小さくなるのは、\(x\) に最も近い \(0\le i \le n-1\) を選んだ時である。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>AtCoder ABC 255 D - ±1 Operation 2</title>
@@ -391,7 +391,7 @@
 				<link>https://matsueushi.github.io/programming/diverta2019-d/</link>
 				<pubDate>Sat, 11 Jun 2022 19:45:34 +0900</pubDate>
 				<guid>https://matsueushi.github.io/programming/diverta2019-d/</guid>
-				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&#34;&gt;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(t = \lfloor n/m\rfloor = n \mod m\) とおくと \(0 \le t &amp;lt; m\)であり、\(n=\alpha m + t\) とおける。&#xA;\(t\) の条件から \(\alpha = \lfloor n/m\rfloor = t\) だから結局 \(n = t(m+1)\) とかける。&lt;/p&gt;&#xA;&lt;p&gt;\(n = t(m+1) \ge t^2\) より、\(t \le \sqrt{n}\) を探索すれば良い。&lt;/p&gt;</description>
+				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&#34;&gt;https://atcoder.jp/contests/diverta2019/tasks/diverta2019_d&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(t = \lfloor n/m\rfloor = n \mod m\) とおくと \(0 \le t &lt; m\)であり、\(n=\alpha m + t\) とおける。&#xA;\(t\) の条件から \(\alpha = \lfloor n/m\rfloor = t\) だから結局 \(n = t(m+1)\) とかける。&lt;/p&gt;&#xA;&lt;p&gt;\(n = t(m+1) \ge t^2\) より、\(t \le \sqrt{n}\) を探索すれば良い。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>AtCoder APC 001 B - Two Arrays</title>
@@ -440,7 +440,7 @@
 				<link>https://matsueushi.github.io/programming/agc034-a/</link>
 				<pubDate>Sat, 04 Jun 2022 18:32:50 +0900</pubDate>
 				<guid>https://matsueushi.github.io/programming/agc034-a/</guid>
-				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;https://atcoder.jp/contests/agc034/tasks/agc034_a&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。&lt;/p&gt;&#xA;&lt;p&gt;2人いる場合を考えると、\(c&amp;lt;d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、&#xA;ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。&#xA;よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。&lt;/p&gt;</description>
+				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/agc034/tasks/agc034_a&#34;&gt;https://atcoder.jp/contests/agc034/tasks/agc034_a&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;すぬけくんしかいない場合を考えると、a地点からc地点に到達できる条件は、\([a,c]\)の間に連続する黒マスがないこと、である。&lt;/p&gt;&#xA;&lt;p&gt;2人いる場合を考えると、\(c&lt;d \) の場合は、すぬけくんとふぬけくんの順序を入れ替える必要がないから、&#xA;ふぬけくんに先にゴースさせて、すぬけくんがその後ゴールすれば良い。&#xA;よって、一人だけの場合の条件をすぬけくん、ふぬけくんでそれぞれ考える。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>AtCoder AGC 011 B - Colorful Creatures</title>
@@ -524,7 +524,7 @@
 				<link>https://matsueushi.github.io/programming/abc154-e/</link>
 				<pubDate>Wed, 25 May 2022 21:30:34 +0900</pubDate>
 				<guid>https://matsueushi.github.io/programming/abc154-e/</guid>
-				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc154/tasks/abc154_e&#34;&gt;https://atcoder.jp/contests/abc154/tasks/abc154_e&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(N\) の上 \(i\) 桁をつなげた数を \(N(i)\) とする。&#xA;\(N\) の上から \(i\) 桁目を \(N_i\) とする。\(N\) の桁数を \(l\) とする。&lt;/p&gt;&#xA;&lt;p&gt;\(dp[i,k,0] = \{ n \in \mathbb{Z} \mid  n &amp;lt; N(i) ,n の 0 でない数字の数が k \}\)&#xA;\(dp[i,k,1] = \{ n \in \mathbb{Z} \mid  n = N(i) ,n の 0 でない数字の数が k \}\)&#xA;とすると、求めたいのは \(dp[l,K,0] + dp[l,K,1]\) である。&lt;/p&gt;</description>
+				<description>&lt;p&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc154/tasks/abc154_e&#34;&gt;https://atcoder.jp/contests/abc154/tasks/abc154_e&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;\(N\) の上 \(i\) 桁をつなげた数を \(N(i)\) とする。&#xA;\(N\) の上から \(i\) 桁目を \(N_i\) とする。\(N\) の桁数を \(l\) とする。&lt;/p&gt;&#xA;&lt;p&gt;\(dp[i,k,0] = \{ n \in \mathbb{Z} \mid  n &lt; N(i) ,\ n \text{ の } 0 \text{ でない数字の数が } k \}\)&#xA;\(dp[i,k,1] = \{ n \in \mathbb{Z} \mid  n = N(i) ,\ n \text{ の } 0 \text{ でない数字の数が } k \}\)&#xA;とすると、求めたいのは \(dp[l,K,0] + dp[l,K,1]\) である。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>AtCoder ABC 135 C - City Savers</title>
@@ -811,14 +811,14 @@
 				<link>https://matsueushi.github.io/diary/katex-multiline/</link>
 				<pubDate>Wed, 05 Jun 2019 22:19:14 -0400</pubDate>
 				<guid>https://matsueushi.github.io/diary/katex-multiline/</guid>
-				<description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;バックスラッシュを4つ重ねた後スペースを置く &lt;code&gt;\\\\&lt;/code&gt; と改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;(&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    x &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 1+1 &lt;span style=&#34;color:#cf222e&#34;&gt;\\\\&lt;/span&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;&amp;amp;&lt;/span&gt;= 2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{&lt;/span&gt;aligned&lt;span style=&#34;color:#6639ba&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;\\&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;\begin{aligned}&#xA;x &amp;amp;= 1+1 \\&#xA;&amp;amp;= 2&#xA;\end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+				<description>&lt;p&gt;結構手間取った。&lt;br&gt;&#xA;&lt;code&gt;\begin{aligned}&lt;/code&gt; の中で、バックスラッシュ2つ &lt;code&gt;\\&lt;/code&gt; の後にスペースを置くと改行できる。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{aligned} &#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;    x &amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;    &amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;{aligned}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\)&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果:&lt;/p&gt;&#xA;&lt;p&gt;\(&#xA;    \begin{aligned} &#xA;    x &amp;= 1+1 \\ &#xA;    &amp;= 2&#xA;    \end{aligned}&#xA;\)&lt;/p&gt;&#xA;&lt;p&gt;参考 :&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Cannot achieve line break in multiline equation (LaTeX/Mathjax)&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/wiki/FAQ&#34;&gt;https://github.com/gcushen/hugo-academic/wiki/FAQ&lt;/a&gt;&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>KaTeX Test</title>
 				<link>https://matsueushi.github.io/diary/katex-test/</link>
 				<pubDate>Sat, 01 Jun 2019 21:05:25 -0400</pubDate>
 				<guid>https://matsueushi.github.io/diary/katex-test/</guid>
-				<description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;_ではなく\_を使うと \( x_{mn} \)などの添字が出せる&lt;/p&gt;</description>
+				<description>&lt;p&gt;KaTeX Test&lt;/p&gt;&#xA;&lt;p&gt;\( \lim \sum \int  \)&lt;/p&gt;&#xA;&lt;p&gt;Katexでは \( \varprojlim \) はサポートされていない&lt;/p&gt;&#xA;&lt;p&gt;\( x_{mn} \) のように &lt;code&gt;_&lt;/code&gt; で添字が出せる&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>ガウス過程と機械学習: 3.5まで</title>

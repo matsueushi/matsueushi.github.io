@@ -107,7 +107,7 @@ $$
         p(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
         \left(
         \begin{matrix}
-            \mathbf{K}_{\mathbf{f}, \mathbf{f}} & \mathbf{K}_{*, \mathbf{f}} \\\ 
+            \mathbf{K}_{\mathbf{f}, \mathbf{f}} & \mathbf{K}_{*, \mathbf{f}} \\ 
             \mathbf{K}_{\mathbf{f}, *} & \mathbf{K}_{*, *}
         \end{matrix}
         \right)
@@ -117,8 +117,8 @@ $$<p>となる。学習データ \( \mathbf{X} \) が大きくなると \( \math
 <p>ガウス過程の予測分布 \( p(\mathbf{f}_* | \mathbf{y} ) \) は、</p>
 $$
     \begin{aligned} 
-        p(\mathbf{f}_* | \mathbf{y}) &= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\\ 
-        &= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\\ 
+        p(\mathbf{f}_* | \mathbf{y}) &= \int p (\mathbf{f}, \mathbf{f}_* | \mathbf{y}) d\mathbf{f} \\ 
+        &= \frac{1}{p(\mathbf{y})} \int p(\mathbf{y} | \mathbf{f}) p(\mathbf{f}, \mathbf{f}_*)d\mathbf{f} \\ 
         &= \mathcal{N}(\mathbf{K}_{*, \mathbf{f}}\ \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1}\ \mathbf{y},
         \mathbf{K}_{*, *} - \mathbf{K}_{*, \mathbf{f}}\ \widetilde{\mathbf{K}}_{\mathbf{f}, \mathbf{f}}^{-1}\ \mathbf{K}_{\mathbf{f}, *}),
     \end{aligned}
@@ -128,7 +128,7 @@ $$<p>
 <p>いくつかスパース近似にはバリエーションがあるが、補助入力点 \( \mathbf{u}=(\mathbf{u}_1, \ldots, \mathbf{u}_m)^\top \) を使って \( p(\mathbf{f}_* | \mathbf{f}) \)を近似するという方法は共通している。まずは近似ではなく正確に成り立っている式を確認する。</p>
 $$
     \begin{aligned} 
-        p(\mathbf{f}_*, \mathbf{f}) &= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\\ 
+        p(\mathbf{f}_*, \mathbf{f}) &= \int p(\mathbf{f}_*, \mathbf{f}, \mathbf{u})d\mathbf{u} \\ 
         &= \int p(\mathbf{f}_*, \mathbf{f} | \mathbf{u})p(\mathbf{u})d\mathbf{u},
     \end{aligned} 
 $$$$
@@ -141,7 +141,7 @@ $$<p>と表される。ここで、 \( \mathbf{Q}_{\mathbf{a}, \mathbf{b}} := \m
 <p>補助入力点 \( \mathbf{u} \) を使った条件付き確率 \( q(\mathbf{f}_* | \mathbf{u}), q(\mathbf{f} | \mathbf{u})\) を使って、</p>
 $$
     \begin{aligned} 
-        p(\mathbf{f}_*, \mathbf{f}) &\simeq q(\mathbf{f}_*, \mathbf{f}) \\\ 
+        p(\mathbf{f}_*, \mathbf{f}) &\simeq q(\mathbf{f}_*, \mathbf{f}) \\ 
         &= \int q(\mathbf{f}_* | \mathbf{u}) q(\mathbf{f} | \mathbf{u}) p(\mathbf{u}) d\mathbf{u}
     \end{aligned} 
 $$<p>という近似を行う。この時の \( q \) の作り方が近似の手法によって異なることになる。</p>
@@ -154,7 +154,7 @@ $$
         q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
         \left(
         \begin{matrix}
-            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} & \mathbf{Q}_{*, \mathbf{f}} \\\ 
+            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} & \mathbf{Q}_{*, \mathbf{f}} \\ 
             \mathbf{Q}_{\mathbf{f}, *} & \mathbf{Q}_{*, *}
         \end{matrix}
         \right)
@@ -165,31 +165,31 @@ $$<p>と近似するもので、後に出てくるDTC, FITCの基礎となる考
 $$
     \begin{aligned} 
         q_{\text{SoR}}(\mathbf{f} | \mathbf{u}) 
-        &= \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\\ 
-        &\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) \\\ 
+        &= \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\ 
+        &\simeq \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) \\ 
         &= p(\mathbf{f} | \mathbf{u}), 
     \end{aligned} 
 $$$$
     \begin{aligned} 
-        q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) &= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\\ 
-        &\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *}) \\\ 
+        q_{\text{SoR}}(\mathbf{f}_* | \mathbf{u}) &= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{0}) \\ 
+        &\simeq \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *}) \\ 
         &= p(\mathbf{f}_* | \mathbf{u}) 
     \end{aligned} 
 $$<p>と、\( p(\mathbf{f} | \mathbf{u}), p(\mathbf{f}_* | \mathbf{u}) \) の分散を \( 0 \) と近似して、\( \mathbf{f}, \mathbf{f}_* \) と \( \mathbf{u} \) の関係がdeterministicと仮定するものである。(deterministicの場合はもはや \( \mathbf{f} | \mathbf{u}\) は正規分布ではないので、この書き方は微妙な感じかもしれないが、論文のnotationに従った)</p>
 <p>仮定から \( q_{\text{SoR}}(\mathbf{f}, \mathbf{f}_* ) \) の導出は、 同時分布が正規分布になることと、多変数正規分布の線形変換の性質から、</p>
 $$
     \begin{aligned} 
-        \mathbf{f} &= \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\\ 
-        & \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\\ 
-        & \sim \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}) \\\ 
+        \mathbf{f} &= \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} \\ 
+        & \sim \mathcal{N}(\mathbf{0}, (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1}) \mathbf{K}_{\mathbf{u}, \mathbf{u}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top) \\ 
+        & \sim \mathcal{N}(\mathbf{0}, \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}}) \\ 
         & \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{\mathbf{f}, \mathbf{f}}),
     \end{aligned} 
 $$<p>であり、同様に \( \mathbf{f}_* \sim \mathcal{N}(\mathbf{0}, \mathbf{Q}_{*, *}) \) を得られることと、<a href="https://en.wikipedia.org/wiki/Cross-covariance_matrix">相互共分散行列</a>の線型性から、</p>
 $$
     \begin{aligned} 
-        \text{cov}(\mathbf{f}, \mathbf{f}_*) &= \text{cov}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} ) \\\ 
-        & = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{u}) (\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top \\\ 
-        & = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\\ 
+        \text{cov}(\mathbf{f}, \mathbf{f}_*) &= \text{cov}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u} ) \\ 
+        & = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{u}) (\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1})^\top \\ 
+        & = \mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\ 
         & = \mathbf{Q}_{\mathbf{f}, *},
     \end{aligned}
 $$<p>\( \text{cov}(\mathbf{f}_*, \mathbf{f}) = \mathbf{Q}_{*, \mathbf{f}} \) であることから従う。</p>
@@ -200,13 +200,13 @@ $$
         & = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
         \mathbf{Q}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *})
     \end{aligned} 
-$$<p>で与えられる。これが \( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} ) \) と等しくなることを示そう。 初見でなぜこうなるか不明だった……</p>
+$$<p>で与えられる。これが \( \Sigma = (\sigma^{-2} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1} \) を用いて \( \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *} \) ) と等しくなることを示そう。 初見でなぜこうなるか不明だった……</p>
 <p>まず、</p>
 $$
     \begin{aligned} 
         \sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} 
-        & = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \sigma^2 \mathbf{K}_{\mathbf{u}, \mathbf{u}}) \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \\\ 
-        & = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} + \sigma^2 \mathbf{I}) \\\ 
+        & = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \sigma^2 \mathbf{K}_{\mathbf{u}, \mathbf{u}}) \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} \\ 
+        & = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}} + \sigma^2 \mathbf{I}) \\ 
         & = \mathbf{K}_{\mathbf{u}, \mathbf{f}} (\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
     \end{aligned} 
 $$<p>であるから、</p>
@@ -215,7 +215,7 @@ $$
         \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1}
         & = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma 
         (\sigma^2 \Sigma^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, \mathbf{f}})
-        (\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \\\ 
+        (\mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \\ 
         & = \sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}}
     \end{aligned} 
 $$<p>を得る。分散の方の等号も、この式を使えば最終的に \( \Sigma (\mathbf{K}_{\mathbf{u}, \mathbf{u}} + \sigma^{-2}\mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{K}_{\mathbf{f}, \mathbf{u}}) = \mathbf{I} \) に帰着させて示すことができる。</p>
@@ -226,14 +226,14 @@ q_{\text{DTC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \m
 $$<p>と \( \mathbf{f} \) が deterministic に \( \mathbf{u} \) によって定まると仮定する。一方、出力値の方は</p>
 $$
     \begin{aligned} 
-        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) &= p(\mathbf{f}_* | \mathbf{u}) \\\ 
+        q_{\text{DTC}}(\mathbf{f}_* | \mathbf{u}) &= p(\mathbf{f}_* | \mathbf{u}) \\ 
         &= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
     \end{aligned} 
 $$<p>と近似を行わない。</p>
 $$
     \begin{aligned} 
-        \text{cov}(\mathbf{f}, \mathbf{f}_*) &= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*) \\\ 
-        &= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\\ 
+        \text{cov}(\mathbf{f}, \mathbf{f}_*) &= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \text{cov}(\mathbf{u}, \mathbf{f}_*) \\ 
+        &= \mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{K}_{\mathbf{u}, *} \\ 
         &= \mathbf{Q}_{\mathbf{f}, *}
     \end{aligned} 
 $$<p>
@@ -243,7 +243,7 @@ $$
         q_{\text{DTC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
         \left(
         \begin{matrix}
-            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} & \mathbf{Q}_{*, \mathbf{f}} \\\ 
+            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} & \mathbf{Q}_{*, \mathbf{f}} \\ 
             \mathbf{Q}_{\mathbf{f}, *} & \mathbf{K}_{*, *}
         \end{matrix}
         \right)
@@ -256,7 +256,7 @@ $$
     \begin{aligned} 
         q_{\text{DTC}}(\mathbf{f}_* | \mathbf{y}) 
         & = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{y},
-        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\\ 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \sigma^2 \mathbf{I})^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\ 
         & = \mathcal{N} (\sigma^{-2} \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \mathbf{y}, 
         \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *})
     \end{aligned} 
@@ -270,7 +270,7 @@ $$
 q_{\text{FITC}}(\mathbf{f} | \mathbf{u}) = \mathcal{N}(\mathbf{K}_{\mathbf{f}, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}))
 $$$$
     \begin{aligned} 
-        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) &= p(\mathbf{f}_* | \mathbf{u}) \\\ 
+        q_{\text{FITC}}(\mathbf{f}_* | \mathbf{u}) &= p(\mathbf{f}_* | \mathbf{u}) \\ 
         &= \mathcal{N}(\mathbf{K}_{*, \mathbf{u}} \mathbf{K}_{\mathbf{u}, \mathbf{u}}^{-1} \mathbf{u}, \mathbf{K}_{*, *} - \mathbf{Q}_{*, *})
     \end{aligned} 
 $$<p>となる。今までと同じように計算して、同時分布</p>
@@ -279,7 +279,7 @@ $$
         q_{\text{FITC}}(\mathbf{f}, \mathbf{f}_*) =  \mathcal{N}\left( \mathbf{0},
         \left(
         \begin{matrix}
-            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) & \mathbf{Q}_{*, \mathbf{f}} \\\ 
+            \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}}) & \mathbf{Q}_{*, \mathbf{f}} \\ 
             \mathbf{Q}_{\mathbf{f}, *} & \mathbf{K}_{*, *}
         \end{matrix}
         \right)
@@ -290,14 +290,14 @@ $$
     \begin{aligned} 
         q_{\text{FITC}}(\mathbf{f}_* | \mathbf{y}) 
         & = \mathcal{N}(\mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{y},
-        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\\ 
+        \mathbf{K}_{*, *} - \mathbf{Q}_{*, \mathbf{f}}(\mathbf{Q}_{\mathbf{f},\mathbf{f}} + \Lambda)^{-1} \mathbf{Q}_{\mathbf{f}, *}) \\ 
         & = \mathcal{N} (\mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{y}, 
         \mathbf{K}_{*, *} - \mathbf{Q}_{*, *} + \mathbf{K}_{*, \mathbf{u}} \Sigma \mathbf{K}_{\mathbf{u}, *})
     \end{aligned} 
 $$<p>を得る。ここで、</p>
 $$
     \begin{aligned} 
-        \Sigma & = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \\\
+        \Sigma & = (\mathbf{K}_{\mathbf{u}, \mathbf{f}} \Lambda^{-1} \mathbf{K}_{\mathbf{f}, \mathbf{u}} + \mathbf{K}_{\mathbf{u}, \mathbf{u}})^{-1}, \\
         \Lambda &= \text{diag}(\mathbf{K}_{\mathbf{f}, \mathbf{f}} - \mathbf{Q}_{\mathbf{f}, \mathbf{f}} + \sigma^2 \mathbf{I})
     \end{aligned} 
 $$<p>である。</p>

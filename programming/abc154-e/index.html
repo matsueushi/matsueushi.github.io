@@ -75,8 +75,8 @@
     <p><a href="https://atcoder.jp/contests/abc154/tasks/abc154_e">https://atcoder.jp/contests/abc154/tasks/abc154_e</a></p>
 <p>\(N\) の上 \(i\) 桁をつなげた数を \(N(i)\) とする。
 \(N\) の上から \(i\) 桁目を \(N_i\) とする。\(N\) の桁数を \(l\) とする。</p>
-<p>\(dp[i,k,0] = \{ n \in \mathbb{Z} \mid  n &lt; N(i) ,n の 0 でない数字の数が k \}\)
-\(dp[i,k,1] = \{ n \in \mathbb{Z} \mid  n = N(i) ,n の 0 でない数字の数が k \}\)
+<p>\(dp[i,k,0] = \{ n \in \mathbb{Z} \mid  n < N(i) ,\ n \text{ の } 0 \text{ でない数字の数が } k \}\)
+\(dp[i,k,1] = \{ n \in \mathbb{Z} \mid  n = N(i) ,\ n \text{ の } 0 \text{ でない数字の数が } k \}\)
 とすると、求めたいのは \(dp[l,K,0] + dp[l,K,1]\) である。</p>
 <p>\(dp[i,0,0]=1, \) (0 に対応)</p>
 <p>\(dp[1,1,0] = N_1-1,\) (1,&hellip;,N1- 1に対応)</p>

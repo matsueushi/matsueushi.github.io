@@ -77,7 +77,7 @@
 <p>とすると、個数制限なしナップザック問題（の類似）に帰着される。
 (参考:蟻本の2章 p.p.58 漸化式を工夫する)</p>
 <p>\(dp[i+1][k] = \min(dp[i][k], dp[i+1][k-a[i]]+b[i])\)</p>
-<p>である。ここで、\(dp[-1][k] = 0\) と \(dp[i][k] = 0 \ (k &lt; 0)\) とおいた。</p>
+<p>である。ここで、\(dp[-1][k] = 0\) と \(dp[i][k] = 0 \ (k < 0)\) とおいた。</p>
 <p>答えは \(dp[n][h]\) であり、\(O(nh)\) で求められる。</p>
 <p><a href="https://atcoder.jp/contests/abc153/submissions/32290815">https://atcoder.jp/contests/abc153/submissions/32290815</a></p>
 
