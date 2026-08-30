@@ -135,13 +135,13 @@
 <p>まず、 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>←</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">a_i \leftarrow c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span></span></span></span> を行うためにノード <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span> の値を更新する操作 <code>Set(i, c, τ)</code> を下のように定義します。</p>
 <pre tabindex="0"><code>Set(i, c, τ):
   if seg(τ) = {i}:
-    v_τ ← c            # 葉なので直接書き換え
+    v[τ] ← c            # 葉なので直接書き換え
     return
   if i ∈ seg(lch(τ)):
     Set(i, c, lch(τ))
   else:
     Set(i, c, rch(τ))
-  v_τ ← v_lch(τ) · v_rch(τ)     # 子の更新後に再計算
+  v[τ] ← v[lch(τ)] · v[rch(τ)]     # 子の更新後に再計算
 </code></pre><p>そして、<code>Set(i, c)</code> を ルートに対する更新 <code>Set(i, c, τ0)</code> として定義します。</p>
 <h3 id="queryl-r-区間-lr-の総積"><code>Query(l, r)</code>: 区間 [l:r] の総積</h3>
 <p>区間に配置されたモノイドの元の積に対応する操作を同様に定義します。</p>
@@ -149,7 +149,7 @@
   if seg(τ) ∩ [l:r] = ∅:
     return e             # 単位元(何も無ければ影響しない)
   if seg(τ) ⊆ [l:r]:
-    return v_τ           # 部分木を丸ごと使える
+    return v[τ]           # 部分木を丸ごと使える
   return Query(l, r, lch(τ)) · Query(l, r, rch(τ))
 </code></pre><p>こちらも、<code>Query(l, r)</code> を <code>Query(l, r, τ0)</code> として定義します。</p>
 <h2 id="成り立って欲しい性質">成り立って欲しい性質</h2>
