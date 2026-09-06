@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Sun, 23 Aug 2026 23:00:00 +0900</lastBuildDate>
+			<lastBuildDate>Sun, 06 Sep 2026 15:28:25 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>セグメント木の理屈を学ぶ(3) 遅延セグメント木のデータ構造</title>
+				<link>https://matsueushi.github.io/programming/lazy-segtree-monoid-proof/</link>
+				<pubDate>Sun, 06 Sep 2026 15:28:25 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/lazy-segtree-monoid-proof/</guid>
+				<description>&lt;p&gt;「セグメント木の理屈を学ぶ(1) データ構造とモノイド構造の整合性」「セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す」の遅延セグメント木版を考えます。&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>セグメント木の理屈を学ぶ(2) 不変条件を同型として読み直す</title>
 				<link>https://matsueushi.github.io/programming/segtree-isom/</link>
