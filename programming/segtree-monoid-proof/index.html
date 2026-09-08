@@ -66,6 +66,7 @@
 <p>セグメント木の解説記事の多くは、配列を2べきの長さに区切って完全二分木に載せる様子や、任意の区間が高々 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 個のノードに分解できる様子を図で示すことに重点が置かれています。</p>
 <p>図を見れば「なるほど、正しそうだ」という感覚は得られるのですが、その感覚がどこまで厳密な正しさの根拠になっているのか理解できていませんでした。</p>
 <p>この記事では、そうしたギャップを埋めることを目標に、セグメント木というデータ構造を天下り的に構成したあとで、それが期待通りに動作すること、そして期待通りの計算量で動作することを、モノイドの結合則だけを用いて証明します。</p>
+<p>なお、「どのようなクエリがセグメント木で処理できるか」というより一般的な問いについては<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>で体系的に議論されています。この記事はそれとは逆に、モノイドを載せるところから出発し、データ構造と代数構造の対応そのものに焦点を当てます。</p>
 <h2 id="おことわり">おことわり</h2>
 <p>この記事は、セグメント木に一定の親しみがある私が、セグメント木の持つ優れた性質について証明を通して理解するために整理した内容です。</p>
 <p>そのため、セグメント木を1から学習しようとしている方、セグメント木の実装を知りたい方、具体例を通じてセグメント木の使い方を知り、競技プログラミングで出題される問題を解きたい方向けの内容ではないことをご了承ください。</p>
@@ -303,34 +304,41 @@ v_\tau = \prod_{i \in \mathrm{seg}(\tau)} a_i
 <h2 id="参考文献">参考文献</h2>
 <h3 id="入門寄り">入門寄り</h3>
 <ul>
-<li>&ldquo;セグメント木を徹底解説！0から遅延評価やモノイドまで&rdquo;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>: セグメント木についての日本語の概要です。</li>
-<li>&ldquo;Segment Tree&rdquo;<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>: セグメント木の英語の概要です。具体的な利用方法について詳しく書かれています。</li>
+<li>&ldquo;セグメント木を徹底解説！0から遅延評価やモノイドまで&rdquo;<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>: セグメント木についての日本語の概要です。</li>
+<li>&ldquo;Segment Tree&rdquo;<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>: セグメント木の英語の概要です。具体的な利用方法について詳しく書かれています。</li>
 </ul>
 <h3 id="セグメント木の可視化">セグメント木の可視化</h3>
 <ul>
-<li>“Segment Tree のお勉強(1)”<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, “Segment Tree のお勉強(2)”<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>: 2べきでない場合、モノイドが可換でない場合も含め、セグメント木と遅延セグメント木で演算をしたときの様子が可視化されています。</li>
+<li>“Segment Tree のお勉強(1)”<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>, “Segment Tree のお勉強(2)”<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>: 2べきでない場合、モノイドが可換でない場合も含め、セグメント木と遅延セグメント木で演算をしたときの様子が可視化されています。</li>
 </ul>
 <h3 id="データ構造と代数的構造の整合性">データ構造と代数的構造の整合性</h3>
 <ul>
-<li>&ldquo;Testing Calibration in Nearly-Linear Time&rdquo;<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>: この論文では双対セグメント木に対してデータ構造を具体的に構成した後、代数的構造との整合性を証明しています。この記事の議論の構成はこちらの記事から大きく影響を受けています。</li>
+<li>&ldquo;Testing Calibration in Nearly-Linear Time&rdquo;<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>: この論文では双対セグメント木に対してデータ構造を具体的に構成した後、代数的構造との整合性を証明しています。この記事の議論の構成はこちらの記事から大きく影響を受けています。</li>
+</ul>
+<h3 id="クエリと代数構造の対応">クエリと代数構造の対応</h3>
+<ul>
+<li>&ldquo;セグメント木と代数構造の理論&rdquo;<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>: この文献は「どのようなクエリがセグメント木で処理できるか」に着目し、セグメント木に乗る代数構造について体系的に考察しています。本記事はモノイドをセグメント木に載せるところから出発し、データ構造と代数構造の対応に焦点を当てる構成をとっていますが、この文献は逆にクエリの側から出発し、どのような代数構造を要求すればセグメント木で処理できるかを整理しており、対照的な視点を与えてくれます。特に、遅延伝播セグメント木に対応する代数構造(加群の一般化)や、複数種類の更新クエリを併用する際の積構造についての議論は、今後のシリーズで扱う内容とも関連が深いです。</li>
 </ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>アルゴリズムロジック, 2020, セグメント木を徹底解説！0から遅延評価やモノイドまで, Accessed 15 August 2026, <a href="https://algo-logic.info/segment-tree/">https://algo-logic.info/segment-tree/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Kimiyuki Onaka, Shiho Midorikawa, 2024, セグメント木と代数構造の理論, Accessed 8 September 2026, <a href="https://elliptic-shiho.github.io/segtree/segtree.pdf">https://elliptic-shiho.github.io/segtree/segtree.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>cp-algorithms contributors, 2026, Segment Tree, Accessed 15 August 2026, <a href="https://cp-algorithms.com/data_structures/segment_tree.html">https://cp-algorithms.com/data_structures/segment_tree.html</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>アルゴリズムロジック, 2020, セグメント木を徹底解説！0から遅延評価やモノイドまで, Accessed 15 August 2026, <a href="https://algo-logic.info/segment-tree/">https://algo-logic.info/segment-tree/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
-<p>maspy, 2021, Segment Tree のお勉強(1), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B71">https://maspypy.com/segment-tree-のお勉強1</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>cp-algorithms contributors, 2026, Segment Tree, Accessed 15 August 2026, <a href="https://cp-algorithms.com/data_structures/segment_tree.html">https://cp-algorithms.com/data_structures/segment_tree.html</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4">
-<p>maspy, 2022, Segment Tree のお勉強(2), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B72">https://maspypy.com/segment-tree-のお勉強2</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>maspy, 2021, Segment Tree のお勉強(1), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B71">https://maspypy.com/segment-tree-のお勉強1</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5">
-<p>Lunjia Hu, Arun Jambulapati, Kevin Tian, and Chutong Yang, &ldquo;Testing Calibration in Nearly-Linear Time&rdquo;, <em>Advances in Neural Information Processing Systems</em>, vol. 37, pp. 116022–116059, Curran Associates, Inc., 2024, <a href="https://doi.org/10.52202/079017-3683">https://doi.org/10.52202/079017-3683</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>maspy, 2022, Segment Tree のお勉強(2), Accessed 15 August 2026, <a href="https://maspypy.com/segment-tree-%E3%81%AE%E3%81%8A%E5%8B%89%E5%BC%B72">https://maspypy.com/segment-tree-のお勉強2</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>Lunjia Hu, Arun Jambulapati, Kevin Tian, and Chutong Yang, &ldquo;Testing Calibration in Nearly-Linear Time&rdquo;, <em>Advances in Neural Information Processing Systems</em>, vol. 37, pp. 116022–116059, Curran Associates, Inc., 2024, <a href="https://doi.org/10.52202/079017-3683">https://doi.org/10.52202/079017-3683</a>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
