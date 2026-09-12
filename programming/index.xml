@@ -12,9 +12,16 @@
 			<copyright>Copyright © 2019–2026 matsueushi</copyright>
 		
 		
-			<lastBuildDate>Sun, 06 Sep 2026 15:28:25 +0900</lastBuildDate>
+			<lastBuildDate>Sat, 12 Sep 2026 23:10:38 +0900</lastBuildDate>
 		
 			<atom:link href="https://matsueushi.github.io/programming/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>セグメント木の理屈を学ぶ(4) 圏への持ち上げ</title>
+				<link>https://matsueushi.github.io/programming/segtree-category/</link>
+				<pubDate>Sat, 12 Sep 2026 23:10:38 +0900</pubDate>
+				<guid>https://matsueushi.github.io/programming/segtree-category/</guid>
+				<description>&lt;p&gt;前回、遅延セグメント木を扱いましたが、今回は一旦遅延は忘れてセグメント木に戻り、扱うことができる構造をモノイドから一般化することを考えます。(遅延構造まで考えると手に負えなくなりました)&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>セグメント木の理屈を学ぶ(3) 遅延セグメント木のデータ構造</title>
 				<link>https://matsueushi.github.io/programming/lazy-segtree-monoid-proof/</link>
